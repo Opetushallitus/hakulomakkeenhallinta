@@ -1,0 +1,12 @@
+<p>Hakulomakkeet ({{applicationSystems.length}})</p>
+<button class="btn btn-primary" ng-click="luoHakulomake()">Luo hakulomake</button>
+<button class="btn btn-primary" ng-click="open()">Tee hakukohdekohtaisia lisäkysymyksiä</button>
+<table class="table table-striped">
+    </thead>
+    <tr ng-repeat="as in applicationSystems" ng-click="toggle()">
+        <td><input type="checkbox" ng-model="selections[as.id]"/></td>
+        <td><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-star"></span>Star</button></td>
+        <td>{{as.id}}</td>
+        <td>{{as.name}}</td>
+    </tr>
+</table>
