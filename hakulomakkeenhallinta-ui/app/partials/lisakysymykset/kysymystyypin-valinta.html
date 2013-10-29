@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h4>Lisää kysymys - Kysymystyypin valinta</h4>
+</div>
+<div class="modal-body">
+
+    <form role="form" class="form-horizontal">
+        <div class="form-group">
+            <label for="Teema">Teema</label>
+            <select class="form-control" id="teema" placeholder="Valitse teema">
+                <option>Teema1</option>
+                <option>Teema2</option>
+                <option>Teema3</option>
+                <option>Teema4</option>
+                <option>Teema5</option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="kysymystyyppi">Kysymystyyppi</label>
+            <select class="form-control" id="kysymystyyppi" placeholder="Valitse kysymystyyppi">
+                <option>kysymystyyppi1</option>
+                <option>kysymystyyppi2</option>
+                <option>kysymystyyppi3</option>
+                <option>kysymystyyppi4</option>
+                <option>kysymystyyppi5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="vastaustyyppi">vastaustyyppi</label>
+            <select class="form-control" id="vastaustyyppi" placeholder="Valitse vastaustyyppi">
+                <option>vastaustyyppi1</option>
+                <option>vastaustyyppi2</option>
+                <option>vastaustyyppi3</option>
+                <option>vastaustyyppi4</option>
+                <option>vastaustyyppi5</option>
+            </select>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
+    <button class="btn btn-primary pull-right" ng-click="ok()">Jatka</button>
+</div>
