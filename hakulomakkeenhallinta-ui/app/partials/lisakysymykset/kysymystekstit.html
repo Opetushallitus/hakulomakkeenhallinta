@@ -1,0 +1,51 @@
+<div modal="modalVisible" close="close()"
+     options="{dialogClass:'modal modal-huge'}">
+    <div class="modal-header">
+        <h4>Lisää kysymys - Kysymystekstit</h4>
+    </div>
+    <div class="modal-body" style="height: 100%">
+        <div class="alert alert-info">
+            <i class="icon-info-sign"></i>Olet luomassa uutta kysymystä teemaan {{teema}} tyyppiä {{tyyppi}}
+        </div>
+
+        <form role="form" class="form-horizontal">
+            <tabset>
+                <tab ng-repeat="tab in languages" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+                    <div class="control-group">
+                        <label class="control-label" for="title">Kysymyksen otsikko</label>
+
+                        <div class="controls">
+                            <input type="text" id="title">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="help">Ohjeteksti</label>
+
+                        <div class="controls">
+                            <input type="text" id="help">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="add-help">Lisäohjeteksti</label>
+
+                        <div class="controls">
+                            <input type="text" id="add-help">
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+            <hr/>
+            <div class="form-group">
+                <label for="length">Tekstikentän koko</label>
+                <input type="text" id="length">
+                <label class="checkbox">
+                    <input type="checkbox">Kysymys on hakijalle pakollinen
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
+        <button class="btn btn-primary pull-right" ng-click="ok()">Valmis</button>
+    </div>
+</div>
