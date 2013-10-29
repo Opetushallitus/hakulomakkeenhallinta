@@ -13,5 +13,15 @@
     <modules>
         <module>hakulomakepohja</module>
         <module>hakulomakkeenhallinta-app</module>
+        <module>hakulomakkeenhallinta-service</module>
+        <module>hakulomakkeenhallinta-api</module>
     </modules>
+
+    <properties>
+        <oph.tarjonta.version>6.2-SNAPSHOT</oph.tarjonta.version>
+        <jersey.version>2.4</jersey.version>
+        <jackson.version>2.2.3</jackson.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
+        <servlet.api.version>2.5</servlet.api.version>
+    </properties>
 </project>
