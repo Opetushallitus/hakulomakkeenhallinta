@@ -25,4 +25,6 @@
     <context:annotation-config/>
     <context:component-scan base-package="fi.vm.sade.hakulomakkeenhallinta"/>
 
+    <import resource="classpath:/hakulomakkeenhallinta-service-context.xml"/>
+
 </beans>

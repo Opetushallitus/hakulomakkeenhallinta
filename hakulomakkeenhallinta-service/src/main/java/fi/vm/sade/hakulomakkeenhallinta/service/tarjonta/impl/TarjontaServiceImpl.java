@@ -16,15 +16,21 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.impl;
 
+import com.google.common.collect.Lists;
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
 import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.TarjontaService;
 import fi.vm.sade.tarjonta.service.resources.HakuResource;
+import fi.vm.sade.tarjonta.service.resources.dto.HakuDTO;
+import fi.vm.sade.tarjonta.service.resources.dto.OidRDTO;
 import org.glassfish.jersey.client.proxy.WebResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import java.util.List;
 
 /**
  * @author Mikko Majapuro
@@ -33,10 +39,26 @@ import javax.ws.rs.client.WebTarget;
 public class TarjontaServiceImpl implements TarjontaService {
 
     private HakuResource hakuResource;
+    private ConversionService conversionService;
 
     @Autowired
-    public TarjontaServiceImpl(@Value("${tarjonta.resource.url}") final String tarjontaResourceUrl) {
+    public TarjontaServiceImpl(@Value("${tarjonta.resource.url}") final String tarjontaResourceUrl,
+                               ConversionService conversionService) {
+        this.conversionService = conversionService;
         WebTarget t = ClientBuilder.newClient().target(tarjontaResourceUrl);
         hakuResource = WebResourceFactory.newResource(HakuResource.class, t);
+    }
+
+    @Override
+    public List<ApplicationSystem> getApplicationSystems() {
+        List<ApplicationSystem> applicationSystems = Lists.newArrayList();
+        List<OidRDTO> asIds = hakuResource.search(null, Integer.MAX_VALUE, 0, null, null);
+        if (asIds != null) {
+            for (OidRDTO oid : asIds) {
+                HakuDTO haku = hakuResource.getByOID(oid.getOid());
+                applicationSystems.add(conversionService.convert(haku, ApplicationSystem.class));
+            }
+        }
+        return applicationSystems;
     }
 }

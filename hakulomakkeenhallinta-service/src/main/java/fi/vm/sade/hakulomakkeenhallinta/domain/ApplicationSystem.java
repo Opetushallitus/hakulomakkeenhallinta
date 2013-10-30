@@ -14,16 +14,29 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
-
-import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-
-import java.util.List;
+package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 /**
  * @author Mikko Majapuro
  */
-public interface TarjontaService {
+public class ApplicationSystem {
 
-    List<ApplicationSystem> getApplicationSystems();
+    private String oid;
+    private I18nText name;
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid;
+    }
+
+    public I18nText getName() {
+        return name;
+    }
+
+    public void setName(I18nText name) {
+        this.name = name;
+    }
 }

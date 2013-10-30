@@ -14,34 +14,31 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.api.dto;
+package fi.vm.sade.hakulomakkeenhallinta.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.Maps;
 
-import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Mikko Majapuro
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
-public class ApplicationSystemDTO implements Serializable {
+public class I18nText {
 
-    private String oid;
-    private I18nTextDTO name;
+    private final Map<String, String> translations;
 
-    public String getOid() {
-        return oid;
+    public I18nText(final Map<String, String> translations) {
+        this.translations = Maps.newHashMap();
+        Iterator<Map.Entry<String, String>> i = translations.entrySet().iterator();
+        while (i.hasNext()) {
+            Map.Entry<String, String> entry = i.next();
+            String lang = entry.getKey().split("_")[1].toLowerCase();
+            this.translations.put(lang, entry.getValue());
+        }
     }
 
-    public void setOid(String oid) {
-        this.oid = oid;
-    }
-
-    public I18nTextDTO getName() {
-        return name;
-    }
-
-    public void setName(I18nTextDTO name) {
-        this.name = name;
+    public Map<String, String> getTranslations() {
+        return translations;
     }
 }

@@ -14,16 +14,32 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
+package fi.vm.sade.hakulomakkeenhallinta.api.dto;
 
-import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableMap;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @author Mikko Majapuro
  */
-public interface TarjontaService {
+public class I18nTextDTO implements Serializable {
 
-    List<ApplicationSystem> getApplicationSystems();
+    private Map<String, String> translations;
+
+    public I18nTextDTO() {}
+
+    public I18nTextDTO(@JsonProperty(value = "translations") final Map<String, String> translations) {
+        this.translations = ImmutableMap.copyOf(translations);
+    }
+
+    public Map<String, String> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(Map<String, String> translations) {
+        this.translations = translations;
+    }
 }

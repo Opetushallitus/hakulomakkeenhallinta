@@ -16,11 +16,16 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.resource.impl;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import fi.vm.sade.hakulomakkeenhallinta.api.dto.ApplicationSystemDTO;
 import fi.vm.sade.hakulomakkeenhallinta.api.resource.ApplicationSystemResource;
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
+import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.TarjontaService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,8 +34,23 @@ import java.util.List;
 @Component
 public class ApplicationSystemResourceImpl implements ApplicationSystemResource {
 
+    private TarjontaService tarjontaService;
+    private ModelMapper modelMapper;
+
+    @Autowired
+    public ApplicationSystemResourceImpl(TarjontaService tarjontaService, ModelMapper modelMapper) {
+        this.tarjontaService = tarjontaService;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
     public List<ApplicationSystemDTO> getApplicationSystems() {
-        return new ArrayList<ApplicationSystemDTO>();
+        List<ApplicationSystem> applicationSystems = tarjontaService.getApplicationSystems();
+        return Lists.transform(applicationSystems, new Function<ApplicationSystem, ApplicationSystemDTO>() {
+            @Override
+            public ApplicationSystemDTO apply(ApplicationSystem applicationSystem) {
+                return modelMapper.map(applicationSystem, ApplicationSystemDTO.class);
+            }
+        });
     }
 }

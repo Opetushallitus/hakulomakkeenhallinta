@@ -14,16 +14,27 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
+package fi.vm.sade.hakulomakkeenhallinta.converter;
 
 import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-
-import java.util.List;
+import fi.vm.sade.hakulomakkeenhallinta.domain.I18nText;
+import fi.vm.sade.tarjonta.service.resources.dto.HakuDTO;
+import org.springframework.core.convert.converter.Converter;
 
 /**
  * @author Mikko Majapuro
  */
-public interface TarjontaService {
+public class HakuDTOToApplicationSystem implements Converter<HakuDTO, ApplicationSystem> {
 
-    List<ApplicationSystem> getApplicationSystems();
+    @Override
+    public ApplicationSystem convert(HakuDTO hakuDTO) {
+        if (hakuDTO != null) {
+            ApplicationSystem as = new ApplicationSystem();
+            as.setOid(hakuDTO.getOid());
+            as.setName(new I18nText(hakuDTO.getNimi()));
+            return as;
+        } else {
+            return null;
+        }
+    }
 }

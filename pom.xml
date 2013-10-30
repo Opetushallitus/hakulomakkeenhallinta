@@ -23,5 +23,6 @@
         <jackson.version>2.2.3</jackson.version>
         <spring.version>3.2.4.RELEASE</spring.version>
         <servlet.api.version>2.5</servlet.api.version>
+        <guava.version>15.0</guava.version>
     </properties>
 </project>
