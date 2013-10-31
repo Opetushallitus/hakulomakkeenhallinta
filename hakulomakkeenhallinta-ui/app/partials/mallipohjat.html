@@ -1,5 +1,14 @@
-<p>mallipohjat</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div data-ng-controller="MallipohjatCtrl">
+    <div>
+        <button class="btn btn-warning pull-left" ng-click="luoLomake()">Luo uusi lomake</button>
+    </div>
+    <table class="table table-striped">
+        <tr ng-repeat="form in forms">
+            <td><input type="checkbox" ng-click="toggleCheck(as)"/></td>
+            <td>
+                <button type="button" class="btn btn-default btn-lg"><i class="icon-tasks"></i></button>
+            </td>
+            <td>{{as.name}}</td>
+        </tr>
+    </table>
+</div>

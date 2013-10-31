@@ -1,0 +1,37 @@
+[
+    {
+        "id": "1.2.246.562.5.2013100416514851336462",
+        "name": {
+            "translations": {
+                "fi": "Lisähaku syksyn yhteishaussa vapaaksi jääneille opiskelupaikoille"
+            }
+        },
+        "form": {
+            "id": "hakutyyppi_01",
+            "name": {
+                "translations": {
+                    "fi": "Yhteishaku",
+                    "sv": "Yhteishaku_sv"
+                }
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013060313080811526781",
+        "name": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen yhteishaku",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning"
+            }
+        },
+        "form": {
+            "id": "hakutyyppi_03",
+            "name": {
+                "translations": {
+                    "fi": "Lisähaku",
+                    "sv": "Lisähaku_sv"
+                }
+            }
+        }
+    }
+]

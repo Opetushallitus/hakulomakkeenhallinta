@@ -4,19 +4,29 @@
 
 var controllers = angular.module('myApp.controllers', []);
 
-controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', function ($scope, $modal, $log) {
+controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', 'Resources', function ($scope, $modal, $log, Resources) {
+    $scope.selections = [];
     $scope.question = {};
     $scope.selectedApplicationSystems = [];
-    $scope.languages = [{title: "Suomi"}, {title: "Ruotsi"}, {title: "Englanti", active: true}];
-    $scope.items = [{id: '1', name: 'Aasian tutkimus'},{id: '2', name: 'Aasian tutkimus, kandidaatinopinnot'}];
-    $scope.applicationSystems = [
-        {id: '1.1.1', name: 'Ensimmäinen haku'},
-        {id: '1.1.2', name: 'Toinen haku'},
-        {id: '1.1.3', name: 'Kolmas haku'}
+    $scope.languages = [
+        {title: "Suomi"},
+        {title: "Ruotsi"},
+        {title: "Englanti", active: true}
+    ];
+    $scope.items = [
+        {id: '1', name: 'Aasian tutkimus'},
+        {id: '2', name: 'Aasian tutkimus, kandidaatinopinnot'}
     ];
 
+    $scope.applicationSystems = Resources.applicationForms.query();
+
     $scope.luoHakulomake = function () {
-        alert('luoHakulomake()');
+        $modal.open({
+            templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
+            controller: liitaHakuLomakkeeseenCtrl
+        }).result.then(function (data) {
+                $scope.applicationSystems = Resources.applicationForms.query();
+        });
     };
     $scope.open = function () {
         var modalInstance = $modal.open({
@@ -31,8 +41,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', functio
             }).result.then(function (data) {
                     $modal.open({
                         templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                        controller: ModalInstanceCtrl,
-                        dialogClass: 'modal myWindow'
+                        controller: ModalInstanceCtrl
                     })
                 });
         }, function () {
@@ -40,22 +49,36 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', functio
         });
     };
     $scope.toggleCheck = function (item) {
-        if ($scope.selectedApplicationSystems.indexOf(item) === -1) {
-            $scope.selectedApplicationSystems.push(item);
+        if ($scope.selections.indexOf(item) === -1) {
+            $scope.selections.push(item);
         } else {
-            $scope.selectedApplicationSystems.splice($scope.selections.indexOf(item), 1);
+            $scope.selections.splice($scope.selections.indexOf(item), 1);
         }
     };
 }]);
 
 controllers.controller('MallipohjatCtrl', [function () {
 }]);
+var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
+    $scope.applicationSystems = Resources.applicationSystems.query();
+    $scope.applicationFormTemplates = Resources.applicationFormTemplates.query();
+    $scope.applicationFormTemplate = $scope.applicationFormTemplates[1];
+    $scope.applicationSystem = $scope.applicationSystems[1];
+    $scope.ok = function () {
+        var result = {
+            applicationFormTemplateId: this.applicationFormTemplateId,
+            applicationSystemId: this.applicationSystem.id
+        };
+        Resources.applicationForms.save(result);
+        $modalInstance.close(result);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
 
 var ModalInstanceCtrl = function ($scope, $modalInstance) {
-
-    $scope.selections = [];
-
-
     $scope.ok = function () {
         $modalInstance.close($scope.selections);
     };

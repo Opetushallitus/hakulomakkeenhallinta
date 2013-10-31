@@ -1,9 +1,20 @@
-<button class="btn btn-primary" ng-click="luoHakulomake()">Luo hakulomake</button>
-<button class="btn btn-primary" ng-click="open()" ng-disabled="selections.length < 1">Tee hakukohdekohtaisia lisäkysymyksiä</button>
-<table class="table table-striped">
-    <tr ng-repeat="as in applicationSystems" >
-        <td><input type="checkbox" ng-click="toggleCheck(as)"/></td>
-        <td><button type="button" class="btn btn-default btn-lg"><i class="icon-tasks"></i></button></td>
-        <td>{{as.name}}</td>
-    </tr>
-</table>
+<div data-ng-controller="HakulomakkeetCtrl">
+    <div>
+        <button class="btn btn-primary pull-left" ng-click="open()" ng-disabled="selections.length < 1">Tee
+            hakukohdekohtaisia lisäkysymyksiä
+        </button>
+        <button class="btn btn-warning pull-right" ng-click="luoHakulomake()">Luo hakulomake</button>
+        <button class="btn btn-warning pull-right" ng-click="luoHakulomake()">Luo lomake</button>
+    </div>
+    <br/>
+    <br/>
+    <table class="table table-striped">
+        <tr ng-repeat="as in applicationSystems">
+            <td><input type="checkbox" ng-click="toggleCheck(as)"/></td>
+            <td>
+                <button type="button" class="btn btn-default btn-lg"><i class="icon-tasks"></i></button>
+            </td>
+            <td>{{as.name.translations.fi}}</td>
+        </tr>
+    </table>
+</div>
