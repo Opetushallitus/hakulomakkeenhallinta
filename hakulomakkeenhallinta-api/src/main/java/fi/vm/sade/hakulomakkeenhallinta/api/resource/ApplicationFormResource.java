@@ -14,34 +14,26 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.api.dto;
+package fi.vm.sade.hakulomakkeenhallinta.api.resource;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import fi.vm.sade.hakulomakkeenhallinta.api.dto.ApplicationFormCreateParameters;
+import fi.vm.sade.hakulomakkeenhallinta.api.dto.ApplicationFormDTO;
 
-import java.io.Serializable;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * @author Mikko Majapuro
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
-public class ApplicationSystemDTO implements Serializable {
+@Path("/applicationForms")
+public interface ApplicationFormResource {
 
-    private String id;
-    private I18nTextDTO name;
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+    void createApplicationForm(ApplicationFormCreateParameters params);
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public I18nTextDTO getName() {
-        return name;
-    }
-
-    public void setName(I18nTextDTO name) {
-        this.name = name;
-    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+    List<ApplicationFormDTO> getApplicationForms();
 }

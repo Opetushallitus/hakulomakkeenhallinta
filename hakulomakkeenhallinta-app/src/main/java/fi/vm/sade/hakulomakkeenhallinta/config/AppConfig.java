@@ -16,6 +16,9 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.config;
 
+import fi.vm.sade.hakulomakkeenhallinta.filter.CorsFilter;
+import fi.vm.sade.hakulomakkeenhallinta.resource.impl.ApplicationFormResourceImpl;
+import fi.vm.sade.hakulomakkeenhallinta.resource.impl.ApplicationFormTemplateResourceImpl;
 import fi.vm.sade.hakulomakkeenhallinta.resource.impl.ApplicationSystemResourceImpl;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
@@ -28,5 +31,8 @@ public class AppConfig extends ResourceConfig {
     public AppConfig() {
         register(RequestContextFilter.class);
         register(ApplicationSystemResourceImpl.class);
+        register(ApplicationFormTemplateResourceImpl.class);
+        register(ApplicationFormResourceImpl.class);
+        register(CorsFilter.class);
     }
 }

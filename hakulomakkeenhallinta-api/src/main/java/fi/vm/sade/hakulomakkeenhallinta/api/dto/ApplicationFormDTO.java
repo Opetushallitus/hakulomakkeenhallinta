@@ -24,24 +24,7 @@ import java.io.Serializable;
  * @author Mikko Majapuro
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
-public class ApplicationSystemDTO implements Serializable {
+public class ApplicationFormDTO implements Serializable {
 
-    private String id;
-    private I18nTextDTO name;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public I18nTextDTO getName() {
-        return name;
-    }
-
-    public void setName(I18nTextDTO name) {
-        this.name = name;
-    }
 }

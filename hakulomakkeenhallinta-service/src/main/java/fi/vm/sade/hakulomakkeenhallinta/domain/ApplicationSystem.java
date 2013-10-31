@@ -21,15 +21,15 @@ package fi.vm.sade.hakulomakkeenhallinta.domain;
  */
 public class ApplicationSystem {
 
-    private String oid;
+    private String id;
     private I18nText name;
 
-    public String getOid() {
-        return oid;
+    public String getId() {
+        return id;
     }
 
-    public void setOid(String oid) {
-        this.oid = oid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public I18nText getName() {

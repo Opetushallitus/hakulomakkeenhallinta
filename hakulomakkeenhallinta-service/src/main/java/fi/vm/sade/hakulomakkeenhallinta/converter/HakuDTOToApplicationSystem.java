@@ -30,7 +30,7 @@ public class HakuDTOToApplicationSystem implements Converter<HakuDTO, Applicatio
     public ApplicationSystem convert(HakuDTO hakuDTO) {
         if (hakuDTO != null) {
             ApplicationSystem as = new ApplicationSystem();
-            as.setOid(hakuDTO.getOid());
+            as.setId(hakuDTO.getOid());
             as.setName(new I18nText(hakuDTO.getNimi()));
             return as;
         } else {

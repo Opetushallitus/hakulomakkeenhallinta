@@ -16,6 +16,7 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
@@ -24,10 +25,18 @@ import java.io.Serializable;
  * @author Mikko Majapuro
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
-public class ApplicationSystemDTO implements Serializable {
+public class ApplicationFormTemplateDTO implements Serializable {
 
     private String id;
     private I18nTextDTO name;
+
+    public ApplicationFormTemplateDTO() {}
+
+    public ApplicationFormTemplateDTO(@JsonProperty(value = "id") final String id,
+                                      @JsonProperty(value = "name") final I18nTextDTO name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public String getId() {
         return id;
