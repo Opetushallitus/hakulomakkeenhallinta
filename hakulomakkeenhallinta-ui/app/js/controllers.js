@@ -5,7 +5,7 @@
 var controllers = angular.module('myApp.controllers', []);
 
 controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', 'Resources', function ($scope, $modal, $log, Resources) {
-    $scope.selections = [];
+
     $scope.question = {};
     $scope.selectedApplicationSystems = [];
     $scope.languages = [
@@ -18,21 +18,19 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', 'Resour
         {id: '2', name: 'Aasian tutkimus, kandidaatinopinnot'}
     ];
 
-    $scope.applicationSystems = Resources.applicationForms.query();
-
+    $scope.applicationForms = Resources.applicationForms.query();
     $scope.luoHakulomake = function () {
         $modal.open({
             templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
             controller: liitaHakuLomakkeeseenCtrl
         }).result.then(function (data) {
-                $scope.applicationSystems = Resources.applicationForms.query();
-        });
+                $scope.applicationForms = Resources.applicationForms.query();
+            });
     };
     $scope.open = function () {
         var modalInstance = $modal.open({
             templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
-            controller: ModalInstanceCtrl,
-            scope: $scope
+            controller: ModalApplicationOptionCtrl
         });
         modalInstance.result.then(function (selections) {
             $modal.open({
@@ -48,12 +46,8 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', 'Resour
 
         });
     };
-    $scope.toggleCheck = function (item) {
-        if ($scope.selections.indexOf(item) === -1) {
-            $scope.selections.push(item);
-        } else {
-            $scope.selections.splice($scope.selections.indexOf(item), 1);
-        }
+    $scope.toggleCheck = function (applicationForm) {
+        $scope.applicationForm = applicationForm;
     };
 }]);
 
@@ -77,6 +71,22 @@ var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
         $modalInstance.dismiss('cancel');
     };
 };
+
+var ModalApplicationOptionCtrl = function ($scope, $modalInstance, Resources) {
+    $scope.applicationOptions = [];
+    $scope.queryParameters = {};
+    $scope.ok = function () {
+        $modalInstance.close(this.applicationOption.id);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+    $scope.search = function () {
+        $scope.applicationOptions = Resources.applicationOptions.query($scope.queryParameters);
+    };
+};
+
 
 var ModalInstanceCtrl = function ($scope, $modalInstance) {
     $scope.ok = function () {

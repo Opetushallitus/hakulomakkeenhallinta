@@ -1,0 +1,20 @@
+[
+    {
+        "id": "hakutyyppi_01",
+        "name": {
+            "translations": {
+                "fi": "Yhteishaku",
+                "sv": "Yhteishaku_sv"
+            }
+        }
+    },
+    {
+        "id": "hakutyyppi_03",
+        "name": {
+            "translations": {
+                "fi": "Lisähaku",
+                "sv": "Lisähaku_sv"
+            }
+        }
+    }
+]

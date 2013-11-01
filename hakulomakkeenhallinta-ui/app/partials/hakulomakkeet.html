@@ -1,20 +1,21 @@
 <div data-ng-controller="HakulomakkeetCtrl">
     <div>
-        <button class="btn btn-primary pull-left" ng-click="open()" ng-disabled="selections.length < 1">Tee
+        <button class="btn btn-warning pull-left" ng-click="open()" ng-disabled="!applicationForm">Tee
             hakukohdekohtaisia lisäkysymyksiä
         </button>
-        <button class="btn btn-warning pull-right" ng-click="luoHakulomake()">Luo hakulomake</button>
-        <button class="btn btn-warning pull-right" ng-click="luoHakulomake()">Luo lomake</button>
+        <button class="btn btn-primary pull-right" ng-click="luoHakulomake()">Luo hakulomake</button>
+        <button class="btn btn-primary pull-right" data-ng-disabled="!luolomake">Luo lomake</button>
     </div>
     <br/>
     <br/>
     <table class="table table-striped">
-        <tr ng-repeat="as in applicationSystems">
-            <td><input type="checkbox" ng-click="toggleCheck(as)"/></td>
+        <tr ng-repeat="applicationForm in applicationForms">
+            <td><input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm" name="applicationForm"></td>
             <td>
                 <button type="button" class="btn btn-default btn-lg"><i class="icon-tasks"></i></button>
             </td>
-            <td>{{as.name.translations.fi}}</td>
+            <td>{{applicationForm.name.translations.fi}}</td>
         </tr>
     </table>
+    Valittu hakulomake: {{applicationForm}}
 </div>
