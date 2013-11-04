@@ -14,29 +14,26 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.api.dto;
+package fi.vm.sade.hakulomakkeenhallinta.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Mikko Majapuro
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
-public class ApplicationFormDTO implements Serializable {
+@Entity("applicationForms")
+public class ApplicationForm {
 
+    @Id
     private String id;
-    private I18nTextDTO name;
-
-    public ApplicationFormDTO() {}
-
-    public ApplicationFormDTO(@JsonProperty(value = "id") final String id,
-                              @JsonProperty(value = "name") final I18nTextDTO name) {
-        this.id = id;
-        this.name = name;
-    }
+    @Embedded
+    private I18nText name;
+    @Embedded
+    private List<Element> children;
 
     public String getId() {
         return id;
@@ -46,11 +43,19 @@ public class ApplicationFormDTO implements Serializable {
         this.id = id;
     }
 
-    public I18nTextDTO getName() {
+    public I18nText getName() {
         return name;
     }
 
-    public void setName(I18nTextDTO name) {
+    public void setName(I18nText name) {
         this.name = name;
+    }
+
+    public List<Element> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Element> children) {
+        this.children = children;
     }
 }

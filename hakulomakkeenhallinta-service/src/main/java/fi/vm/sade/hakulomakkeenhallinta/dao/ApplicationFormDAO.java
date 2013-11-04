@@ -14,17 +14,19 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
+package fi.vm.sade.hakulomakkeenhallinta.dao;
 
-import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-
-import java.util.List;
+import com.mongodb.Mongo;
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationForm;
+import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.dao.BasicDAO;
 
 /**
  * @author Mikko Majapuro
  */
-public interface TarjontaService {
+public class ApplicationFormDAO extends BasicDAO<ApplicationForm, String> {
 
-    List<ApplicationSystem> getApplicationSystems();
-    ApplicationSystem getApplicationSystem(final String id);
+    public ApplicationFormDAO(Mongo mongo, Morphia morphia, String dbName) {
+        super(mongo, morphia, dbName);
+    }
 }

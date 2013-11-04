@@ -16,15 +16,13 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
 
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationForm;
 import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-
-import java.util.List;
 
 /**
  * @author Mikko Majapuro
  */
-public interface TarjontaService {
+public interface ApplicationFormTemplateService {
 
-    List<ApplicationSystem> getApplicationSystems();
-    ApplicationSystem getApplicationSystem(final String id);
+    ApplicationForm createApplicationFormUsingTemplate(final ApplicationSystem applicationSystem, final String templateId);
 }

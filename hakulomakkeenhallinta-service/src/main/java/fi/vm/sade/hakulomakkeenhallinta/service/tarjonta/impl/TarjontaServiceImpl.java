@@ -61,4 +61,14 @@ public class TarjontaServiceImpl implements TarjontaService {
         }
         return applicationSystems;
     }
+
+    @Override
+    public ApplicationSystem getApplicationSystem(String id) {
+        HakuDTO haku = hakuResource.getByOID(id);
+        if (haku != null) {
+            return conversionService.convert(haku, ApplicationSystem.class);
+        } else {
+            return null;
+        }
+    }
 }

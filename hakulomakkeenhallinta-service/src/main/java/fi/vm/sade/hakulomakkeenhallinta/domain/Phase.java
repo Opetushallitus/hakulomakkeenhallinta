@@ -14,17 +14,30 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
+package fi.vm.sade.hakulomakkeenhallinta.domain;
 
-import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-
-import java.util.List;
+import org.mongodb.morphia.annotations.Embedded;
 
 /**
  * @author Mikko Majapuro
  */
-public interface TarjontaService {
+@Embedded
+public class Phase extends Element {
 
-    List<ApplicationSystem> getApplicationSystems();
-    ApplicationSystem getApplicationSystem(final String id);
+    private I18nText i18nText;
+
+    public Phase() {}
+
+    public Phase(final String id, final I18nText i18nText) {
+        super(id);
+        this.i18nText = i18nText;
+    }
+
+    public I18nText getI18nText() {
+        return i18nText;
+    }
+
+    public void setI18nText(I18nText i18nText) {
+        this.i18nText = i18nText;
+    }
 }

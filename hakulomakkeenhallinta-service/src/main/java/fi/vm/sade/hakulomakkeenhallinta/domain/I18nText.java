@@ -17,6 +17,7 @@
 package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 import com.google.common.collect.Maps;
+import org.mongodb.morphia.annotations.Embedded;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -24,9 +25,12 @@ import java.util.Map;
 /**
  * @author Mikko Majapuro
  */
+@Embedded
 public class I18nText {
 
-    private final Map<String, String> translations;
+    private Map<String, String> translations;
+
+    public I18nText() {}
 
     public I18nText(final Map<String, String> translations) {
         this.translations = Maps.newHashMap();
@@ -36,6 +40,10 @@ public class I18nText {
             String lang = entry.getKey().split("_")[1].toLowerCase();
             this.translations.put(lang, entry.getValue());
         }
+    }
+
+    public void setTranslations(Map<String, String> translations) {
+        this.translations = translations;
     }
 
     public Map<String, String> getTranslations() {

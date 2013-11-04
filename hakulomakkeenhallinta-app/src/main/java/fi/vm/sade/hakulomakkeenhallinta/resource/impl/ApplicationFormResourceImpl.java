@@ -16,10 +16,18 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.resource.impl;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import fi.vm.sade.hakulomakkeenhallinta.api.dto.ApplicationFormCreateParameters;
 import fi.vm.sade.hakulomakkeenhallinta.api.dto.ApplicationFormDTO;
 import fi.vm.sade.hakulomakkeenhallinta.api.resource.ApplicationFormResource;
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationForm;
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
+import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.ApplicationFormService;
+import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.ApplicationFormTemplateService;
+import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.TarjontaService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,12 +38,35 @@ import java.util.List;
 @Component
 public class ApplicationFormResourceImpl implements ApplicationFormResource {
 
+    private ApplicationFormService applicationFormService;
+    private ApplicationFormTemplateService applicationFormTemplateService;
+    private TarjontaService tarjontaService;
+    private ModelMapper modelMapper;
+
+    @Autowired
+    public ApplicationFormResourceImpl(ApplicationFormService applicationFormService,
+                                       ApplicationFormTemplateService applicationFormTemplateService,
+                                       TarjontaService tarjontaService, ModelMapper modelMapper) {
+        this.applicationFormService = applicationFormService;
+        this.applicationFormTemplateService = applicationFormTemplateService;
+        this.tarjontaService = tarjontaService;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
     public void createApplicationForm(ApplicationFormCreateParameters params) {
+        ApplicationSystem as = tarjontaService.getApplicationSystem(params.getApplicationSystemId());
+        ApplicationForm af = applicationFormTemplateService.createApplicationFormUsingTemplate(as, params.getApplicationFormTemplateId());
+        applicationFormService.save(af);
     }
 
     @Override
     public List<ApplicationFormDTO> getApplicationForms() {
-        return Lists.newArrayList();
+        return Lists.transform(applicationFormService.find(), new Function<ApplicationForm, ApplicationFormDTO>() {
+            @Override
+            public ApplicationFormDTO apply(ApplicationForm applicationForm) {
+                return modelMapper.map(applicationForm, ApplicationFormDTO.class);
+            }
+        });
     }
 }

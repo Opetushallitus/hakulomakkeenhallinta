@@ -24,5 +24,8 @@
         <spring.version>3.2.4.RELEASE</spring.version>
         <servlet.api.version>2.5</servlet.api.version>
         <guava.version>15.0</guava.version>
+        <modelmapper.version>0.6.1</modelmapper.version>
+        <morphia.version>0.105</morphia.version>
+        <mongo-driver.version>2.11.3</mongo-driver.version>
     </properties>
 </project>
