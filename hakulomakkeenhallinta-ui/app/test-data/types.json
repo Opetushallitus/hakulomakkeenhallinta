@@ -1,0 +1,18 @@
+[
+    {
+        "id": "TextQuestion",
+        "name": {
+            "translations": {
+                "fi": "Avoin kysymys"
+            }
+        }
+    },
+    {
+        "id": "OptionQuestion",
+        "name": {
+            "translations": {
+                "fi": "Valinta (yksi vastaus)"
+            }
+        }
+    }
+]

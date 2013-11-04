@@ -7,16 +7,7 @@
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 </head>
 <body>
-<h3 class="text-info">Hakulomakkeet</h3>
-<tabset>
-    <tab heading="Hakulomakkeet">
-        <ng-include src="'partials/hakulomakkeet.html'"/>
-    </tab>
-    <tab heading="Mallipohjat">
-        <ng-include src="'partials/mallipohjat.html'"/>
-    </tab>
-</tabset>
-
+<ng-view></ng-view>
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 -->

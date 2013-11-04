@@ -4,7 +4,7 @@
 
 var controllers = angular.module('myApp.controllers', []);
 
-controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', 'Resources', function ($scope, $modal, $log, Resources) {
+controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', function ($scope, $modal, $log, $location, Resources) {
 
     $scope.question = {};
     $scope.selectedApplicationSystems = [];
@@ -20,6 +20,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', 'Resour
 
     $scope.applicationForms = Resources.applicationForms.query();
     $scope.luoHakulomake = function () {
+
         $modal.open({
             templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
             controller: liitaHakuLomakkeeseenCtrl
@@ -27,21 +28,25 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', 'Resour
                 $scope.applicationForms = Resources.applicationForms.query();
             });
     };
-    $scope.open = function () {
+    $scope.open = function (applicationForm) {
+        console.log(applicationForm);
         var modalInstance = $modal.open({
             templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
             controller: ModalApplicationOptionCtrl
         });
-        modalInstance.result.then(function (selections) {
-            $modal.open({
-                templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                controller: ModalInstanceCtrl
-            }).result.then(function (data) {
-                    $modal.open({
-                        templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                        controller: ModalInstanceCtrl
-                    })
-                });
+        modalInstance.result.then(function (applicationOptionId) {
+            console.log(applicationOptionId);
+            $location.path("hakulomakkeet/" + applicationForm.id + '/' + applicationOptionId);
+//            $modal.open({
+//                templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
+//                controller: ModalInstanceCtrl
+//            }).result.then(function (data) {
+//                    cosole.log(data);
+//                    $modal.open({
+//                        templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+//                        controller: ModalInstanceCtrl
+//                    })
+//                });
         }, function () {
 
         });
@@ -87,7 +92,6 @@ var ModalApplicationOptionCtrl = function ($scope, $modalInstance, Resources) {
     };
 };
 
-
 var ModalInstanceCtrl = function ($scope, $modalInstance) {
     $scope.ok = function () {
         $modalInstance.close($scope.selections);
@@ -104,5 +108,56 @@ var ModalInstanceCtrl = function ($scope, $modalInstance) {
         }
     };
 };
+var QuestionTypeCtrl = function ($scope, $modalInstance, Resources, $routeParams) {
+    console.log($routeParams);
+    $scope.themes = Resources.themes.query($scope.queryParameters);
+    $scope.types = Resources.types.query($scope.queryParameters);
 
+    $scope.ok = function () {
+        $modalInstance.close({theme: this.theme, type: this.type});
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+var QuestionCtrl = function ($scope, $modalInstance) {
+    console.log($scope.data);
+    $scope.question = {};
+    $scope.question.attributes = {}
+    $scope.question.type = $scope.data.type.id;
+
+    $scope.ok = function () {
+        console.log($scope.question);
+        $modalInstance.close(this.question);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', function ($scope, $modal, $log, $location, Resources, $routeParams) {
+    console.log($routeParams)
+    $scope.additionalQuestions = Resources.additionalQuestions.query($routeParams);
+    $scope.addQuestion = function () {
+        $modal.open({
+            templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
+            controller: QuestionTypeCtrl
+        }).result.then(function (data) {
+                $scope.data = data;
+                $modal.open({
+                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                    controller: QuestionCtrl,
+                    scope : $scope
+                }).result.then(function (question) {
+                        console.log("Tallennetaan kysymys " + question);
+                    });
+            });
+    };
+    $scope.back = function () {
+        $location.path("/");
+    }
+}]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);

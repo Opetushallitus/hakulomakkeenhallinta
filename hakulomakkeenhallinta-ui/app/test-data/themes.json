@@ -1,0 +1,34 @@
+[
+    {
+        "id": "theme-1",
+        "name": {
+            "translations": {
+                "fi": "Henkilötiedot"
+            }
+        }
+    },
+    {
+        "id": "theme-2",
+        "name": {
+            "translations": {
+                "fi": "Pohjakoulutus"
+            }
+        }
+    },
+    {
+        "id": "theme-3",
+        "name": {
+            "translations": {
+                "fi": "Osaaminen"
+            }
+        }
+    },
+    {
+        "id": "theme-4",
+        "name": {
+            "translations": {
+                "fi": "Lisätiedot"
+            }
+        }
+    }
+]

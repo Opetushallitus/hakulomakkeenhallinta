@@ -1,17 +1,16 @@
 'use strict';
 
 /* Services */
-
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
-var services = angular.module('myApp.services', []).value('version', '0.1');
+var services = angular.module('myApp.services', []);
 
 services.service('Resources', ['$resource', function ($resource) {
     return {
         applicationSystems:         $resource('http://10.99.99.214:8080/hakulomakkeenhallinta-app/applicationSystems/:id'),
         applicationFormTemplates:   $resource('http://10.99.99.214:8080/hakulomakkeenhallinta-app/applicationFormTemplates/:id'),
-        applicationForms:           $resource('http://localhost:63342/hakulomakkeenhallinta/hakulomakkeenhallinta-ui/app/test-data/applicationForms.json'),
-        applicationOptions:         $resource('http://localhost:63342/hakulomakkeenhallinta/hakulomakkeenhallinta-ui/app/test-data/applicationOptions.json')
+        applicationForms:           $resource('http://10.99.99.214:8080/hakulomakkeenhallinta-app/applicationForms/:id'),
+        applicationOptions:         $resource('http://localhost:63342/hakulomakkeenhallinta/hakulomakkeenhallinta-ui/app/test-data/applicationOptions.json'),
+        additionalQuestions:        $resource('http://localhost:63342/hakulomakkeenhallinta/hakulomakkeenhallinta-ui/app/test-data/additionalQuestions.json'),
+        themes:                     $resource('http://localhost:63342/hakulomakkeenhallinta/hakulomakkeenhallinta-ui/app/test-data/themes.json'),
+        types:                      $resource('http://localhost:63342/hakulomakkeenhallinta/hakulomakkeenhallinta-ui/app/test-data/types.json')
     };
 }]);

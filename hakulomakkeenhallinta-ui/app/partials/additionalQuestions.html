@@ -1,0 +1,30 @@
+<div>
+    <div class="alert alert-info">
+        <i class="icon-info-sign"></i>Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä
+        organisaation <b>{{org.name.translations.fi}}</b> hakukohteelle
+        <b>{{applicationOption.name.translations.fi}}</b> hakuun <b>{{applicationSystem.name.translations.fi}}</b>.
+    </div>
+    <button class="btn btn-primary pull-left" data-ng-click="back()">Takaisin</button>
+    <button class="btn btn-primary pull-left" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä
+        kysymykset
+    </button>
+    <button class="btn btn-primary pull-left" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö
+    </button>
+    <button class="btn btn-warning pull-right" data-ng-click="addQuestion()">Lisää uusi kysymys</button>
+</div>
+<div class="clearfix"></div>
+<div>
+    <h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna
+        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
+        consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</p>
+</div>
+
+<table class="table table-striped">
+    <tr ng-repeat="additionalQuestion in additionalQuestions">
+        <td>{{additionalQuestion.name.translations.fi}}</td>
+    </tr>
+</table>

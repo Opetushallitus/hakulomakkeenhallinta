@@ -1,16 +1,16 @@
 <div data-ng-controller="HakulomakkeetCtrl">
     <div>
-        <button class="btn btn-warning pull-left" ng-click="open()" ng-disabled="!applicationForm">Tee
+        <button class="btn btn-warning pull-left" ng-click="open(applicationForm)" ng-disabled="!applicationForm">Tee
             hakukohdekohtaisia lisäkysymyksiä
         </button>
         <button class="btn btn-primary pull-right" ng-click="luoHakulomake()">Luo hakulomake</button>
         <button class="btn btn-primary pull-right" data-ng-disabled="!luolomake">Luo lomake</button>
     </div>
-    <br/>
-    <br/>
+    <div class="clearfix"></div>
     <table class="table table-striped">
         <tr ng-repeat="applicationForm in applicationForms">
-            <td><input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm" name="applicationForm"></td>
+            <td><input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm"
+                       name="applicationForm"></td>
             <td>
                 <button type="button" class="btn btn-default btn-lg"><i class="icon-tasks"></i></button>
             </td>

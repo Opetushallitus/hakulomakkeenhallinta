@@ -5,39 +5,22 @@
 
     <form role="form" class="form-horizontal">
         <div class="form-group">
-            <label for="Teema">Teema</label>
-            <select class="form-control" id="teema" placeholder="Valitse teema">
-                <option>Teema1</option>
-                <option>Teema2</option>
-                <option>Teema3</option>
-                <option>Teema4</option>
-                <option>Teema5</option>
+            <label for="theme">Teema</label>
+            <select class="form-control" id="theme" ng-model="theme" ng-options="a.name.translations.fi for a in themes">
+                <option value="">-- Valitse teema --</option>
             </select>
 
         </div>
+
         <div class="form-group">
-            <label for="kysymystyyppi">Kysymystyyppi</label>
-            <select class="form-control" id="kysymystyyppi" placeholder="Valitse kysymystyyppi">
-                <option>Avoin kysymys</option>
-                <option>Valinta (yksi vastaus)</option>
-                <option>Monivalinta (useita vastauksia)</option>
-                <option>Valintalista</option>
-                <option>Ohje-/infoteksti</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="vastaustyyppi">vastaustyyppi</label>
-            <select class="form-control" id="vastaustyyppi" placeholder="Valitse vastaustyyppi">
-                <option>vastaustyyppi1</option>
-                <option>vastaustyyppi2</option>
-                <option>vastaustyyppi3</option>
-                <option>vastaustyyppi4</option>
-                <option>vastaustyyppi5</option>
+            <label for="type">Kysymystyyppi</label>
+            <select class="form-control" id="type" ng-model="type" ng-options="a.name.translations.fi for a in types">
+                <option value="">-- Valitse tyyppi --</option>
             </select>
         </div>
     </form>
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
-    <button class="btn btn-primary pull-right" ng-click="ok()">Jatka</button>
+    <button class="btn btn-primary pull-right" ng-click="ok()" data-ng-disabled="!theme || !type">Jatka</button>
 </div>
