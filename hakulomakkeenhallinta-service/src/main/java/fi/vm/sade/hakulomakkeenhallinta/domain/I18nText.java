@@ -37,7 +37,12 @@ public class I18nText {
         Iterator<Map.Entry<String, String>> i = translations.entrySet().iterator();
         while (i.hasNext()) {
             Map.Entry<String, String> entry = i.next();
-            String lang = entry.getKey().split("_")[1].toLowerCase();
+            String lang;
+            if (entry.getKey().contains("_")) {
+                lang = entry.getKey().split("_")[1].toLowerCase();
+            } else {
+                lang = entry.getKey();
+            }
             this.translations.put(lang, entry.getValue());
         }
     }

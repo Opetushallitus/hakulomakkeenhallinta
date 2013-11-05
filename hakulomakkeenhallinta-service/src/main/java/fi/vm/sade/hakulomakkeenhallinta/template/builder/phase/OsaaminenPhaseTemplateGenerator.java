@@ -14,31 +14,20 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.domain;
+package fi.vm.sade.hakulomakkeenhallinta.template.builder.phase;
 
-import org.mongodb.morphia.annotations.Embedded;
+import fi.vm.sade.hakulomakkeenhallinta.domain.Phase;
+import fi.vm.sade.hakulomakkeenhallinta.template.builder.util.TemplateUtil;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Mikko Majapuro
  */
-@Embedded
-public class Phase extends Element {
+@Service
+public class OsaaminenPhaseTemplateGenerator {
 
-    @Embedded
-    private I18nText i18nText;
-
-    public Phase() {}
-
-    public Phase(final String id, final I18nText i18nText) {
-        super(id);
-        this.i18nText = i18nText;
-    }
-
-    public I18nText getI18nText() {
-        return i18nText;
-    }
-
-    public void setI18nText(I18nText i18nText) {
-        this.i18nText = i18nText;
+    public Phase create() {
+        Phase phase = new Phase("osaaminen", TemplateUtil.createI18NForm("form.osaaminen.otsikko"));
+        return phase;
     }
 }

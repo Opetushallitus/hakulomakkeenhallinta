@@ -17,8 +17,12 @@
 package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.impl;
 
 import com.google.common.collect.Lists;
-import fi.vm.sade.hakulomakkeenhallinta.domain.*;
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationForm;
+import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
+import fi.vm.sade.hakulomakkeenhallinta.domain.Element;
 import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.ApplicationFormTemplateService;
+import fi.vm.sade.hakulomakkeenhallinta.template.builder.phase.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,15 +33,33 @@ import java.util.List;
 @Service
 public class ApplicationFormTemplateServiceImpl implements ApplicationFormTemplateService {
 
+    private HenkilotiedotPhaseTemplateGenerator henkilotiedotPhaseTemplateGenerator;
+    private KoulutustaustaPhaseTemplateGenerator koulutustaustaPhaseTemplateGenerator;
+    private HakutoiveetPhaseTemplateGenerator hakutoiveetPhaseTemplateGenerator;
+    private OsaaminenPhaseTemplateGenerator osaaminenPhaseTemplateGenerator;
+    private LisatiedotPhaseTemplateGenerator lisatiedotPhaseTemplateGenerator;
+
+    @Autowired
+    public ApplicationFormTemplateServiceImpl(HenkilotiedotPhaseTemplateGenerator henkilotiedotPhaseTemplateGenerator,
+                                              KoulutustaustaPhaseTemplateGenerator koulutustaustaPhaseTemplateGenerator,
+                                              HakutoiveetPhaseTemplateGenerator hakutoiveetPhaseTemplateGenerator,
+                                              OsaaminenPhaseTemplateGenerator osaaminenPhaseTemplateGenerator,
+                                              LisatiedotPhaseTemplateGenerator lisatiedotPhaseTemplateGenerator) {
+        this.henkilotiedotPhaseTemplateGenerator = henkilotiedotPhaseTemplateGenerator;
+        this.koulutustaustaPhaseTemplateGenerator = koulutustaustaPhaseTemplateGenerator;
+        this.hakutoiveetPhaseTemplateGenerator = hakutoiveetPhaseTemplateGenerator;
+        this.osaaminenPhaseTemplateGenerator = osaaminenPhaseTemplateGenerator;
+        this.lisatiedotPhaseTemplateGenerator = lisatiedotPhaseTemplateGenerator;
+    }
+
     @Override
     public ApplicationForm createApplicationFormUsingTemplate(ApplicationSystem applicationSystem, String templateId) {
         ApplicationForm af = new ApplicationForm();
         af.setId(applicationSystem.getId());
         af.setName(applicationSystem.getName());
-
-        Phase phase1 = new Phase("phase1", new I18nText());
-        Phase phase2 = new Phase("phase2", new I18nText());
-        List<Element> children = Lists.newArrayList((Element)phase1, (Element)phase2);
+        List<Element> children = Lists.newArrayList((Element)henkilotiedotPhaseTemplateGenerator.create(),
+                koulutustaustaPhaseTemplateGenerator.create(), hakutoiveetPhaseTemplateGenerator.create(),
+                osaaminenPhaseTemplateGenerator.create(), lisatiedotPhaseTemplateGenerator.create());
         af.setChildren(children);
         return af;
     }

@@ -17,42 +17,48 @@
 package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Id;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Mikko Majapuro
  */
 @Embedded
-public class Element {
+public class TextQuestion extends Element {
 
-    @Id
-    private String id;
     @Embedded
-    private List<Element> children;
+    private I18nText i18nText;
+    private String name;
+    private Integer size;
 
-    public Element() {}
+    public TextQuestion() {}
 
-    public Element(final String id) {
-        this.id = id;
-        this.children = new ArrayList<Element>();
+    public TextQuestion(final String id, final I18nText i18nText, final String name, final Integer size) {
+        super(id);
+        this.i18nText = i18nText;
+        this.name = name;
+        this.size = size;
     }
 
-    public String getId() {
-        return id;
+    public Integer getSize() {
+        return size;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
-    public List<Element> getChildren() {
-        return children;
+    public String getName() {
+        return name;
     }
 
-    public void setChildren(List<Element> children) {
-        this.children = children;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public I18nText getI18nText() {
+        return i18nText;
+    }
+
+    public void setI18nText(I18nText i18nText) {
+        this.i18nText = i18nText;
     }
 }

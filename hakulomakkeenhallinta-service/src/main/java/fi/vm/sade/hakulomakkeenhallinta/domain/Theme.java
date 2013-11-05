@@ -17,42 +17,28 @@
 package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Id;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Mikko Majapuro
  */
 @Embedded
-public class Element {
+public class Theme extends Element {
 
-    @Id
-    private String id;
     @Embedded
-    private List<Element> children;
+    private I18nText i18nText;
 
-    public Element() {}
+    public Theme() {}
 
-    public Element(final String id) {
-        this.id = id;
-        this.children = new ArrayList<Element>();
+    public Theme(final String id, final I18nText i18nText) {
+        super(id);
+        this.i18nText = i18nText;
     }
 
-    public String getId() {
-        return id;
+    public I18nText getI18nText() {
+        return i18nText;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<Element> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Element> children) {
-        this.children = children;
+    public void setI18nText(I18nText i18nText) {
+        this.i18nText = i18nText;
     }
 }
