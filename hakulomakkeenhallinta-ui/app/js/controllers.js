@@ -24,8 +24,10 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         $modal.open({
             templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
             controller: liitaHakuLomakkeeseenCtrl
-        }).result.then(function (data) {
-                $scope.applicationForms = Resources.applicationForms.query();
+        }).result.then(function (result) {
+                Resources.applicationForms.save(result, function (res) {
+                    $scope.applicationForms = Resources.applicationForms.query();
+                });
             });
     };
     $scope.open = function (applicationForm) {
@@ -37,16 +39,6 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         modalInstance.result.then(function (applicationOptionId) {
             console.log(applicationOptionId);
             $location.path("hakulomakkeet/" + applicationForm.id + '/' + applicationOptionId);
-//            $modal.open({
-//                templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-//                controller: ModalInstanceCtrl
-//            }).result.then(function (data) {
-//                    cosole.log(data);
-//                    $modal.open({
-//                        templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-//                        controller: ModalInstanceCtrl
-//                    })
-//                });
         }, function () {
 
         });
@@ -68,7 +60,6 @@ var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
             applicationFormTemplateId: this.applicationFormTemplateId,
             applicationSystemId: this.applicationSystem.id
         };
-        Resources.applicationForms.save(result);
         $modalInstance.close(result);
     };
 
@@ -150,7 +141,7 @@ controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
                     controller: QuestionCtrl,
-                    scope : $scope
+                    scope: $scope
                 }).result.then(function (question) {
                         console.log("Tallennetaan kysymys " + question);
                     });
