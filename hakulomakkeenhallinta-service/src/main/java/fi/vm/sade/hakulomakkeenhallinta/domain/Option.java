@@ -22,38 +22,12 @@ import org.mongodb.morphia.annotations.Embedded;
  * @author Mikko Majapuro
  */
 @Embedded
-public class TextQuestion extends Element {
+public class Option {
 
     @Embedded
     private I18nText i18nText;
-    private String name;
-    private Integer size;
-    private String placeHolder;
-
-    public TextQuestion() {}
-
-    public TextQuestion(final String id, final I18nText i18nText, final String name, final Integer size) {
-        super(id);
-        this.i18nText = i18nText;
-        this.name = name;
-        this.size = size;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String value;
+    private boolean defaultOption = false;
 
     public I18nText getI18nText() {
         return i18nText;
@@ -63,11 +37,19 @@ public class TextQuestion extends Element {
         this.i18nText = i18nText;
     }
 
-    public String getPlaceHolder() {
-        return placeHolder;
+    public String getValue() {
+        return value;
     }
 
-    public void setPlaceHolder(String placeHolder) {
-        this.placeHolder = placeHolder;
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public boolean isDefaultOption() {
+        return defaultOption;
+    }
+
+    public void setDefaultOption(boolean defaultOption) {
+        this.defaultOption = defaultOption;
     }
 }

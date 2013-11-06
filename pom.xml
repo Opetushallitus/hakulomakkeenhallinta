@@ -11,7 +11,6 @@
     <name>Hakulomakkeenhallinta :: Parent</name>
 
     <modules>
-        <module>hakulomakepohja</module>
         <module>hakulomakkeenhallinta-app</module>
         <module>hakulomakkeenhallinta-service</module>
         <module>hakulomakkeenhallinta-api</module>

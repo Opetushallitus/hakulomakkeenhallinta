@@ -22,37 +22,25 @@ import org.mongodb.morphia.annotations.Embedded;
  * @author Mikko Majapuro
  */
 @Embedded
-public class TextQuestion extends Element {
+public class SocialSecurityNumber extends Element {
 
     @Embedded
     private I18nText i18nText;
     private String name;
     private Integer size;
     private String placeHolder;
+    private String sexName;
+    @Embedded
+    private I18nText sexI18nText;
+    @Embedded
+    private Option maleOption;
+    @Embedded
+    private Option femaleOption;
 
-    public TextQuestion() {}
+    public SocialSecurityNumber() {}
 
-    public TextQuestion(final String id, final I18nText i18nText, final String name, final Integer size) {
+    public SocialSecurityNumber(final String id) {
         super(id);
-        this.i18nText = i18nText;
-        this.name = name;
-        this.size = size;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public I18nText getI18nText() {
@@ -63,11 +51,59 @@ public class TextQuestion extends Element {
         this.i18nText = i18nText;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
     public String getPlaceHolder() {
         return placeHolder;
     }
 
     public void setPlaceHolder(String placeHolder) {
         this.placeHolder = placeHolder;
+    }
+
+    public String getSexName() {
+        return sexName;
+    }
+
+    public void setSexName(String sexName) {
+        this.sexName = sexName;
+    }
+
+    public I18nText getSexI18nText() {
+        return sexI18nText;
+    }
+
+    public void setSexI18nText(I18nText sexI18nText) {
+        this.sexI18nText = sexI18nText;
+    }
+
+    public Option getMaleOption() {
+        return maleOption;
+    }
+
+    public void setMaleOption(Option maleOption) {
+        this.maleOption = maleOption;
+    }
+
+    public Option getFemaleOption() {
+        return femaleOption;
+    }
+
+    public void setFemaleOption(Option femaleOption) {
+        this.femaleOption = femaleOption;
     }
 }

@@ -16,6 +16,7 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.domain;
 
+import fi.vm.sade.hakulomakkeenhallinta.domain.validator.Validator;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 
@@ -32,12 +33,19 @@ public class Element {
     private String id;
     @Embedded
     private List<Element> children;
+    @Embedded
+    private List<Validator> validators;
+    @Embedded
+    private I18nText help;
+    @Embedded
+    private I18nText verboseHelp;
 
     public Element() {}
 
     public Element(final String id) {
         this.id = id;
         this.children = new ArrayList<Element>();
+        this.validators = new ArrayList<Validator>();
     }
 
     public String getId() {
@@ -54,5 +62,29 @@ public class Element {
 
     public void setChildren(List<Element> children) {
         this.children = children;
+    }
+
+    public List<Validator> getValidators() {
+        return validators;
+    }
+
+    public void setValidators(List<Validator> validators) {
+        this.validators = validators;
+    }
+
+    public I18nText getHelp() {
+        return help;
+    }
+
+    public void setHelp(I18nText help) {
+        this.help = help;
+    }
+
+    public I18nText getVerboseHelp() {
+        return verboseHelp;
+    }
+
+    public void setVerboseHelp(I18nText verboseHelp) {
+        this.verboseHelp = verboseHelp;
     }
 }

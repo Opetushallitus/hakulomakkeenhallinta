@@ -18,41 +18,28 @@ package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 import org.mongodb.morphia.annotations.Embedded;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Mikko Majapuro
  */
 @Embedded
-public class TextQuestion extends Element {
+public class Radio extends Element {
 
     @Embedded
     private I18nText i18nText;
     private String name;
-    private Integer size;
-    private String placeHolder;
+    @Embedded
+    private List<Option> options;
 
-    public TextQuestion() {}
+    public Radio() {}
 
-    public TextQuestion(final String id, final I18nText i18nText, final String name, final Integer size) {
+    public Radio(final String id, final I18nText i18nText, final String name) {
         super(id);
         this.i18nText = i18nText;
         this.name = name;
-        this.size = size;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.options = new ArrayList<Option>();
     }
 
     public I18nText getI18nText() {
@@ -63,11 +50,19 @@ public class TextQuestion extends Element {
         this.i18nText = i18nText;
     }
 
-    public String getPlaceHolder() {
-        return placeHolder;
+    public String getName() {
+        return name;
     }
 
-    public void setPlaceHolder(String placeHolder) {
-        this.placeHolder = placeHolder;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 }

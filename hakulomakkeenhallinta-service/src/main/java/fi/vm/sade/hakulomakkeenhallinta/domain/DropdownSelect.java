@@ -22,37 +22,20 @@ import org.mongodb.morphia.annotations.Embedded;
  * @author Mikko Majapuro
  */
 @Embedded
-public class TextQuestion extends Element {
+public class DropdownSelect extends Element {
 
     @Embedded
     private I18nText i18nText;
     private String name;
-    private Integer size;
-    private String placeHolder;
+    private String defaultValue;
 
-    public TextQuestion() {}
+    public DropdownSelect() {}
 
-    public TextQuestion(final String id, final I18nText i18nText, final String name, final Integer size) {
+    public DropdownSelect(final String id, final I18nText i18nText, final String name, final String defaultValue) {
         super(id);
         this.i18nText = i18nText;
         this.name = name;
-        this.size = size;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.defaultValue = defaultValue;
     }
 
     public I18nText getI18nText() {
@@ -63,11 +46,19 @@ public class TextQuestion extends Element {
         this.i18nText = i18nText;
     }
 
-    public String getPlaceHolder() {
-        return placeHolder;
+    public String getName() {
+        return name;
     }
 
-    public void setPlaceHolder(String placeHolder) {
-        this.placeHolder = placeHolder;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 }

@@ -31,6 +31,8 @@ public class TemplateUtil {
 
     public static final Logger LOG = LoggerFactory.getLogger(TemplateUtil.class);
     private static final String[] LANGS = {"fi", "sv"};
+    public static final String VARSINAINEN_HAKU = "hakutyyppi_01";
+    public static final String LISA_HAKU = "hakutyyppi_03";
 
     public static I18nText createI18NForm(final String text, final String... params) {
         return createI18NText(text, "form_messages", params);
@@ -40,7 +42,7 @@ public class TemplateUtil {
         return createI18NText(text, "form_errors", params);
     }
 
-    private static I18nText createI18NText(final String key, final String bundleName, final String... params) {
+    public static I18nText createI18NText(final String key, final String bundleName, final String... params) {
         Preconditions.checkNotNull(key, "key can't be null");
         Preconditions.checkNotNull(bundleName, "bundleName can't be null");
 
