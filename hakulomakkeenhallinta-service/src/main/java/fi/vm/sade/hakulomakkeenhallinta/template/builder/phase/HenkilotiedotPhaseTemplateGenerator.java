@@ -17,11 +17,16 @@
 package fi.vm.sade.hakulomakkeenhallinta.template.builder.phase;
 
 import fi.vm.sade.hakulomakkeenhallinta.domain.*;
+import fi.vm.sade.hakulomakkeenhallinta.domain.rule.AddElementRule;
+import fi.vm.sade.hakulomakkeenhallinta.domain.rule.RelatedQuestionRule;
 import fi.vm.sade.hakulomakkeenhallinta.domain.validator.ContainedInOtherFieldValidator;
 import fi.vm.sade.hakulomakkeenhallinta.domain.validator.RegexFieldValidator;
 import fi.vm.sade.hakulomakkeenhallinta.domain.validator.RequiredFieldValidator;
+import fi.vm.sade.hakulomakkeenhallinta.domain.validator.SsnUniqueValidator;
 import fi.vm.sade.hakulomakkeenhallinta.template.builder.util.TemplateUtil;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 /**
  * @author Mikko Majapuro
@@ -53,155 +58,96 @@ public class HenkilotiedotPhaseTemplateGenerator {
 
         SocialSecurityNumber socialSecurityNumber = createSSNQuestion(templateId);
 
-        /*
-        RelatedQuestionRule hetuRule = new RelatedQuestionRule("hetuRule", kansalaisuus.getId(), "^$|^FIN$", true);
-        hetuRule.addChild(socialSecurityNumber);
-        henkilotiedotRyhma.addChild(hetuRule);
+        RelatedQuestionRule hetuRule = new RelatedQuestionRule("hetuRule");
+        hetuRule.getRelatedElementId().add(kansalaisuus.getId());
+        hetuRule.setExpression("^$|^FIN$");
+        hetuRule.setShowImmediately(true);
+
+        hetuRule.getChildren().add(socialSecurityNumber);
+        henkilotiedotRyhma.getChildren().add(hetuRule);
 
         // Ulkomaalaisten tunnisteet
-        Radio onkoSinullaSuomalainenHetu = new Radio("onkoSinullaSuomalainenHetu",
-                createI18NForm("form.henkilotiedot.hetu.onkoSuomalainen"));
-        addDefaultTrueFalseOptions(onkoSinullaSuomalainenHetu);
-        setRequiredInlineAndVerboseHelp(onkoSinullaSuomalainenHetu, "form.henkilotiedot.hetu.onkoSuomalainen.verboseHelp");
-        RelatedQuestionRule suomalainenHetuRule = new RelatedQuestionRule("suomalainenHetuRule",
-                onkoSinullaSuomalainenHetu.getId(), "^true$", false);
-        suomalainenHetuRule.addChild(socialSecurityNumber);
-        onkoSinullaSuomalainenHetu.addChild(suomalainenHetuRule);
+        Radio onkoSinullaSuomalainenHetu = createOnkoSinullaSuomalainenHetuQuestion();
 
-        RelatedQuestionRule eiSuomalaistaHetuaRule = new RelatedQuestionRule("eiSuomalaistaHetuaRule",
-                onkoSinullaSuomalainenHetu.getId(), "^false$", false);
-        eiSuomalaistaHetuaRule.addChild(sukupuoli);
+        RelatedQuestionRule suomalainenHetuRule = new RelatedQuestionRule("suomalainenHetuRule");
+        suomalainenHetuRule.getRelatedElementId().add(onkoSinullaSuomalainenHetu.getId());
+        suomalainenHetuRule.setExpression("^true$");
+        suomalainenHetuRule.setShowImmediately(false);
+        suomalainenHetuRule.getChildren().add(socialSecurityNumber);
+        onkoSinullaSuomalainenHetu.getChildren().add(suomalainenHetuRule);
 
-        DateQuestion syntymaaika = new DateQuestion("syntymaaika", createI18NForm("form.henkilotiedot.syntymaaika"));
-        syntymaaika.setValidator(ElementUtil.createRegexValidator(syntymaaika.getId(), DATE_PATTERN));
-        addRequiredValidator(syntymaaika);
-        syntymaaika.setInline(true);
-        eiSuomalaistaHetuaRule.addChild(syntymaaika);
+        RelatedQuestionRule eiSuomalaistaHetuaRule = new RelatedQuestionRule("eiSuomalaistaHetuaRule");
+        eiSuomalaistaHetuaRule.getRelatedElementId().add(onkoSinullaSuomalainenHetu.getId());
+        eiSuomalaistaHetuaRule.setExpression("^false$");
+        eiSuomalaistaHetuaRule.setShowImmediately(false);
+        eiSuomalaistaHetuaRule.getChildren().add(sukupuoli);
 
-        TextQuestion syntymapaikka =
-                new TextQuestion("syntymapaikka", createI18NForm("form.henkilotiedot.syntymapaikka"));
-        addSizeAttribute(syntymapaikka, 30);
-        addRequiredValidator(syntymapaikka);
-        syntymapaikka.setInline(true);
-        eiSuomalaistaHetuaRule.addChild(syntymapaikka);
+        DateQuestion syntymaaika = createSyntymaAikaQuestion();
+        eiSuomalaistaHetuaRule.getChildren().add(syntymaaika);
 
-        TextQuestion kansallinenIdTunnus =
-                new TextQuestion("kansallinenIdTunnus", createI18NForm("form.henkilotiedot.kansallinenId"));
-        addSizeAttribute(kansallinenIdTunnus, 30);
-        kansallinenIdTunnus.setInline(true);
-        eiSuomalaistaHetuaRule.addChild(kansallinenIdTunnus);
+        TextQuestion syntymapaikka = createSyntymapaikkaQuestion();
+        eiSuomalaistaHetuaRule.getChildren().add(syntymapaikka);
 
-        TextQuestion passinnumero = new TextQuestion("passinnumero", createI18NForm("form.henkilotiedot.passinnumero"));
-        addSizeAttribute(passinnumero, 30);
-        passinnumero.setInline(true);
-        eiSuomalaistaHetuaRule.addChild(passinnumero);
+        TextQuestion kansallinenIdTunnus = createKansallinenIdTunnus();
+        eiSuomalaistaHetuaRule.getChildren().add(kansallinenIdTunnus);
 
-        onkoSinullaSuomalainenHetu.addChild(eiSuomalaistaHetuaRule);
+        TextQuestion passinnumero = createPassinnumeroQuestion();
+        eiSuomalaistaHetuaRule.getChildren().add(passinnumero);
 
-        RelatedQuestionRule ulkomaalaisenTunnisteetRule = new RelatedQuestionRule("ulkomaalaisenTunnisteetRule",
-                kansalaisuus.getId(), NOT_FI, false);
-        ulkomaalaisenTunnisteetRule.addChild(onkoSinullaSuomalainenHetu);
-        henkilotiedotRyhma.addChild(ulkomaalaisenTunnisteetRule);
+        onkoSinullaSuomalainenHetu.getChildren().add(eiSuomalaistaHetuaRule);
 
-        // Email
-        TextQuestion email = new TextQuestion("Sähköposti", createI18NForm("form.henkilotiedot.email"));
-        addSizeAttribute(email, 50);
-        email.setValidator(createRegexValidator(email.getId(), EMAIL_REGEX));
-        email.setHelp(createI18NForm("form.henkilotiedot.email.help"));
-        ElementUtil.setVerboseHelp(email, "form.henkilotiedot.email.verboseHelp");
-        email.setInline(true);
-        henkilotiedotRyhma.addChild(email);
+        RelatedQuestionRule ulkomaalaisenTunnisteetRule = new RelatedQuestionRule("ulkomaalaisenTunnisteetRule");
+        ulkomaalaisenTunnisteetRule.getRelatedElementId().add(kansalaisuus.getId());
+        ulkomaalaisenTunnisteetRule.setExpression(TemplateUtil.NOT_FI);
+        ulkomaalaisenTunnisteetRule.setShowImmediately(false);
+        ulkomaalaisenTunnisteetRule.getChildren().add(onkoSinullaSuomalainenHetu);
+        henkilotiedotRyhma.getChildren().add(ulkomaalaisenTunnisteetRule);
 
-        // Matkapuhelinnumerot
+        TextQuestion email = createEmailQuestion();
+        henkilotiedotRyhma.getChildren().add(email);
 
-        TextQuestion puhelinnumero1 = new TextQuestion("matkapuhelinnumero1",
-                createI18NForm("form.henkilotiedot.matkapuhelinnumero"));
-        puhelinnumero1.setHelp(createI18NForm("form.henkilotiedot.matkapuhelinnumero.help"));
-        addSizeAttribute(puhelinnumero1, 30);
-        puhelinnumero1.setValidator(createRegexValidator(puhelinnumero1.getId(), MOBILE_PHONE_PATTERN));
-        ElementUtil.setVerboseHelp(puhelinnumero1, "form.henkilotiedot.matkapuhelinnumero.verboseHelp");
-        puhelinnumero1.setInline(true);
-        henkilotiedotRyhma.addChild(puhelinnumero1);
+        TextQuestion puhelinnumero1 = createMatkapuhelinQuestion();
+        henkilotiedotRyhma.getChildren().add(puhelinnumero1);
 
-        TextQuestion prevNum = puhelinnumero1;
-        AddElementRule prevRule = null;
-        for (int i = 2; i <= 5; i++) {
-            TextQuestion extranumero = new TextQuestion("matkapuhelinnumero" + i,
-                    createI18NForm("form.henkilotiedot.puhelinnumero"));
-            extranumero.addAttribute("size", "30");
-            addSizeAttribute(extranumero, 30);
-            extranumero.setValidator(createRegexValidator(extranumero.getId(), PHONE_PATTERN));
-            extranumero.setInline(true);
+        createExtraPhoneNumbers(puhelinnumero1, henkilotiedotRyhma);
 
-            AddElementRule extranumeroRule = new AddElementRule("addPuhelinnumero" + i + "Rule", prevNum.getId(),
-                    createI18NForm("form.henkilotiedot.puhelinnumero.lisaa"));
-            extranumeroRule.addChild(extranumero);
-            if (i == 2) {
-                henkilotiedotRyhma.addChild(extranumeroRule);
-            } else {
-                prevRule.addChild(extranumeroRule);
-            }
-            prevNum = extranumero;
-            prevRule = extranumeroRule;
-        }
+        DropdownSelect asuinmaa = createAsuinmaaQuestion();
 
+        RelatedQuestionRule asuinmaaFI = new RelatedQuestionRule("rule1");
+        asuinmaaFI.getRelatedElementId().add(asuinmaa.getId());
+        asuinmaaFI.setExpression("FIN");
+        asuinmaaFI.setShowImmediately(true);
 
-        // Asuinmaa, osoite
-        DropdownSelect asuinmaa = new DropdownSelect("asuinmaa", createI18NForm("form.henkilotiedot.asuinmaa"), null);
-        asuinmaa.addOptions(koodistoService.getCountries());
-        setDefaultOption("FIN", asuinmaa.getOptions());
-        setRequiredInlineAndVerboseHelp(asuinmaa, "form.henkilotiedot.asuinmaa.verboseHelp");
+        TextQuestion lahiosoite = createLahiosoiteQuestion();
+        asuinmaaFI.getChildren().add(lahiosoite);
 
-        RelatedQuestionRule asuinmaaFI = new RelatedQuestionRule("rule1", asuinmaa.getId(), "FIN", true);
-        Question lahiosoite = createRequiredTextQuestion("lahiosoite", "form.henkilotiedot.lahiosoite", 40);
-        lahiosoite.setInline(true);
-        asuinmaaFI.addChild(lahiosoite);
+        Element postinumero = createPostinumeroQuestion();
+        asuinmaaFI.getChildren().add(postinumero);
 
-        Element postinumero = new PostalCode("Postinumero", createI18NForm("form.henkilotiedot.postinumero"),
-                createPostOffices(koodistoService));
-        addSizeAttribute(postinumero, 5);
-        postinumero.addAttribute("maxlength", "5");
-        addRequiredValidator(postinumero);
-        postinumero.addAttribute("placeholder", "#####");
-        postinumero.setValidator(createRegexValidator(postinumero.getId(), POSTINUMERO_PATTERN));
-        postinumero.setHelp(createI18NForm("form.henkilotiedot.postinumero.help"));
-        asuinmaaFI.addChild(postinumero);
+        DropdownSelect kotikunta = createKotikuntaQuestion();
+        asuinmaaFI.getChildren().add(kotikunta);
 
-        DropdownSelect kotikunta =
-                new DropdownSelect("kotikunta", createI18NForm("form.henkilotiedot.kotikunta"), null);
-        kotikunta.addOption(ElementUtil.createI18NAsIs(""), "");
-        kotikunta.addOptions(koodistoService.getMunicipalities());
-        setRequiredInlineAndVerboseHelp(kotikunta, "form.henkilotiedot.kotikunta.verboseHelp");
-        kotikunta.setHelp(createI18NForm("form.henkilotiedot.kotikunta.help"));
-        asuinmaaFI.addChild(kotikunta);
+        RelatedQuestionRule relatedQuestionRule2 = new RelatedQuestionRule("rule2");
+        relatedQuestionRule2.getRelatedElementId().add(asuinmaa.getId());
+        relatedQuestionRule2.setExpression(TemplateUtil.NOT_FI);
+        relatedQuestionRule2.setShowImmediately(false);
 
-        RelatedQuestionRule relatedQuestionRule2 =
-                new RelatedQuestionRule("rule2", asuinmaa.getId(), NOT_FI, false);
-        Question osoiteUlkomaa = createRequiredTextQuestion("osoiteUlkomaa", "form.henkilotiedot.osoite", 40);
-        osoiteUlkomaa.setInline(true);
-        relatedQuestionRule2.addChild(osoiteUlkomaa);
-        Question postinumeroUlkomaa = createRequiredTextQuestion("postinumeroUlkomaa", "form.henkilotiedot.postinumero", 12);
-        postinumeroUlkomaa.setInline(true);
-        relatedQuestionRule2.addChild(postinumeroUlkomaa);
-        Question kaupunkiUlkomaa = createRequiredTextQuestion("kaupunkiUlkomaa", "form.henkilotiedot.kaupunki", 25);
-        kaupunkiUlkomaa.setInline(true);
-        relatedQuestionRule2.addChild(kaupunkiUlkomaa);
+        TextQuestion osoiteUlkomaa = createOsoiteUlkomaaQuestion();
+        relatedQuestionRule2.getChildren().add(osoiteUlkomaa);
 
-        asuinmaa.addChild(relatedQuestionRule2);
-        asuinmaa.addChild(asuinmaaFI);
+        TextQuestion postinumeroUlkomaa = createPostinumeroUlkomaatQuestion();
+        relatedQuestionRule2.getChildren().add(postinumeroUlkomaa);
 
-        henkilotiedotRyhma.addChild(asuinmaa);
+        TextQuestion kaupunkiUlkomaa = createKaupunkiUlkomaatQuestion();
+        relatedQuestionRule2.getChildren().add(kaupunkiUlkomaa);
 
-        // Äidinkieli
-        DropdownSelect aidinkieli =
-                new DropdownSelect(AIDINKIELI_ID, createI18NForm("form.henkilotiedot.aidinkieli"),
-                        "fi_vm_sade_oppija_language");
-        aidinkieli.addOption(ElementUtil.createI18NAsIs(""), "");
-        aidinkieli.addOptions(koodistoService.getLanguages());
-        setRequiredInlineAndVerboseHelp(aidinkieli, "form.henkilotiedot.aidinkieli.verboseHelp");
-        aidinkieli.setHelp(createI18NForm("form.henkilotiedot.aidinkieli.help"));
-        henkilotiedotRyhma.addChild(aidinkieli); */
+        asuinmaa.getChildren().add(relatedQuestionRule2);
+        asuinmaa.getChildren().add(asuinmaaFI);
 
+        henkilotiedotRyhma.getChildren().add(asuinmaa);
+
+        DropdownSelect aidinkieli = createAidinkieliQuestion();
+        henkilotiedotRyhma.getChildren().add(aidinkieli);
 
         phase.getChildren().add(henkilotiedotRyhma);
         return phase;
@@ -247,7 +193,8 @@ public class HenkilotiedotPhaseTemplateGenerator {
     private DropdownSelect createKansalaisuusQuestion() {
         // Kansalaisuus, hetu ja sukupuoli suomalaisille
         DropdownSelect kansalaisuus = new DropdownSelect("kansalaisuus", TemplateUtil.createI18NForm("form.henkilotiedot.kansalaisuus"),
-                "kansalaisuus", null);
+                "kansalaisuus");
+        //TODO! add options
         //kansalaisuus.addOptions(koodistoService.getNationalities());
         //setDefaultOption("FIN", kansalaisuus.getOptions());
         kansalaisuus.setHelp(TemplateUtil.createI18NForm("form.henkilotiedot.kansalaisuus.help"));
@@ -276,8 +223,9 @@ public class HenkilotiedotPhaseTemplateGenerator {
         ssn.setSexI18nText(TemplateUtil.createI18NForm("form.henkilotiedot.sukupuoli"));
 
         if (!templateId.equals(TemplateUtil.LISA_HAKU)) {
-            //addApplicationUniqueValidator(henkilotunnus, asType);
+            ssn.getValidators().add(new SsnUniqueValidator());
         }
+        //TODO! add options
         //ssn.setMaleOption();
         //ssn.setFemaleOption();
         return ssn;
@@ -288,6 +236,7 @@ public class HenkilotiedotPhaseTemplateGenerator {
         sukupuoli.getValidators().add(new RequiredFieldValidator(sukupuoli.getName(),
                 TemplateUtil.createI18NTextError("yleinen.pakollinen")));
         sukupuoli.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.sukupuoli.verboseHelp", "form_verboseHelp"));
+        //TODO! add options
         /*
         sukupuoli.addOptions(koodistoService.getGenders());
 
@@ -299,5 +248,178 @@ public class HenkilotiedotPhaseTemplateGenerator {
         */
 
         return sukupuoli;
+    }
+
+    private Radio createOnkoSinullaSuomalainenHetuQuestion() {
+        Radio onkoSinullaSuomalainenHetu = new Radio("onkoSinullaSuomalainenHetu",
+                TemplateUtil.createI18NForm("form.henkilotiedot.hetu.onkoSuomalainen"), "onkoSinullaSuomalainenHetu");
+        onkoSinullaSuomalainenHetu.getOptions().add(new Option(TemplateUtil.createI18NForm("form.yleinen.kylla"), TemplateUtil.KYLLA));
+        onkoSinullaSuomalainenHetu.getOptions().add(new Option(TemplateUtil.createI18NForm("form.yleinen.ei"), TemplateUtil.EI));
+        onkoSinullaSuomalainenHetu.getValidators().add(new RequiredFieldValidator(onkoSinullaSuomalainenHetu.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        onkoSinullaSuomalainenHetu.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.hetu.onkoSuomalainen.verboseHelp", "form_verboseHelp"));
+        return onkoSinullaSuomalainenHetu;
+    }
+
+    private DateQuestion createSyntymaAikaQuestion() {
+        DateQuestion syntymaaika = new DateQuestion("syntymaaika", TemplateUtil.createI18NForm("form.henkilotiedot.syntymaaika"),
+                "syntymaaika", "pp.kk.vvvv");
+        syntymaaika.getValidators().add(new RequiredFieldValidator(syntymaaika.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        syntymaaika.getValidators().add(new RegexFieldValidator(syntymaaika.getName(),
+                TemplateUtil.createI18NTextError("yleinen.virheellinenArvo"),
+                TemplateUtil.DATE_PATTERN));
+        return syntymaaika;
+    }
+
+    private TextQuestion createSyntymapaikkaQuestion() {
+        TextQuestion syntymapaikka = new TextQuestion("syntymapaikka", TemplateUtil.createI18NForm("form.henkilotiedot.syntymapaikka"),
+                "syntymapaikka", 30);
+        syntymapaikka.getValidators().add(new RequiredFieldValidator(syntymapaikka.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return syntymapaikka;
+    }
+
+    private TextQuestion createKansallinenIdTunnus() {
+        TextQuestion kansallinenIdTunnus = new TextQuestion("kansallinenIdTunnus", TemplateUtil.createI18NForm("form.henkilotiedot.kansallinenId"),
+                "kansallinenIdTunnus", 30);
+        return kansallinenIdTunnus;
+    }
+
+    private TextQuestion createPassinnumeroQuestion() {
+        TextQuestion passinnumero = new TextQuestion("passinnumero", TemplateUtil.createI18NForm("form.henkilotiedot.passinnumero"),
+                "passinnumero", 30);
+        return passinnumero;
+    }
+
+    private TextQuestion createEmailQuestion() {
+        TextQuestion email = new TextQuestion("Sähköposti", TemplateUtil.createI18NForm("form.henkilotiedot.email"),
+                "Sähköposti", 50);
+        email.getValidators().add(new RegexFieldValidator(email.getName(),
+                TemplateUtil.createI18NTextError("yleinen.virheellinenArvo"),
+                TemplateUtil.EMAIL_REGEX));
+        email.setHelp(TemplateUtil.createI18NForm("form.henkilotiedot.email.help"));
+        email.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.email.verboseHelp", "form_verboseHelp"));
+        return email;
+    }
+
+    private TextQuestion createMatkapuhelinQuestion() {
+        TextQuestion puhelinnumero1 = new TextQuestion("matkapuhelinnumero1", TemplateUtil.createI18NForm("form.henkilotiedot.matkapuhelinnumero"),
+                "matkapuhelinnumero1", 30);
+        puhelinnumero1.setHelp(TemplateUtil.createI18NForm("form.henkilotiedot.matkapuhelinnumero.help"));
+        puhelinnumero1.getValidators().add(new RegexFieldValidator(puhelinnumero1.getName(),
+                TemplateUtil.createI18NTextError("yleinen.virheellinenArvo"),
+                TemplateUtil.MOBILE_PHONE_PATTERN));
+        puhelinnumero1.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.matkapuhelinnumero.verboseHelp", "form_verboseHelp"));
+        return puhelinnumero1;
+    }
+
+    private void createExtraPhoneNumbers(final TextQuestion puhelinnumero1, final Theme henkilotiedotRyhma) {
+        TextQuestion prevNum = puhelinnumero1;
+        AddElementRule prevRule = null;
+        for (int i = 2; i <= 5; i++) {
+            TextQuestion extranumero = new TextQuestion("matkapuhelinnumero" + i, TemplateUtil.createI18NForm("form.henkilotiedot.puhelinnumero"),
+                    "matkapuhelinnumero" + i, 30);
+            extranumero.getValidators().add(new RegexFieldValidator(extranumero.getName(),
+                    TemplateUtil.createI18NTextError("yleinen.virheellinenArvo"),
+                    TemplateUtil.PHONE_PATTERN));
+
+            AddElementRule extranumeroRule = new AddElementRule("addPuhelinnumero" + i + "Rule",
+                    TemplateUtil.createI18NForm("form.henkilotiedot.puhelinnumero.lisaa"), prevNum.getId());
+            extranumeroRule.getChildren().add(extranumero);
+
+            if (i == 2) {
+                henkilotiedotRyhma.getChildren().add(extranumeroRule);
+            } else {
+                prevRule.getChildren().add(extranumeroRule);
+            }
+            prevNum = extranumero;
+            prevRule = extranumeroRule;
+        }
+    }
+
+    private DropdownSelect createAsuinmaaQuestion() {
+        // Asuinmaa, osoite
+        DropdownSelect asuinmaa = new DropdownSelect("asuinmaa", TemplateUtil.createI18NForm("form.henkilotiedot.asuinmaa"), "asuinmaa");
+        //TODO! set options
+        //asuinmaa.addOptions(koodistoService.getCountries());
+        //setDefaultOption("FIN", asuinmaa.getOptions());
+        asuinmaa.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.asuinmaa.verboseHelp", "form_verboseHelp"));
+        asuinmaa.getValidators().add(new RequiredFieldValidator(asuinmaa.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return asuinmaa;
+    }
+
+    private TextQuestion createLahiosoiteQuestion() {
+        TextQuestion lahiosoite = new TextQuestion("lahiosoite", TemplateUtil.createI18NForm("form.henkilotiedot.lahiosoite"),
+                "lahiosoite", 40);
+        lahiosoite.getValidators().add(new RequiredFieldValidator(lahiosoite.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return lahiosoite;
+    }
+
+    private PostalCode createPostinumeroQuestion() {
+        //TODO! fetch post offices
+        PostalCode postinumero = new PostalCode("Postinumero", "Postinumero", TemplateUtil.createI18NForm("form.henkilotiedot.postinumero"),
+                new HashMap<String, PostOffice>(), 5);
+        postinumero.getValidators().add(new RequiredFieldValidator(postinumero.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        postinumero.setPlaceHolder("#####");
+        postinumero.getValidators().add(new RegexFieldValidator(postinumero.getName(),
+                TemplateUtil.createI18NTextError("yleinen.virheellinenArvo"),
+                TemplateUtil.POSTINUMERO_PATTERN));
+        postinumero.setHelp(TemplateUtil.createI18NForm("form.henkilotiedot.postinumero.help"));
+        return postinumero;
+    }
+
+    private DropdownSelect createKotikuntaQuestion() {
+        DropdownSelect kotikunta = new DropdownSelect("kotikunta", TemplateUtil.createI18NForm("form.henkilotiedot.kotikunta"), "kotikunta");
+        //TODO! add options
+        //kotikunta.addOption(ElementUtil.createI18NAsIs(""), "");
+        //kotikunta.addOptions(koodistoService.getMunicipalities());
+        kotikunta.getValidators().add(new RequiredFieldValidator(kotikunta.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        kotikunta.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.kotikunta.verboseHelp", "form_verboseHelp"));
+        kotikunta.setHelp(TemplateUtil.createI18NForm("form.henkilotiedot.kotikunta.help"));
+        return kotikunta;
+    }
+
+    private TextQuestion createOsoiteUlkomaaQuestion() {
+        TextQuestion osoiteUlkomaa = new TextQuestion("osoiteUlkomaa", TemplateUtil.createI18NForm("form.henkilotiedot.osoite"),
+                "osoiteUlkomaa", 40);
+        osoiteUlkomaa.getValidators().add(new RequiredFieldValidator(osoiteUlkomaa.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return osoiteUlkomaa;
+    }
+
+    private TextQuestion createPostinumeroUlkomaatQuestion() {
+        TextQuestion postinumeroUlkomaa = new TextQuestion("postinumeroUlkomaa", TemplateUtil.createI18NForm("form.henkilotiedot.postinumero"),
+                "postinumeroUlkomaa", 12);
+        postinumeroUlkomaa.getValidators().add(new RequiredFieldValidator(postinumeroUlkomaa.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return postinumeroUlkomaa;
+    }
+
+    private TextQuestion createKaupunkiUlkomaatQuestion() {
+        TextQuestion kaupunkiUlkomaa = new TextQuestion("kaupunkiUlkomaa", TemplateUtil.createI18NForm("form.henkilotiedot.kaupunki"),
+                "kaupunkiUlkomaa", 25);
+        kaupunkiUlkomaa.getValidators().add(new RequiredFieldValidator(kaupunkiUlkomaa.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return kaupunkiUlkomaa;
+    }
+
+    private DropdownSelect createAidinkieliQuestion() {
+        // Äidinkieli
+        DropdownSelect aidinkieli = new DropdownSelect(TemplateUtil.AIDINKIELI_ID, TemplateUtil.createI18NForm("form.henkilotiedot.aidinkieli"),
+                TemplateUtil.AIDINKIELI_ID);
+        //TODO! add options
+        //aidinkieli.addOption(ElementUtil.createI18NAsIs(""), "");
+        //aidinkieli.addOptions(koodistoService.getLanguages());
+        aidinkieli.setDefaultValue("fi_vm_sade_oppija_language");
+        aidinkieli.getValidators().add(new RequiredFieldValidator(aidinkieli.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        aidinkieli.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.aidinkieli.verboseHelp", "form_verboseHelp"));
+        aidinkieli.setHelp(TemplateUtil.createI18NForm("form.henkilotiedot.aidinkieli.help"));
+        return aidinkieli;
     }
 }

@@ -29,6 +29,13 @@ public class Option {
     private String value;
     private boolean defaultOption = false;
 
+    public Option() {}
+
+    public Option(final I18nText i18nText, final String value) {
+        this.i18nText = i18nText;
+        this.value = value;
+    }
+
     public I18nText getI18nText() {
         return i18nText;
     }

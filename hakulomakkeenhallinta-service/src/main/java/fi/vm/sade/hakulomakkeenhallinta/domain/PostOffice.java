@@ -22,42 +22,32 @@ import org.mongodb.morphia.annotations.Embedded;
  * @author Mikko Majapuro
  */
 @Embedded
-public class DropdownSelect extends Element {
+public class PostOffice {
 
+    private String postcode;
     @Embedded
-    private I18nText i18nText;
-    private String name;
-    private String defaultValue;
+    private I18nText postOffice;
 
-    public DropdownSelect() {}
+    public PostOffice() {}
 
-    public DropdownSelect(final String id, final I18nText i18nText, final String name) {
-        super(id);
-        this.i18nText = i18nText;
-        this.name = name;
+    public PostOffice(final String postcode, final I18nText postOffice) {
+        this.postcode = postcode;
+        this.postOffice = postOffice;
     }
 
-    public I18nText getI18nText() {
-        return i18nText;
+    public String getPostcode() {
+        return postcode;
     }
 
-    public void setI18nText(I18nText i18nText) {
-        this.i18nText = i18nText;
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
-    public String getName() {
-        return name;
+    public I18nText getPostOffice() {
+        return postOffice;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setPostOffice(I18nText postOffice) {
+        this.postOffice = postOffice;
     }
 }

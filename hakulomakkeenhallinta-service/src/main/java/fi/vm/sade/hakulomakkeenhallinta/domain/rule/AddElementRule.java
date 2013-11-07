@@ -14,27 +14,36 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.domain;
+package fi.vm.sade.hakulomakkeenhallinta.domain.rule;
 
+import fi.vm.sade.hakulomakkeenhallinta.domain.Element;
+import fi.vm.sade.hakulomakkeenhallinta.domain.I18nText;
 import org.mongodb.morphia.annotations.Embedded;
 
 /**
  * @author Mikko Majapuro
  */
 @Embedded
-public class DropdownSelect extends Element {
+public class AddElementRule extends Element {
 
+    private String relatedElementId;
     @Embedded
     private I18nText i18nText;
-    private String name;
-    private String defaultValue;
 
-    public DropdownSelect() {}
+    public AddElementRule() {}
 
-    public DropdownSelect(final String id, final I18nText i18nText, final String name) {
+    public AddElementRule(final String id, final I18nText i18nText, final String relatedElementId) {
         super(id);
         this.i18nText = i18nText;
-        this.name = name;
+        this.relatedElementId = relatedElementId;
+    }
+
+    public String getRelatedElementId() {
+        return relatedElementId;
+    }
+
+    public void setRelatedElementId(String relatedElementId) {
+        this.relatedElementId = relatedElementId;
     }
 
     public I18nText getI18nText() {
@@ -43,21 +52,5 @@ public class DropdownSelect extends Element {
 
     public void setI18nText(I18nText i18nText) {
         this.i18nText = i18nText;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
     }
 }

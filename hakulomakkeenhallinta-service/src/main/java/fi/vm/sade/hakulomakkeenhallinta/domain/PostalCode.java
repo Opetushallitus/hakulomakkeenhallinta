@@ -18,23 +18,31 @@ package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 import org.mongodb.morphia.annotations.Embedded;
 
+import java.util.Map;
+
 /**
  * @author Mikko Majapuro
  */
 @Embedded
-public class DropdownSelect extends Element {
+public class PostalCode extends Element {
 
     @Embedded
     private I18nText i18nText;
     private String name;
-    private String defaultValue;
+    @Embedded
+    private Map<String, PostOffice> data;
+    private Integer size;
+    private String placeHolder;
 
-    public DropdownSelect() {}
+    public PostalCode() {}
 
-    public DropdownSelect(final String id, final I18nText i18nText, final String name) {
+    public PostalCode(final String id, final String name, final I18nText i18nText, final Map<String, PostOffice> data,
+                      final Integer size) {
         super(id);
-        this.i18nText = i18nText;
         this.name = name;
+        this.i18nText = i18nText;
+        this.data = data;
+        this.size = size;
     }
 
     public I18nText getI18nText() {
@@ -53,11 +61,27 @@ public class DropdownSelect extends Element {
         this.name = name;
     }
 
-    public String getDefaultValue() {
-        return defaultValue;
+    public Map<String, PostOffice> getData() {
+        return data;
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setData(Map<String, PostOffice> data) {
+        this.data = data;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public String getPlaceHolder() {
+        return placeHolder;
+    }
+
+    public void setPlaceHolder(String placeHolder) {
+        this.placeHolder = placeHolder;
     }
 }

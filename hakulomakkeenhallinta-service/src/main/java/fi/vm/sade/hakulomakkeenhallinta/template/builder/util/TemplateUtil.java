@@ -33,6 +33,16 @@ public class TemplateUtil {
     private static final String[] LANGS = {"fi", "sv"};
     public static final String VARSINAINEN_HAKU = "hakutyyppi_01";
     public static final String LISA_HAKU = "hakutyyppi_03";
+    public static final String KYLLA = Boolean.TRUE.toString().toLowerCase();
+    public static final String EI = Boolean.FALSE.toString().toLowerCase();
+    public static final String DATE_PATTERN = "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d\\d$";
+    public static final String NOT_FI = "^((?!FIN)[A-Z]{3})$";
+    public static final String EMAIL_REGEX = "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^$";
+    public static final String MOBILE_PHONE_PATTERN =
+            "^$|^(?!\\+358|0)[\\+]?[0-9\\-\\s]+$|^(\\+358|0)[\\-\\s]*((4[\\-\\s]*[0-6])|50)[0-9\\-\\s]*$";
+    public static final String PHONE_PATTERN = "^$|^\\+?[0-9\\-\\s]+$";
+    public static final String POSTINUMERO_PATTERN = "[0-9]{5}";
+    public static final String AIDINKIELI_ID = "aidinkieli";
 
     public static I18nText createI18NForm(final String text, final String... params) {
         return createI18NText(text, "form_messages", params);

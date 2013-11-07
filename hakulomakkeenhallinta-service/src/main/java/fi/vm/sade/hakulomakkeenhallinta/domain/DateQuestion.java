@@ -22,19 +22,20 @@ import org.mongodb.morphia.annotations.Embedded;
  * @author Mikko Majapuro
  */
 @Embedded
-public class DropdownSelect extends Element {
+public class DateQuestion extends Element {
 
     @Embedded
     private I18nText i18nText;
     private String name;
-    private String defaultValue;
+    private String placeHolder;
 
-    public DropdownSelect() {}
+    public DateQuestion() {}
 
-    public DropdownSelect(final String id, final I18nText i18nText, final String name) {
+    public DateQuestion(final String id, final I18nText i18nText, final String name, final String placeHolder) {
         super(id);
         this.i18nText = i18nText;
         this.name = name;
+        this.placeHolder = placeHolder;
     }
 
     public I18nText getI18nText() {
@@ -53,11 +54,11 @@ public class DropdownSelect extends Element {
         this.name = name;
     }
 
-    public String getDefaultValue() {
-        return defaultValue;
+    public String getPlaceHolder() {
+        return placeHolder;
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setPlaceHolder(String placeHolder) {
+        this.placeHolder = placeHolder;
     }
 }
