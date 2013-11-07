@@ -1,7 +1,7 @@
 'use strict';
 
 /* Services */
-var services = angular.module('myApp.services', []);
+var services = angular.module('hakulomakkeenhallinta.services', []);
 
 services.service('Resources', ['$resource', function ($resource) {
     return {
@@ -11,6 +11,7 @@ services.service('Resources', ['$resource', function ($resource) {
         applicationOptions:         $resource('http://localhost:8000/app/test-data/applicationOptions.json'),
         additionalQuestions:        $resource('http://localhost:8000/app/test-data/additionalQuestions.json'),
         themes:                     $resource('http://localhost:8000/app/test-data/themes.json'),
-        types:                      $resource('http://localhost:8000/app/test-data/types.json')
+        types:                      $resource('http://localhost:8000/app/test-data/types.json'),
+        languages:                  $resource('http://localhost:8000/app/test-data/languages.json')
     };
 }]);

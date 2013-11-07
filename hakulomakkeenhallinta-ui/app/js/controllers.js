@@ -2,9 +2,10 @@
 
 /* Controllers */
 
-var controllers = angular.module('myApp.controllers', []);
+var controllers = angular.module('hakulomakkeenhallinta.controllers', []);
 
 controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', function ($scope, $modal, $log, $location, Resources) {
+
 
     $scope.question = {};
     $scope.selectedApplicationSystems = [];
@@ -48,8 +49,12 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
     };
 }]);
 
-controllers.controller('MallipohjatCtrl', [function () {
+controllers.controller('MallipohjatCtrl', ['$scope', '$i18next', function ($scope, $i18next) {
+    $scope.changeLng = function (lng) {
+        $i18next.options.lng = lng;
+    };
 }]);
+
 var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
     $scope.applicationSystems = Resources.applicationSystems.query();
     $scope.applicationFormTemplates = Resources.applicationFormTemplates.query();
@@ -91,6 +96,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance) {
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
     $scope.toggleCheck = function (item) {
         if ($scope.selections.indexOf(item) === -1) {
             $scope.selections.push(item);
@@ -113,24 +119,31 @@ var QuestionTypeCtrl = function ($scope, $modalInstance, Resources, $routeParams
     };
 
 };
-var QuestionCtrl = function ($scope, $modalInstance) {
-    console.log($scope.data);
+var QuestionCtrl = function ($scope, $modalInstance, Resources) {
+    $scope.lang = "fi";
+    $scope.languages = Resources.languages.query($scope.queryParameters);
     $scope.question = {};
+    $scope.question.title = {};
+    $scope.question.help = {};
+    $scope.question.additionalHelp = {};
     $scope.question.attributes = {}
     $scope.question.type = $scope.data.type.id;
 
     $scope.ok = function () {
+        console.log("OK");
         console.log($scope.question);
         $modalInstance.close(this.question);
     };
 
-    $scope.cancel = function () {
+    $scope.back = function () {
         $modalInstance.dismiss('cancel');
+    };
+    $scope.addNewTranslation = function () {
+        alert('Not implemented!' + $scope.languages.length);
     };
 
 };
 controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', function ($scope, $modal, $log, $location, Resources, $routeParams) {
-    console.log($routeParams)
     $scope.additionalQuestions = Resources.additionalQuestions.query($routeParams);
     $scope.addQuestion = function () {
         $modal.open({

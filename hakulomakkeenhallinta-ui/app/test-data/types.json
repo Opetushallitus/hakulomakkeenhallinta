@@ -14,5 +14,29 @@
                 "fi": "Valinta (yksi vastaus)"
             }
         }
+    },
+    {
+        "id": "Monivalinta",
+        "name": {
+            "translations": {
+                "fi": "Monivalinta"
+            }
+        }
+    },
+    {
+        "id": "Select",
+        "name": {
+            "translations": {
+                "fi": "Valintalista"
+            }
+        }
+    },
+    {
+        "id": "HelpOrInfo",
+        "name": {
+            "translations": {
+                "fi": "Ohje- tai infoteksti"
+            }
+        }
     }
 ]

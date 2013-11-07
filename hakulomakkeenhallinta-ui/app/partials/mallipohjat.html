@@ -1,4 +1,9 @@
 <div data-ng-controller="MallipohjatCtrl">
+    <p>
+        <a href="#" ng-click="changeLng('fi')">Suomi</a>
+        <a href="#" ng-click="changeLng('en')">English</a><br>
+    </p>
+    <p>{{'applicationForms' | i18next}}</p>
     <div>
         <button class="btn btn-warning pull-left" ng-click="luoLomake()">Luo uusi lomake</button>
     </div>

@@ -1,5 +1,4 @@
-<div modal="modalVisible" close="close()"
-     options="{dialogClass:'modal modal-huge'}">
+<div modal="modalVisible" close="close()">
     <div class="modal-header">
         <h4>Lisää kysymys - Kysymystekstit</h4>
     </div>
@@ -8,91 +7,11 @@
             <i class="icon-info-sign"></i>Olet luomassa uutta kysymystä teemaan
             <b>{{data.theme.name.translations.fi}}</b> tyyppiä <b>{{data.type.name.translations.fi}}</b>.
         </div>
-
-        <form role="form" class="form-horizontal">
-            <tabset>
-                <tab heading="suomeksi">
-                    <div class="control-group">
-                        <label class="control-label" for="title">Kysymyksen otsikko</label>
-
-                        <div class="controls">
-                            <input type="text" id="title" data-ng-model="question.title.fi">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="help">Ohjeteksti</label>
-
-                        <div class="controls">
-                            <input type="text" id="help" data-ng-model="question.help.fi">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="verbose-help">Lisäohjeteksti</label>
-
-                        <div class="controls">
-                            <input type="text" id="verbose-help" data-ng-model="question.verboseHelp.fi">
-                        </div>
-                    </div>
-                </tab>
-                <tab heading="ruotsiksi">
-                    <div class="control-group">
-                        <label class="control-label" for="title">Kysymyksen otsikko</label>
-
-                        <div class="controls">
-                            <input type="text" id="title" data-ng-model="question.title.sv">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="help">Ohjeteksti</label>
-
-                        <div class="controls">
-                            <input type="text" id="help" data-ng-model="question.help.sv">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="verbose-help">Lisäohjeteksti</label>
-
-                        <div class="controls">
-                            <input type="text" id="verbose-help" data-ng-model="question.verboseHelp.sv">
-                        </div>
-                    </div>
-                </tab>
-                <tab heading="englanniksi">
-                    <div class="control-group">
-                        <label class="control-label" for="title">Kysymyksen otsikko</label>
-
-                        <div class="controls">
-                            <input type="text" id="title" data-ng-model="question.title.en">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="help">Ohjeteksti</label>
-
-                        <div class="controls">
-                            <input type="text" id="help" data-ng-model="question.help.en">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="verbose-help">Lisäohjeteksti</label>
-
-                        <div class="controls">
-                            <input type="text" id="verbose-help" data-ng-model="question.verboseHelp.en">
-                        </div>
-                    </div>
-                </tab>
-            </tabset>
-            <hr/>
-            <div ng-include="'partials/lisakysymykset/questions/' + data.type.id + '.html'"></div>
-            <div class="form-group">
-                <label class="checkbox">
-                    <input type="checkbox" data-ng-model="question.attributes.required">Kysymys on hakijalle
-                    pakollinen</input>
-                </label>
-            </div>
-        </form>
+        <div ng-include="'partials/lisakysymykset/questions/' + data.type.id + '.html'"></div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
-        <button class="btn btn-primary pull-right" ng-click="ok()">Valmis</button>
+        <button class="btn btn-primary pull-left" ng-click="back()">Edellinen</button>
+        <button class="btn btn-warning pull-right" ng-click="ok()">Valmis</button>
+        <button class="btn btn-primary pull-right" ng-click="preview()">Kieliversioden esikatselu</button>
     </div>
 </div>
