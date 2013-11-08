@@ -1,4 +1,5 @@
 <div data-ng-controller="HakulomakkeetCtrl">
+    |{{test}}|
     <div>
         <button class="btn btn-warning pull-left" ng-click="open(applicationForm)" ng-disabled="!applicationForm">Tee
             hakukohdekohtaisia lisäkysymyksiä
@@ -12,10 +13,23 @@
             <td><input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm"
                        name="applicationForm"></td>
             <td>
-                <button type="button" class="btn btn-default btn-lg"><i class="icon-tasks"></i></button>
+                <div class="dropdown" ng-controller="DropdownCtrl">
+                    <a class="dropdown-toggle">
+                        <button type="button" class="btn btn-default btn-lg"><i class="icon-tasks"></i></button>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a>Tarkastele</a></li>
+                        <li data-ng-click="open(applicationForm)"><a>Tee hakukohtaisia lisäkysymyksiä</a></li>
+                        <li><a>Näytä hakukohteet</a></li>
+                        <li><a>Kopio uudeksi</a></li>
+                        <li><a>Julkaise</a></li>
+                        <li><a>(Peruuta julkaisu)</a></li>
+                    </ul>
+                </div>
             </td>
             <td>{{applicationForm.name.translations.fi}}</td>
         </tr>
     </table>
     Valittu hakulomake: {{applicationForm}}
 </div>
+

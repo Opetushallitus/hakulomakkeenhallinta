@@ -6,7 +6,6 @@ var controllers = angular.module('hakulomakkeenhallinta.controllers', []);
 
 controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', function ($scope, $modal, $log, $location, Resources) {
 
-
     $scope.question = {};
     $scope.selectedApplicationSystems = [];
     $scope.languages = [
@@ -58,13 +57,12 @@ controllers.controller('MallipohjatCtrl', ['$scope', '$i18next', function ($scop
 var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
     $scope.applicationSystems = Resources.applicationSystems.query();
     $scope.applicationFormTemplates = Resources.applicationFormTemplates.query();
-    $scope.applicationFormTemplate = $scope.applicationFormTemplates[1];
-    $scope.applicationSystem = $scope.applicationSystems[1];
     $scope.ok = function () {
         var result = {
-            applicationFormTemplateId: this.applicationFormTemplateId,
+            applicationFormTemplateId: this.applicationFormTemplate.id,
             applicationSystemId: this.applicationSystem.id
         };
+        console.log(result);
         $modalInstance.close(result);
     };
 
@@ -163,5 +161,15 @@ controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '
     $scope.back = function () {
         $location.path("/");
     }
+}]);
+controllers.controller('DropdownCtrl', ['$scope', function ($scope) {
+    $scope.items = [
+        "Tarkastele",
+        "Tee hakukohtaisia lisäkysymyksiä",
+        "Näytä hakukohteet",
+        "Kopio uudeksi",
+        "Julkaise",
+        "(Peruuta julkaisu)"
+    ];
 }]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);
