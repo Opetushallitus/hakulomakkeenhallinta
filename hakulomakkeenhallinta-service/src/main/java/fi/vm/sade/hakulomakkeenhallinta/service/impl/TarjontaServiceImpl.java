@@ -14,11 +14,11 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.impl;
+package fi.vm.sade.hakulomakkeenhallinta.service.impl;
 
 import com.google.common.collect.Lists;
 import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.TarjontaService;
+import fi.vm.sade.hakulomakkeenhallinta.service.TarjontaService;
 import fi.vm.sade.tarjonta.service.resources.HakuResource;
 import fi.vm.sade.tarjonta.service.resources.dto.HakuDTO;
 import fi.vm.sade.tarjonta.service.resources.dto.OidRDTO;

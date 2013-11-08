@@ -14,17 +14,23 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
+package fi.vm.sade.hakulomakkeenhallinta.service.impl;
 
-import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-
-import java.util.List;
+import fi.vm.sade.hakulomakkeenhallinta.service.KoodistoService;
+import fi.vm.sade.koodisto.util.KoodistoClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Mikko Majapuro
  */
-public interface TarjontaService {
+@Service
+public class KoodistoServiceImpl implements KoodistoService {
 
-    List<ApplicationSystem> getApplicationSystems();
-    ApplicationSystem getApplicationSystem(final String id);
+    private final KoodistoClient koodiService;
+
+    @Autowired
+    public KoodistoServiceImpl(final KoodistoClient koodiService) {
+        this.koodiService = koodiService;
+    }
 }

@@ -14,13 +14,13 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.impl;
+package fi.vm.sade.hakulomakkeenhallinta.service.impl;
 
 import com.google.common.collect.Lists;
 import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationForm;
 import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
 import fi.vm.sade.hakulomakkeenhallinta.domain.Element;
-import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.ApplicationFormTemplateService;
+import fi.vm.sade.hakulomakkeenhallinta.service.ApplicationFormTemplateService;
 import fi.vm.sade.hakulomakkeenhallinta.template.builder.phase.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

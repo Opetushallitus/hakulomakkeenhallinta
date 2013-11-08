@@ -14,11 +14,11 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.impl;
+package fi.vm.sade.hakulomakkeenhallinta.service.impl;
 
 import fi.vm.sade.hakulomakkeenhallinta.dao.ApplicationFormDAO;
 import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationForm;
-import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.ApplicationFormService;
+import fi.vm.sade.hakulomakkeenhallinta.service.ApplicationFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

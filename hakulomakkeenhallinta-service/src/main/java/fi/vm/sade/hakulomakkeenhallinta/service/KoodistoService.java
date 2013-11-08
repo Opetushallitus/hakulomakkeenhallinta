@@ -14,17 +14,10 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service.tarjonta;
-
-import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationForm;
-
-import java.util.List;
+package fi.vm.sade.hakulomakkeenhallinta.service;
 
 /**
  * @author Mikko Majapuro
  */
-public interface ApplicationFormService {
-
-    void save(final ApplicationForm applicationForm);
-    List<ApplicationForm> find();
+public interface KoodistoService {
 }

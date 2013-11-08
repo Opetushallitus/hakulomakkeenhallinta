@@ -17,7 +17,8 @@
     </modules>
 
     <properties>
-        <oph.tarjonta.version>6.2-SNAPSHOT</oph.tarjonta.version>
+        <oph.tarjonta.version>7.0-SNAPSHOT</oph.tarjonta.version>
+        <oph.koodisto.version>7.0-SNAPSHOT</oph.koodisto.version>
         <jersey.version>2.4</jersey.version>
         <jackson.version>2.2.3</jackson.version>
         <spring.version>3.2.4.RELEASE</spring.version>

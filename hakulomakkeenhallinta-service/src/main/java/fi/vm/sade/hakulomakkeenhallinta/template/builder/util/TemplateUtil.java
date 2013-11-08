@@ -43,6 +43,7 @@ public class TemplateUtil {
     public static final String PHONE_PATTERN = "^$|^\\+?[0-9\\-\\s]+$";
     public static final String POSTINUMERO_PATTERN = "[0-9]{5}";
     public static final String AIDINKIELI_ID = "aidinkieli";
+    public static final String ELEMENT_ID_BASE_EDUCATION = "POHJAKOULUTUS";
 
     public static I18nText createI18NForm(final String text, final String... params) {
         return createI18NText(text, "form_messages", params);

@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
 import fi.vm.sade.hakulomakkeenhallinta.api.dto.ApplicationSystemDTO;
 import fi.vm.sade.hakulomakkeenhallinta.api.resource.ApplicationSystemResource;
 import fi.vm.sade.hakulomakkeenhallinta.domain.ApplicationSystem;
-import fi.vm.sade.hakulomakkeenhallinta.service.tarjonta.TarjontaService;
+import fi.vm.sade.hakulomakkeenhallinta.service.TarjontaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
