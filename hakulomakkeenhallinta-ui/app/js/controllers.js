@@ -5,7 +5,6 @@
 var controllers = angular.module('hakulomakkeenhallinta.controllers', []);
 
 controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', function ($scope, $modal, $log, $location, Resources) {
-
     $scope.question = {};
     $scope.selectedApplicationSystems = [];
     $scope.languages = [
@@ -125,6 +124,7 @@ var QuestionCtrl = function ($scope, $modalInstance, Resources) {
     $scope.question.help = {};
     $scope.question.additionalHelp = {};
     $scope.question.attributes = {}
+    $scope.question.validators = {}
     $scope.question.type = $scope.data.type.id;
 
     $scope.ok = function () {

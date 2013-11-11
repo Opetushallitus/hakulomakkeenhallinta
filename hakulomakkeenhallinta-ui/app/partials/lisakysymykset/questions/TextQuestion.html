@@ -24,15 +24,47 @@
         </div>
         <div class="control-group">
             <label class="control-label">Hakijoille tulee tarjota lisäksi lisäohje linkkinä:</label>
+
             <div class="controls">
                 <input type="checkbox" data-ng-model="question.linkEnabled">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
+
             <div class="controls">
                 <input type="text" data-ng-model="question.link[language.id]" data-ng-disabled="!question.linkEnabled">
             </div>
         </div>
     </tab>
 </tabset>
+
+<div class="control-group">
+    <label class="control-label">Tekstikentän koko</label>
+
+    <div class="controls">
+        <input type="text" data-ng-model="question.length">
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="radio">
+                <input type="radio" data-ng-model="question.validators.format" value="numbers">Numeroita
+            </label>
+            <label class="radio">
+                <input type="radio" data-ng-model="question.validators.format" value="numberAndAlphabet">Kirjaimia ja numeroita
+            </label>
+            <label class="radio">
+                <input type="radio" data-ng-model="question.validators.format" value="characters">Kirjaimia, numeroita ja tavallisimpia erikoismerkkejä (-, !, ? &)
+            </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-ng-model="question.validators.required">Kysymys on hakijalle pakollinen
+            </label>
+        </div>
+    </div>
+
+</div>
