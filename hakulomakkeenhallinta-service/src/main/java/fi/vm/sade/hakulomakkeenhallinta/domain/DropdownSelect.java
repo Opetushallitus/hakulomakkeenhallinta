@@ -18,6 +18,8 @@ package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 import org.mongodb.morphia.annotations.Embedded;
 
+import java.util.List;
+
 /**
  * @author Mikko Majapuro
  */
@@ -28,6 +30,8 @@ public class DropdownSelect extends Element {
     private I18nText i18nText;
     private String name;
     private String defaultValue;
+    @Embedded
+    private List<Option> options;
 
     public DropdownSelect() {}
 
@@ -59,5 +63,13 @@ public class DropdownSelect extends Element {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 }

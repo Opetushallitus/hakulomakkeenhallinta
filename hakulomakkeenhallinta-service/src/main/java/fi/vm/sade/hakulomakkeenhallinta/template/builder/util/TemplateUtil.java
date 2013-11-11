@@ -18,6 +18,7 @@ package fi.vm.sade.hakulomakkeenhallinta.template.builder.util;
 
 import com.google.common.base.Preconditions;
 import fi.vm.sade.hakulomakkeenhallinta.domain.I18nText;
+import fi.vm.sade.hakulomakkeenhallinta.domain.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,5 +77,19 @@ public class TemplateUtil {
             translations.put(lang, text);
         }
         return new I18nText(translations);
+    }
+
+    public static void setDefaultOption(final String value, final List<Option> options) {
+        for (Option opt : options) {
+            opt.setDefaultOption(opt.getValue().equalsIgnoreCase(value));
+        }
+    }
+
+    public static Option createEmptyOption() {
+        Map<String, String> translations = new HashMap<String, String>();
+        for (String lang : LANGS) {
+            translations.put(lang, "");
+        }
+        return new Option(new I18nText(translations), "");
     }
 }

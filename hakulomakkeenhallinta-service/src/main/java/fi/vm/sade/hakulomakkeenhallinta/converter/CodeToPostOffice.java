@@ -14,19 +14,25 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service;
+package fi.vm.sade.hakulomakkeenhallinta.converter;
 
 import fi.vm.sade.hakulomakkeenhallinta.domain.Code;
-import fi.vm.sade.hakulomakkeenhallinta.domain.Option;
-
-import java.util.List;
+import fi.vm.sade.hakulomakkeenhallinta.domain.PostOffice;
+import org.springframework.core.convert.converter.Converter;
 
 /**
  * @author Mikko Majapuro
  */
-public interface KoodistoService {
+public class CodeToPostOffice implements Converter<Code, PostOffice> {
 
-    List<Code> searchCodesByKoodisto(String koodistoUri, Integer version);
 
-    List<Option> searchOptionsByKoodisto(String koodistoUri, Integer version);
+    @Override
+    public PostOffice convert(Code code) {
+        if (code != null) {
+            PostOffice postOffice = new PostOffice(code.getValue(), code.getName());
+            return postOffice;
+        } else {
+            return null;
+        }
+    }
 }

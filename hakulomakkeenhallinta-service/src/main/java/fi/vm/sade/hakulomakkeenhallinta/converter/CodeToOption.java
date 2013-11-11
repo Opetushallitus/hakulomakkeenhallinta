@@ -14,19 +14,25 @@
  * European Union Public Licence for more details.
  */
 
-package fi.vm.sade.hakulomakkeenhallinta.service;
+package fi.vm.sade.hakulomakkeenhallinta.converter;
 
 import fi.vm.sade.hakulomakkeenhallinta.domain.Code;
 import fi.vm.sade.hakulomakkeenhallinta.domain.Option;
-
-import java.util.List;
+import org.springframework.core.convert.converter.Converter;
 
 /**
  * @author Mikko Majapuro
  */
-public interface KoodistoService {
+public class CodeToOption implements Converter<Code, Option> {
 
-    List<Code> searchCodesByKoodisto(String koodistoUri, Integer version);
 
-    List<Option> searchOptionsByKoodisto(String koodistoUri, Integer version);
+    @Override
+    public Option convert(Code code) {
+        if (code != null) {
+            Option option = new Option(code.getName(), code.getValue());
+            return option;
+        } else {
+            return null;
+        }
+    }
 }

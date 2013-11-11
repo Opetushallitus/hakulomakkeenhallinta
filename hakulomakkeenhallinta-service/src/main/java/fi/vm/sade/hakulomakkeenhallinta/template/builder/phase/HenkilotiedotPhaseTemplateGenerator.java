@@ -16,6 +16,7 @@
 
 package fi.vm.sade.hakulomakkeenhallinta.template.builder.phase;
 
+import com.google.common.collect.Lists;
 import fi.vm.sade.hakulomakkeenhallinta.domain.*;
 import fi.vm.sade.hakulomakkeenhallinta.domain.rule.AddElementRule;
 import fi.vm.sade.hakulomakkeenhallinta.domain.rule.RelatedQuestionRule;
@@ -23,10 +24,15 @@ import fi.vm.sade.hakulomakkeenhallinta.domain.validator.ContainedInOtherFieldVa
 import fi.vm.sade.hakulomakkeenhallinta.domain.validator.RegexFieldValidator;
 import fi.vm.sade.hakulomakkeenhallinta.domain.validator.RequiredFieldValidator;
 import fi.vm.sade.hakulomakkeenhallinta.domain.validator.SsnUniqueValidator;
+import fi.vm.sade.hakulomakkeenhallinta.service.KoodistoService;
 import fi.vm.sade.hakulomakkeenhallinta.template.builder.util.TemplateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Mikko Majapuro
@@ -37,6 +43,20 @@ public class HenkilotiedotPhaseTemplateGenerator {
 
     public static final String ISO88591_NAME_REGEX = "^$|^[a-zA-ZÀ-ÖØ-öø-ÿ]$|^[a-zA-ZÀ-ÖØ-öø-ÿ][a-zA-ZÀ-ÖØ-öø-ÿ ,-]*(?:[a-zA-ZÀ-ÖØ-öø-ÿ]+$)$";
     private static final String HETU_PATTERN = "^([0-9]{6}.[0-9]{3}([0-9]|[a-z]|[A-Z]))$";
+    private static final String CODE_COUNTRIES = "maatjavaltiot1";
+    private static final String CODE_GENDER = "sukupuoli";
+    private static final String CODE_MUNICIPALITY = "kunta";
+    private static final String CODE_LANGUAGES = "kieli";
+    private static final String CODE_POST = "posti";
+
+    private KoodistoService koodistoService;
+    private ConversionService conversionService;
+
+    @Autowired
+    public HenkilotiedotPhaseTemplateGenerator(KoodistoService koodistoService, ConversionService conversionService) {
+        this.koodistoService = koodistoService;
+        this.conversionService = conversionService;
+    }
 
     public Phase create(final String templateId) {
         Phase phase = new Phase("henkilotiedot", TemplateUtil.createI18NForm("form.henkilotiedot.otsikko"));
@@ -194,9 +214,9 @@ public class HenkilotiedotPhaseTemplateGenerator {
         // Kansalaisuus, hetu ja sukupuoli suomalaisille
         DropdownSelect kansalaisuus = new DropdownSelect("kansalaisuus", TemplateUtil.createI18NForm("form.henkilotiedot.kansalaisuus"),
                 "kansalaisuus");
-        //TODO! add options
-        //kansalaisuus.addOptions(koodistoService.getNationalities());
-        //setDefaultOption("FIN", kansalaisuus.getOptions());
+        List<Option> nationalityOptions = koodistoService.searchOptionsByKoodisto(CODE_COUNTRIES, null);
+        kansalaisuus.setOptions(nationalityOptions);
+        TemplateUtil.setDefaultOption("FIN", kansalaisuus.getOptions());
         kansalaisuus.setHelp(TemplateUtil.createI18NForm("form.henkilotiedot.kansalaisuus.help"));
         kansalaisuus.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.kansalaisuus.verboseHelp", "form_verboseHelp"));
         kansalaisuus.getValidators().add(new RequiredFieldValidator(kansalaisuus.getName(),
@@ -225,9 +245,14 @@ public class HenkilotiedotPhaseTemplateGenerator {
         if (!templateId.equals(TemplateUtil.LISA_HAKU)) {
             ssn.getValidators().add(new SsnUniqueValidator());
         }
-        //TODO! add options
-        //ssn.setMaleOption();
-        //ssn.setFemaleOption();
+
+        List<Option> genders = koodistoService.searchOptionsByKoodisto(CODE_GENDER, null);
+        Option male = genders.get(0).getI18nText().getTranslations().get("fi").equalsIgnoreCase("Mies") ?
+                genders.get(0) : genders.get(1);
+        Option female = genders.get(0).getI18nText().getTranslations().get("fi").equalsIgnoreCase("Nainen") ?
+                genders.get(0) : genders.get(1);
+        ssn.setMaleOption(male);
+        ssn.setFemaleOption(female);
         return ssn;
     }
 
@@ -236,17 +261,8 @@ public class HenkilotiedotPhaseTemplateGenerator {
         sukupuoli.getValidators().add(new RequiredFieldValidator(sukupuoli.getName(),
                 TemplateUtil.createI18NTextError("yleinen.pakollinen")));
         sukupuoli.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.sukupuoli.verboseHelp", "form_verboseHelp"));
-        //TODO! add options
-        /*
-        sukupuoli.addOptions(koodistoService.getGenders());
-
-
-        Option male = sukupuoli.getOptions().get(0).getI18nText().getTranslations().get("fi").equalsIgnoreCase("Mies") ?
-                sukupuoli.getOptions().get(0) : sukupuoli.getOptions().get(1);
-        Option female = sukupuoli.getOptions().get(0).getI18nText().getTranslations().get("fi").equalsIgnoreCase("Nainen") ?
-                sukupuoli.getOptions().get(0) : sukupuoli.getOptions().get(1);
-        */
-
+        List<Option> genders = koodistoService.searchOptionsByKoodisto(CODE_GENDER, null);
+        sukupuoli.setOptions(genders);
         return sukupuoli;
     }
 
@@ -341,9 +357,9 @@ public class HenkilotiedotPhaseTemplateGenerator {
     private DropdownSelect createAsuinmaaQuestion() {
         // Asuinmaa, osoite
         DropdownSelect asuinmaa = new DropdownSelect("asuinmaa", TemplateUtil.createI18NForm("form.henkilotiedot.asuinmaa"), "asuinmaa");
-        //TODO! set options
-        //asuinmaa.addOptions(koodistoService.getCountries());
-        //setDefaultOption("FIN", asuinmaa.getOptions());
+        List<Option> countries = koodistoService.searchOptionsByKoodisto(CODE_COUNTRIES, null);
+        asuinmaa.setOptions(countries);
+        TemplateUtil.setDefaultOption("FIN", asuinmaa.getOptions());
         asuinmaa.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.asuinmaa.verboseHelp", "form_verboseHelp"));
         asuinmaa.getValidators().add(new RequiredFieldValidator(asuinmaa.getName(),
                 TemplateUtil.createI18NTextError("yleinen.pakollinen")));
@@ -359,9 +375,16 @@ public class HenkilotiedotPhaseTemplateGenerator {
     }
 
     private PostalCode createPostinumeroQuestion() {
-        //TODO! fetch post offices
+        List<Code> codes = koodistoService.searchCodesByKoodisto(CODE_POST, null);
+        Map<String, PostOffice> postOffices = new HashMap<String, PostOffice>();
+
+        for (Code code : codes) {
+            PostOffice po = conversionService.convert(code, PostOffice.class);
+            postOffices.put(po.getPostcode(), po);
+        }
+
         PostalCode postinumero = new PostalCode("Postinumero", "Postinumero", TemplateUtil.createI18NForm("form.henkilotiedot.postinumero"),
-                new HashMap<String, PostOffice>(), 5);
+                postOffices, 5);
         postinumero.getValidators().add(new RequiredFieldValidator(postinumero.getName(),
                 TemplateUtil.createI18NTextError("yleinen.pakollinen")));
         postinumero.setPlaceHolder("#####");
@@ -374,9 +397,9 @@ public class HenkilotiedotPhaseTemplateGenerator {
 
     private DropdownSelect createKotikuntaQuestion() {
         DropdownSelect kotikunta = new DropdownSelect("kotikunta", TemplateUtil.createI18NForm("form.henkilotiedot.kotikunta"), "kotikunta");
-        //TODO! add options
-        //kotikunta.addOption(ElementUtil.createI18NAsIs(""), "");
-        //kotikunta.addOptions(koodistoService.getMunicipalities());
+        List<Option> municipalities = koodistoService.searchOptionsByKoodisto(CODE_MUNICIPALITY, null);
+        kotikunta.setOptions(Lists.newArrayList(TemplateUtil.createEmptyOption()));
+        kotikunta.getOptions().addAll(municipalities);
         kotikunta.getValidators().add(new RequiredFieldValidator(kotikunta.getName(),
                 TemplateUtil.createI18NTextError("yleinen.pakollinen")));
         kotikunta.setVerboseHelp(TemplateUtil.createI18NText("form.henkilotiedot.kotikunta.verboseHelp", "form_verboseHelp"));
@@ -412,9 +435,9 @@ public class HenkilotiedotPhaseTemplateGenerator {
         // Äidinkieli
         DropdownSelect aidinkieli = new DropdownSelect(TemplateUtil.AIDINKIELI_ID, TemplateUtil.createI18NForm("form.henkilotiedot.aidinkieli"),
                 TemplateUtil.AIDINKIELI_ID);
-        //TODO! add options
-        //aidinkieli.addOption(ElementUtil.createI18NAsIs(""), "");
-        //aidinkieli.addOptions(koodistoService.getLanguages());
+        List<Option> langs = koodistoService.searchOptionsByKoodisto(CODE_LANGUAGES, null);
+        aidinkieli.setOptions(Lists.newArrayList(TemplateUtil.createEmptyOption()));
+        aidinkieli.getOptions().addAll(langs);
         aidinkieli.setDefaultValue("fi_vm_sade_oppija_language");
         aidinkieli.getValidators().add(new RequiredFieldValidator(aidinkieli.getName(),
                 TemplateUtil.createI18NTextError("yleinen.pakollinen")));

@@ -35,6 +35,9 @@
         <property name="converters">
             <list>
                 <bean class="fi.vm.sade.hakulomakkeenhallinta.converter.HakuDTOToApplicationSystem" />
+                <bean class="fi.vm.sade.hakulomakkeenhallinta.converter.KoodiTypeToCode"/>
+                <bean class="fi.vm.sade.hakulomakkeenhallinta.converter.CodeToOption"/>
+                <bean class="fi.vm.sade.hakulomakkeenhallinta.converter.CodeToPostOffice"/>
             </list>
         </property>
     </bean>
