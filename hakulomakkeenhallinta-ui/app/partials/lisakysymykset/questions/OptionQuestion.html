@@ -1,6 +1,7 @@
 <tabset>
     <tab ng-repeat="language in languages">
         <tab-heading>{{language.name[lang]}}</tab-heading>
+
         <div class="control-group">
             <label class="control-label">Kysymyksen otsikko</label>
 
@@ -8,12 +9,53 @@
                 <input type="text" data-ng-model="question.title[language.id]">
             </div>
         </div>
+
         <div class="control-group">
-            <label class="control-label">Ohje- tai infoteksti</label>
+            <label class="control-label">Ohjeteksti</label>
 
             <div class="controls">
                 <input type="text" data-ng-model="question.help[language.id]">
             </div>
         </div>
+        <div class="control-group">
+            <label class="control-label">Lisäohjeteksti</label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="question.additionalHelp[language.id]">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Hakijoille tulee tarjota lisäksi lisäohje linkkinä:</label>
+
+            <div class="controls">
+                <input type="checkbox" data-ng-model="question.linkEnabled">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label"></label>
+
+            <div class="controls">
+                <input type="text" data-ng-model="question.link[language.id]" data-ng-disabled="!question.linkEnabled">
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label">Vastausvaihtoehdot</label>
+            <div class="controls">
+                <input type="text" data-ng-model="question.answers[language.id]">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox" data-ng-model="question.validators.required">Käytä vaihtoehtoa Muu, mikä?
+                    </label>
+                </div>
+            </div>
+        </div>
     </tab>
 </tabset>
+<requiredfield></requiredfield>

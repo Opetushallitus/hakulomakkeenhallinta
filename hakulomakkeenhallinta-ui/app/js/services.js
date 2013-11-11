@@ -12,6 +12,6 @@ services.service('Resources', ['$resource', function ($resource) {
         additionalQuestions:        $resource('http://localhost:8000/app/test-data/additionalQuestions.json'),
         themes:                     $resource('http://localhost:8000/app/test-data/themes.json'),
         types:                      $resource('http://localhost:8000/app/test-data/types.json'),
-        languages:                  $resource('http://localhost:8000/app/test-data/languages.json'),
+        languages:                  $resource('http://localhost:8000/app/test-data/languages.json')
     };
 }]);
