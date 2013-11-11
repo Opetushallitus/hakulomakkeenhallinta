@@ -28,6 +28,8 @@ public class Option {
     private I18nText i18nText;
     private String value;
     private boolean defaultOption = false;
+    @Embedded
+    private I18nText help;
 
     public Option() {}
 
@@ -58,5 +60,13 @@ public class Option {
 
     public void setDefaultOption(boolean defaultOption) {
         this.defaultOption = defaultOption;
+    }
+
+    public I18nText getHelp() {
+        return help;
+    }
+
+    public void setHelp(I18nText help) {
+        this.help = help;
     }
 }
