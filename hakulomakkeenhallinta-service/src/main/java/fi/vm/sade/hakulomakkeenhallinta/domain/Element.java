@@ -39,6 +39,8 @@ public class Element {
     private I18nText help;
     @Embedded
     private I18nText verboseHelp;
+    @Embedded
+    private Element popup;
 
     public Element() {}
 
@@ -86,5 +88,13 @@ public class Element {
 
     public void setVerboseHelp(I18nText verboseHelp) {
         this.verboseHelp = verboseHelp;
+    }
+
+    public Element getPopup() {
+        return popup;
+    }
+
+    public void setPopup(Element popup) {
+        this.popup = popup;
     }
 }

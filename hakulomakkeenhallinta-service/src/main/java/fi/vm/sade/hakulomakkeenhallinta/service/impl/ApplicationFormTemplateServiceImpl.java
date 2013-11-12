@@ -58,7 +58,7 @@ public class ApplicationFormTemplateServiceImpl implements ApplicationFormTempla
         af.setId(applicationSystem.getId());
         af.setName(applicationSystem.getName());
         List<Element> children = Lists.newArrayList((Element)henkilotiedotPhaseTemplateGenerator.create(templateId),
-                koulutustaustaPhaseTemplateGenerator.create(), hakutoiveetPhaseTemplateGenerator.create(),
+                koulutustaustaPhaseTemplateGenerator.create(), hakutoiveetPhaseTemplateGenerator.create(templateId),
                 osaaminenPhaseTemplateGenerator.create(), lisatiedotPhaseTemplateGenerator.create());
         af.setChildren(children);
         return af;
