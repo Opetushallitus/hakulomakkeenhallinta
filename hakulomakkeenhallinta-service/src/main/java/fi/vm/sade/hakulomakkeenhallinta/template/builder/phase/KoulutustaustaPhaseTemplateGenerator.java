@@ -21,6 +21,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import fi.vm.sade.hakulomakkeenhallinta.domain.*;
 import fi.vm.sade.hakulomakkeenhallinta.domain.rule.RelatedQuestionRule;
+import fi.vm.sade.hakulomakkeenhallinta.domain.validator.RegexFieldValidator;
 import fi.vm.sade.hakulomakkeenhallinta.domain.validator.RequiredFieldValidator;
 import fi.vm.sade.hakulomakkeenhallinta.service.KoodistoService;
 import fi.vm.sade.hakulomakkeenhallinta.template.builder.util.TemplateUtil;
@@ -43,6 +44,7 @@ public class KoulutustaustaPhaseTemplateGenerator {
     private static final String YKSILOLLISTETTY = "6";
     private static final String KESKEYTYNYT = "7";
     private static final String ULKOMAINEN_TUTKINTO = "0";
+    private static final String PAATTOTODISTUSVUOSI_PATTERN = "^(19[0-9][0-9]|200[0-9]|201[0-3])$";
 
     private KoodistoService koodistoService;
 
@@ -92,76 +94,44 @@ public class KoulutustaustaPhaseTemplateGenerator {
         keskeytynytRule.getChildren().add(tutkintoKeskeytynytNotification);
         millatutkinnolla.getChildren().add(ulkomaillaSuoritettuTutkintoRule);
         millatutkinnolla.getChildren().add(keskeytynytRule);
+
+        TextQuestion paattotodistusvuosiPeruskoulu = paattotodistusPeruskoulu();
+        TitledGroup suorittanutGroup = suorittanutGroup();
+
+        RelatedQuestionRule pkKysymyksetRule = new RelatedQuestionRule("rule3");
+        pkKysymyksetRule.getRelatedElementId().add(millatutkinnolla.getId());
+        pkKysymyksetRule.setExpression("(" + PERUSKOULU + "|" + OSITTAIN_YKSILOLLISTETTY + "|"
+                + ERITYISOPETUKSEN_YKSILOLLISTETTY + "|" + YKSILOLLISTETTY + ")");
+        pkKysymyksetRule.setShowImmediately(false);
+
+        RelatedQuestionRule paattotodistusvuosiPeruskouluRule = new RelatedQuestionRule("rule8");
+        paattotodistusvuosiPeruskouluRule.getRelatedElementId().add(paattotodistusvuosiPeruskoulu.getId());
+        paattotodistusvuosiPeruskouluRule.setExpression("^(19[0-9][0-9]|200[0-9]|201[0-1])$");
+        paattotodistusvuosiPeruskouluRule.setShowImmediately(false);
+
+        Radio koulutuspaikkaAmmatillisenTutkintoon = koulutuspaikkaAmmatilliseenTutkintoon();
+
+        pkKysymyksetRule.getChildren().add(paattotodistusvuosiPeruskoulu);
+        pkKysymyksetRule.getChildren().add(suorittanutGroup);
+        pkKysymyksetRule.getChildren().add(koulutuspaikkaAmmatillisenTutkintoon);
+        pkKysymyksetRule.getChildren().add(paattotodistusvuosiPeruskouluRule);
+
+        TextQuestion lukioPaattotodistusVuosi = luokionPaattotodistusVuosi();
+        DropdownSelect ylioppilastutkinto = ylioppilastutkinto();
+
+        TitledGroup lukioGroup = new TitledGroup("lukioGroup", TemplateUtil.createI18NForm("form.koulutustausta.lukio.suoritus"));
+        lukioGroup.getChildren().add(lukioPaattotodistusVuosi);
+        lukioGroup.getChildren().add(ylioppilastutkinto);
+
+        RelatedQuestionRule lukioRule = new RelatedQuestionRule("rule7");
+        lukioRule.getRelatedElementId().add(millatutkinnolla.getId());
+        lukioRule.setExpression(YLIOPPILAS);
+        lukioRule.setShowImmediately(false);
+        lukioRule.getChildren().add(lukioGroup);
+
+        millatutkinnolla.getChildren().add(lukioRule);
+        millatutkinnolla.getChildren().add(pkKysymyksetRule);
         /*
-        TextQuestion paattotodistusvuosiPeruskoulu = new TextQuestion("PK_PAATTOTODISTUSVUOSI",
-                createI18NForm("form.koulutustausta.paattotodistusvuosi"));
-        paattotodistusvuosiPeruskoulu.addAttribute("placeholder", "vvvv");
-        addRequiredValidator(paattotodistusvuosiPeruskoulu);
-        paattotodistusvuosiPeruskoulu.setValidator(
-                createRegexValidator(paattotodistusvuosiPeruskoulu.getId(), PAATTOTODISTUSVUOSI_PATTERN));
-        paattotodistusvuosiPeruskoulu.addAttribute("size", "4");
-        paattotodistusvuosiPeruskoulu.addAttribute("maxlength", "4");
-
-        TitledGroup suorittanutGroup = new TitledGroup("suorittanutgroup",
-                createI18NForm("form.koulutustausta.suorittanut"));
-        suorittanutGroup.addChild(
-                new CheckBox("LISAKOULUTUS_KYMPPI", createI18NForm("form.koulutustausta.kymppiluokka")),
-                new CheckBox("LISAKOULUTUS_VAMMAISTEN", createI18NForm("form.koulutustausta.vammaistenValmentava")),
-                new CheckBox("LISAKOULUTUS_TALOUS", createI18NForm("form.koulutustausta.talouskoulu")),
-                new CheckBox("LISAKOULUTUS_AMMATTISTARTTI", createI18NForm("form.koulutustausta.ammattistartti")),
-                new CheckBox("LISAKOULUTUS_KANSANOPISTO", createI18NForm("form.koulutustausta.kansanopisto")),
-                new CheckBox("LISAKOULUTUS_MAAHANMUUTTO", createI18NForm("form.koulutustausta.maahanmuuttajienValmistava"))
-        );
-
-        RelatedQuestionRule pkKysymyksetRule = new RelatedQuestionRule("rule3", millatutkinnolla.getId(), "("
-                + PERUSKOULU + "|"
-                + OSITTAIN_YKSILOLLISTETTY + "|"
-                + ERITYISOPETUKSEN_YKSILOLLISTETTY + "|"
-                + YKSILOLLISTETTY + ")", false);
-
-        RelatedQuestionRule paattotodistusvuosiPeruskouluRule = new RelatedQuestionRule("rule8",
-                paattotodistusvuosiPeruskoulu.getId(), "^(19[0-9][0-9]|200[0-9]|201[0-1])$", false);
-
-        Radio koulutuspaikkaAmmatillisenTutkintoon = new Radio(
-                "KOULUTUSPAIKKA_AMMATILLISEEN_TUTKINTOON",
-                createI18NForm("form.koulutustausta.ammatillinenKoulutuspaikka"));
-        addYesAndIDontOptions(koulutuspaikkaAmmatillisenTutkintoon);
-        addRequiredValidator(koulutuspaikkaAmmatillisenTutkintoon);
-
-        pkKysymyksetRule.addChild(paattotodistusvuosiPeruskoulu);
-        pkKysymyksetRule.addChild(suorittanutGroup);
-        pkKysymyksetRule.addChild(koulutuspaikkaAmmatillisenTutkintoon);
-        pkKysymyksetRule.addChild(paattotodistusvuosiPeruskouluRule);
-
-        TextQuestion lukioPaattotodistusVuosi = new TextQuestion("lukioPaattotodistusVuosi",
-                createI18NForm("form.koulutustausta.lukio.paattotodistusvuosi"));
-        lukioPaattotodistusVuosi.addAttribute("placeholder", "vvvv");
-        addRequiredValidator(lukioPaattotodistusVuosi);
-        lukioPaattotodistusVuosi.setValidator(createRegexValidator(lukioPaattotodistusVuosi.getId(), PAATTOTODISTUSVUOSI_PATTERN));
-        lukioPaattotodistusVuosi.addAttribute("size", "4");
-        lukioPaattotodistusVuosi.addAttribute("maxlength", "4");
-        lukioPaattotodistusVuosi.setInline(true);
-
-        DropdownSelect ylioppilastutkinto = new DropdownSelect("ylioppilastutkinto",
-                createI18NForm("form.koulutustausta.lukio.yotutkinto"), null);
-        ylioppilastutkinto.addOption(createI18NForm("form.koulutustausta.lukio.yotutkinto.fi"), "fi");
-        ylioppilastutkinto.addOption(createI18NForm("form.koulutustausta.lukio.yotutkinto.ib"), "ib");
-        ylioppilastutkinto.addOption(createI18NForm("form.koulutustausta.lukio.yotutkinto.eb"), "eb");
-        ylioppilastutkinto.addOption(createI18NForm("form.koulutustausta.lukio.yotutkinto.rp"), "rp");
-        addRequiredValidator(ylioppilastutkinto);
-        ylioppilastutkinto.setInline(true);
-        setDefaultOption("fi", ylioppilastutkinto.getOptions());
-
-        TitledGroup lukioGroup = new TitledGroup("lukioGroup", createI18NForm("form.koulutustausta.lukio.suoritus"));
-        lukioGroup.addChild(lukioPaattotodistusVuosi);
-        lukioGroup.addChild(ylioppilastutkinto);
-
-        RelatedQuestionRule lukioRule = new RelatedQuestionRule("rule7", millatutkinnolla.getId(), YLIOPPILAS, false);
-        lukioRule.addChild(lukioGroup);
-
-        millatutkinnolla.addChild(lukioRule);
-        millatutkinnolla.addChild(pkKysymyksetRule);
-
         Radio suorittanutAmmatillisenTutkinnon = new Radio(
                 "ammatillinenTutkintoSuoritettu",
                 createI18NForm("form.koulutustausta.ammatillinenSuoritettu"));
@@ -245,5 +215,74 @@ public class KoulutustaustaPhaseTemplateGenerator {
                 educationMap.get(ULKOMAINEN_TUTKINTO).getValue());
         optUlkomainenTutkinto.setHelp(TemplateUtil.createI18NForm("form.koulutustausta.ulkomailla.help"));
         millatutkinnolla.getOptions().add(optUlkomainenTutkinto);
+    }
+
+    private TextQuestion paattotodistusPeruskoulu() {
+        TextQuestion paattotodistusvuosiPeruskoulu = new TextQuestion("PK_PAATTOTODISTUSVUOSI",
+                TemplateUtil.createI18NForm("form.koulutustausta.paattotodistusvuosi"), "PK_PAATTOTODISTUSVUOSI", 4);
+        paattotodistusvuosiPeruskoulu.getValidators().add(new RequiredFieldValidator(paattotodistusvuosiPeruskoulu.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        paattotodistusvuosiPeruskoulu.getValidators().add(new RegexFieldValidator(paattotodistusvuosiPeruskoulu.getName(),
+                TemplateUtil.createI18NTextError("yleinen.virheellinenArvo"),
+                PAATTOTODISTUSVUOSI_PATTERN));
+        paattotodistusvuosiPeruskoulu.setPlaceHolder("vvvv");
+        return paattotodistusvuosiPeruskoulu;
+    }
+
+    private TitledGroup suorittanutGroup() {
+        TitledGroup suorittanutGroup = new TitledGroup("suorittanutgroup",
+                TemplateUtil.createI18NForm("form.koulutustausta.suorittanut"));
+        suorittanutGroup.getChildren().add(new CheckBox("LISAKOULUTUS_KYMPPI", TemplateUtil.createI18NForm("form.koulutustausta.kymppiluokka"),
+                "LISAKOULUTUS_KYMPPI"));
+        suorittanutGroup.getChildren().add(new CheckBox("LISAKOULUTUS_VAMMAISTEN", TemplateUtil.createI18NForm("form.koulutustausta.vammaistenValmentava"),
+                "LISAKOULUTUS_VAMMAISTEN"));
+        suorittanutGroup.getChildren().add(new CheckBox("LISAKOULUTUS_TALOUS", TemplateUtil.createI18NForm("form.koulutustausta.talouskoulu"),
+                "LISAKOULUTUS_TALOUS"));
+        suorittanutGroup.getChildren().add(new CheckBox("LISAKOULUTUS_AMMATTISTARTTI", TemplateUtil.createI18NForm("form.koulutustausta.ammattistartti"),
+                "LISAKOULUTUS_AMMATTISTARTTI"));
+        suorittanutGroup.getChildren().add(new CheckBox("LISAKOULUTUS_KANSANOPISTO", TemplateUtil.createI18NForm("form.koulutustausta.kansanopisto"),
+                "LISAKOULUTUS_KANSANOPISTO"));
+        suorittanutGroup.getChildren().add(new CheckBox("LISAKOULUTUS_MAAHANMUUTTO", TemplateUtil.createI18NForm("form.koulutustausta.maahanmuuttajienValmistava"),
+                "LISAKOULUTUS_MAAHANMUUTTO"));
+        return suorittanutGroup;
+    }
+
+    private Radio koulutuspaikkaAmmatilliseenTutkintoon() {
+        Radio koulutuspaikkaAmmatillisenTutkintoon = new Radio("KOULUTUSPAIKKA_AMMATILLISEEN_TUTKINTOON",
+                TemplateUtil.createI18NForm("form.koulutustausta.ammatillinenKoulutuspaikka"),
+                "KOULUTUSPAIKKA_AMMATILLISEEN_TUTKINTOON");
+        koulutuspaikkaAmmatillisenTutkintoon.getOptions().add(new Option(TemplateUtil.createI18NForm("form.yleinen.kylla"),
+                TemplateUtil.KYLLA));
+        koulutuspaikkaAmmatillisenTutkintoon.getOptions().add(new Option(TemplateUtil.createI18NForm("form.yleinen.en"),
+                TemplateUtil.EI));
+        koulutuspaikkaAmmatillisenTutkintoon.getValidators().add(new RequiredFieldValidator(koulutuspaikkaAmmatillisenTutkintoon.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return koulutuspaikkaAmmatillisenTutkintoon;
+    }
+
+    private TextQuestion luokionPaattotodistusVuosi() {
+        TextQuestion lukioPaattotodistusVuosi = new TextQuestion("lukioPaattotodistusVuosi",
+                TemplateUtil.createI18NForm("form.koulutustausta.lukio.paattotodistusvuosi"), "lukioPaattotodistusVuosi", 4);
+        lukioPaattotodistusVuosi.setPlaceHolder("vvvv");
+        lukioPaattotodistusVuosi.getValidators().add(new RequiredFieldValidator(lukioPaattotodistusVuosi.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        lukioPaattotodistusVuosi.getValidators().add(new RegexFieldValidator(lukioPaattotodistusVuosi.getName(),
+                TemplateUtil.createI18NTextError("yleinen.virheellinenArvo"),
+                PAATTOTODISTUSVUOSI_PATTERN));
+        return lukioPaattotodistusVuosi;
+    }
+
+    private DropdownSelect ylioppilastutkinto() {
+        DropdownSelect ylioppilastutkinto = new DropdownSelect("ylioppilastutkinto",
+                TemplateUtil.createI18NForm("form.koulutustausta.lukio.yotutkinto"), "ylioppilastutkinto");
+        Option optFi = new Option(TemplateUtil.createI18NForm("form.koulutustausta.lukio.yotutkinto.fi"), "fi");
+        optFi.setDefaultOption(true);
+        ylioppilastutkinto.getOptions().add(optFi);
+        ylioppilastutkinto.getOptions().add(new Option(TemplateUtil.createI18NForm("form.koulutustausta.lukio.yotutkinto.ib"), "ib"));
+        ylioppilastutkinto.getOptions().add(new Option(TemplateUtil.createI18NForm("form.koulutustausta.lukio.yotutkinto.eb"), "eb"));
+        ylioppilastutkinto.getOptions().add(new Option(TemplateUtil.createI18NForm("form.koulutustausta.lukio.yotutkinto.rp"), "rp"));
+        ylioppilastutkinto.getValidators().add(new RequiredFieldValidator(ylioppilastutkinto.getName(),
+                TemplateUtil.createI18NTextError("yleinen.pakollinen")));
+        return ylioppilastutkinto;
     }
 }

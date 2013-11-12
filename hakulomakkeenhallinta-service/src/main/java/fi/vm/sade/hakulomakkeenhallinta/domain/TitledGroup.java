@@ -18,29 +18,20 @@ package fi.vm.sade.hakulomakkeenhallinta.domain;
 
 import org.mongodb.morphia.annotations.Embedded;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Mikko Majapuro
  */
 @Embedded
-public class DropdownSelect extends Element {
+public class TitledGroup extends Element {
 
     @Embedded
     private I18nText i18nText;
-    private String name;
-    private String defaultValue;
-    @Embedded
-    private List<Option> options;
 
-    public DropdownSelect() {}
+    public TitledGroup() {}
 
-    public DropdownSelect(final String id, final I18nText i18nText, final String name) {
+    public TitledGroup(final String id, final I18nText i18nText) {
         super(id);
         this.i18nText = i18nText;
-        this.name = name;
-        this.options = new ArrayList<Option>();
     }
 
     public I18nText getI18nText() {
@@ -49,29 +40,5 @@ public class DropdownSelect extends Element {
 
     public void setI18nText(I18nText i18nText) {
         this.i18nText = i18nText;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-
-    public List<Option> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<Option> options) {
-        this.options = options;
     }
 }
