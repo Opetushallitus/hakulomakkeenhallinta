@@ -1,9 +1,82 @@
 [
     {
+        "id": "1.2.246.562.5.2013080813081926341927",
+        "name": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014"
+            }
+        }
+    },
+    {
         "id": "1.2.246.562.5.2013100416514851336462",
         "name": {
             "translations": {
                 "fi": "Lisähaku syksyn yhteishaussa vapaaksi jääneille opiskelupaikoille"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213130760225065",
+        "name": {
+            "translations": {
+                "en": "qa_julkaistu_suunnitteilla"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213133431229595",
+        "name": {
+            "translations": {
+                "en": "qa_valmis_suunnitteilla"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213132116867752",
+        "name": {
+            "translations": {
+                "en": "qa_julkaistu_paattynyt"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213134919709306",
+        "name": {
+            "translations": {
+                "en": "qa_valmis_paattynyt"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213385915614265",
+        "name": {
+            "translations": {
+                "en": "qa_peruttu_voimassa"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213142151780485",
+        "name": {
+            "translations": {
+                "en": "qa_peruttu_suunnitteilla"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213151795015069",
+        "name": {
+            "translations": {
+                "en": "qa_luonnos_suunnitteilla"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111213155546453774",
+        "name": {
+            "translations": {
+                "en": "qa_luonnos_paattynyt"
             }
         }
     },
@@ -17,91 +90,212 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013080813081926341927",
+        "id": "1.2.246.562.5.2013111213171895007885",
         "name": {
             "translations": {
-                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen yhteishaku",
-                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning"
+                "en": "qa_luonnos_voimassa"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013103012432242307437",
+        "id": "1.2.246.562.5.2013111213182613011323",
         "name": {
             "translations": {
-                "en": "qahaku20131030_1383129743313"
+                "en": "qa_peruttu_paattynyt"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013102410562181371428",
+        "id": "1.2.246.562.5.2013111213300622771976",
         "name": {
             "translations": {
-                "fi": "Yhteishaun testausta varten luotu haku"
+                "en": "qa_julkaistu_voimassa"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013102810183238504464",
+        "id": "1.2.246.562.5.2013111213322706504725",
         "name": {
             "translations": {
-                "fi": "Jatkuva haku vapaan sivistystyön koulutukseen"
+                "en": "qa_valmis_voimassa"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013103013261551689103",
+        "id": "1.2.246.562.5.2013111303020553666338",
         "name": {
             "translations": {
-                "en": "qahaku20131030_1383132315422"
+                "en": "qahaku20131113_1384304458951"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013103013302394663208",
+        "id": "1.2.246.562.5.2013111213595880193669",
         "name": {
             "translations": {
-                "fi": "JUK 3: QA sauhuttelu haku"
+                "fi": "Haku_Laku_Maku_Naku_Paku_Saku_Taku"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013103013381468392311",
+        "id": "1.2.246.562.5.2013111213382072612718",
         "name": {
             "translations": {
-                "en": "qahaku20131030_1383133035297"
+                "fi": "JUK 1: Hakku",
+                "sv": "JUK 1: En bil",
+                "en": "JUK 1: The car"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013102911293773532796",
+        "id": "1.2.246.562.5.2013111214304357272614",
         "name": {
             "translations": {
-                "fi": "JUK 2: QA-savutesti (Lisä) haku"
+                "en": "qahaku20131112_1384259375987"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013103012364801584311",
+        "id": "1.2.246.562.5.2013111215324993200548",
         "name": {
             "translations": {
-                "en": "qahaku20131030_1383129349332"
+                "fi": "ammatillinen peruskoulutus erityisopetuksena"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013102413543643121022",
+        "id": "1.2.246.562.5.2013111215565419051598",
         "name": {
             "translations": {
-                "fi": "JUK 1: QA (Lisä) testihaku"
+                "fi": "valmentavien ja kuntouttavien koulutusten haku"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013103108484934909310",
+        "id": "1.2.246.562.5.2013111301025491560747",
         "name": {
             "translations": {
-                "en": "qahaku20131031_1383202068640"
+                "en": "qahaku20131113_1384297308711"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111305020252775653",
+        "name": {
+            "translations": {
+                "en": "qahaku20131113_1384311654122"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111310431657397929",
+        "name": {
+            "translations": {
+                "en": "qahaku20131113_1384332162016"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111310490586937970",
+        "name": {
+            "translations": {
+                "en": "qahaku20131113_1384332528377"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311121846066205",
+        "name": {
+            "translations": {
+                "en": "qa_julkaistu_paattynyt"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311135184927678",
+        "name": {
+            "translations": {
+                "en": "qa_julkaistu_suunnitteilla"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311154268284401",
+        "name": {
+            "translations": {
+                "en": "qa_julkaistu_voimassa"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311173879051602",
+        "name": {
+            "translations": {
+                "en": "qa_valmis_paattynyt"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311193920783704",
+        "name": {
+            "translations": {
+                "en": "qa_valmis_suunnitteilla"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311215790774467",
+        "name": {
+            "translations": {
+                "en": "qa_valmis_voimassa"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311242160633741",
+        "name": {
+            "translations": {
+                "en": "qa_peruttu_paattynyt"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311275256502593",
+        "name": {
+            "translations": {
+                "en": "qa_peruttu_voimassa"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311295236316064",
+        "name": {
+            "translations": {
+                "en": "qa_luonnos_paattynyt"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311315430507878",
+        "name": {
+            "translations": {
+                "en": "qa_luonnos_suunnitteilla"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311341283068072",
+        "name": {
+            "translations": {
+                "en": "qa_luonnos_voimassa"
+            }
+        }
+    },
+    {
+        "id": "1.2.246.562.5.2013111311255847113916",
+        "name": {
+            "translations": {
+                "en": "qa_peruttu_suunnitteilla"
             }
         }
     }

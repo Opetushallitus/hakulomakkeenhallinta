@@ -141,6 +141,8 @@ var QuestionCtrl = function ($scope, $modalInstance, Resources) {
     };
 
 };
+
+
 controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', function ($scope, $modal, $log, $location, Resources, $routeParams) {
     $scope.additionalQuestions = Resources.additionalQuestions.query($routeParams);
     $scope.addQuestion = function () {
@@ -160,8 +162,60 @@ controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '
     };
     $scope.back = function () {
         $location.path("/");
-    }
+    };
+    $scope.sortQuestions = function () {
+        $modal.open({
+            templateUrl: 'partials/lisakysymykset/sort-questions.html',
+            controller: SortQuestionsCtrl
+        });
+    };
 }]);
+var SortQuestionsCtrl = function ($scope, $modalInstance, Resources) {
+    $scope.first = true;
+    $scope.last = true;
+
+    $scope.themes = Resources.themes.query($scope.queryParameters);
+    $scope.additionalQuestions = Resources.additionalQuestions.query($scope.queryParameters);
+    $scope.ok = function () {
+        console.log($scope.additionalQuestions);
+        $modalInstance.close(this.question);
+    };
+
+    $scope.cancel = function () {
+        console.log("SortQuestionsCtrl cancel");
+        $modalInstance.dismiss('cancel');
+    };
+    $scope.updateButtons = function() {
+        $scope.first = $scope.additionalQuestions.indexOf(this.additionalQuestion) == 0;
+        $scope.last = $scope.additionalQuestions.indexOf(this.additionalQuestion) == $scope.additionalQuestions.length - 1;
+    }
+
+    $scope.select = function () {
+        $scope.updateButtons()
+        $scope.additionalQuestion = this.additionalQuestion;
+    };
+
+    $scope.up = function () {
+        console.log("SortQuestionsCtrl up");
+        $scope.move('up');
+
+    };
+    $scope.move = function() {
+        var index = $scope.additionalQuestions.indexOf(this.additionalQuestion);
+        var tmp = $scope.additionalQuestions[index];
+        $scope.additionalQuestions[index] = $scope.additionalQuestions[index + 1];
+        $scope.additionalQuestions[index + 1] = tmp;
+        $scope.updateButtons();
+    }
+
+    $scope.down = function () {
+        console.log("SortQuestionsCtrl down");
+        move('down');
+        updateButtons()
+    };
+
+};
+
 controllers.controller('DropdownCtrl', ['$scope', function ($scope) {
     $scope.items = [
         "Tarkastele",

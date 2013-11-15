@@ -16,22 +16,6 @@
         }
     },
     {
-        "id": "Monivalinta",
-        "name": {
-            "translations": {
-                "fi": "Monivalinta"
-            }
-        }
-    },
-    {
-        "id": "Select",
-        "name": {
-            "translations": {
-                "fi": "Valintalista"
-            }
-        }
-    },
-    {
         "id": "HelpOrInfo",
         "name": {
             "translations": {

@@ -1,0 +1,8 @@
+<div class="control-group">
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-ng-model="linkEnabled">{{label | i18next}}
+        </label>
+        <input type="text" data-ng-model="model" data-ng-disabled="!linkEnabled">
+    </div>
+</div>

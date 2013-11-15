@@ -1,19 +1,7 @@
-<form role="form" class="form-horizontal">
-    <tabset>
-        <tab ng-repeat="language in languages">
-            <tab-heading>{{language.name[lang]}}</tab-heading>
-            <div class="control-group">
-                <label class="control-label">Kysymyksen otsikko</label>
-                <div class="controls">
-                    <input type="text" data-ng-model="question.title[language.id]">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Ohje- tai infoteksti</label>
-                <div class="controls">
-                    <input type="text" data-ng-model="question.help[language.id]">
-                </div>
-            </div>
-        </tab>
-    </tabset>
-</form>
+<tabset>
+    <tab ng-repeat="language in languages">
+        <tab-heading>{{language.name[lang]}}</tab-heading>
+        <hh-inputtext data-ng-model="question.title[language.id]" label="question-title"></hh-inputtext>
+        <hh-inputtext data-ng-model="question.help[language.id]" label="question-help"></hh-inputtext>
+    </tab>
+</tabset>
