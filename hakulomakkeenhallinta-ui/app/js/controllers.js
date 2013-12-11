@@ -226,4 +226,14 @@ controllers.controller('DropdownCtrl', ['$scope', function ($scope) {
         "(Peruuta julkaisu)"
     ];
 }]);
+controllers.controller('TreeCtrl', ['$scope', function ($scope) {
+    $scope.items = [
+        "Tarkastele",
+        "Tee hakukohtaisia lisäkysymyksiä",
+        "Näytä hakukohteet",
+        "Kopio uudeksi",
+        "Julkaise",
+        "(Peruuta julkaisu)"
+    ];
+}]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);
