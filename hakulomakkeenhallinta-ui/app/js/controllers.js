@@ -185,7 +185,7 @@ var SortQuestionsCtrl = function ($scope, $modalInstance, Resources) {
         console.log("SortQuestionsCtrl cancel");
         $modalInstance.dismiss('cancel');
     };
-    $scope.updateButtons = function() {
+    $scope.updateButtons = function () {
         $scope.first = $scope.additionalQuestions.indexOf(this.additionalQuestion) == 0;
         $scope.last = $scope.additionalQuestions.indexOf(this.additionalQuestion) == $scope.additionalQuestions.length - 1;
     }
@@ -200,7 +200,7 @@ var SortQuestionsCtrl = function ($scope, $modalInstance, Resources) {
         $scope.move('up');
 
     };
-    $scope.move = function() {
+    $scope.move = function () {
         var index = $scope.additionalQuestions.indexOf(this.additionalQuestion);
         var tmp = $scope.additionalQuestions[index];
         $scope.additionalQuestions[index] = $scope.additionalQuestions[index + 1];
@@ -235,5 +235,19 @@ controllers.controller('TreeCtrl', ['$scope', function ($scope) {
         "Julkaise",
         "(Peruuta julkaisu)"
     ];
+}]);
+
+controllers.controller('FormCtrl', ['$scope', 'Resources', function ($scope, Resources) {
+    $scope.tree = Resources.form.get();
+//    $scope.add_child = function (parent_node, title) {
+//        var child_node = {'title': title};
+//
+//        if (parent_node.children) {
+//            parent_node.children.push(child_node);
+//        }
+//        else {
+//            parent_node.children = [child_node];
+//        }
+//    };
 }]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);

@@ -14,6 +14,7 @@ angular.module('hakulomakkeenhallinta', [
 
     ]).
     config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/form', {templateUrl: 'partials/form.html'});
         $routeProvider.when('/hakulomakkeet', {templateUrl: 'partials/applicationForms.html'});
         $routeProvider.when('/hakulomakkeet/:applicationFormId/:applicationOptionId', {templateUrl: 'partials/additionalQuestions.html', controller: 'AdditionalQuestionsCtrl'});
         $routeProvider.otherwise({redirectTo: '/hakulomakkeet'});

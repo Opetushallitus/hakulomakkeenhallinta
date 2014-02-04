@@ -1,0 +1,14 @@
+<div class="node" style="border: solid 1px black;padding: 10px">
+    {{$parent.tree.i18nText.translations.fi}}
+    <span class="node-actions">
+    <form ng-submit="add_child($parent.tree, node_title)">
+        <button>+</button>
+        <button>-</button>
+    </form>
+
+    <!-- <button ng-click="delete_child($parent.tree, $parent.$parent.tree)">-</button> -->
+  </span>
+    <div ng-repeat="tree in $parent.tree.children">
+        <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
+    </div>
+</div>
