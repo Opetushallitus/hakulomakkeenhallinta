@@ -1,13 +1,14 @@
-<div class="node">
-    {{$parent.tree.i18nText.translations.fi}}
-    <span class="node-actions">
-    <form ng-submit="add_child($parent.tree, node_title)">
-        <button>+</button>
-        <button>-</button>
-    </form>
+<div class="{{($parent.tree.inline) ? 'form-row' : 'form-item'}}">
+    <label id="label-{{$parent.tree._id}}" for="{{$parent.tree._id}}" class="{{($parent.tree.inline) ? 'form-row' : 'form-item'}}-label">{{$parent.tree.i18nText.translations.fi}}</label>
 
-    <!-- <button ng-click="delete_child($parent.tree, $parent.$parent.tree)">-</button> -->
-  </span>
+    <div class="{{($parent.tree.inline) ? 'form-row' : 'form-item'}}-content">
+        <div class="field-container-text">
+            <input id="{{$parent.tree._id}}" name="{{$parent.tree._id}}">
+            <errorMessage element="$parent.tree"/>
+        </div>
+        <help element="$parent.tree"/>
+    </div>
+    <div class="clear"></div>
     <div ng-repeat="tree in $parent.tree.children">
         <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
     </div>

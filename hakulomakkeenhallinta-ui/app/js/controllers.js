@@ -238,6 +238,7 @@ controllers.controller('TreeCtrl', ['$scope', function ($scope) {
 }]);
 
 controllers.controller('FormCtrl', ['$scope', 'Resources', function ($scope, Resources) {
+    $scope.isPhaseCollapsed = {};
     $scope.tree = Resources.form.get();
 //    $scope.add_child = function (parent_node, title) {
 //        var child_node = {'title': title};
@@ -249,5 +250,30 @@ controllers.controller('FormCtrl', ['$scope', 'Resources', function ($scope, Res
 //            parent_node.children = [child_node];
 //        }
 //    };
+    $scope.delete = function (array, index) {
+        alert("delete " + array.length +' '  + index);
+        array.splice(index, 1);
+    };
+    $scope.modify = function (element) {
+        alert("modify " + element._id);
+    };
+    $scope.expr2str = function (expr) {
+        return "test";
+        if (expr._class) {
+            var oper = expr._class.split('.').pop()
+            if (oper == 'Variable') {
+                return expr.value;
+            } else if (oper == 'Value') {
+                return '\'' + expr.value + '\'';
+            } else if (oper == 'Not') {
+                return ' (' + oper.toLowerCase() + ' ' + this.expr2str(expr.left) + ")";
+            } else if (oper == 'Equals') {
+                return '(' + this.expr2str(expr.left) + ' = ' + this.expr2str(expr.right) + ')';
+            }
+            return '(' + this.expr2str(expr.left) + ' ' + oper.toLowerCase() + ' ' + this.expr2str(expr.right) + ')';
+        } else {
+            return '';
+        }
+    }
 }]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);

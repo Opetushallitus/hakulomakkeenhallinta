@@ -1,14 +1,28 @@
-<div class="node">
-    {{$parent.tree.i18nText.translations.fi}}
-    <span class="node-actions">
-    <form ng-submit="add_child($parent.tree, node_title)">
-        <button>+</button>
-        <button>-</button>
-    </form>
+<fieldset class="{{($parent.tree.inline) ? 'form-row' : 'form-item'}}">
 
-    <!-- <button ng-click="delete_child($parent.tree, $parent.$parent.tree)">-</button> -->
-  </span>
+    <legend class="{{($parent.tree.inline) ? 'form-row' : 'form-item'}}-label {{$parent.tree.attributes['required']}}">
+        {{$parent.tree.i18nText.translations.fi}}
+    </legend>
+
+    <div class="{{($parent.tree.inline) ? 'form-row' : 'form-item'}}-content">
+        <help element="$parent.tree"/>
+        <div ng-repeat="option in $parent.tree.options">
+            <div class="field-container-radio">
+                <input type="radio" name="{{option._id}}" id="{{option._id}}">
+                <label for="{{option._id}}">
+                    {{option.i18nText.translations.fi}}
+                </label>
+                <help element="option"/>
+                <div ng-repeat="tree in $parent.tree.option">
+                    <div ng-include src="'partials/elements/' + option._class.split('.').pop() + '.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="clear"></div>
     <div ng-repeat="tree in $parent.tree.children">
         <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
     </div>
-</div>
+</fieldset>

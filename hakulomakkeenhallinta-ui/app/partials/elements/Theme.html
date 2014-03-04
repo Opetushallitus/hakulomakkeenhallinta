@@ -1,14 +1,24 @@
-<div class="node">
-    {{$parent.tree.i18nText.translations.fi}}
-    <span class="node-actions">
-    <form ng-submit="add_child($parent.tree, node_title)">
-        <button>+</button>
-        <button>-</button>
-    </form>
+<fieldset id="{{$parent.tree.id}}">
+    <legend class="h3">
+        {{$parent.tree.i18nText.translations.fi }}
+    </legend>
+    <hr/>
+    <div class="theme-help">
+        <div class="help-text">
+            <help/>
+        </div>
+        <a href="${element.id}/help" target="_blank" class="helplink">?</a>
 
-    <!-- <button ng-click="delete_child($parent.tree, $parent.$parent.tree)">-</button> -->
-  </span>
+        <div class="clear"></div>
+    </div>
+
+
     <div ng-repeat="tree in $parent.tree.children">
         <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
     </div>
-</div>
+</fieldset>
+
+
+
+
+
