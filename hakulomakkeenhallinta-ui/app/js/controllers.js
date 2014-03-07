@@ -17,7 +17,8 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         {id: '2', name: 'Aasian tutkimus, kandidaatinopinnot'}
     ];
 
-    $scope.applicationForms = Resources.applicationForms.query();
+    $scope.applicationForms = [Resources.applicationSystem.get()];
+
     $scope.luoHakulomake = function () {
 
         $modal.open({
@@ -45,6 +46,16 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
     $scope.toggleCheck = function (applicationForm) {
         $scope.applicationForm = applicationForm;
     };
+}]);
+controllers.controller('BackCtrl', ['$scope', '$location', function ($scope, $location) {
+    $scope.back = function () {
+        var path = $location.path().split("/");
+        path.pop();
+        $location.path(path.join('/'));
+    };
+    $scope.goto = function(path) {
+        $location.path($location.path() + '/' + path._id);
+    }
 }]);
 
 controllers.controller('MallipohjatCtrl', ['$scope', '$i18next', function ($scope, $i18next) {
@@ -237,9 +248,10 @@ controllers.controller('TreeCtrl', ['$scope', function ($scope) {
     ];
 }]);
 
-controllers.controller('FormCtrl', ['$scope', 'Resources', function ($scope, Resources) {
-    $scope.isPhaseCollapsed = {};
-    $scope.tree = Resources.form.get();
+controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', '$rootScope', '$location', function ($scope, Resources, _, $rootScope, $location) {
+    $rootScope.lang = 'sv';
+    $scope.tree = Resources.applicationSystem.get();
+    console.log($scope.tree);
 //    $scope.add_child = function (parent_node, title) {
 //        var child_node = {'title': title};
 //
@@ -251,10 +263,14 @@ controllers.controller('FormCtrl', ['$scope', 'Resources', function ($scope, Res
 //        }
 //    };
     $scope.delete = function (array, index) {
-        alert("delete " + array.length +' '  + index);
+        alert("delete " + array.length + ' ' + index);
         array.splice(index, 1);
     };
-    $scope.modify = function (element) {
+    $scope.modify = function (element, event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
         alert("modify " + element._id);
     };
     $scope.expr2str = function (expr) {
@@ -274,6 +290,19 @@ controllers.controller('FormCtrl', ['$scope', 'Resources', function ($scope, Res
         } else {
             return '';
         }
-    }
+    };
+
+    $scope.createAdditionalQuestions = function (element) {
+    };
+    $scope.showPreferences = function (element) {
+    };
+    $scope.release = function (element) {
+    };
+    $scope.back = function () {
+        var path = $location.path().split("/");
+        path.pop();
+        $location.path(path.join('/'));
+    };
+
 }]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);

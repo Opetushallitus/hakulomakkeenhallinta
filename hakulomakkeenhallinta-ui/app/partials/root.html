@@ -1,4 +1,0 @@
-{{$parent.tree.i18nText.translations.fi}}
-<div ng-repeat="tree in $parent.tree.children">
-    <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'" data-ng-init="parent = $parent.tree; index = parent.$index"></div>
-</div>

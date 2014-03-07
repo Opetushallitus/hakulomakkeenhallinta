@@ -10,15 +10,16 @@ angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallinta.directives',
         'hakulomakkeenhallinta.controllers',
         'jm.i18next'
-
-    ]).
-    config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/form', {templateUrl: 'partials/form.html'});
-        $routeProvider.when('/hakulomakkeet', {templateUrl: 'partials/applicationForms.html'});
-        $routeProvider.when('/hakulomakkeet/:applicationFormId/:applicationOptionId', {templateUrl: 'partials/additionalQuestions.html', controller: 'AdditionalQuestionsCtrl'});
-        $routeProvider.otherwise({redirectTo: '/hakulomakkeet'});
-    }]).
-    config(['$i18nextProvider', function ($i18nextProvider) {
+    ])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/applicationSystemForm', {templateUrl: 'partials/applicationSystemFormIndex.html'});
+        $routeProvider.when('/applicationSystemForm/:id', {templateUrl: 'partials/applicationSystemForm.html'});
+        $routeProvider.when('/applicationSystem', {templateUrl: 'partials/applicationSystem.html'});
+        $routeProvider.when('/applicationSystems', {templateUrl: 'partials/applicationForms.html'});
+        $routeProvider.when('/applicationSystems/:applicationFormId/:applicationOptionId', {templateUrl: 'partials/additionalQuestions.html', controller: 'AdditionalQuestionsCtrl'});
+        $routeProvider.otherwise({redirectTo: '/applicationSystemForm'});
+    }])
+    .config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = {
             resGetPath: 'locales/__ns__-__lng__.json',
             lng: 'fi',

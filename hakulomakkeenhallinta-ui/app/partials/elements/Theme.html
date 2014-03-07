@@ -1,24 +1,10 @@
-<fieldset id="{{$parent.tree.id}}">
-    <legend class="h3">
-        {{$parent.tree.i18nText.translations.fi }}
-    </legend>
-    <hr/>
-    <div class="theme-help">
-        <div class="help-text">
-            <help/>
+<div class="panel panel-primary">
+    <div class="panel-heading">{{$parent.tree.i18nText.translations.fi }}</div>
+    <div class="panel-body">
+        <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/element.html'" class="container">
         </div>
-        <a href="${element.id}/help" target="_blank" class="helplink">?</a>
-
-        <div class="clear"></div>
     </div>
-
-
-    <div ng-repeat="tree in $parent.tree.children">
-        <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
-    </div>
-</fieldset>
-
-
+</div>
 
 
 

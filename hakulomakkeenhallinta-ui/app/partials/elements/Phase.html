@@ -1,21 +1,3 @@
-<!--<div class="node">-->
-<!--Vaihe: {{$parent.tree.i18nText.translations.fi}}-->
-<!--<span class="node-actions">-->
-<!--<form ng-submit="add_child($parent.tree, node_title)">-->
-<!--<button>+</button>-->
-<!--<button>-</button>-->
-<!--</form>-->
-<!--&lt;!&ndash; <button ng-click="delete_child($parent.tree, $parent.$parent.tree)">-</button> &ndash;&gt;-->
-<!--</span>-->
-<!--<div ng-repeat="tree in $parent.tree.children">-->
-<!--<div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>-->
-<!--</div>-->
-<!--</div>-->
-<button class="btn btn-default" ng-click="isPhaseCollapsed[$parent.tree._id] = !isPhaseCollapsed[$parent.tree._id]">{{$parent.tree.i18nText.translations.fi}}</button>
-<button class="btn btn-default" ng-click="modify($parent.tree)">Muokkaa</button>
-<button class="btn btn-default" ng-click="delete(parent, index)">Poista</button>
-<div collapse="!isPhaseCollapsed[$parent.tree._id]">
-    <div ng-repeat="tree in $parent.tree.children">
-        <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
-    </div>
+<div ng-repeat="tree in $parent.tree.children">
+    <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
 </div>
