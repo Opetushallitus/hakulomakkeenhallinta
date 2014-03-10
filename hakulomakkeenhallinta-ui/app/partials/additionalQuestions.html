@@ -1,17 +1,15 @@
-    <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
-    <button class="btn btn-primary" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä
-        kysymykset
-    </button>
-    <button class="btn btn-primary" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö
-    </button>
-    <button class="btn btn-warning" data-ng-click="addQuestion()">Lisää uusi kysymys</button>
+<button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
+<button class="btn btn-primary" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä kysymykset</button>
+<button class="btn btn-primary" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö</button>
+<button class="btn btn-warning" data-ng-click="addQuestion()">Lisää uusi kysymys</button>
 
-    <div class="alert alert-info">
-        <i class="icon-info-sign"></i>Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä
-        organisaation <b>{{org.name.translations.fi}}</b> hakukohteelle
-        <b>{{applicationOption.name.translations.fi}}</b> hakuun <b>{{applicationSystem.name.translations.fi}}</b>.
-    </div>
+<div class="alert alert-info">
+    <i class="icon-info-sign"></i>Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä
+        organisaation <b>{{org | i18n:'name'}}</b> hakukohteelle
+        <b>{{applicationOption | i18n:'name'}}</b> hakuun <b>{{applicationSystem | i18n}}</b>.
+</div>
 <div class="clearfix"></div>
+
 <h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
 
 <table class="table table-striped">
