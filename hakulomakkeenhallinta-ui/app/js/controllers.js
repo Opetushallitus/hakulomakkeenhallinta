@@ -61,7 +61,8 @@ controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location'
             }
         }).result.then(function (applicationOptionId) {
             console.log("ok " + applicationOptionId);
-            $location.path("applicationSystemForm/" + applicationForm.id + '/' + applicationOptionId);
+            console.log("ok " + "");
+            $location.path("applicationSystemForm/" + applicationSystem._id + '/' + applicationOptionId);
         }, function () {
 
         });

@@ -14,6 +14,7 @@ angular.module('hakulomakkeenhallinta', [
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/applicationSystemForm', {templateUrl: 'partials/applicationSystemFormIndex.html'});
         $routeProvider.when('/applicationSystemForm/:id', {templateUrl: 'partials/applicationSystemForm.html'});
+        $routeProvider.when('/applicationSystemForm/:id/:aoid', {templateUrl: 'partials/additionalQuestions.html'});
         $routeProvider.when('/applicationSystem', {templateUrl: 'partials/applicationSystem.html'});
         $routeProvider.when('/applicationSystems', {templateUrl: 'partials/applicationForms.html'});
         $routeProvider.when('/applicationSystems/:applicationFormId/:applicationOptionId', {templateUrl: 'partials/additionalQuestions.html', controller: 'AdditionalQuestionsCtrl'});

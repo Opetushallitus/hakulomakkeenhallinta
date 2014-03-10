@@ -1,27 +1,21 @@
-<div>
+    <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
+    <button class="btn btn-primary" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä
+        kysymykset
+    </button>
+    <button class="btn btn-primary" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö
+    </button>
+    <button class="btn btn-warning" data-ng-click="addQuestion()">Lisää uusi kysymys</button>
+
     <div class="alert alert-info">
         <i class="icon-info-sign"></i>Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä
         organisaation <b>{{org.name.translations.fi}}</b> hakukohteelle
         <b>{{applicationOption.name.translations.fi}}</b> hakuun <b>{{applicationSystem.name.translations.fi}}</b>.
     </div>
-    <button class="btn btn-primary pull-left" data-ng-click="back()">Takaisin</button>
-    <button class="btn btn-primary pull-left" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä
-        kysymykset
-    </button>
-    <button class="btn btn-primary pull-left" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö
-    </button>
-    <button class="btn btn-warning pull-right" data-ng-click="addQuestion()">Lisää uusi kysymys</button>
-</div>
 <div class="clearfix"></div>
-<div>
-    <h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
-
-    <hh-lorem></hh-lorem>
-
-</div>
+<h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
 
 <table class="table table-striped">
     <tr ng-repeat="additionalQuestion in additionalQuestions">
-        <td>{{additionalQuestion.name.translations.fi}}</td>
+        <td>{{additionalQuestion | i18n}}</td>
     </tr>
 </table>
