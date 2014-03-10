@@ -1,0 +1,13 @@
+{
+  "params" : {
+    "count" : 1,
+    "startIndex" : 0,
+    "modifiedAfter" : 0,
+    "modifiedBefore" : 0
+  },
+  "result" : [ {
+    "version" : 0,
+    "oid" : "1.2.246.562.14.2014021113575109471310"
+  } ],
+  "status" : "OK"
+}

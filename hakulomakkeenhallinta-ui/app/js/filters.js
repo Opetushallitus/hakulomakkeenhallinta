@@ -16,6 +16,9 @@ angular.module('hakulomakkeenhallinta.filters', [])
             if (!lang) {
                 lang = 'fi';
             }
-            return element[attribute].translations[lang];
+            if (element[attribute] && element[attribute].translations && element[attribute].translations[lang]) {
+                return element[attribute].translations[lang];
+            }
+            return "???"
         }
     });

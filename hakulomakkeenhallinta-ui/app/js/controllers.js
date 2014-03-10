@@ -47,13 +47,51 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         $scope.applicationForm = applicationForm;
     };
 }]);
+
+controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', function ($scope, $modal, $log, $location, Resources) {
+    console.log('QuestionsCtrl');
+    $scope.addNewAdditionalQuestion = function (applicationSystem) {
+        var modalInstance = $modal.open({
+            templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
+            controller: 'ModalApplicationOptionCtrl2',
+            resolve: {
+                applicationSystem: function () {
+                    return applicationSystem;
+                }
+            }
+        });
+        modalInstance.result.then(function (applicationOptionId) {
+            console.log(applicationOptionId);
+            $location.path("hakulomakkeet/" + applicationForm.id + '/' + applicationOptionId);
+        }, function () {
+
+        });
+    };
+}]);
+
+controllers.controller('ModalApplicationOptionCtrl2', ['$scope', '$location', 'Resources', '$modalInstance', 'applicationSystem', function ($scope, $location, Resources, $modalInstance, applicationSystem) {
+    $scope.applicationOptions = [];
+    $scope.queryParameters = {};
+    $scope.applicationSystem = applicationSystem;
+    $scope.ok = function () {
+        $modalInstance.close(this.applicationOption.id);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+    $scope.search = function () {
+        $scope.applicationOptions = Resources.applicationOptions.query($scope.queryParameters);
+    };
+}]);
+
 controllers.controller('BackCtrl', ['$scope', '$location', function ($scope, $location) {
     $scope.back = function () {
         var path = $location.path().split("/");
         path.pop();
         $location.path(path.join('/'));
     };
-    $scope.goto = function(path) {
+    $scope.goto = function (path) {
         $location.path($location.path() + '/' + path._id);
     }
 }]);
@@ -81,9 +119,10 @@ var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
     };
 };
 
-var ModalApplicationOptionCtrl = function ($scope, $modalInstance, Resources) {
+var ModalApplicationOptionCtrl = function ($scope, $modalInstance, Resources, ApplicationSystem) {
     $scope.applicationOptions = [];
     $scope.queryParameters = {};
+
     $scope.ok = function () {
         $modalInstance.close(this.applicationOption.id);
     };
@@ -95,6 +134,7 @@ var ModalApplicationOptionCtrl = function ($scope, $modalInstance, Resources) {
         $scope.applicationOptions = Resources.applicationOptions.query($scope.queryParameters);
     };
 };
+
 
 var ModalInstanceCtrl = function ($scope, $modalInstance) {
     $scope.ok = function () {
@@ -251,17 +291,7 @@ controllers.controller('TreeCtrl', ['$scope', function ($scope) {
 controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', '$rootScope', '$location', function ($scope, Resources, _, $rootScope, $location) {
     $rootScope.lang = 'sv';
     $scope.tree = Resources.applicationSystem.get();
-    console.log($scope.tree);
-//    $scope.add_child = function (parent_node, title) {
-//        var child_node = {'title': title};
-//
-//        if (parent_node.children) {
-//            parent_node.children.push(child_node);
-//        }
-//        else {
-//            parent_node.children = [child_node];
-//        }
-//    };
+
     $scope.delete = function (array, index) {
         alert("delete " + array.length + ' ' + index);
         array.splice(index, 1);
@@ -273,6 +303,7 @@ controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', '$r
         }
         alert("modify " + element._id);
     };
+
     $scope.expr2str = function (expr) {
         return "test";
         if (expr._class) {
@@ -297,11 +328,6 @@ controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', '$r
     $scope.showPreferences = function (element) {
     };
     $scope.release = function (element) {
-    };
-    $scope.back = function () {
-        var path = $location.path().split("/");
-        path.pop();
-        $location.path(path.join('/'));
     };
 
 }]);
