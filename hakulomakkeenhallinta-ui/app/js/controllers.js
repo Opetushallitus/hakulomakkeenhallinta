@@ -38,7 +38,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         });
         modalInstance.result.then(function (applicationOptionId) {
             console.log(applicationOptionId);
-            $location.path("hakulomakkeet/" + applicationForm.id + '/' + applicationOptionId);
+            $location.path("hakulomakkeet/" + applicationForm._id + '/' + applicationOptionId);
         }, function () {
 
         });
@@ -59,10 +59,9 @@ controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location'
                     return applicationSystem;
                 }
             }
-        });
-        modalInstance.result.then(function (applicationOptionId) {
-            console.log(applicationOptionId);
-            $location.path("hakulomakkeet/" + applicationForm.id + '/' + applicationOptionId);
+        }).result.then(function (applicationOptionId) {
+            console.log("ok " + applicationOptionId);
+            $location.path("applicationSystemForm/" + applicationForm.id + '/' + applicationOptionId);
         }, function () {
 
         });
