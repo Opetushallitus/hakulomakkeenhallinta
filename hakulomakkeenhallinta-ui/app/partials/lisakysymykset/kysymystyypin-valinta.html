@@ -6,10 +6,9 @@
     <form role="form" class="form-horizontal">
         <div class="form-group">
             <label for="theme">Teema</label>
-            <select class="form-control" id="theme" ng-model="theme" ng-options="a.name.translations.fi for a in themes">
+            <select class="form-control" ng-model="element" ng-options="phase.i18nText.translations.fi for phase in phases">
                 <option value="">-- Valitse teema --</option>
             </select>
-
         </div>
 
         <div class="form-group">
@@ -22,5 +21,5 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
-    <button class="btn btn-primary pull-right" ng-click="ok()" data-ng-disabled="!theme || !type">Jatka</button>
+    <button class="btn btn-primary pull-right" ng-click="ok()" data-ng-disabled="!element|| !type">Jatka</button>
 </div>

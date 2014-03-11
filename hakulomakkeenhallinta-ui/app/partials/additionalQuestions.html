@@ -1,12 +1,12 @@
 <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
-<button class="btn btn-primary" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä kysymykset</button>
-<button class="btn btn-primary" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö</button>
-<button class="btn btn-warning" data-ng-click="addQuestion()">Lisää uusi kysymys</button>
+<button type="button" class="btn btn-primary" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä kysymykset</button>
+<button type="button" class="btn btn-primary" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö</button>
+<button type="button" class="btn btn-warning" data-ng-click="addQuestion()">Lisää uusi kysymys</button>
 
 <div class="alert alert-info">
-    <i class="icon-info-sign"></i>Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä
-        organisaation <b>{{org | i18n:'name'}}</b> hakukohteelle
-        <b>{{applicationOption | i18n:'name'}}</b> hakuun <b>{{applicationSystem | i18n}}</b>.
+    <i class="icon-info-sign"></i>
+    Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä organisaation 
+    <b>{{organization | i18n:'name'}}</b> hakukohteelle <b>{{applicationOption.hakukohteenNimi}}<b> hakuun <b>{{applicationSystem | i18n : 'name'}}</b>.
 </div>
 <div class="clearfix"></div>
 
@@ -14,6 +14,6 @@
 
 <table class="table table-striped">
     <tr ng-repeat="additionalQuestion in additionalQuestions">
-        <td>{{additionalQuestion | i18n}}</td>
+        <td>{{additionalQuestion | i18n :'name'}}</td>
     </tr>
 </table>

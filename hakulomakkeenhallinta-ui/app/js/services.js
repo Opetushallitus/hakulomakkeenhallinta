@@ -11,7 +11,6 @@ services.service('Resources', ['$resource', function ($resource) {
         applicationFormTemplates:   $resource('http://localhost:8000/app/test-data/applicationFormTemplates.json'),
         applicationOptions:         $resource('http://localhost:8000/app/test-data/applicationOptions.json'),
         additionalQuestions:        $resource('http://localhost:8000/app/test-data/additionalQuestions.json'),
-        themes:                     $resource('http://localhost:8000/app/test-data/themes.json'),
         types:                      $resource('http://localhost:8000/app/test-data/types.json'),
         languages:                  $resource('http://localhost:8000/app/test-data/languages.json')
     };
@@ -21,4 +20,8 @@ services.service('Resources', ['$resource', function ($resource) {
 
 services.service('_', [function () {
     return window._;
+}]);
+
+services.service('t', [function () {
+    return window.t;
 }]);
