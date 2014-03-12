@@ -4,7 +4,7 @@
 
 var controllers = angular.module('hakulomakkeenhallinta.controllers', []);
 
-controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', function ($scope, $modal, $log, $location, Resources) {
+controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'AS', function ($scope, $modal, $log, $location, Resources, AS) {
     $scope.question = {};
     $scope.selectedApplicationSystems = [];
     $scope.languages = [
@@ -16,7 +16,8 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         {id: '1', name: 'Aasian tutkimus'},
         {id: '2', name: 'Aasian tutkimus, kandidaatinopinnot'}
     ];
-    $scope.applicationForms = [Resources.applicationSystem.get()];
+    $scope.applicationForms = AS.listApplicationsystems(); 
+
     $scope.luoHakulomake = function () {
         $modal.open({
             templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
@@ -27,6 +28,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
                 });
             });
     };
+
     $scope.open = function (applicationForm) {
         console.log(applicationForm);
         var modalInstance = $modal.open({
@@ -66,14 +68,11 @@ controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location'
     };
 }]);
 
-controllers.controller('ModalApplicationOptionCtrl2', ['$scope', '$location', 'Resources', '$modalInstance', 'applicationSystem', function ($scope, $location, Resources, $modalInstance, applicationSystem) {
+controllers.controller('ModalApplicationOptionCtrl2', ['$scope', '$location', 'Resources', '$modalInstance', 'applicationSystem', 'AS',  function ($scope, $location, Resources, $modalInstance, applicationSystem, AS) {
     $scope.applicationOptions = [];
     $scope.queryParameters = {};
-    console.log(applicationSystem._class);
-    $scope.applicationSystem = t.filter(applicationSystem, function(node, par) {
-        console.log(node._id)
-        return node;
-    });
+    
+    
     $scope.ok = function () {
         $modalInstance.close(this.applicationOption.id);
     };
@@ -82,7 +81,7 @@ controllers.controller('ModalApplicationOptionCtrl2', ['$scope', '$location', 'R
         $modalInstance.dismiss('cancel');
     };
     $scope.search = function () {
-        $scope.applicationOptions = Resources.applicationOptions.query($scope.queryParameters);
+        $scope.applicationOptions = AS.getApplicationOptions(applicationSystem._id, $scope.queryParameters.term); 
     };
 }]);
 
@@ -155,7 +154,16 @@ var ModalInstanceCtrl = function ($scope, $modalInstance) {
     };
 };
 var QuestionTypeCtrl = function ($scope, $modalInstance, Resources, $routeParams, applicationSystem) {
-    $scope.phases = applicationSystem.form.children;
+    
+    var formWalker = _.walk(function(e) {
+      return e.children;
+    });
+
+    $scope.themes = formWalker.filter(applicationSystem.form, _.walk.preorder, function(el) {
+        console.log(_.omit(el, 'children', 'validators')); 
+        return el._class && el._class.indexOf("Theme") != -1;
+    }); 
+
     $scope.types = Resources.types.query($scope.queryParameters);
 
     $scope.ok = function () {
@@ -175,7 +183,7 @@ var QuestionCtrl = function ($scope, $modalInstance, Resources) {
     $scope.question.attributes = {}
     $scope.question.validators = {}
     $scope.question.type = $scope.data.type.id;
-    $scope.question.parent = $scope.data.element;
+    $scope.question.parent = $scope.data.element._id;
 
     $scope.ok = function () {
         $modalInstance.close(this.question);
@@ -194,11 +202,6 @@ var QuestionCtrl = function ($scope, $modalInstance, Resources) {
 controllers.controller('AdditionalQuestionsCtrl', 
         ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', '$http',
         function ($scope, $modal, $log, $location, Resources, $routeParams, $http) {
-
-    $http.get('http://localhost:8000/app/test-data/hakukohde.json')
-        .success(function (data) {
-            $scope.applicationOption = data.result; 
-    });
 
     $scope.organization = {'name' : {'translations' : {'fi' : 'k-kauppa'}}}; 
     $scope.applicationSystem = Resources.applicationSystem.get();
@@ -219,8 +222,8 @@ controllers.controller('AdditionalQuestionsCtrl',
                     controller: QuestionCtrl,
                     scope: $scope
                 }).result.then(function (question) {
-                        console.log("Tallennetaan kysymys " + question);
-                    });
+                    console.log("Tallennetaan kysymys " + JSON.stringify(question));
+                });
             });
     };
     $scope.back = function () {
