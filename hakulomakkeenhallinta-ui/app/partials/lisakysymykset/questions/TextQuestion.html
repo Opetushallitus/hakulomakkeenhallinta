@@ -1,8 +1,7 @@
 <tabset>
     <tab ng-repeat="language in languages">
         <tab-heading>{{language.name[lang]}}</tab-heading>
-
-        <hh-inputtext data-ng-model="question.title[language.id]" label="question-title"></hh-inputtext>
+        <hh-inputtext data-ng-model="question.i18nText.translations[language.id]" label="question-title"></hh-inputtext>
         <hh-inputtext data-ng-model="question.help[language.id]" label="question-help"></hh-inputtext>
         <hh-inputtext data-ng-model="question.additionalHelp[language.id]" label="question-additional-help"></hh-inputtext>
         <hh-inputlink data-ng-model="question.link[language.id]" label="question-link"></hh-inputlink>

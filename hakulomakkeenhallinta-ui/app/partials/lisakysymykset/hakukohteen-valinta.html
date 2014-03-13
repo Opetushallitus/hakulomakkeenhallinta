@@ -26,7 +26,7 @@
     <table class="table table-striped table-hover">
         <tr ng-repeat="applicationOption in applicationOptions">
             <td><input type="radio" data-ng-model="$parent.applicationOption" data-ng-value="applicationOption" name="applicationOption"></td>
-            <td>{{applicationOption.hakukohteenNimi}}</td>
+            <td>{{applicationOption.nimi.fi}}</td>
         </tr>
     </table>
 </div>

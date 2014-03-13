@@ -22,21 +22,15 @@ services.service('_', [function () {
     return window._;
 }]);
 
-services.service('AS', ['$http', '_', function ($http, _) {
+services.service('HH', ['$http', '_', function ($http, _) {
     
     var applicationSystems = [];
-    var applicationOptions = [];
     
     $http.get('http://localhost:8000/app/test-data/db-applicationSystem.json')
         .success(function (data) {
-            applicationSystems.push(data.result);
+            applicationSystems.push(data);
     });
     
-    $http.get('http://localhost:8000/app/test-data/applicationOption.json')
-        .success(function (data) {
-            applicationOptions.push(data.result);
-    });
-
     this.listApplicationsystems = function() {
         return applicationSystems;
     };
@@ -47,9 +41,17 @@ services.service('AS', ['$http', '_', function ($http, _) {
         }); 
     };
 
-    this.getApplicationOptions =function(asid, term) {
-        return _.find(applicationOptions, function(ao) { 
-            return ao.hakukohteenNimi.indexOf(term) != -1;
-        }); 
+    this.searchApplicationOptions = function(asid, term) {
+        var applicationOptions = [];
+        $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", 
+                {params: {searchTerms: term}} )
+            .success(function (data) {
+                _.each(data.result.tulokset, function(org) {
+                   _.each(org.tulokset, function(ao) {
+                        applicationOptions.push(ao);
+                   })
+            })
+        });
+        return applicationOptions
     };
 }]);

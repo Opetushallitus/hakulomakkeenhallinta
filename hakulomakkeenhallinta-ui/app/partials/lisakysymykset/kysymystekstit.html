@@ -5,10 +5,10 @@
     <div class="modal-body" style="height: 100%">
         <div class="alert alert-info">
             <i class="icon-info-sign"></i>Olet luomassa uutta kysymystä teemaan
-            <b>{{data.element | i18n}}</b> tyyppiä <b>{{data.type.name.translations.fi}}</b>.
+            <b>{{theme | i18n}}</b> tyyppiä <b>{{question.type | i18n:'name'}}</b>.
         </div>
         <form role="form" class="form-horizontal">
-            <div ng-include="'partials/lisakysymykset/questions/' + data.type.id + '.html'"></div>
+            <div ng-include="'partials/lisakysymykset/questions/' + question.type.id + '.html'"></div>
         </form>
     </div>
     <div class="modal-footer">

@@ -13,7 +13,7 @@
 <h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
 
 <table class="table table-striped">
-    <tr ng-repeat="additionalQuestion in additionalQuestions">
-        <td>{{additionalQuestion | i18n :'name'}}</td>
+    <tr ng-repeat="additionalQuestion in applicationSystem.additionalQuestions">
+        <td data-ng-click="edit(additionalQuestion)"><a>{{additionalQuestion | i18n}}</a></td>
     </tr>
 </table>
