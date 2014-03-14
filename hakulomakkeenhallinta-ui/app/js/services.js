@@ -6,13 +6,13 @@ var services = angular.module('hakulomakkeenhallinta.services', []);
 services.service('Resources', ['$resource', function ($resource) {
     return {
         form:                       $resource('http://localhost:8000/app/test-data/form.json'),
-    applicationSystem:          $resource('http://localhost:8000/app/test-data/db-applicationSystem.json'),
-    applicationSystems:         $resource('http://localhost:8000/app/test-data/applicationSystems.json'),
-    applicationFormTemplates:   $resource('http://localhost:8000/app/test-data/applicationFormTemplates.json'),
-    applicationOptions:         $resource('http://localhost:8000/app/test-data/applicationOptions.json'),
-    additionalQuestions:        $resource('http://localhost:8000/app/test-data/additionalQuestions.json'),
-    types:                      $resource('http://localhost:8000/app/test-data/types.json'),
-    languages:                  $resource('http://localhost:8000/app/test-data/languages.json')
+        applicationSystem:          $resource('http://localhost:8000/app/test-data/db-applicationSystem.json'),
+        applicationSystems:         $resource('http://localhost:8000/app/test-data/applicationSystems.json'),
+        applicationFormTemplates:   $resource('http://localhost:8000/app/test-data/applicationFormTemplates.json'),
+        applicationOptions:         $resource('http://localhost:8000/app/test-data/applicationOptions.json'),
+        additionalQuestions:        $resource('http://localhost:8000/app/test-data/additionalQuestions.json'),
+        types:                      $resource('http://localhost:8000/app/test-data/types.json'),
+        languages:                  $resource('http://localhost:8000/app/test-data/languages.json')
     };
 }]);
 
@@ -22,13 +22,22 @@ services.service('_', [function () {
     return window._;
 }]);
 
-services.service('HH', ['$http', '_', function ($http, _) {
-    
-    var applicationSystems = [];
-    
+services.service('AS', function($http, $q) {
+    var deferred = $q.defer();
     $http.get('http://localhost:8000/app/test-data/db-applicationSystem.json')
         .success(function (data) {
-            applicationSystems.push(data);
+            deferred.resolve(data);
+        });
+
+    this.getASS = function() {
+        return deferred.promise;
+    }
+})
+services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
+    var applicationSystems = []; 
+    var asPromise = AS.getASS();
+    asPromise.then(function(result) {
+       applicationSystems.push(result);
     });
     
     this.listApplicationsystems = function() {
@@ -36,10 +45,14 @@ services.service('HH', ['$http', '_', function ($http, _) {
     };
 
     this.getApplicationSystem = function(id) {
-        _.find(applicationSystems, function(as) { 
-            return as.id === id;
+        return _.find(applicationSystems, function(as) { 
+            return as._id === id;
         }); 
     };
+    
+    this.getOrganization = function()  {
+        return {'i18nText' : {'translations' : {'fi' : 'k-kauppa'}}};
+    }; 
 
     this.searchApplicationOptions = function(asid, term) {
         var applicationOptions = [];

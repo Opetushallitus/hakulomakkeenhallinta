@@ -3,11 +3,6 @@
 /* Filters */
 
 angular.module('hakulomakkeenhallinta.filters', [])
-.filter('interpolate', ['version', function (version) {
-    return function (text) {
-        return String(text).replace(/\%VERSION\%/mg, version);
-    }
-}])
 .filter('i18n', function () {
     return function (element, attribute, lang) {
         if (element) {
@@ -23,4 +18,18 @@ angular.module('hakulomakkeenhallinta.filters', [])
         }
         return "???"
     }
-});
+})
+
+.filter('themesWithAdditionalQuestions', ['_', function (_) {
+    return function (element) {
+        var formWalker = _.walk(function(element) {
+            return element.children;
+        });
+
+        $scope.themes = formWalker.filter(applicationSystem.form, _.walk.preorder, function(el) {
+            return el._class && el._class.indexOf("Theme") != -1 && el.additionalQuestions;
+        }); 
+    }
+}]);
+
+   

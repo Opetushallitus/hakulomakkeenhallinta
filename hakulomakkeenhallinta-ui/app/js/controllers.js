@@ -182,11 +182,20 @@ controllers.controller('QuestionCtrl', ['$scope', '$modalInstance', 'Resources',
 }]);
 
 controllers.controller('AdditionalQuestionsCtrl', 
-        ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', '$http',
-        function ($scope, $modal, $log, $location, Resources, $routeParams, $http) {
+        ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', 'HH',
+        function ($scope, $modal, $log, $location, Resources, $routeParams, HH) {
 
-    $scope.organization = {'name' : {'translations' : {'fi' : 'k-kauppa'}}}; 
-    $scope.applicationSystem = Resources.applicationSystem.get();
+    $scope.organization = HH.getOrganization();
+    $scope.applicationSystem = HH.getApplicationSystem($routeParams.id);
+    var formWalker = _.walk(function(e) {
+      return e.children;
+    });
+
+    $scope.elements = formWalker.filter($scope.applicationSystem.form, _.walk.preorder, function(el) {
+        return el._class && el._class.indexOf("Theme") != -1;
+    }); 
+
+
     $scope.addQuestion = function ( applicationSystem) {
         $modal.open({
             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
@@ -238,9 +247,12 @@ controllers.controller('AdditionalQuestionsCtrl',
                     var formWalker = _.walk(function(e) {
                         return e.children;
                     });
-                    return formWalker.find(applicationSystem.form, function(el) {
-                        return el._id === question.parentId;
+                    return formWalker.find($scope.applicationSystem.form, function(el) {
+                        return el._id === additionalQuestion.parentId;
                     }); 
+                },
+                applicationSystem: function () {
+                    return $scope.applicationSystem;
                 },
                 question: function() {
                     return additionalQuestion

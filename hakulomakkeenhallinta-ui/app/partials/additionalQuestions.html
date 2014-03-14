@@ -6,14 +6,14 @@
 <div class="alert alert-info">
     <i class="icon-info-sign"></i>
     Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä organisaation 
-    <b>{{organization | i18n:'name'}}</b> hakukohteelle <b>{{applicationOption.hakukohteenNimi}}<b> hakuun <b>{{applicationSystem | i18n : 'name'}}</b>.
+    <b>{{organization | i18n}}</b> hakukohteelle <b>{{applicationOption.hakukohteenNimi}}<b> hakuun <b>{{applicationSystem | i18n : 'name'}}</b>.
 </div>
 <div class="clearfix"></div>
 
 <h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
 
 <table class="table table-striped">
-    <tr ng-repeat="additionalQuestion in applicationSystem.additionalQuestions">
-        <td data-ng-click="edit(additionalQuestion)"><a>{{additionalQuestion | i18n}}</a></td>
+    <tr ng-repeat="element in elements| filter:themesWithAdditionalQuestions">
+        <td data-ng-click="edit(element)"><a>{{element| i18n}}</a></td>
     </tr>
 </table>
