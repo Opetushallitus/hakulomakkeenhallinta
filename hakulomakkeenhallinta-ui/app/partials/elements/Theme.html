@@ -1,10 +1,10 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">{{$parent.tree.i18nText.translations.fi }}</div>
+    <div class="panel-heading">{{$parent.tree | i18n }}
+        <button type="button" class="btn btn-info pull-right" data-ng-click="modify($parent.tree, $event)">Muokkaa</button>
+    </div>
     <div class="panel-body">
-        <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/element.html'" class="container">
+        <div class="well"> {{$parent.tree | i18n:'help'}}</div>
+        <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" class="container">
         </div>
     </div>
 </div>
-
-
-

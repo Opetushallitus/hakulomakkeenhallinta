@@ -16,7 +16,7 @@ angular.module('hakulomakkeenhallinta.filters', [])
                 return element[attribute].translations[lang];
             }
         }
-        return "???"
+        return ""
     }
 })
 

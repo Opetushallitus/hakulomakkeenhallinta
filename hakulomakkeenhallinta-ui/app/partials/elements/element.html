@@ -1,3 +1,4 @@
 {{$parent.tree | i18n}}
-<div ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/element.html'" class="container">
+<input type="text" ng-model="answers[$parent.tree._id]">
+<div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" class="container">
 </div>

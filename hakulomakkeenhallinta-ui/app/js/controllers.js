@@ -338,6 +338,7 @@ controllers.controller('TreeCtrl', ['$scope', function ($scope) {
 }]);
 
 controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', function ($scope, Resources, _) {
+    $scope.answers = {};
     $scope.tree = Resources.applicationSystem.get();
 
     $scope.delete = function (array, index) {
@@ -348,13 +349,46 @@ controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', fun
             event.preventDefault();
             event.stopPropagation();
         }
-        alert("modify " + element._id);
+        alert(element.children.length);
+        element.children.splice(0,1);
+        alert(element.children.length);
+        alert("modify " + element._id + ", "+ $scope.tree._id);
     };
-
+    $scope.pprintExpr = function (element) {
+       if ("fi.vm.sade.haku.oppija.lomake.domain.rules.RelatedQuestionComplexRule" === element._class) {
+           return $scope.expr2str(element.expr);
+       }
+    }
+    
+    $scope.evalExpr = function (element) {
+        var expr = element.expr;
+        var oper = expr._class.split('.').pop();
+        if (oper == 'Variable') {
+            return $scope.answers[expr.value];
+        } else if (oper == 'Value') {
+            return expr.value;
+        } else if (oper == 'Not') {
+            return !this.expr2str(expr.left);
+        } else if (oper == 'Equals') {
+            return this.expr2str(expr.left) == this.expr2str(expr.right);
+        } else if (oper == 'Or') {
+            return this.expr2str(expr.left) || this.expr2str(expr.right);
+        } else if (oper == 'And') {
+            return this.expr2str(expr.left) && this.expr2str(expr.right);
+        } else if (oper == 'Regexp') {
+            return $scope.answers[expr.value] && $scope.answers[expr.value].match(expr.pattern);
+        }
+    };
+    $scope.selectTemplate = function(type) {
+        var t = type.split('.').pop();
+        if (t === 'RelatedQuestionComplexRule') {
+            return t;
+        }
+        return "element";
+    }
     $scope.expr2str = function (expr) {
-        return "test";
         if (expr._class) {
-            var oper = expr._class.split('.').pop()
+            var oper = expr._class.split('.').pop();
             if (oper == 'Variable') {
                 return expr.value;
             } else if (oper == 'Value') {
@@ -363,8 +397,15 @@ controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', fun
                 return ' (' + oper.toLowerCase() + ' ' + this.expr2str(expr.left) + ")";
             } else if (oper == 'Equals') {
                 return '(' + this.expr2str(expr.left) + ' = ' + this.expr2str(expr.right) + ')';
+            } else if (oper == 'Or') {
+                return '(' + this.expr2str(expr.left) + ' tai ' + this.expr2str(expr.right) + ')';
+            } else if (oper == 'And') {
+                return '(' + this.expr2str(expr.left) + ' ja ' + this.expr2str(expr.right) + ')';
+            } else if (oper == 'Regexp') {
+                return '\'' + expr.value + '=' + expr.pattern + '\'';
             }
-            return '(' + this.expr2str(expr.left) + ' ' + oper.toLowerCase() + ' ' + this.expr2str(expr.right) + ')';
+
+            return "Unimplemented operator " + oper;
         } else {
             return '';
         }

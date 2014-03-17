@@ -1,7 +1,5 @@
-<div class="node">
-    {{$parent.tree._class}}
-    {{$parent.tree.expr | json}}
-    <div ng-repeat="tree in $parent.tree.children">
-        <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
+<div> 
+    {{pprintExpr($parent.tree)}} <span class="label label-{{evalExpr($parent.tree) ? 'success' : 'danger'}}">Sääntö</span>
+    <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" class="container">
     </div>
 </div>
