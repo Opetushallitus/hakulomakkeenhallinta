@@ -1,5 +1,9 @@
 <div> 
-    {{pprintExpr($parent.tree)}} <span class="label label-{{evalExpr($parent.tree) ? 'success' : 'danger'}}">Sääntö</span>
-    <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" class="container">
+    <div class="panel panel-{{evalExpr($parent.tree) ? 'success' : 'danger'}}">
+        <div class="panel-heading">{{pprintExpr($parent.tree)}}</div>
+        <div class="panel-body">
+            <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'"  class="container">
+            </div>
+        </div>
     </div>
 </div>
