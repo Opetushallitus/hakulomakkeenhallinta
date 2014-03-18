@@ -8,7 +8,9 @@ angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallinta.services',
         'hakulomakkeenhallinta.directives',
         'hakulomakkeenhallinta.controllers',
-        'jm.i18next'
+        'demo',
+        'jm.i18next',
+        'ui.nestedSortable'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/applicationSystemForm', {templateUrl: 'partials/applicationSystemFormIndex.html'});

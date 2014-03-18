@@ -1,9 +1,6 @@
-<div> 
-    <div class="panel panel-{{evalExpr($parent.tree) ? 'success' : 'danger'}}">
-        <div class="panel-heading">{{pprintExpr($parent.tree)}}</div>
-        <div class="panel-body">
-            <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'"  class="container">
-            </div>
-        </div>
+<div class="node"> 
+    <!-- <div class="panel panel&#45;{{evalExpr($parent.tree) ? 'success' : 'danger'}}"> -->
+    {{pprintExpr($parent.tree)}}
+    <div class="subtree" data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" > 
     </div>
 </div>
