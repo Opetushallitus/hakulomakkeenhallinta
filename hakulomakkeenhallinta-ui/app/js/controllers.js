@@ -1,4 +1,4 @@
-'ckuse strict';
+'use strict';
 
 /* Controllers */
 
