@@ -1,4 +1,4 @@
-'use strict';
+'ckuse strict';
 
 /* Controllers */
 
@@ -67,7 +67,7 @@ controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location'
         }).result.then(function (applicationOptionId) {
             console.log("ok " + applicationOptionId);
             console.log("ok " + "");
-            $location.path("applicationSystemForm/" + applicationSystem._id + '/' + applicationOptionId);
+            $location.path("additionalQuestion/" + applicationSystem._id + '/' + applicationOptionId);
         }, function () {
 
         });
@@ -77,8 +77,8 @@ controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location'
 controllers.controller('ModalApplicationOptionCtrl', ['$scope', '$location', 'Resources', '$modalInstance', 'applicationSystem', 'HH',  function ($scope, $location, Resources, $modalInstance, applicationSystem, HH) {
     $scope.applicationOptions = [];
     $scope.queryParameters = {};
-    
     $scope.ok = function () {
+
         $modalInstance.close(this.applicationOption.oid);
     };
 
@@ -86,7 +86,7 @@ controllers.controller('ModalApplicationOptionCtrl', ['$scope', '$location', 'Re
         $modalInstance.dismiss('cancel');
     };
     $scope.search = function () {
-        $scope.applicationOptions = HH.searchApplicationOptions(applicationSystem._id, $scope.queryParameters.term); 
+        $scope.applicationOptions = HH.searchApplicationOptions(applicationSystem._id, $scope.queryParameters.term);
     };
 }]);
 
@@ -96,8 +96,8 @@ controllers.controller('BackCtrl', ['$scope', '$location', function ($scope, $lo
         path.pop();
         $location.path(path.join('/'));
     };
-    $scope.goto = function (path) {
-        $location.path($location.path() + '/' + path._id);
+    $scope.goto = function (element) {
+        $location.path($location.path() + '/' + element._id);
     }
 }]);
 
@@ -161,7 +161,7 @@ var QuestionTypeCtrl = function ($scope, $modalInstance, Resources, $routeParams
     };
 };
 
-controllers.controller('QuestionCtrl', ['$scope', '$modalInstance', 'Resources', 'question', 'applicationSystem', 
+controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resources', 'question', 'applicationSystem', 
         function ($scope, $modalInstance, Resources, question, applicationSystem) {
     $scope.lang = "fi";
     
@@ -208,7 +208,7 @@ controllers.controller('AdditionalQuestionsCtrl',
         }).result.then(function (data) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                    controller: 'QuestionCtrl',
+                    controller: 'ModalQuestionCtrl',
                     resolve: {
                         question: function() {
                             return {
@@ -241,7 +241,7 @@ controllers.controller('AdditionalQuestionsCtrl',
     $scope.edit = function(additionalQuestion) {
         $modal.open({
             templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-            controller: 'QuestionCtrl',
+            controller: 'ModalQuestionCtrl',
             resolve: {
                 element : function() {
                     var formWalker = _.walk(function(e) {
@@ -354,12 +354,15 @@ controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', fun
         alert(element.children.length);
         alert("modify " + element._id + ", "+ $scope.tree._id);
     };
+    $scope.edit = function(element) {
+
+    };
     $scope.pprintExpr = function (element) {
        if ("fi.vm.sade.haku.oppija.lomake.domain.rules.RelatedQuestionComplexRule" === element._class) {
            return $scope.expr2str(element.expr);
        }
     }
-    
+
     $scope.evalExpr = function (element) {
         var expr = element.expr;
         var oper = expr._class.split('.').pop();
@@ -420,8 +423,10 @@ controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', fun
             console.log(element._id);
         }
     };
-
-
-
+}]);
+controllers.controller('QuestionCtrl', ['$scope', '$routeParams', 'HH', function($scope, $routeParams, HH) {
+    $scope.element = HH.find($routeParams.id, function(el) {
+        return el._id === $routeParams.eid;
+    });
 }]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);

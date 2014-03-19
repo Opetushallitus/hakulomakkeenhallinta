@@ -34,29 +34,39 @@ services.service('AS', function($http, $q) {
     }
 })
 services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
-    var applicationSystems = []; 
+    var applicationSystems = [];
     var asPromise = AS.getASS();
+    var formWalker = _.walk(function(e) {
+            return e.children;
+    });
+
     asPromise.then(function(result) {
        applicationSystems.push(result);
     });
-    
+
     this.listApplicationsystems = function() {
         return applicationSystems;
     };
 
     this.getApplicationSystem = function(id) {
-        return _.find(applicationSystems, function(as) { 
+        console.log('getApplicationSystem' + id);
+        return _.find(applicationSystems, function(as) {
             return as._id === id;
-        }); 
+        });
     };
-    
+    this.find = function(asid, predicate) {
+        var applicationSystem = this.getApplicationSystem(asid);
+        console.log(applicationSystem + asid);
+        return formWalker.find(applicationSystem.form, predicate);
+    };
+
     this.getOrganization = function()  {
         return {'i18nText' : {'translations' : {'fi' : 'k-kauppa'}}};
-    }; 
+    };
 
     this.searchApplicationOptions = function(asid, term) {
         var applicationOptions = [];
-        $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", 
+        $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search",
                 {params: {searchTerms: term}} )
             .success(function (data) {
                 _.each(data.result.tulokset, function(org) {

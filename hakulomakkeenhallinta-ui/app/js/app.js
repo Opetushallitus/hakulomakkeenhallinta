@@ -8,14 +8,13 @@ angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallinta.services',
         'hakulomakkeenhallinta.directives',
         'hakulomakkeenhallinta.controllers',
-        'demo',
-        'jm.i18next',
-        'ui.nestedSortable'
+        'jm.i18next'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/applicationSystemForm', {templateUrl: 'partials/applicationSystemFormIndex.html'});
         $routeProvider.when('/applicationSystemForm/:id', {templateUrl: 'partials/applicationSystemForm.html'});
-        $routeProvider.when('/applicationSystemForm/:id/:aoid', {templateUrl: 'partials/additionalQuestions.html' ,controller: 'AdditionalQuestionsCtrl'});
+        $routeProvider.when('/applicationSystemForm/:id/:eid', {templateUrl: 'partials/Question.html' ,controller: 'QuestionCtrl'});
+        $routeProvider.when('/additionalQuestion/:id/:aoid', {templateUrl: 'partials/additionalQuestions.html' ,controller: 'AdditionalQuestionsCtrl'});
         $routeProvider.when('/applicationSystem', {templateUrl: 'partials/applicationSystem.html'});
         $routeProvider.when('/applicationSystems', {templateUrl: 'partials/applicationForms.html'});
         $routeProvider.when('/applicationSystems/:applicationFormId/:applicationOptionId', {templateUrl: 'partials/additionalQuestions.html', controller: 'AdditionalQuestionsCtrl'});

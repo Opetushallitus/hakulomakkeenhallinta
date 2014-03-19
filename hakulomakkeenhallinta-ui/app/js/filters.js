@@ -28,8 +28,6 @@ angular.module('hakulomakkeenhallinta.filters', [])
 
         $scope.themes = formWalker.filter(applicationSystem.form, _.walk.preorder, function(el) {
             return el._class && el._class.indexOf("Theme") != -1 && el.additionalQuestions;
-        }); 
+        });
     }
 }]);
-
-   

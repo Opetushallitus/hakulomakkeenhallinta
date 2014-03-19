@@ -1,6 +1,5 @@
 <div class="node">
-    {{tree | i18n}} - teema<span class="glyphicon glyphicon-pencil" data-ng-click=alert('sdfsdf')></span> 
-    <div class="well"> {{$parent.tree | i18n:'help'}}</div>
-    <div class="subtree" data-ng-repeat="tree in $parent.tree.children" data-ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'">
-    </div>
+    {{tree | i18n}} - teema<i class="glyphicon glyphicon-pencil" data-ng-click=edit($parent.tree)></i>
+    <div> {{$parent.tree | i18n:'help'}}</div>
+    <div class="subtree" data-ng-repeat="tree in $parent.tree.children" data-ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'"></div>
 </div>

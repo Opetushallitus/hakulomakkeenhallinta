@@ -1,6 +1,6 @@
 <div class="node">
-    {{$parent.tree | i18n}}
-    <!-- <input type="text" ng&#45;model="answers[$parent.tree._id]"> -->
-    <div class="subtree" data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" >
-    </div>
+    {{tree | i18n}}  
+    <i class="glyphicon glyphicon-pencil" data-ng-controller="BackCtrl" data-ng-click=goto(tree)></i> 
+    <i class="glyphicon glyphicon-trash" data-ng-click="delete($parent.$parent.tree.children, $parent.$index)"></i> 
+    <div class="subtree" data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" ></div>
 </div>
