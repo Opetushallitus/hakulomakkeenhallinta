@@ -53,3 +53,44 @@ directives.directive('hhInputlink', function () {
         }
     }
 });
+
+
+
+directives.directive('elementTree', function() {
+      return {
+        template: '<ul><element ng-repeat="element in tree"></choice></ul>',
+        replace: true,
+        transclude: true,
+        restrict: 'E',
+        scope: {
+          tree: '=ngModel'
+        }
+      };
+});
+
+directives.directive('element', function($compile, $templateCache) {
+  var getTemplate = function(type) {
+        var template = $templateCache.get(type);
+        if (template) {
+           return template;
+        } else {
+            return $templateCache.get('element');
+        }
+  }
+  return { 
+    restrict: 'E',
+    template: '<li>' +
+      '<span>' +
+        '{{element | i18n}}' +
+      '</span>' +
+    '</li>',
+    link: function(scope, elm, attrs) {
+        elm.html(getTemplate(scope.element._class.split(".").pop()));
+        $compile(elm.contents())(scope);
+      if (scope.element.children.length > 0) {
+        var childElement = $compile('<element-tree ng-model="element.children"></element-tree>')(scope)
+        elm.append(childElement);
+      }
+    }
+  };
+});

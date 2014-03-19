@@ -35,6 +35,15 @@
 <!--  -->
 <!--   </div> -->
 <!--  -->
+<script type="text/ng-template" id="TextQuestion">
+TextQuestion
+</script>
+
+<script type="text/ng-template" id="element">
+    {{element._class}}
+</script>
+
+<element-tree data-ng-model="$parent.tree.form.children"></element-tree>
 <accordion data-ng-repeat="tree in $parent.tree.form.children">
         <accordion-group>
             <accordion-heading>
