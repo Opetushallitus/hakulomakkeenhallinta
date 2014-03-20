@@ -1,5 +1,0 @@
-<ul>
-    {{tree | i18n}} - teema<i class="glyphicon glyphicon-pencil" data-ng-click=edit($parent.tree)></i>
-    <div> {{$parent.tree | i18n:'help'}}</div>
-    <li data-ng-repeat="tree in $parent.tree.children" data-ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'"></li>
-</ul>

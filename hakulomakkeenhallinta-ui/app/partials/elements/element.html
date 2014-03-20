@@ -1,6 +1,9 @@
-<div class="node">
-    {{tree | i18n}}  
-    <i class="glyphicon glyphicon-pencil" data-ng-controller="BackCtrl" data-ng-click=goto(tree)></i> 
-    <i class="glyphicon glyphicon-trash" data-ng-click="delete($parent.$parent.tree.children, $parent.$index)"></i> 
-    <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" ></div>
-</div>
+<ul class="dropdown">
+    <a class="dropdown-toggle">{{tree | i18n}}</a>
+    <ul class="dropdown-menu">
+        <li><a data-ng-controller="BackCtrl" data-ng-click=goto(tree)>Muokkaa</a></li>
+        <li><a data-ng-click="delete($parent.$parent.tree.children, $parent.$index)">Poista</a></li>
+        <li><a>Testi</a></li>
+    </ul>
+    <li data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" ></li>
+</ul>

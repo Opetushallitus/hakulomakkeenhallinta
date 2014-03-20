@@ -54,9 +54,7 @@ services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
             return as._id === id;
         });
     };
-    this.find = function(asid, predicate) {
-        var applicationSystem = this.getApplicationSystem(asid);
-        console.log(applicationSystem + asid);
+    this.find = function(applicationSystem, predicate) {
         return formWalker.find(applicationSystem.form, predicate);
     };
 

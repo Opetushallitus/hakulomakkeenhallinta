@@ -1,0 +1,15 @@
+<a data-ng-click="showEdit = !showEdit">Säännöllinen lauseke</a>
+<i class="glyphicon glyphicon-trash" data-ng-click="delete(element.validators, $index)"></i>
+<div data-ng-show="showEdit">
+    <input type="text" data-ng-model="validator.pattern" data-ng-required="true">
+    <tabset>
+        <tab ng-repeat="(key, value) in validator.errorMessage.translations">
+            <tab-heading>{{key}}</tab-heading>
+            <input data-ng-model="validator.errorMessage.translations[key]" data-ng-required="{{key === 'fi'}}"/>
+        </tab>
+    </tabset>
+    <div class="well">
+        Kokeile syötettä: <input type="text" data-ng-model="test">
+        <i class="{{!test || test.match(validator.pattern) ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-ban-circle'}}"></i>
+    </div>
+</div>

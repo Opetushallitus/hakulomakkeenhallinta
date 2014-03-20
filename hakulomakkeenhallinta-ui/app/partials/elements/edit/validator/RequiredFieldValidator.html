@@ -1,0 +1,8 @@
+<a data-ng-click="showEdit = !showEdit">Kysymys on hakijalle pakollinen</a>
+<i class="glyphicon glyphicon-trash" data-ng-click="delete(element.validators, $index)"></i>
+<tabset data-ng-show="showEdit">
+    <tab ng-repeat="(key, value) in validator.errorMessage.translations">
+        <tab-heading>{{key}}</tab-heading>
+        <input data-ng-model="validator.errorMessage.translations[key]"/>
+    </tab>
+</tabset>

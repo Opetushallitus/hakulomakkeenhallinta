@@ -1,9 +1,9 @@
 <accordion data-ng-repeat="tree in $parent.tree.form.children">
-        <accordion-group>
+        <accordion-group is-open="accordionStates[tree._id]">
             <accordion-heading>
                 <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
-                {{tree | i18n}} - vaihe
+                {{tree | i18n}}
             </accordion-heading>
-            <div ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'" data-ng-init="parent = $parent.tree; index = parent.$index"></div>
+            <div data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" ></div>
         </accordion-group>
 </accordion>

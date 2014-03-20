@@ -1,26 +1,32 @@
 [
     {
         "id": "fi",
-        "name": {
-            "fi": "Suomi",
-            "sv": "Suomi (sv)",
-            "en": "Suomi (en)"
+        "i18nText": {
+            "translations": {
+                "fi": "Suomi",
+                "sv": "Suomi (sv)",
+                "en": "Suomi (en)"
+            }
         }
     },
     {
         "id": "sv",
-        "name": {
-            "fi": "Ruotsi",
-            "sv": "Ruotsi (sv)",
-            "en": "Ruotsi (en)"
+        "i18nText": {
+            "translations": {
+                "fi": "Ruotsi",
+                "sv": "Ruotsi (sv)",
+                "en": "Ruotsi (en)"
+            }
         }
     },
     {
         "id": "en",
-        "name": {
-            "fi": "Englanti",
-            "sv": "Englanti (sv)",
-            "en": "Englanti (en)"
+        "i18nText": {
+            "translations": {
+                "fi": "Englanti",
+                "sv": "Englanti (sv)",
+                "en": "Englanti (en)"
+            }
         }
     }
 ]
