@@ -1,3 +1,3 @@
-<div ng-repeat="tree in $parent.tree.children">
-    <div data-ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></div>
-</div>
+<ul ng-repeat="tree in $parent.tree.children">
+    <li data-ng-include src="'partials/elements/' + tree._class.split('.').pop() + '.html'"></li>
+</ul>
