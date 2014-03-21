@@ -44,7 +44,7 @@ services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
        applicationSystems.push(result);
     });
 
-    this.listApplicationsystems = function() {
+    this.listApplicationSystems = function() {
         return applicationSystems;
     };
 

@@ -1,3 +1,42 @@
-<button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
-<button type="button" class="btn btn-secondary">Tallenna</button>
-<div ng-include="'partials/elements/edit/' + element._class.split('.').pop() + '.html'"></div>
+<div data-ng-controller="QuestionCtrl">
+    <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
+    <button type="button" class="btn btn-warning">Tallenna</button>
+
+    <div class="alert alert-info">
+        <i class="icon-info-sign"></i>Olet Muokkaamassa hakulomakkeen {{applicationSystem | i18n:name}} kysymystä <b>{{element
+        | i18n}}</b>.
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <tabset>
+                <tab ng-repeat="language in languages">
+                    <tab-heading>{{language | i18n}}</tab-heading>
+                    <form role="form">
+                        <hh-inputtext data-ng-model="element.i18nText.translations[language.id]"
+                                      label="question-title"></hh-inputtext>
+                        <hh-inputtext data-ng-model="element.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="element.additionalHelp.translations[language.id]"
+                                      label="question-additional-help"></hh-inputtext>
+                        <hh-inputlink data-ng-model="element.link[language.id]" label="question-link"></hh-inputlink>
+                    </form>
+                </tab>
+            </tabset>
+            <hr/>
+            Rajoitteet ja tarkastukset
+            <div ng-repeat="validator in element.validators">
+                <div data-ng-include
+                     src="'partials/elements/edit/validator/' + validator._class.split('.').pop() + '.html'"></div>
+            </div>
+            <hr/>
+            <div class="control-group">
+                <div class="control-group" ng-include="'partials/elements/edit/type/' + element._class.split('.').pop() + '.html'">
+                    Unimplemented template
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <pre>{{element | json}}</pre>
+        </div>
+    </div>
+</div>

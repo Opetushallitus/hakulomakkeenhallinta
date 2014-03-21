@@ -34,6 +34,7 @@ directives.directive('hhInputtext', function () {
         replace: true,
         templateUrl: 'partials/lisakysymykset/questions/directives/input-text.html',
         link: function (scope, element, attrs) {
+
             scope.label = attrs.label;
         }
     }

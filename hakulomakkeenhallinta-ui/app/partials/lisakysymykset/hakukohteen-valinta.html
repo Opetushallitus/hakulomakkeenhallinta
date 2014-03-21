@@ -19,7 +19,7 @@
             <span class="input-group-addon" ><span class="glyphicon glyphicon-search"></span></span>
             <input type="text" class="form-control" data-ng-model="queryParameters.term">
         </div>
-        <button type="reset" class="btn btn-secondary" data-ng-click="reset()" data-ng-controller="BackCtrl">Tyhjennä
+        <button type="reset" class="btn btn-warning" data-ng-click="reset()" data-ng-controller="BackCtrl">Tyhjennä
         </button>
         <button type="button=" class="btn btn-primary" data-ng-click="search()">hae</button>
     </form>
@@ -31,6 +31,6 @@
     </table>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-secondary pull-left" ng-click="cancel()">Peruuta</button>
+    <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
     <button class="btn btn-primary pull-right" ng-click="ok()" ng-disabled="selections.length < 1">Jatka</button>
 </div>

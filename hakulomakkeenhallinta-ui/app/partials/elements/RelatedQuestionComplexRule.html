@@ -1,5 +1,5 @@
 <ul class="dropdown">
-    <a class="dropdown-toggle">{{pprintExpr($parent.tree)}}</a>
+    <a class="dropdown-toggle">{{expr2str(tree.expr)}}</a>
     <ul class="dropdown-menu">
         <li><a data-ng-controller="BackCtrl" data-ng-click=goto(tree)>Muokkaa</a></li>
         <li><a data-ng-click="delete($parent.$parent.tree.children, $parent.$index)">Poista</a></li>

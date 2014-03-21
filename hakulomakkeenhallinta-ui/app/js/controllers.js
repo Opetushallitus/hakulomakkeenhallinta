@@ -3,9 +3,53 @@
 /* Controllers */
 
 var controllers = angular.module('hakulomakkeenhallinta.controllers', []);
-controllers.controller('AppCtrl', ['$scope', function ($scope) {
+controllers.controller('AppCtrl', ['$scope', 'Resources', function ($scope, Resources) {
     $scope.accordionStates = {};
+    $scope.languages = Resources.languages.query();
 }]);
+
+controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH', function ($scope, Resources, $routeParams, _, HH) {
+    $scope.applicationSystem = Resources.applicationSystem.get();
+
+    $scope.delete = function (array, index) {
+        array.splice(index, 1);
+    };
+
+    $scope.selectTemplate = function (type) {
+        var t = type.split('.').pop();
+        console.log(t + ' ' + (t === 'RelatedQuestionComplexRule'));
+        if (t === 'RelatedQuestionComplexRule') {
+            return t;
+        }
+        return "element";
+    }
+    $scope.expr2str = function (expr) {
+        if (expr._class) {
+            var oper = expr._class.split('.').pop();
+            if (oper == 'Variable') {
+                return expr.value;
+            } else if (oper == 'Value') {
+                return '\'' + expr.value + '\'';
+            } else if (oper == 'Not') {
+                return ' (' + oper.toLowerCase() + ' ' + this.expr2str(expr.left) + ")";
+            } else if (oper == 'Equals') {
+                return '(' + this.expr2str(expr.left) + ' = ' + this.expr2str(expr.right) + ')';
+            } else if (oper == 'Or') {
+                return '(' + this.expr2str(expr.left) + ' tai ' + this.expr2str(expr.right) + ')';
+            } else if (oper == 'And') {
+                return '(' + this.expr2str(expr.left) + ' ja ' + this.expr2str(expr.right) + ')';
+            } else if (oper == 'Regexp') {
+                return '\'' + expr.value + '=' + expr.pattern + '\'';
+            }
+
+            return "Unimplemented operator " + oper;
+        } else {
+            return '';
+        }
+    };
+
+}]);
+
 
 controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', function ($scope, $modal, $log, $location, Resources, HH) {
     $scope.question = {};
@@ -19,7 +63,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         {id: '1', name: 'Aasian tutkimus'},
         {id: '2', name: 'Aasian tutkimus, kandidaatinopinnot'}
     ];
-    $scope.applicationForms = HH.listApplicationsystems();
+    $scope.applicationForms = HH.listApplicationSystems();
 
     $scope.luoHakulomake = function () {
         $modal.open({
@@ -56,7 +100,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
     };
 }]);
 
-controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', function ($scope, $modal, $log, $location, Resources) {
+controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location', function ($scope, $modal, $log, $location) {
     console.log('QuestionsCtrl');
     $scope.addNewAdditionalQuestion = function (applicationSystem) {
         var modalInstance = $modal.open({
@@ -340,101 +384,14 @@ controllers.controller('TreeCtrl', ['$scope', function ($scope) {
     ];
 }]);
 
-controllers.controller('ApplicationSystemCtrl', ['$scope', 'Resources', '_', function ($scope, Resources, _) {
-    $scope.answers = {};
-    $scope.tree = Resources.applicationSystem.get();
+controllers.controller('QuestionCtrl', ['$scope', '$routeParams', '_', 'HH', function ($scope, $routeParams, _, HH) {
 
-    $scope.delete = function (array, index) {
-        array.splice(index, 1);
-    };
-    $scope.modify = function (element, event) {
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        alert(element.children.length);
-        element.children.splice(0, 1);
-        alert(element.children.length);
-        alert("modify " + element._id + ", " + $scope.tree._id);
-    };
-    $scope.edit = function (element) {
+    $scope.applicationSystem.$promise.then(function (result) {
+        $scope.element = HH.find($scope.applicationSystem, function (el) {
+            return el._id === $routeParams.eid;
+        });
+        _.defaults($scope.element, {additionalHelp: {translations: {}}, verboseHelp: {translations: {}}, i18nText: {translations: {}}});
 
-    };
-    $scope.pprintExpr = function (element) {
-        if ("fi.vm.sade.haku.oppija.lomake.domain.rules.RelatedQuestionComplexRule" === element._class) {
-            return $scope.expr2str(element.expr);
-        }
-    }
-
-    $scope.evalExpr = function (element) {
-        var expr = element.expr;
-        var oper = expr._class.split('.').pop();
-        if (oper == 'Variable') {
-            return $scope.answers[expr.value];
-        } else if (oper == 'Value') {
-            return expr.value;
-        } else if (oper == 'Not') {
-            return !this.expr2str(expr.left);
-        } else if (oper == 'Equals') {
-            return this.expr2str(expr.left) == this.expr2str(expr.right);
-        } else if (oper == 'Or') {
-            return this.expr2str(expr.left) || this.expr2str(expr.right);
-        } else if (oper == 'And') {
-            return this.expr2str(expr.left) && this.expr2str(expr.right);
-        } else if (oper == 'Regexp') {
-            return $scope.answers[expr.value] && $scope.answers[expr.value].match(expr.pattern);
-        }
-    };
-    $scope.selectTemplate = function (type) {
-        var t = type.split('.').pop();
-        if (t === 'RelatedQuestionComplexRule') {
-            return t;
-        }
-        return "element";
-    }
-    $scope.expr2str = function (expr) {
-        if (expr._class) {
-            var oper = expr._class.split('.').pop();
-            if (oper == 'Variable') {
-                return expr.value;
-            } else if (oper == 'Value') {
-                return '\'' + expr.value + '\'';
-            } else if (oper == 'Not') {
-                return ' (' + oper.toLowerCase() + ' ' + this.expr2str(expr.left) + ")";
-            } else if (oper == 'Equals') {
-                return '(' + this.expr2str(expr.left) + ' = ' + this.expr2str(expr.right) + ')';
-            } else if (oper == 'Or') {
-                return '(' + this.expr2str(expr.left) + ' tai ' + this.expr2str(expr.right) + ')';
-            } else if (oper == 'And') {
-                return '(' + this.expr2str(expr.left) + ' ja ' + this.expr2str(expr.right) + ')';
-            } else if (oper == 'Regexp') {
-                return '\'' + expr.value + '=' + expr.pattern + '\'';
-            }
-
-            return "Unimplemented operator " + oper;
-        } else {
-            return '';
-        }
-    };
-
-    $scope.createAdditionalQuestions = function (element) {
-
-    };
-
-    $scope.release = function (element) {
-        pprint = function (element) {
-            console.log(element._id);
-        }
-    };
-}]);
-controllers.controller('QuestionCtrl', ['$scope', '$routeParams', 'Resources', 'HH', function ($scope, $routeParams, Resources, HH) {
-    $scope.languages = Resources.languages.query($scope.queryParameters);
-    $scope.applicationSystem = HH.getApplicationSystem($routeParams.id);
-    $scope.element = HH.find($scope.applicationSystem, function (el) {
-        return el._id === $routeParams.eid;
     });
-    $scope.delete = function (array, index) {
-        array.splice(index, 1);
-    };
 }]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);
