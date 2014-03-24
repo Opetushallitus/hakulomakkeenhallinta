@@ -373,6 +373,7 @@ controllers.controller('DropdownCtrl', ['$scope', function ($scope) {
         "(Peruuta julkaisu)"
     ];
 }]);
+
 controllers.controller('TreeCtrl', ['$scope', function ($scope) {
     $scope.items = [
         "Tarkastele",
@@ -384,14 +385,24 @@ controllers.controller('TreeCtrl', ['$scope', function ($scope) {
     ];
 }]);
 
-controllers.controller('QuestionCtrl', ['$scope', '$routeParams', '_', 'HH', function ($scope, $routeParams, _, HH) {
-
+controllers.controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH', function ($scope, $routeParams, _, HH) {
     $scope.applicationSystem.$promise.then(function (result) {
         $scope.element = HH.find($scope.applicationSystem, function (el) {
             return el._id === $routeParams.eid;
         });
         _.defaults($scope.element, {additionalHelp: {translations: {}}, verboseHelp: {translations: {}}, i18nText: {translations: {}}});
-
+       var packageArray = $scope.element._class.split('.');
+       packageArray.pop();
+       $scope.templateGroup = packageArray.pop();
+       $scope.expr = $scope.element.expr;
     });
+
+}]);
+
+controllers.controller('QuestionCtrl', ['$scope', '_', function ($scope, _) {
+}]);
+
+controllers.controller('ExprCtrl', ['$scope', function ($scope) {
+    $scope.expr = $scope.element.expr;
 }]);
 //controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);

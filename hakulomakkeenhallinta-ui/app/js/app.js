@@ -18,7 +18,7 @@ angular.module('hakulomakkeenhallinta', [
             controller: 'ApplicationSystemFormCtrl'
         });
         $routeProvider.when('/applicationSystemForm/:id/:eid', {
-            templateUrl: 'partials/elements/edit/Question.html' ,
+            templateUrl: 'partials/elements/edit/Element.html' ,
             controller: 'ApplicationSystemFormCtrl'
         });
         $routeProvider.when('/additionalQuestion/:id/:aoid', {templateUrl: 'partials/additionalQuestions.html' ,controller: 'AdditionalQuestionsCtrl'});

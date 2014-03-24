@@ -30,4 +30,13 @@ angular.module('hakulomakkeenhallinta.filters', [])
             return el._class && el._class.indexOf("Theme") != -1 && el.additionalQuestions;
         });
     }
+}])
+
+.filter('without', ['_', function (_) {
+    return function (element, attribute) {
+        if (!attribute) {
+            attribute = 'children';
+        }
+        return _.omit(element, attribute);
+    }
 }]);
