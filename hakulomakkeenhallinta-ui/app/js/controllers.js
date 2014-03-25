@@ -16,8 +16,8 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$ro
     };
 
     $scope.selectTemplate = function (type) {
+        console.log("select template " + type);
         var t = type.split('.').pop();
-        console.log(t + ' ' + (t === 'RelatedQuestionComplexRule'));
         if (t === 'RelatedQuestionComplexRule') {
             return t;
         }
@@ -394,6 +394,9 @@ controllers.controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH', func
        var packageArray = $scope.element._class.split('.');
        packageArray.pop();
        $scope.templateGroup = packageArray.pop();
+       if ($scope.templateGroup === 'elements') {
+           $scope.templateGroup = 'questions';
+       }
        $scope.expr = $scope.element.expr;
     });
 
