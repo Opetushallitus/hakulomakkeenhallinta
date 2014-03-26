@@ -29,7 +29,7 @@
     <artifactId>hakulomakkeenhallinta-ui</artifactId>
     <version>7.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Hakulomakkeenhallinta :: UI</name>
+    <name>Hakulomakkeenhallinta :: ui</name>
 
     <build>
         <finalName>hakulomakkeenhallinta-ui</finalName>

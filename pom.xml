@@ -4,9 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>fi.vm.sade.generic</groupId>
+        <artifactId>build-parent</artifactId>
+        <version>9.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>fi.vm.sade.hakulomakkeenhallinta</groupId>
     <artifactId>hakulomakkeenhallinta</artifactId>
-    <version>7.0-SNAPSHOT</version>
+    <version>9.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Hakulomakkeenhallinta :: Parent</name>
 
@@ -14,11 +20,12 @@
         <module>hakulomakkeenhallinta-app</module>
         <module>hakulomakkeenhallinta-service</module>
         <module>hakulomakkeenhallinta-api</module>
+        <module>hakulomakkeenhallinta-ui</module>
     </modules>
 
     <properties>
-        <oph.tarjonta.version>7.0-SNAPSHOT</oph.tarjonta.version>
-        <oph.koodisto.version>7.0-SNAPSHOT</oph.koodisto.version>
+        <oph.tarjonta.version>9.0-SNAPSHOT</oph.tarjonta.version>
+        <oph.koodisto.version>9.0-SNAPSHOT</oph.koodisto.version>
         <jersey.version>2.4</jersey.version>
         <jackson.version>2.2.3</jackson.version>
         <spring.version>3.2.4.RELEASE</spring.version>
