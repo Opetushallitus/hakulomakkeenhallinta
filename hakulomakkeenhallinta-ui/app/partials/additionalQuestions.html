@@ -1,1 +1,20 @@
-{{element._class}} {{ element._id}}
+<button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
+<button type="button" class="btn btn-primary" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä kysymykset</button>
+<button type="button" class="btn btn-primary" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö</button>
+<button type="button" class="btn btn-warning" data-ng-click="addQuestion(applicationSystem)">Lisää uusi kysymys</button>
+
+<div class="alert alert-info">
+    <i class="icon-info-sign"></i>
+    Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä organisaation 
+    <b>{{organization | i18n}}</b> hakukohteelle <b>{{applicationOption.hakukohteenNimi}}<b> hakuun <b>{{applicationSystem | i18n : 'name'}}</b>.
+</div>
+<div class="clearfix"></div>
+
+<h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
+
+<table class="table table-striped">
+    <tr ng-repeat="element in elements| filter:themesWithAdditionalQuestions">
+        <td><a>{{element| i18n}}</a></td>
+        <td><a>{{element.additionalQuestions| json}}</a></td>
+    </tr>
+</table>

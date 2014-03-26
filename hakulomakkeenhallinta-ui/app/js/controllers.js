@@ -3,10 +3,12 @@
 /* Controllers */
 
 var controllers = angular.module('hakulomakkeenhallinta.controllers', []);
+
 controllers.controller('AppCtrl', ['$scope', 'Resources', function ($scope, Resources) {
     $scope.accordionStates = {};
     $scope.languages = Resources.languages.query();
 }]);
+
 
 controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH', function ($scope, Resources, $routeParams, _, HH) {
     $scope.applicationSystem = Resources.applicationSystem.get();
@@ -16,9 +18,8 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$ro
     };
 
     $scope.selectTemplate = function (type) {
-        console.log("select template " + type);
         var t = type.split('.').pop();
-        if (t === 'RelatedQuestionComplexRule') {
+        if (t === 'Theme' || t === 'RelatedQuestionComplexRule') {
             return t;
         }
         return "element";
@@ -63,6 +64,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
         {id: '1', name: 'Aasian tutkimus'},
         {id: '2', name: 'Aasian tutkimus, kandidaatinopinnot'}
     ];
+
     $scope.applicationForms = HH.listApplicationSystems();
 
     $scope.luoHakulomake = function () {
@@ -76,20 +78,19 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
             });
     };
 
-    $scope.open = function (applicationForm) {
-        console.log(applicationForm);
+    $scope.open = function (applicationSystemForm) {
+        console.log('Open application system form ' + applicationSystemForm);
         var modalInstance = $modal.open({
             templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
             controller: 'ModalApplicationOptionCtrl',
             resolve: {
-                applicationSystem: function () {
-                    return applicationSystem;
+                applicationSystemForm: function () {
+                    return  applicationSystemForm;
                 }
             }
         });
         modalInstance.result.then(function (applicationOptionId) {
-            console.log(applicationOptionId);
-            $location.path("hakulomakkeet/" + applicationForm._id + '/' + applicationOptionId);
+            $location.path("additionalQuestion/" + applicationSystemForm._id + '/' + applicationOptionId);
         }, function () {
 
         });
@@ -102,30 +103,31 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
 
 controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location', function ($scope, $modal, $log, $location) {
     console.log('QuestionsCtrl');
-    $scope.addNewAdditionalQuestion = function (applicationSystem) {
+    
+    $scope.addNewAdditionalQuestion = function (applicationSystemForm) {
+        console.log('lisää uusi kyssäri ' + applicationSystemForm);
         var modalInstance = $modal.open({
             templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
             controller: 'ModalApplicationOptionCtrl',
             resolve: {
-                applicationSystem: function () {
-                    return applicationSystem;
+                applicationSystemForm: function () {
+                    console.log('resolve ' + applicationSystemForm);
+                    return applicationSystemForm;
                 }
             }
         }).result.then(function (applicationOptionId) {
-                console.log("ok " + applicationOptionId);
-                console.log("ok " + "");
-                $location.path("additionalQuestion/" + applicationSystem._id + '/' + applicationOptionId);
+                $location.path("additionalQuestion/" + applicationSystemForm._id + '/' + applicationOptionId);
             }, function () {
 
             });
     };
 }]);
 
-controllers.controller('ModalApplicationOptionCtrl', ['$scope', '$location', 'Resources', '$modalInstance', 'applicationSystem', 'HH', function ($scope, $location, Resources, $modalInstance, applicationSystem, HH) {
+controllers.controller('ModalApplicationOptionCtrl', ['$scope', '$location', 'Resources', '$modalInstance', 'applicationSystemForm', 'HH', function ($scope, $location, Resources, $modalInstance, applicationSystemForm, HH) {
     $scope.applicationOptions = [];
     $scope.queryParameters = {};
     $scope.ok = function () {
-
+        console.log('Valittu hakukohde ' + this.applicationOption.oid);
         $modalInstance.close(this.applicationOption.oid);
     };
 
@@ -133,7 +135,8 @@ controllers.controller('ModalApplicationOptionCtrl', ['$scope', '$location', 'Re
         $modalInstance.dismiss('cancel');
     };
     $scope.search = function () {
-        $scope.applicationOptions = HH.searchApplicationOptions(applicationSystem._id, $scope.queryParameters.term);
+        console.log('Hae ' + applicationSystemForm);
+        $scope.applicationOptions = HH.searchApplicationOptions(applicationSystemForm._id, $scope.queryParameters.term);
     };
 }]);
 
@@ -171,23 +174,6 @@ var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
     };
 };
 
-var ModalInstanceCtrl = function ($scope, $modalInstance) {
-    $scope.ok = function () {
-        $modalInstance.close($scope.selections);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-
-    $scope.toggleCheck = function (item) {
-        if ($scope.selections.indexOf(item) === -1) {
-            $scope.selections.push(item);
-        } else {
-            $scope.selections.splice($scope.selections.indexOf(item), 1);
-        }
-    };
-};
 var QuestionTypeCtrl = function ($scope, $modalInstance, Resources, $routeParams, applicationSystem) {
 
     var formWalker = _.walk(function (e) {
@@ -231,9 +217,10 @@ controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resour
 controllers.controller('AdditionalQuestionsCtrl',
     ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', 'HH',
         function ($scope, $modal, $log, $location, Resources, $routeParams, HH) {
-
+            console.log('perse');
             $scope.organization = HH.getOrganization();
             $scope.applicationSystem = HH.getApplicationSystem($routeParams.id);
+
             var formWalker = _.walk(function (e) {
                 return e.children;
             });
@@ -241,7 +228,6 @@ controllers.controller('AdditionalQuestionsCtrl',
             $scope.elements = formWalker.filter($scope.applicationSystem.form, _.walk.preorder, function (el) {
                 return el._class && el._class.indexOf("Theme") != -1;
             });
-
 
             $scope.addQuestion = function (applicationSystem) {
                 $modal.open({
@@ -269,8 +255,8 @@ controllers.controller('AdditionalQuestionsCtrl',
                                         type: data.type
                                     };
                                 },
-                                element: function () {
-                                    return data.element;
+                                applicationSystem: function () {
+                                    return $scope.applicationSystem;
                                 }
                             }
                         }).result.then(function (question) {
@@ -408,4 +394,3 @@ controllers.controller('QuestionCtrl', ['$scope', '_', function ($scope, _) {
 controllers.controller('ExprCtrl', ['$scope', function ($scope) {
     $scope.expr = $scope.element.expr;
 }]);
-//controllers.controller('ModalInstanceCtrl', ['$scope', '$modal', 'items', ModalInstanceCtrl]);

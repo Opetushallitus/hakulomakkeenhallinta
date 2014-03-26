@@ -3,7 +3,8 @@
     <ul class="dropdown-menu">
         <li><a data-ng-controller="BackCtrl" data-ng-click=goto(tree)>Muokkaa</a></li>
         <li><a data-ng-click="delete($parent.$parent.tree.children, $parent.$index)">Poista</a></li>
-        <li><a>testi</a></li>
+        <li><a data-ng-click="addQuestion(tree)">Lisää kysymys</a></li>
+        <li><a data-ng-click="addRule(tree)">Lisää sääntö</a></li>
     </ul>
     <li data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" ></li>
 </ul>

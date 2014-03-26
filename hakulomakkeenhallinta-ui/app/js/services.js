@@ -49,10 +49,12 @@ services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
     };
 
     this.getApplicationSystem = function(id) {
-        console.log('getApplicationSystem' + id);
-        return _.find(applicationSystems, function(as) {
+        console.log('getApplicationSystem ' + id);
+        var applicationSystemForm =  _.find(applicationSystems, function(as) {
             return as._id === id;
         });
+        console.log('form id ' + applicationSystemForm.form._id);
+        return applicationSystemForm;
     };
     this.find = function(applicationSystem, predicate) {
         return formWalker.find(applicationSystem.form, predicate);
