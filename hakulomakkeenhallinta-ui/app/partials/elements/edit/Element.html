@@ -1,0 +1,14 @@
+ <div ng-switch on="templateGroup">
+     <div data-ng-switch-when="questions">
+        <div data-ng-controller="ElementCtrl" data-ng-include src="'partials/elements/edit/questions/Root.html'"></div>
+    </div>
+    <div data-ng-switch-when="rules">
+        <div data-ng-controller="ElementCtrl" data-ng-include src="'partials/elements/edit/rules/Root.html'"></div>
+    </div>
+    <div data-ng-switch-when="validators">
+        <div data-ng-controller="ElementCtrl" data-ng-include src="'partials/elements/edit/validators/Root.html'"></div>
+    </div>
+    <div data-ng-switch-default>
+        <div data-ng-controller="ElementCtrl" data-ng-include src="'partials/elements/edit/questions/Root.html'"></div>
+    </div>
+</div>
