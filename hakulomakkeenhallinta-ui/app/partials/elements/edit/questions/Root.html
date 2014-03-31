@@ -24,15 +24,18 @@
             </tabset>
             <hr/>
             Rajoitteet ja tarkastukset
+            <i class="glyphicon glyphicon-plus" data-ng-click="addValidator(element.validators)"></i>
             <div ng-repeat="validator in element.validators">
-                <div data-ng-include
-                     src="'partials/elements/edit/validators/' + validator._class.split('.').pop() + '.html'"></div>
+                <div data-ng-include src="'partials/elements/edit/validators/' + validator._class.split('.').pop() + '.html'"></div>
             </div>
             <hr/>
             <div class="control-group">
                 <div class="control-group" ng-include="'partials/elements/edit/type/' + element._class.split('.').pop() + '.html'">
                     Unimplemented template
                 </div>
+            </div>
+            <div class="checkbox" data-ng-show="element.previewable !== 'undefined'">
+                <input type="checkbox" data-ng-model="element.previewable">Esikatseltava
             </div>
         </div>
         <div class="col-md-6">

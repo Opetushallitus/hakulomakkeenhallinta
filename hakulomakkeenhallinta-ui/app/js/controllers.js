@@ -103,7 +103,7 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
 
 controllers.controller('QuestionsCtrl', ['$scope', '$modal', '$log', '$location', function ($scope, $modal, $log, $location) {
     console.log('QuestionsCtrl');
-    
+
     $scope.addNewAdditionalQuestion = function (applicationSystemForm) {
         console.log('lisää uusi kyssäri ' + applicationSystemForm);
         var modalInstance = $modal.open({
@@ -388,9 +388,19 @@ controllers.controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH', func
 
 }]);
 
-controllers.controller('QuestionCtrl', ['$scope', '_', function ($scope, _) {
+controllers.controller('QuestionCtrl', ['$scope', '$modal', '_', function ($scope, $modal, _) {
+    $scope.addValidator = function(validators) {
+        $modal.open({
+            templateUrl: 'partials/elements/edit/validators/new.html',
+            controller: ValidatorModalCtrl
+        }).result.then(function (validator) {
+            validators.push(validator);
+        });
+    };
 }]);
-
+controllers.controller('ValidatorModalCtrl', ['$scope', function ($scope) {
+    $scope.types = { 'Pakollinen' : 'RequiredFieldValidator' };
+}]);
 controllers.controller('ExprCtrl', ['$scope', function ($scope) {
     $scope.expr = $scope.element.expr;
 }]);
