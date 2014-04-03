@@ -22,6 +22,29 @@ services.service('_', [function () {
     return window._;
 }]);
 
+services.service('Koodisto', function($http, $q, _) {
+    var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
+    
+    var deferred = $q.defer();
+    $http.get(baseUrl)
+        .success(function (data) {
+            deferred.resolve(data);
+    });
+    this.getKoodistot = function() {
+       return deferred.promise; 
+    }
+    this.getKoodisto = function(koodisto) {
+        var deferred = $q.defer();
+        $http.get('https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/' + koodisto + '/koodi/')
+            .success(function (data) {
+                var tmp = _.map(data, function(koodi){return koodi.koodiUri}); 
+                deferred.resolve(tmp);
+            });
+        return deferred.promise;
+    }
+
+})
+
 services.service('AS', function($http, $q) {
     var deferred = $q.defer();
     $http.get('http://localhost:8000/app/test-data/db-applicationSystem.json')
@@ -33,6 +56,7 @@ services.service('AS', function($http, $q) {
         return deferred.promise;
     }
 })
+
 services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
     var applicationSystems = [];
     var asPromise = AS.getASS();

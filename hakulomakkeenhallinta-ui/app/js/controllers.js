@@ -9,6 +9,14 @@ controllers.controller('AppCtrl', ['$scope', 'Resources', function ($scope, Reso
     $scope.languages = Resources.languages.query();
 }]);
 
+controllers.controller('KoodistoCtrl', ['$scope', 'Koodisto', function ($scope, Koodisto) {
+    $scope.koodistot = Koodisto.getKoodistot();
+    $scope.posti = [];
+    Koodisto.getKoodisto('posti').then(function(data){
+        console.log(data);
+        $scope.posti =  data;
+    });
+}]);
 
 controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH', function ($scope, Resources, $routeParams, _, HH) {
     $scope.applicationSystem = Resources.applicationSystem.get();
