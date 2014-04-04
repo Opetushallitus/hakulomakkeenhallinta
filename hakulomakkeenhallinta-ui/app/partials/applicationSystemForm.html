@@ -13,6 +13,11 @@
     <!--</tabset>-->
     <span data-ng-include="src='partials/elements/form.html'"></span>
 </div>
+
 <div data-ng-controller="KoodistoCtrl">
-    {{posti | json}}
+<select ng-model="selectedKoodisto" data-ng-change="getKoodisto()" ng-options="k.name as k.i18nText.FI for k in koodistot">
+    <option value="">-- Valitse koodisto --</option>
+</select>
+    <div>{{selectedKoodisto | json}}</div>
+    <div>{{koodisto | json}}</div>
 </div>

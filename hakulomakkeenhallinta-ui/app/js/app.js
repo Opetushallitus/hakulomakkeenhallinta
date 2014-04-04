@@ -10,6 +10,11 @@ angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallinta.controllers',
         'jm.i18next'
     ])
+
+    .value('Config', {
+        koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/'
+    })
+
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/applicationSystemForm', {templateUrl: 'partials/applicationSystemFormIndex.html'});
 
@@ -27,6 +32,7 @@ angular.module('hakulomakkeenhallinta', [
         $routeProvider.when('/applicationSystems/:applicationFormId/:applicationOptionId', {templateUrl: 'partials/additionalQuestions.html', controller: 'AdditionalQuestionsCtrl'});
         $routeProvider.otherwise({redirectTo: '/applicationSystemForm'});
     }])
+
     .config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = {
             resGetPath: 'locales/__ns__-__lng__.json',

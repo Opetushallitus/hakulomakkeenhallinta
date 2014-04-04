@@ -22,27 +22,47 @@ services.service('_', [function () {
     return window._;
 }]);
 
-services.service('Koodisto', function($http, $q, _) {
+services.service('Koodisto', function($http, $q, _, Config) {
     var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
-    
-    var deferred = $q.defer();
-    $http.get(baseUrl)
-        .success(function (data) {
-            deferred.resolve(data);
-    });
+
     this.getKoodistot = function() {
-       return deferred.promise; 
+        var deferred = $q.defer();
+        $http.get(baseUrl).success(function (koodistot) {
+            var d = _.reduce(koodistot, function(ctx, koodistoRyhma) {
+            console.log("ryhmät " + koodistoRyhma.koodistoRyhmaUri);
+               ctx.concat(_.reduce(koodistoRyhma.koodistos, function(ctx2, koodisto){
+                    ctx.push({
+                        id: koodisto.koodistoUri,
+                        i18nText: _.reduce(koodisto.latestKoodistoVersio.metadata, function(memo, meta) {
+                                        memo[meta.kieli] = meta.nimi;
+                                        return memo;
+                                    }, {})
+                    });
+                    return ctx2;
+               }, ctx));
+               return ctx;
+            }, []);
+            deferred.resolve(d);
+
+        });
+        return deferred.promise;
     }
     this.getKoodisto = function(koodisto) {
         var deferred = $q.defer();
-        $http.get('https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/' + koodisto + '/koodi/')
+        $http.get(Config.koodistoUrl + koodisto + '/koodi/')
             .success(function (data) {
-                var tmp = _.map(data, function(koodi){return koodi.koodiUri}); 
-                deferred.resolve(tmp);
+                deferred.resolve(_.map(data, function(koodi) {
+                    return {
+                        id : koodi.koodiArvo,
+                        i18nText: _.reduce(koodi.metadata, function(memo, meta) {
+                                        memo[meta.kieli] = meta.nimi;
+                                        return memo;
+                                    }, {})
+                    }
+                }));
             });
         return deferred.promise;
     }
-
 })
 
 services.service('AS', function($http, $q) {
@@ -73,11 +93,9 @@ services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
     };
 
     this.getApplicationSystem = function(id) {
-        console.log('getApplicationSystem ' + id);
         var applicationSystemForm =  _.find(applicationSystems, function(as) {
             return as._id === id;
         });
-        console.log('form id ' + applicationSystemForm.form._id);
         return applicationSystemForm;
     };
     this.find = function(applicationSystem, predicate) {

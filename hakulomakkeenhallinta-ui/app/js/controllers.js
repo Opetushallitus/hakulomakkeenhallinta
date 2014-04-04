@@ -10,12 +10,21 @@ controllers.controller('AppCtrl', ['$scope', 'Resources', function ($scope, Reso
 }]);
 
 controllers.controller('KoodistoCtrl', ['$scope', 'Koodisto', function ($scope, Koodisto) {
-    $scope.koodistot = Koodisto.getKoodistot();
-    $scope.posti = [];
-    Koodisto.getKoodisto('posti').then(function(data){
-        console.log(data);
-        $scope.posti =  data;
+    $scope.koodistot; 
+    $scope.selectedKoodisto;
+    $scope.koodisto;
+   
+    Koodisto.getKoodistot().then(function(koodistot){
+        $scope.koodistot = koodistot;
+        $scope.selectedKoodisto = koodistot[2]; 
     });
+
+    $scope.getkoodisto = function() {
+        alert($scope.selectedKoodisto.id);
+        Koodisto.getKoodisto($scope.selectedKoodisto.id).then(function(koodisto){
+            $scope.koodisto = koodisto;
+        });
+    }
 }]);
 
 controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH', function ($scope, Resources, $routeParams, _, HH) {
