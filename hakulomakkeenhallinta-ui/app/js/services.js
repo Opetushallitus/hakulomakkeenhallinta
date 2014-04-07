@@ -33,6 +33,7 @@ services.service('Koodisto', function($http, $q, _, Config) {
                ctx.concat(_.reduce(koodistoRyhma.koodistos, function(ctx2, koodisto){
                     ctx.push({
                         id: koodisto.koodistoUri,
+                        group: koodistoRyhma.koodistoRyhmaUri,
                         i18nText: _.reduce(koodisto.latestKoodistoVersio.metadata, function(memo, meta) {
                                         memo[meta.kieli] = meta.nimi;
                                         return memo;
@@ -42,6 +43,7 @@ services.service('Koodisto', function($http, $q, _, Config) {
                }, ctx));
                return ctx;
             }, []);
+            console.log(d);
             deferred.resolve(d);
 
         });

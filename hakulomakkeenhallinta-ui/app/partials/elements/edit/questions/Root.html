@@ -4,23 +4,34 @@
 
     <div class="alert alert-info">
         <i class="icon-info-sign"></i>Olet Muokkaamassa hakulomakkeen {{applicationSystem | i18n:name}} kysymystä <b>{{element
-        | i18n}}</b>.
+            | i18n}}</b>.
     </div>
 
     <div class="row">
         <div class="col-md-6">
             <tabset>
-                <tab ng-repeat="language in languages">
-                    <tab-heading>{{language | i18n}}</tab-heading>
-                    <form role="form">
-                        <hh-inputtext data-ng-model="element.i18nText.translations[language.id]"
-                                      label="question-title"></hh-inputtext>
-                        <hh-inputtext data-ng-model="element.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
-                        <hh-inputtext data-ng-model="element.additionalHelp.translations[language.id]"
-                                      label="question-additional-help"></hh-inputtext>
-                        <hh-inputlink data-ng-model="element.link[language.id]" label="question-link"></hh-inputlink>
-                    </form>
-                </tab>
+            <tab ng-repeat="language in languages">
+            <tab-heading>{{language | i18n}}</tab-heading>
+            <form role="form">
+                <hh-inputtext data-ng-model="element.i18nText.translations[language.id]"
+                label="question-title"></hh-inputtext>
+                <hh-inputtext data-ng-model="element.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
+                <hh-inputtext data-ng-model="element.additionalHelp.translations[language.id]"
+                label="question-additional-help"></hh-inputtext>
+                <hh-inputlink data-ng-model="element.link[language.id]" label="question-link"></hh-inputlink>
+                <div data-ng-show="element.options">
+                <div class="checkbox">
+                    <input type="checkbox" data-ng-model="element.defaultValueAttribute">Oletusvalinta käyttöliittymäkielen mukaan
+                </div>
+                    <a data-ng-click="showOptions=!showOptions">Vastausvaihtoehdot</a>
+                    <ul data-ng-show="showOptions">
+                        <li ng-repeat="option in element.options">
+                        {{option.i18nText.translations[language.id]}} ({{option.value}}) <span data-ng-show="option.defaultOption">Esivalittu</span>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+            </tab>
             </tabset>
             <hr/>
             Rajoitteet ja tarkastukset

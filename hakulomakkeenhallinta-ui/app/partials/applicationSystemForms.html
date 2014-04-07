@@ -14,6 +14,16 @@
             <td>
                 <div class="dropdown" ng-controller="DropdownCtrl">
                     <a class="dropdown-toggle">
+                        Click me for a dropdown, yo!
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="choice in items">
+                        <a>{{choice}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown" ng-controller="DropdownCtrl">
+                    <a class="dropdown-toggle">
                         <button type="button" class="btn btn-default dropdown-toggle"><i class="icon-tasks"></i></button>
                     </a>
                     <ul class="dropdown-menu" data-ng-controller="BackCtrl">

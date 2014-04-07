@@ -10,17 +10,16 @@ controllers.controller('AppCtrl', ['$scope', 'Resources', function ($scope, Reso
 }]);
 
 controllers.controller('KoodistoCtrl', ['$scope', 'Koodisto', function ($scope, Koodisto) {
-    $scope.koodistot; 
+
+    $scope.koodistot;
     $scope.selectedKoodisto;
     $scope.koodisto;
-   
+
     Koodisto.getKoodistot().then(function(koodistot){
         $scope.koodistot = koodistot;
-        $scope.selectedKoodisto = koodistot[2]; 
     });
 
-    $scope.getkoodisto = function() {
-        alert($scope.selectedKoodisto.id);
+    $scope.getKoodisto = function() {
         Koodisto.getKoodisto($scope.selectedKoodisto.id).then(function(koodisto){
             $scope.koodisto = koodisto;
         });
