@@ -12,19 +12,9 @@
             <td><input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm"
                        name="applicationForm"></td>
             <td>
-                <div class="dropdown" ng-controller="DropdownCtrl">
+                <div class="dropdown">
                     <a class="dropdown-toggle">
-                        Click me for a dropdown, yo!
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="choice in items">
-                        <a>{{choice}}</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown" ng-controller="DropdownCtrl">
-                    <a class="dropdown-toggle">
-                        <button type="button" class="btn btn-default dropdown-toggle"><i class="icon-tasks"></i></button>
+                        <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-tasks"></i></button>
                     </a>
                     <ul class="dropdown-menu" data-ng-controller="BackCtrl">
                         <li data-ng-click="goto(applicationForm)"><a>Tarkastele</a></li>
@@ -40,4 +30,3 @@
         </tr>
     </table>
 </div>
-

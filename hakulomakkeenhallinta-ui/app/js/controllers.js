@@ -27,6 +27,7 @@ controllers.controller('KoodistoCtrl', ['$scope', 'Koodisto', function ($scope, 
 }]);
 
 controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH', function ($scope, Resources, $routeParams, _, HH) {
+
     $scope.applicationSystem = Resources.applicationSystem.get();
 
     $scope.delete = function (array, index) {
@@ -39,7 +40,8 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$ro
             return t;
         }
         return "element";
-    }
+    };
+
     $scope.expr2str = function (expr) {
         if (expr._class) {
             var oper = expr._class.split('.').pop();
@@ -190,30 +192,23 @@ var liitaHakuLomakkeeseenCtrl = function ($scope, $modalInstance, Resources) {
     };
 };
 
-var QuestionTypeCtrl = function ($scope, $modalInstance, Resources, $routeParams, applicationSystem) {
-
-    var formWalker = _.walk(function (e) {
-        return e.children;
-    });
-
-    $scope.themes = formWalker.filter(applicationSystem.form, _.walk.preorder, function (el) {
-        return el._class && el._class.indexOf("Theme") != -1;
-    });
-
+var SelectThemeAndQuestionType = function ($scope, $modalInstance, Resources, $routeParams, FormWalker, applicationSystem) {
+    
+    $scope.themes = FormWalker.filterByType(applicationSystem.form, "Theme");
     $scope.types = Resources.types.query($scope.queryParameters);
 
     $scope.ok = function () {
-        $modalInstance.close({elementId: this.element, type: this.type});
+        $modalInstance.close({theme: this.element, type: this.type});
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
 };
 
-controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resources', 'question', 'applicationSystem',
-    function ($scope, $modalInstance, Resources, question, applicationSystem) {
+controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resources', 'question', 'applicationSystem', 'parentElement',
+    function ($scope, $modalInstance, Resources, question, applicationSystem, parentElement) {
         $scope.lang = "fi";
-
+        $scope.element = parentElement;
         $scope.languages = Resources.languages.query($scope.queryParameters);
         $scope.applicationSystem = applicationSystem;
         $scope.question = question;
@@ -231,24 +226,16 @@ controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resour
     }]);
 
 controllers.controller('AdditionalQuestionsCtrl',
-    ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', 'HH',
-        function ($scope, $modal, $log, $location, Resources, $routeParams, HH) {
-            console.log('perse');
+    ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', 'HH', 'FormWalker',
+        function ($scope, $modal, $log, $location, Resources, $routeParams, HH, FormWalker) {
             $scope.organization = HH.getOrganization();
             $scope.applicationSystem = HH.getApplicationSystem($routeParams.id);
-
-            var formWalker = _.walk(function (e) {
-                return e.children;
-            });
-
-            $scope.elements = formWalker.filter($scope.applicationSystem.form, _.walk.preorder, function (el) {
-                return el._class && el._class.indexOf("Theme") != -1;
-            });
+            $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
 
             $scope.addQuestion = function (applicationSystem) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                    controller: QuestionTypeCtrl,
+                    controller: SelectThemeAndQuestionType,
                     resolve: {
                         applicationSystem: function () {
                             return $scope.applicationSystem;
@@ -271,12 +258,14 @@ controllers.controller('AdditionalQuestionsCtrl',
                                         type: data.type
                                     };
                                 },
+                                parentElement: function() {
+                                    return data.element;
+                                },
                                 applicationSystem: function () {
                                     return $scope.applicationSystem;
                                 }
                             }
                         }).result.then(function (question) {
-                                console.log("Tallennetaan kysymys " + JSON.stringify(question));
                                 if (!$scope.applicationSystem.additionalQuestions) {
                                     $scope.applicationSystem.additionalQuestions = [];
                                 }
@@ -287,16 +276,14 @@ controllers.controller('AdditionalQuestionsCtrl',
             $scope.back = function () {
                 $location.path("/");
             };
+
             $scope.edit = function (additionalQuestion) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
                     controller: 'ModalQuestionCtrl',
                     resolve: {
                         element: function () {
-                            var formWalker = _.walk(function (e) {
-                                return e.children;
-                            });
-                            return formWalker.find($scope.applicationSystem.form, function (el) {
+                            return HH.find($scope.applicationSystem, function (el) {
                                 return el._id === additionalQuestion.parentId;
                             });
                         },
@@ -364,28 +351,6 @@ var SortQuestionsCtrl = function ($scope, $modalInstance, Resources) {
     };
 
 };
-
-controllers.controller('DropdownCtrl', ['$scope', function ($scope) {
-    $scope.items = [
-        "Tarkastele",
-        "Tee hakukohtaisia lisäkysymyksiä",
-        "Näytä hakukohteet",
-        "Kopio uudeksi",
-        "Julkaise",
-        "(Peruuta julkaisu)"
-    ];
-}]);
-
-controllers.controller('TreeCtrl', ['$scope', function ($scope) {
-    $scope.items = [
-        "Tarkastele",
-        "Tee hakukohtaisia lisäkysymyksiä",
-        "Näytä hakukohteet",
-        "Kopio uudeksi",
-        "Julkaise",
-        "(Peruuta julkaisu)"
-    ];
-}]);
 
 controllers.controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH', function ($scope, $routeParams, _, HH) {
     $scope.applicationSystem.$promise.then(function (result) {

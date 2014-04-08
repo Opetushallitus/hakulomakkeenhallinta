@@ -22,6 +22,29 @@ services.service('_', [function () {
     return window._;
 }]);
 
+services.service('FormWalker', ['_', function (_) {
+    
+    var walker = _.walk(function (e) {
+        return e.children;
+    });
+
+
+    this.find = function(root, predicate) {
+        return formWalker.find(root, predicate);
+    };
+
+    this.filter = function(root, predicate) {
+        return walker.filter(root, _.walk.preorder, predicate); 
+    };
+
+    this.filterByType = function(root, type) {
+        return this.filter(root, function (el) { 
+            return el._class && el._class.indexOf(type) != -1 
+        });
+    };
+}]);
+
+
 services.service('Koodisto', function($http, $q, _, Config) {
     var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
 
@@ -79,12 +102,9 @@ services.service('AS', function($http, $q) {
     }
 })
 
-services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
+services.service('HH', ['$http', 'AS', 'FormWalker', '_', function ($http, AS, FormWalker, _) {
     var applicationSystems = [];
     var asPromise = AS.getASS();
-    var formWalker = _.walk(function(e) {
-            return e.children;
-    });
 
     asPromise.then(function(result) {
        applicationSystems.push(result);
@@ -93,15 +113,13 @@ services.service('HH', ['$http', 'AS', '_', function ($http, AS, _) {
     this.listApplicationSystems = function() {
         return applicationSystems;
     };
-
+    this.find = function(applicationSystem, predicate) {
+        FormWalker.find(applicationSystem.form, predicate);
+    };
     this.getApplicationSystem = function(id) {
-        var applicationSystemForm =  _.find(applicationSystems, function(as) {
+        return _.find(applicationSystems, function(as) {
             return as._id === id;
         });
-        return applicationSystemForm;
-    };
-    this.find = function(applicationSystem, predicate) {
-        return formWalker.find(applicationSystem.form, predicate);
     };
 
     this.getOrganization = function()  {
