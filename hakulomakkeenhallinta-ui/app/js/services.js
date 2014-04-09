@@ -23,23 +23,23 @@ services.service('_', [function () {
 }]);
 
 services.service('FormWalker', ['_', function (_) {
-    
+
     var walker = _.walk(function (e) {
         return e.children;
     });
 
 
     this.find = function(root, predicate) {
-        return formWalker.find(root, predicate);
+        return walker.find(root, predicate);
     };
 
     this.filter = function(root, predicate) {
-        return walker.filter(root, _.walk.preorder, predicate); 
+        return walker.filter(root, _.walk.preorder, predicate);
     };
 
     this.filterByType = function(root, type) {
-        return this.filter(root, function (el) { 
-            return el._class && el._class.indexOf(type) != -1 
+        return this.filter(root, function (el) {
+            return el._class && el._class.indexOf(type) != -1;
         });
     };
 }]);
@@ -71,7 +71,7 @@ services.service('Koodisto', function($http, $q, _, Config) {
 
         });
         return deferred.promise;
-    }
+    };
     this.getKoodisto = function(koodisto) {
         var deferred = $q.defer();
         $http.get(Config.koodistoUrl + koodisto + '/koodi/')
@@ -83,12 +83,12 @@ services.service('Koodisto', function($http, $q, _, Config) {
                                         memo[meta.kieli] = meta.nimi;
                                         return memo;
                                     }, {})
-                    }
+                    };
                 }));
             });
         return deferred.promise;
-    }
-})
+    };
+});
 
 services.service('AS', function($http, $q) {
     var deferred = $q.defer();
@@ -99,8 +99,8 @@ services.service('AS', function($http, $q) {
 
     this.getASS = function() {
         return deferred.promise;
-    }
-})
+    };
+});
 
 services.service('HH', ['$http', 'AS', 'FormWalker', '_', function ($http, AS, FormWalker, _) {
     var applicationSystems = [];
@@ -134,9 +134,9 @@ services.service('HH', ['$http', 'AS', 'FormWalker', '_', function ($http, AS, F
                 _.each(data.result.tulokset, function(org) {
                    _.each(org.tulokset, function(ao) {
                         applicationOptions.push(ao);
-                   })
-            })
+                   });
+            });
         });
-        return applicationOptions
+        return applicationOptions;
     };
 }]);
