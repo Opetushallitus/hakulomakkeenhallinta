@@ -6,18 +6,12 @@
         <div class="alert alert-info">
             <i class="icon-info-sign"></i>Olet luomassa uutta kysymystä teemaan
             <b>{{element | i18n}}</b> tyyppiä <b>{{question.type | i18n:'name'}}</b>.
-            {{element | json }}
-            {{element | json }}
-            {{element | json}}
         </div>
-        <form role="form" class="form-horizontal">
-            <div ng-include="'partials/lisakysymykset/questions/' + question.type.id + '.html'"></div>
-        </form>
+        <div ng-include="'partials/elements/new.html'"></div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary pull-left" ng-click="back()">Edellinen</button>
         <button class="btn btn-warning pull-right" ng-click="ok()">Valmis</button>
-        <button class="btn btn-primary pull-right" ng-click="preview()" data-ng-disabled="preview">Kieliversioden esikatselu
-        </button>
+        <button class="btn btn-primary pull-right" ng-click="preview()" data-ng-disabled="preview">Kieliversioiden esikatselu</button>
     </div>
 </div>

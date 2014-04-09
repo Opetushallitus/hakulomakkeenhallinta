@@ -5,16 +5,21 @@
 
 <div class="alert alert-info">
     <i class="icon-info-sign"></i>
-    Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä organisaation 
+    Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä organisaation
     <b>{{organization | i18n}}</b> hakukohteelle <b>{{applicationOption.hakukohteenNimi}}<b> hakuun <b>{{applicationSystem | i18n : 'name'}}</b>.
 </div>
 <div class="clearfix"></div>
 
 <h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
 
-<table class="table table-striped">
-    <tr ng-repeat="element in elements| filter:themesWithAdditionalQuestions">
-        <td><a>{{element| i18n}}</a></td>
-        <td><a>{{element.additionalQuestions| json}}</a></td>
-    </tr>
-</table>
+<accordion data-ng-repeat="element in elements">
+        <accordion-group is-open="accordionStates[element._id]">
+            <accordion-heading>
+                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                {{element| i18n}}
+            </accordion-heading>
+            <div data-ng-repeat="question in applicationSystem.additionalQuestions">
+                <a>{{question | i18n}}</a>
+            </div>
+        </accordion-group>
+</accordion>

@@ -12,8 +12,7 @@
                 <tab ng-repeat="language in languages">
                     <tab-heading>{{language | i18n}}</tab-heading>
                     <form role="form">
-                        <hh-inputtext data-ng-model="element.i18nText.translations[language.id]"
-                                      label="rule-title"></hh-inputtext>
+                        <hh-inputtext data-ng-model="element.i18nText.translations[language.id]" label="rule-title"></hh-inputtext>
                         <hh-inputtext data-ng-model="element.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
                     </form>
                 </tab>

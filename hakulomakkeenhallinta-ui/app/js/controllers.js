@@ -35,6 +35,7 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$ro
         };
 
         $scope.selectTemplate = function(type) {
+            console.log("Valitse pohja " + type);
             var t = type.split('.').pop();
             if (t === 'Theme' ||  t === 'RelatedQuestionComplexRule') {
                 return t;
@@ -68,7 +69,6 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$ro
         };
     }
 ]);
-
 
 controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH',
     function($scope, $modal, $log, $location, Resources, HH) {
@@ -245,8 +245,8 @@ controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resour
     }
 ]);
 
-controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', '$routeParams', 'HH', 'FormWalker',
-    function($scope, $modal, $log, $location, Resources, $routeParams, HH, FormWalker) {
+controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', '_', 'Resources', '$routeParams', 'HH', 'FormWalker',
+    function($scope, $modal, $log, $location, _, Resources, $routeParams, HH, FormWalker) {
         $scope.organization = HH.getOrganization();
         $scope.applicationSystem = HH.getApplicationSystem($routeParams.id);
         $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
@@ -254,7 +254,7 @@ controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '
         $scope.addQuestion = function(applicationSystem) {
             $modal.open({
                 templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                controller: 'electThemeAndQuestionType',
+                controller: 'SelectThemeAndQuestionType',
                 resolve: {
                     applicationSystem: function() {
                         return $scope.applicationSystem;
@@ -266,25 +266,17 @@ controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '
                     controller: 'ModalQuestionCtrl',
                     resolve: {
                         question: function() {
-                            return {
-                                i18nText: {
-                                    translations: {}
-                                },
-                                help: {},
-                                additionalHelp: {},
-                                attributes: {},
-                                validators: {},
-                                type: data.type
-                            };
+                            return _.defaults({}, {additionalHelp: {translations: {}}, verboseHelp: {translations: {}}, i18nText: {translations: {}}});
                         },
                         parentElement: function() {
-                            return data.element;
+                            return data.theme;
                         },
                         applicationSystem: function() {
                             return $scope.applicationSystem;
                         }
                     }
                 }).result.then(function(question) {
+                    console.log(JSON.stringify(question));
                     if (!$scope.applicationSystem.additionalQuestions) {
                         $scope.applicationSystem.additionalQuestions = [];
                     }
@@ -372,34 +364,24 @@ var SortQuestionsCtrl = function($scope, $modalInstance, Resources) {
 
 };
 
-controllers.controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH',
-    function($scope, $routeParams, _, HH) {
-        $scope.applicationSystem.$promise.then(function(result) {
-            $scope.element = HH.find($scope.applicationSystem, function(el) {
-                return el._id === $routeParams.eid;
-            });
-            _.defaults($scope.element, {
-                additionalHelp: {
-                    translations: {}
-                },
-                verboseHelp: {
-                    translations: {}
-                },
-                i18nText: {
-                    translations: {}
-                }
-            });
-            var packageArray = $scope.element._class.split('.');
-            packageArray.pop();
-            $scope.templateGroup = packageArray.pop();
-            if ($scope.templateGroup === 'elements') {
-                $scope.templateGroup = 'questions';
-            }
-            $scope.expr = $scope.element.expr;
+controllers.controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH', function ($scope, $routeParams, _, HH) {
+    $scope.applicationSystem.$promise.then(function (result) {
+        $scope.element = HH.find($scope.applicationSystem, function (el) {
+            console.log(el._id  +  " === " +$routeParams.eid + " = "  + (el._id === $routeParams.eid));
+            return el._id === $routeParams.eid;
         });
+        console.log("ElementCtrl " + $scope.element);
+        _.defaults($scope.element, {additionalHelp: {translations: {}}, verboseHelp: {translations: {}}, i18nText: {translations: {}}});
+       var packageArray = $scope.element._class.split('.');
+       packageArray.pop();
+       $scope.templateGroup = packageArray.pop();
+       if ($scope.templateGroup === 'elements') {
+           $scope.templateGroup = 'questions';
+       }
+       $scope.expr = $scope.element.expr;
+    });
 
-    }
-]);
+}]);
 
 controllers.controller('QuestionCtrl', ['$scope', '$modal', '_',
     function($scope, $modal, _) {
