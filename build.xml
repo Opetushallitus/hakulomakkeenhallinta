@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="deploy-to-remote-tomcat" basedir="." default="deploy-to-remote-tomcat" >
+
+    <target name="deploy-to-remote-tomcat">
+
+<!--
+	deploy to luokka shell command:
+	#ant -Dtomcat-host=luokka -Dtomcat-port=8301
+-->
+		<property name="oph.name" value="hakulomakkeenhallinta"/>
+		<property name="maven.repo" value="${user.home}/.m2/repository"/>
+		<property name="tomcat.name" value="tomcat_${oph.name}"/>
+		<property name="tomcat.home" value="/data00/oph/${oph.name}/tomcat"/>
+		<property name="ssh.keyfile" location="${user.home}/.ssh/id_rsa"/>
+		<property name="ssh.keypass" value=""/>
+
+        <echo>Stop Tomcat</echo>
+		<sshexec command="/data00/oph/tomcat/ophtomcat ${oph.name} stop"
+                 host="${tomcat-host}" username="tomcat" keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.keypass}" trust="true" failonerror="false" />
+
+		<echo>Wait Tomcat to stop...</echo>
+        <waitfor maxwait="3000" checkevery="500">
+            <not>
+                <socket server="${tomcat-host}" port="${tomcat-port}" />
+            </not>
+        </waitfor>
+        <echo>Tomcat stopped.</echo>
+
+        <echo>Clean Tomcat</echo>
+        <sshexec command="rm -rf ${tomcat.home}/webapps/* ${tomcat.home}/work/* ${tomcat.home}/temp/*"
+                 host="${tomcat-host}" username="tomcat" keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.keypass}" trust="true" failonerror="false" />
+
+        <echo>Copy files to server...</echo>
+		<scp todir="tomcat@${tomcat-host}:${tomcat.home}/webapps/"
+               keyfile="${ssh.keyfile}" passphrase="${ssh.keypass}" >
+			<fileset dir="artifacts" ><include name="*.war"/></fileset>
+		</scp>
+
+		<echo>unzip war-files to webapps...</echo>
+        <sshexec command="
+cd ${tomcat.home}/webapps
+
+for z in *.war; do
+d=`basename $z .war`
+mkdir $d && unzip -qo -d $d $z
+done;
+
+rm -rf *.war"
+
+                 host="${tomcat-host}" username="tomcat" keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.keypass}" trust="true" failonerror="false" />
+
+		<echo>Remove extra log4j config-files</echo>
+		<sshexec command="find ${tomcat.home} -name 'log4j.properties' -exec rm -rf {} \;"
+                 host="${tomcat-host}" username="tomcat" keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.keypass}" trust="true" failonerror="false" />
+
+		<echo>Start Tomcat</echo>
+		<sshexec command="/data00/oph/tomcat/ophtomcat ${oph.name} start"
+                 host="${tomcat-host}" username="tomcat" keyfile="${ssh.keyfile}"
+                 passphrase="${ssh.keypass}" trust="true" failonerror="false" />
+
+		<echo>Wait for service http-url</echo>
+		<fail message="App did not come up.  Check your log files, fix and try again.  Good Luck :-).">
+			<condition>
+				<or>
+					<not>
+						<http url="http://${tomcat-host}:${tomcat-port}/hakulomakkeenhallinta-ui" />
+					</not>
+				</or>
+			</condition>
+		</fail>
+
+        <echo>Successfully deployed to ${tomcat-host}</echo>
+
+    </target>
+
+</project>
