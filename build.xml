@@ -45,15 +45,6 @@ mkdir hakulomakkeenhallinta-ui;
 unzip -qo -d hakulomakkeenhallinta-ui hakulomakkeenhallinta-ui*.war;
 rm -rf *.war"
 
-cd ${tomcat.home}/webapps
-
-for z in *.war; do
-d=`basename $z .war`
-mkdir $d && unzip -qo -d $d $z
-done;
-
-rm -rf *.war"
-
                  host="${tomcat-host}" username="tomcat" keyfile="${ssh.keyfile}"
                  passphrase="${ssh.keypass}" trust="true" failonerror="false" />
 
