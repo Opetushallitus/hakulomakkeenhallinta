@@ -42,6 +42,15 @@
         <sshexec command="
 cd ${tomcat.home}/webapps
 
+ls -la 
+
+mkdir hakulomakkeenhallinta-ui;
+unzip -qo -d hakulomakkeenhallinta-ui hakulomakkeenhallinta-ui*.war;
+
+rm -rf *.war"
+
+cd ${tomcat.home}/webapps
+
 for z in *.war; do
 d=`basename $z .war`
 mkdir $d && unzip -qo -d $d $z
