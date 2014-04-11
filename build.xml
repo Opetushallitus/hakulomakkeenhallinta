@@ -40,13 +40,9 @@
 
 		<echo>unzip war-files to webapps...</echo>
         <sshexec command="
-cd ${tomcat.home}/webapps
-
-ls -la 
-
+cd ${tomcat.home}/webapps;
 mkdir hakulomakkeenhallinta-ui;
 unzip -qo -d hakulomakkeenhallinta-ui hakulomakkeenhallinta-ui*.war;
-
 rm -rf *.war"
 
 cd ${tomcat.home}/webapps
