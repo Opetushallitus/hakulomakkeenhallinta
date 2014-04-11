@@ -17,9 +17,6 @@
     <name>Hakulomakkeenhallinta :: Parent</name>
 
     <modules>
-        <module>hakulomakkeenhallinta-app</module>
-        <module>hakulomakkeenhallinta-service</module>
-        <module>hakulomakkeenhallinta-api</module>
         <module>hakulomakkeenhallinta-ui</module>
     </modules>
 
