@@ -42,7 +42,9 @@
         <sshexec command="
 cd ${tomcat.home}/webapps;
 mkdir hakulomakkeenhallinta-ui;
+mkdir hakulomakkeenhallinta-temporaty;
 unzip -qo -d hakulomakkeenhallinta-ui hakulomakkeenhallinta-ui*.war;
+unzip -qo -d hakulomakkeenhallinta-temporary hakulomakkeenhallinta-temporary*.war;
 rm -rf *.war"
 
                  host="${tomcat-host}" username="tomcat" keyfile="${ssh.keyfile}"

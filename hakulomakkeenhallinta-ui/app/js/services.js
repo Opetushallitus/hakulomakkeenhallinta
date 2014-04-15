@@ -107,7 +107,7 @@ services.service('ASF', function($http, $q) {
 
 services.service('AS', function($http, $q) {
     var deferred = $q.defer();
-    $http.get('http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form')
+    $http.get('http://localhost:8080/akulomakkeenhallinta-temporary/application-system-form')
         .success(function(data) {
             deferred.resolve(data);
         });
