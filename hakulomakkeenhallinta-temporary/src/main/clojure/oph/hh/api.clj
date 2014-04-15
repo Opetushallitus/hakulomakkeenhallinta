@@ -3,7 +3,7 @@
         liberator.core)
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
-            [fi.oph.sade.hakulomakkeenhallinta.db :as db]
+            [oph.hh.db :as db]
             [ring.middleware.json :as middleware]))
 
 (defn wrap-cors
