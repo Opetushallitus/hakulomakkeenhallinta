@@ -25,10 +25,13 @@ controllers.controller('KoodistoCtrl', ['$scope', 'Koodisto',
     }
 ]);
 
-controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH',
-    function($scope, Resources, $routeParams, _, HH) {
+controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH', 'ASF',
+    function($scope, Resources, $routeParams, _, HH, ASF) {
 
-        $scope.applicationSystem = Resources.applicationSystem.get();
+        var p = ASF.getASF($routeParams.id);
+        p.then(function(result) {
+            $scope.applicationSystem = result;
+        });
 
         $scope.delete = function(array, index) {
             array.splice(index, 1);
@@ -72,6 +75,7 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$ro
 
 controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH',
     function($scope, $modal, $log, $location, Resources, HH) {
+
         $scope.question = {};
         $scope.selectedApplicationSystems = [];
         $scope.languages = [{

@@ -94,9 +94,20 @@ services.service('Koodisto', function($http, $q, _, Config) {
     };
 });
 
+services.service('ASF', function($http, $q) {
+    this.getASF = function(id) {
+        var deferred = $q.defer();
+        $http.get('http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form/' + id)
+            .success(function(data) {
+                deferred.resolve(data);
+        });
+        return deferred.promise;
+    };
+});
+
 services.service('AS', function($http, $q) {
     var deferred = $q.defer();
-    $http.get('http://localhost:8000/app/test-data/db-applicationSystem.json')
+    $http.get('http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form')
         .success(function(data) {
             deferred.resolve(data);
         });
@@ -112,7 +123,9 @@ services.service('HH', ['$http', 'AS', 'FormWalker', '_',
         var asPromise = AS.getASS();
 
         asPromise.then(function(result) {
-            applicationSystems.push(result);
+            _.each(result, function(as) {
+                applicationSystems.push(as);
+            });
         });
 
         this.listApplicationSystems = function() {
