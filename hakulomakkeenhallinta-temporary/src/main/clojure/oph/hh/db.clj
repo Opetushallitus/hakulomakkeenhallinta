@@ -10,9 +10,14 @@
 (def application-system-collection "applicationSystem")
 
 
-(defn connect [url]
+(defn connect! [url]
+  "Connect to db"
   (mg/connect-via-uri! url)
   (mg/set-db! (mg/get-db database)))
+
+(defn disconnect! []
+  "Close db connection"
+  mg/disconnect!)
 
 (defn application-systems
   ([]  (mc/find-maps application-system-collection {} [:_id :name :_class]))

@@ -83,6 +83,11 @@
             <artifactId>ring-java-servlet</artifactId>
             <version>0.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.clojure</groupId>
+            <artifactId>tools.logging</artifactId>
+            <version>0.2.6</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>hakulomakkeenhallinta-temporary</finalName>
