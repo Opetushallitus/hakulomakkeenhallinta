@@ -3,20 +3,15 @@
     [monger.core :as mg :only [insert find-map-by-id]]
     [monger.collection :as mc :only [connect! set-db!]]
     [clojure.zip :as zip]
-    [monger.json]
-    [propertea.core :as prop])
+    [monger.json])
   (:use validateur.validation))
 
 (def database "hakulomake")
 (def application-system-collection "applicationSystem")
 
 
-(def props (prop/read-properties
-             (str (System/getProperty "user.home") "/oph-configuration/common.properties")
-             :default [:mongodb.virkailija.uri "mongodb://localhost:27017/hakulomake?maxpoolsize=50"]))
-
-(defn connect []
-  (mg/connect-via-uri! (props :mongodb.virkailija.uri))
+(defn connect [url]
+  (mg/connect-via-uri! url)
   (mg/set-db! (mg/get-db database)))
 
 (defn application-systems
