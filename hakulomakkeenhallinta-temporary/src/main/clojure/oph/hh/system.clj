@@ -6,7 +6,7 @@
             [propertea.core :as prop]
             [ring.adapter.jetty :as jetty]))
 
-(def props-file-path (str (System/getProperty "user.home") "/oph-configuration/common.properties"))
+(def props-file-path "/data00/oph/hakulomakkeenhallinta/oph-configuration/common.properties")
 (def default-mongo-url "mongodb://localhost:27017/hakulomake?maxpoolsize=50")
 
 (defn start-up [ctx]
@@ -15,7 +15,7 @@
                props-file-path :default [:mongodb.virkailija.uri default-mongo-url])
         mongo-url (props :mongodb.virkailija.uri)]
     (info "mongodb.virkailija.uri" mongo-url)
-    (comment (db/connect! mongo-url))))
+    (db/connect! mongo-url)))
 
 (defn shutdown [ctx]
   (info "Stopping app")
