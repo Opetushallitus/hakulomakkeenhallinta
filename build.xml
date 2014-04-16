@@ -61,11 +61,11 @@ rm -rf *.war"
                  passphrase="${ssh.keypass}" trust="true" failonerror="false" />
 
 		<echo>Wait for service http-url</echo>
-		<fail message="App did not come up.  Check your log files, fix and try again.  Good Luck :-).">
+		<fail message="App did not come up. Check your log files, fix and try again. Good Luck :-).">
 			<condition>
 				<or>
 					<not>
-						<http url="http://${tomcat-host}:${tomcat-port}/hakulomakkeenhallinta-ui" />
+                        <http url="http://${tomcat-host}:${tomcat-port}/hakulomakkeenhallinta-ui/app/index.html" />
 					</not>
 				</or>
 			</condition>
