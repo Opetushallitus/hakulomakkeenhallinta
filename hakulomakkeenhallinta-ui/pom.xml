@@ -32,7 +32,7 @@
     <name>Hakulomakkeenhallinta :: ui</name>
 
     <build>
-        <finalName>hakulomakkeenhallinta-temporary</finalName>
+        <finalName>hakulomakkeenhallinta-ui</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
