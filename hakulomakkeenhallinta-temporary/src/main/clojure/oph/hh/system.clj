@@ -15,7 +15,7 @@
                props-file-path :default [:mongodb.virkailija.uri default-mongo-url])
         mongo-url (props :mongodb.virkailija.uri)]
     (info "mongodb.virkailija.uri" mongo-url)
-    (db/connect! mongo-url)))
+    (comment (db/connect! mongo-url)))
 
 (defn shutdown [ctx]
   (info "Stopping app")
