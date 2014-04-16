@@ -1,15 +1,30 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+"http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Hakulomakkeen hallinta - testi</display-name>
-  <servlet>
-    <servlet-name>hhservlet</servlet-name>
-    <servlet-class>oph.hh.war</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>hhservlet</servlet-name>
-    <url-pattern>/*</url-pattern>
-  </servlet-mapping>
+    <display-name>Hakulomakkeen hallinta - testi</display-name>
+    <context-param>
+        <param-name>context-init</param-name>
+        <param-value>oph.hh.system/start-up</param-value>
+    </context-param>
+    <context-param>
+        <param-name>context-destroy</param-name>
+        <param-value>oph.hh.system/shutdown</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.lpetit.ring.servlet.RingServletContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>hhservlet</servlet-name>
+        <servlet-class>org.lpetit.ring.servlet.RingHttpServlet</servlet-class>
+        <init-param>
+            <param-name>handler</param-name>
+            <param-value>oph.hh.api/all-routes</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hhservlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 </web-app>

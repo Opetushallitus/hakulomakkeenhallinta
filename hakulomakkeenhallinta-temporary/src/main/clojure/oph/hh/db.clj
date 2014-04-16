@@ -15,12 +15,9 @@
              (str (System/getProperty "user.home") "/oph-configuration/common.properties")
              :default [:mongodb.virkailija.uri "mongodb://localhost:27017/hakulomake?maxpoolsize=50"]))
 
-(defn connect-to-db
-  []
+(defn connect []
   (mg/connect-via-uri! (props :mongodb.virkailija.uri))
   (mg/set-db! (mg/get-db database)))
-
-(connect-to-db)
 
 (defn application-systems
   ([]  (mc/find-maps application-system-collection {} [:_id :name :_class]))
@@ -36,7 +33,6 @@
 
 (defn list-application-systems
   []
-  (connect-to-db)
   (mc/find-maps "testiii"))
 
 
