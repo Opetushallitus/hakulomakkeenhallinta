@@ -11,13 +11,13 @@
 (def application-system-collection "applicationSystem")
 
 
-(def props (prop/read-properties 
-             (str (System/getProperty "user.home") "/oph-configuration/common.properties") 
-             :default [:mongodb.virkailija.url "mongodb://localhost:27017/hakulomake?maxpoolsize=50"]))
+(def props (prop/read-properties
+             (str (System/getProperty "user.home") "/oph-configuration/common.properties")
+             :default [:mongodb.virkailija.uri "mongodb://localhost:27017/hakulomake?maxpoolsize=50"]))
 
 (defn connect-to-db
   []
-  (mg/connect-via-uri! (props :mongodb.virkailija.url))
+  (mg/connect-via-uri! (props :mongodb.virkailija.uri))
   (mg/set-db! (mg/get-db database)))
 
 (connect-to-db)
