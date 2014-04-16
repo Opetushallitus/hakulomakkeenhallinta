@@ -6,7 +6,7 @@
   <display-name>Hakulomakkeen hallinta - testi</display-name>
   <servlet>
     <servlet-name>hhservlet</servlet-name>
-    <servlet-class>fi.oph.sade.hakulomakkeenhallinta.war</servlet-class>
+    <servlet-class>oph.hh.war</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>hhservlet</servlet-name>
