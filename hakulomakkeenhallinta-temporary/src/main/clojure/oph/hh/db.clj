@@ -1,7 +1,7 @@
 (ns oph.hh.db
   (:require
     [monger.core :as mg :only [insert find-map-by-id]]
-    [monger.collection :as mc :only [connect! set-db!]]
+    [monger.collection :as mc :only [connect! set-db! find-and-modify]]
     [clojure.zip :as zip]
     [monger.json])
   (:use validateur.validation))
@@ -27,14 +27,17 @@
 (defn application-system [id]
   (mc/find-map-by-id application-system-collection id))
 
-(defn update-application-system
-  [application-system]
-  (mc/save application-system-collection application-system))
+(defn update-application-system [application-system]
+  (let [query (select-keys application-system ["_id" "modified"])]
+    (println query)
+   (mc/find-and-modify
+     application-system-collection
+     query
+     (assoc application-system "modified" (System/nanoTime))
+     :return-new true)))
 
-(defn list-application-systems
-  []
+(defn list-application-systems []
   (mc/find-maps "testiii"))
-
 
 (defn as-validator []
   (validation-set

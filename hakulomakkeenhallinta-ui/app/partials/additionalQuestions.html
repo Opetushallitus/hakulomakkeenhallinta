@@ -18,7 +18,7 @@
                 <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                 {{element| i18n}}
             </accordion-heading>
-            <div data-ng-repeat="question in applicationSystem.additionalQuestions">
+            <div data-ng-repeat="question in element.additionalQuestions">
                 <a>{{question | i18n}}</a>
             </div>
         </accordion-group>

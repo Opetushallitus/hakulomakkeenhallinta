@@ -7,7 +7,7 @@
             [ring.adapter.jetty :as jetty]))
 
 (def props-file-path (str (System/getProperty "user.home") "/oph-configuration/common.properties"))
-(def default-mongo-url "mongodb://localhost:27017/hakulomake?maxpoolsize=50")
+(def default-mongo-url "mongodb://localhost:27017")
 (def db-name "hakulomake")
 
 (defn start-up [ctx]

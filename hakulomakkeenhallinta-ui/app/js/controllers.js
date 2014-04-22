@@ -237,7 +237,10 @@ controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resour
         $scope.question = question;
 
         $scope.ok = function() {
-            $modalInstance.close(this.question);
+            $modalInstance.close({
+                    question : this.question,
+                    parentElement: parentElement
+                });
         };
 
         $scope.back = function() {
@@ -249,11 +252,14 @@ controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resour
     }
 ]);
 
-controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', '_', 'Resources', '$routeParams', 'HH', 'FormWalker',
-    function($scope, $modal, $log, $location, _, Resources, $routeParams, HH, FormWalker) {
+controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', '_', 'Resources', '$routeParams', 'HH', 'ASF', 'FormWalker',
+    function($scope, $modal, $log, $location, _, Resources, $routeParams, HH, ASF, FormWalker) {
         $scope.organization = HH.getOrganization();
-        $scope.applicationSystem = HH.getApplicationSystem($routeParams.id);
-        $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
+        var p = ASF.getASF($routeParams.id);
+        p.then(function(result) {
+            $scope.applicationSystem = result;
+            $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
+        });
 
         $scope.addQuestion = function(applicationSystem) {
             $modal.open({
@@ -279,12 +285,11 @@ controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '
                             return $scope.applicationSystem;
                         }
                     }
-                }).result.then(function(question) {
-                    console.log(JSON.stringify(question));
-                    if (!$scope.applicationSystem.additionalQuestions) {
-                        $scope.applicationSystem.additionalQuestions = [];
+                }).result.then(function(data) {
+                    if (!data.parentElement.additionalQuestions) {
+                        data.parentElement.additionalQuestions = [];
                     }
-                    $scope.applicationSystem.additionalQuestions.push(question);
+                    data.parentElement.additionalQuestions.push(data.question);
                 });
             });
         };

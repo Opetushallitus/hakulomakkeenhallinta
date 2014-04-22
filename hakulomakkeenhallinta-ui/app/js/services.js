@@ -97,7 +97,7 @@ services.service('Koodisto', function($http, $q, _, Config) {
 services.service('ASF', function($http, $q) {
     this.getASF = function(id) {
         var deferred = $q.defer();
-        $http.get('/hakulomakkeenhallinta-temporary/application-system-form/' + id)
+        $http.get('http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form/' + id)
             .success(function(data) {
                 deferred.resolve(data);
         });
@@ -107,7 +107,7 @@ services.service('ASF', function($http, $q) {
 
 services.service('AS', function($http, $q) {
     var deferred = $q.defer();
-    $http.get('/hakulomakkeenhallinta-temporary/application-system-form')
+    $http.get('http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form')
         .success(function(data) {
             deferred.resolve(data);
         });
@@ -152,8 +152,8 @@ services.service('HH', ['$http', 'AS', 'FormWalker', '_',
 
         this.searchApplicationOptions = function(asid, term) {
             var applicationOptions = [];
-            // $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
-            $http.get("https://virkailija.opintopolku.fi/tarjonta-service/rest/v1/hakukohde/search", {
+            $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
+            //$http.get("https://virkailija.opintopolku.fi/tarjonta-service/rest/v1/hakukohde/search", {
                 params: {
                     searchTerms: term
                 }
