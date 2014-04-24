@@ -18,11 +18,11 @@
     (debug "mongodb.virkailija.uri" mongo-url)
     (db/connect! (str mongo-url "/" db-name))))
 
+
 (defn shutdown [ctx]
   (info "Stopping app")
   (db/disconnect!))
 
 (defn boot []
-  (jetty/run-jetty #'api/all-routes {:port 8080 :join? false}))
-
-
+  (jetty/run-jetty #'api/all-routes {:port 8080 :join? false})
+  (start-up nil))

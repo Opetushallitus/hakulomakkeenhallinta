@@ -1,6 +1,7 @@
 (ns oph.hh.db
   (:require
     [monger.core :as mg :only [insert find-map-by-id]]
+    [monger.query :as mq :only [limit]]
     [monger.collection :as mc :only [connect! set-db! find-and-modify]]
     [clojure.zip :as zip]
     [monger.json])
@@ -8,16 +9,20 @@
 
 (def database "hakulomake")
 (def application-system-collection "applicationSystem")
-
+(def form-collection "form")
 
 (defn connect! [url]
   "Connect to db"
   (mg/connect-via-uri! url)
-  (mg/set-db! (mg/get-db database)))
+  (mg/set-db! (mg/get-db database))
+  (mc/ensure-index application-system-collection [ "modified"]))
 
 (defn disconnect! []
   "Close db connection"
   mg/disconnect!)
+
+(defn exists? [id version]
+  (mc/any? application-system-collection {"_id" id "modified" version}))
 
 (defn application-systems
   ([]  (mc/find-maps application-system-collection {} [:_id :name :_class]))
@@ -36,16 +41,14 @@
      (assoc application-system "modified" (System/nanoTime))
      :return-new true)))
 
-(defn list-application-systems []
-  (mc/find-maps "testiii"))
+(defn list-forms
+  ([] (mc/find-maps form-collection {} [:_id :_class :name :i18nText]))
+  ([query]  (mc/find-maps form-collection query [:_id :name]))
+  ([query fields]  (mc/find-maps form-collection query fields)))
 
-(defn as-validator []
-  (validation-set
-    (presence-of :name)
-    (presence-of :id)
-    (presence-of :type)))
+(defn save-form [form]
+  (println "form " form)
+  (mc/insert-and-return form-collection form))
 
-(defn validate-form
-  "validate form"
-  [form]
-  (valid? (as-validator) form))
+(defn create-templates []
+  (map (fn [id] (println "åasla " id) (save-form (:form (application-system (:_id id)))))  (application-systems {} [:_id])))
