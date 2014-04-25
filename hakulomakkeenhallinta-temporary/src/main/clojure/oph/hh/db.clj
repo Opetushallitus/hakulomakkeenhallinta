@@ -41,14 +41,19 @@
      (assoc application-system "modified" (System/nanoTime))
      :return-new true)))
 
+(defn form [id]
+  (mc/find-map-by-id form-collection id))
+
+(defn delete-form  [id]
+  (mc/remove-by-id form-collection id))
+
 (defn list-forms
   ([] (mc/find-maps form-collection {} [:_id :_class :name :i18nText]))
   ([query]  (mc/find-maps form-collection query [:_id :name]))
   ([query fields]  (mc/find-maps form-collection query fields)))
 
 (defn save-form [form]
-  (println "form " form)
   (mc/insert-and-return form-collection form))
 
 (defn create-templates []
-  (map (fn [id] (println "åasla " id) (save-form (:form (application-system (:_id id)))))  (application-systems {} [:_id])))
+  (map (fn [id] (save-form (:form (application-system (:_id id)))))  (application-systems {} [:_id])))

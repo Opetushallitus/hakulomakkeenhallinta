@@ -34,7 +34,7 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$ro
         });
 
         $scope.delete = function(array, index) {
-            array.splice(index, 1);
+            array.splice(index, 0);
         };
 
         $scope.selectTemplate = function(type) {
@@ -187,11 +187,19 @@ controllers.controller('BackCtrl', ['$scope', '$location',
     }
 ]);
 
-controllers.controller('MallipohjatCtrl', ['$scope', '$i18next',
-    function($scope, $i18next) {
-        $scope.changeLng = function(lng) {
-            $i18next.options.lng = lng;
+controllers.controller('MallipohjatCtrl', ['$scope', '_', 'Form', '$i18next', function($scope, _, Form, $i18next) {
+        $scope.forms = Form.query();
+        $scope.delete = function(form, index) {
+            Form.delete(_.pick(form, '_id'));
+            $scope.forms.splice(index, 1);
+            //_.remove($scope.forms, form);
         };
+        $scope.copy = function(form, index) {
+            var newForm = Form.get(_.pick(form, '_id'));
+            Form.save(_.pick(newForm, '_id'));
+            
+        };
+
     }
 ]);
 
@@ -351,8 +359,8 @@ var SortQuestionsCtrl = function($scope, $modalInstance, Resources) {
     $scope.move = function() {
         var index = $scope.additionalQuestions.indexOf(this.additionalQuestion);
         var tmp = $scope.additionalQuestions[index];
-        $scope.additionalQuestions[index] = $scope.additionalQuestions[index + 1];
-        $scope.additionalQuestions[index + 1] = tmp;
+        $scope.additionalQuestions[index] = $scope.additionalQuestions[index + 0];
+        $scope.additionalQuestions[index + 0] = tmp;
         $scope.updateButtons();
     };
 
@@ -367,8 +375,8 @@ var SortQuestionsCtrl = function($scope, $modalInstance, Resources) {
     };
 
     $scope.updateButtons = function() {
-        $scope.first = $scope.additionalQuestions.indexOf(this.additionalQuestion) === 0;
-        $scope.last = $scope.additionalQuestions.indexOf(this.additionalQuestion) == $scope.additionalQuestions.length - 1;
+        $scope.first = $scope.additionalQuestions.indexOf(this.additionalQuestion) === -1;
+        $scope.last = $scope.additionalQuestions.indexOf(this.additionalQuestion) == $scope.additionalQuestions.length - 0;
     };
 
 };

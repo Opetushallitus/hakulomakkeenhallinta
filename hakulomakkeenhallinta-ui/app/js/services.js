@@ -6,7 +6,8 @@ var services = angular.module('hakulomakkeenhallinta.services', []);
 services.service('Resources', ['$resource',
     function($resource) {
         return {
-            form: $resource('http://localhost:8000/app/test-data/form.json'),
+            form2: $resource('http://localhost:8080/hakulomakkeenhallinta-temporary/form'),
+            form:  $resource('http://localhost:8000/app/test-data/form.json'),
             applicationSystem: $resource('http://localhost:8000/app/test-data/db-applicationSystem.json'),
             applicationSystems: $resource('http://localhost:8000/app/test-data/applicationSystems.json'),
             applicationFormTemplates: $resource('http://localhost:8000/app/test-data/applicationFormTemplates.json'),
@@ -18,10 +19,7 @@ services.service('Resources', ['$resource',
     }
 ]);
 
-
-
 services.service('_', [
-
     function() {
         return window._;
     }

@@ -13,12 +13,32 @@
 (defn- request-body [context]
   (get-in context [:request :body]))
 
-(defresource form []
-  :allowed-methods [:post :get]
+
+(defn check-content-type [ctx content-types]
+  (if (#{:put :post} (get-in ctx [:request :request-method]))
+    (or
+      (some #{(get-in ctx [:request :headers "content-type"])}
+            content-types)
+      [false {:message "Unsupported Content-Type"}])
+    true))
+
+(defresource forms []
+  :allowed-methods [:post :get :options]
   :available-media-types ["application/json"]
+  :known-content-type? #(check-content-type % ["application/json" "text/plain"])
   :post! (fn [context]
            (db/save-form (request-body context)))
   :handle-ok ( db/list-forms ))
+
+(defresource form [id]
+  :allowed-methods [:get :put :delete :options]
+  :available-media-types ["application/json"]
+  :can-put-to-missing? false
+  :known-content-type? #(check-content-type % ["application/json"])
+  :exists? (fn [ctx] (if-let [form (db/form id)] {::form form}))
+  :put! (fn [context] (db/save-form (request-body context)))
+  :delete! (fn [context] (db/delete-form id))
+  :handle-ok ::form)
 
 (defresource application-system-forms []
   :method-allowed? (request-method-in :get)
@@ -62,7 +82,8 @@
            (GET "/:id/form/:eid" [id eid] (get-element id eid)))
 
   (context "/hakulomakkeenhallinta-temporary/form" []
-           (ANY  "/" [] (form)))
+           (ANY  "/" [] (forms))
+           (ANY "/:id" [id] (form id)))
 
   (route/resources "")
   (route/not-found "Resource not found!"))
@@ -72,4 +93,6 @@
       (middleware/wrap-json-body)
       (params/wrap-params)
       (middleware/wrap-json-response)
-      (cors/wrap-cors)))
+      (cors/wrap-cors-methods)
+      (cors/wrap-cors-headers)
+      (cors/wrap-cors-origin)))
