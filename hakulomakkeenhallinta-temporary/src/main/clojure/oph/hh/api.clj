@@ -71,7 +71,22 @@
   :available-media-types ["application/json"]
   :handle-ok ::e)
 
+(def types (list {"id" "TextQuestion" "name" {"translations" {"fi" "Avoin kysymys"}} :modified (System/currentTimeMillis)}
+             {"id" "OptionQuestion" "name" {"translations" {"fi" "Valinta (yksi vastaus)"}} :modified (System/nanoTime)}
+             {"id" "HelpOrInfoQuestion" "name" {"translations" {"fi" "Ohje- tai infoteksti"}} :modified (System/nanoTime)}))
 
+(defresource element-types[]
+  :method-allowed? (request-method-in :get)
+  :available-media-types ["application/json"]
+  :handle-ok types)
+
+(defresource element-type [id]
+  :method-allowed? (request-method-in :get)
+  :exists? (fn [ctx] (if-let [t (first (filter #(= id (% "id")) types))] {::t t}))
+  :available-media-types ["application/json"]
+  :etag (fn [ctx] ((::t ctx) :modified))
+  :last-modified (fn [ctx] ((::t ctx) :modified))
+  :handle-ok ::t)
 
 (defroutes api-routes
 
@@ -84,6 +99,10 @@
   (context "/hakulomakkeenhallinta-temporary/form" []
            (ANY  "/" [] (forms))
            (ANY "/:id" [id] (form id)))
+
+  (context "/hakulomakkeenhallinta-temporary/type" []
+           (ANY  "/" [] (element-types))
+           (ANY "/:id" [id] (element-type id)))
 
   (route/resources "")
   (route/not-found "Resource not found!"))

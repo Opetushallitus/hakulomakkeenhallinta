@@ -5,13 +5,13 @@
     <form role="form" class="form-horizontal">
         <div class="form-group">
             <label for="haku">Haku</label>
-            <select class="form-control" id="haku" ng-model="applicationSystem" ng-options="a.name.translations.fi for a in applicationSystems">
+            <select class="form-control" id="haku" ng-model="applicationSystem" ng-options="a.nimi.kieli_fi for a in applicationSystems">
                 <option value="">-- Valitse haku --</option>
             </select>
         </div>
         <div class="form-group">
             <label for="lomakepohja">Lomakepohja</label>
-            <select class="form-control" id="lomakepohja" ng-model="applicationFormTemplate" ng-options="form.name.translations.fi for form in applicationFormTemplates">
+            <select class="form-control" id="lomakepohja" ng-model="applicationFormTemplate" ng-options="template.name.translations.fi for template in applicationFormTemplates">
                 <option value="">-- Valitse lomakepohja --</option>
             </select>
         </div>

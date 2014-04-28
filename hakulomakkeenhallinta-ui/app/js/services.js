@@ -6,25 +6,12 @@ var services = angular.module('hakulomakkeenhallinta.services', []);
 services.service('Resources', ['$resource',
     function($resource) {
         return {
-            form2: $resource('http://localhost:8080/hakulomakkeenhallinta-temporary/form'),
-            form:  $resource('http://localhost:8000/app/test-data/form.json'),
-            applicationSystem: $resource('http://localhost:8000/app/test-data/db-applicationSystem.json'),
-            applicationSystems: $resource('http://localhost:8000/app/test-data/applicationSystems.json'),
-            applicationFormTemplates: $resource('http://localhost:8000/app/test-data/applicationFormTemplates.json'),
             applicationOptions: $resource('http://localhost:8000/app/test-data/applicationOptions.json'),
             additionalQuestions: $resource('http://localhost:8000/app/test-data/additionalQuestions.json'),
-            types: $resource('http://localhost:8000/app/test-data/types.json'),
             languages: $resource('http://localhost:8000/app/test-data/languages.json')
         };
     }
 ]);
-
-services.service('_', [
-    function() {
-        return window._;
-    }
-]);
-
 services.service('FormWalker', ['_', function(_) {
 
         var walker = _.walk(function(e) {
@@ -92,39 +79,9 @@ services.service('Koodisto', function($http, $q, _, Config) {
     };
 });
 
-services.service('ASF', function($http, $q) {
-    this.getASF = function(id) {
-        var deferred = $q.defer();
-        $http.get('http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form/' + id)
-            .success(function(data) {
-                deferred.resolve(data);
-        });
-        return deferred.promise;
-    };
-});
-
-services.service('AS', function($http, $q) {
-    var deferred = $q.defer();
-    $http.get('http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form')
-        .success(function(data) {
-            deferred.resolve(data);
-        });
-
-    this.getASS = function() {
-        return deferred.promise;
-    };
-});
-
-services.service('HH', ['$http', 'AS', 'FormWalker', '_',
-    function($http, AS, FormWalker, _) {
-        var applicationSystems = [];
-        var asPromise = AS.getASS();
-
-        asPromise.then(function(result) {
-            _.each(result, function(as) {
-                applicationSystems.push(as);
-            });
-        });
+services.service('HH', ['$http', 'ASFResource', 'FormWalker', '_',
+    function($http, ASFResource, FormWalker, _) {
+        var applicationSystems = ASFResource.query();
 
         this.listApplicationSystems = function() {
             return applicationSystems;

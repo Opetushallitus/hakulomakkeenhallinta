@@ -25,20 +25,14 @@ controllers.controller('KoodistoCtrl', ['$scope', 'Koodisto',
     }
 ]);
 
-controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'Resources', '$routeParams', '_', 'HH', 'ASF',
-    function($scope, Resources, $routeParams, _, HH, ASF) {
-
-        var p = ASF.getASF($routeParams.id);
-        p.then(function(result) {
-            $scope.applicationSystem = result;
-        });
+controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'ASFResource', '$routeParams', function($scope, ASFResource, $routeParams) {
+        $scope.applicationSystem = ASFResource.get( {'_id' : $routeParams.id });
 
         $scope.delete = function(array, index) {
             array.splice(index, 0);
         };
 
         $scope.selectTemplate = function(type) {
-            console.log("Valitse pohja " + type);
             var t = type.split('.').pop();
             if (t === 'Theme' ||  t === 'RelatedQuestionComplexRule') {
                 return t;
@@ -187,25 +181,24 @@ controllers.controller('BackCtrl', ['$scope', '$location',
     }
 ]);
 
-controllers.controller('MallipohjatCtrl', ['$scope', '_', 'Form', '$i18next', function($scope, _, Form, $i18next) {
-        $scope.forms = Form.query();
+controllers.controller('MallipohjatCtrl', ['$scope', '_', 'FormResource', '$i18next', function($scope, _, FormResource, $i18next) {
+        $scope.forms = FormResource.query();
         $scope.delete = function(form, index) {
-            Form.delete(_.pick(form, '_id'));
+            FormResource.delete(_.pick(form, '_id'));
             $scope.forms.splice(index, 1);
             //_.remove($scope.forms, form);
         };
         $scope.copy = function(form, index) {
-            var newForm = Form.get(_.pick(form, '_id'));
-            Form.save(_.pick(newForm, '_id'));
-            
+            var newForm = FormResource.get(_.pick(form, '_id'));
+            FormResource.save(_.pick(newForm, '_id'));
         };
 
     }
 ]);
 
-var liitaHakuLomakkeeseenCtrl = function($scope, $modalInstance, Resources) {
-    $scope.applicationSystems = Resources.applicationSystems.query();
-    $scope.applicationFormTemplates = Resources.applicationFormTemplates.query();
+var liitaHakuLomakkeeseenCtrl = function($scope, $modalInstance, ASFResource, FormResource, ApplicationSystemResource) {
+    $scope.applicationSystems = ApplicationSystemResource.query(); 
+    $scope.applicationFormTemplates = FormResource.query();
     $scope.ok = function() {
         var result = {
             applicationFormTemplateId: this.applicationFormTemplate.id,
@@ -220,10 +213,10 @@ var liitaHakuLomakkeeseenCtrl = function($scope, $modalInstance, Resources) {
     };
 };
 
-var SelectThemeAndQuestionType = function($scope, $modalInstance, Resources, $routeParams, FormWalker, applicationSystem) {
+var SelectThemeAndQuestionType = function($scope, $modalInstance, TypeResource, $routeParams, FormWalker, applicationSystem) {
 
     $scope.themes = FormWalker.filterByType(applicationSystem.form, "Theme");
-    $scope.types = Resources.types.query($scope.queryParameters);
+    $scope.types = TypeResource.query($scope.queryParameters);
 
     $scope.ok = function() {
         $modalInstance.close({

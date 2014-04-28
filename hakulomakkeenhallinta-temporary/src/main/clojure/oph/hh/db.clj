@@ -56,4 +56,4 @@
   (mc/insert-and-return form-collection form))
 
 (defn create-templates []
-  (map (fn [id] (save-form (:form (application-system (:_id id)))))  (application-systems {} [:_id])))
+  (map (fn [id] (save-form (dissoc (:form (application-system (:_id id)) [:_id]))))  (application-systems {} [:_id])))
