@@ -41,24 +41,23 @@
   :handle-ok ::form)
 
 (defresource application-system-forms []
-  :method-allowed? (request-method-in :get)
+  :method-allowed? (request-method-in :get :post :options)
   :available-media-types ["application/json"]
+  :known-content-type? #(check-content-type % ["application/json" "application/json;charset=UTF-8"])
+  :post! (fn [ctx] {::asf  (db/add-new-application-system-form (request-body ctx))})
+  :post-redirect? true
+  :location (fn [ctx] (println (::asf ctx)) (:_id (::asf ctx)))
   :handle-ok (db/application-systems))
 
-(defresource update-application-system-form [id]
-  :method-allowed? (request-method-in :put)
-  :available-media-types ["application/json"]
-  :put! (fn [context] {::data (db/update-application-system (request-body context))})
-  :etag (fn [context] ((::data context) :modified))
-  :new? false
-  :handle-ok ::data)
-
 (defresource application-system-form [id]
-  :method-allowed? (request-method-in :get)
+  :method-allowed? (request-method-in :get :put)
+  :available-media-types ["application/json"]
+  :known-content-type? #(check-content-type % ["application/json"])
   :exists? (fn [ctx] (if-let [d (db/application-system id)] {::data d}))
   :etag (fn [ctx] ((::data ctx) :modified))
+  :put! (fn [context] {::data (db/update-application-system (request-body context))})
   :last-modified (fn [ctx] ((::data ctx) :modified))
-  :available-media-types ["application/json"]
+  :new? false
   :handle-ok ::data)
 
 (defresource get-element [id eid]
@@ -91,9 +90,8 @@
 (defroutes api-routes
 
   (context "/hakulomakkeenhallinta-temporary/application-system-form" []
-           (GET  "/" [] (application-system-forms))
-           (GET "/:id" [id] (application-system-form id))
-           (PUT "/:id" [id] (update-application-system-form id))
+           (ANY  "/" [] (application-system-forms))
+           (ANY "/:id" [id] (application-system-form id))
            (GET "/:id/form/:eid" [id eid] (get-element id eid)))
 
   (context "/hakulomakkeenhallinta-temporary/form" []

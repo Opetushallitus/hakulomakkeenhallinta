@@ -29,8 +29,9 @@
   ([query]  (mc/find-maps application-system-collection query [:_id :name]))
   ([query fields]  (mc/find-maps application-system-collection query fields)))
 
-(defn application-system [id]
-  (mc/find-map-by-id application-system-collection id))
+(defn application-system
+  ([id] ( mc/find-map-by-id application-system-collection id))
+  ([id fields] ( mc/find-map-by-id application-system-collection id fields)))
 
 (defn update-application-system [application-system]
   (let [query (select-keys application-system ["_id" "modified"])]
@@ -40,6 +41,8 @@
      query
      (assoc application-system "modified" (System/nanoTime))
      :return-new true)))
+
+
 
 (defn form [id]
   (mc/find-map-by-id form-collection id))
@@ -55,5 +58,8 @@
 (defn save-form [form]
   (mc/insert-and-return form-collection form))
 
+(defn add-new-application-system-form [asf]
+  (println "==== " (asf "applicationSystem"))
+  (mc/insert-and-return application-system-collection (assoc (asf "applicationSystem") "form" (form ( "_id" (asf "applicationFormTemplate"))))))
 (defn create-templates []
   (map (fn [id] (save-form (dissoc (:form (application-system (:_id id)) [:_id]))))  (application-systems {} [:_id])))

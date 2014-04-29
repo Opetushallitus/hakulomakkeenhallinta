@@ -67,8 +67,8 @@ controllers.controller('ApplicationSystemFormCtrl', ['$scope', 'ASFResource', '$
     }
 ]);
 
-controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH',
-    function($scope, $modal, $log, $location, Resources, HH) {
+controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource',
+    function($scope, $modal, $log, $location, Resources, HH, ASFResource) {
 
         $scope.question = {};
         $scope.selectedApplicationSystems = [];
@@ -88,16 +88,16 @@ controllers.controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$locat
             name: 'Aasian tutkimus, kandidaatinopinnot'
         }];
 
-        $scope.applicationForms = HH.listApplicationSystems();
+        $scope.applicationForms = ASFResource.query(); 
 
         $scope.luoHakulomake = function() {
             $modal.open({
                 templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
                 controller: 'liitaHakuLomakkeeseenCtrl'
             }).result.then(function(result) {
-                Resources.applicationForms.save(result, function(res) {
-                    $scope.applicationForms = Resources.applicationForms.query();
-                });
+                console.log("asf save");
+                ASFResource.save(result);
+                $scope.applicationForms = ASFResource.query(); 
             });
         };
 
@@ -200,12 +200,12 @@ var liitaHakuLomakkeeseenCtrl = function($scope, $modalInstance, ASFResource, Fo
     $scope.applicationSystems = ApplicationSystemResource.query(); 
     $scope.applicationFormTemplates = FormResource.query();
     $scope.ok = function() {
-        var result = {
-            applicationFormTemplateId: this.applicationFormTemplate.id,
-            applicationSystemId: this.applicationSystem.id
+        var applicationSystemForm = {
+            applicationFormTemplate: this.applicationFormTemplate,
+            applicationSystem: this.applicationSystem
         };
-        console.log(result);
-        $modalInstance.close(result);
+        console.log(applicationSystemForm);
+        $modalInstance.close(applicationSystemForm);
     };
 
     $scope.cancel = function() {

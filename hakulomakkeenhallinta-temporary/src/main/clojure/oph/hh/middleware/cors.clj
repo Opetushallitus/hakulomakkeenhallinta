@@ -22,4 +22,4 @@
     (let [response (handler request)]
       (update-in response
                  [:headers "Access-Control-Allow-Headers"]
-                 (fn [_] "*")))))
+                 (fn [_] "Origin, X-Requested-With, Content-Type, Accept")))))
