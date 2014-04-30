@@ -6,9 +6,9 @@ var services = angular.module('hakulomakkeenhallinta.services', []);
 services.service('Resources', ['$resource',
     function($resource) {
         return {
-            applicationOptions: $resource('http://localhost:8000/app/test-data/applicationOptions.json'),
-            additionalQuestions: $resource('http://localhost:8000/app/test-data/additionalQuestions.json'),
-            languages: $resource('http://localhost:8000/app/test-data/languages.json')
+            applicationOptions: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/applicationOptions.json'),
+            additionalQuestions: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/additionalQuestions.json'),
+            languages: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/languages.json')
         };
     }
 ]);

@@ -85,9 +85,9 @@ angular.module('hakulomakkeenhallinta', [
                 return {
                     koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
                     tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',
-                    asfUrl:  'http://itest-virkailija.oph.ware.fi/hakulomakkeenhallinta-temporary/application-system-form/:_id',
-                    typeUrl: 'http://itest-virkailija.oph.ware.fi/hakulomakkeenhallinta-temporary/type/:id',
-                    formUrl: 'http://itest-virkailija.oph.ware.fi/hakulomakkeenhallinta-temporary/form/:id',
+                    asfUrl:  'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/application-system-form/:_id',
+                    typeUrl: 'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/type/:id',
+                    formUrl: 'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/form/:id',
                 };
 
             }
