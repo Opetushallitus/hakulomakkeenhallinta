@@ -11,12 +11,6 @@ angular.module('hakulomakkeenhallinta', [
     'jm.i18next'
 ])
 
-.value('Config', {
-    koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
-    tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',
-    asfUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form/:_id'
-})
-
 .config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.when('/applicationSystemForm', {
@@ -77,11 +71,35 @@ angular.module('hakulomakkeenhallinta', [
         ];
     })
 
+.provider('Props', function() {
+        this.$get = [function() {
+            if (location.hostname.indexOf('localhost') != -1) {
+                return {
+                    koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
+                    tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',
+                    asfUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form/:_id',
+                    typeUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/type/:id',
+                    formUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/form/:id',
+                };
+            } else {
+                return {
+                    koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
+                    tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',
+                    asfUrl:  'http://itest-virkailija.oph.ware.fi/hakulomakkeenhallinta-temporary/application-system-form/:_id',
+                    typeUrl: 'http://itest-virkailija.oph.ware.fi/hakulomakkeenhallinta-temporary/type/:id',
+                    formUrl: 'http://itest-virkailija.oph.ware.fi/hakulomakkeenhallinta-temporary/form/:id',
+                };
+
+            }
+        }];
+    })
+
+
 
 .provider('ASFResource', function() {
-    this.$get = ['$resource', 'Config',
-        function($resource, Config) {
-            var Form = $resource(Config.asfUrl, {}, {
+    this.$get = ['$resource', 'Props',
+        function($resource, Props) {
+            var Form = $resource(Props.asfUrl, {}, {
                 update: {
                     method: 'PUT'
                 }
@@ -91,16 +109,16 @@ angular.module('hakulomakkeenhallinta', [
     ];
 })
     .provider('TypeResource', function() {
-        this.$get = ['$resource',
-            function($resource) {
-                return $resource('http://localhost:8080/hakulomakkeenhallinta-temporary/type/:id', {}, {});
+        this.$get = ['$resource', 'Props',
+            function($resource, Props) {
+                return $resource(Props.typeUrl, {}, {});
             }
         ];
     })
     .provider('ApplicationSystemResource', function() {
-        this.$get = ['$resource', 'Config', '_',
-            function($resource, Config , _) {
-                return $resource(Config.tarjontaUrl + 'haku/findAll', {}, {
+        this.$get = ['$resource', 'Props', '_',
+            function($resource, Props, _) {
+                return $resource(Props.tarjontaUrl + 'haku/findAll', {}, {
                     query: {
                         method: 'GET',
                         isArray: true,
@@ -138,9 +156,9 @@ angular.module('hakulomakkeenhallinta', [
 
 
 .provider('FormResource', function() {
-    this.$get = ['$resource',
-        function($resource) {
-            var Form = $resource('http://localhost:8080/hakulomakkeenhallinta-temporary/form/:_id', {}, {
+    this.$get = ['$resource','Props',
+        function($resource, Props) {
+            var Form = $resource(Props.formUrl, {}, {
                 update: {
                     method: 'PUT'
                 }
