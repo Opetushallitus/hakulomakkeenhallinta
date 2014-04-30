@@ -253,12 +253,12 @@ controllers.controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resour
     }
 ]);
 
-controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', '_', 'Resources', '$routeParams', 'HH', 'ASF', 'FormWalker',
-    function($scope, $modal, $log, $location, _, Resources, $routeParams, HH, ASF, FormWalker) {
+controllers.controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', '_', 'Resources', '$routeParams', 'HH', 'ASFResource', 'FormWalker',
+    function($scope, $modal, $log, $location, _, Resources, $routeParams, HH, ASFResource, FormWalker) {
         $scope.organization = HH.getOrganization();
-        var p = ASF.getASF($routeParams.id);
-        p.then(function(result) {
-            $scope.applicationSystem = result;
+        $scope.applicationSystem = ASFResource.get({'_id' : $routeParams.id});
+
+        $scope.applicationSystem.$promise.then(function(data) {
             $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
         });
 
