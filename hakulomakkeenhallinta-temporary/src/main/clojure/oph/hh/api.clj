@@ -74,7 +74,7 @@
              {"id" "OptionQuestion" "name" {"translations" {"fi" "Valinta (yksi vastaus)"}} :modified (System/nanoTime)}
              {"id" "HelpOrInfoQuestion" "name" {"translations" {"fi" "Ohje- tai infoteksti"}} :modified (System/nanoTime)}))
 
-(defresource element-types[]
+(defresource element-types []
   :method-allowed? (request-method-in :get)
   :available-media-types ["application/json"]
   :handle-ok types)

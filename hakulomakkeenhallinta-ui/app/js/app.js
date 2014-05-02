@@ -4,11 +4,11 @@ angular.module('hakulomakkeenhallinta', [
     'ngRoute',
     'ngResource',
     'ui.bootstrap',
+    'jm.i18next',
     'hakulomakkeenhallinta.filters',
     'hakulomakkeenhallinta.services',
     'hakulomakkeenhallinta.directives',
-    'hakulomakkeenhallinta.controllers',
-    'jm.i18next'
+    'hakulomakkeenhallintaUiApp'
 ])
 
 .config(['$routeProvider',
