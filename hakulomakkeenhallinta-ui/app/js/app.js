@@ -5,7 +5,7 @@ angular.module('hakulomakkeenhallinta', [
         'ngResource',
         'ui.bootstrap',
         'jm.i18next',
-        'hakulomakkeenhallinta.filters',
+        'hakulomakkeenhallintaUiApp.filters',
         'hakulomakkeenhallinta.directives',
         'services.provider',
         'services.service',
