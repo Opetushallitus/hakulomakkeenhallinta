@@ -1,9 +1,9 @@
 'use strict';
 
 /* Services */
-var services = angular.module('hakulomakkeenhallinta.services', []);
+//var services = angular.module('hakulomakkeenhallinta.services', []);
 
-services.service('Resources', ['$resource',
+/*services.service('Resources', ['$resource',
     function($resource) {
         return {
             applicationOptions: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/applicationOptions.json'),
@@ -11,8 +11,8 @@ services.service('Resources', ['$resource',
             languages: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/languages.json')
         };
     }
-]);
-services.service('FormWalker', ['_', function(_) {
+]);*/
+/*services.service('FormWalker', ['_', function(_) {
 
         var walker = _.walk(function(e) {
             return e.children;
@@ -32,10 +32,10 @@ services.service('FormWalker', ['_', function(_) {
             });
         };
     }
-]);
+]);*/
 
 
-services.service('Koodisto', function($http, $q, _, Config) {
+/*services.service('Koodisto', function($http, $q, _, Config) {
     var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
 
     this.getKoodistot = function() {
@@ -77,9 +77,9 @@ services.service('Koodisto', function($http, $q, _, Config) {
             });
         return deferred.promise;
     };
-});
+});*/
 
-services.service('HH', ['$http', 'ASFResource', 'FormWalker', '_',
+/*services.service('HH', ['$http', 'ASFResource', 'FormWalker', '_',
     function($http, ASFResource, FormWalker, _) {
         var applicationSystems = ASFResource.query();
 
@@ -122,4 +122,4 @@ services.service('HH', ['$http', 'ASFResource', 'FormWalker', '_',
             return applicationOptions;
         };
     }
-]);
+]);*/
