@@ -4,6 +4,7 @@ angular.module('hakulomakkeenhallinta', [
     'ngRoute',
     'ngResource',
     'ui.bootstrap',
+    'services.provider',
     'jm.i18next',
     'hakulomakkeenhallinta.filters',
     'hakulomakkeenhallinta.services',
@@ -69,8 +70,8 @@ angular.module('hakulomakkeenhallinta', [
                 return window._;
             }
         ];
-    })
-
+    });
+/*
 .provider('Props', function() {
         this.$get = [function() {
             if (location.hostname.indexOf('localhost') != -1) {
@@ -92,11 +93,11 @@ angular.module('hakulomakkeenhallinta', [
 
             }
         }];
-    })
+    })*/
 
 
 
-.provider('ASFResource', function() {
+/*.provider('ASFResource', function() {
     this.$get = ['$resource', 'Props',
         function($resource, Props) {
             var Form = $resource(Props.asfUrl, {}, {
@@ -107,15 +108,15 @@ angular.module('hakulomakkeenhallinta', [
             return Form;
         }
     ];
-})
-    .provider('TypeResource', function() {
+})*/
+    /*.provider('TypeResource', function() {
         this.$get = ['$resource', 'Props',
             function($resource, Props) {
                 return $resource(Props.typeUrl, {}, {});
             }
         ];
-    })
-    .provider('ApplicationSystemResource', function() {
+    })*/
+    /*.provider('ApplicationSystemResource', function() {
         this.$get = ['$resource', 'Props', '_',
             function($resource, Props, _) {
                 return $resource(Props.tarjontaUrl + 'haku/findAll', {}, {
@@ -152,10 +153,10 @@ angular.module('hakulomakkeenhallinta', [
                 });
             }
         ];
-    })
+    })*/
 
 
-.provider('FormResource', function() {
+/*.provider('FormResource', function() {
     this.$get = ['$resource','Props',
         function($resource, Props) {
             var Form = $resource(Props.formUrl, {}, {
@@ -166,4 +167,4 @@ angular.module('hakulomakkeenhallinta', [
             return Form;
         }
     ];
-});
+});*/
