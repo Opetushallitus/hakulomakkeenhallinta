@@ -9,6 +9,7 @@ angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallintaUiApp.directives',
         'services.provider',
         'services.service',
+        'services.util',
         'hakulomakkeenhallintaUiApp'
     ])
 
