@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource',
-        function($scope, $modal, $log, $location, Resources, HH, ASFResource) {
+    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$location', '_', 'ASFResource',
+        function($scope, $modal, $location, _, ASFResource) {
 
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
@@ -49,6 +49,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }, function() {
 
                 });
+            };
+
+            $scope.delete = function(element, index) {
+                ASFResource.delete(_.pick(element, '_id'));
+                $scope.applicationForms.splice(index, 1);
             };
 
             $scope.toggleCheck = function(applicationForm) {

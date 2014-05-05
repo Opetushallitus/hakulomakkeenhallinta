@@ -14,7 +14,7 @@
     (let [response (handler request)]
       (update-in response
                  [:headers "Access-Control-Allow-Methods"]
-                 (fn [_] "*")))))
+                 (fn [_] "GET, PUT, POST, DELETE, OPTIONS")))))
 
 (defn wrap-cors-headers
   [handler]

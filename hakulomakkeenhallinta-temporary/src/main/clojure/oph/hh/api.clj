@@ -50,13 +50,14 @@
   :handle-ok (db/application-systems))
 
 (defresource application-system-form [id]
-  :method-allowed? (request-method-in :get :put)
+  :method-allowed? (request-method-in :get :put :delete :options)
   :available-media-types ["application/json"]
   :known-content-type? #(check-content-type % ["application/json"])
   :exists? (fn [ctx] (if-let [d (db/application-system id)] {::data d}))
   :etag (fn [ctx] ((::data ctx) :modified))
   :put! (fn [context] {::data (db/update-application-system (request-body context))})
   :last-modified (fn [ctx] ((::data ctx) :modified))
+  :delete! (fn [context] ((println (str "delete" id))) (db/delete-application-system-form id))
   :new? false
   :handle-ok ::data)
 
