@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 .controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH',
     function($scope, $routeParams, _, HH) {

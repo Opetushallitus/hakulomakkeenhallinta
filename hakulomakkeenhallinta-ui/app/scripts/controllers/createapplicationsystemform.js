@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('CreateapplicationsystemformCtrl',
         function($scope, $modalInstance, ASFResource, FormResource, ApplicationSystemResource) {
             $scope.applicationSystems = ApplicationSystemResource.query();

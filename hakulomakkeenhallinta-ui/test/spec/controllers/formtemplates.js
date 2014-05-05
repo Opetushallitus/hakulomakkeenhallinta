@@ -3,7 +3,7 @@
 describe('Controller: FormtemplatesCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.controllers'));
 
   var FormtemplatesCtrl,
     scope;

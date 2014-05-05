@@ -3,7 +3,7 @@
 describe('Service: TypeResource', function () {
 
   // load the service's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.services.provider'));
 
   // instantiate service
   var TypeResource;

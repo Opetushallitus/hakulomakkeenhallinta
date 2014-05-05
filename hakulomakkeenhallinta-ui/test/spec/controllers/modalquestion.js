@@ -3,7 +3,7 @@
 describe('Controller: ModalquestionCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.controllers'));
 
   var ModalquestionCtrl,
     scope;

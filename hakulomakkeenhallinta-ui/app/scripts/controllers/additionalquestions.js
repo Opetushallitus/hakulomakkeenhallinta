@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', '_', 'Resources', '$routeParams', 'HH', 'ASFResource', 'FormWalker',
         function($scope, $modal, $log, $location, _, Resources, $routeParams, HH, ASFResource, FormWalker) {
             $scope.organization = HH.getOrganization();

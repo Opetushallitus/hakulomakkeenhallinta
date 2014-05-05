@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('FormtemplatesCtrl', ['$scope', '_', 'FormResource', '$i18next',
         function($scope, _, FormResource, $i18next) {
             $scope.forms = FormResource.query();

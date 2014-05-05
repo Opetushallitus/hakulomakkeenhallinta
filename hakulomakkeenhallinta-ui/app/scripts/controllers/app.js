@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp', [])
+angular.module('hakulomakkeenhallintaUiApp.controllers', [])
     .controller('AppCtrl', ['$scope', 'Resources',
         function($scope, Resources) {
             $scope.accordionStates = {};

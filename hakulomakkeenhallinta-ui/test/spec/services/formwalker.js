@@ -3,7 +3,7 @@
 describe('Service: Formwalker', function () {
 
   // load the service's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.services.util'));
 
   // instantiate service
   var Formwalker;

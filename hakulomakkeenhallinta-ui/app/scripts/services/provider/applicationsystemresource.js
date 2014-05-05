@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('services.provider', [])
+angular.module('hakulomakkeenhallintaUiApp.services.provider', [])
     .provider('ApplicationSystemResource', function () {
         this.$get = ['$resource', 'Props', '_',
             function($resource, Props, _) {

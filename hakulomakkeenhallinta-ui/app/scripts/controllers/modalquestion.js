@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resources', 'question', 'applicationSystem', 'parentElement',
         function($scope, $modalInstance, Resources, question, applicationSystem, parentElement) {
             $scope.lang = "fi";

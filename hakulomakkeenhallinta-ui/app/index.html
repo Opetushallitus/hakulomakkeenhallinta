@@ -4,28 +4,31 @@
 <head>
     <meta charset="utf-8">
     <title>Hakulomakkeet</title>
-    <link href="css/app.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+
+    <link href="css/virkailija.css" rel="stylesheet">
+    <!--Virkailija layout script -->
+    <script type="text/javascript" src="/virkailija-raamit/apply-raamit.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="lib/underscore.collections.walk.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-resource.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="lib/i18next-1.7.1.min.js"></script>
+    <script src="lib/ng-i18next.min.js"></script>
+
 </head>
 <body data-ng-controller="AppCtrl">
 
-<ng-view></ng-view>
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-<script src="lib/underscore.collections.walk.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-route.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-resource.js"></script>
-<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
-<script src="lib/i18next-1.7.1.min.js"></script>
-<script src="lib/ng-i18next.min.js"></script>
-<script src="js/app.js"></script>
-<!--<script src="js/services.js"></script>-->
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
+<div id="app-container">
+    <div id="angularbox" ng-view=""></div>
+</div>
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
 <script src="scripts/controllers/app.js"></script>
 <script src="scripts/controllers/koodisto.js"></script>
 <script src="scripts/controllers/applicationsystemform.js"></script>
@@ -43,15 +46,15 @@
 <script src="scripts/controllers/expr.js"></script>
 <script src="scripts/controllers/createapplicationsystemform.js"></script>
 <script src="scripts/controllers/selectthemeandquestiontype.js"></script>
-<script src="scripts/services/applicationsystemresource.js"></script>
-<script src="scripts/services/typeresource.js"></script>
-<script src="scripts/services/asfresource.js"></script>
-<script src="scripts/services/props.js"></script>
-<script src="scripts/services/formresource.js"></script>
-<script src="scripts/services/resources.js"></script>
+<script src="scripts/services/provider/applicationsystemresource.js"></script>
+<script src="scripts/services/provider/typeresource.js"></script>
+<script src="scripts/services/provider/asfresource.js"></script>
+<script src="scripts/services/provider/props.js"></script>
+<script src="scripts/services/provider/formresource.js"></script>
+<script src="scripts/services/service/resources.js"></script>
 <script src="scripts/services/util/formwalker.js"></script>
-<script src="scripts/services/koodisto.js"></script>
-<script src="scripts/services/hh.js"></script>
+<script src="scripts/services/service/koodisto.js"></script>
+<script src="scripts/services/service/hh.js"></script>
 <script src="scripts/filters/i18n.js"></script>
 <script src="scripts/filters/without.js"></script>
 <script src="scripts/directives/appversion.js"></script>
@@ -59,5 +62,6 @@
 <script src="scripts/directives/hhinputtext.js"></script>
 <script src="scripts/directives/hhinputlink.js"></script>
 <!-- endbuild -->
+
 </body>
 </html>

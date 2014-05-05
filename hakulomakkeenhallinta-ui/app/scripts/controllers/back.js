@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 .controller('BackCtrl', ['$scope', '$location',
     function($scope, $location) {

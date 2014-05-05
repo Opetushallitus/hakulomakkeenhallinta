@@ -3,7 +3,7 @@
 describe('Service: Koodisto', function () {
 
   // load the service's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.services.service'));
 
   // instantiate service
   var Koodisto;

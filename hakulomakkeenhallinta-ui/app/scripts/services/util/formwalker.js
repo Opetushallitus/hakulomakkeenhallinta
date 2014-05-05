@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('services.util', [])
+angular.module('hakulomakkeenhallintaUiApp.services.util', [])
   .service('FormWalker', [ '_', function(_) {
 
         var walker = _.walk(function(e) {

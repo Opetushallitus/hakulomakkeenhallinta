@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('KoodistoCtrl', ['$scope', 'Koodisto',
         function($scope, Koodisto) {
 

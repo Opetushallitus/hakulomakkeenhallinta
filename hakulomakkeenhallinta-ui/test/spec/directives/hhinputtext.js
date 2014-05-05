@@ -3,7 +3,7 @@
 describe('Directive: hhInputtext', function () {
 
   // load the directive's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.directives'));
 
   var element,
     scope;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SortquestionsCtrl', function($scope, $modalInstance, Resources) {
         $scope.first = true;
         $scope.last = true;

@@ -3,7 +3,7 @@
 describe('Filter: i18n', function () {
 
   // load the filter's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.filters'));
 
   // initialize a new instance of the filter before each test
   var i18n;

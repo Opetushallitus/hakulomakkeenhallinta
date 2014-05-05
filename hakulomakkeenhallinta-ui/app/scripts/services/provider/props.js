@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('services.provider')
+angular.module('hakulomakkeenhallintaUiApp.services.provider')
     .provider('Props', function () {
         this.$get = [function() {
             if (location.hostname.indexOf('localhost') != -1) {

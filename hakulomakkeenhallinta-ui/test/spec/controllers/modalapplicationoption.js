@@ -3,7 +3,7 @@
 describe('Controller: ModalapplicationoptionCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.controllers'));
 
   var ModalapplicationoptionCtrl,
     scope;

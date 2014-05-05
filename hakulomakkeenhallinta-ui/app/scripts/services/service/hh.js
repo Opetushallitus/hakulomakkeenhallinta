@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('services.service')
+angular.module('hakulomakkeenhallintaUiApp.services.service')
   .service('HH',  ['$http', 'ASFResource', 'FormWalker', '_', function($http, ASFResource, FormWalker, _) {
         var applicationSystems = ASFResource.query();
 

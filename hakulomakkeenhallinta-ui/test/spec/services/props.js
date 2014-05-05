@@ -3,7 +3,7 @@
 describe('Service: Props', function () {
 
   // load the service's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.services.provider'));
 
   // instantiate service
   var Props;

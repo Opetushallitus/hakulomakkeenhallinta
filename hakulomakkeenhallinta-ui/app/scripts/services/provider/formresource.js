@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('services.provider')
-  .provider('ASFResource', function () {
-        this.$get = ['$resource', 'Props',
+angular.module('hakulomakkeenhallintaUiApp.services.provider')
+    .provider('FormResource', function () {
+        this.$get = ['$resource','Props',
             function($resource, Props) {
-                var Form = $resource(Props.asfUrl, {}, {
+                var Form = $resource(Props.formUrl, {}, {
                     update: {
                         method: 'PUT'
                     }
@@ -12,4 +12,4 @@ angular.module('services.provider')
                 return Form;
             }
         ];
-  });
+    });

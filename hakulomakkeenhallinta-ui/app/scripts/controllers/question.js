@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 .controller('QuestionCtrl', ['$scope', '$modal', '_',
     function($scope, $modal, _) {

@@ -3,7 +3,7 @@
 describe('Controller: ExprCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module('hakulomakkeenhallintaUiApp.controllers'));
 
   var ExprCtrl,
     scope;

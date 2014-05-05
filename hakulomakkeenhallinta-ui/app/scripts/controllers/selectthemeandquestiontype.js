@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SelectthemeandquestiontypeCtrl', function($scope, $modalInstance, TypeResource, $routeParams, FormWalker, applicationSystem) {
 
         $scope.themes = FormWalker.filterByType(applicationSystem.form, "Theme");

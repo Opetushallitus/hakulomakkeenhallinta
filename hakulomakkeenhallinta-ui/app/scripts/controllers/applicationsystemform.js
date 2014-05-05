@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp')
+angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ApplicationSystemFormCtrl', ['$scope', 'ASFResource', '$routeParams',
         function($scope, ASFResource, $routeParams) {
             $scope.applicationSystem = ASFResource.get({
