@@ -77,6 +77,7 @@ angular.module('hakulomakkeenhallinta', [
 
     .run(function($httpBackend){
         console.log('**** $httpBackkend mock ****');
+
         //hakulomakkeiden mockki
         var hakuLomakkeet = [];
         $.getJSON('http://localhost:8080/app/test-data/applicationSystems.json', function(data){
@@ -92,10 +93,16 @@ angular.module('hakulomakkeenhallinta', [
             malliPohjat = data;
         });
 
+        //tarjonan api käyttö
+        $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();
+
         $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form\/_id/).respond(function(){ return [200, malliPohjat]});
 
         $httpBackend.whenGET(/test-data\//).passThrough();
-//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).passThrough();
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).passThrough();
+
+
+
         $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/\partials\//).passThrough();
