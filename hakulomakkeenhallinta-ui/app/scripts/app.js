@@ -77,17 +77,26 @@ angular.module('hakulomakkeenhallinta', [
 
     .run(function($httpBackend){
         console.log('**** $httpBackkend mock ****');
+        //hakulomakkeiden mockki
         var hakuLomakkeet = [];
-
         $.getJSON('http://localhost:8080/app/test-data/applicationSystems.json', function(data){
             console.log('mock data json hakulomakkeet ');
             hakuLomakkeet = data;
         });
-
         $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/_id/).respond(function(){ return [ 200, hakuLomakkeet]});
 
+        //mallipohjien mockki
+        var malliPohjat = [];
+        $.getJSON('http://localhost:8080/app/test-data/applicationFormTemplates.json', function(data){
+            console.log('mock data json malli pohjat ');
+            malliPohjat = data;
+        });
+
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form\/_id/).respond(function(){ return [200, malliPohjat]});
+
         $httpBackend.whenGET(/test-data\//).passThrough();
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).passThrough();
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).passThrough();
+        $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/\partials\//).passThrough();
         $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).passThrough();
