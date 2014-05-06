@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource',
-        function($scope, $modal, $log, $location, Resources, HH, ASFResource) {
-
+    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource', 'Hakulomakkeet', '$timeout',
+        function($scope, $modal, $log, $location, Resources, HH, ASFResource, Hakulomakkeet, $timeout) {
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
+            $scope.applicationForms = [];
             $scope.languages = [{
-                title: "Suomi"
+                title: "Suomi",
+                active: true
             }, {
                 title: "Ruotsi"
             }, {
-                title: "Englanti",
-                active: true
+                title: "Englanti"
             }];
             $scope.items = [{
                 id: '1',
@@ -22,7 +22,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 name: 'Aasian tutkimus, kandidaatinopinnot'
             }];
 
-            $scope.applicationForms = ASFResource.query();
+//            $scope.applicationForms = ASFResource.query();
+            Hakulomakkeet.haeLomakkeet.get().$promise.then(function(data){
+                $scope.applicationForms = data;
+            });
 
             $scope.luoHakulomake = function() {
                 $modal.open({

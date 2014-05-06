@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallintaUiApp.services.service')
+angular.module('hakulomakkeenhallintaUiApp.services.service', [])
   .service('Koodisto', ['$http', '$q', '_', 'Config', function Koodisto($http, $q, _, Config) {
         var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
 

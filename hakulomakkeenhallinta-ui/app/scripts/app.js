@@ -10,7 +10,9 @@ angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallintaUiApp.services.provider',
         'hakulomakkeenhallintaUiApp.services.service',
         'hakulomakkeenhallintaUiApp.services.util',
+        'hakulomakkeenhallintaUiApp.services.factory',
         'hakulomakkeenhallintaUiApp.controllers'
+        ,'ngMockE2E'
     ])
 
     .config(['$routeProvider',
@@ -70,28 +72,26 @@ angular.module('hakulomakkeenhallinta', [
             function() {
                 return window._;
             }
-        ];
+            ];
+    })
+
+    .run(function($httpBackend){
+        console.log('**** $httpBackkend mock ****');
+        var hakuLomakkeet = [];
+
+        $.getJSON('http://localhost:8080/app/test-data/applicationSystems.json', function(data){
+            console.log('mock data json hakulomakkeet ');
+            hakuLomakkeet = data;
+        });
+
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/_id/).respond(function(){ return [ 200, hakuLomakkeet]});
+
+        $httpBackend.whenGET(/test-data\//).passThrough();
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).passThrough();
+        $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
+        $httpBackend.whenGET(/\partials\//).passThrough();
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).passThrough();
+
+
     });
 
-
-
-//angular
-
-
-
-  /*.module('formWalkerApp', [
-    'ngCookies',
-    'ngResource',
-    'ngSanitize',
-    'ngRoute'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });*/
