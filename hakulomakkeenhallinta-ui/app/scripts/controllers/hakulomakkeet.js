@@ -3,6 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource', 'Hakulomakkeet', '$timeout',
         function($scope, $modal, $log, $location, Resources, HH, ASFResource, Hakulomakkeet, $timeout) {
+
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
             $scope.applicationForms = [];
@@ -52,6 +53,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }, function() {
 
                 });
+            };
+
+            $scope.delete = function(element, index) {
+                ASFResource.delete(_.pick(element, '_id'));
+                $scope.applicationForms.splice(index, 1);
             };
 
             $scope.toggleCheck = function(applicationForm) {
