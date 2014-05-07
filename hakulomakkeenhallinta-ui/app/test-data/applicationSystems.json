@@ -20,7 +20,8 @@
         "id": "1.2.246.562.5.2013111213130760225065",
         "name": {
             "translations": {
-                "en": "qa_julkaistu_suunnitteilla"
+                "en": "qa_julkaistu_suunnitteilla",
+                "fi": "qa_julkaistu_suunnitteilla"
             }
         }
     },
@@ -28,7 +29,8 @@
         "id": "1.2.246.562.5.2013111213133431229595",
         "name": {
             "translations": {
-                "en": "qa_valmis_suunnitteilla"
+                "en": "qa_valmis_suunnitteilla",
+                "fi": "qa_valmis_suunnitteilla"
             }
         }
     },
@@ -36,7 +38,8 @@
         "id": "1.2.246.562.5.2013111213132116867752",
         "name": {
             "translations": {
-                "en": "qa_julkaistu_paattynyt"
+                "en": "qa_julkaistu_paattynyt",
+                "fi": "qa_julkaistu_paattynyt"
             }
         }
     },
@@ -44,7 +47,8 @@
         "id": "1.2.246.562.5.2013111213134919709306",
         "name": {
             "translations": {
-                "en": "qa_valmis_paattynyt"
+                "en": "qa_valmis_paattynyt",
+                "fi": "qa_valmis_paattynyt"
             }
         }
     },
@@ -52,7 +56,8 @@
         "id": "1.2.246.562.5.2013111213385915614265",
         "name": {
             "translations": {
-                "en": "qa_peruttu_voimassa"
+                "en": "qa_peruttu_voimassa",
+                "fi": "qa_peruttu_voimassa"
             }
         }
     },
@@ -60,7 +65,8 @@
         "id": "1.2.246.562.5.2013111213142151780485",
         "name": {
             "translations": {
-                "en": "qa_peruttu_suunnitteilla"
+                "en": "qa_peruttu_suunnitteilla",
+                "fi": "qa_peruttu_suunnitteilla"
             }
         }
     },
@@ -68,7 +74,8 @@
         "id": "1.2.246.562.5.2013111213151795015069",
         "name": {
             "translations": {
-                "en": "qa_luonnos_suunnitteilla"
+                "en": "qa_luonnos_suunnitteilla",
+                "fi": "qa_luonnos_suunnitteilla"
             }
         }
     },
@@ -76,7 +83,8 @@
         "id": "1.2.246.562.5.2013111213155546453774",
         "name": {
             "translations": {
-                "en": "qa_luonnos_paattynyt"
+                "en": "qa_luonnos_paattynyt",
+                "fi": "qa_luonnos_paattynyt"
             }
         }
     },
@@ -93,7 +101,8 @@
         "id": "1.2.246.562.5.2013111213171895007885",
         "name": {
             "translations": {
-                "en": "qa_luonnos_voimassa"
+                "en": "qa_luonnos_voimassa",
+                "fi": "qa_luonnos_voimassa"
             }
         }
     },
@@ -101,7 +110,8 @@
         "id": "1.2.246.562.5.2013111213182613011323",
         "name": {
             "translations": {
-                "en": "qa_peruttu_paattynyt"
+                "en": "qa_peruttu_paattynyt",
+                "fi": "qa_peruttu_paattynyt"
             }
         }
     },
@@ -109,7 +119,8 @@
         "id": "1.2.246.562.5.2013111213300622771976",
         "name": {
             "translations": {
-                "en": "qa_julkaistu_voimassa"
+                "en": "qa_julkaistu_voimassa",
+                "fi": "qa_julkaistu_voimassa"
             }
         }
     },
@@ -117,7 +128,8 @@
         "id": "1.2.246.562.5.2013111213322706504725",
         "name": {
             "translations": {
-                "en": "qa_valmis_voimassa"
+                "en": "qa_valmis_voimassa",
+                "fi": "qa_valmis_voimassa"
             }
         }
     },
@@ -125,6 +137,7 @@
         "id": "1.2.246.562.5.2013111303020553666338",
         "name": {
             "translations": {
+                "fi": "qahaku20131113_1384304458951",
                 "en": "qahaku20131113_1384304458951"
             }
         }
@@ -151,6 +164,7 @@
         "id": "1.2.246.562.5.2013111214304357272614",
         "name": {
             "translations": {
+                "fi": "qahaku20131112_1384259375987",
                 "en": "qahaku20131112_1384259375987"
             }
         }
@@ -175,6 +189,7 @@
         "id": "1.2.246.562.5.2013111301025491560747",
         "name": {
             "translations": {
+                "fi": "qahaku20131113_1384297308711",
                 "en": "qahaku20131113_1384297308711"
             }
         }
@@ -183,6 +198,7 @@
         "id": "1.2.246.562.5.2013111305020252775653",
         "name": {
             "translations": {
+                "fi": "qahaku20131113_1384311654122",
                 "en": "qahaku20131113_1384311654122"
             }
         }
@@ -191,6 +207,7 @@
         "id": "1.2.246.562.5.2013111310431657397929",
         "name": {
             "translations": {
+                "fi": "qahaku20131113_1384332162016",
                 "en": "qahaku20131113_1384332162016"
             }
         }
@@ -199,6 +216,7 @@
         "id": "1.2.246.562.5.2013111310490586937970",
         "name": {
             "translations": {
+                "fi": "qahaku20131113_1384332528377",
                 "en": "qahaku20131113_1384332528377"
             }
         }
@@ -207,6 +225,7 @@
         "id": "1.2.246.562.5.2013111311121846066205",
         "name": {
             "translations": {
+                "fi": "qa_julkaistu_paattynyt",
                 "en": "qa_julkaistu_paattynyt"
             }
         }
@@ -215,6 +234,7 @@
         "id": "1.2.246.562.5.2013111311135184927678",
         "name": {
             "translations": {
+                "fi": "qa_julkaistu_suunnitteilla",
                 "en": "qa_julkaistu_suunnitteilla"
             }
         }
@@ -223,6 +243,7 @@
         "id": "1.2.246.562.5.2013111311154268284401",
         "name": {
             "translations": {
+                "fi": "qa_julkaistu_voimassa",
                 "en": "qa_julkaistu_voimassa"
             }
         }
@@ -231,6 +252,7 @@
         "id": "1.2.246.562.5.2013111311173879051602",
         "name": {
             "translations": {
+                "fi": "qa_valmis_paattynyt",
                 "en": "qa_valmis_paattynyt"
             }
         }
@@ -239,6 +261,7 @@
         "id": "1.2.246.562.5.2013111311193920783704",
         "name": {
             "translations": {
+                "fi": "qa_valmis_suunnitteilla",
                 "en": "qa_valmis_suunnitteilla"
             }
         }
@@ -247,6 +270,7 @@
         "id": "1.2.246.562.5.2013111311215790774467",
         "name": {
             "translations": {
+                "fi": "qa_valmis_voimassa",
                 "en": "qa_valmis_voimassa"
             }
         }
@@ -255,6 +279,7 @@
         "id": "1.2.246.562.5.2013111311242160633741",
         "name": {
             "translations": {
+                "fi": "qa_peruttu_paattynyt",
                 "en": "qa_peruttu_paattynyt"
             }
         }
@@ -263,6 +288,7 @@
         "id": "1.2.246.562.5.2013111311275256502593",
         "name": {
             "translations": {
+                "fi": "qa_peruttu_voimassa",
                 "en": "qa_peruttu_voimassa"
             }
         }
@@ -271,6 +297,7 @@
         "id": "1.2.246.562.5.2013111311295236316064",
         "name": {
             "translations": {
+                "fi": "qa_luonnos_paattynyt",
                 "en": "qa_luonnos_paattynyt"
             }
         }
@@ -279,6 +306,7 @@
         "id": "1.2.246.562.5.2013111311315430507878",
         "name": {
             "translations": {
+                "fi": "qa_luonnos_suunnitteilla",
                 "en": "qa_luonnos_suunnitteilla"
             }
         }
@@ -287,6 +315,7 @@
         "id": "1.2.246.562.5.2013111311341283068072",
         "name": {
             "translations": {
+                "fi": "qa_luonnos_voimassa",
                 "en": "qa_luonnos_voimassa"
             }
         }
@@ -295,6 +324,7 @@
         "id": "1.2.246.562.5.2013111311255847113916",
         "name": {
             "translations": {
+                "fi": "qa_peruttu_suunnitteilla",
                 "en": "qa_peruttu_suunnitteilla"
             }
         }

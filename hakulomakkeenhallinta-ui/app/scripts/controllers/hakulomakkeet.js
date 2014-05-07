@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource', 'Hakulomakkeet', '$timeout',
-        function($scope, $modal, $log, $location, Resources, HH, ASFResource, Hakulomakkeet, $timeout) {
+    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource', 'ASForms',
+        function($scope, $modal, $log, $location, Resources, HH, ASFResource, ASForms) {
 
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
@@ -24,7 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             }];
 
 //            $scope.applicationForms = ASFResource.query();
-            Hakulomakkeet.haeLomakkeet.get().$promise.then(function(data){
+            ASForms.haeHakulomakkeet.get().$promise.then(function(data){
                 $scope.applicationForms = data;
             });
 
