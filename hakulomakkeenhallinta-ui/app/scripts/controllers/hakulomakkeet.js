@@ -23,9 +23,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 name: 'Aasian tutkimus, kandidaatinopinnot'
             }];
 
-//            $scope.applicationForms = ASFResource.query();
-            ASForms.haeHakulomakkeet.get().$promise.then(function(data){
+            ASForms.query().$promise.then(function success(data){
                 $scope.applicationForms = data;
+            }, function error(error){
+                //TODO: tähän virhetilanteen käsittely
+                console.dir(error);
             });
 
             $scope.luoHakulomake = function() {
@@ -56,8 +58,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.delete = function(element, index) {
-                ASFResource.delete(_.pick(element, '_id'));
-                $scope.applicationForms.splice(index, 1);
+                ASForms.delete({_id: element._id},
+                    function success(resp){
+                        //TODO: tähän mahdollinen käsittely
+                        //poistetaan rivi UI:sta
+                        $scope.applicationForms.splice(index, 1);
+                    },
+                    function error(error){
+                        //TODO: tähän tämän tilanteen käsittely
+                        console.log('Poisto ei onnistunut: ', error);
+                    }
+                );
             };
 
             $scope.toggleCheck = function(applicationForm) {

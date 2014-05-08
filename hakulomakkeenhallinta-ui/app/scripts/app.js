@@ -84,7 +84,11 @@ angular.module('hakulomakkeenhallinta', [
             console.log('mock data json hakulomakkeet ');
             hakuLomakkeet = data;
         });
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(function(){ return [ 200, hakuLomakkeet]});
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(function(){
+            return [ 200, hakuLomakkeet, {status:200, message:'haettiin hakulomakkeet'}];
+            //mock virhe tapauksessa
+//            return [ 404, {status:404, messages:'ei löydy hakulomakkeita'}];
+        });
 
         //mallipohjien mockki
         var malliPohjat = [];
@@ -92,7 +96,35 @@ angular.module('hakulomakkeenhallinta', [
             console.log('mock data json malli pohjat ');
             malliPohjat = data;
         });
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).respond(function(){ return [200, malliPohjat]});
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).respond(function(){
+            return [200, malliPohjat, {status:200, message: 'saatiin mallipohjat' }];
+            //mock virhe tapauksessa
+//            return [404,  {status:404, message: 'ei löydy' }];
+        });
+
+        //hakulomakkeen poisto id:llä
+        $httpBackend.whenDELETE(/\hakulomakkeenhallinta-temporary\/application-system-form\/(\d)/).respond(
+            function(data, url){
+                console.log('--- DELETE tämä ei vielä tee mitään ---', url);
+                var id = url.substr(url.lastIndexOf('/')+1);
+                console.log(id);
+                if(id === '1.2.246.562.5.2013111213130760225065'){
+                    return [400 , {status: 400, message: 'poisto ei onnistunut'}];
+                }
+                return [200 , {status: 200, message: 'hakulomakkeen poisto'}];
+            });
+
+        //mallipohjan poisto id:llä
+        $httpBackend.whenDELETE(/\hakulomakkeenhallinta-temporary\/form\/(\d)/).respond(
+            function(data, url){
+                console.log('--- DELETE mallipohja tämä ei vielä tee mitään ---', url);
+                var id = url.substr(url.lastIndexOf('/')+1);
+                console.log(id);
+                if(id === '1.2.246.562.5.2013111213130760225065'){
+                    return [400 , {status: 400, message: 'mallipohjan poisto ei onnistunut'}];
+                }
+                return [200 , {status: 200, message: 'mallipohjan poisto'}];
+            });
 
         //tarjonan api käyttö
         $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();

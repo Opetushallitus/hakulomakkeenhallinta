@@ -1,7 +1,7 @@
 [
     {
-        "id": "1.2.246.562.5.2013080813081926341927",
-        "name": {
+        "_id": "1.2.246.562.5.2013080813081926341927",
+        "i18nText": {
             "translations": {
                 "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku",
                 "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014"
@@ -9,25 +9,25 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013100416514851336462",
-        "name": {
+        "_id": "1.2.246.562.5.2013100416514851336462",
+        "i18nText": {
             "translations": {
                 "fi": "Lisähaku syksyn yhteishaussa vapaaksi jääneille opiskelupaikoille"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213130760225065",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213130760225065",
+        "i18nText": {
             "translations": {
                 "en": "qa_julkaistu_suunnitteilla",
-                "fi": "qa_julkaistu_suunnitteilla"
+                "fi": "qa_poisto ei onnistu"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213133431229595",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213133431229595",
+        "i18nText": {
             "translations": {
                 "en": "qa_valmis_suunnitteilla",
                 "fi": "qa_valmis_suunnitteilla"
@@ -35,8 +35,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213132116867752",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213132116867752",
+        "i18nText": {
             "translations": {
                 "en": "qa_julkaistu_paattynyt",
                 "fi": "qa_julkaistu_paattynyt"
@@ -44,8 +44,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213134919709306",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213134919709306",
+        "i18nText": {
             "translations": {
                 "en": "qa_valmis_paattynyt",
                 "fi": "qa_valmis_paattynyt"
@@ -53,8 +53,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213385915614265",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213385915614265",
+        "i18nText": {
             "translations": {
                 "en": "qa_peruttu_voimassa",
                 "fi": "qa_peruttu_voimassa"
@@ -62,8 +62,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213142151780485",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213142151780485",
+        "i18nText": {
             "translations": {
                 "en": "qa_peruttu_suunnitteilla",
                 "fi": "qa_peruttu_suunnitteilla"
@@ -71,8 +71,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213151795015069",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213151795015069",
+        "i18nText": {
             "translations": {
                 "en": "qa_luonnos_suunnitteilla",
                 "fi": "qa_luonnos_suunnitteilla"
@@ -80,8 +80,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213155546453774",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213155546453774",
+        "i18nText": {
             "translations": {
                 "en": "qa_luonnos_paattynyt",
                 "fi": "qa_luonnos_paattynyt"
@@ -89,8 +89,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013060313080811526781",
-        "name": {
+        "_id": "1.2.246.562.5.2013060313080811526781",
+        "i18nText": {
             "translations": {
                 "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen yhteishaku",
                 "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning"
@@ -98,8 +98,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213171895007885",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213171895007885",
+        "i18nText": {
             "translations": {
                 "en": "qa_luonnos_voimassa",
                 "fi": "qa_luonnos_voimassa"
@@ -107,8 +107,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213182613011323",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213182613011323",
+        "i18nText": {
             "translations": {
                 "en": "qa_peruttu_paattynyt",
                 "fi": "qa_peruttu_paattynyt"
@@ -116,8 +116,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213300622771976",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213300622771976",
+        "i18nText": {
             "translations": {
                 "en": "qa_julkaistu_voimassa",
                 "fi": "qa_julkaistu_voimassa"
@@ -125,8 +125,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213322706504725",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213322706504725",
+        "i18nText": {
             "translations": {
                 "en": "qa_valmis_voimassa",
                 "fi": "qa_valmis_voimassa"
@@ -134,8 +134,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111303020553666338",
-        "name": {
+        "_id": "1.2.246.562.5.2013111303020553666338",
+        "i18nText": {
             "translations": {
                 "fi": "qahaku20131113_1384304458951",
                 "en": "qahaku20131113_1384304458951"
@@ -143,16 +143,16 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213595880193669",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213595880193669",
+        "i18nText": {
             "translations": {
                 "fi": "Haku_Laku_Maku_Naku_Paku_Saku_Taku"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013111213382072612718",
-        "name": {
+        "_id": "1.2.246.562.5.2013111213382072612718",
+        "i18nText": {
             "translations": {
                 "fi": "JUK 1: Hakku",
                 "sv": "JUK 1: En bil",
@@ -161,8 +161,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111214304357272614",
-        "name": {
+        "_id": "1.2.246.562.5.2013111214304357272614",
+        "i18nText": {
             "translations": {
                 "fi": "qahaku20131112_1384259375987",
                 "en": "qahaku20131112_1384259375987"
@@ -170,24 +170,24 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111215324993200548",
-        "name": {
+        "_id": "1.2.246.562.5.2013111215324993200548",
+        "i18nText": {
             "translations": {
                 "fi": "ammatillinen peruskoulutus erityisopetuksena"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013111215565419051598",
-        "name": {
+        "_id": "1.2.246.562.5.2013111215565419051598",
+        "i18nText": {
             "translations": {
                 "fi": "valmentavien ja kuntouttavien koulutusten haku"
             }
         }
     },
     {
-        "id": "1.2.246.562.5.2013111301025491560747",
-        "name": {
+        "_id": "1.2.246.562.5.2013111301025491560747",
+        "i18nText": {
             "translations": {
                 "fi": "qahaku20131113_1384297308711",
                 "en": "qahaku20131113_1384297308711"
@@ -195,8 +195,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111305020252775653",
-        "name": {
+        "_id": "1.2.246.562.5.2013111305020252775653",
+        "i18nText": {
             "translations": {
                 "fi": "qahaku20131113_1384311654122",
                 "en": "qahaku20131113_1384311654122"
@@ -204,8 +204,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111310431657397929",
-        "name": {
+        "_id": "1.2.246.562.5.2013111310431657397929",
+        "i18nText": {
             "translations": {
                 "fi": "qahaku20131113_1384332162016",
                 "en": "qahaku20131113_1384332162016"
@@ -213,8 +213,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111310490586937970",
-        "name": {
+        "_id": "1.2.246.562.5.2013111310490586937970",
+        "i18nText": {
             "translations": {
                 "fi": "qahaku20131113_1384332528377",
                 "en": "qahaku20131113_1384332528377"
@@ -222,8 +222,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311121846066205",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311121846066205",
+        "i18nText": {
             "translations": {
                 "fi": "qa_julkaistu_paattynyt",
                 "en": "qa_julkaistu_paattynyt"
@@ -231,8 +231,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311135184927678",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311135184927678",
+        "i18nText": {
             "translations": {
                 "fi": "qa_julkaistu_suunnitteilla",
                 "en": "qa_julkaistu_suunnitteilla"
@@ -240,8 +240,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311154268284401",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311154268284401",
+        "i18nText": {
             "translations": {
                 "fi": "qa_julkaistu_voimassa",
                 "en": "qa_julkaistu_voimassa"
@@ -249,8 +249,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311173879051602",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311173879051602",
+        "i18nText": {
             "translations": {
                 "fi": "qa_valmis_paattynyt",
                 "en": "qa_valmis_paattynyt"
@@ -258,8 +258,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311193920783704",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311193920783704",
+        "i18nText": {
             "translations": {
                 "fi": "qa_valmis_suunnitteilla",
                 "en": "qa_valmis_suunnitteilla"
@@ -267,8 +267,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311215790774467",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311215790774467",
+        "i18nText": {
             "translations": {
                 "fi": "qa_valmis_voimassa",
                 "en": "qa_valmis_voimassa"
@@ -276,8 +276,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311242160633741",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311242160633741",
+        "i18nText": {
             "translations": {
                 "fi": "qa_peruttu_paattynyt",
                 "en": "qa_peruttu_paattynyt"
@@ -285,8 +285,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311275256502593",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311275256502593",
+        "i18nText": {
             "translations": {
                 "fi": "qa_peruttu_voimassa",
                 "en": "qa_peruttu_voimassa"
@@ -294,8 +294,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311295236316064",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311295236316064",
+        "i18nText": {
             "translations": {
                 "fi": "qa_luonnos_paattynyt",
                 "en": "qa_luonnos_paattynyt"
@@ -303,8 +303,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311315430507878",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311315430507878",
+        "i18nText": {
             "translations": {
                 "fi": "qa_luonnos_suunnitteilla",
                 "en": "qa_luonnos_suunnitteilla"
@@ -312,8 +312,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311341283068072",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311341283068072",
+        "i18nText": {
             "translations": {
                 "fi": "qa_luonnos_voimassa",
                 "en": "qa_luonnos_voimassa"
@@ -321,8 +321,8 @@
         }
     },
     {
-        "id": "1.2.246.562.5.2013111311255847113916",
-        "name": {
+        "_id": "1.2.246.562.5.2013111311255847113916",
+        "i18nText": {
             "translations": {
                 "fi": "qa_peruttu_suunnitteilla",
                 "en": "qa_peruttu_suunnitteilla"
