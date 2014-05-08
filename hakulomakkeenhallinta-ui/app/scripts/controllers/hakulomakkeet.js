@@ -27,7 +27,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.applicationForms = data;
             }, function error(error){
                 //TODO: tähän virhetilanteen käsittely
-                console.dir(error);
+                console.log(error);
             });
 
             $scope.luoHakulomake = function() {

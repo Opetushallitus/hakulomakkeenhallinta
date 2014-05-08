@@ -125,6 +125,20 @@ angular.module('hakulomakkeenhallinta', [
                 }
                 return [200 , {status: 200, message: 'mallipohjan poisto'}];
             });
+        //haun ja hakulomakkeen liittäminen toisiinsa
+        $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
+            function(method, url, data, headers){
+                console.log('PUT url ---- ', method);
+                console.log('PUT url ---- ', url);
+                console.log('PUT data ---- ', data, '\n\n');
+                console.log(JSON.parse(data).applicationFormTemplate._id);
+                var id = JSON.parse(data).applicationFormTemplate._id;
+                if(id === '1.2.246.562.5.2013111213130760225065'){
+                    return [400, {status:400, message: 'liittämnen ei onnistunut' }];
+                }
+                return [200, {status:200, message: 'liittäminen OK' }];
+            }
+        );
 
         //tarjonan api käyttö
         $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();
@@ -133,9 +147,19 @@ angular.module('hakulomakkeenhallinta', [
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).passThrough();
 
         $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
-        $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/\partials\//).passThrough();
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).passThrough();
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).passThrough();
+
+        $httpBackend.whenPOST(/\hakulomakkeenhallinta-temporary\/application-system-form/).passThrough();
+        /*$httpBackend.whenPOST(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
+            function(method, url, data, headers){
+                console.log('POST url ---- ', url);
+                console.log('POST data ---- ', data);
+                return [200, {status:200 }]
+            }
+        );*/
+
+
 
     });
 

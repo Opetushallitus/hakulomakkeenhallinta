@@ -3,8 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
     .factory('TarjontaAPI',[ '$resource', '_', function ($resource, _) {
         console.log('****** TarjonstaAPI service factory ***');
-        return {
-            tarjontaHaeKaikki: $resource('https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/haku/findAll', {}, {
+        return $resource('https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/haku/findAll', {}, {
                 query: {
                     method: 'GET',
                     isArray: true,
@@ -36,5 +35,4 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 }
             })
-        }
     }]);

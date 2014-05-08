@@ -2,17 +2,23 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('CreateapplicationsystemformCtrl',
-        function($scope, $modalInstance, ASFResource, FormResource, ApplicationSystemResource,TarjontaAPI, Mallipohjat) {
+        function($scope, $modalInstance, ApplicationSystemResource,TarjontaAPI, Mallipohjat, ASForms) {
             $scope.applicationSystems = [];
             $scope.applicationFormTemplates = [];
 
             //heataan tarjonnasta meneillään olevat haut
-            TarjontaAPI.tarjontaHaeKaikki.query().$promise.then(function(data){
+            TarjontaAPI.query().$promise.then(function success(data){
                 $scope.applicationSystems = data;
+            }, function error(error){
+                //TODO: tämän käsittely
+                console.log(error);
             });
-
-            Mallipohjat.haeMallipohjat.get().$promise.then(function(data){
+            //Heataan mallipohjat, jotka liitetään hakuun??
+            Mallipohjat.query().$promise.then(function success(data){
                 $scope.applicationFormTemplates = data;
+            }, function error(error){
+                //TODO: tämän käsittely
+                console.log(error);
             });
 
             $scope.ok = function() {
@@ -20,7 +26,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     applicationFormTemplate: this.applicationFormTemplate,
                     applicationSystem: this.applicationSystem
                 };
-                $modalInstance.close(applicationSystemForm);
+                ASForms.update( applicationSystemForm, function success(resp){
+                    //TODO: tämän käsittely
+                    console.log(resp);
+                    $modalInstance.close(applicationSystemForm);
+                },function error(error){
+                    //TODO: tämän käsittely
+                    console.log('Haun ja hakemuksen liittäminen ei onnistu');
+                    console.log(error);
+                });
+
             };
 
             $scope.cancel = function() {
