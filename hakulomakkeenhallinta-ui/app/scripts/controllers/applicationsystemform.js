@@ -1,11 +1,17 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ApplicationSystemFormCtrl', ['$scope', 'ASFResource', '$routeParams',
-        function($scope, ASFResource, $routeParams) {
-            $scope.applicationSystem = ASFResource.get({
-                '_id': $routeParams.id
-            });
+    .controller('ApplicationSystemFormCtrl', ['$scope', '$routeParams', 'ASForms',
+        function($scope, $routeParams, ASForms) {
+            $scope.applicationSystem = {};
+            ASForms.get({ '_id': $routeParams.id }).$promise.then(
+                function success(data){
+                    $scope.applicationSystem = data;
+                },function error(error){
+                    //TODO: tämän käsittely
+                    console.log(error.data.message, error.status);
+                }
+            );
 
             $scope.delete = function(array, index) {
                 array.splice(index, 0);

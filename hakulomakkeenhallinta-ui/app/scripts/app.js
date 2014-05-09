@@ -78,20 +78,59 @@ angular.module('hakulomakkeenhallinta', [
     .run(function($httpBackend, Props){
         console.log('**** $httpBackkend mock ****');
 
+        //hakulomake mockki
+        var hakuLomake = null;
         //hakulomakkeiden mockki
         var hakuLomakkeet = [];
+        //mallipohjien mockki
+        var malliPohjat = [];
+
+        if(localStorage.getItem('hakuLomake') === null){
+            $.getJSON(Props.envUrl+'/app/test-data/db-applicationSystem.json', function(data){
+                console.log('mock data hakulomake -->',  hakuLomake);
+                console.log(localStorage.getItem('hakuLomake'));
+
+                localStorage.setItem('hakuLomake', JSON.stringify(data));
+
+                hakuLomake = data;
+            });
+        }else{
+            console.log('lomake localStoragesta');
+            hakuLomake = localStorage.getItem('hakuLomake');
+        }
+
         $.getJSON(Props.envUrl+'/app/test-data/applicationSystems.json', function(data){
             console.log('mock data json hakulomakkeet ');
             hakuLomakkeet = data;
         });
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(function(){
+
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/\d/).respond(
+        $httpBackend.whenGET(Props.envUrl+'/hakulomakkeenhallinta-temporary/application-system-form/1.2.246.562.5.2013100416514851336462').respond(
+            function (method, url){
+                console.log('***** haettiin lomake **** \n',url );
+                return [ 200, hakuLomake, {status:200, message:'haettiin hakulomake'}];
+                //mock virhe tapauksessa
+//                return [ 404, {status:404, message:'hakulomaketta ei löydy'}];
+            });
+
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
+        $httpBackend.whenGET(Props.envUrl+'/hakulomakkeenhallinta-temporary/application-system-form').respond(
+            function(method, url, data){
+//            console.log('#########',url, data);
+            /*var id = url.substr(url.lastIndexOf('/')+1);
+            console.log(id);
+            if(id.search('1.2.246') !== -1){
+                console.log('*******');
+                return [ 200, hakuLomake, {status:200, message:'heattiin hakulomake'}];
+                //mock virhe tapauksessa
+//                return [ 404, {status:404, messages:'hakulomaketta ei löydy'}];
+            }*/
             return [ 200, hakuLomakkeet, {status:200, message:'haettiin hakulomakkeet'}];
             //mock virhe tapauksessa
 //            return [ 404, {status:404, messages:'ei löydy hakulomakkeita'}];
         });
 
-        //mallipohjien mockki
-        var malliPohjat = [];
+
         $.getJSON(Props.envUrl+'/app/test-data/applicationFormTemplates.json', function(data){
             console.log('mock data json malli pohjat ');
             malliPohjat = data;
@@ -101,6 +140,8 @@ angular.module('hakulomakkeenhallinta', [
             //mock virhe tapauksessa
 //            return [404,  {status:404, message: 'ei löydy' }];
         });
+
+
 
         //hakulomakkeen poisto id:llä
         $httpBackend.whenDELETE(/\hakulomakkeenhallinta-temporary\/application-system-form\/(\d)/).respond(
@@ -125,6 +166,7 @@ angular.module('hakulomakkeenhallinta', [
                 }
                 return [200 , {status: 200, message: 'mallipohjan poisto'}];
             });
+
         //haun ja hakulomakkeen liittäminen toisiinsa
         $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
             function(method, url, data, headers){
@@ -148,18 +190,12 @@ angular.module('hakulomakkeenhallinta', [
 
         $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/\partials\//).passThrough();
-//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).passThrough();
 
-        $httpBackend.whenPOST(/\hakulomakkeenhallinta-temporary\/application-system-form/).passThrough();
-        /*$httpBackend.whenPOST(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
-            function(method, url, data, headers){
-                console.log('POST url ---- ', url);
-                console.log('POST data ---- ', data);
-                return [200, {status:200 }]
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/(\d)/).respond(
+            function(method, url, data){
+                console.log( url);
             }
-        );*/
-
-
+        );
 
     });
 
