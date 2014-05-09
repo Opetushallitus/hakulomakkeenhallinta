@@ -3,16 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('FormtemplatesCtrl', ['$scope', '_', 'FormResource', '$i18next', 'Mallipohjat',
         function($scope, _, FormResource, $i18next, Mallipohjat) {
-            $scope.forms = [];
-
-            Mallipohjat.query().$promise.then(
-                function success(data){
-                    $scope.forms = data;
-                },function error(error){
-                    //TODO: tämän käsittely
-                    console.log('Mallipohjia ei saatu ladattua: ', error);
-                });
-
+            $scope.forms = Mallipohjat.query();
 
             $scope.delete = function(form, index) {
 //                FormResource.delete(_.pick(form, '_id'));

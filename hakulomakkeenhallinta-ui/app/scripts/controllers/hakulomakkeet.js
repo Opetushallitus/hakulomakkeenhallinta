@@ -6,7 +6,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
-            $scope.applicationForms = [];
             $scope.languages = [{
                 title: "Suomi",
                 active: true
@@ -23,12 +22,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 name: 'Aasian tutkimus, kandidaatinopinnot'
             }];
 
-            ASForms.query().$promise.then(function success(data){
-                $scope.applicationForms = data;
-            }, function error(error){
-                //TODO: tähän virhetilanteen käsittely
-                console.log(error);
-            });
+            $scope.applicationForms = ASForms.query();
 
             $scope.luoHakulomake = function() {
                 $modal.open({
@@ -36,7 +30,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     controller: 'CreateapplicationsystemformCtrl'
                 }).result.then(function(result) {
                     ASFResource.save(result);
-                    $scope.applicationForms = ASFResource.query();
+                    $scope.applicationForms = ASForms.query();
                 });
             };
 
@@ -58,17 +52,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.delete = function(element, index) {
-                ASForms.delete({_id: element._id},
-                    function success(resp){
-                        //TODO: tähän mahdollinen käsittely
-                        //poistetaan rivi UI:sta
-                        $scope.applicationForms.splice(index, 1);
-                    },
-                    function error(error){
-                        //TODO: tähän tämän tilanteen käsittely
-                        console.log('Poisto ei onnistunut: ', error);
-                    }
-                );
+                ASForms.delete({_id: element._id});
             };
 
             $scope.toggleCheck = function(applicationForm) {

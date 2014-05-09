@@ -3,23 +3,11 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('CreateapplicationsystemformCtrl',
         function($scope, $modalInstance, ApplicationSystemResource,TarjontaAPI, Mallipohjat, ASForms) {
-            $scope.applicationSystems = [];
-            $scope.applicationFormTemplates = [];
 
             //heataan tarjonnasta meneillään olevat haut
-            TarjontaAPI.query().$promise.then(function success(data){
-                $scope.applicationSystems = data;
-            }, function error(error){
-                //TODO: tämän käsittely
-                console.log(error);
-            });
+            $scope.applicationSystems = TarjontaAPI.query();
             //Heataan mallipohjat, jotka liitetään hakuun??
-            Mallipohjat.query().$promise.then(function success(data){
-                $scope.applicationFormTemplates = data;
-            }, function error(error){
-                //TODO: tämän käsittely
-                console.log(error);
-            });
+            $scope.applicationFormTemplates = Mallipohjat.query();
 
             $scope.ok = function() {
                 var applicationSystemForm = {

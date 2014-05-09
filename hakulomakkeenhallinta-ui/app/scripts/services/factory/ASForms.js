@@ -5,5 +5,5 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory', [])
         console.log('****** ASForms service factory ***');
         return $resource(Props.envUrl+'/hakulomakkeenhallinta-temporary/application-system-form/:_id', {_id: '@_id'},{
                 update: { method: 'PUT' }
-            });
+        });
     }]);

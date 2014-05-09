@@ -3,15 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ApplicationSystemFormCtrl', ['$scope', '$routeParams', 'ASForms',
         function($scope, $routeParams, ASForms) {
-            $scope.applicationSystem = {};
-            ASForms.get({ '_id': $routeParams.id }).$promise.then(
-                function success(data){
-                    $scope.applicationSystem = data;
-                },function error(error){
-                    //TODO: tämän käsittely
-                    console.log(error.data.message, error.status);
-                }
-            );
+            $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
 
             $scope.delete = function(array, index) {
                 array.splice(index, 0);

@@ -2,15 +2,8 @@
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
   .service('HH',  ['$http', 'ASForms', 'FormWalker', '_', 'Props', function($http, ASForms, FormWalker, _, Props) {
-        var applicationSystems = [];
-        ASForms.query().$promise.then(
-            function success(data){
-                console.log('HH service');
-                applicationSystems = data;
-            },function error(error){
-                //TODO: tämän käsittely
-                console.log(error.data.message, error.status);
-            });
+
+        var applicationSystems = ASForms.query();
 
         this.listApplicationSystems = function() {
             return applicationSystems;
@@ -50,10 +43,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         applicationOptions.push(ao);
                     });
                 });
-            }).error(function(error){
-                //TODO: tämän käsittely
-                console.log('HH searchApplicationOptions ERROR');
-                console.log(error);
             });
             return applicationOptions;
         };

@@ -4,21 +4,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'ASForms', 'FormWalker',
         function($scope, $modal, $location, _, $routeParams, HH, ASForms, FormWalker) {
             $scope.organization = HH.getOrganization();
-            $scope.applicationSystem = [];
-            $scope.elements = [];
-            ASForms.get({ '_id': $routeParams.id }).$promise.then(
-                function success(data){
-                    $scope.applicationSystem = data;
-                    $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
-                    console.log($scope.elements);
-                },function error(error){
-                    //TODO: tämän käsittely
-                    console.log(error.data.message, error.status);
-                });
+            $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
 
-            /*$scope.applicationSystem.$promise.then(function(data) {
+            $scope.applicationSystem.$promise.then(function(data) {
                 $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
-            });*/
+            });
 
             $scope.addQuestion = function(applicationSystem) {
                 $modal.open({
