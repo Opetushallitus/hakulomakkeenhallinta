@@ -1,21 +1,29 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$log', '$location', '_', 'Resources', '$routeParams', 'HH', 'ASFResource', 'FormWalker',
-        function($scope, $modal, $log, $location, _, Resources, $routeParams, HH, ASFResource, FormWalker) {
+    .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'ASForms', 'FormWalker',
+        function($scope, $modal, $location, _, $routeParams, HH, ASForms, FormWalker) {
             $scope.organization = HH.getOrganization();
-            $scope.applicationSystem = ASFResource.get({
-                '_id': $routeParams.id
-            });
+            $scope.applicationSystem = [];
+            $scope.elements = [];
+            ASForms.get({ '_id': $routeParams.id }).$promise.then(
+                function success(data){
+                    $scope.applicationSystem = data;
+                    $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
+                    console.log($scope.elements);
+                },function error(error){
+                    //TODO: tämän käsittely
+                    console.log(error.data.message, error.status);
+                });
 
-            $scope.applicationSystem.$promise.then(function(data) {
+            /*$scope.applicationSystem.$promise.then(function(data) {
                 $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
-            });
+            });*/
 
             $scope.addQuestion = function(applicationSystem) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                    controller: 'SelectThemeAndQuestionType',
+                    controller: 'SelectThemeAndQuestionTypeCtrl',
                     resolve: {
                         applicationSystem: function() {
                             return $scope.applicationSystem;

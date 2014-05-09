@@ -1,8 +1,16 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-  .service('HH',  ['$http', 'ASFResource', 'FormWalker', '_', function($http, ASFResource, FormWalker, _) {
-        var applicationSystems = ASFResource.query();
+  .service('HH',  ['$http', 'ASForms', 'FormWalker', '_', 'Props', function($http, ASForms, FormWalker, _, Props) {
+        var applicationSystems = [];
+        ASForms.query().$promise.then(
+            function success(data){
+                console.log('HH service');
+                applicationSystems = data;
+            },function error(error){
+                //TODO: tämän käsittely
+                console.log(error.data.message, error.status);
+            });
 
         this.listApplicationSystems = function() {
             return applicationSystems;
@@ -17,6 +25,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.getOrganization = function() {
+            //TODO: tälle pitää tehdä joitain missä tämä tulee? Käyttäjän tiedoista?
             return {
                 'i18nText': {
                     'translations': {
@@ -28,17 +37,23 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.searchApplicationOptions = function(asid, term) {
             var applicationOptions = [];
+//            $http.get(Props.tarjontaAPI+'/hakukohde/search', {
             $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
                 //$http.get("https://virkailija.opintopolku.fi/tarjonta-service/rest/v1/hakukohde/search", {
                 params: {
                     searchTerms: term
                 }
             }).success(function(data) {
+                console.log('9999999');
                 _.each(data.result.tulokset, function(org) {
                     _.each(org.tulokset, function(ao) {
                         applicationOptions.push(ao);
                     });
                 });
+            }).error(function(error){
+                //TODO: tämän käsittely
+                console.log('HH searchApplicationOptions ERROR');
+                console.log(error);
             });
             return applicationOptions;
         };

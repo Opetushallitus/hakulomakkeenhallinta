@@ -1,0 +1,31 @@
+[
+    {
+        "id":"TextQuestion",
+        "name":{
+            "translations":
+            {
+                "fi":"Avoin kysymys"
+            }
+        },
+        "modified":1398838954783
+    },
+    {
+        "id":"OptionQuestion",
+        "name":{
+            "translations":
+            {
+                "fi":"Valinta (yksi vastaus)"
+            }
+        },
+        "modified":8661451019828476
+    },
+    {
+        "id":"HelpOrInfoQuestion",
+        "name":{
+            "translations":
+            {
+                "fi":"Ohje- tai infoteksti"}
+        },
+        "modified":8661451019843865
+    }
+]

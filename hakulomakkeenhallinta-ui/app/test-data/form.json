@@ -1,5 +1,8 @@
-[  {
-            "_id": "haku4",
+  {
+    "_id": "1.2.246.562.5.2013100416514851336462",
+    "_class": "fi.vm.sade.haku.oppija.lomake.domain.ApplicationSystem",
+    "form": {
+            "_id": "1.2.246.562.5.2013100416514851336462",
             "i18nText": {
                 "translations": {
                     "fi": "testi haku 4 hakutyyppi_03"
@@ -27175,4 +27178,4 @@
                 "id": "haku4"
             }
         }
-]
+}

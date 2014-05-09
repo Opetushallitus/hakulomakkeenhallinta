@@ -84,9 +84,12 @@ angular.module('hakulomakkeenhallinta', [
         var hakuLomakkeet = [];
         //mallipohjien mockki
         var malliPohjat = [];
+        //lisäkysymysten tyypit mockki
+        var lisakysymysTyypit = [];
+
 
         if(localStorage.getItem('hakuLomake') === null){
-            $.getJSON(Props.envUrl+'/app/test-data/db-applicationSystem.json', function(data){
+            $.getJSON(Props.envUrl+'/app/test-data/form.json', function(data){
                 console.log('mock data hakulomake -->',  hakuLomake);
                 console.log(localStorage.getItem('hakuLomake'));
 
@@ -102,6 +105,11 @@ angular.module('hakulomakkeenhallinta', [
         $.getJSON(Props.envUrl+'/app/test-data/applicationSystems.json', function(data){
             console.log('mock data json hakulomakkeet ');
             hakuLomakkeet = data;
+        });
+
+        $.getJSON(Props.envUrl+'/app/test-data/types.json', function(data){
+            console.log('mock data json lisäkysmys tyypeille ');
+            lisakysymysTyypit = data;
         });
 
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/\d/).respond(
@@ -181,6 +189,13 @@ angular.module('hakulomakkeenhallinta', [
                 return [200, {status:200, message: 'liittäminen OK' }];
             }
         );
+
+        $httpBackend.whenGET(Props.envUrl+'/hakulomakkeenhallinta-temporary/type').respond(
+            function( method, url){
+                console.log('-- Lisäkysymys tyypit ', url);
+                return [200, lisakysymysTyypit ,{status:200, message:' lisäkysymys tyypit'}];
+            }
+        )
 
         //tarjonan api käyttö
         $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();

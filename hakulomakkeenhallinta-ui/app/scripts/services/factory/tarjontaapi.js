@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('TarjontaAPI',[ '$resource', '_', function ($resource, _) {
+    .factory('TarjontaAPI',[ '$resource', '_','Props', function ($resource, _, Props) {
         console.log('****** TarjonstaAPI service factory ***');
-        return $resource('https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/haku/findAll', {}, {
+        return $resource(Props.tarjontaAPI+'/haku/findAll', {}, {
                 query: {
                     method: 'GET',
                     isArray: true,
