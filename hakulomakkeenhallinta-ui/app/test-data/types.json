@@ -4,7 +4,10 @@
         "name":{
             "translations":
             {
-                "fi":"Avoin kysymys"
+                "fi":"Avoin kysymys teksti kenttä",
+                "sv":"Avoin kysymys teksti kenttä (sv)",
+                "en":"Avoin kysymys teksti kenttä (en)"
+
             }
         },
         "modified":1398838954783

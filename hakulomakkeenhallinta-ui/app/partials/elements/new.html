@@ -1,15 +1,15 @@
 <div>
-    {{question| json}}
+    <!--{{question| json}}-->
     <div class="row">
         <div class="col-md-6">
             <tabset>
                 <tab ng-repeat="language in languages">
                     <tab-heading>{{language | i18n}}</tab-heading>
-                    <form role="form">
+                    <form role="form" >
                         <hh-inputtext data-ng-model="question.i18nText.translations[language.id]" label="question-title"></hh-inputtext>
                         <hh-inputtext data-ng-model="question.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
                         <hh-inputtext data-ng-model="question.additionalHelp.translations[language.id]" label="question-additional-help"></hh-inputtext>
-                        <hh-inputlink data-ng-model="question.link[language.id]" label="question-link"></hh-inputlink>
+                        <hh-inputlink data-ng-model="question.additionalHelp.link[language.id]" label="question-link"></hh-inputlink>
                         <div data-ng-show="question.options">
                             <div class="checkbox">
                                 <input type="checkbox" data-ng-model="question.defaultValueAttribute">Oletusvalinta käyttöliittymäkielen mukaan
@@ -24,15 +24,17 @@
                     </form>
                 </tab>
             </tabset>
-            <hr/>Rajoitteet ja tarkastukset
-            <i class="glyphicon glyphicon-plus" data-ng-click="addValidator(question.validators)"></i>
-            <div ng-repeat="validator in question.validators">
-                <div data-ng-include src="'partials/element/edit/validators/' + validator._class.split('.').pop() + '.html'"></div>
-            </div>
-            <hr/>
-            <div class="control-group">
-                <div class="control-group" ng-include="'partials/element/edit/type/' + question._class.split('.').pop() + '.html'">
-                    Unimplemented template
+            <div data-ng-controller="QuestionCtrl">
+                <hr/>Rajoitteet ja tarkastukset
+                <i class="glyphicon glyphicon-plus" data-ng-click="addValidator(question.validators)"></i>
+                <div ng-repeat="validator in question.validators">
+                    <div data-ng-include src="'partials/element/edit/validators/' + validator._class.split('.').pop() + '.html'"></div>
+                </div>
+                <hr/>
+                <div class="control-group">
+                    <div class="control-group" ng-include="'partials/element/edit/type/' + question._class.split('.').pop() + '.html'">
+                        Unimplemented template
+                    </div>
                 </div>
             </div>
             <div class="checkbox" data-ng-show="question.previewable !== 'undefined'">

@@ -5,13 +5,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
     return {
         restrict: 'E',
         scope: {
-            'model': '=ngModel'
+            'model': '=ngModel',
+            'changeFn': '=ngChange'
         },
         require: 'ngModel',
         replace: true,
         templateUrl: 'partials/lisakysymykset/questions/directives/input-text.html',
         link: function (scope, element, attrs) {
-
             scope.label = attrs.label;
         }
       }

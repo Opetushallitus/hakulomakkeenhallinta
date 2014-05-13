@@ -9,7 +9,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystem.$promise.then(function(data) {
                 $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
             });
-
+            var elemTypePrefix = 'fi.vm.sade.haku.oppija.lomake.domain.elements.questions.';
             $scope.addQuestion = function(applicationSystem) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
@@ -26,15 +26,23 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         resolve: {
                             question: function() {
                                 return _.defaults({}, {
-                                    additionalHelp: {
+                                    _id: "tämä tulee kannasta",
+                                    i18nText: {
                                         translations: {}
                                     },
+
                                     verboseHelp: {
                                         translations: {}
                                     },
-                                    i18nText: {
-                                        translations: {}
-                                    }
+                                    additionalHelp: {
+                                        translations: {},
+                                        link:{}
+                                    },
+                                    validators: [
+                                        {},
+                                        {}
+                                    ],
+                                    _class: elemTypePrefix + data.type.id
                                 });
                             },
                             parentElement: function() {
@@ -43,6 +51,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             applicationSystem: function() {
                                 return $scope.applicationSystem;
                             }
+
                         }
                     }).result.then(function(data) {
                         if (!data.parentElement.additionalQuestions) {

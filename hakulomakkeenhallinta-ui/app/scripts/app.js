@@ -33,6 +33,11 @@ angular.module('hakulomakkeenhallinta', [
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
             });
+            //WIP
+            $routeProvider.when('/additionalQuestion/:id/:aoid/:aqid', {
+                templateUrl: 'partials/element/new.html',
+                controller: 'AdditionalQuestionsCtrl' //tälle oma controlleri
+            });
             $routeProvider.when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
             });
@@ -177,6 +182,36 @@ angular.module('hakulomakkeenhallinta', [
 
         //haun ja hakulomakkeen liittäminen toisiinsa
         $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
+            function(method, url, data, headers){
+                console.log('PUT url ---- ', method);
+                console.log('PUT url ---- ', url);
+                console.log('PUT data ---- ', data, '\n\n');
+                console.log(JSON.parse(data).applicationFormTemplate._id);
+                var id = JSON.parse(data).applicationFormTemplate._id;
+                if(id === '1.2.246.562.5.2013111213130760225065'){
+                    return [400, {status:400, message: 'liittämnen ei onnistunut' }];
+                }
+                return [200, {status:200, message: 'liittäminen OK' }];
+            }
+        );
+        //luodaan uusi lisäkysmys
+        $httpBackend.whenPOST(Props.envUrl+'/hakulomakkeenhallinta-temporary/application-system-form/1.2.246.562.5.2013100416514851336462/HenkilotiedotGrp').respond(
+            function(method, url, data, headers){
+                console.log('**** lisäkysmyksen tallenenus ***');
+                console.log('method ---- ', method);
+                console.log('url ---- ', url);
+                console.log('data ---- ', data, '\n\n');
+                //luodaan fake id lisäkysmselle
+                var json_object = JSON.parse(data);
+                json_object._id = 9;
+                console.log(JSON.stringify(json_object));
+
+                return [200, json_object, {status:200, message: '' }];
+            }
+        );
+
+        //haun ja hakulomakkeen liittäminen toisiinsa
+        $httpBackend.whenPOST(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
             function(method, url, data, headers){
                 console.log('PUT url ---- ', method);
                 console.log('PUT url ---- ', url);
