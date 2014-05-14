@@ -6,6 +6,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             applicationOptions: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/applicationOptions.json'),
             additionalQuestions: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/additionalQuestions.json'),
 //            languages: $resource('http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-ui/app/test-data/languages.json')
-            languages: $resource('http://localhost:8080/app/test-data/languages.json')
+            languages: $resource('/app/test-data/languages.json')
         };
     }]);
