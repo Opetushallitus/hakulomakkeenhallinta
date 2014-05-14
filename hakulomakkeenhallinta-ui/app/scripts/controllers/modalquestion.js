@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Resources', 'question', 'applicationSystem', 'parentElement', '$modal', '_', 'ASForms',
-        function($scope, $modalInstance, Resources, question, applicationSystem, parentElement, $modal, _ , ASForms) {
+    .controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Languages', 'question', 'applicationSystem', 'parentElement', '$modal', '_', 'ASForms',
+        function($scope, $modalInstance, Languages, question, applicationSystem, parentElement, $modal, _ , ASForms) {
             $scope.lang = "fi";
             $scope.element = parentElement;
-            $scope.languages = Resources.languages.query($scope.queryParameters);
+            $scope.languages = Languages.query();
             $scope.applicationSystem = applicationSystem;
             $scope.question = question;
 

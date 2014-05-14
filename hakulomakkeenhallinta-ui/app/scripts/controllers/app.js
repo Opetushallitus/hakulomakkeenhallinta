@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('AppCtrl', ['$scope', 'Resources', function($scope, Resources) {
+    .controller('AppCtrl', ['$scope', 'Languages', function($scope, Languages) {
             $scope.accordionStates = {};
-            $scope.languages = Resources.languages.query();
+            $scope.languages = Languages.query();
         }
     ]);

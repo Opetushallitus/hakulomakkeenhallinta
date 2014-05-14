@@ -91,6 +91,9 @@ angular.module('hakulomakkeenhallinta', [
         var malliPohjat = [];
         //lisäkysymysten tyypit mockki
         var lisakysymysTyypit = [];
+        //kielten mock
+        var languages = [];
+
         var mockUrl = '/hakulomakkeenhallinta-mock';
 
         if(localStorage.getItem('hakuLomake') === null){
@@ -115,6 +118,11 @@ angular.module('hakulomakkeenhallinta', [
         $.getJSON(Props.contextRoot+'/app/test-data/types.json', function(data){
             console.log('mock data json lisäkysmys tyypeille ');
             lisakysymysTyypit = data;
+        });
+
+        $.getJSON(Props.contextRoot+'/app/test-data/languages.json', function(data){
+            console.log('mock data json kielet');
+            languages = data;
         });
 
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/\d/).respond(
@@ -225,7 +233,7 @@ angular.module('hakulomakkeenhallinta', [
                 return [200, {status:200, message: 'liittäminen OK' }];
             }
         );
-
+        //lisäkysymys tyypit
         $httpBackend.whenGET(mockUrl+'/type').respond(
             function( method, url){
                 console.log('-- Lisäkysymys tyypit ', url);
@@ -233,6 +241,13 @@ angular.module('hakulomakkeenhallinta', [
             }
         )
 
+        //kielet
+        $httpBackend.whenGET(mockUrl+'/languages').respond(
+            function( method, url){
+                console.log('-- Kielet ', url);
+                return [200, languages ,{status:200, message:'Haettiin kielet'}];
+            }
+        )
         //tarjonan api käyttö
         $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();
 
