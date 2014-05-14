@@ -2,8 +2,8 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
 
-.controller('ModalApplicationOptionCtrl', ['$scope', '$location', 'Resources', '$modalInstance', 'applicationSystemForm', 'HH',
-    function($scope, $location, Resources, $modalInstance, applicationSystemForm, HH) {
+.controller('ModalApplicationOptionCtrl', ['$scope', '$location', '$modalInstance', 'applicationSystemForm', 'HH',
+    function($scope, $location, $modalInstance, applicationSystemForm, HH) {
         $scope.applicationOptions = [];
         $scope.queryParameters = {};
         $scope.ok = function() {

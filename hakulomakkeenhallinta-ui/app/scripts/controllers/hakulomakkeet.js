@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'Resources', 'HH', 'ASFResource', 'ASForms',
-        function($scope, $modal, $log, $location, Resources, HH, ASFResource, ASForms) {
+    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'HH', 'ASForms',
+        function($scope, $modal, $log, $location, HH, ASForms) {
 
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
