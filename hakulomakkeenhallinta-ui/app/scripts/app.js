@@ -107,18 +107,18 @@ angular.module('hakulomakkeenhallinta', [
             hakuLomake = localStorage.getItem('hakuLomake');
         }
 
-        $.getJSON(Props.envUrl+'/app/test-data/applicationSystems.json', function(data){
+        $.getJSON(Props.mockEnvUrl+'/app/test-data/applicationSystems.json', function(data){
             console.log('mock data json hakulomakkeet ');
             hakuLomakkeet = data;
         });
 
-        $.getJSON(Props.envUrl+'/app/test-data/types.json', function(data){
+        $.getJSON(Props.mockEnvUrl+'/app/test-data/types.json', function(data){
             console.log('mock data json lisäkysmys tyypeille ');
             lisakysymysTyypit = data;
         });
 
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/\d/).respond(
-        $httpBackend.whenGET(Props.envUrl+'/hakulomakkeenhallinta-temporary/application-system-form/1.2.246.562.5.2013100416514851336462').respond(
+        $httpBackend.whenGET(Props.mockEnvUrl+'/hakulomakkeenhallinta-temporary/application-system-form/1.2.246.562.5.2013100416514851336462').respond(
             function (method, url){
                 console.log('***** haettiin lomake **** \n',url );
                 return [ 200, hakuLomake, {status:200, message:'haettiin hakulomake'}];
@@ -127,7 +127,7 @@ angular.module('hakulomakkeenhallinta', [
             });
 
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form/).respond(
-        $httpBackend.whenGET(Props.envUrl+'/hakulomakkeenhallinta-temporary/application-system-form').respond(
+        $httpBackend.whenGET(Props.mockEnvUrl+'/hakulomakkeenhallinta-temporary/application-system-form').respond(
             function(method, url, data){
 //            console.log('#########',url, data);
             /*var id = url.substr(url.lastIndexOf('/')+1);
@@ -144,7 +144,7 @@ angular.module('hakulomakkeenhallinta', [
         });
 
 
-        $.getJSON(Props.envUrl+'/app/test-data/applicationFormTemplates.json', function(data){
+        $.getJSON(Props.mockEnvUrl+'/app/test-data/applicationFormTemplates.json', function(data){
             console.log('mock data json malli pohjat ');
             malliPohjat = data;
         });
@@ -195,7 +195,7 @@ angular.module('hakulomakkeenhallinta', [
             }
         );
         //luodaan uusi lisäkysmys
-        $httpBackend.whenPOST(Props.envUrl+'/hakulomakkeenhallinta-temporary/application-system-form/1.2.246.562.5.2013100416514851336462/HenkilotiedotGrp').respond(
+        $httpBackend.whenPOST(Props.mockEnvUrl+'/hakulomakkeenhallinta-temporary/application-system-form/1.2.246.562.5.2013100416514851336462/HenkilotiedotGrp').respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
                 console.log('method ---- ', method);
@@ -226,7 +226,7 @@ angular.module('hakulomakkeenhallinta', [
             }
         );
 
-        $httpBackend.whenGET(Props.envUrl+'/hakulomakkeenhallinta-temporary/type').respond(
+        $httpBackend.whenGET(Props.mockEnvUrl+'/hakulomakkeenhallinta-temporary/type').respond(
             function( method, url){
                 console.log('-- Lisäkysymys tyypit ', url);
                 return [200, lisakysymysTyypit ,{status:200, message:' lisäkysymys tyypit'}];

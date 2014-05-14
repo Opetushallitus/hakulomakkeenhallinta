@@ -41,7 +41,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         translations: {},
                                         link:{}
                                     },
-                                    validators: [
+                                    /*validators: [
                                         {
                                             fieldName: "tämä tulee kannasta = _id",
                                             errorMessage: {
@@ -51,7 +51,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                             },
                                             _class: ""
                                         }
-                                    ],
+                                    ],*/
                                     _class: elemTypePrefix + data.type.id
                                 });
                             },
