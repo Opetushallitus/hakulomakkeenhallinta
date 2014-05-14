@@ -4,13 +4,25 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 .controller('QuestionCtrl', ['$scope', '$modal', '_',
     function($scope, $modal, _) {
-        $scope.addValidator = function(validators) {
-            $modal.open({
-                templateUrl: 'partials/elements/edit/validators/new.html',
+        console.log('QuestionCtrl');
+        var validatortypePrefix = "fi.vm.sade.haku.oppija.lomake.validation.validators.";
+        $scope.validators = [];
+        $scope.addValidator = function(question) {
+
+            $scope.validators.push('RequiredFieldValidator');
+
+            for(var j in $scope.validators){
+                question.validators[j]._class = validatortypePrefix + $scope.validators[j];
+            }
+
+            console.log('QuestionCtrl', $scope.validators);
+
+            /*$modal.open({
+                templateUrl: 'partials/elements/edit/validators/newValidator.html',
                 controller: 'ValidatorModalCtrl'
             }).result.then(function(validator) {
                 validators.push(validator);
-            });
+            });*/
         };
     }
 ]);

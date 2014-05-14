@@ -9,7 +9,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystem.$promise.then(function(data) {
                 $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
             });
-            var elemTypePrefix = 'fi.vm.sade.haku.oppija.lomake.domain.elements.questions.';
+
+            var elemTypePrefix = "fi.vm.sade.haku.oppija.lomake.domain.elements.questions.";
+
+
             $scope.addQuestion = function(applicationSystem) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
@@ -39,8 +42,15 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         link:{}
                                     },
                                     validators: [
-                                        {},
-                                        {}
+                                        {
+                                            fieldName: "tämä tulee kannasta = _id",
+                                            errorMessage: {
+                                                i18nText: {
+                                                    translations: {}
+                                                }
+                                            },
+                                            _class: ""
+                                        }
                                     ],
                                     _class: elemTypePrefix + data.type.id
                                 });
@@ -51,7 +61,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             applicationSystem: function() {
                                 return $scope.applicationSystem;
                             }
-
                         }
                     }).result.then(function(data) {
                         if (!data.parentElement.additionalQuestions) {

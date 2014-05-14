@@ -204,6 +204,7 @@ angular.module('hakulomakkeenhallinta', [
                 //luodaan fake id lisäkysmselle
                 var json_object = JSON.parse(data);
                 json_object._id = 9;
+                json_object.validators[0].fieldName = 9;
                 console.log(JSON.stringify(json_object));
 
                 return [200, json_object, {status:200, message: '' }];

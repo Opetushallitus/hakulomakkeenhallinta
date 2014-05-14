@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ApplicationSystemFormCtrl', ['$scope', '$routeParams', 'ASForms',
-        function($scope, $routeParams, ASForms) {
+    .controller('ApplicationSystemFormCtrl', ['$scope', '$routeParams', 'ASForms', '$modal', '_',
+        function($scope, $routeParams, ASForms, $modal, _) {
             $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
 
             $scope.delete = function(array, index) {
@@ -41,5 +41,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     return '';
                 }
             };
+
+            $scope.addQuestion = function(tree){
+                console.log('####', tree);
+            }
         }
     ]);

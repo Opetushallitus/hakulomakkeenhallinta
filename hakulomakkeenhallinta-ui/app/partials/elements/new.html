@@ -24,19 +24,19 @@
                     </form>
                 </tab>
             </tabset>
-            <div data-ng-controller="QuestionCtrl">
+            <div class="control-group" data-ng-controller="QuestionCtrl">
                 <hr/>Rajoitteet ja tarkastukset
-                <i class="glyphicon glyphicon-plus" data-ng-click="addValidator(question.validators)"></i>
-                <div ng-repeat="validator in question.validators">
-                    <div data-ng-include src="'partials/element/edit/validators/' + validator._class.split('.').pop() + '.html'"></div>
+                <i class="glyphicon glyphicon-plus" data-ng-click="addValidator(question)"></i>
+                <div ng-repeat="validator in validators">
+                    <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
                 </div>
                 <hr/>
+            </div>
                 <div class="control-group">
-                    <div class="control-group" ng-include="'partials/element/edit/type/' + question._class.split('.').pop() + '.html'">
+                    <div class="control-group" ng-include="'partials/elements/edit/type/' + question._class.split('.').pop() + '.html'">
                         Unimplemented template
                     </div>
                 </div>
-            </div>
             <div class="checkbox" data-ng-show="question.previewable !== 'undefined'">
                 <input type="checkbox" data-ng-model="question.previewable">Esikatseltava
             </div>
