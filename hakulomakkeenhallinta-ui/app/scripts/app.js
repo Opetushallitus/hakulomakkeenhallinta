@@ -195,7 +195,7 @@ angular.module('hakulomakkeenhallinta', [
             }
         );
         //luodaan uusi lisäkysmys
-        $httpBackend.whenPOST(Props.contextRoot+mockUrl+'/application-system-form/1.2.246.562.5.2013100416514851336462/HenkilotiedotGrp').respond(
+        $httpBackend.whenPOST(mockUrl+'/application-system-form/1.2.246.562.5.2013100416514851336462/HenkilotiedotGrp').respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
                 console.log('method ---- ', method);
@@ -226,7 +226,7 @@ angular.module('hakulomakkeenhallinta', [
             }
         );
 
-        $httpBackend.whenGET(Props.contextRoot+mockUrl+'/type').respond(
+        $httpBackend.whenGET(mockUrl+'/type').respond(
             function( method, url){
                 console.log('-- Lisäkysymys tyypit ', url);
                 return [200, lisakysymysTyypit ,{status:200, message:' lisäkysymys tyypit'}];
