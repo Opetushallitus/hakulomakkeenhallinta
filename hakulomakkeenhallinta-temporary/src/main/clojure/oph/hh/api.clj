@@ -55,7 +55,7 @@
   :known-content-type? #(check-content-type % ["application/json"])
   :exists? (fn [ctx] (if-let [d (db/application-system id)] {::data d}))
   :etag (fn [ctx] ((::data ctx) :modified))
-  :put! (fn [context] {::data (db/update-application-system (request-body context))})
+  :put! (fn [ctx] {::data (db/update-application-system (request-body ctx))})
   :last-modified (fn [ctx] ((::data ctx) :modified))
   :delete! (fn [context] ((println (str "delete" id))) (db/delete-application-system-form id))
   :new? false

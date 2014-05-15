@@ -34,7 +34,7 @@
   ([id fields] ( mc/find-map-by-id application-system-collection id fields)))
 
 (defn update-application-system [application-system]
-  (let [query (select-keys application-system ["_id" "modified"])]
+  (let [query (select-keys application-system ["_id"])]
     (println query)
    (mc/find-and-modify
      application-system-collection
