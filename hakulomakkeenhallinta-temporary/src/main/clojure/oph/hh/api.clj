@@ -71,7 +71,8 @@
   :available-media-types ["application/json"]
   :handle-ok ::e)
 
-(def types (list {"id" "TextQuestion" "name" {"translations" {"fi" "Avoin kysymys"}} :modified (System/currentTimeMillis)}
+(def types (list
+             {"id" "TextQuestion" "name" {"translations" {"fi" "Avoin kysymys"}} :modified (System/currentTimeMillis)}
              {"id" "OptionQuestion" "name" {"translations" {"fi" "Valinta (yksi vastaus)"}} :modified (System/nanoTime)}
              {"id" "HelpOrInfoQuestion" "name" {"translations" {"fi" "Ohje- tai infoteksti"}} :modified (System/nanoTime)}))
 
@@ -88,6 +89,15 @@
   :last-modified (fn [ctx] ((::t ctx) :modified))
   :handle-ok ::t)
 
+(def langs (list
+ { "id" "fi" "i18nText" { "translations" { "fi" "Suomi" "sv" "Suomi (sv)" } }}
+ { "id" "sv" "i18nText" { "translations" { "fi" "Ruotsi" "sv" "Ruotsi (sv)" } }}))
+
+(defresource languages []
+  :method-allowed? (request-method-in :get)
+  :available-media-types ["application/json"]
+  :handle-ok langs)
+
 (defroutes api-routes
 
   (context "/hakulomakkeenhallinta-temporary/application-system-form" []
@@ -102,6 +112,9 @@
   (context "/hakulomakkeenhallinta-temporary/type" []
            (ANY  "/" [] (element-types))
            (ANY "/:id" [id] (element-type id)))
+
+  (context "/hakulomakkeenhallinta-temporary/languages" []
+           (ANY  "/" [] (languages)))
 
   (route/resources "")
   (route/not-found "Resource not found!"))
