@@ -1,7 +1,7 @@
 [
     {
         "_id": "1.2.246.562.5.2013080813081926341927",
-        "i18nText": {
+        "name": {
             "translations": {
                 "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku",
                 "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014"
@@ -10,7 +10,7 @@
     },
     {
         "_id": "1.2.246.562.5.2013100416514851336462",
-        "i18nText": {
+        "name": {
             "translations": {
                 "fi": "Lisähaku syksyn yhteishaussa vapaaksi jääneille opiskelupaikoille VAIN TÄMÄN TARKASTELU TOIMII MOCK BÄKKÄRILLÄ"
             }
@@ -18,7 +18,7 @@
     },
     {
         "_id": "1.2.246.562.5.2013111213130760225065",
-        "i18nText": {
+        "name": {
             "translations": {
                 "en": "qa_julkaistu_suunnitteilla",
                 "fi": "qa_julkaistu_suunnitteilla poisto ei onnistu"
@@ -27,7 +27,7 @@
     },
     {
         "_id": "1.2.246.562.5.2013111213133431229595",
-        "i18nText": {
+        "name": {
             "translations": {
                 "en": "qa_valmis_suunnitteilla",
                 "fi": "qa_valmis_suunnitteilla"
@@ -36,7 +36,7 @@
     },
     {
         "_id": "1.2.246.562.5.2013111213132116867752",
-        "i18nText": {
+        "name": {
             "translations": {
                 "en": "qa_julkaistu_paattynyt",
                 "fi": "qa_julkaistu_paattynyt"
@@ -45,7 +45,7 @@
     },
     {
         "_id": "1.2.246.562.5.2013111213134919709306",
-        "i18nText": {
+        "name": {
             "translations": {
                 "en": "qa_valmis_paattynyt",
                 "fi": "qa_valmis_paattynyt"
@@ -54,7 +54,7 @@
     },
     {
         "_id": "1.2.246.562.5.2013111213385915614265",
-        "i18nText": {
+        "name": {
             "translations": {
                 "en": "qa_peruttu_voimassa",
                 "fi": "qa_peruttu_voimassa"
@@ -63,7 +63,7 @@
     },
     {
         "_id": "hakutyyppi_01",
-        "i18nText": {
+        "name": {
             "translations": {
                 "fi": "Yhteishaku",
                 "sv": "Yhteishaku_sv"
@@ -72,7 +72,7 @@
     },
     {
         "_id": "hakutyyppi_03",
-        "i18nText": {
+        "name": {
             "translations": {
                 "fi": "Lisähaku",
                 "sv": "Lisähaku_sv"

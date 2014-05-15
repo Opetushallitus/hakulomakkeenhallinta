@@ -77,8 +77,9 @@ var app = angular.module('hakulomakkeenhallinta', [
             ];
     });
 
-    app.run(function($httpBackend, Props ){
-
+    app.run(function($httpBackend, Props, $rootScope){
+        //kehitys vaiheen ominaisuuksien disaploiminen
+        $rootScope.devFlag = true;
         console.log('**** $httpBackkend mock ****');
         //hakulomake mockki
         var hakuLomake = null;

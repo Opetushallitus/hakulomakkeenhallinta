@@ -1,16 +1,23 @@
 <div data-ng-controller="HakulomakkeetCtrl">
     <div>
-        <button class="btn btn-warning pull-left" ng-click="open(applicationForm)" ng-disabled="!applicationForm">Tee
+        <button class="btn btn-warning pull-left" ng-click="open(applicationForm)" ng-disabled="!applicationForm || devFlag">Tee
             hakukohdekohtaisia lisäkysymyksiä
         </button>
-        <button class="btn btn-primary pull-right" ng-click="luoHakulomake()">Luo hakulomake</button>
-        <button class="btn btn-primary pull-right" data-ng-disabled="!luolomake">Luo lomake</button>
+        <select class="pull-right form-control" style="width: 80px;" type="select" ng-model="order">
+            <option value="false" selected="selected">A-Z</option>
+            <option value="true">Z-A</option>
+        </select>
+
+        <button class="btn btn-primary pull-right" ng-click="luoHakulomake()" data-ng-disabled="devFlag" >Luo hakulomake</button>
+        <button class="btn btn-primary pull-right" data-ng-disabled="!luolomake || devFlag">Luo lomake</button>
     </div>
     <div class="clearfix"></div>
     <table class="table table-striped">
-        <tr ng-repeat="applicationForm in applicationForms">
-            <td><input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm"
-                       name="applicationForm"></td>
+        <tr ng-repeat="applicationForm in applicationForms | filter:search | orderBy:'name.translations.fi':order">
+            <!--<td>-->
+                <!--<input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm"-->
+                       <!--name="applicationForm">-->
+            <!--</td>-->
             <td>
                 <div class="dropdown">
                     <a class="dropdown-toggle">
@@ -19,7 +26,6 @@
                     <ul class="dropdown-menu" data-ng-controller="BackCtrl">
                         <li data-ng-click="goto(applicationForm)"><a>Tarkastele</a></li>
                         <li data-ng-click="open(applicationForm)"><a>Tee hakukohtaisia lisäkysymyksiä</a></li>
-                        <li><a>Näytä hakukohteet</a></li>
                         <li><a>Kopio uudeksi</a></li>
                         <li><a>Julkaise</a></li>
                         <li><a data-ng-disabled="wip">Peruuta julkaisu</a></li>

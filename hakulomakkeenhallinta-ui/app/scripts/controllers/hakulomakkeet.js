@@ -4,6 +4,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'HH', 'ASForms',
         function($scope, $modal, $log, $location, HH, ASForms) {
 
+
+
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
             $scope.languages = [{
