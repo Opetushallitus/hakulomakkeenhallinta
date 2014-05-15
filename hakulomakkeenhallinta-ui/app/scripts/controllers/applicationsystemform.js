@@ -45,5 +45,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.addQuestion = function(tree){
                 console.log('####', tree);
             }
+
+            $scope.tallenna = function(){
+                ASForms.update($scope.applicationSystem);
+            }
         }
     ]);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('hakulomakkeenhallinta', [
+var app = angular.module('hakulomakkeenhallinta', [
         'ngRoute',
         'ngResource',
         'ui.bootstrap',
@@ -13,9 +13,9 @@ angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallintaUiApp.services.factory',
         'hakulomakkeenhallintaUiApp.controllers'
         ,'ngMockE2E'
-    ])
+    ]);
 
-    .config(['$routeProvider',
+   app.config(['$routeProvider',
         function($routeProvider) {
             $routeProvider.when('/applicationSystemForm', {
                 templateUrl: 'partials/applicationSystemFormIndex.html'
@@ -33,11 +33,6 @@ angular.module('hakulomakkeenhallinta', [
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
             });
-            //WIP
-            $routeProvider.when('/additionalQuestion/:id/:aoid/:aqid', {
-                templateUrl: 'partials/element/new.html',
-                controller: 'AdditionalQuestionsCtrl' //tälle oma controlleri
-            });
             $routeProvider.when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
             });
@@ -52,13 +47,14 @@ angular.module('hakulomakkeenhallinta', [
                 redirectTo: '/applicationSystemForm'
             });
         }
-    ])
-    .config(['$httpProvider', function($httpProvider) {
+    ]);
+
+    app.config(['$httpProvider', function($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    }])
+    }]);
 
-    .config(['$i18nextProvider',
+    app.config(['$i18nextProvider',
         function($i18nextProvider) {
             $i18nextProvider.options = {
                 resGetPath: 'locales/__ns__-__lng__.json',
@@ -71,18 +67,19 @@ angular.module('hakulomakkeenhallinta', [
             };
         }
     ])
-    .provider('_', function() {
+
+    app.provider('_', function() {
         this.$get = [
 
             function() {
                 return window._;
             }
             ];
-    })
+    });
 
-    .run(function($httpBackend, Props){
+    app.run(function($httpBackend, Props ){
+
         console.log('**** $httpBackkend mock ****');
-
         //hakulomake mockki
         var hakuLomake = null;
         //hakulomakkeiden mockki
@@ -258,11 +255,11 @@ angular.module('hakulomakkeenhallinta', [
         $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();
 
         $httpBackend.whenGET(/test-data\//).passThrough();
-//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/form/).passThrough();
 
         $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/\partials\//).passThrough();
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary/).passThrough();
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\//).passThrough();
+        $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\//).passThrough();
 
         $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/(\d)/).respond(
             function(method, url, data){
