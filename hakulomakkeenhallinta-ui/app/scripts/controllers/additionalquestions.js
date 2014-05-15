@@ -33,7 +33,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                     i18nText: {
                                         translations: {}
                                     },
-
                                     verboseHelp: {
                                         translations: {}
                                     },
@@ -41,17 +40,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         translations: {},
                                         link:{}
                                     },
-                                    /*validators: [
-                                        {
-                                            fieldName: "tämä tulee kannasta = _id",
-                                            errorMessage: {
-                                                i18nText: {
-                                                    translations: {}
-                                                }
-                                            },
-                                            _class: ""
-                                        }
-                                    ],*/
                                     _class: elemTypePrefix + data.type.id
                                 });
                             },

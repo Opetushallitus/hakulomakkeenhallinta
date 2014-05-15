@@ -97,7 +97,7 @@ angular.module('hakulomakkeenhallinta', [
         var mockUrl = '/hakulomakkeenhallinta-mock';
 
         if(localStorage.getItem('hakuLomake') === null){
-            $.getJSON(Props.contextRoot+'/app/test-data/form.json', function(data){
+            $.getJSON(Props.contextRoot+'/app/test-data/1.2.246.562.5.2014022711042555034240.json', function(data){
                 console.log('mock data hakulomake -->',  hakuLomake);
                 console.log(localStorage.getItem('hakuLomake'));
 
@@ -110,7 +110,7 @@ angular.module('hakulomakkeenhallinta', [
             hakuLomake = localStorage.getItem('hakuLomake');
         }
 
-        $.getJSON(Props.contextRoot+'/app/test-data/applicationSystems.json', function(data){
+        $.getJSON(Props.contextRoot+'/app/test-data/application-system-forms.json', function(data){
             console.log('mock data json hakulomakkeet ');
             hakuLomakkeet = data;
         });
@@ -126,7 +126,7 @@ angular.module('hakulomakkeenhallinta', [
         });
 
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/\d/).respond(
-        $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2013100416514851336462').respond(
+        $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240').respond(
             function (method, url){
                 console.log('***** haettiin lomake **** \n',url );
                 return [ 200, hakuLomake, {status:200, message:'haettiin hakulomake'}];
@@ -203,7 +203,7 @@ angular.module('hakulomakkeenhallinta', [
             }
         );
         //luodaan uusi lisäkysmys
-        $httpBackend.whenPOST(mockUrl+'/application-system-form/1.2.246.562.5.2013100416514851336462/HenkilotiedotGrp').respond(
+        $httpBackend.whenPOST(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/HenkilotiedotGrp').respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
                 console.log('method ---- ', method);
@@ -212,7 +212,13 @@ angular.module('hakulomakkeenhallinta', [
                 //luodaan fake id lisäkysmselle
                 var json_object = JSON.parse(data);
                 json_object._id = 9;
-                json_object.validators[0].fieldName = 9;
+                if(json_object.validators !== undefined){
+                    for(var val in json_object.validators){
+                        console.log('mock set validator fieldNames:::::>');
+                        json_object.validators[val].fieldName = 9;
+                    }
+                }
+
                 console.log(JSON.stringify(json_object));
 
                 return [200, json_object, {status:200, message: '' }];
@@ -256,12 +262,14 @@ angular.module('hakulomakkeenhallinta', [
 
         $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
         $httpBackend.whenGET(/\partials\//).passThrough();
+        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary/).passThrough();
 
         $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/(\d)/).respond(
             function(method, url, data){
                 console.log( url);
             }
         );
+
 
     });
 
