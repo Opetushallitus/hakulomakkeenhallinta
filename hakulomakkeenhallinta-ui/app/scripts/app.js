@@ -33,6 +33,10 @@ var app = angular.module('hakulomakkeenhallinta', [
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
             });
+            $routeProvider.when('/additionalQuestion/:id/:aoid/:eid', {
+                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                controller: 'CreateAdditionalQuestionCtrl'
+            });
             $routeProvider.when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
             });

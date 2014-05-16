@@ -1,25 +1,31 @@
-<button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
-<button type="button" class="btn btn-primary" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions">Järjestä kysymykset</button>
-<button type="button" class="btn btn-primary" data-ng-click="addRule()" data-ng-disabled="!addRule">Lisää sääntö</button>
-<button type="button" class="btn btn-warning" data-ng-click="addQuestion(applicationSystem)">Lisää uusi kysymys</button>
+<div class="form-group">
+    <button type="button" class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
+    <button type="button" class="btn" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions || devFlag">Järjestä kysymykset</button>
+    <button type="button" class="btn" data-ng-click="addRule()" data-ng-disabled="!addRule">  Lisää sääntö</button>
 
-<div class="alert alert-info">
-    <i class="icon-info-sign"></i>
+</div>
+<div class="alert alert-info alert-block ">
+    <i class="glyphicon glyphicon-info-sign"></i>
     Olet luomassa hakulomakkeella näytettäviä hakukohdekohtaisia lisäkysymyksiä organisaation
     <b>{{organization | i18n}}</b> hakukohteelle <b>{{applicationOption.hakukohteenNimi}}</b> hakuun <b>{{applicationSystem | i18n : 'name'}}</b>.
 </div>
+
 <div class="clearfix"></div>
 
 <h3 class="text-info">Hakukohdekohtaiset lisäkysymykset</h3>
 
-<accordion data-ng-repeat="element in elements">
+<div class="from-group">
+    <accordion data-ng-repeat="element in elements">
         <accordion-group is-open="accordionStates[element._id]">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                <button type="button" class=" btn btn-xs" data-ng-click="addQuestion(element)">Lisää uusi kysymys <i class="glyphicon glyphicon-plus-sign"></i> </button>
+                <i class="glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                 {{element| i18n}}
+
             </accordion-heading>
             <div data-ng-repeat="question in element.additionalQuestions">
                 <a>{{question | i18n}}</a>
             </div>
         </accordion-group>
-</accordion>
+    </accordion>
+</div>

@@ -37,7 +37,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                     searchTerms: term
                 }
             }).success(function(data) {
-                console.log('9999999');
                 _.each(data.result.tulokset, function(org) {
                     _.each(org.tulokset, function(ao) {
                         applicationOptions.push(ao);

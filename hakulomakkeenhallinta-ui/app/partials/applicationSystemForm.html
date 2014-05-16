@@ -1,15 +1,19 @@
 <div>
-    <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
-    <button type="button" class="btn btn-primary" data-ng-controller="QuestionsCtrl" data-ng-click="addNewAdditionalQuestion(applicationSystem)">Tee hakukohdekohtaisi lisäkysymyksiä</button>
-    <button type="button" class="btn btn-primary" data-ng-click="release(tree)">Julkaise</button>
-    <h1>{{tree | i18n:'name'}}</h1>
-    <!--<tabset>-->
+    <div class="form-group">
+        <button type="button" class="btn" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
+        <button type="button" class="btn" data-ng-controller="QuestionsCtrl" data-ng-click="addNewAdditionalQuestion(applicationSystem)">Tee hakukohdekohtaisi lisäkysymyksiä</button>
+        <button type="button" class="btn" data-ng-click="release(tree)" data-ng-disabled="devFlag">Julkaise</button>
+    </div>
+    <div class="form-group">
+        <h1>{{tree | i18n:'name'}}</h1>
+        <!--<tabset>-->
         <!--<tab heading="Suomeksi">-->
-            <!--<span data-ng-include="src='partials/elements/form.html'"></span>-->
+        <!--<span data-ng-include="src='partials/elements/form.html'"></span>-->
         <!--</tab>-->
         <!--<tab heading="Ruotsiksi">-->
-            <!--<span data-ng-include="src='partials/elements/form.html'"></span>-->
+        <!--<span data-ng-include="src='partials/elements/form.html'"></span>-->
         <!--</tab>-->
-    <!--</tabset>-->
-    <span data-ng-include="src='partials/elements/form.html'"></span>
+        <!--</tabset>-->
+        <span data-ng-include="src='partials/elements/form.html'"></span>
+    </div>
 </div>

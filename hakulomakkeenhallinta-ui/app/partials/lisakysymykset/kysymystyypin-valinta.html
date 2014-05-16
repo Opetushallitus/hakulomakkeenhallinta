@@ -5,13 +5,6 @@
 
     <form role="form" class="form-horizontal">
         <div class="form-group">
-            <label for="theme">Teema</label>
-            <select class="form-control" ng-model="element" ng-options="theme.i18nText.translations.fi for theme in themes">
-                <option value="">-- Valitse teema --</option>
-            </select>
-        </div>
-
-        <div class="form-group">
             <label for="type">Kysymystyyppi</label>
             <select class="form-control" id="type" ng-model="type" ng-options="a.name.translations.fi for a in types">
                 <option value="">-- Valitse tyyppi --</option>
@@ -21,5 +14,5 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
-    <button class="btn btn-primary pull-right" ng-click="ok()" data-ng-disabled="!element|| !type">Jatka</button>
+    <button class="btn btn-primary pull-right" ng-click="ok()" data-ng-disabled="!type">Jatka</button>
 </div>

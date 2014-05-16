@@ -1,8 +1,10 @@
 <div data-ng-controller="QuestionCtrl">
-    <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
-    <button type="button" class="btn btn-warning" data-ng-click="tallenna()">Tallenna</button>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
+        <button type="button" class="btn btn-warning" data-ng-click="tallenna()" data-ng-disabled="devFlag" >Tallenna</button>
+    </div>
 
-    <div class="alert alert-info">
+    <div class="alert alert-info form-group">
         <i class="icon-info-sign"></i>Olet Muokkaamassa hakulomakkeen {{applicationSystem | i18n:name}} kysymystä <b>{{element | i18n}}</b>.
     </div>
 

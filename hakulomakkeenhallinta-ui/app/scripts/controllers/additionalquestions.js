@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'ASForms', 'FormWalker',
-        function($scope, $modal, $location, _, $routeParams, HH, ASForms, FormWalker) {
+    .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'ASForms', 'FormWalker', 'Languages', 'QuestionData',
+        function($scope, $modal, $location, _, $routeParams, HH, ASForms, FormWalker, Languages, QuestionData) {
+            $scope.lang = "fi";
             $scope.organization = HH.getOrganization();
             $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
 
@@ -10,56 +11,20 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
             });
 
-            var elemTypePrefix = "fi.vm.sade.haku.oppija.lomake.domain.elements.questions.";
-
-
-            $scope.addQuestion = function(applicationSystem) {
+            $scope.addQuestion = function(element) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                    controller: 'SelectThemeAndQuestionTypeCtrl',
-                    resolve: {
-                        applicationSystem: function() {
-                            return $scope.applicationSystem;
-                        }
-                    }
+                    controller: 'SelectThemeAndQuestionTypeCtrl'
                 }).result.then(function(data) {
-                    $modal.open({
-                        templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                        controller: 'ModalQuestionCtrl',
-                        resolve: {
-                            question: function() {
-                                return _.defaults({}, {
-                                    _id: "tämä tulee kannasta",
-                                    i18nText: {
-                                        translations: {}
-                                    },
-                                    verboseHelp: {
-                                        translations: {}
-                                    },
-                                    additionalHelp: {
-                                        translations: {},
-                                        link:{}
-                                    },
-                                    _class: elemTypePrefix + data.type.id
-                                });
-                            },
-                            parentElement: function() {
-                                return data.theme;
-                            },
-                            applicationSystem: function() {
-                                return $scope.applicationSystem;
-                            }
-                        }
-                    }).result.then(function(data) {
-                        if (!data.parentElement.additionalQuestions) {
-                            data.parentElement.additionalQuestions = [];
-                        }
-                        data.parentElement.additionalQuestions.push(data.question);
+                        QuestionData.setQuestionType(data.type);
+                        QuestionData.setElement(element);
+                        QuestionData.setApplicatioSystem($scope.applicationSystem);
+                        $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element._id);
                     });
-                });
             };
+
             $scope.back = function() {
-                $location.path("/");
+                $location.path('/');
             };
 
             $scope.edit = function(additionalQuestion) {
