@@ -26,8 +26,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                     formUrl: 'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/form/:_id',
                     tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
                     contextRoot: '/hakulomakkeenhallinta-ui',
-                    serviceRootUri: '/hakulomakkeenhallinta-temporary'
-//                    serviceRootUri: '/hakulomakkeenhallinta-mock'
+//                    serviceRootUri: '/hakulomakkeenhallinta-temporary'
+                    serviceRootUri: '/hakulomakkeenhallinta-mock'
                 };
 
             }
