@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 .controller('QuestionCtrl', ['$scope', '$modal', '_',
-    function($scope, $modal, _) {
+    function($scope, $modal, _ ) {
         console.log('QuestionCtrl');
         var validatortypePrefix = "fi.vm.sade.haku.oppija.lomake.validation.validators.RequiredFieldValidator";
         $scope.validators = [];
@@ -21,7 +21,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             validatorIndx = question.validators.length;
 
             var validatorObject = {};
-            validatorObject.fieldName = "";
             validatorObject.errorMessage = {};
             validatorObject.errorMessage.i18nText = {};
             validatorObject.errorMessage.i18nText.translations = {};

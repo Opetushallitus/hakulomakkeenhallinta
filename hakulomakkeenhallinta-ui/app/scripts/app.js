@@ -81,7 +81,7 @@ var app = angular.module('hakulomakkeenhallinta', [
             ];
     });
 
-    app.run(function($httpBackend, Props, $rootScope){
+    app.run(function($httpBackend, Props, $rootScope, FormWalker){
         //kehitys vaiheen ominaisuuksien disaploiminen
         $rootScope.devFlag = true;
         console.log('**** $httpBackkend mock ****');
@@ -95,6 +95,8 @@ var app = angular.module('hakulomakkeenhallinta', [
         var lisakysymysTyypit = [];
         //kielten mock
         var languages = [];
+        //lisakysmykset
+        var lisakysymykset ={};
 
         var mockUrl = '/hakulomakkeenhallinta-mock';
 
@@ -102,14 +104,20 @@ var app = angular.module('hakulomakkeenhallinta', [
             $.getJSON(Props.contextRoot+'/app/test-data/1.2.246.562.5.2014022711042555034240.json', function(data){
                 console.log('mock data hakulomake -->',  hakuLomake);
                 console.log(localStorage.getItem('hakuLomake'));
-
                 localStorage.setItem('hakuLomake', JSON.stringify(data));
-
                 hakuLomake = data;
+
             });
         }else{
             console.log('lomake localStoragesta');
             hakuLomake = localStorage.getItem('hakuLomake');
+        }
+
+        if(localStorage.getItem('additionalQuestions') !== null){
+            console.log('***** additionalQuestions haetaan localStoragesta ----->');
+            lisakysymykset.additionalQuestions = [];
+            lisakysymykset.additionalQuestions = localStorage.getItem('additionalQuestions');
+            console.log(lisakysymykset);
         }
 
         $.getJSON(Props.contextRoot+'/app/test-data/application-system-forms.json', function(data){
@@ -127,7 +135,17 @@ var app = angular.module('hakulomakkeenhallinta', [
             languages = data;
         });
 
-//        $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\/application-system-form\/\d/).respond(
+        $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/additionalQuestions').respond(
+            function (method, url){
+                console.log('***** haettiin lisalysymykset **** \n',url );
+
+//                lisakysymykset = JSON.stringify(lisakysymykset.additionalQuestions);
+                console.log(lisakysymykset);
+                return [ 200, lisakysymykset, {status:200, message:'haettiin lisakysmykset'}];
+                //mock virhe tapauksessa
+//                return [ 404, {status:404, message:'hakulomaketta ei löydy'}];
+            });
+
         $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240').respond(
             function (method, url){
                 console.log('***** haettiin lomake **** \n',url );
@@ -212,6 +230,23 @@ var app = angular.module('hakulomakkeenhallinta', [
                 console.log('url ---- ', url);
                 console.log('data ---- ', data, '\n\n');
                 //luodaan fake id lisäkysmselle
+                console.log(localStorage.getItem('additionalQuestions'));
+
+                var additionalQuestionsLS = [];
+                if(localStorage.getItem('additionalQuestions') === null){
+                    additionalQuestionsLS.push(JSON.parse(data));
+                    localStorage.setItem('additionalQuestions', JSON.stringify(additionalQuestionsLS));
+                }else{
+                    additionalQuestionsLS = JSON.parse(localStorage.getItem('additionalQuestions'));
+                    additionalQuestionsLS.push(JSON.parse(data));
+                    localStorage.setItem('additionalQuestions', JSON.stringify(additionalQuestionsLS));
+                }
+                console.dir(additionalQuestionsLS);
+
+
+                //localStorage.setItem('additionalQuestions', addiQuetn);
+//                FormWalker.filterByType($scope.applicationSystem.form, "Theme");
+
                 var json_object = JSON.parse(data);
                 json_object._id = 9;
                 if(json_object.validators !== undefined){

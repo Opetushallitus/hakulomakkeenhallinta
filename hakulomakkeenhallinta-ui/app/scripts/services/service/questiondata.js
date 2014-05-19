@@ -20,17 +20,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.newAdditionalQuestion = function(){
             _question = {};
-            _question.parentElement_id;
+            _question.theme = "";
             _question._id = "";
-            _question.i18nText = {};
-            _question.i18nText.translations = {};
+            _question.message = {};
+            _question.message.translations = {};
             _question.verboseHelp = {};
             _question.verboseHelp.translations ={};
             _question.additionalHelp ={};
             _question.additionalHelp.translations ={};
-            _question.additionalHelp.link ={};
-            _question._class= "";
-
+            _question.type= ""; //type
+            _question.applicationSystemId= "";
+            _question.preference = "";
             _element = [];
             _questionType = '';
             _applicationSystem = {};
@@ -40,6 +40,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             _question = question;
             setAdditionalQuestions(question);
         };
+
+        this.clearAdditonalQuestions = function(){
+            _additionalQuestions = [];
+        }
 
         this.getQuestion = function () {
             return _question;
@@ -54,7 +58,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.setElement = function(element){
-            _question.parentElement_id = element._id;
+            _question.theme = element._id;
             _element = element;
         };
 
@@ -63,7 +67,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.setQuestionType = function(questionType){
-            _question._class =  questionTypePrefix + questionType.id;
+            _question.type = questionType.id;
             _questionType = questionType;
         };
 

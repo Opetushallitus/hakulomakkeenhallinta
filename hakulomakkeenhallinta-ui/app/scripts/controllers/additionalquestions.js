@@ -8,33 +8,46 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
             $scope.elements = [];
 
-            $scope.applicationSystem.$promise.then(function(data) {
-                $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
-
-                for(var ea in $scope.elements){
-                    if($scope.elements[ea]._id === "HenkilotiedotGrp"){
-                        $scope.elements.splice(ea, 1);
-                    }
-                    if( $scope.elements[ea]._id === "KoulutustaustaGrp" ){
-                        $scope.elements.splice(ea, 1);
-                    }
-                }
-
-                if(QuestionData.getAdditionalQuestions().length >0){
-                    var questions = QuestionData.getAdditionalQuestions()
-                    for (var q  in questions){
-                        for (var e in $scope.elements){
-                            console.log($scope.elements[e]._id);
-                            if(!$scope.elements[e].additionalQuestions){
-                                $scope.elements[e].additionalQuestions = [];
-                            }
-                            if(questions[q].parentElement_id === $scope.elements[e]._id ){
-                                $scope.elements[e].additionalQuestions.push(questions[q]);
-                            }
+            ASForms.get({'_id': $routeParams.id, '_addQuestions':'additionalQuestions' }).$promise.then(
+                function(data){
+                    if( data.additionalQuestions !== undefined){
+                        var questionDataLS = [];
+                        questionDataLS = JSON.parse(data.additionalQuestions);
+                        console.log(questionDataLS.length);
+                        QuestionData.clearAdditonalQuestions();
+                        for (var d in questionDataLS){
+                            QuestionData.setQuestion(questionDataLS[d]);
                         }
                     }
-                }
-            });
+                    $scope.applicationSystem.$promise.then(function(data) {
+                        $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
+
+                        for(var ea in $scope.elements){
+                            if($scope.elements[ea]._id === "HenkilotiedotGrp"){
+                                $scope.elements.splice(ea, 1);
+                            }
+                            if( $scope.elements[ea]._id === "KoulutustaustaGrp" ){
+                                $scope.elements.splice(ea, 1);
+                            }
+                        }
+
+                        if(QuestionData.getAdditionalQuestions().length >0){
+                            var questions = QuestionData.getAdditionalQuestions()
+                            for (var q  in questions){
+                                for (var e in $scope.elements){
+                                    if(!$scope.elements[e].additionalQuestions){
+                                        $scope.elements[e].additionalQuestions = [];
+                                    }
+                                    if(questions[q].theme === $scope.elements[e]._id ){
+                                        console.log(questions[q]);
+                                        $scope.elements[e].additionalQuestions.push(questions[q]);
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                });
 
             $scope.addQuestion = function(element) {
                 $modal.open({
@@ -48,10 +61,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element._id);
                     });
             };
+
             console.dir(QuestionData.getAdditionalQuestions());
 
-            $scope.goTo = function(element){
-                $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element.parentElement_id);
+            $scope.goTo = function(question){
+                console.log(question);
+                $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ question.theme);
             }
 
             $scope.back = function() {
