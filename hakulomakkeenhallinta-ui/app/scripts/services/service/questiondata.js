@@ -1,48 +1,74 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-  .factory('QuestionData', function () {
+    .service('QuestionData', function () {
 
-        var question = {};
-        question._id = "";
-        question.i18nText = {};
-        question.i18nText.translations = {};
-        question.verboseHelp = {};
-        question.verboseHelp.translations ={};
-        question.additionalHelp ={};
-        question.additionalHelp.translations ={};
-        question.additionalHelp.link ={};
-        question._class= "";
+        var _question = {};
+        var questionTypePrefix = "fi.vm.sade.haku.oppija.lomake.domain.elements.questions.";
+        var _applicationSystem = {};
+        var _element ={};
+        var _questionType;
+        var _additionalQuestions = [];
 
-        var applicationSystem = {};
-        var element ={};
-        var questionType;
+        this.getAdditionalQuestions = function(){
+            return _additionalQuestions;
+        };
 
-    return {
-        setQuestion: function(questn){
-            question = questn;
-        },
-        getQuestion: function () {
-            return question;
-        },
-        setApplicatioSystem: function(appSys){
-            applicationSystem = appSys;
-        },
-        getApplicationSystem: function(){
-            return applicationSystem;
-        },
-        setElement: function(elm){
-            element = elm;
-        },
-        getElement: function(){
-            return element;
-        },
-        setQuestionType: function(questnType){
-            questionType = questnType;
-        },
-        getQuestionType: function(){
-            return questionType;
-        }
+        function setAdditionalQuestions(question){
+            _additionalQuestions.push(question);
+        };
 
-    };
-  });
+        this.newAdditionalQuestion = function(){
+            _question = {};
+            _question.parentElement_id;
+            _question._id = "";
+            _question.i18nText = {};
+            _question.i18nText.translations = {};
+            _question.verboseHelp = {};
+            _question.verboseHelp.translations ={};
+            _question.additionalHelp ={};
+            _question.additionalHelp.translations ={};
+            _question.additionalHelp.link ={};
+            _question._class= "";
+
+            _element = [];
+            _questionType = '';
+            _applicationSystem = {};
+        };
+
+        this.setQuestion = function(question){
+            _question = question;
+            setAdditionalQuestions(question);
+        };
+
+        this.getQuestion = function () {
+            return _question;
+        };
+
+        this.setApplicatioSystem = function(applicationSystem){
+            _applicationSystem = applicationSystem;
+        };
+
+        this.getApplicationSystem = function(){
+            return _applicationSystem;
+        };
+
+        this.setElement = function(element){
+            _question.parentElement_id = element._id;
+            _element = element;
+        };
+
+        this.getElement = function(){
+            return _element;
+        };
+
+        this.setQuestionType = function(questionType){
+            _question._class =  questionTypePrefix + questionType.id;
+            _questionType = questionType;
+        };
+
+        this.getQuestionType = function(){
+            return _questionType;
+        };
+
+    });

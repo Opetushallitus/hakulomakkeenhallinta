@@ -20,5 +20,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.util', [])
                 return el._class && el._class.indexOf(type) != -1;
             });
         };
+
+        this.filterByTheme = function(root, theme) {
+            return this.filter(root, function(el) {
+                return el._id && el._id.indexOf(theme) != -1;
+            });
+        };
     }
   ]);

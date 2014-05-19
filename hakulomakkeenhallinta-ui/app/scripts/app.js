@@ -205,7 +205,7 @@ var app = angular.module('hakulomakkeenhallinta', [
             }
         );
         //luodaan uusi lisäkysmys
-        $httpBackend.whenPOST(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/HenkilotiedotGrp').respond(
+        $httpBackend.whenPOST(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/hakutoiveetGrp').respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
                 console.log('method ---- ', method);
