@@ -9,6 +9,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         var _element ={};
         var _questionType;
         var _additionalQuestions = [];
+        var _editFlag = false;
+
+        this.getEditFlag = function(){
+            return _editFlag;
+        };
+
+        this.setEditFlag = function(flag){
+            _editFlag = flag;
+        };
 
         this.getAdditionalQuestions = function(){
             return _additionalQuestions;
@@ -38,7 +47,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.setQuestion = function(question){
             _question = question;
-            setAdditionalQuestions(question);
+            if(!_editFlag){
+                setAdditionalQuestions(question);
+            }
+
         };
 
         this.clearAdditonalQuestions = function(){

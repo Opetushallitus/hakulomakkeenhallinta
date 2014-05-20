@@ -11,17 +11,40 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.question = QuestionData.getQuestion();
         $scope.question.applicationSystemId = $scope.applicationSystem._id;
         $scope.question.preference = $routeParams.aoid;
+        $scope.editFlag = QuestionData.getEditFlag();
 
         $scope.back = function() {
+            QuestionData.setEditFlag(false);
             $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid);
         };
 
-        $scope.ok = function() {
-
+        $scope.tallennaUusi = function() {
             ASForms.save( { _id: $scope.applicationSystem._id , _eid: $scope.element._id }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
                     $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid);
                 });
         };
+
+       $scope.tallennaMuokkaus = function(){
+           QuestionData.setEditFlag(false);
+           ASForms.update({'_id':$routeParams.id, '_eid': $routeParams.aoid, '_qid': $scope.question._id }, $scope.question).$promise.then(
+               function(){
+                   $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid);
+               });
+       };
+
+       $scope.poistaKysymys = function(){
+           QuestionData.setEditFlag(false);
+           ASForms.delete({'_id':$routeParams.id, '_eid': $routeParams.aoid, '_qid': $scope.question._id }).$promise.then(
+               function(){
+                   $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid);
+               });
+
+       };
+
+       $scope.esikatselu = function(){
+           console.log('ei vielä toteutettu !!!!');
+       };
+
   }]);

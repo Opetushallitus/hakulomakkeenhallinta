@@ -2,7 +2,6 @@
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
     .factory('TarjontaAPI',[ '$resource', '_','Props', function ($resource, _, Props) {
-        console.log('****** TarjonstaAPI service factory ***');
         return $resource(Props.tarjontaAPI+'/haku/findAll', {}, {
                 query: {
                     method: 'GET',

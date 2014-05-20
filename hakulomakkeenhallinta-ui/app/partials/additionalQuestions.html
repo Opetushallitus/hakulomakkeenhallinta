@@ -24,7 +24,7 @@
 
             </accordion-heading>
             <div data-ng-repeat="question in element.additionalQuestions">
-                <a data-ng-click="goTo(question)">{{question.message.translations.fi}}</a>
+                <a data-ng-click="muokkaaKysymysta(question)">{{question.message.translations.fi}}</a>
                 <!--<a data-ng-click="goTo(question)">{{question | i18n}}</a>-->
             </div>
         </accordion-group>

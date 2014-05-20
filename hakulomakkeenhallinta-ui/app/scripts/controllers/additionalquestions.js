@@ -13,7 +13,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     if( data.additionalQuestions !== undefined){
                         var questionDataLS = [];
                         questionDataLS = JSON.parse(data.additionalQuestions);
-                        console.log(questionDataLS.length);
                         QuestionData.clearAdditonalQuestions();
                         for (var d in questionDataLS){
                             QuestionData.setQuestion(questionDataLS[d]);
@@ -39,7 +38,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         $scope.elements[e].additionalQuestions = [];
                                     }
                                     if(questions[q].theme === $scope.elements[e]._id ){
-                                        console.log(questions[q]);
                                         $scope.elements[e].additionalQuestions.push(questions[q]);
                                     }
                                 }
@@ -58,16 +56,21 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         QuestionData.setQuestionType(data.type);
                         QuestionData.setElement(element);
                         QuestionData.setApplicatioSystem($scope.applicationSystem);
+                        QuestionData.setEditFlag(false);
                         $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element._id);
                     });
             };
 
-            console.dir(QuestionData.getAdditionalQuestions());
-
-            $scope.goTo = function(question){
+            $scope.muokkaaKysymysta = function(question){
                 console.log(question);
-                $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ question.theme);
-            }
+                console.log(question._id);
+                QuestionData.setEditFlag(true);
+                ASForms.get({'_id': $routeParams.id, '_eid':$routeParams.aoid, '_qid': question._id}).$promise.then(
+                    function(data){
+                        QuestionData.setQuestion(data);
+                        $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ question._id);
+                    });
+            };
 
             $scope.back = function() {
                 $location.path('/');

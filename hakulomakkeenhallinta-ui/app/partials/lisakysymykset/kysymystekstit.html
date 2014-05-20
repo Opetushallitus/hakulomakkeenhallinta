@@ -1,11 +1,18 @@
 <div class="form-group">
     <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
-    <button class="btn btn-primary" data-ng-click="ok()">Tallenna</button>
-    <button class="btn" data-ng-click="preview()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>
+    <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag">Tallenna</button>
+    <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" >Tallenna</button>
+    <button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>
+    <button class="btn" data-ng-click="poistaKysymys()"data-ng-show="editFlag" >Poista</button>
 </div>
 
-<div class="alert alert-info">
+<div class="alert alert-info" data-ng-hide="editFlag">
     <i class="glyphicon glyphicon-info-sign"></i> Olet luomassa uutta kysymystä teemaan
+    <b>{{element | i18n:'i18nText' }}</b> tyyppiä <b>{{questionType | i18n:'name'}}</b>.
+</div>
+
+<div class="alert alert-info" data-ng-hide="!editFlag">
+    <i class="glyphicon glyphicon-info-sign"></i> Olet muokkaamassa kysymystä teemaan
     <b>{{element | i18n:'i18nText' }}</b> tyyppiä <b>{{questionType | i18n:'name'}}</b>.
 </div>
 
