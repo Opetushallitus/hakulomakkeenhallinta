@@ -140,7 +140,8 @@ var app = angular.module('hakulomakkeenhallinta', [
         });
 
         //application system lisäkysymysten haku
-        $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/additionalQuestions').respond(
+        $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/1.2.246.562.20.23099745319/getAll').respond(
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/get/).respond(
             function (method, url){
                 console.log('***** haettiin lisalysymykset **** \n',url );
                 return [ 200, lisakysymykset, {status:200, message:'haettiin lisakysmykset'}];
@@ -178,7 +179,8 @@ var app = angular.module('hakulomakkeenhallinta', [
         });
 
         //luodaan uusi lisäkysmys
-        $httpBackend.whenPOST(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/hakutoiveetGrp').respond(
+        $httpBackend.whenPOST(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
+//        $httpBackend.whenPOST(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
                 console.log('method ---- ', method);
@@ -207,6 +209,7 @@ var app = angular.module('hakulomakkeenhallinta', [
         );
         //heataan lisäkysmys muokattavaksi
         $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
             function(method, url, data, headers){
                 console.log('avataan lisäkysymys muokattavaksi \n', method, '\n', url );
                 var additionalQuestionsLS =[];
@@ -223,6 +226,7 @@ var app = angular.module('hakulomakkeenhallinta', [
 
         //tallenetaan muokattu lisäkysmys
         $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+//        $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
             function(method, url, data, headers){
                 console.log('tallentaan lisäkysymyksen muokkaus \n', method, '\n', url );
                 var additionalQuestionsLS =[];
@@ -243,8 +247,9 @@ var app = angular.module('hakulomakkeenhallinta', [
 
             });
 
-        //poistetaan lisäkysmys
+        //poistetaan lisäkysymys
         $httpBackend.whenDELETE(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+//        $httpBackend.whenDELETE(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
             function(method, url, data, headers){
                 console.log('poistetaan lisäkysymys \n', method, '\n', url );
                 var additionalQuestionsLS =[];
@@ -261,11 +266,6 @@ var app = angular.module('hakulomakkeenhallinta', [
                     }
                 }
                 return [400];
-
-            });
-
-        $httpBackend.whenPOST(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/update').respond(
-            function(method, url, data, headers){
 
             });
 

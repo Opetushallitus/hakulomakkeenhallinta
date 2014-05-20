@@ -8,30 +8,31 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
             $scope.elements = [];
 
-            ASForms.get({'_id': $routeParams.id, '_addQuestions':'additionalQuestions' }).$promise.then(
-                function(data){
-                    if( data.additionalQuestions !== undefined){
-                        var questionDataLS = [];
-                        questionDataLS = JSON.parse(data.additionalQuestions);
-                        QuestionData.clearAdditonalQuestions();
-                        for (var d in questionDataLS){
-                            QuestionData.setQuestion(questionDataLS[d]);
-                        }
-                    }
-                    $scope.applicationSystem.$promise.then(function(data) {
-                        $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
+            $scope.applicationSystem.$promise.then(function(data) {
+                $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
 
-                        for(var ea in $scope.elements){
-                            if($scope.elements[ea]._id === "HenkilotiedotGrp"){
-                                $scope.elements.splice(ea, 1);
-                            }
-                            if( $scope.elements[ea]._id === "KoulutustaustaGrp" ){
-                                $scope.elements.splice(ea, 1);
+                for(var ea in $scope.elements){
+                    if($scope.elements[ea]._id === "HenkilotiedotGrp"){
+                        $scope.elements.splice(ea, 1);
+                    }
+                    if( $scope.elements[ea]._id === "KoulutustaustaGrp" ){
+                        $scope.elements.splice(ea, 1);
+                    }
+                }
+
+                ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid, '_getAll':'getAll' }).$promise.then(
+                    function(data){
+                        if( data.additionalQuestions !== undefined){
+                            var questionDataLS = [];
+                            questionDataLS = JSON.parse(data.additionalQuestions);
+                            QuestionData.clearAdditonalQuestions();
+                            for (var d in questionDataLS){
+                                QuestionData.setQuestion(questionDataLS[d]);
                             }
                         }
 
                         if(QuestionData.getAdditionalQuestions().length >0){
-                            var questions = QuestionData.getAdditionalQuestions()
+                            var questions = QuestionData.getAdditionalQuestions();
                             for (var q  in questions){
                                 for (var e in $scope.elements){
                                     if(!$scope.elements[e].additionalQuestions){
@@ -44,8 +45,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             }
                         }
                     });
-
-                });
+            })
 
             $scope.addQuestion = function(element) {
                 $modal.open({
@@ -56,16 +56,15 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         QuestionData.setQuestionType(data.type);
                         QuestionData.setElement(element);
                         QuestionData.setApplicatioSystem($scope.applicationSystem);
+                        QuestionData.setPrefrence($routeParams.aoid);
                         QuestionData.setEditFlag(false);
                         $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element._id);
                     });
             };
 
             $scope.muokkaaKysymysta = function(question){
-                console.log(question);
-                console.log(question._id);
                 QuestionData.setEditFlag(true);
-                ASForms.get({'_id': $routeParams.id, '_eid':$routeParams.aoid, '_qid': question._id}).$promise.then(
+                ASForms.get({'_id': question.applicationSystemId, '_aoid': $routeParams.aoid, '_qid': question._id}).$promise.then(
                     function(data){
                         QuestionData.setQuestion(data);
                         $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ question._id);

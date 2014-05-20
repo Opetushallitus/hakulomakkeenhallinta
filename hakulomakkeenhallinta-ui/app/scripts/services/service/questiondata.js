@@ -63,11 +63,20 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.setApplicatioSystem = function(applicationSystem){
             _applicationSystem = applicationSystem;
+            _question.applicationSystemId = applicationSystem._id;
         };
 
         this.getApplicationSystem = function(){
             return _applicationSystem;
         };
+
+        this.setPrefrence = function(prefrence){
+            _question.preference = prefrence;
+        }
+
+        this.getPrefrence = function(){
+            return _question.preference;
+        }
 
         this.setElement = function(element){
             _question.theme = element._id;

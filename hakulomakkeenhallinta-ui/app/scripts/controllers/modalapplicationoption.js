@@ -6,6 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     function($scope, $location, $modalInstance, applicationSystemForm, HH) {
         $scope.applicationOptions = [];
         $scope.queryParameters = {};
+        $scope.applicationSystemForm = applicationSystemForm;
         $scope.ok = function() {
             $modalInstance.close(this.applicationOption.oid);
         };
