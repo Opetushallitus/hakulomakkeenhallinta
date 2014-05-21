@@ -16,10 +16,12 @@
 
 <div class="from-group">
     <accordion data-ng-repeat="element in elements">
-        <accordion-group is-open="accordionStates[element._id]">
+        <!--<accordion-group is-open="accordionStates[element._id]">-->
+        <accordion-group is-open="accordianState(element)">
             <accordion-heading>
                 <button type="button" class=" btn btn-xs" data-ng-click="addQuestion(element)">Lisää uusi kysymys <i class="glyphicon glyphicon-plus-sign"></i> </button>
-                <i class="glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                <i class="glyphicon" ng-class="{'glyphicon-chevron-down': accordianState(element), 'glyphicon-chevron-right': !accordianState(element) }"></i>
+                <!--<i class="glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen }"></i>-->
                 {{element| i18n}}
 
             </accordion-heading>

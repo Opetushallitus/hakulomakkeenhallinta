@@ -114,13 +114,6 @@ var app = angular.module('hakulomakkeenhallinta', [
             hakuLomake = localStorage.getItem('hakuLomake');
         }
 
-        //lisakymysten tietovaraston mock localStorageen
-        if(localStorage.getItem('additionalQuestions') !== null){
-            console.log('***** additionalQuestions haetaan localStoragesta ----->');
-            lisakysymykset.additionalQuestions = [];
-            lisakysymykset.additionalQuestions = localStorage.getItem('additionalQuestions');
-        }
-
         //hakulomake lista mock data
         $.getJSON(Props.contextRoot+'/app/test-data/application-system-forms.json', function(data){
             console.log('mock data json hakulomakkeet ');
@@ -144,6 +137,12 @@ var app = angular.module('hakulomakkeenhallinta', [
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/get/).respond(
             function (method, url){
                 console.log('***** haettiin lisalysymykset **** \n',url );
+                //lisakymysten tietovaraston mock localStorageen
+                if(localStorage.getItem('additionalQuestions') !== null){
+                    console.log('***** additionalQuestions haetaan localStoragesta ----->');
+                    lisakysymykset.additionalQuestions = [];
+                    lisakysymykset.additionalQuestions = localStorage.getItem('additionalQuestions');
+                }
                 return [ 200, lisakysymykset, {status:200, message:'haettiin lisakysmykset'}];
                 //mock virhe tapauksessa
                 /*return [ 404, {status:404, message:'hakulomaketta ei löydy'}];*/

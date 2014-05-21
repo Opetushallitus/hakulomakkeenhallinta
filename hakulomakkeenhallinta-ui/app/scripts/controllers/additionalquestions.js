@@ -10,7 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.applicationSystem.$promise.then(function(data) {
                 $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
-
+                //TODO: tämän suodatus tulee tehdä jotenkin muuten kuin näin ?
                 for(var ea in $scope.elements){
                     if($scope.elements[ea]._id === "HenkilotiedotGrp"){
                         $scope.elements.splice(ea, 1);
@@ -22,6 +22,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                 ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid, '_getAll':'getAll' }).$promise.then(
                     function(data){
+                        //TODO: tämä if osio tulee poistaa kun oikea back end on saatavilla
                         if( data.additionalQuestions !== undefined){
                             var questionDataLS = [];
                             questionDataLS = JSON.parse(data.additionalQuestions);
@@ -33,11 +34,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                         if(QuestionData.getAdditionalQuestions().length >0){
                             var questions = QuestionData.getAdditionalQuestions();
-                            for (var q  in questions){
-                                for (var e in $scope.elements){
-                                    if(!$scope.elements[e].additionalQuestions){
-                                        $scope.elements[e].additionalQuestions = [];
-                                    }
+                            for (var e in $scope.elements){
+                                $scope.elements[e].additionalQuestions = [];
+                                for (var q  in questions){
                                     if(questions[q].theme === $scope.elements[e]._id ){
                                         $scope.elements[e].additionalQuestions.push(questions[q]);
                                     }
@@ -45,7 +44,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             }
                         }
                     });
-            })
+            });
 
             $scope.addQuestion = function(element) {
                 $modal.open({
@@ -74,6 +73,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.back = function() {
                 $location.path('/');
             };
+
+
+
+            $scope.accordianState = function(element){
+
+                if(element.additionalQuestions !== undefined && element.additionalQuestions.length > 0){
+                    return true;
+                }
+                return false;
+            }
 
             $scope.edit = function(additionalQuestion) {
                 $modal.open({
