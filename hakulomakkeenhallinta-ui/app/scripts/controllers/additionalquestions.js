@@ -74,8 +74,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $location.path('/');
             };
 
-
-
             $scope.accordianState = function(element){
 
                 if(element.additionalQuestions !== undefined && element.additionalQuestions.length > 0){

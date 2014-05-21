@@ -17,6 +17,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.question = QuestionData.getQuestion();
                     $scope.element = QuestionData.getElement();
                     $scope.questionType = QuestionData.getQuestionType();
+                    if($scope.question._id !== ""){
+                        QuestionData.setEditFlag(true);
+                    }
                     $scope.editFlag = QuestionData.getEditFlag();
                 });
         }
