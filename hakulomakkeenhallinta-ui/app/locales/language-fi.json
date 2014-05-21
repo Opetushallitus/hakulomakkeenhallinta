@@ -4,5 +4,6 @@
     "question-help" : "Ohjeteksti (fi)",
     "question-additional-help" : "Lisäohjeteksti (fi)",
     "question-link" : "Hakijoille tulee tarjota lisäksi lisäohje linkkinä:",
-    "sort-questions-header" : "Järjestä kysymykset"
+    "sort-questions-header" : "Järjestä kysymykset",
+    "text-field-size" : "Tekstikentän pituus"
 }

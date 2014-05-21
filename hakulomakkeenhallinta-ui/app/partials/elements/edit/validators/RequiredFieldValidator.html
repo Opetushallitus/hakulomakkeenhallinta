@@ -1,7 +1,11 @@
-<a data-ng-click="showEdit = !showEdit">Kysymys on hakijalle pakollinen</a>
-<i class="glyphicon glyphicon-trash" data-ng-click="delete(element.validators, $index)"></i>
+<!--<a data-ng-click="showEdit = !showEdit">Kysymys on hakijalle pakollinen</a>-->
 
-<div data-ng-show="showEdit">
+    <div class="checkbox" data-ng-show="question.RequiredFieldValidator !== 'undefined'">
+        <input type="checkbox" data-ng-model="question.RequiredFieldValidator">Kysymys on hakijalle pakollinen
+    </div>
+<!--<i class="glyphicon glyphicon-trash" data-ng-click="delete(element.validators, $index)"></i>-->
+
+<!--<div data-ng-show="question.RequiredFieldValidator">
     <tabset>
         <tab ng-repeat="language in languages">
         <tab-heading>{{language | i18n}}</tab-heading>
@@ -11,5 +15,5 @@
             </div>
         </tab>
     </tabset>
-</div>
+</div>-->
 

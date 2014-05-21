@@ -1,6 +1,5 @@
 <div>
-    <!--{{question| json}}-->
-    <div class="row">
+    <!--<div class="row">-->
         <div class="col-md-6">
             <tabset>
                 <tab ng-repeat="language in languages">
@@ -24,22 +23,27 @@
                     </form>
                 </tab>
             </tabset>
+
             <div class="control-group" data-ng-controller="QuestionCtrl">
-                <hr/>Rajoitteet ja tarkastukset
-                <i class="glyphicon glyphicon-plus" data-ng-click="addValidator(question)"></i>
+                <hr/>
+                <label>Rajoitteet ja tarkastukset</label>
+                <!--<i class="glyphicon glyphicon-plus" data-ng-click="addValidator(question)"></i>-->
                 <div ng-repeat="validator in validators">
                     <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
                 </div>
                 <hr/>
             </div>
-                <div class="control-group">
-                    <div class="control-group" ng-include="'partials/elements/edit/type/' + question._class.split('.').pop() + '.html'">
-                        Unimplemented template
-                    </div>
+
+            <div class="control-group">
+                <div class="control-group" ng-include="'partials/elements/edit/type/' + question._class.split('.').pop() + '.html'">
+                    Unimplemented template
                 </div>
+            </div>
+
             <div class="checkbox" data-ng-show="question.previewable !== 'undefined'">
                 <input type="checkbox" data-ng-model="question.previewable">Esikatseltava
             </div>
+
         </div>
         <div class="col-md-6">
             <pre>{{question | without | json}}</pre>

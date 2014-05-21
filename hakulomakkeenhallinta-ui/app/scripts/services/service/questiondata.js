@@ -11,6 +11,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         var _additionalQuestions = [];
         var _editFlag = false;
 
+//        var _validators = [];
+
+        this.getTextQuestionValidators = function(){
+            return ['RequiredFieldValidator', 'SizeFieldValidator'/*,'RegexFieldValidator'*/];
+        }
+
         this.getEditFlag = function(){
             return _editFlag;
         };
