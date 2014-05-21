@@ -9,16 +9,20 @@
                         <hh-inputtext data-ng-model="question.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
                         <hh-inputtext data-ng-model="question.additionalHelp.translations[language.id]" label="question-additional-help"></hh-inputtext>
                         <!--<hh-inputlink data-ng-model="question.additionalHelp.link[language.id]" label="question-link"></hh-inputlink>-->
-                        <div data-ng-show="question.options">
-                            <div class="checkbox">
-                                <input type="checkbox" data-ng-model="question.defaultValueAttribute">Oletusvalinta käyttöliittymäkielen mukaan
-                            </div>
-                            <a data-ng-click="showOptions=!showOptions">Vastausvaihtoehdot</a>
-                            <ul data-ng-show="showOptions">
-                                <li ng-repeat="option in question.options">
-                                    {{option.i18nText.translations[language.id]}} ({{option.value}}) <span data-ng-show="option.defaultOption">Esivalittu</span>
-                                </li>
-                            </ul>
+                        <div>
+                        <!--<div data-ng-show="question.type.OptionQuestion">-->
+                            <!--<div class="checkbox">-->
+                                <!--<input type="checkbox" data-ng-model="question.defaultValueAttribute">Oletusvalinta käyttöliittymäkielen mukaan-->
+                            <!--</div>-->
+                            <!--<a data-ng-click="showOptions=!showOptions">Vastausvaihtoehdot</a>-->
+                            <!--<ul data-ng-show="showOptions">-->
+                                <label> vastauksen vaihtoehdot </label> <i class="glyphicon glyphicon-plus" data-ng-click="addOption(question)"></i>
+                                <div ng-repeat="option in question.options">
+                                  <input type="checkbox">  <input type="text" data-ng-model="question.options[$index].option.translations[language.id]" >
+                                    ({{question.options[$index].option.translations[language.id]}}) <i class="glyphicon glyphicon-trash"  data-ng-click="removeOption($index, question)"></i>
+                                    <!--<span data-ng-show="option.defaultOption">Esivalittu</span>-->
+                                </div>
+
                         </div>
                     </form>
                 </tab>

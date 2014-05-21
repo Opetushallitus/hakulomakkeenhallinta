@@ -4,9 +4,9 @@
         "name":{
             "translations":
             {
-                "fi":"Avoin kysymys teksti kenttä",
-                "sv":"Avoin kysymys teksti kenttä (sv)",
-                "en":"Avoin kysymys teksti kenttä (en)"
+                "fi":"Avoin vastaus (tekstikenttä)",
+                "sv":"Avoin vastaus (tekstikenttä) (sv)",
+                "en":"Avoin vastaus (textfield) (en)"
 
             }
         },
@@ -17,18 +17,23 @@
         "name":{
             "translations":
             {
-                "fi":"Valinta (yksi vastaus)"
+                "fi":"Valinta kysymys (valintalaatikko)",
+                "sv":"Valinta kysymys (valintalaatikko) (sv)",
+                "en":"Valinta kysymys (checkbox) (en)"
             }
         },
         "modified":8661451019828476
     },
     {
-        "id":"HelpOrInfoQuestion",
+        "id":"OptionQuestion",
         "name":{
             "translations":
             {
-                "fi":"Ohje- tai infoteksti"}
+                "fi":"Valinta kysymys (valintanappi)",
+                "sv":"Valinta kysymys (valintanappi) (sv)",
+                "en":"Valinta kysymys (radiobutton) (en)"
+            }
         },
-        "modified":8661451019843865
+        "modified":8661451019828476
     }
 ]

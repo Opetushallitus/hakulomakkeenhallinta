@@ -61,4 +61,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
            console.log('ei vielä toteutettu !!!!');
        };
 
+       $scope.addOption = function(question){
+           console.log(question.options.length);
+           var optionObj = {};
+           optionObj.option = {};
+           optionObj.option.translations = {};
+           optionObj.option.value = {};
+           question.options[question.options.length] = optionObj;
+       };
+
+       $scope.removeOption = function(indx, question){
+           question.options.splice(indx ,1);
+       };
+
   }]);

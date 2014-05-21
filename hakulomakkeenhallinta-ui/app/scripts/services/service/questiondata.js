@@ -10,12 +10,25 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         var _questionType;
         var _additionalQuestions = [];
         var _editFlag = false;
+        var _applicationOption;
 
 //        var _validators = [];
 
+        this.setApplicationOption = function(applicationOption){
+            _applicationOption = applicationOption;
+        }
+
+        this.getApplicationOption = function(){
+            return _applicationOption;
+        }
+
         this.getTextQuestionValidators = function(){
             return ['RequiredFieldValidator', 'SizeFieldValidator'/*,'RegexFieldValidator'*/];
-        }
+        };
+
+        this.getOptionQuestionValidators = function(){
+            return ['RequiredFieldValidator'];
+        };
 
         this.getEditFlag = function(){
             return _editFlag;

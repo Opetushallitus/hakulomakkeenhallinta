@@ -7,6 +7,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.organization = HH.getOrganization();
             $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
             $scope.elements = [];
+            $scope.applicationOption = QuestionData.getApplicationOption();
 
             $scope.applicationSystem.$promise.then(function(data) {
                 $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
