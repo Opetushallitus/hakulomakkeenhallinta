@@ -1,5 +1,5 @@
 <div>
-    <!--<div class="row">-->
+    <div class="row">
         <div class="col-md-6">
             <tabset>
                 <tab ng-repeat="language in languages">
@@ -8,19 +8,11 @@
                         <hh-inputtext data-ng-model="question.message.translations[language.id]" label="question-title"></hh-inputtext>
                         <hh-inputtext data-ng-model="question.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
                         <hh-inputtext data-ng-model="question.additionalHelp.translations[language.id]" label="question-additional-help"></hh-inputtext>
-                        <!--<hh-inputlink data-ng-model="question.additionalHelp.link[language.id]" label="question-link"></hh-inputlink>-->
-                        <div>
-                        <!--<div data-ng-show="question.type.OptionQuestion">-->
-                            <!--<div class="checkbox">-->
-                                <!--<input type="checkbox" data-ng-model="question.defaultValueAttribute">Oletusvalinta käyttöliittymäkielen mukaan-->
-                            <!--</div>-->
-                            <!--<a data-ng-click="showOptions=!showOptions">Vastausvaihtoehdot</a>-->
-                            <!--<ul data-ng-show="showOptions">-->
+                        <div data-ng-show="question.type === 'OptionQuestion'">
                                 <label> vastauksen vaihtoehdot </label> <i class="glyphicon glyphicon-plus" data-ng-click="addOption(question)"></i>
                                 <div ng-repeat="option in question.options">
                                   <input type="checkbox">  <input type="text" data-ng-model="question.options[$index].option.translations[language.id]" >
                                     ({{question.options[$index].option.translations[language.id]}}) <i class="glyphicon glyphicon-trash"  data-ng-click="removeOption($index, question)"></i>
-                                    <!--<span data-ng-show="option.defaultOption">Esivalittu</span>-->
                                 </div>
 
                         </div>
@@ -31,7 +23,6 @@
             <div class="control-group" data-ng-controller="QuestionCtrl">
                 <hr/>
                 <label>Rajoitteet ja tarkastukset</label>
-                <!--<i class="glyphicon glyphicon-plus" data-ng-click="addValidator(question)"></i>-->
                 <div ng-repeat="validator in validators">
                     <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
                 </div>
