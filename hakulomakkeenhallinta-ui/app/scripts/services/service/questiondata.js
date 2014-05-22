@@ -4,30 +4,31 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('QuestionData', function () {
 
         var _question = {};
-        var questionTypePrefix = "fi.vm.sade.haku.oppija.lomake.domain.elements.questions.";
         var _applicationSystem = {};
         var _element ={};
         var _questionType;
         var _additionalQuestions = [];
         var _editFlag = false;
-        var _applicationOption;
-
-//        var _validators = [];
+        var _applicationOption = null;
 
         this.setApplicationOption = function(applicationOption){
             _applicationOption = applicationOption;
-        }
+        };
 
         this.getApplicationOption = function(){
             return _applicationOption;
-        }
+        };
 
         this.getTextQuestionValidators = function(){
             return ['RequiredFieldValidator', 'SizeFieldValidator'/*,'RegexFieldValidator'*/];
         };
 
-        this.getOptionQuestionValidators = function(){
+        this.getCheckboxValidators = function(){
             return ['RequiredFieldValidator'];
+        };
+
+        this.getRadioValidators = function(){
+            return [];
         };
 
         this.getEditFlag = function(){
@@ -56,7 +57,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             _question.verboseHelp.translations ={};
             _question.additionalHelp ={};
             _question.additionalHelp.translations ={};
-            _question.type= ""; //type
+            _question.type= "";
             _question.applicationSystemId= "";
             _question.preference = "";
             _element = [];
@@ -91,11 +92,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.setPrefrence = function(prefrence){
             _question.preference = prefrence;
-        }
+        };
 
         this.getPrefrence = function(){
             return _question.preference;
-        }
+        };
 
         this.setElement = function(element){
             _question.theme = element._id;

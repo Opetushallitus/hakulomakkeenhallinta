@@ -3,24 +3,32 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
 .controller('QuestionCtrl', ['$scope', '$modal', '_', 'QuestionData',
     function($scope, $modal, _ , QuestionData) {
-        console.log('QuestionCtrl');
-
         var question = QuestionData.getQuestion();
-        console.log(question.type);
 
         switch(question.type){
             case 'TextQuestion':
                 $scope.validators = QuestionData.getTextQuestionValidators();
                 break;
-            case 'OptionQuestion':
+            case 'CheckBox':
                 question.options = [];
                 var optionObj = {};
-                optionObj.option = {};
-                optionObj.option.translations = {};
-                optionObj.option.value = {};
+                optionObj.translations = {};
+                optionObj._id = 'option_0';
                 question.options[0] = optionObj;
+                $scope.validators = QuestionData.getCheckboxValidators();
+                break;
 
-                $scope.validators = QuestionData.getOptionQuestionValidators();
+            case 'Radio':
+                question.options = [];
+                var radioObj = {};
+                radioObj.translations = {};
+                radioObj._id = 'option_0';
+                var radioObj2 = {};
+                radioObj2.translations = {};
+                radioObj2._id = 'option_1';
+                question.options[0] = radioObj;
+                question.options[1] = radioObj2;
+                $scope.validators = QuestionData.getRadioValidators();
                 break;
         };
 

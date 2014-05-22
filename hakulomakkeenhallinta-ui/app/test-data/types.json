@@ -13,7 +13,7 @@
         "modified":1398838954783
     },
     {
-        "id":"OptionQuestion",
+        "id":"CheckBox",
         "name":{
             "translations":
             {
@@ -25,7 +25,7 @@
         "modified":8661451019828476
     },
     {
-        "id":"OptionQuestion",
+        "id":"Radio",
         "name":{
             "translations":
             {

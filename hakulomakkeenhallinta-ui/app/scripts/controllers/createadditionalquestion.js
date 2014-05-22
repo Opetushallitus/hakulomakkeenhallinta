@@ -61,17 +61,39 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
            console.log('ei vielä toteutettu !!!!');
        };
 
-       $scope.addOption = function(question){
-           console.log(question.options.length);
+       $scope.addCheckbox = function(question){
            var optionObj = {};
-           optionObj.option = {};
-           optionObj.option.translations = {};
-           optionObj.option.value = {};
-           question.options[question.options.length] = optionObj;
+           var qIndx = question.options.length;
+           optionObj.translations = {};
+           optionObj._id = 'option_'+qIndx;
+           question.options[qIndx] = optionObj;
        };
 
-       $scope.removeOption = function(indx, question){
-           question.options.splice(indx ,1);
+       $scope.removeCheckbox = function(indx, question){
+           if(question.options.length >1 ){
+               question.options.splice(indx ,1);
+           }
+           for(var optionIndx in question.options){
+                question.options[optionIndx]._id = 'option_'+optionIndx;
+           }
+       };
+
+       $scope.addRadio = function(question){
+           var optionObj = {};
+           var qIndx = question.options.length;
+           optionObj.translations = {};
+           optionObj._id = 'option_'+qIndx;
+           question.options[qIndx] = optionObj;
+
+       };
+
+       $scope.removeRadio = function(indx, question){
+           if(question.options.length >2 ){
+               question.options.splice(indx ,1);
+           }
+           for(var optionIndx in question.options){
+               question.options[optionIndx]._id = 'option_'+optionIndx;
+           }
        };
 
   }]);
