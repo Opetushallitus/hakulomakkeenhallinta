@@ -10,7 +10,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.editFlag = QuestionData.getEditFlag();
 
         if($scope.question._id === undefined){
-            console.log($routeParams.eid);
             ASForms.get({'_id':$routeParams.id, '_aoid':$routeParams.aoid, '_qid': $routeParams.eid}).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
@@ -40,7 +39,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
        $scope.tallennaMuokkaus = function(){
            QuestionData.setEditFlag(false);
-           console.log($scope.question.applicationSystemId, $scope.question.preference, ' ', $scope.question._id )
            ASForms.update({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }, $scope.question).$promise.then(
                function(){
                    $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.preference);

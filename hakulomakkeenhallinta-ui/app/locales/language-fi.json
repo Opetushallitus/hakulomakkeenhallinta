@@ -5,5 +5,8 @@
     "question-additional-help" : "Lisäohjeteksti (fi)",
     "question-link" : "Hakijoille tulee tarjota lisäksi lisäohje linkkinä:",
     "sort-questions-header" : "Järjestä kysymykset",
-    "text-field-size" : "Tekstikentän pituus"
+    "text-field-size" : "Tekstikentän pituus",
+    "TextQuestion": "Tekstikenttä",
+    "CheckBox": "Valintalaatikko",
+    "Radio": "Valintanappi"
 }

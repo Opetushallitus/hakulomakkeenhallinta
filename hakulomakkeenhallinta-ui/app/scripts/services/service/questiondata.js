@@ -70,7 +70,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             if(!_editFlag){
                 setAdditionalQuestions(question);
             }
-
         };
 
         this.clearAdditonalQuestions = function(){

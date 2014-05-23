@@ -4,8 +4,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
     .provider('Props', function () {
         this.$get = [function() {
             if (location.hostname.indexOf('localhost') != -1) {
-                console.log('-- Props services provider --', location.protocol+'//'+location.host );
-
                 return {
                     koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
                     tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',

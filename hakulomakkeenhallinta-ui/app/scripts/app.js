@@ -186,8 +186,6 @@ var app = angular.module('hakulomakkeenhallinta', [
                 console.log('url ---- ', url);
                 console.log('data ---- ', data, '\n\n');
                 //luodaan fake id lisäkysmselle
-                console.log(localStorage.getItem('additionalQuestions'));
-
                 var json_object = JSON.parse(data);
                 json_object._id = Math.floor(Math.random() * 1e15);
                 console.log('Luodaan fake id lisäkysmykselle: ',json_object._id);
@@ -217,6 +215,7 @@ var app = angular.module('hakulomakkeenhallinta', [
                 for(var question in additionalQuestionsLS){
                     var qidLS = additionalQuestionsLS[question]._id;
                     if(qidLS.toString().match(qid) != null){
+                        console.log('palautetaan lisäkymys ',JSON.stringify(additionalQuestionsLS[question]));
                         return [200, JSON.stringify(additionalQuestionsLS[question]), {status:200, message: 'lisäkysmys löytyi'}];
                     }
                 }
@@ -298,7 +297,7 @@ var app = angular.module('hakulomakkeenhallinta', [
         //mallipohjan poisto id:llä
         $httpBackend.whenDELETE(/\hakulomakkeenhallinta-mock\/form\/\d/).respond(
             function(data, url){
-                console.log('--- DELETE mallipohja tämä ei vielä tee mitään ---', url);
+                console.log('--- DELETE mallipohja ---', url);
                 var id = url.substr(url.lastIndexOf('/')+1);
                 console.log(id);
                 if(id === '1.2.246.562.5.2013111213130760225065'){
@@ -328,10 +327,5 @@ var app = angular.module('hakulomakkeenhallinta', [
         $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\//).passThrough();
         $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\//).passThrough();
 
-        /*$httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/(\d)/).respond(
-            function(method, url, data){
-                console.log( url);
-            }
-        );*/
     });
 
