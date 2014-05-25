@@ -53,10 +53,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             _question._id = "";
             _question.message = {};
             _question.message.translations = {};
+            _question.help ={};
+            _question.help.translations ={};
             _question.verboseHelp = {};
             _question.verboseHelp.translations ={};
-            _question.additionalHelp ={};
-            _question.additionalHelp.translations ={};
             _question.type= "";
             _question.applicationSystemId= "";
             _question.preference = "";

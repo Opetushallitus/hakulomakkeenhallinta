@@ -21,7 +21,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 }
 
-                ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid, '_getAll':'getAll' }).$promise.then(
+                //ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid, '_getAll':'getAll' }).$promise.then(
+                console.log('### haetaan lisäkysmykset ###');
+                ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid }).$promise.then(
                     function(data){
                         //TODO: tämä if osio tulee poistaa kun oikea back end on saatavilla
                         if( data.additionalQuestions !== undefined){

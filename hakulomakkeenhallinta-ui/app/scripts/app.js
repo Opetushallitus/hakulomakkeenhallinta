@@ -103,7 +103,7 @@ var app = angular.module('hakulomakkeenhallinta', [
         //applicationSystems localstorage tallennus
         if(localStorage.getItem('hakuLomake') === null){
             $.getJSON(Props.contextRoot+'/app/test-data/1.2.246.562.5.2014022711042555034240.json', function(data){
-                console.log('mock data hakulomake -->',  hakuLomake);
+                console.log('mock data hakulomake -->');
                 console.log(localStorage.getItem('hakuLomake'));
                 localStorage.setItem('hakuLomake', JSON.stringify(data));
                 hakuLomake = data;
@@ -112,6 +112,7 @@ var app = angular.module('hakulomakkeenhallinta', [
         }else{
             console.log('lomake localStoragesta');
             hakuLomake = localStorage.getItem('hakuLomake');
+//            console.log(hakuLomake);
         }
 
         //hakulomake lista mock data
@@ -133,10 +134,11 @@ var app = angular.module('hakulomakkeenhallinta', [
         });
 
         //application system lisäkysymysten haku
-        $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/1.2.246.562.20.23099745319/getAll').respond(
-//        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/get/).respond(
+        //$httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/1.2.246.562.20.23099745319/getAll').respond(
+        //$httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/get/).respond(
+        $httpBackend.whenGET('http://localhost:9090/haku-app/lomakkeenhallinta/themequestion/1.2.246.562.5.2014022711042555034240/1.2.246.562.20.23099745319').respond(
             function (method, url){
-                console.log('***** haettiin lisalysymykset **** \n',url );
+                console.log('***** haettiin lisäkysymykset **** \n',url );
                 //lisakymysten tietovaraston mock localStorageen
                 if(localStorage.getItem('additionalQuestions') !== null){
                     console.log('***** additionalQuestions haetaan localStoragesta ----->');
@@ -149,7 +151,9 @@ var app = angular.module('hakulomakkeenhallinta', [
             });
 
         //lomakkeen haku
-        $httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240').respond(
+        //$httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240').respond(
+        //$httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240/).respond(
+        $httpBackend.whenGET('http://localhost:9090/haku-app/lomakkeenhallinta/themequestion/1.2.246.562.5.2014022711042555034240').respond(
             function (method, url){
                 console.log('***** haettiin lomake **** \n',url );
                 return [ 200, hakuLomake, {status:200, message:'haettiin hakulomake'}];
@@ -157,9 +161,12 @@ var app = angular.module('hakulomakkeenhallinta', [
                 /*return [ 404, {status:404, message:'hakulomaketta ei löydy'}];*/
             });
 
+
         //hakulomakkeet listan mock
-        $httpBackend.whenGET(mockUrl+'/application-system-form').respond(
+//        $httpBackend.whenGET(mockUrl+'/application-system-form').respond(
+        $httpBackend.whenGET('http://localhost:9090/haku-app/lomakkeenhallinta/themequestion').respond(
             function(method, url, data){
+                console.log('hakulomake lista' );
                 return [ 200, hakuLomakkeet, {status:200, message:'haettiin hakulomakkeet'}];
                 //mock virhe tapauksessa
                 /*return [ 404, {status:404, messages:'ei löydy hakulomakkeita'}];*/
@@ -171,14 +178,40 @@ var app = angular.module('hakulomakkeenhallinta', [
             malliPohjat = data;
         });
 
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/form/).respond(function(){
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/form/).respond(function(){
+        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/form/).respond(function(){
             return [200, malliPohjat, {status:200, message: 'saatiin mallipohjat' }];
             //mock virhe tapauksessa
             /*return [404,  {status:404, message: 'ei löydy' }];*/
         });
 
+        //tallenetaan muokattu lisäkysmys
+        // $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+//        $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+            function(method, url, data, headers){
+                console.log('tallentaan lisäkysymyksen muokkaus \n', method, '\n', url );
+                var additionalQuestionsLS =[];
+                var qid = url.substr(url.lastIndexOf('/')+1);
+                additionalQuestionsLS = JSON.parse(localStorage.getItem('additionalQuestions'));
+                for(var question in additionalQuestionsLS){
+                    var qidLS = additionalQuestionsLS[question]._id;
+                    if(qidLS.toString().match(qid) != null){
+                        //remove old data
+                        additionalQuestionsLS.splice(question, 1);
+                        //add modified data
+                        additionalQuestionsLS.push(JSON.parse(data));
+                        localStorage.setItem('additionalQuestions', JSON.stringify(additionalQuestionsLS));
+                        return [200, {status:200, message: 'muokkauksen tallennus onnistui'}];
+                    }
+                }
+                return [400];
+
+            });
+
+
         //luodaan uusi lisäkysmys
-        $httpBackend.whenPOST(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
+        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
 //        $httpBackend.whenPOST(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
@@ -205,7 +238,8 @@ var app = angular.module('hakulomakkeenhallinta', [
             }
         );
         //heataan lisäkysmys muokattavaksi
-        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+//        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
             function(method, url, data, headers){
                 console.log('avataan lisäkysymys muokattavaksi \n', method, '\n', url );
@@ -222,31 +256,10 @@ var app = angular.module('hakulomakkeenhallinta', [
                 return [404];
             });
 
-        //tallenetaan muokattu lisäkysmys
-        $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
-//        $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
-            function(method, url, data, headers){
-                console.log('tallentaan lisäkysymyksen muokkaus \n', method, '\n', url );
-                var additionalQuestionsLS =[];
-                var qid = url.substr(url.lastIndexOf('/')+1);
-                additionalQuestionsLS = JSON.parse(localStorage.getItem('additionalQuestions'));
-                for(var question in additionalQuestionsLS){
-                    var qidLS = additionalQuestionsLS[question]._id;
-                    if(qidLS.toString().match(qid) != null){
-                        //remove old data
-                        additionalQuestionsLS.splice(question, 1);
-                        //add modified data
-                        additionalQuestionsLS.push(JSON.parse(data));
-                        localStorage.setItem('additionalQuestions', JSON.stringify(additionalQuestionsLS));
-                        return [200, {status:200, message: 'muokkauksen tallennus onnistui'}];
-                    }
-                }
-                return [400];
-
-            });
 
         //poistetaan lisäkysymys
-        $httpBackend.whenDELETE(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+        $httpBackend.whenDELETE(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+        //$httpBackend.whenDELETE(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
 //        $httpBackend.whenDELETE(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
             function(method, url, data, headers){
                 console.log('poistetaan lisäkysymys \n', method, '\n', url );
@@ -306,19 +319,24 @@ var app = angular.module('hakulomakkeenhallinta', [
                 return [200 , {status: 200, message: 'mallipohjan poisto'}];
             });
 
+
         //lisäkysymys tyypit mock
-        $httpBackend.whenGET(mockUrl+'/type').respond(
+        //$httpBackend.whenGET(mockUrl+'/types').respond(
+        $httpBackend.whenGET('http://localhost:9090/haku-app/lomakkeenhallinta/themequestion/types').respond(
             function( method, url){
                 console.log('-- Lisäkysymys tyypit ', url);
                 return [200, lisakysymysTyypit ,{status:200, message:' lisäkysymys tyypit'}];
             }
-        )
+        );
+
         //kielet mock
-        $httpBackend.whenGET(mockUrl+'/languages').respond(
+//        $httpBackend.whenGET(mockUrl+'/languages').respond(
+        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).respond(
             function( method, url){
                 return [200, languages ,{status:200, message:'Haettiin kielet'}];
             }
-        )
+        );
+
         //tarjonan api käyttö
         $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();
         $httpBackend.whenGET(/test-data\//).passThrough();
@@ -326,6 +344,14 @@ var app = angular.module('hakulomakkeenhallinta', [
         $httpBackend.whenGET(/\partials\//).passThrough();
         $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\//).passThrough();
         $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\//).passThrough();
+        $httpBackend.whenPUT(/\haku-app\/lomakkeenhallinta\/themequestion\//).passThrough();
+
+        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\//).respond(
+            function(data, url){
+            console.log('uusi api ', url);
+            return [200];
+            }
+        );
 
     });
 

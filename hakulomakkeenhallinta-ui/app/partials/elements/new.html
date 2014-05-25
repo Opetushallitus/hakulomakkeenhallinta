@@ -6,8 +6,8 @@
                     <tab-heading>{{language | i18n}}</tab-heading>
                     <form role="form" >
                         <hh-inputtext data-ng-model="question.message.translations[language.id]" label="question-title"></hh-inputtext>
-                        <hh-inputtext data-ng-model="question.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
-                        <hh-inputtext data-ng-model="question.additionalHelp.translations[language.id]" label="question-additional-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.help.translations[language.id]" label="question-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.verboseHelp.translations[language.id]" label="question-additional-help"></hh-inputtext>
                         <div data-ng-if="question.type === 'CheckBox'">
                             <label data-ng-click="addCheckbox(question)">Lisää valintalaatikko </label>
                             <i class="glyphicon glyphicon-plus" data-ng-click="addCheckbox(question)"></i>
@@ -51,8 +51,8 @@
             </div>
 
         </div>
-        <!--<div class="col-md-6">
+        <div class="col-md-6">
             <pre>{{question | without | json}}</pre>
-        </div>-->
+        </div>
     </div>
 </div>

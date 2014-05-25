@@ -39,7 +39,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
        $scope.tallennaMuokkaus = function(){
            QuestionData.setEditFlag(false);
-           ASForms.update({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }, $scope.question).$promise.then(
+           //ASForms.update({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }, $scope.question).$promise.then(
+           ASForms.save({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }, $scope.question).$promise.then(
                function(){
                    $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.preference);
                });

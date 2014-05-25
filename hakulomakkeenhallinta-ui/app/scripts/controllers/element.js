@@ -9,7 +9,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 return el._id === $routeParams.eid;
             });
             _.defaults($scope.element, {
-                additionalHelp: {
+                help: {
                     translations: {}
                 },
                 verboseHelp: {
