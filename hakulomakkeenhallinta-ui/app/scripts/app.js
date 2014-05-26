@@ -330,6 +330,8 @@ var app = angular.module('hakulomakkeenhallinta', [
         $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\//).passThrough();
         $httpBackend.whenPUT(/\haku-app\/lomakkeenhallinta\/themequestion\//).passThrough();
         $httpBackend.whenGET('https://itest-virkailija.oph.ware.fi/authentication-service/resources/omattiedot/organisaationhenkilo').passThrough();
+        $httpBackend.whenGET(/\authentication-service\/resources\/omattiedot\/organisaationhenkilo\//).passThrough();
+
 
         $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\//).respond(
             function(data, url){
