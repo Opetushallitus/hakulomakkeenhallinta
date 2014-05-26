@@ -10,7 +10,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.userOrganizations = [];
 
         OrganisaatioHenkilo.get().$promise.then(function(data){
-            console.log('#### käyttäjän organisaatiot: ',data);
             for(var org  in data.organisaatiot){
                 $scope.userOrganizations.push(data.organisaatiot[org].oid);
             }
@@ -18,10 +17,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         });
 
         //TODO: tämä localhost hack poista!!
-/*
         var orgs = ["1.2.246.562.10.82388989657", "1.2.246.562.10.65530732232" ];
         $scope.applicationOptions = HH.usersApplicationOptions(orgs);
-*/
 
         $scope.ok = function() {
             QuestionData.setApplicationOption(this.applicationOption);
