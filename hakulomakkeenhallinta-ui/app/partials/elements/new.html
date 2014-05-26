@@ -5,9 +5,9 @@
                 <tab ng-repeat="language in languages">
                     <tab-heading>{{language | i18n}}</tab-heading>
                     <form role="form" >
-                        <hh-inputtext data-ng-model="question.message.translations[language.id]" label="question-title"></hh-inputtext>
-                        <hh-inputtext data-ng-model="question.help.translations[language.id]" label="question-help"></hh-inputtext>
-                        <hh-inputtext data-ng-model="question.verboseHelp.translations[language.id]" label="question-additional-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.messageText.translations[language.id]" label="question-title"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.helpText.translations[language.id]" label="question-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.verboseHelpText.translations[language.id]" label="question-additional-help"></hh-inputtext>
                         <div data-ng-if="question.type === 'CheckBox'">
                             <label data-ng-click="addCheckbox(question)">Lisää valintalaatikko </label>
                             <i class="glyphicon glyphicon-plus" data-ng-click="addCheckbox(question)"></i>

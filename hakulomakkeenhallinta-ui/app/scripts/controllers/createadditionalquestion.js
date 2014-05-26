@@ -30,19 +30,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
         $scope.tallennaUusi = function() {
-            ASForms.save( { _id: $scope.question.applicationSystemId , '_aoid': $scope.question.preference, '_eid':$scope.question.theme }, $scope.question).$promise.then(
+            ASForms.save( { _id: $scope.question.applicationSystemId , '_aoid': $scope.question.learningOpportunityId, '_eid':$scope.question.theme }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
-                    $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.preference);
+                    $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
                 });
         };
 
        $scope.tallennaMuokkaus = function(){
            QuestionData.setEditFlag(false);
            //ASForms.update({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }, $scope.question).$promise.then(
-           ASForms.save({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }, $scope.question).$promise.then(
+           ASForms.save({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.learningOpportunityId, '_qid': $scope.question._id }, $scope.question).$promise.then(
                function(){
-                   $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.preference);
+                   $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
                });
        };
 

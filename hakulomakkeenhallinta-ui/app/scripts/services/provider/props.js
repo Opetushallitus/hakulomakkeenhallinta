@@ -13,7 +13,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                     tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
                     contextRoot: '',
 //                    serviceRootUri: '/hakulomakkeenhallinta-mock/application-system-form'
-                    serviceRootUri: 'http://localhost:9090/haku-app/lomakkeenhallinta/themequestion'
+                    serviceRootUri: 'http://localhost:9090/haku-app/lomakkeenhallinta/themequestion',
+                    authService: 'https://itest-virkailija.oph.ware.fi/authentication-service'
                 };
             } else {
                 return {
@@ -24,8 +25,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                     formUrl: 'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/form/:_id',
                     tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
                     contextRoot: '/hakulomakkeenhallinta-ui',
-//                    serviceRootUri: '/hakulomakkeenhallinta-temporary'
-                    serviceRootUri: '/hakulomakkeenhallinta-mock'
+//                    serviceRootUri: '/hakulomakkeenhallinta-temporary',
+                    serviceRootUri: '/hakulomakkeenhallinta-mock',
+                    authService: '/authentication-service'
                 };
 
             }

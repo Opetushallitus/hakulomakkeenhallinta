@@ -51,15 +51,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             _question = {};
             _question.theme = "";
             _question._id = "";
-            _question.message = {};
-            _question.message.translations = {};
-            _question.help ={};
-            _question.help.translations ={};
-            _question.verboseHelp = {};
-            _question.verboseHelp.translations ={};
+            _question.messageText = {};
+            _question.messageText.translations = {};
+            _question.helpText ={};
+            _question.helpText.translations ={};
+            _question.verboseHelpText = {};
+            _question.verboseHelpText.translations ={};
             _question.type= "";
             _question.applicationSystemId= "";
-            _question.preference = "";
+            _question.learningOpportunityId = "";
             _element = [];
             _questionType = '';
             _applicationSystem = {};
@@ -90,11 +90,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.setPrefrence = function(prefrence){
-            _question.preference = prefrence;
+            _question.learningOpportunityId = prefrence;
         };
 
         this.getPrefrence = function(){
-            return _question.preference;
+            return _question.learningOpportunityId;
         };
 
         this.setElement = function(element){

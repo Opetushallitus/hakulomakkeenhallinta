@@ -133,6 +133,8 @@ var app = angular.module('hakulomakkeenhallinta', [
             languages = data;
         });
 
+        $httpBackend.whenGET('http://localhost:9090/haku-app/lomakkeenhallinta/themequestion/asId').passThrough();
+
         //application system lisäkysymysten haku
         //$httpBackend.whenGET(mockUrl+'/application-system-form/1.2.246.562.5.2014022711042555034240/1.2.246.562.20.23099745319/getAll').respond(
         //$httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/get/).respond(
@@ -187,8 +189,8 @@ var app = angular.module('hakulomakkeenhallinta', [
 
         //tallenetaan muokattu lisäkysmys
         // $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
-        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
 //        $httpBackend.whenPUT(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
             function(method, url, data, headers){
                 console.log('tallentaan lisäkysymyksen muokkaus \n', method, '\n', url );
                 var additionalQuestionsLS =[];
@@ -210,9 +212,12 @@ var app = angular.module('hakulomakkeenhallinta', [
             });
 
 
-        //luodaan uusi lisäkysmys
-        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
+        //luodaan uusi lisäkysmys oikeaa backendiä vasten
+//       $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\w/).passThrough();
+
+//   luodaan uusi lisäkysmys mock backend
 //        $httpBackend.whenPOST(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
+        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\w/).respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
                 console.log('method ---- ', method);
@@ -237,6 +242,7 @@ var app = angular.module('hakulomakkeenhallinta', [
                 return [200, json_object, {status:200, message: '' }];
             }
         );
+
         //heataan lisäkysmys muokattavaksi
 //        $httpBackend.whenGET(/\hakulomakkeenhallinta-mock\/application-system-form\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
         $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
@@ -333,6 +339,7 @@ var app = angular.module('hakulomakkeenhallinta', [
 //        $httpBackend.whenGET(mockUrl+'/languages').respond(
         $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).respond(
             function( method, url){
+                console.log('******* Languages *****');
                 return [200, languages ,{status:200, message:'Haettiin kielet'}];
             }
         );
@@ -345,6 +352,7 @@ var app = angular.module('hakulomakkeenhallinta', [
         $httpBackend.whenGET(/\hakulomakkeenhallinta-temporary\//).passThrough();
         $httpBackend.whenPUT(/\hakulomakkeenhallinta-temporary\//).passThrough();
         $httpBackend.whenPUT(/\haku-app\/lomakkeenhallinta\/themequestion\//).passThrough();
+        $httpBackend.whenGET('https://itest-virkailija.oph.ware.fi/authentication-service/resources/omattiedot/organisaationhenkilo').passThrough();
 
         $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\//).respond(
             function(data, url){
