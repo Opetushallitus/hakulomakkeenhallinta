@@ -30,7 +30,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
         $scope.tallennaUusi = function() {
-            ASForms.save( { _id: $scope.question.applicationSystemId , '_aoid': $scope.question.learningOpportunityId, '_eid':$scope.question.theme }, $scope.question).$promise.then(
+            ASForms.save( { _id: $scope.question.applicationSystemId , '_aoid': $scope.question.learningOpportunityId }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
                     $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
