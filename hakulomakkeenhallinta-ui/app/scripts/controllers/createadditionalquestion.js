@@ -49,9 +49,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        $scope.poistaKysymys = function(){
            QuestionData.setEditFlag(false);
 
-           ASForms.delete({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }).$promise.then(
+           ASForms.delete({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.learningOpportunityId, '_qid': $scope.question._id }).$promise.then(
                function(){
-                   $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.preference);
+                   $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
                });
 
        };
