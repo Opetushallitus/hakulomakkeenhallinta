@@ -30,7 +30,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
 //                    serviceRootUri: '/hakulomakkeenhallinta-mock',
                     serviceRootUri: '/haku-app/lomakkeenhallinta/themequestion',
                     authService: '/authentication-service',
-                    backEndRoot : ''
+                    backEndRoot : '/'
                 };
 
             }
