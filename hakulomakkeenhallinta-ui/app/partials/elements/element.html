@@ -1,0 +1,11 @@
+<ul>
+    <li class="dropdown">
+    <a class="dropdown-toggle">{{tree | i18n}} {{tree._class}}</a>
+        <ul class="dropdown-menu">
+            <li><a data-ng-controller="BackCtrl" data-ng-click=goto(tree)>Muokkaa</a></li>
+            <li><a data-ng-click="delete($parent.$parent.tree.children, $parent.$index)">Poista</a></li>
+            <li><a data-ng-click="Addrule($parent.$parent.tree.children, $parent.$index)">Lisää</a></li>
+        </ul>
+    </li>
+    <li data-ng-repeat="tree in $parent.tree.children" ng-include src="'partials/elements/' + selectTemplate(tree._class) + '.html'" ></li>
+</ul>

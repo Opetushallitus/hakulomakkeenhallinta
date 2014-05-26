@@ -1,0 +1,58 @@
+<div data-ng-controller="QuestionCtrl">
+    <div class="row">
+        <div class="col-md-6">
+            <tabset>
+                <tab ng-repeat="language in languages">
+                    <tab-heading>{{language | i18n}}</tab-heading>
+                    <form role="form" >
+                        <hh-inputtext data-ng-model="question.messageText.translations[language.id]" label="question-title"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.helpText.translations[language.id]" label="question-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.verboseHelpText.translations[language.id]" label="question-additional-help"></hh-inputtext>
+                        <div data-ng-if="question.type === 'CheckBox'">
+                            <label data-ng-click="addCheckbox(question)">Lisää valintalaatikko </label>
+                            <i class="glyphicon glyphicon-plus" data-ng-click="addCheckbox(question)"></i>
+                            <div ng-repeat="option in question.options">
+                                <div class="form-group">
+                                    <label> Valintalaatikko {{$index +1}}</label>
+                                    <i class="glyphicon glyphicon-trash"  data-ng-click="removeCheckbox($index, question)"></i>
+                                    <input type="text" data-ng-model="question.options[$index].translations[language.id]" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-ng-if="question.type === 'Radio'">
+                            <label data-ng-click="addRadio(question)">Lisää valintanappi </label>
+                            <i class="glyphicon glyphicon-plus" data-ng-click="addRadio(question)"></i>
+                            <div ng-repeat="option in question.options">
+                                <div class="form-group">
+                                    <label> Valintanappi {{$index +1}}</label>
+                                    <i class="glyphicon glyphicon-trash"  data-ng-click="removeRadio($index, question)"></i>
+                                    <input type="text" data-ng-model="question.options[$index].translations[language.id]" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </tab>
+            </tabset>
+
+            <div data-ng-if="validators.length > 0" class="control-group">
+                <hr/>
+                <label>Rajoitteet ja tarkastukset</label>
+                <div ng-repeat="validator in validators">
+                    <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
+                </div>
+                <hr/>
+            </div>
+
+            <div class="checkbox form-group" data-ng-show="question.previewable !== 'undefined'">
+                <input type="checkbox" data-ng-model="question.previewable">Esikatseltava
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <!--<pre>{{question | without | json}}</pre>-->
+        </div>
+    </div>
+</div>

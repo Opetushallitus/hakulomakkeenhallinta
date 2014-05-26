@@ -1,0 +1,30 @@
+<div data-ng-controller="QuestionCtrl">
+    <button type="button" class="btn btn-primary" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
+    <button type="button" class="btn btn-warning">Tallenna</button>
+
+    <div class="alert alert-info">
+        <i class="icon-info-sign"></i>Olet Muokkaamassa hakulomakkeen {{applicationSystem | i18n:name}} Sääntöä <b>{{element| i18n}}</b>.
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <tabset>
+                <tab ng-repeat="language in languages">
+                    <tab-heading>{{language | i18n}}</tab-heading>
+                    <form role="form">
+                        <hh-inputtext data-ng-model="element.i18nText.translations[language.id]" label="rule-title"></hh-inputtext>
+                        <hh-inputtext data-ng-model="element.verboseHelp.translations[language.id]" label="question-help"></hh-inputtext>
+                    </form>
+                </tab>
+            </tabset>
+            <hr/>
+
+            <div data-ng-controller="ExprCtrl" class="control-group" data-ng-include="'partials/elements/edit/rules/expression/' + element.expr._class.split('.').pop() + '.html'">
+            Unimplemented template
+            </div>
+        </div>
+        <div class="col-md-6">
+            <pre>{{element | without | json}}</pre>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4>Valitse haku ja lomakepohja</h4>
+</div>
+<div class="modal-body">
+    <form role="form" class="form-horizontal">
+        <div class="form-group">
+            <label for="haku">Haku</label>
+            <select class="form-control" id="haku" ng-model="applicationSystem" ng-options="a.name.translations.fi for a in applicationSystems">
+                <option value="">-- Valitse haku --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lomakepohja">Lomakepohja</label>
+            <select class="form-control" id="lomakepohja" ng-model="applicationFormTemplate" ng-options="template.i18nText.translations.fi for template in applicationFormTemplates">
+                <option value="">-- Valitse lomakepohja --</option>
+            </select>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
+    <button class="btn btn-primary pull-right" ng-click="ok()" ng-disabled="!applicationSystem || !applicationFormTemplate">Liitä</button>
+</div>

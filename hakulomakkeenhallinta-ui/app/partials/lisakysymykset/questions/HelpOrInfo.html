@@ -1,0 +1,7 @@
+<tabset>
+    <tab ng-repeat="language in languages">
+        <tab-heading>{{language.name[lang]}}</tab-heading>
+        <hh-inputtext data-ng-model="question.title[language.id]" label="question-title"></hh-inputtext>
+        <hh-inputtext data-ng-model="question.help[language.id]" label="question-help"></hh-inputtext>
+    </tab>
+</tabset>

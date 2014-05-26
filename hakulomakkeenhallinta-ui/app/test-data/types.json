@@ -1,0 +1,39 @@
+[
+    {
+        "id":"TextQuestion",
+        "name":{
+            "translations":
+            {
+                "fi":"Avoin vastaus (tekstikenttä)",
+                "sv":"Avoin vastaus (tekstikenttä) (sv)",
+                "en":"Avoin vastaus (textfield) (en)"
+
+            }
+        },
+        "modified":1398838954783
+    },
+    {
+        "id":"CheckBox",
+        "name":{
+            "translations":
+            {
+                "fi":"Valinta kysymys (valintalaatikko)",
+                "sv":"Valinta kysymys (valintalaatikko) (sv)",
+                "en":"Valinta kysymys (checkbox) (en)"
+            }
+        },
+        "modified":8661451019828476
+    },
+    {
+        "id":"Radio",
+        "name":{
+            "translations":
+            {
+                "fi":"Valinta kysymys (valintanappi)",
+                "sv":"Valinta kysymys (valintanappi) (sv)",
+                "en":"Valinta kysymys (radiobutton) (en)"
+            }
+        },
+        "modified":8661451019828476
+    }
+]

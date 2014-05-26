@@ -1,0 +1,332 @@
+[
+    {
+        "_id": "1.2.246.562.5.2013080813081926341927",
+        "i18nText": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013100416514851336462",
+        "i18nText": {
+            "translations": {
+                "fi": "Lisähaku syksyn yhteishaussa vapaaksi jääneille opiskelupaikoille VAIN TÄMÄN TARKASTELU TOIMII MOCK BÄKKÄRILLÄ"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213130760225065",
+        "i18nText": {
+            "translations": {
+                "en": "qa_julkaistu_suunnitteilla",
+                "fi": "qa_poisto ei onnistu"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213133431229595",
+        "i18nText": {
+            "translations": {
+                "en": "qa_valmis_suunnitteilla",
+                "fi": "qa_valmis_suunnitteilla"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213132116867752",
+        "i18nText": {
+            "translations": {
+                "en": "qa_julkaistu_paattynyt",
+                "fi": "qa_julkaistu_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213134919709306",
+        "i18nText": {
+            "translations": {
+                "en": "qa_valmis_paattynyt",
+                "fi": "qa_valmis_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213385915614265",
+        "i18nText": {
+            "translations": {
+                "en": "qa_peruttu_voimassa",
+                "fi": "qa_peruttu_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213142151780485",
+        "i18nText": {
+            "translations": {
+                "en": "qa_peruttu_suunnitteilla",
+                "fi": "qa_peruttu_suunnitteilla"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213151795015069",
+        "i18nText": {
+            "translations": {
+                "en": "qa_luonnos_suunnitteilla",
+                "fi": "qa_luonnos_suunnitteilla"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213155546453774",
+        "i18nText": {
+            "translations": {
+                "en": "qa_luonnos_paattynyt",
+                "fi": "qa_luonnos_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013060313080811526781",
+        "i18nText": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen yhteishaku",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213171895007885",
+        "i18nText": {
+            "translations": {
+                "en": "qa_luonnos_voimassa",
+                "fi": "qa_luonnos_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213182613011323",
+        "i18nText": {
+            "translations": {
+                "en": "qa_peruttu_paattynyt",
+                "fi": "qa_peruttu_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213300622771976",
+        "i18nText": {
+            "translations": {
+                "en": "qa_julkaistu_voimassa",
+                "fi": "qa_julkaistu_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213322706504725",
+        "i18nText": {
+            "translations": {
+                "en": "qa_valmis_voimassa",
+                "fi": "qa_valmis_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111303020553666338",
+        "i18nText": {
+            "translations": {
+                "fi": "qahaku20131113_1384304458951",
+                "en": "qahaku20131113_1384304458951"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213595880193669",
+        "i18nText": {
+            "translations": {
+                "fi": "Haku_Laku_Maku_Naku_Paku_Saku_Taku"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111213382072612718",
+        "i18nText": {
+            "translations": {
+                "fi": "JUK 1: Hakku",
+                "sv": "JUK 1: En bil",
+                "en": "JUK 1: The car"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111214304357272614",
+        "i18nText": {
+            "translations": {
+                "fi": "qahaku20131112_1384259375987",
+                "en": "qahaku20131112_1384259375987"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111215324993200548",
+        "i18nText": {
+            "translations": {
+                "fi": "ammatillinen peruskoulutus erityisopetuksena"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111215565419051598",
+        "i18nText": {
+            "translations": {
+                "fi": "valmentavien ja kuntouttavien koulutusten haku"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111301025491560747",
+        "i18nText": {
+            "translations": {
+                "fi": "qahaku20131113_1384297308711",
+                "en": "qahaku20131113_1384297308711"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111305020252775653",
+        "i18nText": {
+            "translations": {
+                "fi": "qahaku20131113_1384311654122",
+                "en": "qahaku20131113_1384311654122"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111310431657397929",
+        "i18nText": {
+            "translations": {
+                "fi": "qahaku20131113_1384332162016",
+                "en": "qahaku20131113_1384332162016"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111310490586937970",
+        "i18nText": {
+            "translations": {
+                "fi": "qahaku20131113_1384332528377",
+                "en": "qahaku20131113_1384332528377"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311121846066205",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_julkaistu_paattynyt",
+                "en": "qa_julkaistu_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311135184927678",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_julkaistu_suunnitteilla",
+                "en": "qa_julkaistu_suunnitteilla"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311154268284401",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_julkaistu_voimassa",
+                "en": "qa_julkaistu_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311173879051602",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_valmis_paattynyt",
+                "en": "qa_valmis_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311193920783704",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_valmis_suunnitteilla",
+                "en": "qa_valmis_suunnitteilla"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311215790774467",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_valmis_voimassa",
+                "en": "qa_valmis_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311242160633741",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_peruttu_paattynyt",
+                "en": "qa_peruttu_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311275256502593",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_peruttu_voimassa",
+                "en": "qa_peruttu_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311295236316064",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_luonnos_paattynyt",
+                "en": "qa_luonnos_paattynyt"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311315430507878",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_luonnos_suunnitteilla",
+                "en": "qa_luonnos_suunnitteilla"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311341283068072",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_luonnos_voimassa",
+                "en": "qa_luonnos_voimassa"
+            }
+        }
+    },
+    {
+        "_id": "1.2.246.562.5.2013111311255847113916",
+        "i18nText": {
+            "translations": {
+                "fi": "qa_peruttu_suunnitteilla",
+                "en": "qa_peruttu_suunnitteilla"
+            }
+        }
+    }
+]
