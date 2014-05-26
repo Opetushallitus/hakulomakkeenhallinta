@@ -9,10 +9,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.applicationSystemForm = applicationSystemForm;
         $scope.userOrganizations = [];
 
-        OrganisaatioHenkilo.get().$promise.then(function(organisaatiot){
-            console.log('#### käyttäjän organisaatiot: ',organisaatiot);
-            for(var org  in organisaatiot){
-                $scope.userOrganizations.push(organisaatiot[org].oid);
+        OrganisaatioHenkilo.get().$promise.then(function(data){
+            console.log('#### käyttäjän organisaatiot: ',data);
+            for(var org  in data.organisaatiot){
+                $scope.userOrganizations.push(data.organisaatiot[org].oid);
             }
             $scope.applicationOptions = HH.usersApplicationOptions($scope.userOrganizations);
         });
