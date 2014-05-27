@@ -1,33 +1,46 @@
-<div class="modal-header">
-    <h4>Valitse hakukohde tai hakukohdejoukko</h4>
-</div>
-<div class="modal-body">
-    <div class="alert alert-info">
-        <i class="icon-info-sign"></i>Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun <b>{{applicationSystemForm | i18n:'name'}}</b>
-
+<form role="form" class="form-horizontal" name="organisaatioValinta">
+    <div class="modal-header">
+        <h4>Valitse hakukohde tai hakukohdejoukko</h4>
     </div>
-    <p>
-        Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.
-    </p>
-
-    <form role="form" class="form-horizontal">
-        <label class="control-label">Hae hakukohteen, hakukohdejoukon tai organisaation nimellä</label>
+    <div class="modal-body">
+        <div class="alert alert-info">
+            <i class="icon-info-sign"></i>Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun <b>{{applicationSystemForm | i18n:'name'}}</b>
+        </div>
+        <div data-ng-if="organisations.length >1">
+            <p>
+                Valitse organanisaatio johon olet tekemässä lisäkysymystä
+            </p>
+            <div class="input-group">
+                <label for="organisation">Organisaatiot</label>
+                <select class="form-control" name="organisaatio" id="organisation" ng-model="organisation" ng-options="org.nimi.fi for org in organisations" data-ng-change="selectedOrganisation()" >
+                    <option value="" >-- Valitse organisaatio --</option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <p>
+            Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.
+        </p>
+        <label class="control-label">Hae hakukohteen tai hakukohdejoukon nimellä</label>
         <div class="input-group">
             <span class="input-group-addon" ><span class="glyphicon glyphicon-search"></span></span>
             <input type="text" class="form-control" data-ng-model="queryParameters.term">
         </div>
-        <button type="reset" class="btn btn-warning" data-ng-click="reset()" data-ng-controller="BackCtrl">Tyhjennä
-        </button>
-        <button type="button=" class="btn btn-primary" data-ng-click="search()">hae</button>
-    </form>
-    <table class="table table-striped table-hover">
-        <tr ng-repeat="applicationOption in applicationOptions">
-            <td><input type="radio" data-ng-model="$parent.applicationOption" data-ng-value="applicationOption" name="applicationOption"></td>
-            <td>{{applicationOption.nimi.fi}}</td>
-        </tr>
-    </table>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
-    <button class="btn btn-primary pull-right" ng-click="ok()" ng-disabled="selections.length < 1">Jatka</button>
-</div>
+
+        <table class="table table-striped table-hover">
+            <tr ng-repeat="applicationOption in applicationOptions | filter:queryParameters.term">
+                <td><input type="radio" data-ng-model="$parent.applicationOption" data-ng-value="applicationOption" name="applicationOption"></td>
+                <td>{{applicationOption.nimi.fi}}</td>
+            </tr>
+        </table>
+        <div class="alert alert-info" data-ng-if="applicationOptions.length == 0 && organisaatioValinta.organisaatio.$dirty">
+            <i class="icon-info-sign"></i> Valitusta organisaatiosta ei löytynyt yhtään hakukohdetta tai hakukohdejoukkoa </b>
+
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
+        <button class="btn btn-primary pull-right" ng-click="ok()">Jatka</button>
+    </div>
+</form>
