@@ -29,12 +29,13 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             };
         };
 
-        this.searchApplicationOptions = function(userOrgizations, term) {
+        this.searchApplicationOptions = function(hakuOid, userOrgizations, term) {
             var applicationOptions = [];
             $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
                 params: {
                     searchTerms: term,
-                    organisationOid: userOrgizations
+                    organisationOid: userOrgizations,
+                    hakuOid: hakuOid
                 }
             }).success(function(data) {
                 _.each(data.result.tulokset, function(org) {
@@ -46,11 +47,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return applicationOptions;
         };
 
-        this.usersApplicationOptions = function(userOrganisations) {
+        this.usersApplicationOptions = function(hakuOid, userOrganisations ) {
             var applicationOptions = [];
+            console.log('haku oid:',hakuOid);
+            console.log('organisaatio: ',userOrganisations);
             $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
                 params: {
-                    organisationOid: userOrganisations
+                    organisationOid: userOrganisations,
+                    hakuOid: hakuOid
                 }
             }).success(function(data) {
                 _.each(data.result.tulokset, function(org) {
