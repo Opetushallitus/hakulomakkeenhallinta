@@ -6,10 +6,25 @@
         <i class="icon-info-sign"></i>Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun <b>{{applicationSystemForm | i18n:'name'}}</b>
 
     </div>
+    <div>
     <p>
-        Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.
+        Valitse orgnanisaation johon olet tekemässä lisäkysymystä
     </p>
+        <form role="form" class="form-horizontal">
+            <div class="input-group">
+                <label for="organisation">Organisaatiot</label>
+                <select class="form-control" id="organisation" ng-model="organisation" ng-options="a for a in organisations">
+                    <option data-ng-click="seclectedOrganisation()" value="" >-- Valitse organisaatio --</option>
+                </select>
+            </div>
+        </form>
 
+    </div>
+
+    <div data-ng-if="true">
+        <p>
+            Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.
+        </p>
     <form role="form" class="form-horizontal">
         <label class="control-label">Hae hakukohteen, hakukohdejoukon tai organisaation nimellä</label>
         <div class="input-group">
@@ -26,6 +41,7 @@
             <td>{{applicationOption.nimi.fi}}</td>
         </tr>
     </table>
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
