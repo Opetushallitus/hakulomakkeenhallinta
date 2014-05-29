@@ -3,6 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ModalQuestionCtrl', ['$scope', '$modalInstance', 'Languages', 'question', 'applicationSystem', 'parentElement', '$modal', '_', 'ASForms',
         function($scope, $modalInstance, Languages, question, applicationSystem, parentElement, $modal, _ , ASForms) {
+            console.log('***** ModalQuestionCtrl ****');
             $scope.lang = "fi";
             $scope.element = parentElement;
             $scope.languages = Languages.query();

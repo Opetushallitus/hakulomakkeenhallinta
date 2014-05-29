@@ -3,14 +3,30 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'ASForms', 'FormWalker', 'Languages', 'QuestionData',
         function($scope, $modal, $location, _, $routeParams, HH, ASForms, FormWalker, Languages, QuestionData) {
+            console.log('**** AdditionalQuestionsCtrl *** ');
             $scope.lang = "fi";
             $scope.organization = HH.getOrganization();
-            $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
+//            $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
+            console.log('*** haetaan formi teemoja varten');
+//            $scope.applicationSystem = ASForms.get({ '_id': 'application-system-form', '_aoid': $routeParams.id });
+            //TODO: poista tämä
+            $scope.applicationSystem = ASForms.get({ '_id': 'application-system-form', '_aoid': 'haku1' });
             $scope.elements = [];
             $scope.applicationOption = QuestionData.getApplicationOption();
 
             $scope.applicationSystem.$promise.then(function(data) {
-                $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
+                console.dir(data);
+
+                $scope.elements =data.children;
+                for(var ea in $scope.elements){
+                    if($scope.elements[ea].id === "henkilotiedot"){
+                        $scope.elements.splice(ea, 1);
+                    }
+                    if( $scope.elements[ea].id === "koulutustausta" ){
+                        $scope.elements.splice(ea, 1);
+                    }
+                }
+                /*$scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
                 //TODO: tämän suodatus tulee tehdä jotenkin muuten kuin näin ?
                 for(var ea in $scope.elements){
                     if($scope.elements[ea]._id === "HenkilotiedotGrp"){
@@ -19,15 +35,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     if( $scope.elements[ea]._id === "KoulutustaustaGrp" ){
                         $scope.elements.splice(ea, 1);
                     }
-                }
+                }*/
 
                 //ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid, '_getAll':'getAll' }).$promise.then(
                 console.log('### haetaan lisäkysmykset ###');
-                ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid }).$promise.then(
-                //ASForms.get({ '_id':'asId'}).$promise.then(
+//                ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid }).$promise.then(
+//                ASForms.query({ '_id': 'haku1', '_aoid': $routeParams.aoid }).$promise.then(
+                ASForms.query({ '_id': 'haku1' }).$promise.then(
                     function(data){
                         console.log(data);
-                        //TODO: tämä if osio tulee poistaa kun oikea back end on saatavilla
+                        //TODO: tämä if osio tulee poistaa kun oikea back endon saatavilla
                         if( data.additionalQuestions !== undefined){
                             var questionDataLS = [];
                             questionDataLS = JSON.parse(data.additionalQuestions);
@@ -59,7 +76,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         QuestionData.newAdditionalQuestion();
                         QuestionData.setQuestionType(data.type);
                         QuestionData.setElement(element);
-                        QuestionData.setApplicatioSystem($scope.applicationSystem);
+//                        QuestionData.setApplicatioSystemId($routeParams.id);
+                        QuestionData.setApplicatioSystemId('haku1');
                         QuestionData.setPrefrence($routeParams.aoid);
                         QuestionData.setEditFlag(false);
                         $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element._id);

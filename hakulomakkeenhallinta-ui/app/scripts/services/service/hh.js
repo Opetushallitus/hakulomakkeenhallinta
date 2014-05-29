@@ -3,8 +3,9 @@
 angular.module('hakulomakkeenhallintaUiApp.services.service')
   .service('HH',  ['$http', 'ASForms', 'FormWalker', '_', 'Props',
         function($http, ASForms, FormWalker, _, Props ) {
-
-        var applicationSystems = ASForms.query();
+        console.log('****** HH ******');
+        //var applicationSystems = ASForms.query();
+        var _organization = {};
 
         this.listApplicationSystems = function() {
             return applicationSystems;
@@ -18,40 +19,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             });
         };
 
-        this.getOrganization = function() {
-            //TODO: tälle pitää tehdä joitain missä tämä tulee? Käyttäjän tiedoista?
-            return {
-                'i18nText': {
-                    'translations': {
-                        'fi': 'k-kauppa'
-                    }
-                }
-            };
+        this.setOrganization = function(organization){
+            _organization = organization;
         };
 
-        this.searchApplicationOptions = function(hakuOid, userOrgizations, term) {
-            var applicationOptions = [];
-            $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
-                params: {
-                    searchTerms: term,
-                    organisationOid: userOrgizations,
-                    hakuOid: hakuOid
-                }
-            }).success(function(data) {
-                _.each(data.result.tulokset, function(org) {
-                    _.each(org.tulokset, function(ao) {
-                        applicationOptions.push(ao);
-                    });
-                });
-            });
-            return applicationOptions;
+        this.getOrganization = function() {
+            return _organization;
         };
 
         this.usersApplicationOptions = function(hakuOid, userOrganisations ) {
             var applicationOptions = [];
             console.log('haku oid:',hakuOid);
             console.log('organisaatio: ',userOrganisations);
-            $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
+            $http.get(Props.tarjontaAPI+"/hakukohde/search", {
                 params: {
                     organisationOid: userOrganisations,
                     hakuOid: hakuOid

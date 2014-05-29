@@ -10,6 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                     asfUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form/:_id',
                     typeUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/type/:id',
                     formUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/form/:_id',
+//                    tarjontaAPI: 'https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1',
                     tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
                     contextRoot: '',
 //                    serviceRootUri: '/hakulomakkeenhallinta-mock/application-system-form'
@@ -25,7 +26,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                     asfUrl:  'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/application-system-form/:_id',
                     typeUrl: 'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/type/:id',
                     formUrl: 'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/form/:_id',
-                    tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
+                    tarjontaAPI: '/tarjonta-service/rest/v1',
                     contextRoot: '/hakulomakkeenhallinta-ui',
 //                    serviceRootUri: '/hakulomakkeenhallinta-temporary',
 //                    serviceRootUri: '/hakulomakkeenhallinta-mock',

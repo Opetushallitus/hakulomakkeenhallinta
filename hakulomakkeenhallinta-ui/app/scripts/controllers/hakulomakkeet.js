@@ -4,7 +4,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'HH', 'ASForms',
         function($scope, $modal, $log, $location, HH, ASForms) {
 
-
+console.log('********* HakulomakkeetCtrl ---->');
 
             $scope.question = {};
             $scope.selectedApplicationSystems = [];
@@ -24,7 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 name: 'Aasian tutkimus, kandidaatinopinnot'
             }];
 
-            $scope.applicationForms = ASForms.query();
+            $scope.applicationForms = ASForms.query({'_id':'application-system-form'});
 
             $scope.luoHakulomake = function() {
                 $modal.open({

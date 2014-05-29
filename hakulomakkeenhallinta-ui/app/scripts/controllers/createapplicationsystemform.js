@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('CreateapplicationsystemformCtrl',
         function($scope, $modalInstance, ApplicationSystemResource,TarjontaAPI, Mallipohjat, ASForms) {
-
+            console.log('****** CreateapplicationsystemformCtrl *****');
             //heataan tarjonnasta meneillään olevat haut
             $scope.applicationSystems = TarjontaAPI.query();
             //Heataan mallipohjat, jotka liitetään hakuun??

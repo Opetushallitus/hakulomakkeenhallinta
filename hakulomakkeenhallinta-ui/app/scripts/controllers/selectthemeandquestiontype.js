@@ -2,6 +2,8 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SelectThemeAndQuestionTypeCtrl', function($scope, $modalInstance, ElementTypes) {
+
+        console.log('***** selectThemeAndQuestion ***');
         $scope.types = ElementTypes.query();
 
         $scope.ok = function() {

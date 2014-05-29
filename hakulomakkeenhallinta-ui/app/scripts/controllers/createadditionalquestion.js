@@ -3,14 +3,23 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
   .controller('CreateAdditionalQuestionCtrl',[ '$scope', '$location', '$routeParams', 'Languages', 'ASForms', 'QuestionData',
         function ($scope, $location, $routeParams, Languages, ASForms, QuestionData ) {
-        $scope.languages = Languages.query();
+            console.log(' ******* CreateAdditionalQuestionCtrl ******');
+//        $scope.languages = Languages.query();
+        $scope.languages = [];
+        Languages.get().$promise.then(
+            function(data){
+                console.log(data);
+                $scope.languages = data;
+            });
+
         $scope.question = QuestionData.getQuestion();
         $scope.element = QuestionData.getElement();
         $scope.questionType = QuestionData.getQuestionType();
         $scope.editFlag = QuestionData.getEditFlag();
 
         if($scope.question._id === undefined){
-            ASForms.get({'_id':$routeParams.id, '_aoid':$routeParams.aoid, '_qid': $routeParams.eid}).$promise.then(
+//            ASForms.get({'_id':$routeParams.id, '_aoid':$routeParams.aoid, '_qid': $routeParams.eid}).$promise.then(
+            ASForms.get({'_id':'haku1', '_aoid':$routeParams.aoid, '_qid': $routeParams.eid}).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
                     $scope.question = QuestionData.getQuestion();
@@ -30,7 +39,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
         $scope.tallennaUusi = function() {
-            ASForms.save( { _id: $scope.question.applicationSystemId , '_aoid': $scope.question.learningOpportunityId }, $scope.question).$promise.then(
+//            ASForms.save( { _id: $scope.question.applicationSystemId , '_aoid': $scope.question.learningOpportunityId }, $scope.question).$promise.then(
+            ASForms.save( { _id: 'haku1' , '_aoid': $scope.question.learningOpportunityId }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
                     $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
@@ -40,7 +50,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        $scope.tallennaMuokkaus = function(){
            QuestionData.setEditFlag(false);
            //ASForms.update({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.preference, '_qid': $scope.question._id }, $scope.question).$promise.then(
-           ASForms.save({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.learningOpportunityId, '_qid': $scope.question._id }, $scope.question).$promise.then(
+//           ASForms.save({'_id':$scope.question.applicationSystemId, '_aoid': $scope.question.learningOpportunityId, '_qid': $scope.question._id }, $scope.question).$promise.then(
+           ASForms.save({'_id':'haku1', '_aoid': $scope.question.learningOpportunityId, '_qid': $scope.question._id }, $scope.question).$promise.then(
                function(){
                    $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
                });
