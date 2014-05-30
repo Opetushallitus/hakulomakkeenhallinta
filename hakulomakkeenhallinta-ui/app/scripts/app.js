@@ -40,6 +40,10 @@ var app = angular.module('hakulomakkeenhallinta', [
             $routeProvider.when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
             });
+            $routeProvider.when('/themeQuestionsByOrganisation/:orgid', {
+                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                controller: 'CreateAdditionalQuestionCtrl'
+            });
             $routeProvider.when('/applicationSystems', {
                 templateUrl: 'partials/applicationForms.html'
             });
