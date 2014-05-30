@@ -6,9 +6,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 console.log('********* HakulomakkeetCtrl ---->');
 
-            $scope.question = {};
-            $scope.selectedApplicationSystems = [];
-            $scope.languages = [{
+//            $scope.question = {};
+//            $scope.selectedApplicationSystems = [];
+            /*$scope.languages = [{
                 title: "Suomi",
                 active: true
             }, {
@@ -22,7 +22,7 @@ console.log('********* HakulomakkeetCtrl ---->');
             }, {
                 id: '2',
                 name: 'Aasian tutkimus, kandidaatinopinnot'
-            }];
+            }];*/
 
             $scope.applicationForms = FormEditor.query({'_path':'application-system-form'});
 
@@ -34,6 +34,23 @@ console.log('********* HakulomakkeetCtrl ---->');
                      //TODO: fix this
                     //ASFResource.save(result);
                     //$scope.applicationForms = ASForms.query();
+                });
+            };
+
+            $scope.valitseOrganisaatio = function(applicationSystemForm) {
+                var modalInstance = $modal.open({
+                    templateUrl: 'partials/lisakysymykset/organisaation-valinta.html',
+                    controller: 'SelectOrganisationCtrl',
+                    resolve: {
+                        applicationSystemForm: function() {
+                            return applicationSystemForm;
+                        }
+                    }
+                });
+                modalInstance.result.then(function(applicationOptionId) {
+                    $location.path("additionalQuestion/" + applicationSystemForm._id + '/' + applicationOptionId);
+                }, function() {
+
                 });
             };
 
