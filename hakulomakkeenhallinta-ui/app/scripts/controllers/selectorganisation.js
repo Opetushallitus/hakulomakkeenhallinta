@@ -45,7 +45,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $modalInstance.dismiss('cancel');
             };
 
-            //TODO: tämä on localhost hack poista!!
+           /* //TODO: tämä on localhost hack poista!!
             var orgs = ["1.2.246.562.10.00000000001", "1.2.246.562.10.65530732232" ];
 //        var orgs = ["1.2.246.562.10.65530732232" ];
             var mod = [];
@@ -61,7 +61,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.organisations = mod;
 
 //            $scope.applicationSystemForm._id = '1.2.246.562.5.2014022711042555034240';
-//        $scope.applicationSystemForm._id = '1.2.246.562.5.2013080813081926341927';
+        $scope.applicationSystemForm._id = '1.2.246.562.5.2013080813081926341927';
 
             if($scope.organisations.length == 1){
                 console.log('orgoid: ', mod[0].oid);
@@ -69,5 +69,5 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 HH.setOrganization(mod[0]);
                 $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, mod[0].oid);
             }
-            //TODO: poisto tähän asti
+            //TODO: poisto tähän asti*/
         }]);

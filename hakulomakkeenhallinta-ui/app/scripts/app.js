@@ -45,10 +45,10 @@ var app = angular.module('hakulomakkeenhallinta', [
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
             }).when('/themeQuestionsByOrganisation/:id/:orgid', {
-                    templateUrl: 'partials/themeQuestionsByOrganisation.html',
-                    controller: 'ThemeQuestionsByOrganisationCtrl'
+                templateUrl: 'partials/themeQuestionsByOrganisation.html',
+                controller: 'ThemeQuestionsByOrganisationCtrl'
             }).otherwise({
-                    redirectTo: '/applicationSystemForm'
+                redirectTo: '/applicationSystemForm'
             });
         }
     ]);

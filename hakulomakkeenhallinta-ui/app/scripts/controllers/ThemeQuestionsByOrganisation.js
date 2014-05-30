@@ -7,6 +7,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.lang = "fi";
             $scope.organization = HH.getOrganization();
             $scope.applicationSystem = HH.getApplicationSystemForm();
+            $scope.themes = [];
+
+            $scope.back = function() {
+                console.log('go back');
+                $location.path('/');
+            };
+
+            console.log('*** haetaan teemat ***** ');
+            FormEditor.query({'_path':'application-system-form', '_id':$scope.applicationSystem._id ,'_oper':'additional-question-themes'}).$promise.then(
+                function(data){
+                    $scope.themes = data;
+                }
+            );
 
             console.log('*** haetaan organisaation hakemukset ***** ', $scope.organization.oid);
             ThemeQuestions.getList({'_id':$scope.applicationSystem._id, orgId: $scope.organization.oid}).$promise.then(
@@ -14,28 +27,29 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     console.log('######', data);
                 }
             );
-            console.log('*** haetaan teemat ***** ');
-            FormEditor.query({'_path':'application-system-form', '_id':$scope.applicationSystem._id ,'_oper':'additional-question-themes'}).$promise.then(
-                function(data){
-                    console.log('*******', data );
-                }
-            );
 
 
-            $scope.addQuestion = function(element) {
-                console.log('***** ', element);
+
+            $scope.addQuestion = function(theme) {
+                console.log('***** ', theme);
+
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                    controller: 'SelectThemeAndQuestionTypeCtrl'
-                }).result.then(function(data) {
-                        QuestionData.newAdditionalQuestion();
-                        QuestionData.setQuestionType(data.type);
-                        QuestionData.setElement(element);
-                        QuestionData.setApplicatioSystemId($routeParams.id);
-                        QuestionData.setLearningOpportunityId($routeParams.aoid);
-                        QuestionData.setEditFlag(false);
-                        $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element.id);
-                    });
+                    templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
+                    controller: 'SelectHakukohdeCtrl'
+                    }).result.then(function(){
+                    $modal.open({
+                        templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
+                        controller: 'SelectThemeAndQuestionTypeCtrl'
+                    }).result.then(function(data) {
+                            QuestionData.newAdditionalQuestion();
+                            QuestionData.setQuestionType(data.type);
+                            QuestionData.setElement(element);
+                            QuestionData.setApplicatioSystemId($routeParams.id);
+                            QuestionData.setLearningOpportunityId($routeParams.aoid);
+                            QuestionData.setEditFlag(false);
+                            $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.orgid+'/'+ theme.id);
+                        });
+                });
             };
 
             $scope.muokkaaKysymysta = function(question){
@@ -49,9 +63,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     });
             };
 
-            $scope.back = function() {
-                $location.path('/');
-            };
+
 
             $scope.accordianState = function(element){
 

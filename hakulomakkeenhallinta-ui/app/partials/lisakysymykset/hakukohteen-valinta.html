@@ -6,18 +6,6 @@
         <div class="alert alert-info">
             <i class="icon-info-sign"></i>Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun <b>{{applicationSystemForm | i18n:'name'}}</b>
         </div>
-        <div data-ng-if="organisations.length >1">
-            <!--<p>
-                Valitse organanisaatio johon olet tekemässä lisäkysymystä
-            </p>-->
-            <div class="input-group">
-                <label for="organisation">Valitse organisaatio</label>
-                <select class="form-control" name="organisaatio" id="organisation" ng-model="organisation" ng-options="org.nimi.fi for org in organisations" data-ng-change="selectedOrganisation()" >
-                    <option value="" >-- Valitse organisaatio --</option>
-                </select>
-            </div>
-        </div>
-        <br />
         <p>
             Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.
         </p>

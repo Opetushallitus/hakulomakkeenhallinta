@@ -28,6 +28,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
          };
 
         this.setOrganization = function(organization){
+            console.log('HH ', _organization)
             _organization = organization;
         };
 
@@ -45,7 +46,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                     hakuOid: hakuOid
                 }
             }).success(function(data) {
-
                 _.each(data.result.tulokset, function(org) {
                     applicationOptions.push(org);
                 });

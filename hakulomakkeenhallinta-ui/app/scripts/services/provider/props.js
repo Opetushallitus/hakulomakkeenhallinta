@@ -14,7 +14,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                     contextRoot: '',
                     themeQuestionUri: 'http://localhost:9090/haku-app/application-system-form-editor/theme-question',
                     formEditorUri: 'http://localhost:9090/haku-app/application-system-form-editor',
-                    authService: 'https://itest-virkailija.oph.ware.fi/authentication-service',
+                    authService: 'https://itest-virkailija.oph.ware.fi:443/authentication-service',
                     organisaatioService: 'https://itest-virkailija.oph.ware.fi/organisaatio-service',
                     backEndRoot : 'http://localhost:9090/'
                 };
