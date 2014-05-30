@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'HH', 'ASForms',
-        function($scope, $modal, $log, $location, HH, ASForms) {
+    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'HH', 'FormEditor',
+        function($scope, $modal, $log, $location, HH, FormEditor) {
 
 console.log('********* HakulomakkeetCtrl ---->');
 
@@ -24,15 +24,16 @@ console.log('********* HakulomakkeetCtrl ---->');
                 name: 'Aasian tutkimus, kandidaatinopinnot'
             }];
 
-            $scope.applicationForms = ASForms.query({'_id':'application-system-form'});
+            $scope.applicationForms = FormEditor.query({'_path':'application-system-form'});
 
             $scope.luoHakulomake = function() {
                 $modal.open({
                     templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
                     controller: 'CreateapplicationsystemformCtrl'
                 }).result.then(function(result) {
-                    ASFResource.save(result);
-                    $scope.applicationForms = ASForms.query();
+                     //TODO: fix this
+                    //ASFResource.save(result);
+                    //$scope.applicationForms = ASForms.query();
                 });
             };
 

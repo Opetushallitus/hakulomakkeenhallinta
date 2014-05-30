@@ -3,8 +3,10 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
 .controller('QuestionCtrl', ['$scope', '$modal', '_', 'QuestionData',
     function($scope, $modal, _ , QuestionData) {
-        var question = QuestionData.getQuestion();
+        console.log('****** QuestionCtrl *********');
+        /*var question = QuestionData.getQuestion();
         var editFlag = QuestionData.getEditFlag();
+        console.log(question.type);
         switch(question.type){
             case 'TextQuestion':
 
@@ -16,29 +18,32 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 if(!editFlag){
                     question.options = [];
                     var optionObj = {};
-                    optionObj.translations = {};
-                    optionObj._id = 'option_0';
+                    optionObj.optionText ={};
+                    optionObj.optionText.translations = {};
+                    optionObj.id = 'option_0';
                     question.options[0] = optionObj;
                 }
                 $scope.validators = QuestionData.getCheckboxValidators();
                 break;
 
-            case 'Radio':
+            case 'RadioButton':
 
                 if(!editFlag){
                     question.options = [];
                     var radioObj = {};
-                    radioObj.translations = {};
-                    radioObj._id = 'option_0';
+                    radioObj.optionText ={};
+                    radioObj.optionText.translations = {};
+                    radioObj.id = 'option_0';
                     var radioObj2 = {};
-                    radioObj2.translations = {};
-                    radioObj2._id = 'option_1';
+                    radioObj2.optionText = {};
+                    radioObj2.optionText.translations = {};
+                    radioObj2.id = 'option_1';
                     question.options[0] = radioObj;
                     question.options[1] = radioObj2;
                 }
                 $scope.validators = QuestionData.getRadioValidators();
                 break;
-        };
+        };*/
 
     }
 ]);

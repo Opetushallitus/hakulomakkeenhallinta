@@ -1,4 +1,4 @@
-<div data-ng-controller="QuestionCtrl">
+<div>
     <div class="row">
         <div class="col-md-6">
             <tabset>
@@ -16,19 +16,19 @@
                                 <div class="form-group">
                                     <label> Valintalaatikko {{$index +1}}</label>
                                     <i class="glyphicon glyphicon-trash"  data-ng-click="removeCheckbox($index, question)"></i>
-                                    <input type="text" data-ng-model="question.options[$index].translations[key]" class="form-control" >
+                                    <input type="text" data-ng-model="question.options[$index].optionText.translations[key]" class="form-control" >
                                 </div>
                             </div>
                         </div>
 
-                        <div data-ng-if="question.type === 'Radio'">
+                        <div data-ng-if="question.type === 'RadioButton'">
                             <label data-ng-click="addRadio(question)">Lisää valintanappi </label>
                             <i class="glyphicon glyphicon-plus" data-ng-click="addRadio(question)"></i>
                             <div ng-repeat="option in question.options">
                                 <div class="form-group">
                                     <label> Valintanappi {{$index +1}}</label>
                                     <i class="glyphicon glyphicon-trash"  data-ng-click="removeRadio($index, question)"></i>
-                                    <input type="text" data-ng-model="question.options[$index].translations[key]" class="form-control" >
+                                    <input type="text" data-ng-model="question.options[$index].optionText.translations[key]" class="form-control" >
                                 </div>
                             </div>
                         </div>

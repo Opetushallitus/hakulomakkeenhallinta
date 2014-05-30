@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-  .service('HH',  ['$http', 'ASForms', 'FormWalker', '_', 'Props',
-        function($http, ASForms, FormWalker, _, Props ) {
+  .service('HH',  ['$http', 'FormWalker', '_', 'Props',
+        function($http, FormWalker, _, Props ) {
         console.log('****** HH ******');
         //var applicationSystems = ASForms.query();
         var _organization = {};
-
+/*
         this.listApplicationSystems = function() {
             return applicationSystems;
         };
@@ -17,7 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _.find(applicationSystems, function(as) {
                 return as._id === id;
             });
-        };
+        };*/
 
         this.setOrganization = function(organization){
             _organization = organization;
@@ -37,10 +37,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                     hakuOid: hakuOid
                 }
             }).success(function(data) {
+
                 _.each(data.result.tulokset, function(org) {
-                    _.each(org.tulokset, function(ao) {
-                        applicationOptions.push(ao);
-                    });
+                    applicationOptions.push(org);
                 });
             });
             return applicationOptions;

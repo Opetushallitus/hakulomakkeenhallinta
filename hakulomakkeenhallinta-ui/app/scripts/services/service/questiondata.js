@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-    .service('QuestionData', function () {
+    .service('QuestionData', [ 'FormEditor', function (FormEditor) {
 
         var _question = {};
         var _applicationSystemId;
@@ -89,20 +89,28 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _applicationSystemId;
         };
 
-        this.setPrefrence = function(prefrence){
+        this.setLearningOpportunityId = function(prefrence){
             _question.learningOpportunityId = prefrence;
         };
 
-        this.getPrefrence = function(){
+        this.getLerningOpportunityId = function(){
             return _question.learningOpportunityId;
         };
 
         this.setElement = function(element){
-            _question.theme = element._id;
+            _question.theme = element.id;
             _element = element;
         };
 
         this.getElement = function(){
+            console.log('##### QuestionData #### ',_element);
+            if(_element.id === undefined){
+                FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
+                    function(data){
+
+                    }
+                );
+            }
             return _element;
         };
 
@@ -115,4 +123,4 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _questionType;
         };
 
-    });
+    }]);

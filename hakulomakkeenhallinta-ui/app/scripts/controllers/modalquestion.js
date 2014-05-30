@@ -6,6 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             console.log('***** ModalQuestionCtrl ****');
             $scope.lang = "fi";
             $scope.element = parentElement;
+            //TODO: fic this
             $scope.languages = Languages.query();
             $scope.applicationSystem = applicationSystem;
             $scope.question = question;

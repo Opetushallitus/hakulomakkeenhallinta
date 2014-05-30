@@ -4,7 +4,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('FormtemplatesCtrl', ['$scope', '_', 'FormResource', '$i18next', 'Mallipohjat',
         function($scope, _, FormResource, $i18next, Mallipohjat) {
             console.log('********** FormtemplatesCtrl');
-            $scope.forms = Mallipohjat.query();
+//            $scope.forms = Mallipohjat.query();
 
             $scope.delete = function(form, index) {
 //                FormResource.delete(_.pick(form, '_id'));
