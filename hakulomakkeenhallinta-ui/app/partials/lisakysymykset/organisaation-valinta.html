@@ -1,0 +1,25 @@
+<form role="form" class="form-horizontal" name="organisaatioValinta">
+    <div class="modal-header">
+        <h4>Organisaation valinta</h4>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-info">
+            <i class="icon-info-sign"></i>Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun <b>{{applicationSystemForm | i18n:'name'}}</b>
+        </div>
+        <div data-ng-if="organisations.length >1">
+            <!--<p>
+                Valitse organanisaatio johon olet tekemässä lisäkysymystä
+            </p>-->
+            <div class="input-group">
+                <label for="organisation">Valitse organisaatio</label>
+                <select class="form-control" name="organisaatio" id="organisation" ng-model="organisation" ng-options="org.nimi.fi for org in organisations" data-ng-change="selectedOrganisation()" >
+                    <option value="" >-- Valitse organisaatio --</option>
+                </select>
+            </div>
+        </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
+        <button class="btn btn-primary pull-right" ng-click="jatka()">Jatka</button>
+    </div>
+</form>

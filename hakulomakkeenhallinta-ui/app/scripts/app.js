@@ -15,44 +15,40 @@ var app = angular.module('hakulomakkeenhallinta', [
         /*,'ngMockE2E'*/
     ]);
 
+    app.config(['$resourceProvider', function ($resourceProvider) {
+        // Don't strip trailing slashes from calculated URLs
+        $resourceProvider.stripTrailingSlashes = false;
+    }]);
+
    app.config(['$routeProvider',
         function($routeProvider) {
-            $routeProvider.when('/applicationSystemForm', {
+            $routeProvider.
+            when('/applicationSystemForm', {
                 templateUrl: 'partials/applicationSystemFormIndex.html'
-            });
-
-            $routeProvider.when('/applicationSystemForm/:id', {
+            }).when('/applicationSystemForm/:id', {
                 templateUrl: 'partials/applicationSystemForm.html',
                 controller: 'ApplicationSystemFormCtrl'
-            });
-            $routeProvider.when('/applicationSystemForm/:id/:eid', {
+            }).when('/applicationSystemForm/:id/:eid', {
                 templateUrl: 'partials/elements/edit/Element.html',
                 controller: 'ApplicationSystemFormCtrl'
-            });
-            $routeProvider.when('/additionalQuestion/:id/:aoid', {
+            }).when('/additionalQuestion/:id/:aoid', {
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
-            });
-            $routeProvider.when('/additionalQuestion/:id/:aoid/:eid', {
+            }).when('/additionalQuestion/:id/:aoid/:eid', {
                 templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
                 controller: 'CreateAdditionalQuestionCtrl'
-            });
-            $routeProvider.when('/applicationSystem', {
+            }).when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
-            });
-            $routeProvider.when('/themeQuestionsByOrganisation/:orgid', {
-                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                controller: 'CreateAdditionalQuestionCtrl'
-            });
-            $routeProvider.when('/applicationSystems', {
+            }).when('/applicationSystems', {
                 templateUrl: 'partials/applicationForms.html'
-            });
-            $routeProvider.when('/applicationSystems/:applicationFormId/:applicationOptionId', {
+            }).when('/applicationSystems/:applicationFormId/:applicationOptionId', {
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
-            });
-            $routeProvider.otherwise({
-                redirectTo: '/applicationSystemForm'
+            }).when('/themeQuestionsByOrganisation/:id/:orgid', {
+                    templateUrl: 'partials/themeQuestionsByOrganisation.html',
+                    controller: 'ThemeQuestionsByOrganisationCtrl'
+            }).otherwise({
+                    redirectTo: '/applicationSystemForm'
             });
         }
     ]);
@@ -74,7 +70,9 @@ var app = angular.module('hakulomakkeenhallinta', [
                 debug: false
             };
         }
-    ])
+    ]);
+
+
 
     app.provider('_', function() {
         this.$get = [

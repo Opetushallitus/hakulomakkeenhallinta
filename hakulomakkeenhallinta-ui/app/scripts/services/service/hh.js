@@ -5,6 +5,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         function($http, FormWalker, _, Props ) {
         console.log('****** HH ******');
         //var applicationSystems = ASForms.query();
+        var _applicationsSystemForm;
         var _organization = {};
 /*
         this.listApplicationSystems = function() {
@@ -18,6 +19,13 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 return as._id === id;
             });
         };*/
+        this.setApplicationSystemForm = function(applicationSystemForm){
+            _applicationsSystemForm = applicationSystemForm;
+        };
+
+         this.getApplicationSystemForm = function(){
+            return _applicationsSystemForm;
+         };
 
         this.setOrganization = function(organization){
             _organization = organization;

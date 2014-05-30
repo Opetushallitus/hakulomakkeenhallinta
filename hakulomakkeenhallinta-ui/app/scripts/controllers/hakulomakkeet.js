@@ -6,24 +6,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 console.log('********* HakulomakkeetCtrl ---->');
 
-//            $scope.question = {};
-//            $scope.selectedApplicationSystems = [];
-            /*$scope.languages = [{
-                title: "Suomi",
-                active: true
-            }, {
-                title: "Ruotsi"
-            }, {
-                title: "Englanti"
-            }];
-            $scope.items = [{
-                id: '1',
-                name: 'Aasian tutkimus'
-            }, {
-                id: '2',
-                name: 'Aasian tutkimus, kandidaatinopinnot'
-            }];*/
-
             $scope.applicationForms = FormEditor.query({'_path':'application-system-form'});
 
             $scope.luoHakulomake = function() {
