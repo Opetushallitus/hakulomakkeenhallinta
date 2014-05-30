@@ -9,11 +9,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystem = HH.getApplicationSystemForm();
 
             console.log('*** haetaan organisaation hakemukset ***** ', $scope.organization.oid);
-            ThemeQuestions.query({'_id':'list','_aoid':$scope.applicationSystem._id, orgId: $scope.organization.oid}).$promise.then(
+            ThemeQuestions.getList({'_id':$scope.applicationSystem._id, orgId: $scope.organization.oid}).$promise.then(
                 function(data){
-                    console.log(data);
+                    console.log('######', data);
                 }
             );
+            console.log('*** haetaan teemat ***** ');
+            FormEditor.query({'_path':'application-system-form', '_id':$scope.applicationSystem._id ,'_oper':'additional-question-themes'}).$promise.then(
+                function(data){
+                    console.log('*******', data );
+                }
+            );
+
 
             $scope.addQuestion = function(element) {
                 console.log('***** ', element);

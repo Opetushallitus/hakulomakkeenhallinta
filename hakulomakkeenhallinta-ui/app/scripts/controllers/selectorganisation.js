@@ -60,7 +60,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             console.log(mod);
             $scope.organisations = mod;
 
-            $scope.applicationSystemForm._id = '1.2.246.562.5.2014022711042555034240';
+//            $scope.applicationSystemForm._id = '1.2.246.562.5.2014022711042555034240';
 //        $scope.applicationSystemForm._id = '1.2.246.562.5.2013080813081926341927';
 
             if($scope.organisations.length == 1){
