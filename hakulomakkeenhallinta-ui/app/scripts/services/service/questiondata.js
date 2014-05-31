@@ -12,6 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         var _applicationOption = null;
 
         this.setApplicationOption = function(applicationOption){
+            _question.learningOpportunityId = applicationOption.oid;
             _applicationOption = applicationOption;
         };
 
