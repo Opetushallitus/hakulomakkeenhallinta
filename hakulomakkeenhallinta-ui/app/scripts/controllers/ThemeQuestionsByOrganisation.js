@@ -6,10 +6,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             console.log('**** ThemeQuestionsByOrganisation *** ');
             $scope.lang = "fi";
             $scope.organisation;
-            HH.fetchOrganisation($routeParams.oid).then(function(data){
-                $scope.organisation = data;
+            HH.fetchOrganisation($routeParams.oid).then(
+                function(data){
+                    $scope.organisation = data;
             });
-            $scope.applicationSystem = HH.getApplicationSystemForm();
+//            $scope.applicationSystem = HH.getApplicationSystemForm();
+            $scope.applicationSystem;
+            HH.fetchApplicationSystemForm($routeParams.id).then(
+                function(data){
+                    $scope.applicationSystem = data;
+            });
+
             $scope.themes = [];
 
             console.log('*** haetaan teemat ***** ', $routeParams.id);

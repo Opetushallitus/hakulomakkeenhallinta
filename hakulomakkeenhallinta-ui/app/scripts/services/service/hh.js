@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-  .service('HH',  ['$http', 'FormWalker', '_', 'Props',  'Organisaatio', '$q',
-        function($http, FormWalker, _, Props, Organisaatio, $q ) {
+  .service('HH',  ['$http', 'FormWalker', '_', 'Props',  'Organisaatio', '$q', 'FormEditor',
+        function($http, FormWalker, _, Props, Organisaatio, $q, FormEditor ) {
         console.log('****** HH ******');
         var _applicationsSystemForm;
         var _organisation = {};
@@ -51,5 +51,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                  });
              return defferred.promise;
         };
+
+        this.fetchApplicationSystemForm = function(id){
+            var deffered = $q.defer();
+            if(_applicationsSystemForm._id != undefined && _applicationsSystemForm._id == id){
+                deffered.resolve(_applicationsSystemForm);
+            }
+            FormEditor.get({'_path':'application-system-form', '_id':id}).$promise.then(
+                function(data){
+                deffered.resolve(data);
+            });
+
+            return deffered.promise;
+        };
+
 
     }]);
