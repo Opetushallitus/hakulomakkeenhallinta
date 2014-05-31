@@ -12,7 +12,7 @@
             </p>-->
             <div class="input-group">
                 <label for="organisation">Valitse organisaatio</label>
-                <select class="form-control" name="organisaatio" id="organisation" ng-model="organisation" ng-options="org.nimi.fi for org in organisations" data-ng-change="selectedOrganisation()" >
+                <select class="form-control" name="organisaatio" id="organisation" ng-model="organisation" ng-options="org.nimi.fi || org.nimi.sv for org in organisations" data-ng-change="selectedOrganisation()" >
                     <option value="" >-- Valitse organisaatio --</option>
                 </select>
             </div>

@@ -46,15 +46,22 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             //TODO: tämä on localhost hack poista!!
-           /* var orgs = ["1.2.246.562.10.00000000001", "1.2.246.562.10.65530732232" ];
+            /*var orgs = ["1.2.246.562.10.00000000001", "1.2.246.562.10.65530732232" ];
 //        var orgs = ["1.2.246.562.10.65530732232" ];
             var mod = [];
             for(var o in orgs){
                 var r ={};
                 r.oid = orgs[o];
                 var ni ={};
-                ni.fi ='oidi_'+o;
-                r.nimi = ni;
+                if(o==1){
+                    ni.sv ='SVoidi_'+o;
+                    r.nimi = ni;
+                }else{
+                    ni.fi ='oidi_'+o;
+                    r.nimi = ni;
+                }
+
+
                 mod.push(r);
             }
             console.log(mod);
