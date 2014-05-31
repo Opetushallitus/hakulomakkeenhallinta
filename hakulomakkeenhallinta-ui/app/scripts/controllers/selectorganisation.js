@@ -16,7 +16,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     organisation.nimi = data.organisaatiot[org].nimi;
                     userOrganisations.push(organisation);
                 }
-                $scope.organisations = userOrganizations;
+                $scope.organisations = userOrganisations;
                 if($scope.organisations.length == 1){
                     HH.setOrganisation($scope.organisations[0]);
                     $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, $scope.organisations[0].oid);
