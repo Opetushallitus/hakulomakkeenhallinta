@@ -44,9 +44,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
                             controller: 'SelectThemeAndQuestionTypeCtrl'
                         }).result.then(function(data) {
+                                console.log('SelectThemeAndQuestion ### data ', data);
                                 QuestionData.newAdditionalQuestion();
                                 QuestionData.setQuestionType(data.type);
-                                QuestionData.setElement(element);
+                                QuestionData.setElement(theme);
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setLearningOpportunityId($routeParams.oid);
                                 QuestionData.setEditFlag(false);
