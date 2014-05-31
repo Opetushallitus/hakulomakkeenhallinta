@@ -1,24 +1,12 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-  .service('HH',  ['$http', 'FormWalker', '_', 'Props',
-        function($http, FormWalker, _, Props ) {
+  .service('HH',  ['$http', 'FormWalker', '_', 'Props',  'Organisaatio', '$q',
+        function($http, FormWalker, _, Props, Organisaatio, $q ) {
         console.log('****** HH ******');
-        //var applicationSystems = ASForms.query();
         var _applicationsSystemForm;
-        var _organization = {};
-/*
-        this.listApplicationSystems = function() {
-            return applicationSystems;
-        };
-        this.find = function(applicationSystem, predicate) {
-            return FormWalker.find(applicationSystem.form, predicate);
-        };
-        this.getApplicationSystem = function(id) {
-            return _.find(applicationSystems, function(as) {
-                return as._id === id;
-            });
-        };*/
+        var _organisation = {};
+
         this.setApplicationSystemForm = function(applicationSystemForm){
             _applicationsSystemForm = applicationSystemForm;
         };
@@ -27,13 +15,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _applicationsSystemForm;
          };
 
-        this.setOrganization = function(organization){
-            console.log('HH ', _organization)
-            _organization = organization;
+        this.setOrganisation = function(organisation){
+            _organisation = organisation;
         };
 
-        this.getOrganization = function() {
-            return _organization;
+        this.getOrganisation = function() {
+            return _organisation;
         };
 
         this.usersApplicationOptions = function(hakuOid, userOrganisations ) {
@@ -51,6 +38,18 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 });
             });
             return applicationOptions;
+        };
+
+         this.fetchOrganisation = function(oid){
+            var defferred = $q.defer();
+            if(_organisation.oid != undefined && _organisation.oid == oid){
+               defferred.resolve(_organisation);
+            }
+             Organisaatio.get({'_oid':oid}).$promise.then(
+                 function(data){
+                     defferred.resolve(data);
+                 });
+             return defferred.promise;
         };
 
     }]);

@@ -44,7 +44,7 @@ var app = angular.module('hakulomakkeenhallinta', [
             }).when('/applicationSystems/:applicationFormId/:applicationOptionId', {
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
-            }).when('/themeQuestionsByOrganisation/:id/:orgid', {
+            }).when('/themeQuestionsByOrganisation/:id/:oid', {
                 templateUrl: 'partials/themeQuestionsByOrganisation.html',
                 controller: 'ThemeQuestionsByOrganisationCtrl'
             }).otherwise({

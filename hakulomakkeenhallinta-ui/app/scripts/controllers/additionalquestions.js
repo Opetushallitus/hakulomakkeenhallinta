@@ -5,7 +5,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         function($scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions) {
             console.log('**** AdditionalQuestionsCtrl *** ');
             $scope.lang = "fi";
-            $scope.organization = HH.getOrganization();
+            $scope.organisation = HH.getOrganization();
             console.log('*** haetaan formi teemoja varten');
 //            $scope.applicationSystem = FormEditor.get({ '_path': 'application-system-form', '_id': $routeParams.id });
             //TODO: poista tämä
