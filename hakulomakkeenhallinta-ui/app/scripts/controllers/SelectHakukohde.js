@@ -6,7 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystemForm = HH.getApplicationSystemForm();
 
             $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, HH.getOrganisation().oid);
-            
+
             console.log('####', $scope.applicationOptions);
             $scope.jatka = function(hakukohde) {
                 console.log('-- jatka -- ',hakukohde);
