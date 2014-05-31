@@ -51,7 +51,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setLearningOpportunityId($routeParams.oid);
                                 QuestionData.setEditFlag(false);
-                                $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ theme.id);
+                                $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id);
                             });
                     });
             };

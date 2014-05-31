@@ -7,7 +7,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.languages = [];
         FormEditor.get({'_path':'languages'}).$promise.then(
             function(data){
-                console.log(data);
                 $scope.languages = data;
             });
 
@@ -36,14 +35,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
         $scope.back = function() {
             QuestionData.setEditFlag(false);
-            $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid);
+            $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
         };
 
         $scope.tallennaUusi = function() {
-            ThemeQuestions.save( { _id: $scope.question.applicationSystemId , '_aoid': $scope.question.learningOpportunityId, '_themeId': $scope.element.id }, $scope.question).$promise.then(
+            ThemeQuestions.save( { _id: $scope.question.applicationSystemId , '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
-                    $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
+                    $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                 });
         };
 
@@ -51,7 +50,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
            QuestionData.setEditFlag(false);
            ThemeQuestions.save({'_id': $scope.question._id }, $scope.question).$promise.then(
                function(){
-                   $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
+                   $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                });
        };
 
@@ -60,7 +59,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
            ThemeQuestions.delete({'_id': $scope.question._id }).$promise.then(
                function(){
-                   $location.path('/additionalQuestion/'+$scope.question.applicationSystemId+'/'+$scope.question.learningOpportunityId);
+                   $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                });
 
        };
