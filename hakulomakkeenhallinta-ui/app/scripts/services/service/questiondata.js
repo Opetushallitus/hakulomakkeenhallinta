@@ -12,7 +12,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         var _applicationOption = null;
 
         this.setApplicationOption = function(applicationOption){
-            _question.learningOpportunityId = applicationOption.oid;
             _applicationOption = applicationOption;
         };
 
@@ -90,8 +89,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _applicationSystemId;
         };
 
-        this.setLearningOpportunityId = function(prefrence){
-            _question.learningOpportunityId = prefrence;
+        this.setLearningOpportunityId = function(hakuOid){
+            _question.learningOpportunityId = hakuOid;
         };
 
         this.getLerningOpportunityId = function(){

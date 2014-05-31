@@ -38,7 +38,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
-                    controller: 'SelectHakukohdeCtrl'
+                    controller: 'SelectHakukohdeCtrl',
+                    resolve:{
+                           hakuOid: function(){
+                               return $scope.hakuOid;
+                           }
+                    }
                 }).result.then(function(){
                         $modal.open({
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
@@ -50,7 +55,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 QuestionData.setElement(theme);
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setEditFlag(false);
-                                $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id);
+                                QuestionData.setLearningOpportunityId(data.hakuOid());
+                                $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+data.hakuOid()+'/'+ theme.id);
                             });
                     });
             };
