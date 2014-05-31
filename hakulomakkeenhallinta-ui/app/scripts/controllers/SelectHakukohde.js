@@ -1,15 +1,15 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectHakukohdeCtrl', ['$scope', '$location', '$modalInstance','QuestionData',
-        function($scope, $modalInstance, QuestionData ) {
+    .controller('SelectHakukohdeCtrl', ['$scope', '$location', '$modalInstance', 'HH', 'QuestionData',
+        function($scope, $location, $modalInstance, HH, QuestionData ) {
+            $scope.applicationOptions = [];
+            $scope.applicationSystemForm = HH.getApplicationSystemForm();
 
-            $scope.hakuOid;
-
+            $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, HH.getOrganization().oid);
+            console.log('####', $scope.applicationOptions);
             $scope.jatka = function(hakukohde) {
                 console.log('-- jatka -- ',hakukohde);
                 QuestionData.setApplicationOption(hakukohde);
-                $scope.hakuOid = hakukohde.oid;
-                QuestionData.setLearningOpportunityId(hakukohde.oid);
                 $modalInstance.close(hakukohde.oid);
             };
 
