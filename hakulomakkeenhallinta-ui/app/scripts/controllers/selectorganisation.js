@@ -46,7 +46,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             //TODO: tämä on localhost hack poista!!
-            var orgs = ["1.2.246.562.10.00000000001", "1.2.246.562.10.65530732232" ];
+           /* var orgs = ["1.2.246.562.10.00000000001", "1.2.246.562.10.65530732232" ];
 //        var orgs = ["1.2.246.562.10.65530732232" ];
             var mod = [];
             for(var o in orgs){
@@ -68,6 +68,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 console.log('asoid: ', $scope.applicationSystemForm._id);
                 HH.setOrganisation(mod[0]);
                 $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, mod[0].oid);
-            }
+            }*/
             //TODO: poisto tähän asti
         }]);
