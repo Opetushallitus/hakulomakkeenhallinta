@@ -22,24 +22,24 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             FormEditor.query({'_path':'application-system-form', '_id':$routeParams.id ,'_oper':'additional-question-themes'}).$promise.then(
                 function(data){
                     $scope.themes = data;
-                }
-            );
 
-            console.log('*** haetaan organisaation hakemukset ***** ', $routeParams.oid);
-            ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
-                function(data){
-                    console.log('!!! Juu saatiin dataaa: ', data);
-                    $scope.additionalQuestions = data;
-                    for( var theme in $scope.themes){
-                        $scope.themes[t].additionalQuestions = [];
-                        console.log('kysymys teeman: ',$scope.themes[theme].id)
-                        for(var question in data){
-                            console.log('Kysymys: ',data[question].messageText.translations.fi);
-                            if($scope.themes[theme].id === data[question].theme){
-                                $scope.themes[theme].additionalQuestions.push(data[question]);
+                    console.log('*** haetaan organisaation hakemukset ***** ', $routeParams.oid);
+                    ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
+                        function(data){
+                            console.log('!!! Juu saatiin dataaa: ', data);
+                            $scope.additionalQuestions = data;
+                            for( var theme in $scope.themes){
+                                $scope.themes[t].additionalQuestions = [];
+                                console.log('kysymys teeman: ',$scope.themes[theme].id)
+                                for(var question in data){
+                                    console.log('Kysymys: ',data[question].messageText.translations.fi);
+                                    if($scope.themes[theme].id === data[question].theme){
+                                        $scope.themes[theme].additionalQuestions.push(data[question]);
+                                    }
+                                }
                             }
                         }
-                    }
+                    );
                 }
             );
 
