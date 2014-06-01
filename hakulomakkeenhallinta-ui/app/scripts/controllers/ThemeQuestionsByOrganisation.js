@@ -26,18 +26,20 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                             var que = [];
                             que = data;
-
-                            for(var haku in que){
-                                if(que[haku]._id != undefined){
-                                    HH.fetchHakukohdeInfo(que[haku].learningOpportunityId).then(
+                            console.log('111', que);
+                            for(var h in que){
+                                if(que[h]._id != undefined){
+                                    console.log('qq: ', que[h]);
+                                    var tmpQ = {};
+                                    tmpQ = que[h];
+                                    console.log('EE: ', tmpQ);
+                                    HH.fetchHakukohdeInfo(que[h].learningOpportunityId).then(
                                         function(data){
-                                            var tmpQ = {};
-                                            tmpQ = que[haku];
-                                            console.log('EE: ', tmpQ);
+                                            console.log(data);
                                             tmpQ.haunInfo = data;
                                             console.log('JJ:', tmpQ);
-                                            que[haku].push(tmpQ);
-                                            console.log('####', que[haku]);
+                                            que[h].push(tmpQ);
+                                            console.log('####', que[h]);
                                         });
                                 }
                             }
