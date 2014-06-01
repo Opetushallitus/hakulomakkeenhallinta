@@ -29,15 +29,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 for(var question in data){
                                     if(data[question].theme != undefined){
                                         if($scope.themes[theme].id === data[question].theme){
-                                            HH.fetchHakukohdeInfo(data[question].learningOpportunityId).then(
+                                            $scope.themes[theme].additionalQuestions.push(data[question]);
+                                            /*HH.fetchHakukohdeInfo(data[question].learningOpportunityId).then(
                                                 function(hakuInfo){
                                                     var que = data[question];
                                                     que.haunInfo = hakuInfo;
                                                     console.log('####', que);
                                                     console.log('####', theme);
-                                                    $scope.themes[theme].additionalQuestions.push(que);
+
                                                 }
-                                            )
+                                            );*/
                                         }
                                     }
                                 }
