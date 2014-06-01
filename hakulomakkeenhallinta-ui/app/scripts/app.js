@@ -50,6 +50,9 @@ var app = angular.module('hakulomakkeenhallinta', [
             }).when('/themeQuestionsByOrganisation/:id/:oid/:hakuOid/:themeId', {
                     templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
                     controller: 'CreateAdditionalQuestionCtrl'
+            }).when('/modifyThemeQuestion/:id/:oid/:questionId', {
+                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                    controller: 'CreateAdditionalQuestionCtrl'
             }).otherwise({
                 redirectTo: '/applicationSystemForm'
             });

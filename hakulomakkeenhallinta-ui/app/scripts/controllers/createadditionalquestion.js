@@ -16,8 +16,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.editFlag = QuestionData.getEditFlag();
         getQuestionType();
         if($scope.question._id === undefined){
-            console.log('browser refresh: ',$routeParams.eid );
-            ThemeQuestions.get({'_id': $routeParams.eid}).$promise.then(
+            console.log('browser refresh: ',$routeParams.questionId );
+            ThemeQuestions.get({'_id': $routeparams.questionId}).$promise.then(
                 function(data){
                     console.log(data);
                     QuestionData.setQuestion(data);
@@ -34,12 +34,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 
         $scope.back = function() {
+            console.log('CQC back');
             QuestionData.setEditFlag(false);
             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
         };
 
         $scope.tallennaUusi = function() {
-            ThemeQuestions.save( { _id: $scope.question.applicationSystemId , '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
+            console.log('CQC tallenna uusi');
+            ThemeQuestions.save( { _id: $routeParams.id, '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
                     $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
@@ -47,6 +49,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
        $scope.tallennaMuokkaus = function(){
+           console.log('CQC tallenna muokkaus');
            QuestionData.setEditFlag(false);
            ThemeQuestions.save({'_id': $scope.question._id }, $scope.question).$promise.then(
                function(){
@@ -55,8 +58,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        };
 
        $scope.poistaKysymys = function(){
+           console.log('CQC poistaKysymys');
            QuestionData.setEditFlag(false);
-
            ThemeQuestions.delete({'_id': $scope.question._id }).$promise.then(
                function(){
                    $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);

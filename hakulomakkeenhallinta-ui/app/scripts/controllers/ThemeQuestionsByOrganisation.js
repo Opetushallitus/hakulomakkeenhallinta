@@ -18,12 +18,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             });
 
             $scope.themes = [];
-            console.log('*** haetaan teemat ***** ', $routeParams.id);
             FormEditor.query({'_path':'application-system-form', '_id':$routeParams.id ,'_oper':'additional-question-themes'}).$promise.then(
                 function(data){
                     $scope.themes = data;
-
-                    console.log('*** haetaan organisaation hakemukset ***** ', $routeParams.oid);
                     ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
                         function(data){
                             $scope.additionalQuestions = data;
@@ -32,7 +29,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 for(var question in data){
                                     if(data[question].theme != undefined){
                                         if($scope.themes[theme].id === data[question].theme){
-                                            $scope.themes[theme].additionalQuestions.push(data[question]);
+                                            HH.fetchHakukohdeInfo(data[question].learningOpportunityId).then(
+                                                function(hakuInfo){
+                                                    data[question].haunInfo = hakuInfo
+                                                    $scope.themes[theme].additionalQuestions.push(data[question]);
+                                                }
+                                            )
                                         }
                                     }
                                 }
@@ -43,7 +45,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             );
 
             $scope.addQuestion = function(theme) {
-                console.log('***** ', theme);
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
                     controller: 'SelectHakukohdeCtrl'
@@ -71,7 +72,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function(data){
                         console.log('muokkaa:', data);
                         QuestionData.setQuestion(data);
-                        $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ question._id);
+                        $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
                     });
             };
 

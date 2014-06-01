@@ -70,5 +70,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return deffered.promise;
         };
 
+        this.fetchHakukohdeInfo = function(hakuOid) {
+            var deffered = $q.defer();
+            console.log(' fetchHakukohdeInfo haku oid:',hakuOid);
+            $http.get(Props.tarjontaAPI+"/hakukohde/"+hakuOid, {
+            }).success(function(data) {
+                if(data.result){
+                    deferred.resolve(data.result.hakukohteenNimi);
+                }
+
+            });
+            return deffered.promise;
+        };
 
     }]);

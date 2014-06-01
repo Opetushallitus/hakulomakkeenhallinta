@@ -23,10 +23,14 @@
                 {{ theme.name.translations.fi || theme.name.translations.sv }}
 
             </accordion-heading>
-            <div data-ng-repeat="question in theme.additionalQuestions">
-                <a data-ng-click="muokkaaKysymysta(question)">{{ question.messageText.translations.fi || question.messageText.translations.sv}} {{question.type | i18next}}</a>
-                <br/>  {{ question.learningOpportunityId }} {{ question.ownerOrganizationOids[0]}}
-            </div>
+            <table class="table table-striped table-hover" >
+                <tr data-ng-repeat="question in theme.additionalQuestions">
+                    <td>
+                        <a data-ng-click="muokkaaKysymysta(question)">{{ question.messageText.translations.fi || question.messageText.translations.sv}} {{question.type | i18next}}</a>
+                        <br/>  {{ question.haunInfo }}
+                    </td>
+                </tr>
+            </table>
         </accordion-group>
     </accordion>
 </div>
