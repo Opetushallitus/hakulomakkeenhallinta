@@ -61,7 +61,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
 
             $scope.getHakukohdeInfo = function(lopId){
-                return HH.fetchHakukohdeInfo(lopId);
+                console.log('### getHakukohdeInfo ***');
+                HH.fetchHakukohdeInfo(lopId).then(
+                    function(data){
+                        return data;
+                    });
             };
 
             $scope.addQuestion = function(theme) {
