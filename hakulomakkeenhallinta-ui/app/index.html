@@ -23,7 +23,8 @@
     <script src="lib/jquery-1.11.1.min.js"></script>
 
 </head>
-<body data-ng-controller="AppCtrl">
+
+<body>
 
 <div id="app-container">
     <div id="angularbox" ng-view=""></div>
@@ -31,16 +32,18 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
-<script src="scripts/controllers/app.js"></script>
 <script src="scripts/controllers/koodisto.js"></script>
 <script src="scripts/controllers/applicationsystemform.js"></script>
 <script src="scripts/controllers/hakulomakkeet.js"></script>
 <script src="scripts/controllers/questions.js"></script>
 <script src="scripts/controllers/modalapplicationoption.js"></script>
+<script src="scripts/controllers/ThemeQuestionsByOrganisation.js"></script>
 <script src="scripts/controllers/back.js"></script>
 <script src="scripts/controllers/formtemplates.js"></script>
 <script src="scripts/controllers/modalquestion.js"></script>
+<script src="scripts/controllers/selectorganisation.js"></script>
 <script src="scripts/controllers/additionalquestions.js"></script>
+<script src="scripts/controllers/SelectHakukohde.js"></script>
 <script src="scripts/controllers/sortquestions.js"></script>
 <script src="scripts/controllers/element.js"></script>
 <script src="scripts/controllers/question.js"></script>
@@ -63,11 +66,13 @@
 <script src="scripts/directives/hhrequiredfield.js"></script>
 <script src="scripts/directives/hhinputtext.js"></script>
 <script src="scripts/directives/hhinputlink.js"></script>
-<script src="scripts/services/factory/ASForms.js"></script>
+<script src="scripts/services/factory/FormEditor.js"></script>
+<script src="scripts/services/factory/ThemeQuestions.js"></script>
 <script src="scripts/services/factory/mallipohjat.js"></script>
 <script src="scripts/services/factory/tarjontaapi.js"></script>
 <script src="scripts/services/factory/elementtypes.js"></script>
 <script src="scripts/services/factory/organisaatiohenkilo.js"></script>
+<script src="scripts/services/factory/organisaatio.js"></script>
 <script src="scripts/services/factory/languages.js"></script>
 <script src="scripts/services/service/questiondata.js"></script>
 <script src="scripts/controllers/createadditionalquestion.js"></script>

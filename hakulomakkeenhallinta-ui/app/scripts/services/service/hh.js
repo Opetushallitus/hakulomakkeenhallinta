@@ -1,65 +1,87 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-  .service('HH',  ['$http', 'ASForms', 'FormWalker', '_', 'Props',
-        function($http, ASForms, FormWalker, _, Props ) {
+  .service('HH',  ['$http', 'FormWalker', '_', 'Props',  'Organisaatio', '$q', 'FormEditor',
+        function($http, FormWalker, _, Props, Organisaatio, $q, FormEditor ) {
+        console.log('****** HH ******');
+        var _applicationsSystemForm;
+        var _organisation = {};
 
-        var applicationSystems = ASForms.query();
+        this.setApplicationSystemForm = function(applicationSystemForm){
+            _applicationsSystemForm = applicationSystemForm;
+        };
 
-        this.listApplicationSystems = function() {
-            return applicationSystems;
+         this.getApplicationSystemForm = function(){
+            return _applicationsSystemForm;
+         };
+
+        this.setOrganisation = function(organisation){
+            _organisation = organisation;
         };
-        this.find = function(applicationSystem, predicate) {
-            return FormWalker.find(applicationSystem.form, predicate);
+
+        this.getOrganisation = function() {
+            return _organisation;
         };
-        this.getApplicationSystem = function(id) {
-            return _.find(applicationSystems, function(as) {
-                return as._id === id;
+
+        this.usersApplicationOptions = function(hakuOid, userOrganisations ) {
+            var applicationOptions = [];
+            console.log('haku oid:',hakuOid);
+            console.log('organisaatio: ',userOrganisations);
+            $http.get(Props.tarjontaAPI+"/hakukohde/search", {
+                params: {
+                    organisationOid: userOrganisations,
+                    hakuOid: hakuOid
+                }
+            }).success(function(data) {
+                _.each(data.result.tulokset, function(org) {
+                    applicationOptions.push(org);
+                });
             });
+            return applicationOptions;
         };
 
-        this.getOrganization = function() {
-            //TODO: tälle pitää tehdä joitain missä tämä tulee? Käyttäjän tiedoista?
-            return {
-                'i18nText': {
-                    'translations': {
-                        'fi': 'k-kauppa'
+         this.fetchOrganisation = function(oid){
+            var defferred = $q.defer();
+             if(_organisation != undefined && _organisation.oid != undefined){
+                 if( _organisation.oid == oid){
+                     defferred.resolve(_organisation);
+                 }
+             }
+             Organisaatio.get({'_oid':oid}).$promise.then(
+                 function(data){
+                     defferred.resolve(data);
+                 });
+             return defferred.promise;
+        };
+
+        this.fetchApplicationSystemForm = function(id){
+            var deffered = $q.defer();
+            console.log('haku oid: ', id);
+            if(_applicationsSystemForm != undefined &&_applicationsSystemForm._id != undefined ){
+                if( _applicationsSystemForm._id == id){
+                    deffered.resolve(_applicationsSystemForm);
+                }
+            }
+            FormEditor.get({'_path':'application-system-form', '_id':id}).$promise.then(
+                function(data){
+                deffered.resolve(data);
+            });
+
+            return deffered.promise;
+        };
+
+        this.fetchHakukohdeInfo = function(hakuOid) {
+            var deffered = $q.defer();
+            console.log(' fetchHakukohdeInfo haku oid:',hakuOid);
+            $http.get(Props.tarjontaAPI+"/hakukohde/"+hakuOid).success(
+                function(data) {
+                    if(data.result){
+                        console.log('***', data.result.hakukohteenNimi);
+                        deffered.resolve(data.result.hakukohteenNimi);
                     }
-                }
-            };
-        };
-
-        this.searchApplicationOptions = function(userOrgizations, term) {
-            var applicationOptions = [];
-            $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
-                params: {
-                    searchTerms: term,
-                    organisationOid: userOrgizations
-                }
-            }).success(function(data) {
-                _.each(data.result.tulokset, function(org) {
-                    _.each(org.tulokset, function(ao) {
-                        applicationOptions.push(ao);
-                    });
                 });
-            });
-            return applicationOptions;
-        };
 
-        this.usersApplicationOptions = function(userOrganisations) {
-            var applicationOptions = [];
-            $http.get("https://itest-virkailija.oph.ware.fi:443/tarjonta-service/rest/v1/hakukohde/search", {
-                params: {
-                    organisationOid: userOrganisations
-                }
-            }).success(function(data) {
-                _.each(data.result.tulokset, function(org) {
-                    _.each(org.tulokset, function(ao) {
-                        applicationOptions.push(ao);
-                    });
-                });
-            });
-            return applicationOptions;
+            return deffered.promise;
         };
 
     }]);

@@ -12,42 +12,48 @@ var app = angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallintaUiApp.services.util',
         'hakulomakkeenhallintaUiApp.services.factory',
         'hakulomakkeenhallintaUiApp.controllers'
-        ,'ngMockE2E'
+        /*,'ngMockE2E'*/
     ]);
+
+    app.config(['$resourceProvider', function ($resourceProvider) {
+        // Don't strip trailing slashes from calculated URLs
+        $resourceProvider.stripTrailingSlashes = false;
+    }]);
 
    app.config(['$routeProvider',
         function($routeProvider) {
-            $routeProvider.when('/applicationSystemForm', {
+            $routeProvider.
+            when('/applicationSystemForm', {
                 templateUrl: 'partials/applicationSystemFormIndex.html'
-            });
-
-            $routeProvider.when('/applicationSystemForm/:id', {
+            }).when('/applicationSystemForm/:id', {
                 templateUrl: 'partials/applicationSystemForm.html',
                 controller: 'ApplicationSystemFormCtrl'
-            });
-            $routeProvider.when('/applicationSystemForm/:id/:eid', {
+            }).when('/applicationSystemForm/:id/:eid', {
                 templateUrl: 'partials/elements/edit/Element.html',
                 controller: 'ApplicationSystemFormCtrl'
-            });
-            $routeProvider.when('/additionalQuestion/:id/:aoid', {
+            }).when('/additionalQuestion/:id/:aoid', {
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
-            });
-            $routeProvider.when('/additionalQuestion/:id/:aoid/:eid', {
+            }).when('/additionalQuestion/:id/:aoid/:eid', {
                 templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
                 controller: 'CreateAdditionalQuestionCtrl'
-            });
-            $routeProvider.when('/applicationSystem', {
+            }).when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
-            });
-            $routeProvider.when('/applicationSystems', {
+            }).when('/applicationSystems', {
                 templateUrl: 'partials/applicationForms.html'
-            });
-            $routeProvider.when('/applicationSystems/:applicationFormId/:applicationOptionId', {
+            }).when('/applicationSystems/:applicationFormId/:applicationOptionId', {
                 templateUrl: 'partials/additionalQuestions.html',
                 controller: 'AdditionalQuestionsCtrl'
-            });
-            $routeProvider.otherwise({
+            }).when('/themeQuestionsByOrganisation/:id/:oid', {
+                templateUrl: 'partials/themeQuestionsByOrganisation.html',
+                controller: 'ThemeQuestionsByOrganisationCtrl'
+            }).when('/themeQuestionsByOrganisation/:id/:oid/:hakuOid/:themeId', {
+                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                    controller: 'CreateAdditionalQuestionCtrl'
+            }).when('/modifyThemeQuestion/:id/:oid/:questionId', {
+                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                    controller: 'CreateAdditionalQuestionCtrl'
+            }).otherwise({
                 redirectTo: '/applicationSystemForm'
             });
         }
@@ -70,18 +76,23 @@ var app = angular.module('hakulomakkeenhallinta', [
                 debug: false
             };
         }
-    ])
+    ]);
+
+
 
     app.provider('_', function() {
         this.$get = [
-
             function() {
                 return window._;
             }
-            ];
+        ];
     });
 
-    app.run(function($httpBackend, Props, $rootScope, FormWalker){
+    app.run(['$rootScope', function($rootScope){
+        $rootScope.devFlag = true;
+    }]);
+
+    /*app.run(function($httpBackend, Props, $rootScope, FormWalker){
         //kehitys vaiheen ominaisuuksien disaploiminen
         $rootScope.devFlag = true;
         console.log('**** $httpBackkend mock ****');
@@ -133,10 +144,8 @@ var app = angular.module('hakulomakkeenhallinta', [
             languages = data;
         });
 
-        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/asId').passThrough();
-
         //application system lisäkysymysten haku
-        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/1.2.246.562.5.2014022711042555034240/1.2.246.562.20.23099745319').respond(
+        *//*$httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/1.2.246.562.5.2014022711042555034240/1.2.246.562.20.23099745319').respond(
             function (method, url){
                 console.log('***** haettiin lisäkysymykset **** \n',url );
                 //lisakymysten tietovaraston mock localStorageen
@@ -146,22 +155,26 @@ var app = angular.module('hakulomakkeenhallinta', [
                     lisakysymykset.additionalQuestions = localStorage.getItem('additionalQuestions');
                 }
                 return [ 200, lisakysymykset, {status:200, message:'haettiin lisakysmykset'}];
-            });
+            });*//*
 
+        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/asId').passThrough();
+        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/haku1').passThrough();
+        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/application-system-form/haku1').passThrough();
         //lomakkeen haku
-        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/1.2.246.562.5.2014022711042555034240').respond(
+        *//*$httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/1.2.246.562.5.2014022711042555034240').respond(
+
             function (method, url){
                 console.log('***** haettiin lomake **** \n',url );
                 return [ 200, hakuLomake, {status:200, message:'haettiin hakulomake'}];
-            });
+            });*//*
 
-
+        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/application-system-form').passThrough();
         //hakulomakkeet listan mock
-        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion').respond(
+*//*        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion').respond(
             function(method, url, data){
                 console.log('hakulomake lista' );
                 return [ 200, hakuLomakkeet, {status:200, message:'haettiin hakulomakkeet'}];
-            });
+            });*//*
 
         //Mallipohjien lista mock
         $.getJSON(Props.contextRoot+'/app/test-data/applicationFormTemplates.json', function(data){
@@ -170,6 +183,7 @@ var app = angular.module('hakulomakkeenhallinta', [
         });
 
         $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/form/).respond(function(){
+            console.log('saatiin mallipohjat')
             return [200, malliPohjat, {status:200, message: 'saatiin mallipohjat' }];
         });
 
@@ -197,10 +211,10 @@ var app = angular.module('hakulomakkeenhallinta', [
 
 
         //luodaan uusi lisäkysmys oikeaa backendiä vasten
-//       $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319/).passThrough();
+       $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/haku1\/\w/).passThrough();
 
 //   luodaan uusi lisäkysmys mock backend
-        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319/).respond(
+*//*        $httpBackend.whenPOST(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319/).respond(
             function(method, url, data, headers){
                 console.log('**** lisäkysmyksen tallenenus ***');
                 console.log('method ---- ', method);
@@ -224,10 +238,10 @@ var app = angular.module('hakulomakkeenhallinta', [
                 console.log(JSON.stringify(json_object));
                 return [200, json_object, {status:200, message: '' }];
             }
-        );
-
+        );*//*
+        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/haku1\/\w/).passThrough();
         //heataan lisäkysmys muokattavaksi
-        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
+        *//*$httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/1\.2\.246\.562\.5\.2014022711042555034240\/1\.2\.246\.562\.20\.23099745319\/\d/).respond(
             function(method, url, data, headers){
                 console.log('avataan lisäkysymys muokattavaksi \n', method, '\n', url );
                 var additionalQuestionsLS =[];
@@ -241,7 +255,7 @@ var app = angular.module('hakulomakkeenhallinta', [
                     }
                 }
                 return [404];
-            });
+            });*//*
 
 
         //poistetaan lisäkysymys
@@ -305,21 +319,23 @@ var app = angular.module('hakulomakkeenhallinta', [
             });
 
 
+        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/types').passThrough();
         //lisäkysymys tyypit mock
-        $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/types').respond(
+        *//*$httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/types').respond(
             function( method, url){
                 console.log('-- Lisäkysymys tyypit ', url);
                 return [200, lisakysymysTyypit ,{status:200, message:' lisäkysymys tyypit'}];
             }
-        );
+        );*//*
 
+        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).passThrough();
         //kielet mock
-        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).respond(
+*//*        $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).respond(
             function( method, url){
                 console.log('******* Languages *****');
                 return [200, languages ,{status:200, message:'Haettiin kielet'}];
             }
-        );
+        );*//*
 
         //tarjonan api käyttö
         $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();
@@ -334,11 +350,12 @@ var app = angular.module('hakulomakkeenhallinta', [
 
 
         $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\//).respond(
-            function(data, url){
+            function(data, url, method){
             console.log('uusi api ', url);
+            console.log('uusi api ', method);
             return [200];
             }
         );
 
-    });
+    });*/
 

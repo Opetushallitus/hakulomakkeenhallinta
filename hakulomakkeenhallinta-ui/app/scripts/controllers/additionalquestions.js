@@ -1,39 +1,43 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'ASForms', 'FormWalker', 'Languages', 'QuestionData',
-        function($scope, $modal, $location, _, $routeParams, HH, ASForms, FormWalker, Languages, QuestionData) {
+    .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
+        function($scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions) {
+            console.log('**** AdditionalQuestionsCtrl *** ');
             $scope.lang = "fi";
-            $scope.organization = HH.getOrganization();
-            $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
+            $scope.organisation; // = HH.getOrganisation();
+            HH.fetchOrganisation().then(
+
+            );
+            $scope.organisation
+
+            console.log('*** haetaan formi teemoja varten');
+//            $scope.applicationSystem = FormEditor.get({ '_path': 'application-system-form', '_id': $routeParams.id });
+            //TODO: poista tämä
+            $scope.applicationSystem = FormEditor.get({'_path':'application-system-form', '_id': 'haku1' });
             $scope.elements = [];
             $scope.applicationOption = QuestionData.getApplicationOption();
 
             $scope.applicationSystem.$promise.then(function(data) {
-                $scope.elements = FormWalker.filterByType($scope.applicationSystem.form, "Theme");
-                //TODO: tämän suodatus tulee tehdä jotenkin muuten kuin näin ?
+                console.dir(data);
+                $scope.elements =data.children;
                 for(var ea in $scope.elements){
-                    if($scope.elements[ea]._id === "HenkilotiedotGrp"){
+                    if($scope.elements[ea].id === "henkilotiedot"){
                         $scope.elements.splice(ea, 1);
                     }
-                    if( $scope.elements[ea]._id === "KoulutustaustaGrp" ){
+                    if( $scope.elements[ea].id === "koulutustausta" ){
                         $scope.elements.splice(ea, 1);
                     }
                 }
-
-                //ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid, '_getAll':'getAll' }).$promise.then(
                 console.log('### haetaan lisäkysmykset ###');
-                ASForms.get({ '_id': $routeParams.id, '_aoid': $routeParams.aoid }).$promise.then(
-                //ASForms.get({ '_id':'asId'}).$promise.then(
+                ThemeQuestions.query({ '_id': 'list', '_aoid': $routeParams.id }).$promise.then(
                     function(data){
                         console.log(data);
-                        //TODO: tämä if osio tulee poistaa kun oikea back end on saatavilla
-                        if( data.additionalQuestions !== undefined){
-                            var questionDataLS = [];
-                            questionDataLS = JSON.parse(data.additionalQuestions);
-                            QuestionData.clearAdditonalQuestions();
-                            for (var d in questionDataLS){
-                                QuestionData.setQuestion(questionDataLS[d]);
+                        QuestionData.clearAdditonalQuestions();
+                        for (var d in data){
+                            console.log(data[d]._id);
+                            if(data[d]._id != undefined){
+                                QuestionData.setQuestion(data[d]);
                             }
                         }
 
@@ -42,16 +46,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             for (var e in $scope.elements){
                                 $scope.elements[e].additionalQuestions = [];
                                 for (var q  in questions){
-                                    if(questions[q].theme === $scope.elements[e]._id ){
+                                    if(questions[q].theme === $scope.elements[e].id ){
                                         $scope.elements[e].additionalQuestions.push(questions[q]);
                                     }
                                 }
                             }
                         }
+
                     });
             });
 
             $scope.addQuestion = function(element) {
+                console.log('***** ', element);
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
                     controller: 'SelectThemeAndQuestionTypeCtrl'
@@ -59,17 +65,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         QuestionData.newAdditionalQuestion();
                         QuestionData.setQuestionType(data.type);
                         QuestionData.setElement(element);
-                        QuestionData.setApplicatioSystem($scope.applicationSystem);
-                        QuestionData.setPrefrence($routeParams.aoid);
+                        QuestionData.setApplicatioSystemId($routeParams.id);
+                        QuestionData.setLearningOpportunityId($routeParams.aoid);
                         QuestionData.setEditFlag(false);
-                        $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element._id);
+                        $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ element.id);
                     });
             };
 
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
-                ASForms.get({'_id': question.applicationSystemId, '_aoid': $routeParams.aoid, '_qid': question._id}).$promise.then(
+                console.log('muokkaa:', question._id);
+                ThemeQuestions.get({'_id': question._id}).$promise.then(
                     function(data){
+                        console.log('muokkaa:', data);
                         QuestionData.setQuestion(data);
                         $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ question._id);
                     });

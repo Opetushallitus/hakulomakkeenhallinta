@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-    .service('QuestionData', function () {
+    .service('QuestionData', [ 'FormEditor', function (FormEditor) {
 
         var _question = {};
-        var _applicationSystem = {};
+        var _applicationSystemId;
         var _element ={};
         var _questionType;
         var _additionalQuestions = [];
@@ -20,11 +20,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.getTextQuestionValidators = function(){
-            return ['RequiredFieldValidator', 'SizeFieldValidator'/*,'RegexFieldValidator'*/];
+            return ['requiredFieldValidator', 'sizeFieldValidator'/*,'RegexFieldValidator'*/];
         };
 
         this.getCheckboxValidators = function(){
-            return ['RequiredFieldValidator'];
+            return ['requiredFieldValidator'];
         };
 
         this.getRadioValidators = function(){
@@ -62,7 +62,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             _question.learningOpportunityId = "";
             _element = [];
             _questionType = '';
-            _applicationSystem = {};
+            _applicationSystemId;
         };
 
         this.setQuestion = function(question){
@@ -80,29 +80,37 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _question;
         };
 
-        this.setApplicatioSystem = function(applicationSystem){
-            _applicationSystem = applicationSystem;
-            _question.applicationSystemId = applicationSystem._id;
+        this.setApplicatioSystemId = function(applicationSystemId){
+            _applicationSystemId = applicationSystemId;
+            _question.applicationSystemId = applicationSystemId;
         };
 
-        this.getApplicationSystem = function(){
-            return _applicationSystem;
+        this.getApplicationSystemId = function(){
+            return _applicationSystemId;
         };
 
-        this.setPrefrence = function(prefrence){
-            _question.learningOpportunityId = prefrence;
+        this.setLearningOpportunityId = function(hakuOid){
+            _question.learningOpportunityId = hakuOid;
         };
 
-        this.getPrefrence = function(){
+        this.getLerningOpportunityId = function(){
             return _question.learningOpportunityId;
         };
 
         this.setElement = function(element){
-            _question.theme = element._id;
+            _question.theme = element.id;
             _element = element;
         };
 
         this.getElement = function(){
+            console.log('##### QuestionData #### ',_element);
+            if(_element.id === undefined){
+                FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
+                    function(data){
+
+                    }
+                );
+            }
             return _element;
         };
 
@@ -115,4 +123,4 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _questionType;
         };
 
-    });
+    }]);
