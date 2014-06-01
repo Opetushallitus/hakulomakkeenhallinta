@@ -23,10 +23,21 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.themes = data;
                     ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
                         function(data){
-
                             var que = [];
                             que = data;
-                            console.log('111', que);
+                            for( var theme in $scope.themes){
+                                $scope.themes[theme].additionalQuestions = [];
+                                for(var question in que){
+                                    if(que[question].theme != undefined){
+                                        if($scope.themes[theme].id === que[question].theme){
+                                            $scope.themes[theme].additionalQuestions.push(que[question]);
+                                        }
+                                    }
+                                }
+                            }
+
+//                            console.log('111', que);
+/*
                             for(var h in que){
                                 if(que[h]._id != undefined){
                                     console.log('qq: ', que[h]);
@@ -40,23 +51,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                             console.log('JJ:', tmpQ);
                                             que[h] = tmpQ;
                                             console.log('####', que[h]);
-                                            for( var theme in $scope.themes){
-                                                $scope.themes[theme].additionalQuestions = [];
-                                                for(var question in que){
-                                                    if(que[question].theme != undefined){
-                                                        if($scope.themes[theme].id === que[question].theme){
-                                                            $scope.themes[theme].additionalQuestions.push(que[question]);
-                                                        }
-                                                    }
-                                                }
-                                            }
+
                                         });
                                 }
                             }
-
+*/
 
                         });
                 });
+
+            $scope.getHakukohdeInfo = function(lopId){
+                return HH.fetchHakukohdeInfo(lopId);
+            };
 
             $scope.addQuestion = function(theme) {
                 $modal.open({

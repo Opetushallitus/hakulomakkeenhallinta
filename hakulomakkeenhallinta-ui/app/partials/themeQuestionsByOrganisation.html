@@ -27,7 +27,7 @@
                 <tr data-ng-repeat="question in theme.additionalQuestions">
                     <td>
                         <a data-ng-click="muokkaaKysymysta(question)">{{ question.messageText.translations.fi || question.messageText.translations.sv}} {{question.type | i18next}}</a>
-                        <br/>  {{ question.haunInfo }}
+                        <br/>   {{ getHakukohdeInfo(question.learningOpportunityId) }}
                     </td>
                 </tr>
             </table>
