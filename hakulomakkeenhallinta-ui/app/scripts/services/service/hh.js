@@ -56,6 +56,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.fetchApplicationSystemForm = function(id){
             var deffered = $q.defer();
+            console.log('haku oid: ', id);
             if(_applicationsSystemForm != undefined &&_applicationsSystemForm._id != undefined ){
                 if( _applicationsSystemForm._id == id){
                     deffered.resolve(_applicationsSystemForm);

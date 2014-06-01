@@ -10,7 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function(data){
                     $scope.organisation = data;
             });
-//            $scope.applicationSystem = HH.getApplicationSystemForm();
+
             $scope.applicationSystem;
             HH.fetchApplicationSystemForm($routeParams.id).then(
                 function(data){
@@ -29,7 +29,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             console.log('!!! Juu saatiin dataaa: ', data);
                             $scope.additionalQuestions = data;
                             for( var theme in $scope.themes){
-                                $scope.themes[t].additionalQuestions = [];
+                                $scope.themes[theme].additionalQuestions = [];
                                 console.log('kysymys teeman: ',$scope.themes[theme].id)
                                 for(var question in data){
                                     console.log('Kysymys: ',data[question].messageText.translations.fi);
