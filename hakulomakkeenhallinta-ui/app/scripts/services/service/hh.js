@@ -76,6 +76,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             $http.get(Props.tarjontaAPI+"/hakukohde/"+hakuOid).success(
                 function(data) {
                     if(data.result){
+                        console.log('***', data.result.hakukohteenNimi);
                         deffered.resolve(data.result.hakukohteenNimi);
                     }
                 });

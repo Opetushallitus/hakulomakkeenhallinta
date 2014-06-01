@@ -31,8 +31,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         if($scope.themes[theme].id === data[question].theme){
                                             HH.fetchHakukohdeInfo(data[question].learningOpportunityId).then(
                                                 function(hakuInfo){
-                                                    data[question].haunInfo = hakuInfo;
-                                                    $scope.themes[theme].additionalQuestions.push(data[question]);
+                                                    var que = data[question];
+                                                    que.haunInfo = hakuInfo;
+                                                    console.log('####', que);
+                                                    console.log('####', theme);
+                                                    $scope.themes[theme].additionalQuestions.push(que);
                                                 }
                                             )
                                         }
