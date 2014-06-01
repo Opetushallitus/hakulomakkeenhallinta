@@ -40,6 +40,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                             console.log('JJ:', tmpQ);
                                             que[h] = tmpQ;
                                             console.log('####', que[h]);
+                                            $scope.$apply();
                                         });
                                 }
                             }
