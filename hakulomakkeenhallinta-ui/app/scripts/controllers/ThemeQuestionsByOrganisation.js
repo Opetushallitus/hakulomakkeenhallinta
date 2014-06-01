@@ -38,7 +38,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                             console.log(data);
                                             tmpQ.haunInfo = data;
                                             console.log('JJ:', tmpQ);
-                                            que[h].push(tmpQ);
+                                            que[h] = tmpQ;
                                             console.log('####', que[h]);
                                         });
                                 }
