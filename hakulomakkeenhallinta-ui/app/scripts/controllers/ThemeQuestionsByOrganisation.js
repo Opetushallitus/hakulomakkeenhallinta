@@ -28,11 +28,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             que = data;
 
                             for(var haku in que){
-                                console.log('!!!', que[haku]);
                                 if(que[haku]._id != undefined){
                                     HH.fetchHakukohdeInfo(que[haku].learningOpportunityId).then(
                                         function(data){
-                                            que.haunInfo = data;
+                                            que[haku].haunInfo = data;
                                             console.log('####', que);
                                         });
                                 }
