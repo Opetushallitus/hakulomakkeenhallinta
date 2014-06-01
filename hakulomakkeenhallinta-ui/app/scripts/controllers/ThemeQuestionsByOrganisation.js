@@ -30,6 +30,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 for(var question in que){
                                     if(que[question].theme != undefined){
                                         if($scope.themes[theme].id === que[question].theme){
+                                            
                                             $scope.themes[theme].additionalQuestions.push(que[question]);
                                         }
                                     }
