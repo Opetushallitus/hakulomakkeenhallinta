@@ -7,7 +7,7 @@
 <div class="alert alert-info alert-block ">
     <i class="glyphicon glyphicon-info-sign"></i>
     Olet luomassa <b>{{applicationSystem | i18n : 'name'}}</b> hakulomakkeelle lisäkysymyksiä organisaatiolla
-    <b>{{organisation.nimi.fi}}</b>.
+    <b>{{organisation.nimi.fi || organisation.nimi.sv }}</b>.
 </div>
 
 <div class="clearfix"></div>
@@ -16,18 +16,16 @@
 
 <div class="from-group">
     <accordion data-ng-repeat="theme in themes">
-        <!--<accordion-group is-open="accordionStates[element._id]">-->
-        <accordion-group is-open="isOpen">
+        <accordion-group is-open="accordionStates(theme)">
             <accordion-heading>
                 <button type="button" class=" btn btn-xs" data-ng-click="addQuestion(theme)">Lisää uusi kysymys <i class="glyphicon glyphicon-plus-sign"></i> </button>
-                <i class="glyphicon" ng-class="{'glyphicon-chevron-down':isOpen, 'glyphicon-chevron-right': !isOpen }"></i>
-                <!--<i class="glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen }"></i>-->
-                {{theme.name.translations.fi}}
+                <i class="glyphicon" ng-class="{'glyphicon-chevron-down':accordionStates(theme), 'glyphicon-chevron-right': !accordionStates(theme) }"></i>
+                {{ theme.name.translations.fi || theme.name.translations.sv }}
 
             </accordion-heading>
-            <!--<div data-ng-repeat="question in element.additionalQuestions">-->
-                <!--<a data-ng-click="muokkaaKysymysta(question)">{{question.messageText.translations.fi}} {{question.type | i18next}}</a>-->
-                <!--<a data-ng-click="goTo(question)">{{question | i18n}}</a>-->
+            <div data-ng-repeat="question in theme.additionalQuestions">
+                <a data-ng-click="muokkaaKysymysta(question)">{{ question.messageText.translations.fi || question.messageText.translations.sv}} {{question.type | i18next}}</a>
+                <br/>  {{ question.learningOpportunityId }} {{ question.ownerOrganizationOids[0]}}
             </div>
         </accordion-group>
     </accordion>

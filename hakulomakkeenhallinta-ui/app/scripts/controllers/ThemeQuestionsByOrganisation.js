@@ -18,7 +18,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             });
 
             $scope.themes = [];
-
             console.log('*** haetaan teemat ***** ', $routeParams.id);
             FormEditor.query({'_path':'application-system-form', '_id':$routeParams.id ,'_oper':'additional-question-themes'}).$promise.then(
                 function(data){
@@ -29,7 +28,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             console.log('*** haetaan organisaation hakemukset ***** ', $routeParams.oid);
             ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
                 function(data){
-                    console.log('Ei vielä palauta mitään kun ei ole dataa: ', data);
+                    console.log('!!! Juu saatiin dataaa: ', data);
+                    $scope.additionalQuestions = data;
+                    for( var theme in $scope.themes){
+                        $scope.themes[t].additionalQuestions = [];
+                        console.log('kysymys teeman: ',$scope.themes[theme].id)
+                        for(var question in data){
+                            console.log('Kysymys: ',data[question].messageText.translations.fi);
+                            if($scope.themes[theme].id === data[question].theme){
+                                $scope.themes[theme].additionalQuestions.push(data[question]);
+                            }
+                        }
+                    }
                 }
             );
 
@@ -71,9 +81,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
 
-            $scope.accordianState = function(element){
+            $scope.accordianState = function(theme){
 
-                if(element.additionalQuestions !== undefined && element.additionalQuestions.length > 0){
+                if(theme.additionalQuestions !== undefined && theme.additionalQuestions.length > 0){
                     return true;
                 }
                 return false;
