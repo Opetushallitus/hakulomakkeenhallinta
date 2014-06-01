@@ -35,7 +35,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                             tmpQ = que[haku];
                                             console.log('EE: ', tmpQ);
                                             tmpQ.haunInfo = data;
-                                            console.log('JJ:' tmpQ);
+                                            console.log('JJ:', tmpQ);
                                             que[haku].push(tmpQ);
                                             console.log('####', que[haku]);
                                         });
