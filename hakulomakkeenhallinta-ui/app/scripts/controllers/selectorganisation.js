@@ -20,6 +20,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 if($scope.organisations.length == 1){
                     HH.setOrganisation($scope.organisations[0]);
                     $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, $scope.organisations[0].oid);
+                    HH.setApplicationSystemForm(applicationSystemForm);
+                    $location.path("/themeQuestionsByOrganisation/" + $scope.applicationSystemForm._id+'/'+HH.getOrganisation().oid );
                 }
             });
 

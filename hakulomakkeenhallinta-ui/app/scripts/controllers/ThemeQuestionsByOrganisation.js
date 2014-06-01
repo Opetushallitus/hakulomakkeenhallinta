@@ -31,10 +31,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 if(que[haku]._id != undefined){
                                     HH.fetchHakukohdeInfo(que[haku].learningOpportunityId).then(
                                         function(data){
-                                            var que1 = {}
-                                            que1 = que[haku];
-                                            que1.haunInfo = data;
-                                            que[haku] = que1;
+                                            var tmpQ = {};
+                                            tmpQ = que[haku];
+                                            console.log('EE: ', tmpQ);
+                                            tmpQ.haunInfo = data;
+                                            console.log('JJ:' tmpQ);
+                                            que[haku].push(tmpQ);
                                             console.log('####', que[haku]);
                                         });
                                 }
