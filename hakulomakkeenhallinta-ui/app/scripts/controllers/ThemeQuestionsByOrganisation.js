@@ -23,32 +23,34 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.themes = data;
                     ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
                         function(data){
-                            $scope.additionalQuestions = data;
+
+                            var que = [];
+                            que = data;
+
+                            for(var haku in que){
+                                console.log('!!!', que[haku]);
+                                if(que[haku]._id != undefined){
+                                    HH.fetchHakukohdeInfo(que[haku].learningOpportunityId).then(
+                                        function(data){
+                                            que.haunInfo = data;
+                                            console.log('####', que);
+                                        });
+                                }
+                            }
+
                             for( var theme in $scope.themes){
                                 $scope.themes[theme].additionalQuestions = [];
-                                for(var question in data){
-                                    if(data[question].theme != undefined){
-                                        if($scope.themes[theme].id === data[question].theme){
-//                                            $scope.themes[theme].additionalQuestions.push(data[question]);
-                                            console.log('!!!', data[question]);
-                                            var que = {};
-                                            que = data[question];
-                                            HH.fetchHakukohdeInfo(data[question].learningOpportunityId).then(
-                                                function(hakuInfo){
-                                                    que.haunInfo = hakuInfo;
-                                                    console.log('####', que);
-                                                    console.log('####', theme);
-                                                    $scope.themes[theme].additionalQuestions.push(que);
-                                                }
-                                            );
+                                for(var question in que){
+                                    if(que[question].theme != undefined){
+                                        if($scope.themes[theme].id === que[question].theme){
+                                         $scope.themes[theme].additionalQuestions.push(que[question]);
                                         }
                                     }
                                 }
                             }
-                        }
-                    );
-                }
-            );
+
+                        });
+                });
 
             $scope.addQuestion = function(theme) {
                 $modal.open({

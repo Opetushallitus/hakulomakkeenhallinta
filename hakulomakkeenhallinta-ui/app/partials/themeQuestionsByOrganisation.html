@@ -19,7 +19,7 @@
         <accordion-group is-open="accordionStates(theme)">
             <accordion-heading>
                 <button type="button" class=" btn btn-xs" data-ng-click="addQuestion(theme)">Lisää uusi kysymys <i class="glyphicon glyphicon-plus-sign"></i> </button>
-                <i class="glyphicon" ng-class="{'glyphicon-chevron-down':accordionStates(theme), 'glyphicon-chevron-right': !accordionStates(theme) }"></i>
+                <i class="glyphicon" ng-class="{'glyphicon-chevron-down': accordionStates(theme), 'glyphicon-chevron-right': !accordionStates(theme) }"></i>
                 {{ theme.name.translations.fi || theme.name.translations.sv }}
 
             </accordion-heading>
