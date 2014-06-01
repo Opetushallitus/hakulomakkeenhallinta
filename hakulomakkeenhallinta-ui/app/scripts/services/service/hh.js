@@ -42,7 +42,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
          this.fetchOrganisation = function(oid){
             var defferred = $q.defer();
-             if(_organisation.oid != undefined){
+             if(_organisation != undefined && _organisation.oid != undefined){
                  if( _organisation.oid == oid){
                      defferred.resolve(_organisation);
                  }
@@ -56,7 +56,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.fetchApplicationSystemForm = function(id){
             var deffered = $q.defer();
-            if(_applicationsSystemForm._id != undefined ){
+            if(_applicationsSystemForm != undefined &&_applicationsSystemForm._id != undefined ){
                 if( _applicationsSystemForm._id == id){
                     deffered.resolve(_applicationsSystemForm);
                 }
