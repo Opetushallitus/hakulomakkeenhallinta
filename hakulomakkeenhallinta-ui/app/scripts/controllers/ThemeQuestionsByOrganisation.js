@@ -26,15 +26,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     console.log('*** haetaan organisaation hakemukset ***** ', $routeParams.oid);
                     ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
                         function(data){
-                            console.log('!!! Juu saatiin dataaa: ', data);
                             $scope.additionalQuestions = data;
                             for( var theme in $scope.themes){
                                 $scope.themes[theme].additionalQuestions = [];
-                                console.log('kysymys teeman: ',$scope.themes[theme].id)
                                 for(var question in data){
-                                    console.log('Kysymys: ',data[question].messageText.translations.fi);
-                                    if($scope.themes[theme].id === data[question].theme){
-                                        $scope.themes[theme].additionalQuestions.push(data[question]);
+                                    if(data[question].theme != undefined){
+                                        if($scope.themes[theme].id === data[question].theme){
+                                            $scope.themes[theme].additionalQuestions.push(data[question]);
+                                        }
                                     }
                                 }
                             }
