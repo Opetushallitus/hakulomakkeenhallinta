@@ -24,14 +24,15 @@
 
 </head>
 
-<body>
-
+<body data-ng-controller="RootCtrl">
 <div id="app-container">
     <div id="angularbox" ng-view=""></div>
 </div>
+</body>
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
+<script src="scripts/controllers/rootctrl.js"></script>
 <script src="scripts/controllers/koodisto.js"></script>
 <script src="scripts/controllers/applicationsystemform.js"></script>
 <script src="scripts/controllers/hakulomakkeet.js"></script>
@@ -78,5 +79,4 @@
 <script src="scripts/controllers/createadditionalquestion.js"></script>
 <!-- endbuild -->
 
-</body>
 </html>

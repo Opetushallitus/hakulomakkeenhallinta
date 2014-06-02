@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ThemeQuestionsByOrganisationCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
-        function($scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions ) {
-            console.log('**** ThemeQuestionsByOrganisation *** ');
+    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
+        function($rootScope, $scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions ) {
+            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl', 6 );
             $scope.lang = "fi";
             $scope.organisation;
             HH.fetchOrganisation($routeParams.oid).then(
@@ -30,39 +30,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 for(var question in que){
                                     if(que[question].theme != undefined){
                                         if($scope.themes[theme].id === que[question].theme){
-                                            
                                             $scope.themes[theme].additionalQuestions.push(que[question]);
                                         }
                                     }
                                 }
                             }
-
-//                            console.log('111', que);
-/*
-                            for(var h in que){
-                                if(que[h]._id != undefined){
-                                    console.log('qq: ', que[h]);
-                                    var tmpQ = {};
-                                    tmpQ = que[h];
-                                    console.log('EE: ', tmpQ);
-                                    HH.fetchHakukohdeInfo(que[h].learningOpportunityId).then(
-                                        function(data){
-                                            console.log(data);
-                                            tmpQ.haunInfo = data;
-                                            console.log('JJ:', tmpQ);
-                                            que[h] = tmpQ;
-                                            console.log('####', que[h]);
-
-                                        });
-                                }
-                            }
-*/
-
                         });
                 });
 
             $scope.getHakukohdeInfo = function(lopId){
-                console.log('### getHakukohdeInfo ***');
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',42, 'getHakukohdeInfo ');
                 HH.fetchHakukohdeInfo(lopId).then(
                     function(data){
                         return data;
@@ -92,10 +69,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
-                console.log('muokkaa:', question._id);
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',72, 'muokkaaKysmysta', question._id);
                 ThemeQuestions.get({'_id': question._id}).$promise.then(
                     function(data){
-                        console.log('muokkaa:', data);
+                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',75,'muokkaa:', data);
                         QuestionData.setQuestion(data);
                         $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
                     });
@@ -107,7 +84,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 
             $scope.accordianState = function(theme){
-
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',87, 'accordian states');
                 if(theme.additionalQuestions !== undefined && theme.additionalQuestions.length > 0){
                     return true;
                 }

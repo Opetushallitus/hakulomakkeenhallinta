@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetCtrl', ['$scope', '$modal', '$log', '$location', 'HH', 'FormEditor',
-        function($scope, $modal, $log, $location, HH, FormEditor) {
-
-console.log('********* HakulomakkeetCtrl ---->');
+    .controller('HakulomakkeetCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'HH', 'FormEditor',
+        function($scope, $rootScope, $modal, $log, $location, HH, FormEditor) {
+            $rootScope.LOGS('HakulomakkeetCtrl',6);
 
             $scope.applicationForms = FormEditor.query({'_path':'application-system-form'});
 
@@ -20,7 +19,9 @@ console.log('********* HakulomakkeetCtrl ---->');
             };
 
             $scope.valitseOrganisaatio = function(applicationSystemForm) {
-                var modalInstance = $modal.open({
+                console.log('valitse organisaation ', applicationSystemForm);
+//                var modalInstance =
+                    $modal.open({
                     templateUrl: 'partials/lisakysymykset/organisaation-valinta.html',
                     controller: 'SelectOrganisationCtrl',
                     resolve: {
@@ -29,11 +30,13 @@ console.log('********* HakulomakkeetCtrl ---->');
                         }
                     }
                 });
+/*
                 modalInstance.result.then(function(applicationOptionId) {
                     $location.path("additionalQuestion/" + applicationSystemForm._id + '/' + applicationOptionId);
                 }, function() {
 
                 });
+*/
             };
 
             $scope.open = function(applicationSystemForm) {

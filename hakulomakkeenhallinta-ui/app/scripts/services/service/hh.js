@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-  .service('HH',  ['$http', 'FormWalker', '_', 'Props',  'Organisaatio', '$q', 'FormEditor',
-        function($http, FormWalker, _, Props, Organisaatio, $q, FormEditor ) {
-        console.log('****** HH ******');
+  .service('HH',  ['$http', '$rootScope', 'FormWalker', '_', 'Props',  'Organisaatio', '$q', 'FormEditor',
+        function($http, $rootScope, FormWalker, _, Props, Organisaatio, $q, FormEditor ) {
+        $rootScope.LOGS('HH', 6);
         var _applicationsSystemForm;
         var _organisation = {};
 
@@ -25,8 +25,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.usersApplicationOptions = function(hakuOid, userOrganisations ) {
             var applicationOptions = [];
-            console.log('haku oid:',hakuOid);
-            console.log('organisaatio: ',userOrganisations);
+            $rootScope.LOGS('HH', 28,'haku oid:',hakuOid);
+            $rootScope.LOGS('HH',29,'organisaatio: ',userOrganisations);
             $http.get(Props.tarjontaAPI+"/hakukohde/search", {
                 params: {
                     organisationOid: userOrganisations,
@@ -56,14 +56,16 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.fetchApplicationSystemForm = function(id){
             var deffered = $q.defer();
-            console.log('haku oid: ', id);
+            $rootScope.LOGS('HH', 59,'fetchApplicationSystemForm haku oid: ', id);
+            $rootScope.LOGS('HH', 60,'_applicationsSystemForm: ', _applicationsSystemForm);
             if(_applicationsSystemForm != undefined &&_applicationsSystemForm._id != undefined ){
                 if( _applicationsSystemForm._id == id){
                     deffered.resolve(_applicationsSystemForm);
                 }
             }
-            FormEditor.get({'_path':'application-system-form', '_id':id}).$promise.then(
+            FormEditor.get({'_path':'application-system-form', '_id':id,'_oper':'name'}).$promise.then(
                 function(data){
+                $rootScope.LOGS('HH', 68, data);
                 deffered.resolve(data);
             });
 

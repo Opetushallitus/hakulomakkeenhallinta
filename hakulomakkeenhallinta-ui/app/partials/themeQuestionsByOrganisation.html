@@ -6,7 +6,7 @@
 </div>
 <div class="alert alert-info alert-block ">
     <i class="glyphicon glyphicon-info-sign"></i>
-    Olet luomassa <b>{{applicationSystem | i18n : 'name'}}</b> hakulomakkeelle lisäkysymyksiä organisaatiolla
+    Olet luomassa <b>{{ applicationSystem.translations.fi || applicationSystem.translations.sv }}</b> hakulomakkeelle lisäkysymyksiä organisaatiolla
     <b>{{organisation.nimi.fi || organisation.nimi.sv }}</b>.
 </div>
 
@@ -27,7 +27,6 @@
                 <tr data-ng-repeat="question in theme.additionalQuestions">
                     <td>
                         <a data-ng-click="muokkaaKysymysta(question)">{{ question.messageText.translations.fi || question.messageText.translations.sv}} {{question.type | i18next}}</a>
-                        <br/>   {{ question.haunInfo }}
                     </td>
                 </tr>
             </table>
