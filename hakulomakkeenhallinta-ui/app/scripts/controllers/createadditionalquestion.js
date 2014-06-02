@@ -7,23 +7,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.languages = [];
         FormEditor.get({'_path':'languages'}).$promise.then(
             function(data){
-                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, 'REORDER LANGUAGE');
-                var reOrder = [{},{},{}];
-                for(var re in data){
-                    switch (data[re]){
-                        case data[re].fi:
-                            reOrder[0] = data[re];
-                            break;
-                        case data[re].sv:
-                            reOrder[1] = data[re];
-                            break;
-                        case data[re].en:
-                            reOrder[2] = data[re];
-                            break
-                    }
-                };
-                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',25, reOrder);
-                $scope.languages = reOrder;
+                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, data);
+                $scope.languages = data;
             });
 
         $scope.question = QuestionData.getQuestion();
