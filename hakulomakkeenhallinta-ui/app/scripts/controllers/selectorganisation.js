@@ -4,7 +4,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SelectOrganisationCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'applicationSystemForm', 'HH', 'OrganisaatioHenkilo',
         function($scope, $rootScope, $location, $modalInstance, applicationSystemForm, HH, OrganisaatioHenkilo ) {
 
-            $rootScope.LOGS('SelectOrganisationCtrl '+ 7);
+            $rootScope.LOGS('SelectOrganisationCtrl ', 7);
 
             $scope.applicationOptions = [];
             $scope.applicationSystemForm = applicationSystemForm;
@@ -31,7 +31,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.jatka = function() {
-                $rootScope.LOGS('SelectOrganisationCtrl '+ 34+ ' jatka '+ HH.getOrganisation().oid);
+                $rootScope.LOGS('SelectOrganisationCtrl ', 34, ' jatka ', HH.getOrganisation().oid);
                 if(HH.getOrganisation().oid !== undefined){
                     HH.setApplicationSystemForm(applicationSystemForm);
                     $modalInstance.dismiss('ok');

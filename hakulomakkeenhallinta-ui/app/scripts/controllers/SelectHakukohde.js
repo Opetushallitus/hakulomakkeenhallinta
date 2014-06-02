@@ -7,9 +7,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, HH.getOrganisation().oid);
 
-            $rootScope.LOGS('SelectHakukohdeCtrl '+10+' '+ $scope.applicationOptions);
+            $rootScope.LOGS('SelectHakukohdeCtrl ',10, $scope.applicationOptions);
             $scope.jatka = function(hakukohde) {
-                $rootScope.LOGS('SelectHakukohdeCtrl '+12+' jatka '+hakukohde);
+                $rootScope.LOGS('SelectHakukohdeCtrl ',12,' jatka ',hakukohde);
                 QuestionData.setApplicationOption(hakukohde);
                 $modalInstance.close(hakukohde.oid);
             };

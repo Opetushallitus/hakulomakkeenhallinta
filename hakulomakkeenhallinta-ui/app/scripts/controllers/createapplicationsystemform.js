@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('CreateapplicationsystemformCtrl',
         function($scope, $rootScope, $modalInstance, ApplicationSystemResource,TarjontaAPI, Mallipohjat, ASForms) {
-            $rootScope.LOGS('CreateapplicationsystemformCtrl '+6);
+            $rootScope.LOGS('CreateapplicationsystemformCtrl ',6);
             //heataan tarjonnasta meneillään olevat haut
             $scope.applicationSystems = TarjontaAPI.query();
             //Heataan mallipohjat, jotka liitetään hakuun??
@@ -16,12 +16,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 };
                 ASForms.update( applicationSystemForm, function success(resp){
                     //TODO: tämän käsittely
-                    $rootScope.LOGS('CreateapplicationsystemformCtrl '+resp);
+                    $rootScope.LOGS('CreateapplicationsystemformCtrl ',resp);
                     $modalInstance.close(applicationSystemForm);
                 },function error(error){
                     //TODO: tämän käsittely
-                    $rootScope.LOGS('CreateapplicationsystemformCtrl '+'Haun ja hakemuksen liittäminen ei onnistu');
-                    $rootScope.LOGS('CreateapplicationsystemformCtrl '+error);
+                    $rootScope.LOGS('CreateapplicationsystemformCtrl ','Haun ja hakemuksen liittäminen ei onnistu');
+                    $rootScope.LOGS('CreateapplicationsystemformCtrl ',error);
                 });
 
             };

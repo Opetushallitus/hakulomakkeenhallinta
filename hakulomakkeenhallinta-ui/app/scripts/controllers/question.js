@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
 .controller('QuestionCtrl', ['$scope', '$rootScope', '$modal', '_', 'QuestionData',
     function($scope, $rootScope, $modal, _ , QuestionData) {
-        $rootScope.LOGS('QuestionCtrl '+6);
+        $rootScope.LOGS('QuestionCtrl ',6);
         /*var question = QuestionData.getQuestion();
         var editFlag = QuestionData.getEditFlag();
         console.log(question.type);

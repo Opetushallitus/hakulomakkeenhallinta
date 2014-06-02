@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
   .controller('CreateAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData',
         function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData ) {
-        $rootScope.LOGS('CreateAdditionalQuestionCtrl '+6);
+        $rootScope.LOGS('CreateAdditionalQuestionCtrl ',6);
         $scope.languages = [];
         FormEditor.get({'_path':'languages'}).$promise.then(
             function(data){
@@ -16,10 +16,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.editFlag = QuestionData.getEditFlag();
         getQuestionType();
         if($scope.question._id === undefined){
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl '+'browser refresh: '+$routeParams.questionId );
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','browser refresh: ',$routeParams.questionId );
             ThemeQuestions.get({'_id': $routeparams.questionId}).$promise.then(
                 function(data){
-                    $rootScope.LOGS('CreateAdditionalQuestionCtrl '+data);
+                    $rootScope.LOGS('CreateAdditionalQuestionCtrl ',data);
                     QuestionData.setQuestion(data);
                     $scope.question = QuestionData.getQuestion();
                     $scope.element = $scope.question.theme;
@@ -34,13 +34,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 
         $scope.back = function() {
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl '+'CQC back');
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back');
             QuestionData.setEditFlag(false);
             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
         };
 
         $scope.tallennaUusi = function() {
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl '+'CQC tallenna uusi');
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallenna uusi');
             ThemeQuestions.save( { _id: $routeParams.id, '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
@@ -49,7 +49,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
        $scope.tallennaMuokkaus = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl '+'CQC tallennaMuokkaus');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaMuokkaus');
            QuestionData.setEditFlag(false);
            ThemeQuestions.save({'_id': $scope.question._id }, $scope.question).$promise.then(
                function(){
@@ -58,7 +58,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        };
 
        $scope.poistaKysymys = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl '+'CQC poistaKysymys');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC poistaKysymys');
            QuestionData.setEditFlag(false);
            ThemeQuestions.delete({'_id': $scope.question._id }).$promise.then(
                function(){
@@ -68,7 +68,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        };
 
        $scope.esikatselu = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl '+'ei vielä toteutettu !!!!');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','ei vielä toteutettu !!!!');
        };
 
        $scope.addCheckbox = function(question){
@@ -112,8 +112,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             var question = QuestionData.getQuestion();
             var editFlag = QuestionData.getEditFlag();
 
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl '+ $scope.element+' '+$scope.questionType );
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl '+question.type);
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ', $scope.element,$scope.questionType );
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ',question.type);
             switch(question.type){
                 case 'TextQuestion':
 

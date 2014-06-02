@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-    .service('QuestionData', [ 'FormEditor', function (FormEditor) {
+    .service('QuestionData', [ 'FormEditor','$rootScope', function (FormEditor, $rootScope) {
 
         var _question = {};
         var _applicationSystemId;
@@ -103,7 +103,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.getElement = function(){
-            console.log('##### QuestionData #### ',_element);
+            $rootScope.LOGS('QuestionData ',106, _element);
             if(_element.id === undefined){
                 FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
                     function(data){

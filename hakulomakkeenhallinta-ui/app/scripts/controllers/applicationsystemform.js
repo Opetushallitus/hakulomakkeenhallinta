@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ApplicationSystemFormCtrl', ['$scope', '$rootScope', '$routeParams', 'ASForms', '$modal', '_',
         function($scope, $rootScope, $routeParams, ASForms, $modal, _) {
-            $rootScope.LOGS('ApplicationSystemFormCtrl '+6);
+            $rootScope.LOGS('ApplicationSystemFormCtrl ',6);
             $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
 
             $scope.delete = function(array, index) {
@@ -44,7 +44,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.addQuestion = function(tree){
-                $rootScope.LOGS('ApplicationSystemFormCtrl '+47+' '+ tree);
+                $rootScope.LOGS('ApplicationSystemFormCtrl ',47, tree);
             }
 
             $scope.tallenna = function(){

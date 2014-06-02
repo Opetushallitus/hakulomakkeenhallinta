@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ModalQuestionCtrl', ['$scope', '$rootScope', '$modalInstance', 'Languages', 'question', 'applicationSystem', 'parentElement', '$modal', '_', 'ASForms',
         function($scope, $rootScope, $modalInstance, Languages, question, applicationSystem, parentElement, $modal, _ , ASForms) {
-            $rootScope.LOGS('ModalQuestionCtrl '+6);
+            $rootScope.LOGS('ModalQuestionCtrl ',6);
             $scope.lang = "fi";
             $scope.element = parentElement;
             //TODO: fix this

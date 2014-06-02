@@ -10,7 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $location.path(path.join('/'));
         };
         $scope.goto = function(element) {
-            $rootScope.LOGS('BackCtrl '+13 +' '+$location.path() + '/' + element._id);
+            $rootScope.LOGS('BackCtrl ',13 ,$location.path() + '/' + element._id);
             $location.path($location.path() + '/' + element._id);
         };
     }
