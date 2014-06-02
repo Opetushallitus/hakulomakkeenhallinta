@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-6">
             <tabset>
-                <tab ng-repeat="(key, language) in languages">
+                <tab ng-repeat="(key, language) in languages | orderBy:key='fi'" >
                     <!--<tab-heading>{{language | i18n}}</tab-heading>-->
-                    <tab-heading>{{language.translations.fi }}</tab-heading>
+                    <tab-heading>{{language.translations.fi}}</tab-heading>
                     <form role="form" >
                         <hh-inputtext data-ng-model="question.messageText.translations[key]" label="question-title"></hh-inputtext>
                         <hh-inputtext data-ng-model="question.helpText.translations[key]" label="question-help"></hh-inputtext>

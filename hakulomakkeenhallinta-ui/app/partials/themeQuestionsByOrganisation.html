@@ -6,7 +6,7 @@
 </div>
 <div class="alert alert-info alert-block ">
     <i class="glyphicon glyphicon-info-sign"></i>
-    Olet luomassa <b>{{ applicationSystem.translations.fi || applicationSystem.translations.sv }}</b> hakulomakkeelle lisäkysymyksiä organisaatiolla
+    Olet luomassa <b>{{ applicationSystem | i18n:'name' || applicationSystem.translations.fi || applicationSystem.translations.sv }}</b> hakulomakkeelle lisäkysymyksiä organisaatiolla
     <b>{{organisation.nimi.fi || organisation.nimi.sv }}</b>.
 </div>
 
@@ -16,10 +16,10 @@
 
 <div class="from-group">
     <accordion data-ng-repeat="theme in themes">
-        <accordion-group is-open="accordionStates(theme)">
+        <accordion-group is-open="accordianState(theme)">
             <accordion-heading>
                 <button type="button" class=" btn btn-xs" data-ng-click="addQuestion(theme)">Lisää uusi kysymys <i class="glyphicon glyphicon-plus-sign"></i> </button>
-                <i class="glyphicon" ng-class="{'glyphicon-chevron-down': accordionStates(theme), 'glyphicon-chevron-right': !accordionStates(theme) }"></i>
+                <i class="glyphicon" ng-class="{'glyphicon-chevron-down': accordianState(theme), 'glyphicon-chevron-right': !accordianState(theme) }"></i>
                 {{ theme.name.translations.fi || theme.name.translations.sv }}
 
             </accordion-heading>
