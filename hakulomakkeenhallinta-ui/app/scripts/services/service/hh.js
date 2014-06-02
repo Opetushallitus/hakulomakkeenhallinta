@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.services.service')
   .service('HH',  ['$http', '$rootScope', 'FormWalker', '_', 'Props',  'Organisaatio', '$q', 'FormEditor',
         function($http, $rootScope, FormWalker, _, Props, Organisaatio, $q, FormEditor ) {
-        $rootScope.LOGS('HH', 6);
+        $rootScope.LOGS('HH '+ 6);
         var _applicationsSystemForm;
         var _organisation = {};
 
@@ -25,8 +25,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.usersApplicationOptions = function(hakuOid, userOrganisations ) {
             var applicationOptions = [];
-            $rootScope.LOGS('HH', 28,'haku oid:',hakuOid);
-            $rootScope.LOGS('HH',29,'organisaatio: ',userOrganisations);
+            $rootScope.LOGS('HH '+ 28 +' haku oid:'+hakuOid);
+            $rootScope.LOGS('HH '+29+' organisaatio: '+userOrganisations);
             $http.get(Props.tarjontaAPI+"/hakukohde/search", {
                 params: {
                     organisationOid: userOrganisations,
@@ -56,8 +56,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.fetchApplicationSystemForm = function(id){
             var deffered = $q.defer();
-            $rootScope.LOGS('HH', 59,'fetchApplicationSystemForm haku oid: ', id);
-            $rootScope.LOGS('HH', 60,'_applicationsSystemForm: ', _applicationsSystemForm);
+            $rootScope.LOGS('HH '+ 59+' fetchApplicationSystemForm haku oid: '+ id);
+            $rootScope.LOGS('HH '+ 60+'_applicationsSystemForm: '+ _applicationsSystemForm);
             if(_applicationsSystemForm != undefined &&_applicationsSystemForm._id != undefined ){
                 if( _applicationsSystemForm._id == id){
                     deffered.resolve(_applicationsSystemForm);
@@ -65,7 +65,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             }
             FormEditor.get({'_path':'application-system-form', '_id':id,'_oper':'name'}).$promise.then(
                 function(data){
-                $rootScope.LOGS('HH', 68, data);
+                $rootScope.LOGS('HH '+ 68+ data);
                 deffered.resolve(data);
             });
 
@@ -74,11 +74,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.fetchHakukohdeInfo = function(hakuOid) {
             var deffered = $q.defer();
-            console.log(' fetchHakukohdeInfo haku oid:',hakuOid);
+            $rootScope.LOGS('HH fetchHakukohdeInfo haku oid:',hakuOid);
             $http.get(Props.tarjontaAPI+"/hakukohde/"+hakuOid).success(
                 function(data) {
                     if(data.result){
-                        console.log('***', data.result.hakukohteenNimi);
+                        $rootScope.LOGS('HH '+ data.result.hakukohteenNimi);
                         deffered.resolve(data.result.hakukohteenNimi);
                     }
                 });

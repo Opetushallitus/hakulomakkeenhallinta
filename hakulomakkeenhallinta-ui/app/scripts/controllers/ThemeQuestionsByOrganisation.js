@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
         function($rootScope, $scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions ) {
-            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl', 6 );
+            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl '+ 6 );
             $scope.lang = "fi";
             $scope.organisation;
             HH.fetchOrganisation($routeParams.oid).then(
@@ -39,7 +39,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
 
             $scope.getHakukohdeInfo = function(lopId){
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',42, 'getHakukohdeInfo ');
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl '+42+ ' getHakukohdeInfo ');
                 HH.fetchHakukohdeInfo(lopId).then(
                     function(data){
                         return data;
@@ -55,7 +55,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
                             controller: 'SelectThemeAndQuestionTypeCtrl'
                         }).result.then(function(data) {
-                                console.log('SelectThemeAndQuestion ### data ', data);
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl '+58+' '+ data);
                                 QuestionData.newAdditionalQuestion();
                                 QuestionData.setQuestionType(data.type);
                                 QuestionData.setElement(theme);
@@ -69,10 +69,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',72, 'muokkaaKysmysta', question._id);
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl '+72 +' muokkaaKysmysta'+ question._id);
                 ThemeQuestions.get({'_id': question._id}).$promise.then(
                     function(data){
-                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',75,'muokkaa:', data);
+                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl '+75+' muokkaa:'+ data);
                         QuestionData.setQuestion(data);
                         $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
                     });
@@ -84,7 +84,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 
             $scope.accordianState = function(theme){
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl',87, 'accordian states');
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl '+87+ ' accordian states');
                 if(theme.additionalQuestions !== undefined && theme.additionalQuestions.length > 0){
                     return true;
                 }

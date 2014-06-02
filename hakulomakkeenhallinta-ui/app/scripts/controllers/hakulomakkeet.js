@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('HakulomakkeetCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'HH', 'FormEditor',
         function($scope, $rootScope, $modal, $log, $location, HH, FormEditor) {
-            $rootScope.LOGS('HakulomakkeetCtrl',6);
+            $rootScope.LOGS('HakulomakkeetCtrl '+6);
 
             $scope.applicationForms = FormEditor.query({'_path':'application-system-form'});
 
@@ -19,7 +19,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.valitseOrganisaatio = function(applicationSystemForm) {
-                console.log('valitse organisaation ', applicationSystemForm);
+                $rootScope.LOGS('HakulomakkeetCtrl '+22+' valitse organisaation '+ applicationSystemForm);
 //                var modalInstance =
                     $modal.open({
                     templateUrl: 'partials/lisakysymykset/organisaation-valinta.html',

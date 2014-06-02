@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectThemeAndQuestionTypeCtrl', function($scope, $modalInstance, FormEditor) {
+    .controller('SelectThemeAndQuestionTypeCtrl', function($scope, $rootScope, $modalInstance, FormEditor) {
 
-        console.log('***** selectThemeAndQuestion ***');
+        $rootScope.LOGS('selectThemeAndQuestion '+6);
         $scope.types = FormEditor.query({'_path':'types'});
 
         $scope.ok = function() {

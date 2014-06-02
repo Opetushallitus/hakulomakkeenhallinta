@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AdditionalQuestionsCtrl', ['$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
-        function($scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions) {
-            console.log('**** AdditionalQuestionsCtrl *** ');
+    .controller('AdditionalQuestionsCtrl', ['$scope', '$rootScope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
+        function($scope, $rootScope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions) {
+            $rootScope.LOGS('AdditionalQuestionsCtrl '+6);
             $scope.lang = "fi";
             $scope.organisation; // = HH.getOrganisation();
             HH.fetchOrganisation().then(
@@ -11,7 +11,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             );
             $scope.organisation
 
-            console.log('*** haetaan formi teemoja varten');
+            $rootScope.LOGS('AdditionalQuestionsCtrl '+14+'*** haetaan formi teemoja varten');
 //            $scope.applicationSystem = FormEditor.get({ '_path': 'application-system-form', '_id': $routeParams.id });
             //TODO: poista tämä
             $scope.applicationSystem = FormEditor.get({'_path':'application-system-form', '_id': 'haku1' });
@@ -19,7 +19,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationOption = QuestionData.getApplicationOption();
 
             $scope.applicationSystem.$promise.then(function(data) {
-                console.dir(data);
+                $rootScope.LOGS('AdditionalQuestionsCtrl '+22+' '+data);
                 $scope.elements =data.children;
                 for(var ea in $scope.elements){
                     if($scope.elements[ea].id === "henkilotiedot"){
@@ -29,7 +29,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $scope.elements.splice(ea, 1);
                     }
                 }
-                console.log('### haetaan lisäkysmykset ###');
+                $rootScope.LOGS('AdditionalQuestionsCtrl '+32+' haetaan lisäkysmykset');
                 ThemeQuestions.query({ '_id': 'list', '_aoid': $routeParams.id }).$promise.then(
                     function(data){
                         console.log(data);
@@ -57,7 +57,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             });
 
             $scope.addQuestion = function(element) {
-                console.log('***** ', element);
+                $rootScope.LOGS('AdditionalQuestionsCtrl '+60+' '+ element);
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
                     controller: 'SelectThemeAndQuestionTypeCtrl'
@@ -74,10 +74,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
-                console.log('muokkaa:', question._id);
+                $rootScope.LOGS('AdditionalQuestionsCtrl '+77+' muokkaaKysymysta '+ question._id);
                 ThemeQuestions.get({'_id': question._id}).$promise.then(
                     function(data){
-                        console.log('muokkaa:', data);
+                        $rootScope.LOGS('AdditionalQuestionsCtrl '+80+' muokkaa:'+ data);
                         QuestionData.setQuestion(data);
                         $location.path('/additionalQuestion/'+$routeParams.id+'/'+$routeParams.aoid+'/'+ question._id);
                     });

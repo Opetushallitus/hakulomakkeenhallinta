@@ -8,13 +8,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
 
         var logs = Props.enableConsoleLogs;
 
-        $rootScope.LOGS = function (){
-            arguments[0] = "<" + arguments[0] + ">";
+        $rootScope.LOGS = function (msg){
             if (logs) {
-                console.log(arguments);
+                console.log(msg);
             }
         };
 
-        $rootScope.LOGS('RootCtrl',18);
-        }
-    ]);
+        $rootScope.LOGS('RootCtrl '+18);
+
+    }]);
