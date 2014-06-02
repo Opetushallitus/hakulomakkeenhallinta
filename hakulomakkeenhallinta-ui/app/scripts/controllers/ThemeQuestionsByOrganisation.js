@@ -84,7 +84,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
 
             $scope.accordianState = function(theme){
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',87, ' accordian states');
                 if(theme.additionalQuestions !== undefined && theme.additionalQuestions.length > 0){
                     return true;
                 }

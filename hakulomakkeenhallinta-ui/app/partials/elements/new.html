@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6">
             <tabset>
-                <tab ng-repeat="(key, language) in languages | orderBy:key='fi'" >
+                <tab ng-repeat="(key, language) in languages | orderBy:$index:false" >
                     <!--<tab-heading>{{language | i18n}}</tab-heading>-->
                     <tab-heading>{{language.translations.fi}}</tab-heading>
                     <form role="form" >
