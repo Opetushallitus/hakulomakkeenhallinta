@@ -10,15 +10,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystemForm = applicationSystemForm;
             $scope.organisations = [];
 
-            FormEditor.get({'_path':'application-system-form','_id': $scope.applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(function(data){
-                var userOrganisations = [];
-                for(var org  in data){
-                    var organisation = {};
-                    organisation.id = data[org].id;
-                    organisation.name = data[org].name;
-                    userOrganisations.push(organisation);
-                }
-                $scope.organisations = userOrganisations;
+            FormEditor.get({'_path':'application-system-form','_id': $scope.applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(
+                function(data){
+                $scope.organisations = data;
             });
 
             $scope.selectedOrganisation = function(){
@@ -26,7 +20,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 if(this.organisation !==null){
                     org.push(this.organisation.id);
                     HH.setOrganisation(this.organisation);
-                    $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, org);
+                    $scope.applicationOptions = HH.usersApplicationOptions($scope.applicationSystemForm._id, this.organisation.id);
                 }
             };
 

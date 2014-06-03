@@ -6,9 +6,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $rootScope.LOGS('AdditionalQuestionsCtrl ', 6);
             $scope.lang = "fi";
             $scope.organisation; // = HH.getOrganisation();
-            HH.fetchOrganisation().then(
+            /*HH.fetchOrganisation().then(
 
-            );
+            );*/
             $scope.organisation
 
             $rootScope.LOGS('AdditionalQuestionsCtrl ',14,'*** haetaan formi teemoja varten');
