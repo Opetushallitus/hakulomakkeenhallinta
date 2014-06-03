@@ -121,13 +121,13 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.getElement = function(){
             $rootScope.LOGS('QuestionData ',115, _element);
-            if(_element.id === undefined){
+            /*if(_element.id === undefined){
                 FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
                     function(data){
                         return data;
                     }
                 );
-            }
+            }*/
             return _element;
         };
 
@@ -138,7 +138,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         function getType (type){
             $rootScope.LOGS('QuestionData ',132, 'getType', type);
             var deffered = $q.defer();
-            FormEditor.get({'_path': 'type', '_id': type}).$promise.then(
+            FormEditor.get({'_path': 'types', '_id': type}).$promise.then(
                 function(data){
                     $rootScope.LOGS('QuestionData ',138, 'getType', data);
                     deffered.resolve(data);
