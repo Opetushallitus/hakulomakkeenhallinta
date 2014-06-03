@@ -107,7 +107,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.setElement = function(element){
-            setTheme(element.id);
+            this.setTheme(element.id);
             _element = element;
         };
 
