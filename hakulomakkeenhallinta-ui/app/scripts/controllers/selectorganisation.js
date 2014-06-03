@@ -10,7 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystemForm = applicationSystemForm;
             $scope.organisations = [];
 
-            FormEditor.get({'_id': $scope.applicationSystemForm._id, '_oper':'represented-organization'}).$promise.then(function(data){
+            FormEditor.get({'_path':'application-system-form','_id': $scope.applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(function(data){
                 var userOrganisations = [];
                 for(var org  in data){
                     var organisation = {};
