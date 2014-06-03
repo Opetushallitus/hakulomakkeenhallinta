@@ -47,8 +47,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     QuestionData.setEditFlag(true);
                     $scope.editFlag = QuestionData.getEditFlag();
                 });
-        }
 
+        }
         /*getQuestionType();
         if($scope.question._id === undefined){
             $rootScope.LOGS('CreateAdditionalQuestionCtrl ','browser refresh: ',$routeParams.questionId );
@@ -66,7 +66,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     getQuestionType();
                 });
         }*/
-
 
         $scope.back = function() {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back');
