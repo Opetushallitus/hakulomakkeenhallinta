@@ -131,7 +131,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _element;
         };
 
-        function setType(type){
+        this.setType =  function(type){
             _question.type = type;
         };
 
@@ -149,9 +149,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         this.setQuestionType = function(questionType){
             if(questionType.id === undefined){
                 _questionType = getType(questionType);
-                setType(questionType);
+                this.setType(questionType);
             }else{
-                setType(questionType.id);
+                this.setType(questionType.id);
                 _questionType = questionType;
             }
 
