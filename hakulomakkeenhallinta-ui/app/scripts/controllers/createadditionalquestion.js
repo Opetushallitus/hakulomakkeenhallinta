@@ -11,10 +11,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.languages = data;
             });
 
-        $scope.question;
-        $scope.element;
-        $scope.questionType;
-        $scope.editFlag;
+        $scope.question = QuestionData.getQuestion();
+        $scope.element = QuestionData.getElement();
+        $scope.questionType = QuestionData.getQuestionType();
+        $scope.editFlag = QuestionData.getEditFlag();
+        getQuestionTypeValidators();
 
         $rootScope.LOGS('CreatAdditionalQuestionCtrl',15, ' themeId: ',$routeParams.themeId);
         $rootScope.LOGS('CreatAdditionalQuestionCtrl',16,' QuestionId ', $routeParams.questionId );
