@@ -24,7 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         //browser refresh luodaan uusi lisäkysymys case
         if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
             QuestionData.newAdditionalQuestion();
-            QuestionData.setTheme($routeParams.themeId);
+            QuestionData.setElement($routeParams.themeId);
             QuestionData.setQuestionType($routeParams.qtype);
             QuestionData.setApplicatioSystemId($routeParams.id);
             QuestionData.setEditFlag(false);
@@ -35,15 +35,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.questionType = QuestionData.getQuestionType();
             $scope.editFlag = QuestionData.getEditFlag();
             getQuestionTypeValidators();
-            /*QuestionData.getType($routeParams.qtype).then(
-                function(){
-                    id);
-                    getQuestionTypeValidators();
-                    $scope.question = QuestionData.getQuestion();
-                    $scope.element = QuestionData.getElement();
-                    $scope.questionType = QuestionData.getQuestionType();
-                    $scope.editFlag = QuestionData.getEditFlag();
-                });*/
         }
 
         //browser refresh muokkaa kysymysta case
@@ -59,23 +50,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
 
         }
-        /*getQuestionType();
-        if($scope.question._id === undefined){
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','browser refresh: ',$routeParams.questionId );
-            ThemeQuestions.get({'_id': $routeparams.questionId}).$promise.then(
-                function(data){
-                    $rootScope.LOGS('CreateAdditionalQuestionCtrl ',data);
-                    QuestionData.setQuestion(data);
-                    $scope.question = QuestionData.getQuestion();
-                    $scope.element = $scope.question.theme;
-                    $scope.questionType = $scope.question.type;
-                    if($scope.question._id !== ""){
-                        QuestionData.setEditFlag(true);
-                    }
-                    $scope.editFlag = QuestionData.getEditFlag();
-                    getQuestionType();
-                });
-        }*/
 
         $scope.back = function() {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back');

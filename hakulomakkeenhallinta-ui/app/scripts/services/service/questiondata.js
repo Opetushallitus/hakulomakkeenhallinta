@@ -111,8 +111,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.setElement = function(element){
-            _question.theme = element.id;
-            _element = element;
+            if(element.id === undefined){
+                _question.theme =element;
+            }else{
+                _question.theme = element.id;
+                _element = element;
+            }
         };
 
         this.getElement = function(){
@@ -127,29 +131,30 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _element;
         };
 
-        this.setType = function(type){
+        function setType(type){
             _question.type = type;
         };
 
-        this.getType = function(type){
+        function getType (type){
             $rootScope.LOGS('QuestionData ',132, 'getType', type);
             var deffered = $q.defer();
-            if(_question.type === undefined){
-                FormEditor.get({'_path': 'type', '_id': type}).$promise.then(
-                    function(data){
-                        this.setQuestionType(data);
-                        $rootScope.LOGS('QuestionData ',138, 'getType', data);
-                        deffered.resolve();
-                    });
-            }else{
-                deffered.resolve();
-            }
+            FormEditor.get({'_path': 'type', '_id': type}).$promise.then(
+                function(data){
+                    $rootScope.LOGS('QuestionData ',138, 'getType', data);
+                    deffered.resolve(data);
+                });
             return deffered.promise;
         };
 
         this.setQuestionType = function(questionType){
-             this.setType(questionType.id);
-            _questionType = questionType;
+            if(questionType.id === undefined){
+                _questionType = getType(questionType);
+                setType(questionType);
+            }else{
+                setType(questionType.id);
+                _questionType = questionType;
+            }
+
         };
 
         this.getQuestionType = function(){
