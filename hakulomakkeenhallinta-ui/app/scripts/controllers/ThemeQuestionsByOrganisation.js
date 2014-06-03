@@ -57,7 +57,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }).result.then(function(data) {
                                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',58, data);
                                 QuestionData.newAdditionalQuestion();
-                                QuestionData.setQuestionType(data.type.id);
+                                QuestionData.setQuestionType(data.type);
                                 QuestionData.setElement(theme);
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setEditFlag(false);

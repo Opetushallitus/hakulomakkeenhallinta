@@ -27,6 +27,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             QuestionData.setQuestionType($routeParams.qtype);
             QuestionData.setApplicatioSystemId($routeParams.id);
             QuestionData.setEditFlag(false);
+            QuestionData.setType($routeParams.qtype);
             QuestionData.setLearningOpportunityId($routeParams.oid);
             $scope.question = QuestionData.getQuestion();
             $scope.element = QuestionData.getElement();
