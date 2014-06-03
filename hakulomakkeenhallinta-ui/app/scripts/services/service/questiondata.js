@@ -160,7 +160,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             var defferred = $q.defer();
             ThemeQuestions.get({'_id':questionId}).$promise.then(
                 function(data){
-                    this.setQuestion(data);
+                    _question = data;
                     defferred.resolve();
                 });
             return defferred.promise;
