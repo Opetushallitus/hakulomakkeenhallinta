@@ -47,7 +47,7 @@ var app = angular.module('hakulomakkeenhallinta', [
             }).when('/themeQuestionsByOrganisation/:id/:oid', {
                 templateUrl: 'partials/themeQuestionsByOrganisation.html',
                 controller: 'ThemeQuestionsByOrganisationCtrl'
-            }).when('/themeQuestionsByOrganisation/:id/:oid/:hakuOid/:themeId', {
+            }).when('/themeQuestionsByOrganisation/:id/:oid/:hakuOid/:themeId/:qtype', {
                     templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
                     controller: 'CreateAdditionalQuestionCtrl'
             }).when('/modifyThemeQuestion/:id/:oid/:questionId', {

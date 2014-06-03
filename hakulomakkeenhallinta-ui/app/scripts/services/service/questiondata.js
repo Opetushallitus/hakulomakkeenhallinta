@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-    .service('QuestionData', [ 'FormEditor','$rootScope', function (FormEditor, $rootScope) {
+    .service('QuestionData', [ 'FormEditor','$rootScope', 'ThemeQuestions', '$q',
+        function (FormEditor, $rootScope, ThemeQuestions, $q ) {
 
         var _question = {};
         var _applicationSystemId;
@@ -97,8 +98,16 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _question.learningOpportunityId;
         };
 
+        this.setTheme = function(theme){
+            _question.theme = theme;
+        };
+
+        this.getTheme = function(){
+            return _question.theme;
+        };
+
         this.setElement = function(element){
-            _question.theme = element.id;
+            setTheme(element.id);
             _element = element;
         };
 
@@ -107,20 +116,46 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             if(_element.id === undefined){
                 FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
                     function(data){
-
+                        return data;
                     }
                 );
             }
             return _element;
         };
 
+        this.setType = function(type){
+            _question.type = type;
+        };
+
+        this.getType = function(type){
+            var deffered = $q.defer();
+            if(_question.type === undefined){
+                FormEditor.get({'_path': 'type', '_id': type}).$promise.then(
+                    function(data){
+                        _questionType = data;
+                        deffered.resolve(data);
+                    });
+            }
+            return deffered.promise;
+        };
+
         this.setQuestionType = function(questionType){
-            _question.type = questionType.id;
+             this.setType(questionType.id);
             _questionType = questionType;
         };
 
         this.getQuestionType = function(){
             return _questionType;
+        };
+
+        this.setQuestionData = function(questionId){
+            var defferred = $q.defer();
+            ThemeQuestions.get({'_id':questionId}).$promise.then(
+                function(data){
+                    this.setQuestion(data);
+                    defferred.resolve();
+                });
+            return defferred.promise;
         };
 
     }]);
