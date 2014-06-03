@@ -18,10 +18,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
         $rootScope.LOGS('CreatAdditionalQuestionCtrl',15, ' themeId: ',$routeParams.themeId);
         $rootScope.LOGS('CreatAdditionalQuestionCtrl',16,' QuestionId ', $routeParams.questionId );
-        $rootScope.LOGS('CreatAdditionalQuestionCtrl',16,' QuestionId ', QuestionData.getApplicationSystemId );
+        $rootScope.LOGS('CreatAdditionalQuestionCtrl',21,' QuestionId ', QuestionData.getApplicationSystemId() );
 
         //browser refresh luodaan uusi lisäkysymys case
-        if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId === undefined){
+        if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
             QuestionData.setTheme($routeParams.themeId);
             QuestionData.getType($routeParams.qtype).then(
                 function(){
