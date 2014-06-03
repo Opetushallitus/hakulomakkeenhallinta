@@ -99,7 +99,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.setTheme = function(theme){
+            $rootScope.LOGS('QuestionData ',106, theme);
             _question.theme = theme;
+            if(_element.id === undefined){
+                _element = this.getElement();
+            }
         };
 
         this.getTheme = function(){
@@ -107,12 +111,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.setElement = function(element){
-            this.setTheme(element.id);
+            _question.theme = element.id;
             _element = element;
         };
 
         this.getElement = function(){
-            $rootScope.LOGS('QuestionData ',106, _element);
+            $rootScope.LOGS('QuestionData ',115, _element);
             if(_element.id === undefined){
                 FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
                     function(data){
@@ -128,13 +132,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.getType = function(type){
+            $rootScope.LOGS('QuestionData ',132, 'getType', type);
             var deffered = $q.defer();
             if(_question.type === undefined){
                 FormEditor.get({'_path': 'type', '_id': type}).$promise.then(
                     function(data){
-                        _questionType = data;
-                        deffered.resolve(data);
+                        this.setQuestionType(data);
+                        $rootScope.LOGS('QuestionData ',138, 'getType', data);
+                        deffered.resolve();
                     });
+            }else{
+                deffered.resolve();
             }
             return deffered.promise;
         };
