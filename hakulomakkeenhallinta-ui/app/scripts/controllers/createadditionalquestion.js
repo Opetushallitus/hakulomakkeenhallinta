@@ -5,7 +5,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData ) {
         $rootScope.LOGS('CreateAdditionalQuestionCtrl ',6);
         $scope.languages = [];
-        FormEditor.get({'_path':'languages'}).$promise.then(
+        FormEditor.query({'_path':'languages'}).$promise.then(
             function(data){
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, data);
                 $scope.languages = data;
