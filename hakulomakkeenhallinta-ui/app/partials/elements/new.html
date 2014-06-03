@@ -2,13 +2,13 @@
     <div class="row">
         <div class="col-md-6">
             <tabset>
-                <tab ng-repeat="(key, language) in languages | orderBy:$index " >
+                <tab ng-repeat="language in languages | orderBy:'order':false " >
                     <!--<tab-heading>{{language | i18n}}</tab-heading>-->
                     <tab-heading>{{language.translations.fi}}</tab-heading>
                     <form role="form" >
-                        <hh-inputtext data-ng-model="question.messageText.translations[key]" label="question-title"></hh-inputtext>
-                        <hh-inputtext data-ng-model="question.helpText.translations[key]" label="question-help"></hh-inputtext>
-                        <hh-inputtext data-ng-model="question.verboseHelpText.translations[key]" label="question-additional-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.messageText.translations[language.id]" label="question-title"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.helpText.translations[language.id]" label="question-help"></hh-inputtext>
+                        <hh-inputtext data-ng-model="question.verboseHelpText.translations[language.id]" label="question-additional-help"></hh-inputtext>
                         <div data-ng-if="question.type === 'CheckBox'">
                             <label data-ng-click="addCheckbox(question)">Lisää valintalaatikko </label>
                             <i class="glyphicon glyphicon-plus" data-ng-click="addCheckbox(question)"></i>
@@ -16,7 +16,7 @@
                                 <div class="form-group">
                                     <label> Valintalaatikko {{$index +1}}</label>
                                     <i class="glyphicon glyphicon-trash"  data-ng-click="removeCheckbox($index, question)"></i>
-                                    <input type="text" data-ng-model="question.options[$index].optionText.translations[key]" class="form-control" >
+                                    <input type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                 <div class="form-group">
                                     <label> Valintanappi {{$index +1}}</label>
                                     <i class="glyphicon glyphicon-trash"  data-ng-click="removeRadio($index, question)"></i>
-                                    <input type="text" data-ng-model="question.options[$index].optionText.translations[key]" class="form-control" >
+                                    <input type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -47,13 +47,10 @@
                 <hr/>
             </div>
 
-            <div class="checkbox form-group" data-ng-show="question.onCompletedPage !== 'undefined'">
-                <input type="checkbox" data-ng-model="question.onCompletedPage">Näytetään valmis sivulla
-            </div>
 
         </div>
         <div class="col-md-6">
-            <pre>{{question | without | json}}</pre>
+            <pre data-ng-if="logs" >{{question | without | json}}</pre>
         </div>
     </div>
 </div>

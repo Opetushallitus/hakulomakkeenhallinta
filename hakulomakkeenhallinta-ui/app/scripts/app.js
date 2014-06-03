@@ -86,10 +86,6 @@ var app = angular.module('hakulomakkeenhallinta', [
         ];
     });
 
-    app.value('globals', {
-         logsEnabled : true
-    });
-
     app.run(['$rootScope', function($rootScope ){
         $rootScope.devFlag = true;
     }]);

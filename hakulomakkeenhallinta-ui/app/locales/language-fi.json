@@ -7,6 +7,6 @@
     "sort-questions-header" : "Järjestä kysymykset",
     "text-field-size" : "Tekstikentän pituus",
     "TextQuestion": "Tekstikenttä",
-    "CheckBox": "Valintalaatikko",
+    "CheckBox": "Valintaruutu",
     "Radio": "Valintanappi"
 }

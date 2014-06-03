@@ -7,7 +7,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
  //           $scope.languages = Languages.query();
 
         var logs = Props.enableConsoleLogs;
-
+        $scope.logs = logs;
         $rootScope.LOGS = function (){
             arguments[0] = "<" + arguments[0] + ">";
             if (logs) {

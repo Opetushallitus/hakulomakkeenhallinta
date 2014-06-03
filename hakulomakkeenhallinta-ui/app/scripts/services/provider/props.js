@@ -21,7 +21,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                 };
             } else {
                 return {
-                    enableConsoleLogs: true,
+                    enableConsoleLogs: false,
                     koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
                     tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',
                     asfUrl:  'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/application-system-form/:_id',
