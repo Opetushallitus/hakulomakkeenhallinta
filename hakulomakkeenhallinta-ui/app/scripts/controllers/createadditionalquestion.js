@@ -21,18 +21,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
         //browser refresh luodaan uusi lisäkysymys case
         if($routeParams.themeId !== undefined){
-            if($scope.question.theme === undefined){
-                QuestionData.setTheme($routeParams.themeId);
-                QuestionData.getType($routeParams.qtype).then(
-                    function(){
-                        QuestionData.setQuestionType($routeParams.qtype);
-                        $scope.question = QuestionData.getQuestion();
-                        $scope.element = QuestionData.getElement();
-                        $scope.questionType = QuestionData.getQuestionType();
-                        $scope.editFlag = QuestionData.getEditFlag();
-                        getQuestionType();
-                    });
-            }
+            QuestionData.setTheme($routeParams.themeId);
+            QuestionData.getType($routeParams.qtype).then(
+                function(){
+                    QuestionData.setQuestionType($routeParams.qtype);
+                    $scope.question = QuestionData.getQuestion();
+                    $scope.element = QuestionData.getElement();
+                    $scope.questionType = QuestionData.getQuestionType();
+                    $scope.editFlag = QuestionData.getEditFlag();
+                    getQuestionType();
+                });
         }
 
         //browser refresh muokkaa kysymysta case
