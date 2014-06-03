@@ -21,21 +21,21 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $rootScope.LOGS('CreatAdditionalQuestionCtrl',21,' QuestionId ', QuestionData.getApplicationSystemId() );
 
         //browser refresh luodaan uusi lisäkysymys case
-        if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
-            QuestionData.setTheme($routeParams.themeId);
-            QuestionData.getType($routeParams.qtype).then(
-                function(){
-                    QuestionData.newAdditionalQuestion();
-                    QuestionData.setApplicatioSystemId($routeParams.id);
-                    QuestionData.setEditFlag(false);
-                    QuestionData.setLearningOpportunityId($routeParams.oid);
-                    getQuestionType();
-                    $scope.question = QuestionData.getQuestion();
-                    $scope.element = QuestionData.getElement();
-                    $scope.questionType = QuestionData.getQuestionType();
-                    $scope.editFlag = QuestionData.getEditFlag();
-                });
-        }
+//        if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
+//            QuestionData.setTheme($routeParams.themeId);
+//            QuestionData.getType($routeParams.qtype).then(
+//                function(){
+//                    QuestionData.newAdditionalQuestion();
+//                    QuestionData.setApplicatioSystemId($routeParams.id);
+//                    QuestionData.setEditFlag(false);
+//                    QuestionData.setLearningOpportunityId($routeParams.oid);
+//                    getQuestionTypeValidators();
+//                    $scope.question = QuestionData.getQuestion();
+//                    $scope.element = QuestionData.getElement();
+//                    $scope.questionType = QuestionData.getQuestionType();
+//                    $scope.editFlag = QuestionData.getEditFlag();
+//                });
+//        }
 
         //browser refresh muokkaa kysymysta case
         if($routeParams.questionId !== undefined){
@@ -46,6 +46,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.questionType = QuestionData.getQuestionType();
                     QuestionData.setEditFlag(true);
                     $scope.editFlag = QuestionData.getEditFlag();
+                    getQuestionTypeValidators();
                 });
 
         }
@@ -142,7 +143,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
            }
        };
 
-        function getQuestionType(){
+        function getQuestionTypeValidators(){
             var question = QuestionData.getQuestion();
             var editFlag = QuestionData.getEditFlag();
 
