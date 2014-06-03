@@ -2,9 +2,9 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
 
-.controller('ElementCtrl', ['$scope', '$routeParams', '_', 'HH',
-    function($scope, $routeParams, _, HH) {
-        console.log('********  ElementCtrl ******');
+.controller('ElementCtrl', ['$scope', '$rootScope', '$routeParams', '_', 'HH',
+    function($scope, $rootScope, $routeParams, _, HH) {
+        $rootScope.LOGS('ElementCtrl ',7);
         $scope.applicationSystem.$promise.then(function(result) {
             $scope.element = HH.find($scope.applicationSystem, function(el) {
                 return el._id === $routeParams.eid;

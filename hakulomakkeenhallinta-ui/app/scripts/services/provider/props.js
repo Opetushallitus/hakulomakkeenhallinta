@@ -5,6 +5,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
         this.$get = [function() {
             if (location.hostname.indexOf('localhost') != -1) {
                 return {
+                    enableConsoleLogs: true,
                     koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
                     tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',
                     asfUrl: 'http://localhost:8080/hakulomakkeenhallinta-temporary/application-system-form/:_id',
@@ -20,6 +21,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                 };
             } else {
                 return {
+                    enableConsoleLogs: false,
                     koodistoUrl: 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json/',
                     tarjontaUrl: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1/',
                     asfUrl:  'http://itest-virkailija.oph.ware.fi:8325/hakulomakkeenhallinta-temporary/application-system-form/:_id',

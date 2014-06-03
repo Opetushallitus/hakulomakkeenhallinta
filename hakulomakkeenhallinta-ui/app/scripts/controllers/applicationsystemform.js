@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ApplicationSystemFormCtrl', ['$scope', '$routeParams', 'ASForms', '$modal', '_',
-        function($scope, $routeParams, ASForms, $modal, _) {
-            console.log('****** ApplicationSystemFormCtrl ****');
+    .controller('ApplicationSystemFormCtrl', ['$scope', '$rootScope', '$routeParams', 'ASForms', '$modal', '_',
+        function($scope, $rootScope, $routeParams, ASForms, $modal, _) {
+            $rootScope.LOGS('ApplicationSystemFormCtrl ',6);
             $scope.applicationSystem = ASForms.get({ '_id': $routeParams.id });
 
             $scope.delete = function(array, index) {
@@ -44,7 +44,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.addQuestion = function(tree){
-                console.log('####', tree);
+                $rootScope.LOGS('ApplicationSystemFormCtrl ',47, tree);
             }
 
             $scope.tallenna = function(){

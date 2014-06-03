@@ -1,22 +1,22 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('FormtemplatesCtrl', ['$scope', '_', 'FormResource', '$i18next', 'Mallipohjat',
-        function($scope, _, FormResource, $i18next, Mallipohjat) {
-            console.log('********** FormtemplatesCtrl');
+    .controller('FormtemplatesCtrl', ['$scope', '$rootScope', '_', 'FormResource', '$i18next', 'Mallipohjat',
+        function($scope, $rootScope, _, FormResource, $i18next, Mallipohjat) {
+            $rootScope.LOGS('FormtemplatesCtrl ',6 );
 //            $scope.forms = Mallipohjat.query();
 
             $scope.delete = function(form, index) {
 //                FormResource.delete(_.pick(form, '_id'));
-                console.log(form._id);
+                $rootScope.LOGS('FormtemplatesCtrl ',6,form._id);
                 Mallipohjat.delete({_id: form._id},
                     function success(resp){
-                        console.log(resp);
+                        $rootScope.LOGS('Formtemplates ', 14, resp);
                         $scope.forms.splice(index, 1);
                         //_.remove($scope.forms, form);
                     },function error(error){
                         //TODO: tämän käsittely
-                        console.log(error);
+                        $rootScope.LOGS('Formtemplates ',19, error);
                     });
 
             };

@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-  .controller('CreateAdditionalQuestionCtrl',[ '$scope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData',
-        function ($scope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData ) {
-        console.log(' ******* CreateAdditionalQuestionCtrl ******');
+  .controller('CreateAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData ) {
+        $rootScope.LOGS('CreateAdditionalQuestionCtrl ',6);
         $scope.languages = [];
-        FormEditor.get({'_path':'languages'}).$promise.then(
+        FormEditor.query({'_path':'languages'}).$promise.then(
             function(data){
+                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, data, 'languages');
                 $scope.languages = data;
             });
 
@@ -14,33 +15,50 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.element = QuestionData.getElement();
         $scope.questionType = QuestionData.getQuestionType();
         $scope.editFlag = QuestionData.getEditFlag();
-        getQuestionType();
-        if($scope.question._id === undefined){
-            console.log('browser refresh: ',$routeParams.questionId );
-            ThemeQuestions.get({'_id': $routeparams.questionId}).$promise.then(
-                function(data){
-                    console.log(data);
-                    QuestionData.setQuestion(data);
-                    $scope.question = QuestionData.getQuestion();
-                    $scope.element = $scope.question.theme;
-                    $scope.questionType = $scope.question.type;
-                    if($scope.question._id !== ""){
-                        QuestionData.setEditFlag(true);
-                    }
-                    $scope.editFlag = QuestionData.getEditFlag();
-                    getQuestionType();
-                });
+        getQuestionTypeValidators();
+
+        $rootScope.LOGS('CreatAdditionalQuestionCtrl',15, ' themeId: ',$routeParams.themeId);
+        $rootScope.LOGS('CreatAdditionalQuestionCtrl',16,' QuestionId ', $routeParams.questionId );
+        $rootScope.LOGS('CreatAdditionalQuestionCtrl',21,' QuestionId ', QuestionData.getApplicationSystemId() );
+
+        //browser refresh luodaan uusi lisäkysymys case
+        if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
+            QuestionData.newAdditionalQuestion();
+            QuestionData.setElement($routeParams.themeId);
+            QuestionData.setQuestionType($routeParams.qtype);
+            QuestionData.setApplicatioSystemId($routeParams.id);
+            QuestionData.setEditFlag(false);
+            QuestionData.setType($routeParams.qtype);
+            QuestionData.setLearningOpportunityId($routeParams.oid);
+            $scope.question = QuestionData.getQuestion();
+            $scope.element = QuestionData.getElement();
+            $scope.questionType = QuestionData.getQuestionType();
+            $scope.editFlag = QuestionData.getEditFlag();
+            getQuestionTypeValidators();
         }
 
+        //browser refresh muokkaa kysymysta case
+        if($routeParams.questionId !== undefined){
+            QuestionData.setQuestionData($routeParams.questionId).then(
+                function(){
+                    $scope.question = QuestionData.getQuestion();
+                    $scope.element = QuestionData.getElement();
+                    $scope.questionType = QuestionData.getQuestionType();
+                    QuestionData.setEditFlag(true);
+                    $scope.editFlag = QuestionData.getEditFlag();
+                    getQuestionTypeValidators();
+                });
+
+        }
 
         $scope.back = function() {
-            console.log('CQC back');
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back');
             QuestionData.setEditFlag(false);
             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
         };
 
         $scope.tallennaUusi = function() {
-            console.log('CQC tallenna uusi');
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallenna uusi');
             ThemeQuestions.save( { _id: $routeParams.id, '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
                 function(data){
                     QuestionData.setQuestion(data);
@@ -49,7 +67,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
        $scope.tallennaMuokkaus = function(){
-           console.log('CQC tallenna muokkaus');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaMuokkaus');
            QuestionData.setEditFlag(false);
            ThemeQuestions.save({'_id': $scope.question._id }, $scope.question).$promise.then(
                function(){
@@ -58,7 +76,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        };
 
        $scope.poistaKysymys = function(){
-           console.log('CQC poistaKysymys');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC poistaKysymys');
            QuestionData.setEditFlag(false);
            ThemeQuestions.delete({'_id': $scope.question._id }).$promise.then(
                function(){
@@ -68,7 +86,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        };
 
        $scope.esikatselu = function(){
-           console.log('ei vielä toteutettu !!!!');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','ei vielä toteutettu !!!!');
        };
 
        $scope.addCheckbox = function(question){
@@ -108,12 +126,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
            }
        };
 
-        function getQuestionType(){
+        function getQuestionTypeValidators(){
             var question = QuestionData.getQuestion();
             var editFlag = QuestionData.getEditFlag();
 
-            console.log( $scope.element,' ',$scope.questionType );
-            console.log(question.type);
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ' , $scope.element , $scope.questionType );
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ',question.type);
             switch(question.type){
                 case 'TextQuestion':
 

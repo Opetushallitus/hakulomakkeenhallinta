@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-    .service('QuestionData', [ 'FormEditor', function (FormEditor) {
+    .service('QuestionData', [ 'FormEditor','$rootScope', 'ThemeQuestions', '$q',
+        function (FormEditor, $rootScope, ThemeQuestions, $q ) {
 
         var _question = {};
         var _applicationSystemId;
@@ -74,7 +75,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.clearAdditonalQuestions = function(){
             _additionalQuestions = [];
-        }
+        };
 
         this.getQuestion = function () {
             return _question;
@@ -97,30 +98,77 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _question.learningOpportunityId;
         };
 
+        this.setTheme = function(theme){
+            $rootScope.LOGS('QuestionData ',106, theme);
+            _question.theme = theme;
+            if(_element.id === undefined){
+                _element = this.getElement();
+            }
+        };
+
+        this.getTheme = function(){
+            return _question.theme;
+        };
+
         this.setElement = function(element){
-            _question.theme = element.id;
-            _element = element;
+            if(element.id === undefined){
+                _question.theme =element;
+            }else{
+                _question.theme = element.id;
+                _element = element;
+            }
         };
 
         this.getElement = function(){
-            console.log('##### QuestionData #### ',_element);
-            if(_element.id === undefined){
+            $rootScope.LOGS('QuestionData ',115, _element);
+            /*if(_element.id === undefined){
                 FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
                     function(data){
-
+                        return data;
                     }
                 );
-            }
+            }*/
             return _element;
         };
 
+        this.setType =  function(type){
+            _question.type = type;
+        };
+
+        function getType (type){
+            $rootScope.LOGS('QuestionData ',132, 'getType', type);
+            var deffered = $q.defer();
+            FormEditor.get({'_path': 'types', '_id': type}).$promise.then(
+                function(data){
+                    $rootScope.LOGS('QuestionData ',138, 'getType', data);
+                    deffered.resolve(data);
+                });
+            return deffered.promise;
+        };
+
         this.setQuestionType = function(questionType){
-            _question.type = questionType.id;
-            _questionType = questionType;
+            if(questionType.id === undefined){
+                _questionType = getType(questionType);
+                this.setType(questionType);
+            }else{
+                this.setType(questionType.id);
+                _questionType = questionType;
+            }
+
         };
 
         this.getQuestionType = function(){
             return _questionType;
+        };
+
+        this.setQuestionData = function(questionId){
+            var defferred = $q.defer();
+            ThemeQuestions.get({'_id':questionId}).$promise.then(
+                function(data){
+                    _question = data;
+                    defferred.resolve();
+                });
+            return defferred.promise;
         };
 
     }]);

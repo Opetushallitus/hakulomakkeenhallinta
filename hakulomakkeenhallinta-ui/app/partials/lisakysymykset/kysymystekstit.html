@@ -2,7 +2,7 @@
     <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
     <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag">Tallenna</button>
     <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" >Tallenna</button>
-    <button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>
+    <!--<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>-->
     <button class="btn" data-ng-click="poistaKysymys()"data-ng-show="editFlag" >Poista</button>
 </div>
 
@@ -18,3 +18,10 @@
 
 <div class="form-group" data-ng-include="'partials/elements/new.html'"></div>
 
+<div class="form-group">
+    <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
+    <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag">Tallenna</button>
+    <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" >Tallenna</button>
+    <!--<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>-->
+    <button class="btn" data-ng-click="poistaKysymys()"data-ng-show="editFlag" >Poista</button>
+</div>
