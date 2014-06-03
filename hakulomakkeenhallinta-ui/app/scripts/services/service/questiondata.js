@@ -75,7 +75,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.clearAdditonalQuestions = function(){
             _additionalQuestions = [];
-        }
+        };
 
         this.getQuestion = function () {
             return _question;

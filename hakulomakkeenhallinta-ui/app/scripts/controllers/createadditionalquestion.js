@@ -7,7 +7,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.languages = [];
         FormEditor.query({'_path':'languages'}).$promise.then(
             function(data){
-                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, data);
+                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, data, 'languages');
                 $scope.languages = data;
             });
 
@@ -154,8 +154,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             var question = QuestionData.getQuestion();
             var editFlag = QuestionData.getEditFlag();
 
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ', $scope.element,$scope.questionType );
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ',question.type);
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ' , $scope.element , $scope.questionType );
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ',question.type);
             switch(question.type){
                 case 'TextQuestion':
 

@@ -57,12 +57,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }).result.then(function(data) {
                                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',58, data);
                                 QuestionData.newAdditionalQuestion();
-                                QuestionData.setQuestionType(data.type);
+                                QuestionData.setQuestionType(data.type.id);
                                 QuestionData.setElement(theme);
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setEditFlag(false);
                                 QuestionData.setLearningOpportunityId(QuestionData.getApplicationOption().oid);
-                                $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id+'/'+data.type);
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',65, QuestionData.getQuestion() );
+                                $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id+'/'+data.type.id);
                             });
                     });
             };
