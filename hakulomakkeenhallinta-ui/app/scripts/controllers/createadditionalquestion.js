@@ -130,10 +130,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             if(question.validators === undefined){
                 question.validators = [];
             }else{
-                var min = '';
+//                var min = '';
                 $rootScope.LOGS('createAdditionalQuestion', 134, $scope.validatorMin );
-                min = $scope.validatorMin;
-                question.validators[0] = min ;
+//                min = $scope.validatorMin;
+                question.validators[0].minValue = $scope.validatorMin;
             }
        };
 
@@ -141,9 +141,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             if(question.validators === undefined){
                 question.validators = [];
             }else{
-                var max = '';
-                max = $scope.validatorMax
-                question.validators[0] = max;
+//                var max = '';
+//                max = $scope.validatorMax
+                question.validators[0].maxValue = $scope.validatorMax;
             }
         };
 
