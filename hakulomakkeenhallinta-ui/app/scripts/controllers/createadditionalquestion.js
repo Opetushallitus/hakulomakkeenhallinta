@@ -177,7 +177,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                     if(!editFlag){
                         question.options = [];
-                        question.validators = [];
+//                        question.validators = [];
                         var optionObj = {};
                         optionObj.optionText ={};
                         optionObj.optionText.translations = {};
