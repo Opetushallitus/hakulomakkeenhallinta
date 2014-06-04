@@ -126,41 +126,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
            }
        };
 
-       $scope.minValueValidator = function(question, value){
-           if(question.validators === undefined){
-                question.validators = [];
-            }else{
-                $rootScope.LOGS('createAdditionalQuestion', 134, $scope.validatorMin );
-                $rootScope.LOGS('createAdditionalQuestion', 134, value );
-                var min = {};
-                min.min = value;
-               if(question.validators.length ==0){
-                   question.validators[0] = min;
-               }else if(question.validators[0].indexOf('min') != -1) {
-                   question.validators[0] = min;
-               }else {
-                   question.validators[1] = min;
-               }
-            }
-       };
-
-        $scope.maxValueValidator = function(question, value){
-            if(question.validators === undefined){
-                question.validators = [];
-            }else{
-                var max = {};
-                max.max = value;
-                if(question.validators.length ==0){
-                    question.validators[0] = max;
-                }else if(question.validators[0].indexOf('max') != -1){
-                    question.validators[0] = max;
-                } else {
-                    question.validators[1] = max;
-                }
-
-            }
-        };
-
         function getQuestionTypeValidators(){
             var question = QuestionData.getQuestion();
             var editFlag = QuestionData.getEditFlag();
@@ -177,7 +142,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                     if(!editFlag){
                         question.options = [];
-//                        question.validators = [];
+                        question.validators = {};
                         var optionObj = {};
                         optionObj.optionText ={};
                         optionObj.optionText.translations = {};
