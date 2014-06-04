@@ -18,7 +18,7 @@
                 <!--<input type="radio" data-ng-model="$parent.applicationForm" data-ng-value="applicationForm"-->
                        <!--name="applicationForm">-->
             <!--</td>-->
-            <td>
+            <!--<td>
                 <div class="dropdown">
                     <a class="dropdown-toggle">
                         <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-tasks"></i></button>
@@ -32,7 +32,7 @@
                         <li data-ng-click="delete(applicationForm, $index)" ><a>poista</a></li>
                     </ul>
                 </div>
-            </td>
+            </td>-->
             <td><a href data-ng-click="valitseOrganisaatio(applicationForm)" data-ng-controller="BackCtrl">{{applicationForm | i18n:'name' }} </a> {{applicationForm.status.translations.fi}} {{applicationForm.year}}</td>
             <!--<td><a href data-ng-click="goto(applicationForm)" data-ng-controller="BackCtrl">{{applicationForm | i18n:'name' }}</a></td>-->
         </tr>
