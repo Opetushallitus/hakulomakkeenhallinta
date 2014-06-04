@@ -134,7 +134,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $rootScope.LOGS('createAdditionalQuestion', 134, value );
                 var min = {};
                 min.min = value;
-                question.validators[0] = min
+               if(question.validators.length ==0){
+                   question.validators[0] = min;
+               }else if(question.validators[0].indexOf('min') != -1) {
+                   question.validators[0] = min;
+               }else {
+                   question.validators[1] = min;
+               }
             }
        };
 
@@ -144,7 +150,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             }else{
                 var max = {};
                 max.max = value;
-                question.validators[1] = max;
+                if(question.validators.length ==0){
+                    question.validators[0] = max;
+                }else if(question.validators[0].indexOf('max') != -1){
+                    question.validators[0] = max;
+                } else {
+                    question.validators[1] = max;
+                }
+
             }
         };
 
