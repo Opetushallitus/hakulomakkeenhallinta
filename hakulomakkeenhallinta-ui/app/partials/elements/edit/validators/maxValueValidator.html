@@ -1,4 +1,4 @@
 <div class="form-group">
     <label>Aseta valittavien valintaruutujen maksimimäärä</label>
-    <input type="number" data-ng-model="validatorMax" class="form-control" ng-pattern="/[0-9]/" data-ng-change="maxValueValidator(question, validatorMax)" >
+    <input type="text" data-ng-model="question.validators.max" class="form-control" ng-pattern="/[0-9]/" >
 </div>
