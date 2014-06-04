@@ -127,48 +127,48 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
        };
 
         function getQuestionTypeValidators(){
-            var question = QuestionData.getQuestion();
-            var editFlag = QuestionData.getEditFlag();
+        var question = QuestionData.getQuestion();
+        var editFlag = QuestionData.getEditFlag();
 
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ' , $scope.element , $scope.questionType );
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ',question.type);
-            switch(question.type){
-                case 'TextQuestion':
+        $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ' , $scope.element , $scope.questionType );
+        $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ',question.type);
+        switch(question.type){
+            case 'TextQuestion':
 
-                    $scope.validators = QuestionData.getTextQuestionValidators();
-                    break;
+                $scope.validators = QuestionData.getTextQuestionValidators();
+                break;
 
-                case 'CheckBox':
+            case 'CheckBox':
 
-                    if(!editFlag){
-                        question.options = [];
-                        var optionObj = {};
-                        optionObj.optionText ={};
-                        optionObj.optionText.translations = {};
-                        optionObj.id = 'option_0';
-                        question.options[0] = optionObj;
-                    }
-                    $scope.validators = QuestionData.getCheckboxValidators();
-                    break;
+                if(!editFlag){
+                    question.options = [];
+                    var optionObj = {};
+                    optionObj.optionText ={};
+                    optionObj.optionText.translations = {};
+                    optionObj.id = 'option_0';
+                    question.options[0] = optionObj;
+                }
+                $scope.validators = QuestionData.getCheckboxValidators();
+                break;
 
-                case 'RadioButton':
+            case 'RadioButton':
 
-                    if(!editFlag){
-                        question.options = [];
-                        var radioObj = {};
-                        radioObj.optionText ={};
-                        radioObj.optionText.translations = {};
-                        radioObj.id = 'option_0';
-                        var radioObj2 = {};
-                        radioObj2.optionText = {};
-                        radioObj2.optionText.translations = {};
-                        radioObj2.id = 'option_1';
-                        question.options[0] = radioObj;
-                        question.options[1] = radioObj2;
-                    }
-                    $scope.validators = QuestionData.getRadioValidators();
-                    break;
-            };
+                if(!editFlag){
+                    question.options = [];
+                    var radioObj = {};
+                    radioObj.optionText ={};
+                    radioObj.optionText.translations = {};
+                    radioObj.id = 'option_0';
+                    var radioObj2 = {};
+                    radioObj2.optionText = {};
+                    radioObj2.optionText.translations = {};
+                    radioObj2.id = 'option_1';
+                    question.options[0] = radioObj;
+                    question.options[1] = radioObj2;
+                }
+                $scope.validators = QuestionData.getRadioValidators();
+                break;
+        };
 
         };
 
