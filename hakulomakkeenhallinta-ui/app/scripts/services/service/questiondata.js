@@ -21,11 +21,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.getTextQuestionValidators = function(){
-            return ['requiredFieldValidator', 'sizeFieldValidator'/*,'RegexFieldValidator'*/];
+            return ['requiredFieldValidator', 'sizeFieldValidator' /*,'RegexFieldValidator'*/];
         };
 
         this.getCheckboxValidators = function(){
-            return ['requiredFieldValidator'];
+            return ['requiredFieldValidator', 'minValueValidator','maxValueValidator'];
         };
 
         this.getRadioValidators = function(){
