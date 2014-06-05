@@ -17,12 +17,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
 
         $rootScope.LOGS('RootCtrl',18);
 
-        $scope.$on("LOADING", function(){
-            $rootScope.LOGS('RootCtrl',20,'LOADING');
+        $scope.$on('LOAD', function(){
+            $rootScope.LOGS('RootCtrl',20,'LOAD');
             $scope.loading = true;
         });
-        $scope.$on("LOADED", function(){
-            $rootScope.LOGS('RootCtrl',25,'LOADED');
+        $scope.$on('LOADREADY', function(){
+            $rootScope.LOGS('RootCtrl',25,'LOADREADY');
             $scope.loading = false;
         });
 
