@@ -10,6 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystemForm = applicationSystemForm;
             $scope.organisations = [];
             $scope.$emit('LOAD');
+            $rootScope.LOGS('SelectOrganisationCtrl ', 12,'loading value:'+$scope.loading);
             FormEditor.query({'_path':'application-system-form','_id': applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(
                 function(data){
                     $rootScope.LOGS('SelectOrganisationCtrl ', 15, data);
