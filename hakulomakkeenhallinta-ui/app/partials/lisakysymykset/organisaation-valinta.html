@@ -11,8 +11,9 @@
                 <label for="organisation">Valitse organisaatio</label>
                 <select class="form-control" name="organisaatio" id="organisation" ng-model="organisation" ng-options="org.name.translations.fi || org.name.translations.sv for org in organisations" data-ng-change="selectedOrganisation()" >
                     <option value="" >-- Valitse organisaatio --</option>
-                </select> <span ng-show="loading" style="background: #ffff00;" >haetaan onrginsaatiota</span>
+                </select>
             </div>
+            <img ng-show="loading" src="img/loader.gif" />
         </div>
 
     <div class="modal-footer">
