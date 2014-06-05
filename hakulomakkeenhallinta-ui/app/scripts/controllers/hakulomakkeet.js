@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('HakulomakkeetCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'HH', 'FormEditor',
-        function($scope, $rootScope, $modal, $log, $location, HH, FormEditor) {
+        function($scope, $rootScope, $modal, $log, $location, HH, FormEditor ) {
             $rootScope.LOGS('HakulomakkeetCtrl ',6);
 
             $scope.applicationForms = FormEditor.query({'_path':'application-system-form'});
