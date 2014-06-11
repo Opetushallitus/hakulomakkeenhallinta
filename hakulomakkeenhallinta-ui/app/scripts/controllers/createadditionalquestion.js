@@ -58,6 +58,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
         $scope.tallennaUusi = function() {
+            if($scope.question.messageText.translations.fi === ''){
+
+            }
             $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallenna uusi');
             ThemeQuestions.save( { _id: $routeParams.id, '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
                 function(data){
@@ -125,6 +128,28 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                question.options[optionIndx].id = 'option_'+optionIndx;
            }
        };
+
+       $scope.minValueValidator = function(question, value){
+           if(question.validators === undefined){
+                question.validators = [];
+            }else{
+                $rootScope.LOGS('createAdditionalQuestion', 134, $scope.validatorMin );
+                $rootScope.LOGS('createAdditionalQuestion', 134, value );
+                var min = {};
+                min.min = value;
+                question.validators[0] = min
+            }
+       };
+
+        $scope.maxValueValidator = function(question, value){
+            if(question.validators === undefined){
+                question.validators = [];
+            }else{
+                var max = {};
+                max.max = value;
+                question.validators[1] = max;
+            }
+        };
 
         function getQuestionTypeValidators(){
             var question = QuestionData.getQuestion();
