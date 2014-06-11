@@ -1,10 +1,16 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'Languages', function($rootScope, $scope, Props, Languages) {
+    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'Languages','MyRoles', function($rootScope, $scope, Props, Languages, MyRoles) {
 
-            $scope.accordionStates = {};
- //           $scope.languages = Languages.query();
+        $scope.accordionStates = {};
+        //           $scope.languages = Languages.query();
+        $scope.accessRight = false;
+
+        MyRoles.accessRightCheck().then(
+            function(data){
+                $scope.accessRight = data;
+            });
 
         var logs = Props.enableConsoleLogs;
         $scope.logs = logs;
@@ -14,6 +20,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                 console.log(arguments);
             }
         };
+
 
         $rootScope.LOGS('RootCtrl',18);
 
