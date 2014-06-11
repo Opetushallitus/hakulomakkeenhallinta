@@ -1,0 +1,249 @@
+
+
+
+.hakuVirheet .valintakoe:nth-child(odd), .hakuVirheet .jonosija:nth-child(odd) {background: #F0fafF;}
+.hakuVirheet .valintakoe:nth-child(even), .hakuVirheet .jonosija:nth-child(even) {}
+.jonosija, .valintakoe {border-top: 5px solid #eee; padding-left: 20px;}
+.jarjestyskriteeri{margin-left: -20px; padding-left: 40px!important;}
+.jonosija { cursor:default; padding:10px 0;}
+.hakuVirheet {padding:10px!important; cursor:pointer;}
+.hakuVirheet table {margin: 10px;}
+.jonosija div {cursor:pointer;}
+
+
+
+
+
+
+.hakukohdeNav a.ng-hide-add {
+  animation:1s hide;
+  -webkit-animation:1s hide;
+}
+
+.hakukohdeNav a.ng-hide-remove {
+  animation:1s show;
+  -webkit-animation:1s show;
+
+  /* remember, the .hg-hide class is already on
+     the element which renders it as display=none
+     so it must be overridden to render the "show"
+     animation */
+  display:inline-block!important;
+}
+
+#hakuKentta {
+    background: url("../img/icon-search.png") 5px 5px no-repeat;
+    border-radius: 3px;
+    font-size: 12px;
+    /*height: 20px;*/
+    /*line-height: 20px;*/
+    padding-left: 30px;
+}
+#hakuKentta:hover, #hakuKentta:focus {
+	background: #fff6da url("../img/icon-search.png") 5px 5px no-repeat;
+}
+.select-style {
+	border: 1px solid #bdbdbd;
+    width: 160px;
+    height: 23px;
+    overflow: hidden;
+    background: #fff url("../img/select-icon.png") no-repeat 90% 50%;
+}
+.select-style select {
+    padding: 3px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+.select-style select:focus {
+    outline: none;
+}
+.results table {
+   border-left: 1px solid #e3e3e3;
+   border-collapse: collapse;
+   text-align: left;
+   margin-bottom: 28px;
+   color: #4d4d4d;
+   font-size: 13px;
+}
+.results table th, .results table td {
+   border-left: 1px solid #fff;
+   border-top: 1px solid #fff;
+   padding: 4px 10px 4px 10px;
+   vertical-align: middle;
+}
+.results table tr {
+   background-color: #fff;
+}
+.results table tr:nth-child(odd) {
+   background-color: #e6ebed;
+}
+.results table th {
+   background-color: #e8ecee;
+   border-bottom: 2px solid #fff;
+}
+
+.bbutton {
+	background-image: url(../img/icon-back.gif);
+    background-position: left center;
+    background-repeat: no-repeat;
+    text-align: right;
+    z-index: 1;
+}
+
+.bbutton:hover {
+	text-decoration: none;
+}
+
+.sbutton {
+	overflow: hidden;
+	color: transparent;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-image: url(../img/settings.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 120px;
+}
+
+.soption {
+	color: black;
+    text-align: left;
+}
+
+.table_container {
+	display: table;
+	width: auto;
+}
+
+.table_row {
+	display: table-row;
+	width: auto;
+}
+
+.table_left {
+	float: left;
+	display: table-column;
+	width: 150px;
+}
+
+.table_middle {
+	float: left;
+	display: table-column;
+}
+
+.table_right {
+	float: left;
+	display: table-column;
+}
+
+.laatikko {
+	margin-right: 15px;
+	float: left;
+}
+
+.alekkain {
+	clear: both;
+}
+
+.modal {
+    width: inherit;
+}
+
+.modal-body {
+    max-height: none;
+    overflow-y: visible;
+}
+
+.results .modal-header h1 {
+    margin: 0;
+}
+
+.results .modal-body ul table th, .results .modal-body ul table td {
+   padding: 0;
+   border-top: 0;
+   border-bottom: 0;
+}
+
+.selectlist,
+.treelist {
+    list-style-type: none;
+    padding: 0 0 0 24px; }
+.selectlist.collapsible,
+.treelist.collapsible {
+    margin-left: 0px;
+    padding: 0 0 0 32px; }
+.selectlist li,
+.treelist li {
+    margin: 0.3em 0;
+    position: relative;
+    list-style: none outside none; }
+
+.treelist i {
+    cursor: pointer;
+}
+
+.organisaatio.auki {
+    color: gray;
+}
+
+.organisaatio.kiinni {
+    color:black;
+}
+
+.organisaatio.eilapsia {
+    color: lightgray;
+}
+
+label, .label {
+    line-height: 2em;
+    display: inline !important;
+    color: inherit !important;
+    background-color: inherit !important;
+    font-weight: inherit !important;
+    text-shadow: none !important;
+    font-size: inherit !important;
+}
+
+a, .clickable-header-cell {
+    cursor: pointer;
+}
+
+.sort-true {
+	background-image: url(../img/desc.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    text-align: left;
+}
+
+.sort-false {
+	background-image: url(../img/asc.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+    text-align: left;
+}
+
+.datepicker {
+    background: url("../img/calendar.png") no-repeat scroll 0 0;
+    background-position: 95% 50%;
+}
+
+.control-label.left {
+	text-align: left;
+}
+
+.yhteistieto .span6 {
+    margin-left: 0;
+}
+
+ul.normal-margin {
+    margin: 13px 13px 13px 13px;
+}
+
+.kutsu {
+	width: 450px;
+}

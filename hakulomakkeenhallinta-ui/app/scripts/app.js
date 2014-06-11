@@ -12,7 +12,6 @@ var app = angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallintaUiApp.services.util',
         'hakulomakkeenhallintaUiApp.services.factory',
         'hakulomakkeenhallintaUiApp.controllers'
-        /*,'ngMockE2E'*/
     ]);
 
     app.config(['$resourceProvider', function ($resourceProvider) {
@@ -86,6 +85,10 @@ var app = angular.module('hakulomakkeenhallinta', [
         ];
     });
 
-    app.run(['$rootScope', function($rootScope ){
+    app.run(['$rootScope', 'MyRoles', function($rootScope, MyRoles ){
         $rootScope.devFlag = true;
+
+        MyRoles.getUserLang().then(function(data){
+            $rootScope.LOGS('app', 'userLanguage: ',data);
+        });
     }]);

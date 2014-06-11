@@ -58,6 +58,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
         $scope.tallennaUusi = function() {
+            if($scope.question.messageText.translations.fi === ''){
+
+            }
             $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallenna uusi');
             ThemeQuestions.save( { _id: $routeParams.id, '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
                 function(data){
