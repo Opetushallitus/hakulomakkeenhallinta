@@ -12,37 +12,29 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     templateUrl: 'partials/lomake/liita-haku-lomakkeeseen.html',
                     controller: 'CreateapplicationsystemformCtrl'
                 }).result.then(function(result) {
-                     //TODO: fix this
-                    //ASFResource.save(result);
-                    //$scope.applicationForms = ASForms.query();
+                        //ei toteutusta vielä
                 });
             };
 
             $scope.valitseOrganisaatio = function(applicationSystemForm) {
                 $rootScope.LOGS('HakulomakkeetCtrl ',22,' valitse organisaation ', applicationSystemForm);
-//                var modalInstance =
                     $modal.open({
                     templateUrl: 'partials/lisakysymykset/organisaation-valinta.html',
                     controller: 'SelectOrganisationCtrl',
+                    scope: $scope,
                     resolve: {
                         applicationSystemForm: function() {
                             return applicationSystemForm;
                         }
                     }
                 });
-/*
-                modalInstance.result.then(function(applicationOptionId) {
-                    $location.path("additionalQuestion/" + applicationSystemForm._id + '/' + applicationOptionId);
-                }, function() {
-
-                });
-*/
             };
 
             $scope.open = function(applicationSystemForm) {
                 var modalInstance = $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
                     controller: 'ModalApplicationOptionCtrl',
+                    scope: $scope,
                     resolve: {
                         applicationSystemForm: function() {
                             return applicationSystemForm;
@@ -57,7 +49,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.delete = function(element, index) {
-                ASForms.delete({_id: element._id});
+                //ei toteutusta vielä
             };
 
             $scope.toggleCheck = function(applicationForm) {

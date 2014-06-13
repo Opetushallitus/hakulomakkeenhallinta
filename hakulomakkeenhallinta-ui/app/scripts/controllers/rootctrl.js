@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'Languages','MyRoles', function($rootScope, $scope, Props, Languages, MyRoles) {
+    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'Languages','MyRoles', 'LocalisationService',
+        function($rootScope, $scope, Props, Languages, MyRoles, LocalisationService ) {
 
         $scope.accordionStates = {};
-        //           $scope.languages = Languages.query();
         $scope.accessRight = false;
 
         MyRoles.accessRightCheck().then(
@@ -21,6 +21,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
             }
         };
 
+        // Astetaan käännösteksti valitulla avaimelle
+        $scope.t = function(key) {
+            return LocalisationService.tl(key);
+        };
 
         $rootScope.LOGS('RootCtrl',18);
 
