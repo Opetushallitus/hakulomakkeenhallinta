@@ -49,7 +49,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.addQuestion = function(theme) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
-                    controller: 'SelectHakukohdeCtrl'
+                    controller: 'SelectHakukohdeCtrl',
+                    scope: $scope
                 }).result.then(function(){
                         $modal.open({
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
