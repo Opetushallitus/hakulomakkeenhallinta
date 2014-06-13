@@ -26,14 +26,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
             return LocalisationService.tl(key);
         };
 
-        $rootScope.LOGS('RootCtrl',18);
+        $rootScope.LOGS('RootCtrl',1);
 
         $scope.$on('LOAD', function(){
-            $rootScope.LOGS('RootCtrl',20,'LOAD');
+            $rootScope.LOGS('RootCtrl',2,'LOAD');
             $scope.loading = true;
         });
         $scope.$on('LOADREADY', function(){
-            $rootScope.LOGS('RootCtrl',25,'LOADREADY');
+            $rootScope.LOGS('RootCtrl',3,'LOADREADY');
             $scope.loading = false;
         });
 

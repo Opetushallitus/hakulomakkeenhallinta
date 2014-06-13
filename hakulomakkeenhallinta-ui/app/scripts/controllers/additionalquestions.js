@@ -12,9 +12,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.organisation
 
             $rootScope.LOGS('AdditionalQuestionsCtrl ',14,'*** haetaan formi teemoja varten');
-//            $scope.applicationSystem = FormEditor.get({ '_path': 'application-system-form', '_id': $routeParams.id });
+            $scope.applicationSystem = FormEditor.get({ '_path': 'application-system-form', '_id': $routeParams.id });
             //TODO: poista tämä
-            $scope.applicationSystem = FormEditor.get({'_path':'application-system-form', '_id': 'haku1' });
+//            $scope.applicationSystem = FormEditor.get({'_path':'application-system-form', '_id': 'haku1' });
             $scope.elements = [];
             $scope.applicationOption = QuestionData.getApplicationOption();
 
@@ -60,7 +60,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $rootScope.LOGS('AdditionalQuestionsCtrl ',60, element);
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                    controller: 'SelectThemeAndQuestionTypeCtrl'
+                    controller: 'SelectThemeAndQuestionTypeCtrl',
+                    scope: $scope
                 }).result.then(function(data) {
                         QuestionData.newAdditionalQuestion();
                         QuestionData.setQuestionType(data.type);
@@ -119,7 +120,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.sortQuestions = function() {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/sort-questions.html',
-                    controller: 'SortQuestionsCtrl'
+                    controller: 'SortQuestionsCtrl',
+                    scope: $scope
                 });
             };
         }
