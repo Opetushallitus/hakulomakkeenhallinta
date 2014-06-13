@@ -11,13 +11,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.organisations = [];
             $scope.$emit('LOAD');
             $rootScope.LOGS('SelectOrganisationCtrl ', 2,'loading value:'+$scope.loading);
-           /* FormEditor.query({'_path':'application-system-form','_id': applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(
+            FormEditor.query({'_path':'application-system-form','_id': applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(
                 function(data){
                     $rootScope.LOGS('SelectOrganisationCtrl ', 3, data);
-                    //                    $scope.$emit('LOADREADY');
+                    $scope.$emit('LOADREADY');
                     $scope.organisations = data;
 
-            });*/
+            });
 
             $timeout(function(){
                 console.log('LOADREADY after timeout');
@@ -44,22 +44,4 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.cancel = function() {
                 $modalInstance.dismiss('cancel');
             };
-
-            //TODO: tämä on localhost hack poista!!
-            var orgs = ["1.2.246.562.10.00000000001", "1.2.246.562.10.65530732232" ];
-            var mod = [];
-            for(var o in orgs){
-                var r ={};
-                r.id = orgs[o];
-                var ni ={};
-                ni.translations = {};
-                ni.translations.fi ='organisaatio_'+o;
-                r.name = ni;
-                mod.push(r);
-            }
-            console.log(mod);
-            $scope.organisations = mod;
-            $scope.applicationSystemForm._id = '1.2.246.562.5.2014022711042555034240';
-
-            //TODO: poisto tähän asti
-}]);
+        }]);
