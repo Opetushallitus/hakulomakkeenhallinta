@@ -1,8 +1,8 @@
 'use strict';
 var CAS_URL = '/cas/myroles';
 
-angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('MyRoles', function ($q, $http) {
+angular.module('hakulomakkeenhallintaUiApp.services.factory',[])
+    .factory('MyRoles', [ '$q', '$http', function ($q, $http) {
         var myroles = {};
 
         var getMyRoles = function(){
@@ -52,4 +52,4 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         };
 
         return myroles;
-    });
+    }]);

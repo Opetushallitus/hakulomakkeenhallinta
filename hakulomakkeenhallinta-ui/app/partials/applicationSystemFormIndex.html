@@ -1,6 +1,7 @@
-<h3 class="text-info">Hakulomakkeet</h3>
-<div class="alert alert-warning" data-ng-hide="accessRight">
-    <i class="glyphicon glyphicon-warning-sign"></i> Ei riittäviä käyttöoikeuksia
+<h3 class="text-info" tl="hakulomakkeeta">Hakulomakkeet</h3>
+<!--<div class="alert alert-warning" data-ng-hide="accessRight" tl="ei.riittavia.kaytto.oikeuksia">-->
+<div class="alert alert-warning" data-ng-hide="accessRight" >
+    <i class="glyphicon glyphicon-warning-sign"></i> {{ t('ei.riittavia.kaytto.oikeuksia') || 'Ei riittäviä käyttöoikeuksia' }}
 </div>
 
 <div class="form-group">
