@@ -1,15 +1,15 @@
 <form role="form" class="form-horizontal" name="organisaatioValinta">
     <div class="modal-header">
-        <h4>Valitse hakukohde tai hakukohdejoukko</h4>
+        <h4 tl="valitse.hakukohde.hakukohdejoukko">Valitse hakukohde tai hakukohdejoukko</h4>
     </div>
     <div class="modal-body">
         <div class="alert alert-info">
-            <i class="icon-info-sign"></i>Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun <b>{{applicationSystemForm | i18n:'name'}}</b>
+            <i class="icon-info-sign"></i>{{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun' }}<b>{{applicationSystemForm | i18n:'name'}}</b>
         </div>
         <p>
-            Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.
+            {{ t('etsi.hakukohde.lisakysymyksille') || 'Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.' }}
         </p>
-        <label class="control-label">Hae toimipistettä tai opetuspistettä nimellä</label>
+        <label class="control-label">{{ t('hae.toimipistetta.opetuspistetta') || 'Hae toimipistettä tai opetuspistettä nimellä' }}</label>
         <div class="input-group">
             <span class="input-group-addon" ><span class="glyphicon glyphicon-search"></span></span>
             <input type="text" class="form-control" data-ng-model="queryParameters.term">
@@ -27,7 +27,7 @@
                             <td ng-if="hakukohde.nimi.fi !== undefined"> {{ hakukohde.nimi.fi  }}</td>
                             <td ng-if="hakukohde.nimi.fi === undefined"> {{ hakukohde.nimi.sv  }}</td>
                             <td>
-                                <button class="btn btn-primary pull-right" ng-click="jatka(hakukohde)">Jatka</button>
+                                <button class="btn btn-primary pull-right" ng-click="jatka(hakukohde)" tl="jatka">Jatka</button>
                             </td>
                         </tr>
                     </table>
@@ -36,13 +36,13 @@
         </div>
 
         <div class="alert alert-info" data-ng-if="applicationOptions.length == 0 && organisaatioValinta.organisaatio.$dirty">
-            <i class="icon-info-sign"></i> Valitusta organisaatiosta ei löytynyt yhtään hakukohdetta tai hakukohdejoukkoa </b>
+            <i class="icon-info-sign"></i> {{ t('organisaatiossa.ei.hakukohdetta.hakukohdejoukko') || 'Valitusta organisaatiosta ei löytynyt yhtään hakukohdetta tai hakukohdejoukkoa' }} </b>
 
         </div>
     </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
+        <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
 
     </div>
 </form>
