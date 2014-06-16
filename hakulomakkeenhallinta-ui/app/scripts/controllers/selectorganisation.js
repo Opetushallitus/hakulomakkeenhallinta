@@ -1,28 +1,28 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectOrganisationCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'applicationSystemForm', 'HH', 'FormEditor', '$timeout',
-        function($scope, $rootScope, $location, $modalInstance, applicationSystemForm, HH, FormEditor, $timeout ) {
+    .controller('SelectOrganisationCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'applicationSystemForm', 'HH', 'FormEditor', 'AlertMsg',
+        function($scope, $rootScope, $location, $modalInstance, applicationSystemForm, HH, FormEditor, AlertMsg ) {
 
             $rootScope.LOGS('SelectOrganisationCtrl ', 1);
-
+            $scope.alerts = [];
             $scope.applicationOptions = [];
             $scope.applicationSystemForm = applicationSystemForm;
             $scope.organisations = [];
+
             $scope.$emit('LOAD');
             $rootScope.LOGS('SelectOrganisationCtrl ', 2,'loading value:'+$scope.loading);
+
             FormEditor.query({'_path':'application-system-form','_id': applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(
                 function(data){
                     $rootScope.LOGS('SelectOrganisationCtrl ', 3, data);
                     $scope.$emit('LOADREADY');
-                    $scope.organisations = data;
-
+                    if(data.length != 0){
+                        $scope.organisations = data;
+                    }else{
+                        AlertMsg($scope, 'warning', 'ei.riittavia.kaytto.oikeuksia.tahan.hakuun');
+                    }
             });
-
-            $timeout(function(){
-                console.log('LOADREADY after timeout');
-                $scope.$emit('LOADREADY');
-            }, 5000);
 
             $scope.selectedOrganisation = function(){
                 if(this.organisation !==null){
@@ -44,4 +44,5 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.cancel = function() {
                 $modalInstance.dismiss('cancel');
             };
+
         }]);
