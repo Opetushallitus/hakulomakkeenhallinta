@@ -1,15 +1,21 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'Languages','MyRoles', 'LocalisationService',
-        function($rootScope, $scope, Props, Languages, MyRoles, LocalisationService ) {
+    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'Languages','MyRoles', 'LocalisationService', 'AlertMsg',
+        function($rootScope, $scope, Props, Languages, MyRoles, LocalisationService, AlertMsg ) {
 
         $scope.accordionStates = {};
         $scope.accessRight = false;
 
         MyRoles.accessRightCheck().then(
             function(data){
-                $scope.accessRight = data;
+                if(!data){
+                    AlertMsg($scope,  'warning', 'ei.riittavia.kaytto.oikeuksia');
+                }else{
+                    $scope.accessRight = data;
+                }
+
+
             });
 
         var logs = Props.enableConsoleLogs;
