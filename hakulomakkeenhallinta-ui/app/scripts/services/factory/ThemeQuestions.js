@@ -28,7 +28,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 deferred.resolve(data);
                 });
             return deferred.promise;
-        }
+        };
         /**
          * Palautaa lisäkysymyksen sen id:llä
          * @param questionId kysymyksen id
@@ -41,7 +41,25 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 deferred.resolve(data);
             });
             return deferred.promise;
-        }
+        };
+        /**
+         * Tallentaa uuden lisäkysymyksen HH:n taustajärjestelmään
+         * @param applicationSystemId hakukohteen Id
+         * @param hakuOid hakukohteen id
+         * @param themeId kysymys teeman id
+         * @param questionData kysymys data
+         * @returns {promise} palauttaa tallennetun kysymyksen
+         */
+        themeQuestion.createNewQuestion = function(applicationSystemId, hakuOid, themeId, questionData){
+            $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()');
+            var deferred = $q.defer();
+            ThemeQuestion.save( { _id: applicationSystemId, '_aoid': hakuOid , '_themeId': themeId  }, questionData).$promise.then(
+                function(data){
+                    $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()', data);
+                    deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
 
         return themeQuestion;
     }]);

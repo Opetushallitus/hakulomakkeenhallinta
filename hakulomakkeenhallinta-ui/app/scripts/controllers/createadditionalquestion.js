@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-  .controller('CreateAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData ) {
-        $rootScope.LOGS('CreateAdditionalQuestionCtrl ',6);
+  .controller('CreateAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg ) {
+        $rootScope.LOGS('CreateAdditionalQuestionCtrl');
         $scope.languages = [];
         FormEditor.getLanguages().then(
             function(data){
-                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, data, 'languages');
                 $scope.languages = data;
             });
 
@@ -17,9 +16,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.editFlag = QuestionData.getEditFlag();
         getQuestionTypeValidators();
 
-        $rootScope.LOGS('CreatAdditionalQuestionCtrl',15, ' themeId: ',$routeParams.themeId);
-        $rootScope.LOGS('CreatAdditionalQuestionCtrl',16,' QuestionId ', $routeParams.questionId );
-        $rootScope.LOGS('CreatAdditionalQuestionCtrl',21,' QuestionId ', QuestionData.getApplicationSystemId() );
+        $rootScope.LOGS('CreatAdditionalQuestionCtrl','themeId:',$routeParams.themeId);
+        $rootScope.LOGS('CreatAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
+        $rootScope.LOGS('CreatAdditionalQuestionCtrl','QuestionId:', QuestionData.getApplicationSystemId() );
 
         //browser refresh luodaan uusi lisäkysymys case
         if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
@@ -52,7 +51,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         }
 
         $scope.back = function() {
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back');
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back()');
             QuestionData.setEditFlag(false);
             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
         };
@@ -61,16 +60,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             if($scope.question.messageText.translations.fi === ''){
 
             }
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallenna uusi');
-            ThemeQuestions.save( { _id: $routeParams.id, '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaUusi()');
+            ThemeQuestions.createNewQuestion( $routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                 function(data){
                     QuestionData.setQuestion(data);
+                    AlertMsg($scope, 'success','kysymyksen.tallennus.ok')
                     $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                 });
         };
 
        $scope.tallennaMuokkaus = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaMuokkaus');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaMuokkaus()');
            QuestionData.setEditFlag(false);
            ThemeQuestions.save({'_id': $scope.question._id }, $scope.question).$promise.then(
                function(){
