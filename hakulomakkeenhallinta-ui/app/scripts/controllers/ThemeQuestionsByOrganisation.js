@@ -88,7 +88,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',5 ,' muokkaaKysmysta', question._id);
-                ThemeQuestions.get({'_id': question._id}).$promise.then(
+                ThemeQuestions.getThemeQuestionById(question._id).then(
                     function(data){
                         $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',6,' muokkaa:', data);
                         QuestionData.setQuestion(data);

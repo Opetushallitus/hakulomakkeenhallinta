@@ -35,11 +35,7 @@
                 </accordion-group>
             </accordion>
         </div>
-
-        <div class="alert alert-info" data-ng-if="applicationOptions.length == 0 && organisaatioValinta.organisaatio.$dirty">
-            <i class="icon-info-sign"></i> {{ t('organisaatiossa.ei.hakukohdetta.hakukohdejoukko') || 'Valitusta organisaatiosta ei löytynyt yhtään hakukohdetta tai hakukohdejoukkoa' }} </b>
-
-        </div>
+        <alertmsg></alertmsg>
     </div>
     </div>
     <div class="modal-footer">

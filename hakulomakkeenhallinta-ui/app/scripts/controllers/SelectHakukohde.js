@@ -1,7 +1,7 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', '$timeout', 'applicationSystem', 'FormEditor',
-        function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, $timeout, applicationSystem, FormEditor ) {
+    .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg',
+        function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg ) {
             $rootScope.LOGS('SelectHakukohdeCtrl ',1 );
             $scope.applicationOptions = [];
             $scope.$emit('LOAD');
@@ -22,7 +22,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             TarjontaAPI.usersApplicationOptions($routeParams.id, $routeParams.oid).then(
                 function(data){
                     $scope.$emit('LOADREADY');
-                    $scope.applicationOptions = data;
+                    if(data.length != 0){
+                        $scope.applicationOptions = data;
+                    }else{
+                        AlertMsg($scope, 'info','organisaatiossa.ei.hakukohdetta.hakukohdejoukko');
+                    }
+
                 });
 
             $rootScope.LOGS('SelectHakukohdeCtrl ',2, $scope.applicationOptions);
