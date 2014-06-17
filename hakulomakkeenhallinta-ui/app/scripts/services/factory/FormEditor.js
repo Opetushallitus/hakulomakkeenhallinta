@@ -113,6 +113,20 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             });
             return deferred.promise;
         }
+        /**
+         * Palauttaa hakulomakkeeseen liittyvät organisaatiot
+         * @param applicationSystemId hakulomakkeen id
+         * @returns {promise}
+         */
+        formEditor.getApplicationSystemFormOrgnisations =  function(applicationSystemId){
+            var deferred =  $q.defer();
+            FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
+                function(data){
+                    deferred.resolve(data);
+                }
+            );
+            return deferred.promise;
+        }
 
         return formEditor;
     }]);
