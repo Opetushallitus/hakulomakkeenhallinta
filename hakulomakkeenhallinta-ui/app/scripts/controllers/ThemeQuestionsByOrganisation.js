@@ -87,10 +87,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',5 ,' muokkaaKysmysta', question._id);
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', ' muokkaaKysmysta()', question._id);
                 ThemeQuestions.getThemeQuestionById(question._id).then(
                     function(data){
-                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',6,' muokkaa:', data);
+                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ','muokkaaKysymysta() data:', data);
                         QuestionData.setQuestion(data);
                         $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
                     });
