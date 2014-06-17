@@ -29,11 +29,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 });
             return deferred.promise;
         }
-
+        /**
+         * Palautaa lisäkysymyksen sen id:llä
+         * @param questionId kysymyksen id
+         * @returns {promise}
+         */
         themeQuestion.getThemeQuestionById = function(questionId){
             $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionById()', questionId);
             var deferred = $q.defer();
-            themeQuestion.get({'_id': questionId}).$promise.then(function(data){
+            ThemeQuestion.get({'_id': questionId}).$promise.then(function(data){
                 deferred.resolve(data);
             });
             return deferred.promise;
