@@ -1,27 +1,38 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
-        function($rootScope, $scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions ) {
-            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 6 );
-            $scope.lang = "fi";
+    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio',
+        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio ) {
+            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 1 );
+
             $scope.organisation;
-            HH.fetchOrganisation($routeParams.oid).then(
+            /**
+             * haetaan valitun organisaation tiedot organisaatio palvelusta
+             * valitun organisaation id:llä
+             */
+            Organisaatio.fetchOrganisation($routeParams.oid).then(
                 function(data){
                     $scope.organisation = data;
             });
 
             $scope.applicationSystem;
-            HH.fetchApplicationSystemForm($routeParams.id).then(
+            /**
+             * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
+             */
+            FormEditor.fetchApplicationSystemForm($routeParams.id).then(
                 function(data){
                     $scope.applicationSystem = data;
             });
 
             $scope.themes = [];
-            FormEditor.query({'_path':'application-system-form', '_id':$routeParams.id ,'_oper':'additional-question-themes'}).$promise.then(
+            /**
+             * heataan hakulomakkeen teemat ja siihen liityvä lisäkysymykset
+             * ja asetetaan ne käyttöliittymään oikean teeman alle
+             */
+            FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
                 function(data){
                     $scope.themes = data;
-                    ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
+                    ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
                         function(data){
                             var que = [];
                             que = data;
@@ -39,8 +50,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
 
             $scope.getHakukohdeInfo = function(lopId){
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',42,' getHakukohdeInfo ');
-                HH.fetchHakukohdeInfo(lopId).then(
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',2,' getHakukohdeInfo ');
+                TarjontaAPI.fetchHakukohdeInfo(lopId).then(
                     function(data){
                         return data;
                     });
@@ -50,20 +61,25 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
                     controller: 'SelectHakukohdeCtrl',
-                    scope: $scope
+                    scope: $scope,
+                    resolve: {
+                        applicationSystem: function(){
+                            return $scope.applicationSystem;
+                        }
+                    }
                 }).result.then(function(){
                         $modal.open({
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
                             controller: 'SelectThemeAndQuestionTypeCtrl'
                         }).result.then(function(data) {
-                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',58, data);
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',3, data);
                                 QuestionData.newAdditionalQuestion();
                                 QuestionData.setQuestionType(data.type);
                                 QuestionData.setElement(theme);
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setEditFlag(false);
                                 QuestionData.setLearningOpportunityId(QuestionData.getApplicationOption().oid);
-                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',65, QuestionData.getQuestion() );
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',4, QuestionData.getQuestion() );
                                 $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id+'/'+data.type.id);
                             });
                     });
@@ -71,10 +87,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',72 ,' muokkaaKysmysta', question._id);
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',5 ,' muokkaaKysmysta', question._id);
                 ThemeQuestions.get({'_id': question._id}).$promise.then(
                     function(data){
-                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',75,' muokkaa:', data);
+                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',6,' muokkaa:', data);
                         QuestionData.setQuestion(data);
                         $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
                     });
@@ -91,27 +107,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
                 return false;
             }
-
-            $scope.edit = function(additionalQuestion) {
-                $modal.open({
-                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                    controller: 'ModalQuestionCtrl',
-                    resolve: {
-                        element: function() {
-                            return HH.find($scope.applicationSystem, function(el) {
-                                return el._id === additionalQuestion.parentId;
-                            });
-                        },
-                        applicationSystem: function() {
-                            return $scope.applicationSystem;
-                        },
-                        question: function() {
-                            return additionalQuestion;
-                        }
-                    },
-                    scope: $scope
-                });
-            };
 
             $scope.sortQuestions = function() {
                 $modal.open({

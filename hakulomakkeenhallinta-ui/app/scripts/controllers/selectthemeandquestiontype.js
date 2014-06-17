@@ -4,7 +4,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SelectThemeAndQuestionTypeCtrl', function($scope, $rootScope, $modalInstance, FormEditor) {
 
         $rootScope.LOGS('selectThemeAndQuestion ',6);
-        $scope.types = FormEditor.query({'_path':'types'});
+        $scope.types;
+        /**
+         * haetaan kysymys tyypit HH:n tausta järjestelmästä
+         */
+        FormEditor.getQuestionTypes().then(function(data){
+            $scope.types = data;
+        });
 
         $scope.ok = function() {
             $modalInstance.close({

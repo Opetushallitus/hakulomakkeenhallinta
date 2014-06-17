@@ -1,8 +1,57 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('TarjontaAPI',[ '$resource', '_','Props', function ($resource, _, Props) {
-        return $resource(Props.tarjontaAPI+'/haku/findAll', {}, {
+    .factory('TarjontaAPI',['$rootScope', '$resource', '_','Props', '$q', '$http', function ($rootScope, $resource, _, Props, $q, $http) {
+
+        var TarjontaAPI = {};
+
+        /**
+         * Hakee hakukoteen tiedot haun id:llä
+         * @param hakuOid: hakukohteen id
+         * @returns {promise}
+         */
+        TarjontaAPI.fetchHakukohdeInfo = function(hakuOid) {
+            var deffered = $q.defer();
+            $rootScope.LOGS('TarjontaAPI fetchHakukohdeInfo haku oid:',hakuOid);
+            $http.get(Props.tarjontaAPI+"/hakukohde/"+hakuOid).success(
+                function(data) {
+                    if(data.result){
+                        $rootScope.LOGS('TarjontaAPI', data.result.hakukohteenNimi);
+                        deffered.resolve(data.result.hakukohteenNimi);
+                    }
+                });
+
+            return deffered.promise;
+        };
+
+        /**
+         * Heataan käyttäjän organisaation liittyvät hakukohteet
+         * @param hakuOid:haun id
+         * @param userOrganisations: käyttäjän organisaatiot
+         * @returns {Array}: palauttaa käyttäjän hakukohteet
+         */
+        TarjontaAPI.usersApplicationOptions = function(hakuOid, userOrganisations ) {
+            var deferred = $q.defer();
+            var applicationOptions = [];
+            $rootScope.LOGS('TarjontaAPI', ' haku oid:',hakuOid);
+            $rootScope.LOGS('TarjontaAPI', ' organisaatio: ',userOrganisations);
+            $http.get(Props.tarjontaAPI+"/hakukohde/search", {
+                params: {
+                    organisationOid: userOrganisations,
+                    hakuOid: hakuOid
+                }
+            }).success(function(data) {
+                _.each(data.result.tulokset, function(org) {
+                    applicationOptions.push(org);
+                });
+                deferred.resolve(applicationOptions);
+            });
+            return deferred.promise;
+//            return applicationOptions;
+        };
+
+        TarjontaAPI.query = function(){
+            $resource(Props.tarjontaAPI+'/haku/findAll', {}, {
                 query: {
                     method: 'GET',
                     isArray: true,
@@ -34,4 +83,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 }
             })
+        };
+
+        return TarjontaAPI;
     }]);

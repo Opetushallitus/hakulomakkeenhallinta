@@ -1,46 +1,55 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'Languages','MyRoles', 'LocalisationService', 'AlertMsg',
-        function($rootScope, $scope, Props, Languages, MyRoles, LocalisationService, AlertMsg ) {
+    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'MyRoles', 'LocalisationService', 'AlertMsg',
+        function($rootScope, $scope, Props, MyRoles, LocalisationService, AlertMsg ) {
 
-        $scope.accordionStates = {};
-        $scope.accessRight = false;
+            /**
+             * käyttäjän käyttöprofiilin tarkastus cas/myroles tiedostosta
+             */
+            MyRoles.accessRightCheck().then(
+                function(data){
+                    if(!data){
+                        AlertMsg($scope,  'warning', 'ei.riittavia.kaytto.oikeuksia');
+                    }
+                });
 
-        MyRoles.accessRightCheck().then(
-            function(data){
-                if(!data){
-                    AlertMsg($scope,  'warning', 'ei.riittavia.kaytto.oikeuksia');
-                }else{
-                    $scope.accessRight = data;
+            var logs = Props.enableConsoleLogs;
+            $scope.logs = logs;
+            /**
+             * consoli logien näyttäminen debugausta varten
+             * @constructor
+             */
+            $rootScope.LOGS = function (){
+                arguments[0] = "<" + arguments[0] + ">";
+                if (logs) {
+                    console.log(arguments);
                 }
+            };
 
+            /**
+             * Astetaan käännösteksti valitulla avaimelle
+             * @param key
+             * @returns {*}
+             */
+            $scope.t = function(key) {
+                return LocalisationService.tl(key);
+            };
 
+            $rootScope.LOGS('RootCtrl',1);
+            /**
+             * lataus indikaattori näyttäminen käyttöliittymässä
+             */
+            $scope.$on('LOAD', function(){
+                $rootScope.LOGS('RootCtrl',2,'LOAD');
+                $scope.loading = true;
+            });
+            /**
+             * lataus indikaattorin poistaminen käyttöliittymästä
+             */
+            $scope.$on('LOADREADY', function(){
+                $rootScope.LOGS('RootCtrl',3,'LOADREADY');
+                $scope.loading = false;
             });
 
-        var logs = Props.enableConsoleLogs;
-        $scope.logs = logs;
-        $rootScope.LOGS = function (){
-            arguments[0] = "<" + arguments[0] + ">";
-            if (logs) {
-                console.log(arguments);
-            }
-        };
-
-        // Astetaan käännösteksti valitulla avaimelle
-        $scope.t = function(key) {
-            return LocalisationService.tl(key);
-        };
-
-        $rootScope.LOGS('RootCtrl',1);
-
-        $scope.$on('LOAD', function(){
-            $rootScope.LOGS('RootCtrl',2,'LOAD');
-            $scope.loading = true;
-        });
-        $scope.$on('LOADREADY', function(){
-            $rootScope.LOGS('RootCtrl',3,'LOADREADY');
-            $scope.loading = false;
-        });
-
-    }]);
+        }]);
