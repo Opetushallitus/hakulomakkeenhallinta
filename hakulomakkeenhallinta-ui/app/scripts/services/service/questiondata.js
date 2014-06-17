@@ -99,7 +99,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             };
 
             this.setTheme = function(theme){
-                $rootScope.LOGS('QuestionData ',106, theme);
+                $rootScope.LOGS('QuestionData ','setTheme()', theme);
                 _question.theme = theme;
                 if(_element.id === undefined){
                     _element = this.getElement();
@@ -120,7 +120,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             };
 
             this.getElement = function(){
-                $rootScope.LOGS('QuestionData ',115, _element);
+                $rootScope.LOGS('QuestionData ','getElement()', _element);
                 /*if(_element.id === undefined){
                  FormEditor.get({'_path':'application-system-form', '_id': _question.applicationSystemId } ).$promise.then(
                  function(data){
@@ -136,11 +136,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             };
 
             function getType (type){
-                $rootScope.LOGS('QuestionData ',132, 'getType', type);
+                $rootScope.LOGS('QuestionData ', 'getType()', type);
                 var deffered = $q.defer();
-                FormEditor.get({'_path': 'types', '_id': type}).$promise.then(
+                FormEditor.getQuestionType(type).then(
                     function(data){
-                        $rootScope.LOGS('QuestionData ',138, 'getType', data);
+                        $rootScope.LOGS('QuestionData ','getType()', data);
                         deffered.resolve(data);
                     });
                 return deffered.promise;
@@ -163,7 +163,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
             this.setQuestionData = function(questionId){
                 var defferred = $q.defer();
-                ThemeQuestions.get({'_id':questionId}).$promise.then(
+                ThemeQuestions.getThemeQuestionById(questionId).then(
                     function(data){
                         _question = data;
                         defferred.resolve();
