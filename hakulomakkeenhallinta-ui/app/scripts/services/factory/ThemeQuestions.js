@@ -60,6 +60,37 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             });
             return deferred.promise;
         };
+        /**
+         * Tallenetaan muokattu lisäkysymys HH:n taustajärjestelmään
+         * @param questionId kysymyksen id
+         * @param questionData kysymys data
+         * @returns {promise} palauttaa tallennetu kysymyksen
+         */
+        themeQuestion.saveModifiedQuestion = function(questionId, questionData){
+            $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()');
+            var deferred = $q.defer();
+            ThemeQuestion.save( {'_id': questionId }, questionData).$promise.then(
+                function(data){
+                    $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()', data);
+                    deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        /**
+         * Asetaan lisäkysmys deleted tilaan HH:n taustajärjestelmässä
+         * @param questionId
+         * @returns {promise}
+         */
+        themeQuestion.deleteQuestion = function(questionId){
+            $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()');
+            var deferred = $q.defer();
+            ThemeQuestion.delete( {'_id': questionId }).$promise.then(
+                function(data){
+                    $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()', data);
+                    deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
 
         return themeQuestion;
     }]);

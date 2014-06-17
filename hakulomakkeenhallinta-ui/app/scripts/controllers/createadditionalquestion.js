@@ -14,7 +14,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.element = QuestionData.getElement();
         $scope.questionType = QuestionData.getQuestionType();
         $scope.editFlag = QuestionData.getEditFlag();
-        getQuestionTypeValidators();
+        $scope.validators = QuestionData.getQuestionTypeValidators();
+
 
         $rootScope.LOGS('CreatAdditionalQuestionCtrl','themeId:',$routeParams.themeId);
         $rootScope.LOGS('CreatAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
@@ -33,7 +34,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.element = QuestionData.getElement();
             $scope.questionType = QuestionData.getQuestionType();
             $scope.editFlag = QuestionData.getEditFlag();
-            getQuestionTypeValidators();
+            $scope.validators = QuestionData.getQuestionTypeValidators();
         }
 
         //browser refresh muokkaa kysymysta case
@@ -45,13 +46,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.questionType = QuestionData.getQuestionType();
                     QuestionData.setEditFlag(true);
                     $scope.editFlag = QuestionData.getEditFlag();
-                    getQuestionTypeValidators();
+                    $scope.validators = QuestionData.getQuestionTypeValidators();
                 });
 
         }
 
         $scope.back = function() {
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back()');
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','back()');
             QuestionData.setEditFlag(false);
             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
         };
@@ -60,7 +61,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             if($scope.question.messageText.translations.fi === ''){
 
             }
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaUusi()');
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','tallennaUusi()');
             ThemeQuestions.createNewQuestion( $routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                 function(data){
                     QuestionData.setQuestion(data);
@@ -70,19 +71,21 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         };
 
        $scope.tallennaMuokkaus = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaMuokkaus()');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','tallennaMuokkaus()');
            QuestionData.setEditFlag(false);
-           ThemeQuestions.save({'_id': $scope.question._id }, $scope.question).$promise.then(
-               function(){
+           ThemeQuestions.saveModifiedQuestion($scope.question._id, $scope.question).then(
+               function(data){
+                   AlertMsg($scope, 'success','kysymyksen.tallennus.ok');
                    $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                });
        };
 
        $scope.poistaKysymys = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC poistaKysymys');
+           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','poistaKysymys()');
            QuestionData.setEditFlag(false);
-           ThemeQuestions.delete({'_id': $scope.question._id }).$promise.then(
-               function(){
+           ThemeQuestions.deleteQuestion($scope.question._id).then(
+               function(data){
+                   AlertMsg($scope, 'success','kysymyksen.poisto.ok');
                    $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                });
 
@@ -133,8 +136,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
            if(question.validators === undefined){
                 question.validators = [];
             }else{
-                $rootScope.LOGS('createAdditionalQuestion', 134, $scope.validatorMin );
-                $rootScope.LOGS('createAdditionalQuestion', 134, value );
+                $rootScope.LOGS('createAdditionalQuestion', 'minValueValidator()', $scope.validatorMin );
+                $rootScope.LOGS('createAdditionalQuestion', 'minValueValidator()', value );
                 var min = {};
                 min.min = value;
                 question.validators[0] = min
@@ -151,7 +154,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             }
         };
 
-        function getQuestionTypeValidators(){
+        /*function getQuestionTypeValidators(){
             var question = QuestionData.getQuestion();
             var editFlag = QuestionData.getEditFlag();
 
@@ -196,6 +199,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     break;
             };
 
-        };
+        };*/
 
   }]);
