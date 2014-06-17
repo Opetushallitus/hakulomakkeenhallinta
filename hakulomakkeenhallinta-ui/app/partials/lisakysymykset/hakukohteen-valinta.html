@@ -4,8 +4,9 @@
     </div>
     <div class="modal-body">
         <div class="alert alert-info">
-            <i class="icon-info-sign"></i>{{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun' }}<b>{{applicationSystemForm | i18n:'name'}}</b>
+            <i class="icon-info-sign"></i>{{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun' }} <b>{{applicationSystem | i18n:'name'}}</b>
         </div>
+        <loading></loading>
         <p>
             {{ t('etsi.hakukohde.lisakysymyksille') || 'Etsi oikea hakukohde johon haluat tehdä lisäkysymyksiä ja paina Jatka.' }}
         </p>

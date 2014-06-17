@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'HH', 'FormEditor',
-        function($scope, $rootScope, $modal, $log, $location, HH, FormEditor ) {
+    .controller('HakulomakkeetCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor',
+        function($scope, $rootScope, $modal, $log, $location, FormEditor ) {
             $rootScope.LOGS('HakulomakkeetCtrl ',6);
 
-            $scope.applicationForms = FormEditor.query({'_path':'application-system-form'});
+            $scope.applicationForms = [];
+            FormEditor.getApplicationSystemForms().then(
+                function(data){
+                    $scope.applicationForms = data;
+                });
 
             $scope.luoHakulomake = function() {
                 $modal.open({
@@ -30,6 +34,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
             };
 
+/*
             $scope.open = function(applicationSystemForm) {
                 var modalInstance = $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
@@ -47,6 +52,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                 });
             };
+*/
 
             $scope.delete = function(element, index) {
                 //ei toteutusta vielä

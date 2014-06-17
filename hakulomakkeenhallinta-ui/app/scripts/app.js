@@ -47,11 +47,11 @@ var app = angular.module('hakulomakkeenhallinta', [
                 templateUrl: 'partials/themeQuestionsByOrganisation.html',
                 controller: 'ThemeQuestionsByOrganisationCtrl'
             }).when('/themeQuestionsByOrganisation/:id/:oid/:hakuOid/:themeId/:qtype', {
-                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                    controller: 'CreateAdditionalQuestionCtrl'
+                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                controller: 'CreateAdditionalQuestionCtrl'
             }).when('/modifyThemeQuestion/:id/:oid/:questionId', {
-                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                    controller: 'CreateAdditionalQuestionCtrl'
+                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                controller: 'CreateAdditionalQuestionCtrl'
             }).otherwise({
                 redirectTo: '/applicationSystemForm'
             });
