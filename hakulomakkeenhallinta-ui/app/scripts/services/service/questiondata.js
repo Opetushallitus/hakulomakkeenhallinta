@@ -131,7 +131,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 return _element;
             };
 
-            this.setType =  function(type){
+            this.setType = function(type){
                 _question.type = type;
             };
 
@@ -172,14 +172,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             };
 
             this.getQuestionTypeValidators = function(){
-                var question = QuestionData.getQuestion();
-                var editFlag = QuestionData.getEditFlag();
+                var question = this.getQuestion();
+                var editFlag = this.getEditFlag();
                 var validators = [];
                 $rootScope.LOGS('QuestionData ','getQuestionTypeValidators() ',question.type);
                 switch(question.type){
                     case 'TextQuestion':
 
-                        validators = QuestionData.getTextQuestionValidators();
+                        validators = this.getTextQuestionValidators();
                         break;
 
                     case 'CheckBox':
@@ -193,7 +193,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                             optionObj.id = 'option_0';
                             question.options[0] = optionObj;
                         }
-                        validators = QuestionData.getCheckboxValidators();
+                        validators = this.getCheckboxValidators();
                         break;
 
                     case 'RadioButton':
@@ -211,7 +211,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                             question.options[0] = radioObj;
                             question.options[1] = radioObj2;
                         }
-                        validators = QuestionData.getRadioValidators();
+                        validators = this.getRadioValidators();
                         break;
                 };
             return validators;
