@@ -20,13 +20,22 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param applicationSystemId
          * @returns {promise}
          */
-        themeQuestion.getThemeQuestionListByOrgId = function(applicationSystemId){
+        themeQuestion.getThemeQuestionListByOrgId = function(applicationSystemId, organisationId){
             $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionListByOrgId()', applicationSystemId);
             var deferred = $q.defer();
-            ThemeQuestion.getThemeQuestionListByOrgId({'_id':applicationSystemId}).$promise.then(
+            ThemeQuestion.getThemeQuestionListByOrgId({'_id':applicationSystemId, orgId: organisationId}).$promise.then(
                 function(data){
                 deferred.resolve(data);
                 });
+            return deferred.promise;
+        }
+
+        themeQuestion.getThemeQuestionById = function(questionId){
+            $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionById()', questionId);
+            var deferred = $q.defer();
+            themeQuestion.get({'_id': questionId}).$promise.then(function(data){
+                deferred.resolve(data);
+            });
             return deferred.promise;
         }
 
