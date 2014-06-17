@@ -8,7 +8,7 @@
             <i class="glyphicon glyphicon-info-sign"></i> {{ t('olet.luomassa.hakukohdekohtaisia.lisakysymyksia') || 'Olet luomassa hakukohdekohtaisia lisäkysymyksiä' }} <b>{{applicationSystemForm | i18n:'name'}}</b>
         </div>
         <div>
-            <img class="pull-right" ng-show="loading" src="img/loader.gif" style="position: relative ;height: 26px; top: 26px; padding-right: 12px;" />
+            <loading></loading>
             <div class="input-group">
                 <label for="organisation" >{{ t('valitse.organisaatio') || 'Valitse organisaatio' }} </label>
                 <select class="form-control" name="organisaatio" id="organisation" ng-model="organisation" ng-options="org.name.translations.fi || org.name.translations.sv for org in organisations" data-ng-change="selectedOrganisation()" >
