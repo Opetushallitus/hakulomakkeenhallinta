@@ -31,14 +31,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         formEditor.fetchApplicationSystemForm = function(id){
             var deffered = $q.defer();
-            $rootScope.LOGS('FormEditor',2,' fetchApplicationSystemForm haku oid: ', id);
-            $rootScope.LOGS('FormEditor',3,'_applicationsSystemForm: ', _applicationsSystemForm);
+            $rootScope.LOGS('FormEditor','fetchApplicationSystemForm() haku oid: ', id);
+            $rootScope.LOGS('FormEditor','fetchApplicationSystemForm()','_applicationsSystemForm: ', _applicationsSystemForm);
             if(_applicationsSystemForm != undefined &&_applicationsSystemForm._id != undefined ){
                 if( _applicationsSystemForm._id == id){
                     deffered.resolve(_applicationsSystemForm);
                 }
             }else{
-                $rootScope.LOGS('FormEditor',4);
+                $rootScope.LOGS('FormEditor','fetchApplicationSystemForm()', 'else');
 
                 FormEditor.get({'_path':'application-system-form', '_id':id,'_oper':'name'}).$promise.then(
                  function(data){
@@ -54,29 +54,28 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @returns {*}
          */
         formEditor.getApplicationSystemForms = function(){
-            $rootScope.LOGS('FormEditor', 5, 'getApplicationSystemForms');
+            $rootScope.LOGS('FormEditor', 'getApplicationSystemForms()');
             var deferred = $q.defer();
             FormEditor.query({'_path':'application-system-form'}).$promise.then(
                 function(data){
                     deferred.resolve(data);
                 });
             return deferred.promise;
-
-        }
+        };
         /**
          * Palauttaa hakulomakkeen teemat lisäkysmyksiä varten hakulomakkeen id:llä
          * @param applicationSystemId: hakulomakkeen id
          * @returns {promise}: hakulomakkeen teemat
          */
         formEditor.getApplicationSystemFormThemes = function(applicationSystemId){
-            $rootScope.LOGS('FormEditor', 6, 'getApplicationSystemFormThemes');
+            $rootScope.LOGS('FormEditor','getApplicationSystemFormThemes()');
             var deferred = $q.defer();
             FormEditor.query({'_path':'application-system-form', '_id':applicationSystemId ,'_oper':'additional-question-themes'}).$promise.then(
                 function(data){
                     deferred.resolve(data);
                 });
             return deferred.promise;
-        }
+        };
         /**
          * Haetaan tuetut kielet hakulomakkeenhallinnan taustajärjestelmästä
          * @returns {promise}
@@ -87,7 +86,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 deferred.resolve(data);
             });
             return deferred.promise;
-        }
+        };
         /**
          * Palauttaa hakulomakkeenhallinnan taustajärjestelmästä
          * listan kysymys tyyppeistä
@@ -99,7 +98,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 deferred.resolve(data);
             });
             return deferred.promise;
-        }
+        };
         /**
          * Palauttaa hakulomakkeenhallinan taustajärjestelmästä
          * kysymyksen sen tyypillä
@@ -112,13 +111,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 deferred.resolve(data);
             });
             return deferred.promise;
-        }
+        };
         /**
          * Palauttaa hakulomakkeeseen liittyvät organisaatiot
          * @param applicationSystemId hakulomakkeen id
          * @returns {promise}
          */
         formEditor.getApplicationSystemFormOrgnisations =  function(applicationSystemId){
+            $rootScope.LOGS('FormEditor','getApplicationSystemFormOrgnisations()', applicationSystemId);
             var deferred =  $q.defer();
             FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
                 function(data){
@@ -126,7 +126,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }
             );
             return deferred.promise;
-        }
+        };
 
         return formEditor;
     }]);

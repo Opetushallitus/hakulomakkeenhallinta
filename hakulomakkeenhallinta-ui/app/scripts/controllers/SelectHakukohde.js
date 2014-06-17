@@ -2,7 +2,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg',
         function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg ) {
-            $rootScope.LOGS('SelectHakukohdeCtrl ',1 );
+            $rootScope.LOGS('SelectHakukohdeCtrl ');
             $scope.applicationOptions = [];
             $scope.$emit('LOAD');
             $scope.applicationSystem = applicationSystem;
@@ -15,7 +15,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function(data){
                         $scope.applicationSystem = data;
                     });
-            }
+            };
             /**
              * Haetaa hakulomakkeeseen ja käyttäjän organisaation liittyvät hakukohteet
              */
@@ -25,14 +25,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     if(data.length != 0){
                         $scope.applicationOptions = data;
                     }else{
-                        AlertMsg($scope, 'info','organisaatiossa.ei.hakukohdetta.hakukohdejoukko');
+                        AlertMsg($scope, 'warning','organisaatiossa.ei.hakukohdetta.hakukohdejoukko');
                     }
-
                 });
 
-            $rootScope.LOGS('SelectHakukohdeCtrl ',2, $scope.applicationOptions);
+            $rootScope.LOGS('SelectHakukohdeCtrl', $scope.applicationOptions);
             $scope.jatka = function(hakukohde) {
-                $rootScope.LOGS('SelectHakukohdeCtrl ',3,' jatka ',hakukohde);
+                $rootScope.LOGS('SelectHakukohdeCtrl','jatka()',hakukohde);
                 QuestionData.setApplicationOption(hakukohde);
                 $modalInstance.close(hakukohde.oid);
             };

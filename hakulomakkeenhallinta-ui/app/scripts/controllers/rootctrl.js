@@ -36,19 +36,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                 return LocalisationService.tl(key);
             };
 
-            $rootScope.LOGS('RootCtrl',1);
+            $rootScope.LOGS('RootCtrl');
             /**
              * lataus indikaattori näyttäminen käyttöliittymässä
              */
             $scope.$on('LOAD', function(){
-                $rootScope.LOGS('RootCtrl',2,'LOAD');
+                $rootScope.LOGS('RootCtrl','LOAD');
                 $scope.loading = true;
             });
             /**
              * lataus indikaattorin poistaminen käyttöliittymästä
              */
             $scope.$on('LOADREADY', function(){
-                $rootScope.LOGS('RootCtrl',3,'LOADREADY');
+                $rootScope.LOGS('RootCtrl','LOADREADY');
                 $scope.loading = false;
             });
 
