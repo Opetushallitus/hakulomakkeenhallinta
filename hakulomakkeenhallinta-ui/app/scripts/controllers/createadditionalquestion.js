@@ -64,7 +64,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             ThemeQuestions.createNewQuestion( $routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                 function(data){
                     QuestionData.setQuestion(data);
-                    AlertMsg($scope, 'success','kysymyksen.tallennus.ok')
+                    AlertMsg($scope, 'success','kysymyksen.tallennus.ok');
                     $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                 });
         };
