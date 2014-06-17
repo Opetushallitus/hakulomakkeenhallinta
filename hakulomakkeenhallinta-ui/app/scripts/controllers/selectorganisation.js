@@ -12,8 +12,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.$emit('LOAD');
             $rootScope.LOGS('SelectOrganisationCtrl ', 2,'loading value:'+$scope.loading);
-
-            FormEditor.query({'_path':'application-system-form','_id': applicationSystemForm._id, '_oper':'represented-organizations'}).$promise.then(
+            /**
+             * haetaan valittuun hakulomakkeeseen liittyvät organisaatiot
+             */
+            FormEditor.getApplicationSystemFormOrgnisations(applicationSystemForm._id).then(
                 function(data){
                     $rootScope.LOGS('SelectOrganisationCtrl ', 3, data);
                     $scope.$emit('LOADREADY');
