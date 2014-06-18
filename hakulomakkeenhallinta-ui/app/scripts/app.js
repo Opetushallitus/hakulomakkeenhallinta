@@ -51,7 +51,7 @@ var app = angular.module('hakulomakkeenhallinta', [
                 controller: 'CreateAdditionalQuestionCtrl'
             }).when('/modifyThemeQuestion/:id/:oid/:questionId', {
                 templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                controller: 'CreateAdditionalQuestionCtrl'
+                controller: 'ModifyAdditionalQuestionCtrl'
             }).otherwise({
                 redirectTo: '/applicationSystemForm'
             });
@@ -87,9 +87,7 @@ var app = angular.module('hakulomakkeenhallinta', [
 
     app.run(['$rootScope', 'MyRoles', 'LocalisationService', function($rootScope, MyRoles, LocalisationService ){
         $rootScope.devFlag = true;
-
         MyRoles.getUserLang().then(function(data){
-//            LocalisationService.getTranslations(data);
             $rootScope.LOGS('app', 'userLanguage: ',data);
         });
     }]);
