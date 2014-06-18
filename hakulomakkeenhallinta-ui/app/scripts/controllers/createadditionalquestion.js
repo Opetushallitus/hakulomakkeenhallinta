@@ -9,33 +9,30 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function(data){
                     $scope.languages = data;
                 });
-
-            $scope.question = QuestionData.getQuestion();
-            $scope.element = QuestionData.getElement();
-            $scope.questionType = QuestionData.getQuestionType();
-            $scope.editFlag = QuestionData.getEditFlag();
-            $scope.validators = QuestionData.getQuestionTypeValidators();
-
-            $rootScope.LOGS('CreatAdditionalQuestionCtrl','themeId:',$routeParams.themeId);
-            $rootScope.LOGS('CreatAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
-            $rootScope.LOGS('CreatAdditionalQuestionCtrl','applicationSystemId:', QuestionData.getApplicationSystemId() );
             /**
              * selaimen refresh tapauksessa luodaan lisäkysymys uudestaan
              */
             if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
                 QuestionData.newAdditionalQuestion();
-                QuestionData.setElement($routeParams.themeId);
-                QuestionData.setQuestionType($routeParams.qtype);
-                QuestionData.setApplicatioSystemId($routeParams.id);
-                QuestionData.setEditFlag(false);
-                QuestionData.setType($routeParams.qtype);
-                QuestionData.setLearningOpportunityId($routeParams.oid);
-                $scope.question = QuestionData.getQuestion();
-                $scope.element = QuestionData.getElement();
-                $scope.questionType = QuestionData.getQuestionType();
-                $scope.editFlag = QuestionData.getEditFlag();
-                $scope.validators = QuestionData.getQuestionTypeValidators();
             }
+            QuestionData.setApplicatioSystemId($routeParams.id);
+            QuestionData.setLearningOpportunityId($routeParams.oid);
+            QuestionData.setThemeId($routeParams.themeId);
+            QuestionData.setQuestionType($routeParams.qtype);
+            QuestionData.setEditFlag(false);
+            $scope.question = QuestionData.getQuestion();
+            $scope.theme
+            QuestionData.getTheme().then(
+                function(data){
+                    $scope.theme = data;
+                });
+            $scope.questionType;
+            QuestionData.getType($routeParams.qtype).then(function(data){
+                $scope.questionType =  data[0];
+            });
+            $scope.editFlag = QuestionData.getEditFlag();
+            $scope.validators = QuestionData.getQuestionTypeValidators();
+
             /**
              * paluu takaisin edelliselle sivulle
              */
