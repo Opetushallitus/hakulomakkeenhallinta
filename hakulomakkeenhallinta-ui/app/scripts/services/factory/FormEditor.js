@@ -8,7 +8,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             {_path: '@_path', _id: '@_id', _oper:'@_oper'}, {}
         );
 
-        $rootScope.LOGS('FormEditor', 1);
+        $rootScope.LOGS('FormEditor');
         var _applicationsSystemForm;
         /**
          * asettaa hakemuksen Json objectin muuttujaan
@@ -127,6 +127,24 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             );
             return deferred.promise;
         };
+        /**
+         * Paulauttaa teeman tiedot sen id:llä
+         * @param applicationSystemId hakulomakkeen id
+         * @param themeId teeman id
+         * @returns {promise} teeman tiedot
+         */
+        formEditor.getThemeByThemeId = function(applicationSystemId, themeId){
+            $rootScope.LOGS('FormEditor','getThemeByThemeId()', applicationSystemId, themeId);
+            var deferred = $q.defer();
+            this.getApplicationSystemFormThemes(applicationSystemId).then(function(data){
+                for(var theme in data){
+                    if(data[theme].id === themeId){
+                        deferred.resolve( data[theme]);
+                    }
+                }
+            });
+            return deferred.promise;
+        }
 
         return formEditor;
     }]);

@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio',
         function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio ) {
-            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 1 );
+            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl');
 
             $scope.organisation;
             /**
@@ -26,7 +26,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.themes = [];
             /**
-             * heataan hakulomakkeen teemat ja siihen liityvä lisäkysymykset
+             * heataan hakulomakkeen teemat halomamekkeen id:llä ja siihen liityvä lisäkysymykset
              * ja asetetaan ne käyttöliittymään oikean teeman alle
              */
             FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
@@ -50,14 +50,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
 
             $scope.getHakukohdeInfo = function(lopId){
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',2,' getHakukohdeInfo ');
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','getHakukohdeInfo()');
                 TarjontaAPI.fetchHakukohdeInfo(lopId).then(
                     function(data){
                         return data;
                     });
             };
-
+            /**
+             * avataan dialogit uuden kysymyksen hakukohteen ja tyypin alustamiseksi
+             * @param theme
+             */
             $scope.addQuestion = function(theme) {
+                console.log(theme);
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
                     controller: 'SelectHakukohdeCtrl',
@@ -70,32 +74,38 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }).result.then(function(){
                         $modal.open({
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                            controller: 'SelectThemeAndQuestionTypeCtrl'
+                            controller: 'SelectQuestionTypeCtrl',
+                            scope: $scope
                         }).result.then(function(data) {
-                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',3, data);
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','addQuestion()', data);
                                 QuestionData.newAdditionalQuestion();
                                 QuestionData.setQuestionType(data.type);
-                                QuestionData.setElement(theme);
+                                QuestionData.setTheme(theme);
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setEditFlag(false);
                                 QuestionData.setLearningOpportunityId(QuestionData.getApplicationOption().oid);
-                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',4, QuestionData.getQuestion() );
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl', QuestionData.getQuestion() );
                                 $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id+'/'+data.type.id);
                             });
                     });
             };
-
+            /**
+             * valitun kysymyksen muokkaus näkymään
+             * @param question valittu kysymys
+             */
             $scope.muokkaaKysymysta = function(question){
                 QuestionData.setEditFlag(true);
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', ' muokkaaKysmysta()', question._id);
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'muokkaaKysmysta()', question._id);
                 ThemeQuestions.getThemeQuestionById(question._id).then(
                     function(data){
-                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ','muokkaaKysymysta() data:', data);
+                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','muokkaaKysymysta() data:', data);
                         QuestionData.setQuestion(data);
                         $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
                     });
             };
-
+            /**
+             * takaisin edelliselle sivulle
+             */
             $scope.back = function() {
                 $location.path('/');
             };

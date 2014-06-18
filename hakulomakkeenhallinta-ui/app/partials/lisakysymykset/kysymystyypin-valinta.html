@@ -1,18 +1,18 @@
 <div class="modal-header">
-    <h4>Lisää kysymys - Kysymystyypin valinta</h4>
+    <h4 tl="lisaa.kysymys.tyypinvalinta">Lisää kysymys - Kysymystyypin valinta</h4>
 </div>
 <div class="modal-body">
 
     <form role="form" class="form-horizontal">
         <div class="form-group">
-            <label for="type">Kysymystyyppi</label>
+            <label for="type">{{ t('kysymystyyppi') || 'Kysymystyyppi' }}</label>
             <select class="form-control" id="type" ng-model="type" ng-options="a.name.translations.fi for a in types">
-                <option value="">-- Valitse tyyppi --</option>
+                <option value="">-- {{ t('valitse.tyyppi') || 'Valitse tyyppi' }} --</option>
             </select>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-warning pull-left" ng-click="cancel()">Peruuta</button>
-    <button class="btn btn-primary pull-right" ng-click="ok()" data-ng-disabled="!type">Jatka</button>
+    <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+    <button class="btn btn-primary pull-right" ng-click="ok()" data-ng-disabled="!type" tl="jatka">Jatka</button>
 </div>

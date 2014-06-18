@@ -87,7 +87,5 @@ var app = angular.module('hakulomakkeenhallinta', [
 
     app.run(['$rootScope', 'MyRoles', 'LocalisationService', function($rootScope, MyRoles, LocalisationService ){
         $rootScope.devFlag = true;
-        MyRoles.getUserLang().then(function(data){
-            $rootScope.LOGS('app', 'userLanguage: ',data);
-        });
+
     }]);

@@ -9,31 +9,30 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function(data){
                     $scope.languages = data;
                 });
-
+            /**
+             * selaimen refresh haetaan kysmyksen data uudestaan HH:n taustajärjestelmästä
+             */
+            if($routeParams.questionId !== undefined){
+                QuestionData.setQuestionData($routeParams.questionId);
+            }
             $scope.question = QuestionData.getQuestion();
-            $scope.element = QuestionData.getElement();
-            $scope.questionType = QuestionData.getQuestionType();
+            $scope.theme;
+            QuestionData.getTheme().then(
+                function(data){
+                    $scope.theme = data;
+                });
+            $scope.questionType;
+            QuestionData.getType().then(function(data){
+                $scope.questionType = data;
+            });
+            QuestionData.setEditFlag(true);
             $scope.editFlag = QuestionData.getEditFlag();
             $scope.validators = QuestionData.getQuestionTypeValidators();
 
             $rootScope.LOGS('CreatAdditionalQuestionCtrl','themeId:',$routeParams.themeId);
             $rootScope.LOGS('CreatAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
             $rootScope.LOGS('CreatAdditionalQuestionCtrl','applicationSystemId:', QuestionData.getApplicationSystemId() );
-            /**
-             * selaimen refresh haetaan kysmyksen data uudestaan HH:n taustajärjestelmästä
-             */
-            if($routeParams.questionId !== undefined){
-                QuestionData.setQuestionData($routeParams.questionId).then(
-                    function(){
-                        $scope.question = QuestionData.getQuestion();
-                        $scope.element = QuestionData.getElement();
-                        $scope.questionType = QuestionData.getQuestionType();
-                        QuestionData.setEditFlag(true);
-                        $scope.editFlag = QuestionData.getEditFlag();
-                        $scope.validators = QuestionData.getQuestionTypeValidators();
-                    });
 
-            }
             /**
              * paluu takaisin edelliselle sivulle
              */
