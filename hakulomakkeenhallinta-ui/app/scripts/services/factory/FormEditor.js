@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('FormEditor',['$rootScope', '$q','$resource', 'Props', function ($rootScope, $q, $resource, Props) {
+    .factory('FormEditor',['$rootScope', '$q','$resource', 'Props', '$timeout', function ($rootScope, $q, $resource, Props, $timeout) {
         var formEditor = {};
 
         var FormEditor = $resource(Props.formEditorUri+'/:_path/:_id/:_oper',
@@ -18,7 +18,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             _applicationsSystemForm = applicationSystemForm;
         };
         /**
-         * Palautaaa hakemus Json Objection muuttujasta
+         * Palauttaa hakemus Json Objection muuttujasta
          * @returns {*}
          */
         formEditor.getApplicationSystemForm = function(){
@@ -119,7 +119,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         formEditor.getApplicationSystemFormOrgnisations =  function(applicationSystemId){
             $rootScope.LOGS('FormEditor','getApplicationSystemFormOrgnisations()', applicationSystemId);
-            var deferred =  $q.defer();
             FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
                 function(data){
                     deferred.resolve(data);
