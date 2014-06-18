@@ -13,6 +13,15 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                         AlertMsg($scope,  'warning', 'ei.riittavia.kaytto.oikeuksia');
                     }
                 });
+            $scope.userLang;
+            /**
+             * katsotaan käyttäjän käyttöprofiilista cas/myroles tiedostosta
+             * hänen palveluun määrittämä käyttökieli
+             */
+            MyRoles.getUserLang().then(function(data){
+                $scope.userLang = data;
+                $rootScope.LOGS('RootCtrl', 'userLanguage: ',data);
+            });
 
             var logs = Props.enableConsoleLogs;
             $scope.logs = logs;

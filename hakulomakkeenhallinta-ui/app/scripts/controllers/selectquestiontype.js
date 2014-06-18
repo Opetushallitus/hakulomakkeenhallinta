@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectThemeAndQuestionTypeCtrl', function($scope, $rootScope, $modalInstance, FormEditor) {
+    .controller('SelectQuestionTypeCtrl', function($scope, $rootScope, $modalInstance, FormEditor) {
 
-        $rootScope.LOGS('SelectThemeAndQuestionTypeCtrl');
+        $rootScope.LOGS('SelectQuestionTypeCtrl');
         $scope.types;
         /**
          * haetaan kysymys tyypit HH:n taustajärjestelmästä
