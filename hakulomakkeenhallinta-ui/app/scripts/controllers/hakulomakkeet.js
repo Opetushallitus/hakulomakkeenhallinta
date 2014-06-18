@@ -6,6 +6,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $rootScope.LOGS('HakulomakkeetCtrl');
 
             $scope.applicationForms = [];
+            /**
+             * haetaan hakulomakkeet lista
+             */
             FormEditor.getApplicationSystemForms().then(
                 function(data){
                     $scope.applicationForms = data;
@@ -19,7 +22,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         //ei toteutusta vielä
                 });
             };
-
+            /**
+             * avataan organisaation valinta dialogi valitulle hakulomakkeell
+             * @param applicationSystemForm valittu hakulomake
+             */
             $scope.valitseOrganisaatio = function(applicationSystemForm) {
                 $rootScope.LOGS('HakulomakkeetCtrl','valitseOrganisaatio()', applicationSystemForm);
                     $modal.open({

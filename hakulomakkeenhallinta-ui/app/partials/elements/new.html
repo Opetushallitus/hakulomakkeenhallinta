@@ -1,9 +1,8 @@
 <div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" data-ng-controller="ValidatorsCtrl">
             <tabset>
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
-                    <!--<tab-heading>{{language | i18n}}</tab-heading>-->
                     <tab-heading>{{language.translations.fi}}</tab-heading>
                     <hh-inputtext data-ng-model="question.messageText.translations[language.id]" label="question-title"></hh-inputtext>
                     <hh-inputtext data-ng-model="question.helpText.translations[language.id]" label="question-help"></hh-inputtext>
@@ -34,7 +33,7 @@
                 </tab>
             </tabset>
 
-            <div data-ng-if="validators.length > 0" class="control-group">
+            <div data-ng-if="validators.length > 0" class="control-group" >
                 <hr/>
                 <label>Rajoitteet ja tarkastukset</label>
                 <div ng-repeat="validator in validators">
@@ -42,7 +41,6 @@
                 </div>
                 <hr/>
             </div>
-
 
         </div>
         <div class="col-md-6">
