@@ -16,10 +16,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.languages = data;
                 });
 
-
-            QuestionData.setEditFlag(true);
             QuestionData.fetchQuestionData($routeParams.questionId).then(function(){
                 $scope.question = QuestionData.getQuestion();
+                QuestionData.setThemeId($scope.question.theme);
+                QuestionData.setQuestionType($scope.question.type);
+                QuestionData.setEditFlag(true);
                 QuestionData.getTheme().then(
                     function(data){
                         $scope.theme = data;
