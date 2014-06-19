@@ -5,33 +5,21 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg ) {
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl');
             $scope.languages = [];
+            $scope.theme = {};
+            $scope.questionType = {};
+            $scope.question = {};
+            $scope.editFlag = true;
+            $scope.validators = [];
+
             FormEditor.getLanguages().then(
                 function(data){
                     $scope.languages = data;
                 });
-            $scope.theme;
-            $scope.questionType;
+
 
             QuestionData.setEditFlag(true);
-            $scope.question = QuestionData.getQuestion();
-
-            /**
-             * selaimen refresh haetaan kysmyksen data uudestaan HH:n taustajärjestelmästä
-             */
-            if($routeParams.questionId !== undefined && $scope.question._id === undefined){
-                QuestionData.fetchQuestionData($routeParams.questionId).then(function(){
-                    $scope.question = QuestionData.getQuestion();
-                    QuestionData.getTheme().then(
-                        function(data){
-                            $scope.theme = data;
-                        });
-
-                    QuestionData.getType().then(
-                        function(data){
-                            $scope.questionType = data;
-                        });
-                });
-            }else{
+            QuestionData.fetchQuestionData($routeParams.questionId).then(function(){
+                $scope.question = QuestionData.getQuestion();
                 QuestionData.getTheme().then(
                     function(data){
                         $scope.theme = data;
@@ -41,12 +29,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function(data){
                         $scope.questionType = data;
                     });
-            }
+                $scope.editFlag = QuestionData.getEditFlag();
+                $scope.validators = QuestionData.getQuestionTypeValidators();
+            });
 
 
-
-            $scope.editFlag = QuestionData.getEditFlag();
-            $scope.validators = QuestionData.getQuestionTypeValidators();
 
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl','theme:', $scope.theme);
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );

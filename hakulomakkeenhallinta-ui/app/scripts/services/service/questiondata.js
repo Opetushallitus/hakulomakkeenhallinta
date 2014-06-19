@@ -249,6 +249,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 ThemeQuestions.getThemeQuestionById(questionId).then(
                     function(data){
                         _question = data;
+                        _applicationSystemId = _question.applicationSystemId;
+                        this.setQuestionType(_question.type);
+                        this.setThemeId(_question.theme);
                         defferred.resolve();
                     });
                 return defferred.promise;
