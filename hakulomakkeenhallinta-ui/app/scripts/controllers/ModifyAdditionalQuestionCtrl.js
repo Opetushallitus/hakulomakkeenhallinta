@@ -9,30 +9,37 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function(data){
                     $scope.languages = data;
                 });
+            $scope.theme;
+            $scope.questionType;
+
+            QuestionData.setEditFlag(true);
+            $scope.question = QuestionData.getQuestion();
+
             /**
              * selaimen refresh haetaan kysmyksen data uudestaan HH:n taustajärjestelmästä
              */
-            if($routeParams.questionId !== undefined){
-                QuestionData.setQuestionData($routeParams.questionId);
-            }
-            $scope.question = QuestionData.getQuestion();
-            $scope.theme;
+            if($routeParams.questionId !== undefined && $scope.question._id === undfined){
+                QuestionData.fetchQuestionData($routeParams.questionId).then(function(){
+                    $scope.question = QuestionData.getQuestion();
+                });
+            };
+
             QuestionData.getTheme().then(
                 function(data){
                     $scope.theme = data;
-                });
-            $scope.questionType;
-            QuestionData.getType().then(function(data){
-                $scope.questionType = data;
             });
-            QuestionData.setEditFlag(true);
+
+            QuestionData.getType().then(
+                function(data){
+                    $scope.questionType = data;
+            });
+
             $scope.editFlag = QuestionData.getEditFlag();
             $scope.validators = QuestionData.getQuestionTypeValidators();
 
-            $rootScope.LOGS('CreatAdditionalQuestionCtrl','themeId:',$routeParams.themeId);
-            $rootScope.LOGS('CreatAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
-            $rootScope.LOGS('CreatAdditionalQuestionCtrl','applicationSystemId:', QuestionData.getApplicationSystemId() );
-
+            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','themeId:', $scope.theme.id);
+            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
+            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','applicationSystemId:', QuestionData.getApplicationSystemId() );
             /**
              * paluu takaisin edelliselle sivulle
              */
