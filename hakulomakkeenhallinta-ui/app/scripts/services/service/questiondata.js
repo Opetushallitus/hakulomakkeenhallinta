@@ -213,8 +213,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 var deffered = $q.defer();
                 FormEditor.getQuestionType(type).then(
                     function(data){
-                        $rootScope.LOGS('QuestionData ','getType()', data);
-                        deffered.resolve(data);
+                        $rootScope.LOGS('QuestionData ','getType() #2', data);
+                        deffered.resolve(data[0]);
                     });
                 return deffered.promise;
             };
