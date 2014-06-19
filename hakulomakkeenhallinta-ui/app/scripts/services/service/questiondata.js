@@ -188,7 +188,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 if( _theme.id === undefined){
                     FormEditor.getThemeByThemeId(this.getApplicationSystemId(), this.getThemeId()).then(
                         function(data){
-                            console.log('### teema ', data);
                             deferred.resolve(data);
                         });
                 }else{
@@ -244,7 +243,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              * @param questionId kysymyksen id
              * @returns {promise} kysymys data
              */
-            this.setQuestionData = function(questionId){
+            this.fetchQuestionData = function(questionId){
                 var defferred = $q.defer();
                 ThemeQuestions.getThemeQuestionById(questionId).then(
                     function(data){
