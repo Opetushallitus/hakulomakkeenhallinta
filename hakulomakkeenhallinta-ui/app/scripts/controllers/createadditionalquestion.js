@@ -5,6 +5,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg ) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
+            $scope.theme = {};
+            $scope.question = {};
+            $scope.questionType = {};
+            $scope.editFlag = false;
+            $scope.validators = [];
+
             FormEditor.getLanguages().then(
                 function(data){
                     $scope.languages = data;
@@ -21,14 +27,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             QuestionData.setQuestionType($routeParams.qtype);
             QuestionData.setEditFlag(false);
             $scope.question = QuestionData.getQuestion();
-            $scope.theme
             QuestionData.getTheme().then(
                 function(data){
                     $scope.theme = data;
                 });
-            $scope.questionType;
+
             QuestionData.getType($routeParams.qtype).then(function(data){
-                $scope.questionType =  data[0];
+                $scope.questionType =  data;
             });
             $scope.editFlag = QuestionData.getEditFlag();
             $scope.validators = QuestionData.getQuestionTypeValidators();
