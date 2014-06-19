@@ -21,23 +21,34 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             if($routeParams.questionId !== undefined && $scope.question._id === undefined){
                 QuestionData.fetchQuestionData($routeParams.questionId).then(function(){
                     $scope.question = QuestionData.getQuestion();
+                    QuestionData.getTheme().then(
+                        function(data){
+                            $scope.theme = data;
+                        });
+
+                    QuestionData.getType().then(
+                        function(data){
+                            $scope.questionType = data;
+                        });
                 });
-            };
+            }else{
+                QuestionData.getTheme().then(
+                    function(data){
+                        $scope.theme = data;
+                    });
 
-            QuestionData.getTheme().then(
-                function(data){
-                    $scope.theme = data;
-            });
+                QuestionData.getType().then(
+                    function(data){
+                        $scope.questionType = data;
+                    });
+            }
 
-            QuestionData.getType().then(
-                function(data){
-                    $scope.questionType = data;
-            });
+
 
             $scope.editFlag = QuestionData.getEditFlag();
             $scope.validators = QuestionData.getQuestionTypeValidators();
 
-            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','themeId:', $scope.theme.id);
+            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','theme:', $scope.theme);
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl','applicationSystemId:', QuestionData.getApplicationSystemId() );
             /**

@@ -244,6 +244,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              * @returns {promise} kysymys data
              */
             this.fetchQuestionData = function(questionId){
+                $rootScope.LOGS('QuestionData ','fetchQuestionData() ',questionId);
                 var defferred = $q.defer();
                 ThemeQuestions.getThemeQuestionById(questionId).then(
                     function(data){
