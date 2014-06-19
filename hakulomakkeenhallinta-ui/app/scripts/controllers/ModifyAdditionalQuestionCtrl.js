@@ -18,7 +18,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * selaimen refresh haetaan kysmyksen data uudestaan HH:n taustajärjestelmästä
              */
-            if($routeParams.questionId !== undefined && $scope.question._id === undfined){
+            if($routeParams.questionId !== undefined && $scope.question._id === undefined){
                 QuestionData.fetchQuestionData($routeParams.questionId).then(function(){
                     $scope.question = QuestionData.getQuestion();
                 });
