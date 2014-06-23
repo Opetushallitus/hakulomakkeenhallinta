@@ -120,7 +120,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         formEditor.getApplicationSystemFormOrgnisations = function(applicationSystemId){
             $rootScope.LOGS('FormEditor','getApplicationSystemFormOrgnisations()', applicationSystemId);
-
             var deferred = $q.defer();
             FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
                 function(data){

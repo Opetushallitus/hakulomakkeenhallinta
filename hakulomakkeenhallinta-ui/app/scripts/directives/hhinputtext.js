@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-  .directive('hhInputtext', function () {
+  .directive('hhInputtext',[ 'LocalisationService', function (LocalisationService) {
     return {
         restrict: 'E',
         scope: {
@@ -12,7 +12,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
         replace: true,
         templateUrl: 'partials/lisakysymykset/questions/directives/input-text.html',
         link: function (scope, element, attrs) {
-            scope.label = attrs.label;
+            scope.label = '';
+            var key  = attrs.label;
+            LocalisationService.getTranslation(key).then(
+                function(data){
+                    scope.label = data;
+                });
         }
       }
-  });
+  }]);
