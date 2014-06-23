@@ -3,9 +3,9 @@
         <!--<button class="btn btn-warning pull-left" ng-click="open(applicationForm)" ng-disabled="!applicationForm || devFlag">Tee
             hakukohdekohtaisia lisäkysymyksiä
         </button>-->
-        <select class="pull-right form-control" style="width: 80px;" type="select" ng-model="order">
-            <option value="false" selected="selected">A-Z</option>
-            <option value="true">Z-A</option>
+        <select class="pull-right form-control" style="width: 140px;" type="select" ng-model="order">
+            <option value="false" selected="selected" >{{ t('jarjestys.ab') || 'Järjestys AB' }}</option>
+            <option value="true">{{ t('jarjestys.ba') || 'Järjestys BA' }} </option>
         </select>
 
         <!--<button class="btn btn-primary pull-right" ng-click="luoHakulomake()" data-ng-disabled="devFlag" >Luo hakulomake</button>
