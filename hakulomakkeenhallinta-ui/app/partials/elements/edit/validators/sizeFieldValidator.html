@@ -1,4 +1,4 @@
 <div class="form-group">
-    <label>Tekstikentän pituus</label>
+    <label>{{ t('tekstikentan.pituus') || 'Tekstikentän pituus' }}</label>
     <input type="number" data-ng-model="question.size" class="form-control" ng-pattern="/[0-9]/">
 </div>
