@@ -22,7 +22,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 QuestionData.newAdditionalQuestion();
             }
             QuestionData.setApplicatioSystemId($routeParams.id);
-            QuestionData.setLearningOpportunityId($routeParams.oid);
+            QuestionData.setLearningOpportunityId($routeParams.hakuOid);
             QuestionData.setThemeId($routeParams.themeId);
             QuestionData.setQuestionType($routeParams.qtype);
             QuestionData.setEditFlag(false);

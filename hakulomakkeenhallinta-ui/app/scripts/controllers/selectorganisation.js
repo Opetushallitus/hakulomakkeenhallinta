@@ -19,9 +19,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function(data){
                     $rootScope.LOGS('SelectOrganisationCtrl ', 'getApplicationSystemFormOrgnisations()', data);
                     $scope.$emit('LOADREADY');
-                    if(data.length != 0){
+                    console.log(data);
+                    if(data.length !== 0 && data.status === 200){
                         $scope.organisations = data;
                     }else{
+                        if(data.status === 0){
+                            AlertMsg($scope, 'warning', 'organisaatioita.ei.saatu.ladattua');
+                        }
                         AlertMsg($scope, 'warning', 'ei.riittavia.kaytto.oikeuksia.tahan.hakuun');
                     }
             });
