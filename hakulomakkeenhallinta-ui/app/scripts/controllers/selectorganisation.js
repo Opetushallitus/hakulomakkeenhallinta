@@ -19,7 +19,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function(data){
                     $rootScope.LOGS('SelectOrganisationCtrl ', 'getApplicationSystemFormOrgnisations()', data);
                     $scope.$emit('LOADREADY');
-                    if(data.length !== 0 && data.status === undefined){
+                    if(data.length !== 0){
                         $scope.organisations = data;
                     }else{
                         if(data.status === 0){
