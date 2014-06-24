@@ -46,7 +46,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.tallennaMuokkaus = function(){
                 $rootScope.LOGS('ModifyAdditionalQuestionCtrl','tallennaMuokkaus()');
-                if($skope.kysymys.$valid){
+                if($scope.kysymys.$valid){
                 QuestionData.setEditFlag(false);
                     ThemeQuestions.saveModifiedQuestion($scope.question._id, $scope.question).then(
                         function(data){
