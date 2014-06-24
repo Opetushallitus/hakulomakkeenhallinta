@@ -33,12 +33,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.editFlag = QuestionData.getEditFlag();
                 $scope.validators = QuestionData.getQuestionTypeValidators();
             });
-
-
-
-            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','theme:', $scope.theme);
-            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','QuestionId:', $routeParams.questionId );
-            $rootScope.LOGS('ModifyAdditionalQuestionCtrl','applicationSystemId:', QuestionData.getApplicationSystemId() );
             /**
              * paluu takaisin edelliselle sivulle
              */
@@ -52,12 +46,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.tallennaMuokkaus = function(){
                 $rootScope.LOGS('ModifyAdditionalQuestionCtrl','tallennaMuokkaus()');
+                if($skope.kysymys.$valid){
                 QuestionData.setEditFlag(false);
-                ThemeQuestions.saveModifiedQuestion($scope.question._id, $scope.question).then(
-                    function(data){
-                        AlertMsg($scope, 'success','kysymyksen.tallennus.ok');
-                        $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
-                    });
+                    ThemeQuestions.saveModifiedQuestion($scope.question._id, $scope.question).then(
+                        function(data){
+                            AlertMsg($scope, 'success','kysymyksen.tallennus.ok');
+                            $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
+                        });
+                }
             };
             /**
              * Asetetaan kysymys deleted tilaan HH:n taustajärjestelmässä
