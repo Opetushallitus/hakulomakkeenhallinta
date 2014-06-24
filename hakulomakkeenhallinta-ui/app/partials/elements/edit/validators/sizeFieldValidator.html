@@ -1,4 +1,8 @@
 <div class="form-group">
-    <label>{{ t('tekstikentan.pituus') || 'Tekstikentän pituus' }}</label>
-    <input type="number" data-ng-model="question.size" class="form-control" ng-pattern="/[0-9]/">
-</div>
+    <label>
+        {{ t('tekstikentan.pituus') || 'Tekstikentän pituus' }}
+        <span data-ng-show="kysymys.tekstikentankoko.$error.required && kysymys.$dirty" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+        <span data-ng-show="(!kysymys.tekstikentankoko.$valid && kysymys.tekstikentankoko.$dirty)|| kysymys.tekstikentankoko.$error.pattern" style="color:red;">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
+    </label>
+    <input name="tekstikentankoko" type="number" data-ng-model="question.size" class="form-control" ng-pattern="/^[0-9]+$/" required>
+    </div>

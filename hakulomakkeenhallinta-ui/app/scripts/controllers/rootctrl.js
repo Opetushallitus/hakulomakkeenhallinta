@@ -60,5 +60,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                 $rootScope.LOGS('RootCtrl','LOADREADY');
                 $scope.loading = false;
             });
+            /**
+             * asettaa suomenkielisen kentän vaadituksi arvoksi
+             * lomakkeen ng-required tarkistuksesssa
+             * @param langId kielien id ( fi | sv | en)
+             * @returns boolean
+             */
+            $scope.requiredByFiLang = function(langId){
+                if(langId === 'fi'){
+                    return true;
+                }
+                return false;
+            };
 
         }]);
