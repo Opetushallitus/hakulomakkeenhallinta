@@ -4,10 +4,10 @@
             <tabset>
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
                     <tab-heading>{{language.translations.fi}}</tab-heading>
-
+                    <div ng-form="qtab{{language.id}}">
                     <div class="form-group">
-                        <label>{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }}</label>
-                        <input type="text" data-ng-model="question.messageText.translations[language.id]" class="form-control">
+                        <label>{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }} <span ng-show="qtabfi.otsikko.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> </label>
+                        <input name="otsikko" type="text" data-ng-model="question.messageText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)" >
                     </div>
 
                     <div class="form-group">
@@ -42,6 +42,7 @@
                                 <input type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" >
                             </div>
                         </div>
+                    </div>
                     </div>
                 </tab>
             </tabset>

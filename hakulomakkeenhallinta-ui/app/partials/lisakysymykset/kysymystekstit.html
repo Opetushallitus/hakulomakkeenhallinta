@@ -1,4 +1,4 @@
-<form role="form" >
+<form role="form" name="kysymys" >
     <div class="form-group">
         <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
         <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag" tl="tallenna">Tallenna</button>
@@ -22,7 +22,7 @@
     <div class="form-group">
         <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
         <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag" tl="tallenna">Tallenna</button>
-        <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" tle="tallenna">Tallenna</button>
+        <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" tl="tallenna">Tallenna</button>
         <!--<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>-->
         <button class="btn" data-ng-click="poistaKysymys()"data-ng-show="editFlag" tl="poista">Poista</button>
     </div>

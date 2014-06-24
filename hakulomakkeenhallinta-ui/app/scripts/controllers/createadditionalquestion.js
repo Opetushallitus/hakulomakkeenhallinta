@@ -37,7 +37,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             });
             $scope.editFlag = QuestionData.getEditFlag();
             $scope.validators = QuestionData.getQuestionTypeValidators();
-
             /**
              * paluu takaisin edelliselle sivulle
              */
@@ -50,9 +49,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              *Tallentaan uusi lisäkysymys HH:n taustajärjestelmään
              */
             $scope.tallennaUusi = function() {
-                if($scope.question.messageText.translations.fi === ''){
-
-                }
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ','tallennaUusi()');
                 ThemeQuestions.createNewQuestion( $routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                     function(data){
@@ -60,6 +56,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         AlertMsg($scope, 'success','kysymyksen.tallennus.ok');
                         $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                     });
+
             };
 
             $scope.esikatselu = function(){
