@@ -5,44 +5,29 @@
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
                     <tab-heading>{{language.translations.fi}}</tab-heading>
                     <div ng-form="qtab{{language.id}}">
-                    <div class="form-group">
-                        <label>{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }} <span ng-show="qtabfi.otsikko.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> </label>
-                        <input name="otsikko" type="text" data-ng-model="question.messageText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)" >
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{ t('kysymyksen.ohjeteksti') || 'Ohjeteksti' }}</label>
-                        <input type="text" data-ng-model="question.helpText.translations[language.id]" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{ t('kysymyksen.lisaohjeteksti') || 'Lisäohjeteksti' }}</label>
-                        <input type="text" data-ng-model="question.verboseHelpText.translations[language.id]" class="form-control">
-                    </div>
-
-                    <div data-ng-if="question.type === 'CheckBox'">
-                        <label data-ng-click="addCheckbox(question)">{{ t('lisaa.valintalaatikko') || 'Lisää valintaruutu' }} </label>
-                        <i class="glyphicon glyphicon-plus" data-ng-click="addCheckbox(question)"></i>
-                        <div ng-repeat="option in question.options">
-                            <div class="form-group">
-                                <label> {{ t('valintalaatikko') || 'Valintaruutu' }} {{$index +1}}</label>
-                                <i class="glyphicon glyphicon-trash"  data-ng-click="removeCheckbox($index, question)"></i>
-                                <input type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" >
-                            </div>
+                        <div class="form-group">
+                            <label>{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }} <span ng-show="qtabfi.otsikko.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> </label>
+                            <input name="otsikko" type="text" data-ng-model="question.messageText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)" >
                         </div>
-                    </div>
 
-                    <div data-ng-if="question.type === 'RadioButton'">
-                        <label data-ng-click="addRadio(question)">{{ t('lisaa.valintanappi') || 'Lisää valintanappi' }} </label>
-                        <i class="glyphicon glyphicon-plus" data-ng-click="addRadio(question)"></i>
-                        <div ng-repeat="option in question.options">
-                            <div class="form-group">
-                                <label> {{ t('valintanappi') || 'Valintanappi' }} {{$index +1}}</label>
-                                <i class="glyphicon glyphicon-trash"  data-ng-click="removeRadio($index, question)"></i>
-                                <input type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" >
-                            </div>
+                        <div class="form-group">
+                            <label>{{ t('kysymyksen.ohjeteksti') || 'Ohjeteksti' }}</label>
+                            <input type="text" data-ng-model="question.helpText.translations[language.id]" class="form-control">
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            <label>{{ t('kysymyksen.lisaohjeteksti') || 'Lisäohjeteksti' }}</label>
+                            <input type="text" data-ng-model="question.verboseHelpText.translations[language.id]" class="form-control">
+                        </div>
+
+                        <div data-ng-if="question.type === 'CheckBox'">
+                            <check-box></check-box>
+                        </div>
+
+                        <div data-ng-if="question.type === 'RadioButton'">
+                            <radio-button></radio-button>
+                        </div>
+
                     </div>
                 </tab>
             </tabset>
@@ -55,7 +40,6 @@
                 </div>
                 <hr/>
             </div>
-
         </div>
         <div class="col-md-6">
             <pre data-ng-if="logs" >{{question | without | json}}</pre>

@@ -1,0 +1,12 @@
+<div>
+    <label data-ng-click="addRadio(question)">{{ t('lisaa.valintanappi') || 'Lisää valintanappi' }} </label>
+    <i class="glyphicon glyphicon-plus" data-ng-click="addRadio(question)"></i>
+    <div ng-repeat="option in question.options">
+        <div class="form-group" ng-form="kysmysradiobutton{{language.id}}">
+            <label> {{ t('valintanappi') || 'Valintanappi' }} {{$index +1}} *</label>
+            <i data-ng-show="question.options.length >2" class="glyphicon glyphicon-trash"  data-ng-click="removeRadio($index, question)"></i>
+            <span ng-show="kysmysradiobuttonfi.valintanappi.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+            <input name="valintanappi" type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)" >
+        </div>
+    </div>
+</div>
