@@ -17,6 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     optionObj.optionText.translations = {};
                     optionObj.id = 'option_'+qIndx;
                     question.options[qIndx] = optionObj;
+                    $scope.validateSelectionsToCheckboxAmount();
                 };
                 /**
                  * poistaa valintaruudun kysymyksestä
@@ -30,6 +31,38 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     for(var optionIndx in question.options){
                         question.options[optionIndx].id = 'option_'+optionIndx;
                     }
+                    $scope.validateSelectionsToCheckboxAmount();
+                };
+
+
+            },
+            link: function($scope, elem, attrs){
+                /**
+                 * tarkistetaan valittavien valintaruutujen asetettujen arvojen
+                 * vastaamaan valintaruujen määrää lisättäessä ja poistettaessa
+                 * valintaruutuja
+                 */
+                $scope.validateSelectionsToCheckboxAmount = function(){
+                    var minSelection = $scope.question.validators.min,
+                        maxSelection = $scope.question.validators.max,
+                        nroCheckBox = $scope.question.options.length;
+
+                    if(minSelection !== undefined){
+                        if(nroCheckBox < minSelection){
+                            $scope.kysymys.minvalintaruutuja.$setValidity('checkboxminvalue', false);
+                        }else{
+                            $scope.kysymys.minvalintaruutuja.$setValidity('checkboxminvalue', true);
+                        }
+                    }
+
+                    if(maxSelection !== undefined){
+                        if(nroCheckBox < maxSelection){
+                            $scope.kysymys.maxvalintaruutuja.$setValidity('checkboxmaxvalue', false);
+                        }else{
+                            $scope.kysymys.maxvalintaruutuja.$setValidity('checkboxmaxvalue', true);
+                        }
+                    }
+
                 };
             }
         }
