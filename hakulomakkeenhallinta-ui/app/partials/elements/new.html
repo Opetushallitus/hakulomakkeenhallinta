@@ -41,7 +41,9 @@
                 <hr/>
             </div>
         </div>
+
         <div class="col-md-6">
+            <div data-ng-if="logs"> <h3>kysymys valid: {{kysymys.$valid}}<h3> </div>
             <pre data-ng-if="logs" >{{question | without | json}}</pre>
         </div>
     </div>
