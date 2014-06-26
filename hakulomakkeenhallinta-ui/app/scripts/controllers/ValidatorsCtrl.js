@@ -31,5 +31,4 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     question.validators[1] = max;
                 }
             };
-
         }]);
