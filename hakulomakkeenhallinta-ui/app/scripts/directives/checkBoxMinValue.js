@@ -11,6 +11,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             require: 'ngModel',
             link: function(scope, elm, attrs, ctrl){
                 ctrl.$parsers.unshift(function(viewValue){
+                    console.log('####');
                     var nroCheckBox = scope.question.options.length;
                     if(nroCheckBox < viewValue){
                         ctrl.$setValidity('checkboxminvalue', false);
