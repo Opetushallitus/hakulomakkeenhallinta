@@ -3,7 +3,7 @@
         <div class="col-md-6" data-ng-controller="ValidatorsCtrl">
             <tabset>
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
-                    <tab-heading>{{language.translations.fi}}</tab-heading>
+                    <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
                     <div ng-form="qtab{{language.id}}">
                         <div class="form-group">
                             <label>{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }} <span ng-show="qtabfi.otsikko.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> </label>
