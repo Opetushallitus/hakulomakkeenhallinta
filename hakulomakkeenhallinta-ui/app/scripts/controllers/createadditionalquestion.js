@@ -24,6 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function(data){
                     $scope.applicationSystem = data;
                 });
+            console.log('####', $routeParams.hakuOid)
             QuestionData.getHakukohdeInfo($routeParams.hakuOid).then(
                 function(data){
                     console.log('€€€€', data);
