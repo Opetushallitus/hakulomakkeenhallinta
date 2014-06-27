@@ -10,7 +10,7 @@
     <div class="alert alert-info" data-ng-hide="editFlag">
         <i class="icon-info-sign"></i>
         {{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
-        {{ t('hakukohteen') || 'hakukohteen' }} <b>{{ hakukohde.hakukohteenNimet.kieli_fi }}</b>
+        {{ t('hakukohteen') || 'hakukohteen' }} <b>{{ hakukohde | hakukohdeNimi:userLang }}</b>
         {{ t('teemaan') || 'teemaan' }} <b>{{ theme | i18n:'name':userLang }}</b>
         {{ t('tyyppia') ||  'tyyppiä' }} <b>{{questionType | i18n:'name':userLang}}</b>
 
@@ -19,7 +19,7 @@
     <div class="alert alert-info" data-ng-hide="!editFlag">
         <i class="glyphicon glyphicon-info-sign"></i>
         {{ t('muokkaa.hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet muokkaamassa hakukohdekohtaista lisäkysymystä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
-        {{ t('hakukohteen') || 'hakukohteen' }} <b>{{ hakukohde.hakukohteenNimet.kieli_fi }}</b>
+        {{ t('hakukohteen') || 'hakukohteen' }} <b>{{ hakukohde | hakukohdeNimi:userLang }}</b>
         {{ t('teemaan') || 'teemaan' }} <b>{{ theme | i18n:'name':userLang }}</b>
         {{ t('tyyppia') ||  'tyyppiä' }} <b>{{questionType | i18n:'name':userLang}}</b>
     </div>
