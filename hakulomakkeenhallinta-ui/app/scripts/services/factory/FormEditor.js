@@ -40,10 +40,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }
             }else{
                 $rootScope.LOGS('FormEditor','fetchApplicationSystemForm()', 'else');
-
                 FormEditor.get({'_path':'application-system-form', '_id':id,'_oper':'name'}).$promise.then(
                  function(data){
-                 $rootScope.LOGS('FormEditor', 5, data);
+                 $rootScope.LOGS('FormEditor', data);
                  deffered.resolve(data);
 
                  });
@@ -125,7 +124,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 function(data){
                     deferred.resolve(data);
                 },function(error){
-                    console.log(error);
                     deferred.resolve(error);
                 }
             );

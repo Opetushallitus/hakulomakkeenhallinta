@@ -15,7 +15,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.organisation = data;
             });
 
-            $scope.applicationSystem;
+            $scope.applicationSystem = {};
             /**
              * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
              */
@@ -49,13 +49,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         });
                 });
 
-            $scope.getHakukohdeInfo = function(lopId){
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','getHakukohdeInfo()');
-                TarjontaAPI.fetchHakukohdeInfo(lopId).then(
-                    function(data){
-                        return data;
-                    });
-            };
+
             /**
              * avataan dialogit uuden kysymyksen hakukohteen ja tyypin alustamiseksi
              * @param theme
@@ -69,13 +63,27 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     resolve: {
                         applicationSystem: function(){
                             return $scope.applicationSystem;
+                        },
+                        theme: function(){
+                            return theme;
                         }
                     }
-                }).result.then(function(){
+                }).result.then(function(data){
                         $modal.open({
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
                             controller: 'SelectQuestionTypeCtrl',
-                            scope: $scope
+                            scope: $scope,
+                            resolve: {
+                                applicationSystem: function(){
+                                    return data.applicationSystem;
+                                },
+                                theme: function(){
+                                    return data.theme;
+                                },
+                                hakukohde: function(){
+                                    return data.hakukohde;
+                                }
+                            }
                         }).result.then(function(data) {
                                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','addQuestion()', data);
                                 QuestionData.newAdditionalQuestion();

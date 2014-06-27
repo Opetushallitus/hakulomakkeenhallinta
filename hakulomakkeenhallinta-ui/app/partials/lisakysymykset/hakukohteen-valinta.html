@@ -4,7 +4,8 @@
     </div>
     <div class="modal-body">
         <div class="alert alert-info">
-            <i class="icon-info-sign"></i>{{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä hakuun' }} <b>{{applicationSystem | i18n:'name'}}</b>
+            <i class="icon-info-sign"></i>{{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
+            {{ t('teemaan') || 'teemaan' }} <b>{{ theme | i18n:'name':userLang }}</b>
         </div>
         <loading></loading>
         <p>
@@ -25,8 +26,8 @@
                     <table class="table table-striped table-hover" >
                         <tr data-ng-repeat="hakukohde in applicationOption.tulokset">
 
-                            <td ng-if="hakukohde.nimi.fi !== undefined"> {{ hakukohde.nimi.fi  }}</td>
-                            <td ng-if="hakukohde.nimi.fi === undefined"> {{ hakukohde.nimi.sv  }}</td>
+                            <td ng-if="hakukohde.nimi.fi !== undefined"> {{ hakukohde.nimi.fi }}</td>
+                            <td ng-if="hakukohde.nimi.fi === undefined"> {{ hakukohde.nimi.sv }}</td>
                             <td>
                                 <button class="btn btn-primary pull-right" ng-click="jatka(hakukohde)" tl="jatka">Jatka</button>
                             </td>

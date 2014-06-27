@@ -1,11 +1,12 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg',
-        function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg ) {
+    .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg', 'theme',
+        function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg, theme ) {
             $rootScope.LOGS('SelectHakukohdeCtrl ');
             $scope.applicationOptions = [];
             $scope.$emit('LOAD');
             $scope.applicationSystem = applicationSystem;
+            $scope.theme =  theme;
 
             if(applicationSystem === undefined){
                 /**
@@ -33,7 +34,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.jatka = function(hakukohde) {
                 $rootScope.LOGS('SelectHakukohdeCtrl','jatka()',hakukohde);
                 QuestionData.setApplicationOption(hakukohde);
-                $modalInstance.close(hakukohde.oid);
+                $modalInstance.close({
+                    hakukohde: hakukohde,
+                    applicationSystem: applicationSystem,
+                    theme: theme
+                });
             };
 
             $scope.cancel = function() {

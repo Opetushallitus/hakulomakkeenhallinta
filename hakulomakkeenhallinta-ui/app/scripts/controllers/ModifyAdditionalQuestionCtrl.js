@@ -10,6 +10,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.question = {};
             $scope.editFlag = true;
             $scope.validators = [];
+            $scope.hakukohde = {};
+            $scope.applicationSystem = {};
 
             FormEditor.getLanguages().then(
                 function(data){
@@ -30,6 +32,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function(data){
                         $scope.questionType = data;
                     });
+                /**
+                 * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
+                 */
+                FormEditor.fetchApplicationSystemForm(QuestionData.getApplicationSystemId()).then(
+                    function(data){
+                        $scope.applicationSystem = data;
+                    });
+                QuestionData.getHakukohdeInfo(QuestionData.getLerningOpportunityId()).then(
+                    function(data){
+                        $scope.hakukohde = data;
+                    });
+
                 $scope.editFlag = QuestionData.getEditFlag();
                 $scope.validators = QuestionData.getQuestionTypeValidators();
             });
