@@ -16,8 +16,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             $http.get(Props.tarjontaAPI+"/hakukohde/"+hakuOid).success(
                 function(data) {
                     if(data.result){
-                        $rootScope.LOGS('TarjontaAPI', data.result.hakukohteenNimi);
-                        deffered.resolve(data.result.hakukohteenNimi);
+                        $rootScope.LOGS('TarjontaAPI', data.result);
+                        deffered.resolve(data.result);
                     }
                 });
 

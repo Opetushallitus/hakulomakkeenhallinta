@@ -308,7 +308,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              * @param lopId hakukohde id
              */
             this.getHakukohdeInfo = function(lopId){
-                $rootScope.LOGS('QuestionData','getHakukohdeInfo()');
+                $rootScope.LOGS('QuestionData','getHakukohdeInfo()',lopId);
                 var deferred = $q.defer();
                 TarjontaAPI.fetchHakukohdeInfo(lopId).then(
                     function(data){
