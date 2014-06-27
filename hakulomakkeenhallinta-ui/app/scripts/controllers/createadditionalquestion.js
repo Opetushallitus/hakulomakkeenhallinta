@@ -26,6 +26,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
             QuestionData.getHakukohdeInfo($routeParams.hakuOid).then(
                 function(data){
+                    console.log('€€€€', data);
                     $scope.hakukohde = data;
                 });
             /**
