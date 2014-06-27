@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-    .service('QuestionData', [ 'FormEditor','$rootScope', 'ThemeQuestions', '$q',
-        function (FormEditor, $rootScope, ThemeQuestions, $q ) {
+    .service('QuestionData', [ 'FormEditor','$rootScope', 'ThemeQuestions', '$q', 'TarjontaAPI',
+        function (FormEditor, $rootScope, ThemeQuestions, $q, TarjontaAPI ) {
             //kysymys olio
             var _question = {};
             //hakukohteen id
@@ -303,5 +303,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 };
             return validators;
             };
-
+            /**
+             * hakeen hakukohteen tiedot sen id:llä
+             * @param lopId hakukohde id
+             */
+            this.getHakukohdeInfo = function(lopId){
+                $rootScope.LOGS('QuestionData','getHakukohdeInfo()');
+                var deferred = $q.defer();
+                TarjontaAPI.fetchHakukohdeInfo(lopId).then(
+                    function(data){
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            };
         }]);

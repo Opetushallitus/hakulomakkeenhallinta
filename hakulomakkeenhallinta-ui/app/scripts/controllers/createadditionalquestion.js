@@ -10,16 +10,30 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.questionType = {};
             $scope.editFlag = false;
             $scope.validators = [];
+            $scope.hakukohde = {};
+            $scope.applicationSystem = {};
 
             FormEditor.getLanguages().then(
                 function(data){
                     $scope.languages = data;
                 });
             /**
+             * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
+             */
+            FormEditor.fetchApplicationSystemForm($routeParams.id).then(
+                function(data){
+                    $scope.applicationSystem = data;
+                });
+            QuestionData.getHakukohdeInfo($routeParams.hakuOid).then(
+                function(data){
+                    $scope.hakukohde = data;
+                });
+            /**
              * selaimen refresh tapauksessa luodaan lisäkysymys uudestaan
              */
             if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
                 QuestionData.newAdditionalQuestion();
+
             }
             QuestionData.setApplicatioSystemId($routeParams.id);
             QuestionData.setLearningOpportunityId($routeParams.hakuOid);
@@ -32,9 +46,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.theme = data;
                 });
 
-            QuestionData.getType($routeParams.qtype).then(function(data){
-                $scope.questionType =  data;
+            QuestionData.getType($routeParams.qtype).then(
+                function(data){
+                    $scope.questionType =  data;
             });
+
+
             $scope.editFlag = QuestionData.getEditFlag();
             $scope.validators = QuestionData.getQuestionTypeValidators();
             /**
