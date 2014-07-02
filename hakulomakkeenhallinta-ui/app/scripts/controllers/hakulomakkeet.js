@@ -27,7 +27,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param applicationSystemForm valittu hakulomake
              */
             $scope.valitseOrganisaatio = function(applicationSystemForm) {
-                applicationSystemForm._id = '1.2.246.562.29.89709440708';
                 $rootScope.LOGS('HakulomakkeetCtrl','valitseOrganisaatio()', applicationSystemForm);
                     $modal.open({
                     templateUrl: 'partials/lisakysymykset/organisaation-valinta.html',
