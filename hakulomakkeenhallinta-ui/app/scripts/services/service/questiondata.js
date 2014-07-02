@@ -36,14 +36,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              * @returns {string[]}
              */
             this.getTextQuestionValidators = function(){
-                return ['requiredFieldValidator', 'sizeFieldValidator' /*,'RegexFieldValidator'*/];
+                return ['sizeFieldValidator', 'requiredFieldValidator' /*,'RegexFieldValidator'*/];
             };
             /**
              * palauttaa valintaruudun validaattorit
              * @returns {string[]}
              */
             this.getCheckboxValidators = function(){
-                return ['requiredFieldValidator', 'minValueValidator','maxValueValidator'];
+                return ['minMaxValueValidator', 'requiredFieldValidator'];
             };
             /**
              * palauttaa valintanapin validaattorit
