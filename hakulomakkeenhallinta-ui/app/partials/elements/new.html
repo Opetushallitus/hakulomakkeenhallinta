@@ -1,50 +1,131 @@
-<div>
-    <div class="row">
-        <div class="col-md-6" data-ng-controller="ValidatorsCtrl">
+<!--<div>-->
+    <div data-ng-controller="ValidatorsCtrl">
+        <tabset>
+            <tab ng-repeat="language in languages | orderBy:'order':false " >
+                <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
+                <div ng-form="qtab{{language.id}}" style="background-color: #f5f5f5; border-color: #ddd !important; ">
+                    <br>
+                    <div class="col-md-offset-3 col-md-7">
+                        <span ng-show="qtabfi.otsikko.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> <br>
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <div class="col-md-3 control-label">
+                            <label for="otsikko">{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }} </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input name="otsikko" type="text" data-ng-model="question.messageText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="ohjeteksti">{{ t('kysymyksen.ohjeteksti') || 'Ohjeteksti' }}</label>
+                        <div class="col-md-8">
+                            <textarea name="ohjeteksti" type="text" data-ng-model="question.helpText.translations[language.id]" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="lisaohjeteksti">{{ t('kysymyksen.lisaohjeteksti') || 'Lisäohjeteksti' }}</label>
+                        <div class="col-md-8">
+                            <textarea name="lisaohjeteksti" type="text" data-ng-model="question.verboseHelpText.translations[language.id]" class="form-control" rows="3"></textarea>
+                         </div>
+                    </div>
+
+                    <div data-ng-if="question.type === 'CheckBox'">
+                        <check-box></check-box>
+                    </div>
+
+                    <div data-ng-if="question.type === 'RadioButton'">
+                        <radio-button></radio-button>
+                    </div>
+                <br>
+                </div>
+            </tab>
+        </tabset>
+
+        <div data-ng-if="validators.length > 0" >
+            <div ng-repeat="validator in validators">
+                <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
+            <button class="btn btn-primary pull-right" data-ng-click="tallennaUusi()" data-ng-show="!editFlag" tl="tallenna">Tallenna</button>
+            <button class="btn btn-primary pull-right" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" tl="tallenna">Tallenna</button>
+            <!--<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>-->
+            <button class="btn pull-right" data-ng-click="poistaKysymys()"data-ng-show="editFlag" tl="poista">Poista</button>
+        </div>
+    </div>
+
+<!--
+    <div class="col-md-6" data-ng-controller="AppendixRequestCtrl">
+        <div ng-show="question.naytaliite">
             <tabset>
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
                     <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
-                    <div ng-form="qtab{{language.id}}">
+                    <div ng-form="liitepyynto">
+                        <h3>Valintaruutu 1 liitepyyntö </h3>
                         <div class="form-group">
-                            <label>{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }} <span ng-show="qtabfi.otsikko.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> </label>
-                            <input name="otsikko" type="text" data-ng-model="question.messageText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)" >
-                        </div>
-
-                        <div class="form-group">
-                            <label>{{ t('kysymyksen.ohjeteksti') || 'Ohjeteksti' }}</label>
-                            <input type="text" data-ng-model="question.helpText.translations[language.id]" class="form-control">
+                            <label>Liitteen nimi *</label>
+                            <input type="text" class="form-control" >
                         </div>
 
                         <div class="form-group">
-                            <label>{{ t('kysymyksen.lisaohjeteksti') || 'Lisäohjeteksti' }}</label>
-                            <input type="text" data-ng-model="question.verboseHelpText.translations[language.id]" class="form-control">
+                            <label class="form-control">Palautus ajankohta *</label>
+                            <input type="date"  class="col-md-3">
+                            <input type="time" class="col-md-3">
                         </div>
 
-                        <div data-ng-if="question.type === 'CheckBox'">
-                            <check-box></check-box>
+                        <div class="form-group">
+                            <label>Osoite *</label>
+                            <input type="text"  class="form-control">
                         </div>
 
-                        <div data-ng-if="question.type === 'RadioButton'">
-                            <radio-button></radio-button>
+                        <div class="form-group">
+                            <label>Postinumero *</label>
+                            <input type="text"  class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Postitoimipaikka *</label>
+                            <input type="text"  class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lisätietoja</label>
+                            <textarea class="form-control" rows="4"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="checkbox" name="sahkoisetliitteet" data-ng-model="liitep.sah">Sähköiset toimitustavat liitteille
+                        </div>
+
+                        <div data-ng-show="liitep.sah">
+                            <div class="form-group">
+                                <label>Sähköposti osoite liitteiden toimittamiseen</label>
+                                <input type="text"  class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Liitetiedostojen e-lataus osoite</label>
+                                <input type="text"  class="form-control">
+                            </div>
                         </div>
 
                     </div>
                 </tab>
             </tabset>
 
-            <div data-ng-if="validators.length > 0" class="control-group" >
-                <hr/>
-                <label>{{ t('rajoitteet.tarkastukset') || 'Rajoitteet ja tarkastukset' }}</label>
-                <div ng-repeat="validator in validators">
-                    <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
-                </div>
-                <hr/>
-            </div>
         </div>
+-->
 
-        <div class="col-md-6">
-            <div data-ng-if="logs"> <h3>kysymys valid: {{kysymys.$valid}}<h3> </div>
-            <pre data-ng-if="logs" >{{question | without | json}}</pre>
-        </div>
-    </div>
+    <!--</div>-->
+
+<!--</div>-->
+<div class="col-md-12">
+    <div data-ng-if="logs"> <h3>kysymys valid: {{kysymys.$valid}}<h3> </div>
+    <pre data-ng-if="logs" >{{question | without | json}}</pre>
 </div>
+<!--</div>-->

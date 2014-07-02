@@ -118,7 +118,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @returns {promise}
          */
         formEditor.getApplicationSystemFormOrgnisations = function(applicationSystemId){
-            $rootScope.LOGS('FormEditor','getApplicationSystemFormOrgnisations()', applicationSystemId);
+            /*$rootScope.LOGS('FormEditor','getApplicationSystemFormOrgnisations()', applicationSystemId);
             var deferred = $q.defer();
             FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
                 function(data){
@@ -127,6 +127,26 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     deferred.resolve(error);
                 }
             );
+            return deferred.promise;*/
+
+            var orgs = ["1.2.246.562.10.00000000001", "1.2.246.562.10.65530732232" ];
+            var orgMock = [];
+            for(var o in orgs){
+                var r ={};
+                r.id = orgs[o];
+                var ni ={};
+                ni.translations = {};
+                ni.translations.fi ='organisaatio_'+o;
+                r.name = ni;
+                orgMock.push(r);
+            }
+            var deferred =  $q.defer();
+
+            $timeout(function(){
+//    orgMock.status = 200;
+                deferred.resolve(orgMock);
+            },1000);
+
             return deferred.promise;
         };
         /**
