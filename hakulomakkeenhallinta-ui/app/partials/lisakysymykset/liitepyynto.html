@@ -1,0 +1,107 @@
+<form role="form" name="liitepyynto">
+    <div class="modal-header">
+        <h4 tl="liitepyynto">Liitepyyntö</h4>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-info">
+            <i class="glyphicon glyphicon-info-sign"></i> Olet luomassa liitepyyntöä hakukohteen <b>{{ hakukohde | hakukohdeNimi:userLang }}</b> vastaukseen <b>{{ option | i18n:'optionText' || 'ei asetettu' }}</b>
+        </div>
+
+        <div>
+
+            <tabset>
+                <tab ng-repeat="language in languages | orderBy:'order':false " >
+                    <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
+                    <div ng-form="liitepyyntotab{{language.id}}" style="background-color: #f5f5f5; border-color: #ddd !important;">
+                        <br>
+                        <div class="form-group">
+                            <label for="liitenimi">Liitteen nimi *</label>
+                            <input name="liitenimi" type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label for="liitteenkuvaus">Kuvaus</label>
+                            <textarea name="liitteenkuvaus" class="form-control" rows="4"></textarea>
+                        </div>
+                        <br>
+                    </div>
+                </tab>
+            </tabset>
+
+            <div class="form-group">
+
+                <label>Toimitettava mennessä *</label>
+                <div>
+                    pvm. <input name="liitteenpalautuspvm" type="date">
+                    klo <input name="liitteenpalautusklo" type="time">
+                </div>
+
+            </div>
+
+            <div class="form-group" >
+
+                <label>Liitteen toimitus osoite </label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" id="toimitusosoitteeseen" data-ng-model="liitepyynto.toimitusosoite" value="0" checked >
+                        Käytetään koulutuksen järjestävän organisaation hakijapalveluiden postiosoitetta
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" id="toimitusryhma" data-ng-model="liitepyynto.toimitusosoite" value="1">Käytetään ryhmän osoitetta
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" id="toimitusmuu" data-ng-model="liitepyynto.toimitusosoite" value="2"> Käytetään muuta osoitetta
+                    </label>
+                </div>
+
+            </div>
+            <div data-ng-show="liitepyynto.toimitusosoite ==='0' || liitepyynto.toimitusosoite ==='2' ">
+                <div class="form-group">
+                    <label>Osoite *</label>
+                    <input type="text"  class="form-control">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="postinro" class="control-label">Postinumero *</label>
+                        <input type="text" name="postinro"  class="form-control">
+                    </div>
+                    <div class="col-md-8">
+                        <label for="postitoimipaikka" class="control-label">Postitoimipaikka *</label>
+                        <input type="text" name="postitoimipaikka" class="form-control">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="sahkoisetliitteet" data-ng-model="liitepyynto.sah">Voidaan toimittaa myös sähköisesti
+                    </label>
+                </div>
+
+                <div data-ng-show="liitepyynto.sah">
+                    <div class="form-group">
+                        <label>Sähköposti osoite liitteiden toimittamiseen</label>
+                        <input type="text"  class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Liitetiedostojen e-lataus osoite</label>
+                        <input type="text"  class="form-control">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <alertmsg></alertmsg>
+
+
+        <div class="modal-footer">
+            <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary pull-right" ng-click="tallennaLiitepyynto()" tl="tallenna">Tallenne</button>
+        </div>
+</form>

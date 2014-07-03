@@ -1,7 +1,6 @@
 <form role="form" class="form-horizontal" name="organisaatioValinta">
     <div class="modal-header">
         <h4 tl="organisaation.valinta">Organisaation valinta</h4>
-
     </div>
     <div class="modal-body">
         <div class="alert alert-info">
@@ -16,9 +15,11 @@
                 </select>
             </div>
         </div>
-       <alertmsg></alertmsg>
-    <div class="modal-footer">
-        <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
-        <button class="btn btn-primary pull-right" ng-click="jatka()" data-ng-disabled="!organisation" tl="jatka">Jatka</button>
-    </div>
+        <alertmsg></alertmsg>
+        <div>
+
+            <div class="modal-footer">
+                <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+                <button class="btn btn-primary pull-right" ng-click="jatka()" data-ng-disabled="!organisation" tl="jatka">Jatka</button>
+            </div>
 </form>

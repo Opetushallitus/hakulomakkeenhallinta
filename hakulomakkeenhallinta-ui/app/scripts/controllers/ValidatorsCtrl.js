@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ValidatorsCtrl',[ '$scope', '$rootScope', 'AlertMsg',
-        function ($scope, $rootScope, AlertMsg ) {
+    .controller('ValidatorsCtrl',[ '$scope', '$rootScope', 'AlertMsg', '$modal',
+        function ($scope, $rootScope, AlertMsg, $modal ) {
             /**
              * lisää kysymykseen minimi vastausten arvon
              * @param question
@@ -30,5 +30,22 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     max.max = value;
                     question.validators[1] = max;
                 }
+            };
+
+            $scope.addAppendixRequest = function(hakukohde, option){
+                console.log('tässä avataan dialogi liitepyynnölle');
+                $modal.open({
+                    templateUrl: 'partials/lisakysymykset/liitepyynto.html',
+                    controller: 'AppendixRequestCtrl',
+                    scope: $scope,
+                    resolve: {
+                        hakukohde: function(){
+                            return hakukohde;
+                        },
+                        option: function(){
+                            return option;
+                        }
+                     }
+                });
             };
         }]);
