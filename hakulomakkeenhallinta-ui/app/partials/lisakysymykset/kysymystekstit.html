@@ -1,12 +1,4 @@
-<form role="form" name="kysymys" class="form-horizontal col-md-10" >
-    <!--<div class="form-group">
-        <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
-        <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag" tl="tallenna">Tallenna</button>
-        <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" tl="tallenna">Tallenna</button>
-        &lt;!&ndash;<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>&ndash;&gt;
-        <button class="btn" data-ng-click="poistaKysymys()"data-ng-show="editFlag" tl="poista">Poista</button>
-    </div>-->
-
+<form role="form" name="kysymys" class="form-horizontal col-md-12" >
     <div class="form-group alert alert-info" data-ng-hide="editFlag">
         <i class="glyphicon glyphicon-info-sign"></i>
         {{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
@@ -24,13 +16,28 @@
         {{ t('tyyppia') ||  'tyyppiä' }} <b>{{questionType | i18n:'name':userLang}}</b>
     </div>
 
-    <div data-ng-include="'partials/elements/new.html'"></div>
-
-    <!--<div class="form-group">
+    <div class="form-group">
         <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
         <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag" tl="tallenna">Tallenna</button>
         <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" tl="tallenna">Tallenna</button>
-        &lt;!&ndash;<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>&ndash;&gt;
-        <button class="btn" data-ng-click="poistaKysymys()"data-ng-show="editFlag" tl="poista">Poista</button>
-    </div>-->
+        <!--<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>-->
+        <button class="btn pull-right" data-ng-click="poistaKysymys()"data-ng-show="editFlag" tl="poista">Poista</button>
+    </div>
+
+    <h3>Hakukohdekohtainen lisäkysymys</h3>
+
+    <div data-ng-include="'partials/elements/new.html'"></div>
+
+    <div class="form-group">
+        <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
+        <button class="btn btn-primary" data-ng-click="tallennaUusi()" data-ng-show="!editFlag" tl="tallenna">Tallenna</button>
+        <button class="btn btn-primary" data-ng-click="tallennaMuokkaus()"data-ng-show="editFlag" tl="tallenna">Tallenna</button>
+        <!--<button class="btn" data-ng-click="esikatselu()" data-ng-disabled="preview || devFlag">Kieliversioiden esikatselu</button>-->
+        <button class="btn pull-right" data-ng-click="poistaKysymys()"data-ng-show="editFlag" tl="poista">Poista</button>
+    </div>
+
+    <div class="col-md-12">
+        <div data-ng-if="logs"> <h3>kysymys valid: {{kysymys.$valid}}<h3> </div>
+        <pre data-ng-if="logs" >{{question | without | json}}</pre>
+    </div>
 </form>

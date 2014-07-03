@@ -6,12 +6,12 @@
         <i class="icon-info-sign"></i>{{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
         {{ t('teemaan') || 'teemaan' }} <b>{{ theme | i18n:'name':userLang }}</b> {{ t('hakukohteeseen') || 'hakukohteeseen' }} <b>{{ hakukohde.nimi.fi }}</b>
     </div>
-        <div class="form-group">
-            <label for="type">{{ t('kysymystyyppi') || 'Kysymystyyppi' }}</label>
-            <select class="form-control" id="type" ng-model="type" ng-options="a.name.translations.fi for a in types">
-                <option value="">-- {{ t('valitse.tyyppi') || 'Valitse tyyppi' }} --</option>
-            </select>
-        </div>
+    <div class="form-group">
+        <label for="type">{{ t('kysymystyyppi') || 'Kysymystyyppi' }}</label>
+        <select class="form-control" id="type" ng-model="type" ng-options="a.name.translations.fi for a in types">
+            <option value="">-- {{ t('valitse.tyyppi') || 'Valitse tyyppi' }} --</option>
+        </select>
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>

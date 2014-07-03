@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-2 control-label">
                 <br>
-                <a>{{ t('lisaa.liitepyynto') || 'Lisää liitepyyntö' }} <i class="glyphicon glyphicon-plus"></i> </a>
+                <a data-ng-click="addAppendixRequest(hakukohde, question.options[$index])">{{ t('lisaa.liitepyynto') || 'Lisää liitepyyntö' }} <i class="glyphicon glyphicon-plus"></i> </a>
             </div>
         </div>
     </div>
