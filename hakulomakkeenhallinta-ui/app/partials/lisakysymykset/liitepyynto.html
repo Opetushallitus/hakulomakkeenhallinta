@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body">
         <div class="alert alert-info">
-            <i class="glyphicon glyphicon-info-sign"></i> Olet luomassa liitepyyntöä hakukohteen <b>{{ hakukohde | hakukohdeNimi:userLang }}</b> vastaukseen <b>{{ option | i18n:'optionText' || 'ei asetettu' }}</b>
+            <i class="glyphicon glyphicon-info-sign"></i> <span data-ng-bind-html="t('liitepyynto.hakukohteen.vastaukseen', ['{{ hakukohde | hakukohdeNimi:userLang }}', '{{ option | i18n:'optionText' }}' ])"></span>
         </div>
 
         <div>
@@ -15,11 +15,11 @@
                     <div ng-form="liitepyyntotab{{language.id}}" style="background-color: #f5f5f5; border-color: #ddd !important;">
                         <br>
                         <div class="form-group">
-                            <label for="liitenimi">Liitteen nimi *</label>
+                            <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }}</label>
                             <input name="liitenimi" type="text" class="form-control" >
                         </div>
                         <div class="form-group">
-                            <label for="liitteenkuvaus">Kuvaus</label>
+                            <label for="liitteenkuvaus">{{ t('liitteen.kuvaus') || 'Kuvaus' }}</label>
                             <textarea name="liitteenkuvaus" class="form-control" rows="4"></textarea>
                         </div>
                         <br>
@@ -29,68 +29,71 @@
 
             <div class="form-group">
 
-                <label>Toimitettava mennessä *</label>
+                <label>{{ t('toimitettava.menessa') || 'Toimitettava mennessä *' }}</label>
                 <div>
-                    pvm. <input name="liitteenpalautuspvm" type="date">
-                    klo <input name="liitteenpalautusklo" type="time">
+                    {{ t('pvm') || 'pvm.'}} <input name="liitteenpalautuspvm" type="date">
+                    {{ t('klo') || 'klo' }}  <input name="liitteenpalautusklo" type="time">
                 </div>
 
             </div>
 
             <div class="form-group" >
 
-                <label>Liitteen toimitus osoite </label>
+                <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
                 <div class="radio">
                     <label>
                         <input type="radio" id="toimitusosoitteeseen" data-ng-model="liitepyynto.toimitusosoite" value="0" checked >
-                        Käytetään koulutuksen järjestävän organisaation hakijapalveluiden postiosoitetta
+                        {{ t('organisaation.hakijapalveluiden.osoite') || 'Käytetään koulutuksen järjestävän organisaation hakijapalveluiden postiosoitetta' }}
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" id="toimitusryhma" data-ng-model="liitepyynto.toimitusosoite" value="1">Käytetään ryhmän osoitetta
+                        <input type="radio" id="toimitusryhma" data-ng-model="liitepyynto.toimitusosoite" value="1">
+                        {{ t('ryhman.osoite') || 'Käytetään ryhmän osoitetta' }}
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" id="toimitusmuu" data-ng-model="liitepyynto.toimitusosoite" value="2"> Käytetään muuta osoitetta
+                        <input type="radio" id="toimitusmuu" data-ng-model="liitepyynto.toimitusosoite" value="2">
+                        {{ t('muu.osoite') || 'Käytetään muuta osoitetta' }}
                     </label>
                 </div>
 
             </div>
             <div data-ng-show="liitepyynto.toimitusosoite ==='0' || liitepyynto.toimitusosoite ==='2' ">
                 <div class="form-group">
-                    <label>Osoite *</label>
+                    <label>{{ t('liitteen.osoite') || 'Osoite *' }}</label>
                     <input type="text"  class="form-control">
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="postinro" class="control-label">Postinumero *</label>
+                        <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }}</label>
                         <input type="text" name="postinro"  class="form-control">
                     </div>
                     <div class="col-md-8">
-                        <label for="postitoimipaikka" class="control-label">Postitoimipaikka *</label>
+                        <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}</label>
                         <input type="text" name="postitoimipaikka" class="form-control">
                     </div>
                 </div>
                 <br>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="sahkoisetliitteet" data-ng-model="liitepyynto.sah">Voidaan toimittaa myös sähköisesti
+                        <input type="checkbox" name="sahkoisetliitteet" data-ng-model="liitepyynto.sah">
+                        {{ t('voidaan.toimittaa.sahkoisesti') || 'Voidaan toimittaa myös sähköisesti' }}
                     </label>
                 </div>
 
                 <div data-ng-show="liitepyynto.sah">
                     <div class="form-group">
-                        <label>Sähköposti osoite liitteiden toimittamiseen</label>
+                        <label>{{ t('sahkoposti.liitteille') || 'Sähköposti liitteiden toimittamiseen' }}</label>
                         <input type="text"  class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label>Liitetiedostojen e-lataus osoite</label>
+                        <label>{{ t('e.lataus.liitteille') || 'Liitetiedostojen e-lataus osoite' }}</label>
                         <input type="text"  class="form-control">
                     </div>
                 </div>

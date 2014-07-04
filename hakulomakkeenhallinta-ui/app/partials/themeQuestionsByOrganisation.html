@@ -4,16 +4,10 @@
     <b>{{organisation.nimi.fi || organisation.nimi.sv }}</b>.
 </div>
 <alertmsg></alertmsg>
-<div class="clearfix"></div>
 
-<div class="form-group">
-    <button type="button" class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
-    <!--<button type="button" class="btn" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions || devFlag">Järjestä kysymykset</button>
-    <button type="button" class="btn" data-ng-click="addRule()" data-ng-disabled="!addRule">  Lisää sääntö</button>-->
+<back-nappi></back-nappi>
 
-</div>
-
-<h3 tl="hakukohdekohtaiset.lisakysymykset" >Hakukohdekohtaiset lisäkysymykset</h3>
+<h3 class="text-info" tl="hakukohdekohtaiset.lisakysymykset" >Hakukohdekohtaiset lisäkysymykset</h3>
 
 <div class="from-group">
     <accordion data-ng-repeat="theme in themes">
@@ -35,9 +29,5 @@
     </accordion>
 </div>
 <br>
-<div class="form-group">
-    <button type="button" class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
-    <!--<button type="button" class="btn" data-ng-click="sortQuestions()" data-ng-disabled="!sortQuestions || devFlag">Järjestä kysymykset</button>
-    <button type="button" class="btn" data-ng-click="addRule()" data-ng-disabled="!addRule">  Lisää sääntö</button>-->
 
-</div>
+<back-nappi></back-nappi>
