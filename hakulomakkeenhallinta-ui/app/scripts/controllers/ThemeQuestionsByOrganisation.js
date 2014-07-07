@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio',
-        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio ) {
+    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter',
+        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter ) {
             $rootScope.LOGS('ThemeQuestionByOrganisationCtrl');
 
-            $scope.organisation;
+            $scope.haunNimi = '';
+            $scope.organisation = '';
+            $scope.organisationNimi = '';
             /**
              * haetaan valitun organisaation tiedot organisaatio palvelusta
              * valitun organisaation id:llä
@@ -13,6 +15,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             Organisaatio.fetchOrganisation($routeParams.oid).then(
                 function(data){
                     $scope.organisation = data;
+                    $scope.organisationNimi = $filter('organisaatioNimi')($scope.organisation, $scope.userLang);
             });
 
             $scope.applicationSystem = {};
@@ -22,6 +25,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             FormEditor.fetchApplicationSystemForm($routeParams.id).then(
                 function(data){
                     $scope.applicationSystem = data;
+                    $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
             });
 
             $scope.themes = [];

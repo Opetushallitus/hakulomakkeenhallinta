@@ -1,7 +1,6 @@
 <div class="alert alert-info alert-block ">
     <i class="glyphicon glyphicon-info-sign"></i>
-    {{ t('olet.luomassa') || 'Olet luomassa'}} <b>{{ applicationSystem | i18n:'name' }}</b> {{ t('lisakysymys.organisaatiolla') || 'hakulomakkeelle lisäkysymyksiä organisaatiolla' }}
-    <b>{{organisation.nimi.fi || organisation.nimi.sv }}</b>.
+    <span data-ng-bind-html="t('olet.luomassa.lisakysymys.organisaatiolla', [ haunNimi, organisationNimi])"></span>
 </div>
 <alertmsg></alertmsg>
 

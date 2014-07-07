@@ -68,6 +68,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             /**
              * Palauttaa käännötekstin käännös avaimella
              * @param key: käännöksen avain
+             * @param params: parametri taulukko parametrisoiduille käännöksille (optional)
              * @returns {*}
              */
             this.tl = function(key, params){
