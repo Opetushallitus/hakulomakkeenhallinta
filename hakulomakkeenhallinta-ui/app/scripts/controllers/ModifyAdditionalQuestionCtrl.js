@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ModifyAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg ) {
+    .controller('ModifyAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter ) {
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -12,6 +12,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.validators = [];
             $scope.hakukohde = {};
             $scope.applicationSystem = {};
+            $scope.haunNimi = '';
+            $scope.hakukohdeNimi = '';
+            $scope.teema = '';
+            $scope.kysymysTyyppi = '';
 
             FormEditor.getLanguages().then(
                 function(data){
@@ -26,11 +30,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 QuestionData.getTheme().then(
                     function(data){
                         $scope.theme = data;
+                        $scope.teema = $filter('i18n')($scope.theme, 'name', $scope.userLang );
                     });
 
                 QuestionData.getType().then(
                     function(data){
                         $scope.questionType = data;
+                        $scope.kysymysTyyppi = $filter('i18n')($scope.questionType, 'name', $scope.userLang );
                     });
                 /**
                  * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
@@ -38,10 +44,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 FormEditor.fetchApplicationSystemForm(QuestionData.getApplicationSystemId()).then(
                     function(data){
                         $scope.applicationSystem = data;
+                        $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
                     });
                 QuestionData.getHakukohdeInfo(QuestionData.getLerningOpportunityId()).then(
                     function(data){
                         $scope.hakukohde = data;
+                        $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
                     });
 
                 $scope.editFlag = QuestionData.getEditFlag();

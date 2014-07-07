@@ -1,12 +1,14 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg', 'theme',
-        function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg, theme ) {
+    .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg', 'theme', '$filter',
+        function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg, theme, $filter ) {
             $rootScope.LOGS('SelectHakukohdeCtrl ');
             $scope.applicationOptions = [];
             $scope.$emit('LOAD');
             $scope.applicationSystem = applicationSystem;
             $scope.theme =  theme;
+            $scope.haunNimi = $filter('i18n')(applicationSystem, 'name', $scope.userLang);
+            $scope.teema = $filter('i18n')(theme, 'name', $scope.userLang);
 
             if(applicationSystem === undefined){
                 /**

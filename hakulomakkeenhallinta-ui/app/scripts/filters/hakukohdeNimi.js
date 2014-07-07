@@ -10,7 +10,11 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                 var kieli = 'kieli_'+userLang;
                 if ( hakukohde.hakukohteenNimet && hakukohde.hakukohteenNimet[kieli]) {
                     return hakukohde.hakukohteenNimet[kieli];
-                }else{
+                }else if(hakukohde.hakukohteenNimi){
+                    return hakukohde.hakukohteenNimi;
+                }else if(hakukohde.nimi && hakukohde.nimi[userLang]){
+                    return hakukohde.nimi[userLang];
+                }else {
                     return undefined;
                 }
             }

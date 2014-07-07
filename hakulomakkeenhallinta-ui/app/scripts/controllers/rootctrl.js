@@ -42,6 +42,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
              * @returns {*}
              */
             $scope.t = function(key, params) {
+//                console.log(key, params);
                 return LocalisationService.tl(key, params);
             };
 

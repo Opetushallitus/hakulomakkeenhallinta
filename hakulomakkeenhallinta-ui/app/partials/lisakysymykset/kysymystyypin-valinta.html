@@ -3,8 +3,8 @@
 </div>
 <div class="modal-body">
     <div class="alert alert-info">
-        <i class="icon-info-sign"></i>{{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
-        {{ t('teemaan') || 'teemaan' }} <b>{{ theme | i18n:'name':userLang }}</b> {{ t('hakukohteeseen') || 'hakukohteeseen' }} <b>{{ hakukohde.nimi.fi }}</b>
+        <i class="icon-info-sign"></i>
+        <span data-ng-bind-html="t('hakukohdekohtaista.lisakysymyksia.hakuun.teemaan.hakukohteeseen', [haunNimi, teema, hakukohdeNimi])"></span>
     </div>
     <div class="form-group">
         <label for="type">{{ t('kysymystyyppi') || 'Kysymystyyppi' }}</label>

@@ -1,10 +1,10 @@
 <form role="form" name="kysymys" class="form-horizontal col-md-12" >
-    <div class="form-group alert alert-info" >
+    <div class="alert alert-info" >
         <i class="glyphicon glyphicon-info-sign"></i>
-        <span data-ng-hide="editFlag"
-              data-ng-bind-html="t('hakukohdekohtaista.lisakysymyksia.hakuun', ['{{applicationSystem | i18n:'name'}}','{{ hakukohde | hakukohdeNimi:userLang }}', '{{ theme | i18n:'name':userLang }}',  '{{questionType | i18n:'name':userLang}}' ])"></span>
+        <span data-ng-hide-html="editFlag"
+              data-ng-bind-html="t('hakukohdekohtaista.lisakysymyksia.hakuun.hakukohde.teema.tyyppia', [ haunNimi, hakukohdeNimi, teema, kysymysTyyppi ])"></span>
         <span data-ng-hide="!editFlag"
-             data-ng-bind-html="t('muokkaa.hakukohdekohtaista.lisakysymyksia.hakuun', ['{{applicationSystem | i18n:'name'}}','{{ hakukohde | hakukohdeNimi:userLang }}', '{{ theme | i18n:'name':userLang }}',  '{{questionType | i18n:'name':userLang}}'])"></span>
+             data-ng-bind-html="t('muokkaa.hakukohdekohtaista.lisakysymyksia.hakuun.hakukohde.teema.tyyppia', [ haunNimi, hakukohdeNimi, teema, kysymysTyyppi ])"></span>
     </div>
 
     <lisakysymys-napit></lisakysymys-napit>
@@ -14,9 +14,9 @@
     <div data-ng-include="'partials/elements/new.html'"></div>
 
     <lisakysymys-napit></lisakysymys-napit>
-
-    <div class="col-md-12">
-        <div data-ng-if="logs"> <h3>kysymys valid: {{kysymys.$valid}}<h3> </div>
-        <pre data-ng-if="logs" >{{question | without | json}}</pre>
+    <br>
+    <div data-ng-if="logs">
+        <div> <h3>kysymys valid: {{kysymys.$valid}}<h3> </div>
+        <pre>{{question | without | json}}</pre>
     </div>
 </form>

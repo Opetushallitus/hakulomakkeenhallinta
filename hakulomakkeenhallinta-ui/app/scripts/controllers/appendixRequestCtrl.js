@@ -1,13 +1,16 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl',[ '$scope', '$rootScope', '$modalInstance', '$location', '$routeParams', 'hakukohde', 'option', '$filter',
+    .controller('AppendixRequestCtrl',[ '$scope', '$rootScope', '$modalInstance', '$location', '$routeParams', 'hakukohde', 'option',
         function ($scope, $rootScope, $modalInstance, $location, $routeParams, hakukohde, option) {
             $rootScope.LOGS('AppendixRequestCtrl');
             $scope.organisaatio ={};
             $scope.liitePyynto ={};
             $scope.option = option;
             $scope.hakukohde =  hakukohde;
+            $scope.liitePyynto.osoite = hakukohde.liitteidenToimitusOsoite.osoiterivi1;
+            $scope.liitePyynto.postinumero = hakukohde.liitteidenToimitusOsoite.postinumero;
+            $scope.liitePyynto.postitoimipaikka = hakukohde.liitteidenToimitusOsoite.postitoimipaikka;
 
             console.log(hakukohde);
             console.log(option);

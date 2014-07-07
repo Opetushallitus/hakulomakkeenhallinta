@@ -56,26 +56,27 @@
 
                 <div class="radio">
                     <label>
-                        <input type="radio" id="toimitusmuu" data-ng-model="liitepyynto.toimitusosoite" value="2">
+                        <input type="radio" id="toimitusmuu" name="toimitusmuu" data-ng-model="liitepyynto.toimitusosoite" value="2">
                         {{ t('muu.osoite') || 'Käytetään muuta osoitetta' }}
                     </label>
                 </div>
 
             </div>
-            <div data-ng-show="liitepyynto.toimitusosoite ==='0' || liitepyynto.toimitusosoite ==='2' ">
+            {{liitepyynto.toimitusosoite ==='2'}}
+            <div data-ng-show="liitepyynto.toimitusosoite ==='0' || liitepyynto.toimitusosoite === '2' ">
                 <div class="form-group">
-                    <label>{{ t('liitteen.osoite') || 'Osoite *' }}</label>
-                    <input type="text"  class="form-control">
+                    <label>{{ t('liitteen.osoite') || 'Osoite *' }}</label> {{liitepyynto.toimitusmuu}}
+                    <input type="text"  class="form-control" data-ng-model="liitePyynto.osoite" data-ng-disabled="liitepyynto.toimitusmuu">
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
                         <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }}</label>
-                        <input type="text" name="postinro"  class="form-control">
+                        <input type="text" name="postinro"  class="form-control"  data-ng-model="liitePyynto.postinumero" data-ng-disabled="!liitepyynto.toimitusosoite ==='2'">
                     </div>
                     <div class="col-md-8">
                         <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}</label>
-                        <input type="text" name="postitoimipaikka" class="form-control">
+                        <input type="text" name="postitoimipaikka" class="form-control" data-ng-model="liitePyynto.postitoimipaikka" data-ng-disabled="!liitepyynto.toimitusosoite ==='2'">
                     </div>
                 </div>
                 <br>
