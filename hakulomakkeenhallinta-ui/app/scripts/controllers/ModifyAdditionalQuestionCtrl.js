@@ -33,7 +33,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $scope.teema = $filter('i18n')($scope.theme, 'name', $scope.userLang );
                     });
 
-                QuestionData.getType().then(
+                QuestionData.getType($scope.question.type).then(
                     function(data){
                         $scope.questionType = data;
                         $scope.kysymysTyyppi = $filter('i18n')($scope.questionType, 'name', $scope.userLang );
