@@ -107,10 +107,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         formEditor.getQuestionType = function(type){
             var deferred = $q.defer();
-            FormEditor.query({'_path':'types', '_id':type}).$promise.then(function(data){
-                console.log('formEditor.getQuestionType:::::: -> ', data);
-                deferred.resolve(data);
-            });
+            console.log('****', type);
+            if(type !== undefined){
+                FormEditor.query({'_path':'types', '_id':type}).$promise.then(function(data){
+                    console.log('formEditor.getQuestionType:::::: -> ', data);
+                    deferred.resolve(data);
+                });
+            }else{
+                deferred.reject();
+            }
             return deferred.promise;
         };
         /**
