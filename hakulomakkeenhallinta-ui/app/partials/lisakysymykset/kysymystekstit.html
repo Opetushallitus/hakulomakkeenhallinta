@@ -1,16 +1,10 @@
 <form role="form" name="kysymys" class="form-horizontal col-md-12" >
-    <div class="form-group alert alert-info" data-ng-hide="editFlag">
+    <div class="form-group alert alert-info" >
         <i class="glyphicon glyphicon-info-sign"></i>
-        <span data-ng-hide="editFlag">
-        {{ t('hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet luomassa hakukohdekohtaista lisäkysymyksiä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
-        </span>
-        <span data-ng-hide="!editFlag">
-       {{ t('muokkaa.hakukohdekohtaista.lisakysymyksia.hakuun') || 'Olet muokkaamassa hakukohdekohtaista lisäkysymystä haun' }} <b>{{applicationSystem | i18n:'name'}}</b>
-        </span>
-        {{ t('hakukohteen') || 'hakukohteen' }} <b>{{ hakukohde | hakukohdeNimi:userLang }}</b>
-        {{ t('teemaan') || 'teemaan' }} <b>{{ theme | i18n:'name':userLang }}</b>
-        {{ t('tyyppia') ||  'tyyppiä' }} <b>{{questionType | i18n:'name':userLang}}</b>
-
+        <span data-ng-hide="editFlag"
+              data-ng-bind-html="t('hakukohdekohtaista.lisakysymyksia.hakuun', ['{{applicationSystem | i18n:'name'}}','{{ hakukohde | hakukohdeNimi:userLang }}', '{{ theme | i18n:'name':userLang }}',  '{{questionType | i18n:'name':userLang}}' ])"></span>
+        <span data-ng-hide="!editFlag"
+             data-ng-bind-html="t('muokkaa.hakukohdekohtaista.lisakysymyksia.hakuun', ['{{applicationSystem | i18n:'name'}}','{{ hakukohde | hakukohdeNimi:userLang }}', '{{ theme | i18n:'name':userLang }}',  '{{questionType | i18n:'name':userLang}}'])"></span>
     </div>
 
     <lisakysymys-napit></lisakysymys-napit>
