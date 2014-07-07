@@ -17,7 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                 };
             } else {
                 return {
-                    enableConsoleLogs: false,
+                    enableConsoleLogs: true,
                     tarjontaAPI: '/tarjonta-service/rest/v1',
                     contextRoot: '/hakulomakkeenhallinta-ui',
                     themeQuestionUri: '/haku-app/application-system-form-editor/theme-question',
