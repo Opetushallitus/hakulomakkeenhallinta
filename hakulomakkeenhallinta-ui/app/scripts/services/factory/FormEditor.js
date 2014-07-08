@@ -107,9 +107,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         formEditor.getQuestionType = function(type){
             var deferred = $q.defer();
-            console.log('####****', type);
             FormEditor.query({'_path':'types', '_id':type}).$promise.then(function(data){
-                console.log('formEditor.getQuestionType:::::: -> ', data);
                 deferred.resolve(data);
             });
             return deferred.promise;
