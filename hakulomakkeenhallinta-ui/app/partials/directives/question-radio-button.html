@@ -1,8 +1,4 @@
 <div>
-    <!--<label data-ng-click="addRadio(question)">{{ t('lisaa.valintanappi') || 'Lisää valintanappi' }} </label>
-    <i class="glyphicon glyphicon-plus" data-ng-click="addRadio(question)"></i>-->
-
-
     <div ng-repeat="option in question.options">
         <div class="form-group" ng-form="kysmysradiobutton{{language.id}}">
             <div class="col-md-3 control-label">
@@ -10,13 +6,11 @@
                 <label for="valintanappi"><i data-ng-show="question.options.length >2" class="glyphicon glyphicon-remove"  data-ng-click="removeRadio($index, question)"></i>&nbsp;&nbsp;{{ t('valintanappi') || 'Valintanappi' }} {{$index +1}} *</label>
             </div>
             <div class="col-md-6">
-                <span ng-show="kysmysradiobuttonfi.valintanappi.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> <br>
+                <span ng-show="kysmysradiobuttonfi.valintanappi.$error.required && tallennaClicked" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> <br>
                 <input name="valintanappi" type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)" >
             </div>
             <div class="col-md-2 control-label">
-                <br>
-                <!--<button class="btn" data-ng-click="question.naytaliite = true" >Lisää liitepyyntö <i class="glyphicon glyphicon-plus-sign"></i> </button>-->
-                <a>{{ t('lisaa.liitepyynto') || 'Lisää liitepyyntö' }} <i class="glyphicon glyphicon-plus"></i> </a>
+                <liitepyynto-napit></liitepyynto-napit>
             </div>
         </div>
     </div>

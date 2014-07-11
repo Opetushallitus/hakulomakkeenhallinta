@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ValidatorsCtrl',[ '$scope', '$rootScope', 'AlertMsg', '$modal',
-        function ($scope, $rootScope, AlertMsg, $modal ) {
+    .controller('ValidatorsCtrl',[ '$scope', '$rootScope', 'AlertMsg', '$modal', 'LiitepyyntoData',
+        function ($scope, $rootScope, AlertMsg, $modal, LiitepyyntoData ) {
             /**
              * lisää kysymykseen minimi vastausten arvon
              * @param question
@@ -69,6 +69,65 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $scope.question.liitepyynnot.splice(li,1);
                     }
                 }
+                if($scope.question.liitepyynnot.length === 0){
+                    delete $scope.question.liitepyynnot;
+                }
+            };
+            /**
+             * avaa liitepyynto dialogin kysymykseen liitettävälle
+             * liitepyynnölle
+             * @param hakukohde hakukohteen tiedot liitepyynnölle
+             * @param option kysymyksen tiedot liitepyynnölle
+             */
+            $scope.addAppendixRequest = function(hakukohde, option){
+                $modal.open({
+                    templateUrl: 'partials/lisakysymykset/liitepyynto.html',
+                    controller: 'AppendixRequestCtrl',
+                    scope: $scope,
+                    resolve: {
+                        hakukohde: function(){
+                            return hakukohde;
+                        },
+                        option: function(){
+                            return option;
+                        }
+                    }
+                }).result.then(function(data){
+                        console.log(data);
+                        if($scope.question.liitepyynnot === undefined){
+                            $scope.question.liitepyynnot = [];
+                        }
+                        console.log($scope.question);
+                        $scope.question.liitepyynnot[$scope.question.liitepyynnot.length] = data;
+                    });
+            };
+
+            /**
+             * avaa liitepyynnön muokkaus dialogin kysymyksen liitepynnölle
+             * @param hakukohde hakukohteen tiedot liitepyynnölle
+             * @param option kysymyksen tiedot liitepyynnölle
+             */
+            $scope.modifyAppendixRequest = function(hakukohde, option){
+
+                for(var lip in $scope.question.liitepyynnot){
+                    if($scope.question.liitepyynnot[lip].id === option.id){
+                        LiitepyyntoData.setLiitepyynto($scope.question.liitepyynnot[lip]);
+                    }
+                }
+
+                $modal.open({
+                    templateUrl: 'partials/lisakysymykset/liitepyynto.html',
+                    controller: 'AppendixRequestCtrl',
+                    scope: $scope,
+                    resolve: {
+                        hakukohde: function(){
+                            return hakukohde;
+                        },
+                        option: function(){
+                            return option;
+                        }
+                    }
+                });
             };
             /**
              * tarkistaa ui:ssa onko kysymykseen liitetty liitepyyntö

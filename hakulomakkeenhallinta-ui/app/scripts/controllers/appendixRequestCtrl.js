@@ -1,40 +1,48 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl',[ '$scope', '$rootScope', '$modalInstance', '$location', '$routeParams', 'hakukohde', 'option', 'Koodisto','$filter',
-        function ($scope, $rootScope, $modalInstance, $location, $routeParams, hakukohde, option, Koodisto, $filter) {
+    .controller('AppendixRequestCtrl',[ '$scope', '$rootScope', '$modalInstance', '$location', '$routeParams', 'hakukohde', 'option', 'Koodisto','$filter','LiitepyyntoData',
+        function ($scope, $rootScope, $modalInstance, $location, $routeParams, hakukohde, option, Koodisto, $filter, LiitepyyntoData) {
             $rootScope.LOGS('AppendixRequestCtrl');
             $scope.organisaatio ={};
-            $scope.liitePyynto ={};
-            $scope.liitePyynto.id = option.id;
-            $scope.liitePyynto.liitenimi ={};
-            $scope.liitePyynto.liitekuvaus ={};
-            $scope.liitePyynto.toimitusmennessa ={};
+            $scope.tallennaClicked = false;
             $scope.option = option;
             $scope.hakukohde =  hakukohde;
-            setHakukohdeToimitusOsoite();
+            if(LiitepyyntoData.getEditFlag()){
+                $scope.liitePyynto = LiitepyyntoData.getLiitepyynto();
+            }else{
+                $scope.liitePyynto = LiitepyyntoData.createNewLiitepyynto(option.id);
+                setHakukohdeToimitusOsoite();
+            }
+
             $scope.toimitusosoiteFlag = true;
             $scope.toimitusmuu = true;
-            console.log(hakukohde);
-            console.log(option);
-            $scope.tallennaClicked = false;
+
+
             $scope.tanaan = new Date();
             var vuosiPvm = new Date();
             vuosiPvm.setFullYear(vuosiPvm.getFullYear() + 1 );
             $scope.vuosi = vuosiPvm;
-            console.log($scope.tanaan, $scope.vuosi);
+
+
         /*  Koodisto.getPostiKoodit().then(function(data){
                     console.log('Saatiin koodisto',data);
                 });*/
+            /**
+             * tallentaa liitepyynnön ja sulkee liitepyyntö dialogin
+             * @param valid
+             */
             $scope.tallennaLiitepyynto = function(valid) {
                 $rootScope.LOGS('AppendixRequestCtrl','tallennaLiitepyynto()', valid);
                 $scope.tallennaClicked = true;
                 if(valid){
+                    LiitepyyntoData.setEditFlag(false);
                     $modalInstance.close($scope.liitePyynto);
                 }
             };
 
             $scope.cancel = function() {
+                LiitepyyntoData.setEditFlag(false);
                 $modalInstance.dismiss('cancel');
             };
             /**
@@ -59,10 +67,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         break;
                 }
             }
-
+            /**
+             * asettaa liitepyyntö olioon liitteen toimitus osoitteen
+             */
             function setHakukohdeToimitusOsoite(){
                 console.log('setHakukohdeToimitusOsoite()');
-                $scope.liitePyynto.address ={};
                 if(hakukohde.liitteidenToimitusOsoite){
                     $scope.liitePyynto.address.osoite = hakukohde.liitteidenToimitusOsoite.osoiterivi1;
                     $scope.liitePyynto.address.postinumero = hakukohde.liitteidenToimitusOsoite.postinumero.slice(6);
@@ -74,7 +83,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
 
             }
-
+            /**
+             * asettaa liitepyyntö olioon liitteen toimitus osoitteen
+             * tiedon käyttää hakukohteen ryhmän osoitetta
+             */
             function kaytaRyhmanToimitusOsoitetta(){
                 $scope.liitePyynto.address = {};
                 $scope.liitePyynto.address.kaytaryhmanOsoitetta = true;

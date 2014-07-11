@@ -1,7 +1,8 @@
 
 <div class="col-md-offset-3 col-md-7">
-    <span data-ng-show="!kysymys.tekstikentankoko.$error.pattern && kysymys.tekstikentankoko.$error.required && kysymys.$dirty" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
-    <span data-ng-show="(!kysymys.tekstikentankoko.$valid && kysymys.tekstikentankoko.$dirty) && kysymys.tekstikentankoko.$error.pattern" style="color:red;">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
+    <span data-ng-show="kysymys.tekstikentankoko.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+    <span data-ng-show="kysymys.tekstikentankoko.$error.pattern && tallennaClicked" style="color:red;">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
+    <!--<span data-ng-show="(!kysymys.tekstikentankoko.$valid && kysymys.tekstikentankoko.$dirty) && kysymys.tekstikentankoko.$error.pattern" style="color:red;">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>-->
 </div>
 <div class="form-group">
     <br>
@@ -9,7 +10,7 @@
         <label for="tekstikentankoko"> {{ t('tekstikentan.pituus') || 'Tekstikentän pituus' }} </label>
     </div>
     <div class="col-md-2">
-        <input name="tekstikentankoko" type="number" class="form-control" data-ng-model="question.size" ng-pattern="/^[0-9]+$/" required>
+        <input name="tekstikentankoko" type="number" class="form-control" data-ng-model="question.size" ng-pattern="/[0-9]+$/" required min="0">
     </div>
     <div class="col-md-1 control-label">
         <label for="tekstikentankoko" > {{ t('merkkia') || 'merkkiä' }}</label>

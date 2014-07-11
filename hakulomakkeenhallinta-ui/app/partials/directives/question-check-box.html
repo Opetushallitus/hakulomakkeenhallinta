@@ -7,13 +7,11 @@
                 <label for="valintaruutu"><i ng-show="question.options.length >1" class="glyphicon glyphicon-remove"  data-ng-click="removeCheckbox($index, question)"></i>&nbsp;&nbsp;{{ t('valintalaatikko') || 'Vastaus' }} {{$index +1}} *</label>
             </div>
             <div class="col-md-6">
-                <span ng-show="kysymyscheckboxfi.valintaruutu.$error.required && kysymys.$dirty" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> <br>
+                <span ng-show="kysymyscheckboxfi.valintaruutu.$error.required && tallennaClicked" style="color: red;">{{ t('pakollinen') || 'Pakollinen' }}</span> <br>
                 <input name="valintaruutu" type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)">
             </div>
             <div class="col-md-2 control-label">
-                <br>
-                <a data-ng-show="!hasLiitepyynto($index)" data-ng-click="addAppendixRequest(hakukohde, question.options[$index])">{{ t('lisaa.liitepyynto') || 'Lisää liitepyyntö' }} <i class="glyphicon glyphicon-plus"></i> </a>
-                <a data-ng-show="hasLiitepyynto($index)" data-ng-click="removeAppendixRequest($index)">poista liitepyyntö <i class="glyphicon glyphicon-remove"></i> </a>
+                <liitepyynto-napit></liitepyynto-napit>
             </div>
         </div>
     </div>
