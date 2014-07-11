@@ -1,7 +1,8 @@
-<form role="form" name="liitepyynto">
+<form role="form" name="liitepyyntoDialog" >
     <div class="modal-header">
         <h4 tl="liitepyynto">Liitepyyntö</h4>
     </div>
+
     <div class="modal-body">
         <div class="alert alert-info">
             <i class="glyphicon glyphicon-info-sign"></i> <span data-ng-bind-html="t('liitepyynto.hakukohteen.vastaukseen', ['{{ hakukohde | hakukohdeNimi:userLang }}', '{{ option | i18n:'optionText' }}' ])"></span>
@@ -15,72 +16,95 @@
                     <div ng-form="liitepyyntotab{{language.id}}" style="background-color: #f5f5f5; border-color: #ddd !important;">
                         <br>
                         <div class="form-group">
-                            <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }}</label>
-                            <input name="liitenimi" type="text" class="form-control" >
+                            <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }} <span data-ng-show="liitepyyntotabfi.liitenimi.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                            </label>
+                            <input name="liitenimi" type="text" class="form-control" data-ng-model="liitePyynto.liitenimi[language.id]" ng-required="requiredByFiLang(language.id)">
                         </div>
                         <div class="form-group">
                             <label for="liitteenkuvaus">{{ t('liitteen.kuvaus') || 'Kuvaus' }}</label>
-                            <textarea name="liitteenkuvaus" class="form-control" rows="4"></textarea>
+                            <textarea name="liitteenkuvaus" class="form-control" data-ng-model="liitePyynto.liitekuvaus[language.id]" rows="4"></textarea>
                         </div>
                         <br>
                     </div>
                 </tab>
             </tabset>
 
+
             <div class="form-group">
 
-                <label>{{ t('toimitettava.menessa') || 'Toimitettava mennessä *' }}</label>
+                <label>{{ t('toimitettava.menessa') || 'Toimitettava mennessä *' }}
+                    <span data-ng-show="(liitepyyntoDialog.liitteenpalautuspvm.$error.required || liitepyyntoDialog.liitteenpalautusklo.$error.required) && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                </label>
                 <div>
-                    {{ t('pvm') || 'pvm.'}} <input name="liitteenpalautuspvm" type="date">
-                    {{ t('klo') || 'klo' }}  <input name="liitteenpalautusklo" type="time">
+                    {{ t('pvm') || 'pvm.'}}
+                    <input
+                           datepicker-fix
+                           name="liitteenpalautuspvm"
+                           type="text"
+                           class="datepicker"
+                           datepicker-popup="dd.MM.yyyy"
+                           data-ng-model="liitePyynto.toimitusmennessa.pvm"
+                           datepicker-options="{'starting-day':1}"
+                           ng-required="true"
+                           current-text="{{t('datepicker.today')}}"
+                           toggle-weeks-text="{{t('datepicker.weeks')}}"
+                           clear-text="{{t('datepicker.clear')}}"
+                           close-text="{{t('datepicker.close')}}"
+                           min="tanaan"
+                           max="vuosi"
+                            > &nbsp;&nbsp;
+                    {{ t('klo') || 'klo' }} <input name="liitteenpalautusklo" type="time" data-ng-model="liitePyynto.toimitusmennessa.klo" ng-required="true">
                 </div>
-
             </div>
 
-            <div class="form-group" >
-
+            <div class="form-group">
                 <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
                 <div class="radio">
                     <label>
-                        <input type="radio" id="toimitusosoitteeseen" data-ng-model="liitepyynto.toimitusosoite" value="0" checked >
+                        <input type="radio" name="toimitusosoite" data-ng-click="liiteidenToimitusOsoite(0)" value="0" checked>
                         {{ t('organisaation.hakijapalveluiden.osoite') || 'Käytetään koulutuksen järjestävän organisaation hakijapalveluiden postiosoitetta' }}
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" id="toimitusryhma" data-ng-model="liitepyynto.toimitusosoite" value="1">
+                        <input type="radio" name="toimitusosoite" data-ng-click="liiteidenToimitusOsoite(1)" value="1">
                         {{ t('ryhman.osoite') || 'Käytetään ryhmän osoitetta' }}
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" id="toimitusmuu" name="toimitusmuu" data-ng-model="liitepyynto.toimitusosoite" value="2">
+                        <input type="radio" name="toimitusosoite" data-ng-click="liiteidenToimitusOsoite(2)" value="2">
                         {{ t('muu.osoite') || 'Käytetään muuta osoitetta' }}
                     </label>
                 </div>
-
             </div>
-            {{liitepyynto.toimitusosoite ==='2'}}
-            <div data-ng-show="liitepyynto.toimitusosoite ==='0' || liitepyynto.toimitusosoite === '2' ">
+
+            <div data-ng-if="toimitusosoiteFlag">
                 <div class="form-group">
-                    <label>{{ t('liitteen.osoite') || 'Osoite *' }}</label> {{liitepyynto.toimitusmuu}}
-                    <input type="text"  class="form-control" data-ng-model="liitePyynto.osoite" data-ng-disabled="liitepyynto.toimitusmuu">
+                    <label>{{ t('liitteen.osoite') || 'Osoite *' }}
+                        <span data-ng-show="liitepyyntoDialog.osoite.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                    </label>
+                    <input type="text" name="osoite" class="form-control" data-ng-model="liitePyynto.address.osoite" data-ng-disabled="toimitusmuu" data-ng-required="true">
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }}</label>
-                        <input type="text" name="postinro"  class="form-control"  data-ng-model="liitePyynto.postinumero" data-ng-disabled="!liitepyynto.toimitusosoite ==='2'">
+                        <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }}
+                            <span data-ng-show="liitepyyntoDialog.postinro.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                        </label>
+                        <input type="text" name="postinro"  class="form-control"  data-ng-model="liitePyynto.address.postinumero" data-ng-disabled="toimitusmuu" data-ng-required="true">
                     </div>
                     <div class="col-md-8">
-                        <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}</label>
-                        <input type="text" name="postitoimipaikka" class="form-control" data-ng-model="liitePyynto.postitoimipaikka" data-ng-disabled="!liitepyynto.toimitusosoite ==='2'">
+                        <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}
+                            <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                        </label>
+                        <input type="text" name="postitoimipaikka" class="form-control" data-ng-model="liitePyynto.address.postitoimipaikka" data-ng-disabled="toimitusmuu" data-ng-required="true">
                     </div>
                 </div>
                 <br>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label>
                         <input type="checkbox" name="sahkoisetliitteet" data-ng-model="liitepyynto.sah">
                         {{ t('voidaan.toimittaa.sahkoisesti') || 'Voidaan toimittaa myös sähköisesti' }}
@@ -97,7 +121,7 @@
                         <label>{{ t('e.lataus.liitteille') || 'Liitetiedostojen e-lataus osoite' }}</label>
                         <input type="text"  class="form-control">
                     </div>
-                </div>
+                </div>-->
 
             </div>
         </div>
@@ -106,6 +130,11 @@
 
         <div class="modal-footer">
             <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
-            <button class="btn btn-primary pull-right" ng-click="tallennaLiitepyynto()" tl="tallenna">Tallenne</button>
+            <button class="btn btn-primary pull-right" ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="tallenna">Tallenne</button>
+        </div>
+
+        <div data-ng-if="logs">
+            valid: {{liitepyyntoDialog.$valid}}<br>
+            <pre>{{liitePyynto | without | json}}</pre>
         </div>
 </form>

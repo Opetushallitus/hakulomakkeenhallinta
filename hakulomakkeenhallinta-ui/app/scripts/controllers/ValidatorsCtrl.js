@@ -31,9 +31,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     question.validators[1] = max;
                 }
             };
-
+            /**
+             * avaa liitekysmys dialogin kysymykselle
+             * @param hakukohde hakukohteen tiedot liitpyynnölle
+             * @param option kysymyksen tiedot liitepyynnölle
+             */
             $scope.addAppendixRequest = function(hakukohde, option){
-                console.log('tässä avataan dialogi liitepyynnölle');
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/liitepyynto.html',
                     controller: 'AppendixRequestCtrl',
@@ -45,7 +48,37 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         option: function(){
                             return option;
                         }
-                     }
-                });
+                    }
+                }).result.then(function(data){
+                        console.log(data);
+                        if($scope.question.liitepyynnot === undefined){
+                            $scope.question.liitepyynnot = [];
+                        }
+                        console.log($scope.question);
+                        $scope.question.liitepyynnot[$scope.question.liitepyynnot.length] = data;
+                    });
+            };
+            /**
+             * liitepyynnön poisto kysymyksestä
+             * @param index kysymyksen indx, joka on liitetty liitepyyntöön
+             */
+            $scope.removeAppendixRequest = function(index){
+                console.log('index', index);
+                for(var li in $scope.question.liitepyynnot){
+                    if($scope.question.liitepyynnot[li].id === 'option_'+index){
+                        $scope.question.liitepyynnot.splice(li,1);
+                    }
+                }
+            };
+            /**
+             * tarkistaa ui:ssa onko kysymykseen liitetty liitepyyntö
+             * @param index kysymyksen index, joka on liitetty liitepyyntöön
+             * @returns {boolean}
+             */
+            $scope.hasLiitepyynto = function(index){
+                if($scope.question.liitepyynnot !== undefined && JSON.stringify($scope.question.liitepyynnot).indexOf('option_'+index) > -1){
+                   return true;
+                }
+                return false;
             };
         }]);
