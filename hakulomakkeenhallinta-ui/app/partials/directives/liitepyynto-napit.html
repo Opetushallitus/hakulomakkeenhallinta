@@ -1,0 +1,6 @@
+<div>
+    <br>
+    <a data-ng-show="!hasLiitepyynto($index)" data-ng-click="addAppendixRequest(hakukohde, question.options[$index])">{{ t('lisaa.liitepyynto') || 'Lisää liitepyyntö' }} <i class="glyphicon glyphicon-plus"></i> </a>
+    <a data-ng-show="hasLiitepyynto($index)" data-ng-click="modifyAppendixRequest(hakukohde, question.options[$index])">{{ t('muokkaa.liitepyyntoa') || 'Muokkaa liitepyyntö' }} <i class="glyphicon glyphicon-edit"></i> </a>
+    <a data-ng-show="hasLiitepyynto($index)" data-ng-click="removeAppendixRequest($index)">{{ t('poista.liitepyynto') || 'Poista liitepyyntö' }} <i class="glyphicon glyphicon-remove"></i> </a>
+</div>

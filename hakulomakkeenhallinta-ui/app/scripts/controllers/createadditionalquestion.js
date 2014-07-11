@@ -16,7 +16,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.hakukohdeNimi = '';
             $scope.teema = '';
             $scope.kysymysTyyppi = '';
-
+            $scope.tallennaClicked = false;
 
             FormEditor.getLanguages().then(
                 function(data){
@@ -83,6 +83,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                         });
                 }
+                $scope.tallennaClicked = true;
             };
 
             $scope.esikatselu = function(){

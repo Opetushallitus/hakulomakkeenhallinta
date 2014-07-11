@@ -21,14 +21,23 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 };
                 /**
                  * poistaa valintaruudun kysymyksestä
+                 * sekä siihen mahdollisesti liitety liitepyynnön
                  * @param indx
                  * @param question
                  */
                 $scope.removeCheckbox = function(indx, question){
                     if(question.options.length >1 ){
                         question.options.splice(indx ,1);
+                        $scope.removeAppendixRequest(indx);
                     }
                     for(var optionIndx in question.options){
+                        if(question.liitepyynnot !== undefined){
+                            for(var li in question.liitepyynnot){
+                                if(question.options[optionIndx].id === question.liitepyynnot[li].id){
+                                    question.liitepyynnot[li].id = 'option_'+optionIndx;
+                                }
+                            }
+                        }
                         question.options[optionIndx].id = 'option_'+optionIndx;
                     }
                     $scope.validateSelectionsToCheckboxAmount();
