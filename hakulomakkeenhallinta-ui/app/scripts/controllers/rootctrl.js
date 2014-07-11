@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'MyRoles', 'LocalisationService', 'AlertMsg',
-        function($rootScope, $scope, Props, MyRoles, LocalisationService, AlertMsg ) {
+    .controller('RootCtrl', ['$rootScope', '$scope','Props' ,'MyRoles', 'LocalisationService', 'AlertMsg', 'dynamicLocalization',
+        function($rootScope, $scope, Props, MyRoles, LocalisationService, AlertMsg, dynamicLocalization ) {
 
             /**
              * käyttäjän käyttöprofiilin tarkastus cas/myroles tiedostosta
@@ -21,6 +21,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
             MyRoles.getUserLang().then(function(data){
                 $scope.userLang = data;
                 $rootScope.LOGS('RootCtrl', 'userLanguage: ',data);
+                dynamicLocalization.set($scope.userLang);
             });
 
             var logs = Props.enableConsoleLogs;
@@ -42,7 +43,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
              * @returns {*}
              */
             $scope.t = function(key, params) {
-//                console.log(key, params);
                 return LocalisationService.tl(key, params);
             };
 

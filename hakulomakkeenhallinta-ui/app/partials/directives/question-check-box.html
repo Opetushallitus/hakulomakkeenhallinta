@@ -12,7 +12,8 @@
             </div>
             <div class="col-md-2 control-label">
                 <br>
-                <a data-ng-click="addAppendixRequest(hakukohde, question.options[$index])">{{ t('lisaa.liitepyynto') || 'Lisää liitepyyntö' }} <i class="glyphicon glyphicon-plus"></i> </a>
+                <a data-ng-show="!hasLiitepyynto($index)" data-ng-click="addAppendixRequest(hakukohde, question.options[$index])">{{ t('lisaa.liitepyynto') || 'Lisää liitepyyntö' }} <i class="glyphicon glyphicon-plus"></i> </a>
+                <a data-ng-show="hasLiitepyynto($index)" data-ng-click="removeAppendixRequest($index)">poista liitepyyntö <i class="glyphicon glyphicon-remove"></i> </a>
             </div>
         </div>
     </div>

@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service', [])
-  .service('Koodisto', ['$http', '$q', '_', 'Config', function Koodisto($http, $q, _, Config) {
-        var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
-
+  .service('Koodisto', ['$http', '$q', '_', 'Props',
+        function Koodisto($http, $q, _, Props) {
+//        var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
+/*
         this.getKoodistot = function() {
             var deferred = $q.defer();
             $http.get(baseUrl).success(function(koodistot) {
@@ -42,6 +43,16 @@ angular.module('hakulomakkeenhallintaUiApp.services.service', [])
                     }));
                 });
             return deferred.promise;
-        };
+        };*/
 
+
+        this.getPostiKoodit = function(){
+            var deferred = $q.defer();
+            $http.get(Props.koodisto+'/posti/koodi?onlyValidKoodis=true').success(
+                function(data){
+                    console.log(data);
+                    deferred.resolve(data);
+                });
+            return deferred.promise;
+        }
     }]);

@@ -86,7 +86,6 @@ var app = angular.module('hakulomakkeenhallinta', [
         ];
     });
 
-    app.run(['$rootScope', 'MyRoles', 'LocalisationService', function($rootScope, MyRoles, LocalisationService ){
+    app.run(['$rootScope', function($rootScope){
         $rootScope.devFlag = true;
-
     }]);
