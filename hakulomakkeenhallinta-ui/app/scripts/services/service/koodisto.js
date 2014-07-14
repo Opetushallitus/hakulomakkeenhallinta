@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.service', [])
-  .service('Koodisto', ['$http', '$q', '_', 'Props',
-        function Koodisto($http, $q, _, Props) {
+  .service('Koodisto', ['$http', '$q', '$rootScope', 'Props',
+        function Koodisto($http, $q, $rootScope, Props) {
+            $rootScope.LOGS('Koodisto');
 //        var baseUrl = 'https://itest-virkailija.oph.ware.fi/koodisto-service/rest/json';
 /*
         this.getKoodistot = function() {
@@ -47,10 +48,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service', [])
 
 
         this.getPostiKoodit = function(){
+            $rootScope.LOGS('getPostiKoodit()');
             var deferred = $q.defer();
             $http.get(Props.koodisto+'/posti/koodi?onlyValidKoodis=true').success(
                 function(data){
-                    console.log(data);
                     deferred.resolve(data);
                 });
             return deferred.promise;

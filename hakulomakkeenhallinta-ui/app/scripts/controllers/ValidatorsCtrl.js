@@ -50,7 +50,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     }
                 }).result.then(function(data){
-                        console.log(data);
                         if($scope.question.liitepyynnot === undefined){
                             $scope.question.liitepyynnot = [];
                         }
@@ -63,7 +62,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param index kysymyksen indx, joka on liitetty liitepyyntöön
              */
             $scope.removeAppendixRequest = function(index){
-                console.log('index', index);
                 for(var li in $scope.question.liitepyynnot){
                     if($scope.question.liitepyynnot[li].id === 'option_'+index){
                         $scope.question.liitepyynnot.splice(li,1);
@@ -93,11 +91,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     }
                 }).result.then(function(data){
-                        console.log(data);
                         if($scope.question.liitepyynnot === undefined){
                             $scope.question.liitepyynnot = [];
                         }
-                        console.log($scope.question);
                         $scope.question.liitepyynnot[$scope.question.liitepyynnot.length] = data;
                     });
             };

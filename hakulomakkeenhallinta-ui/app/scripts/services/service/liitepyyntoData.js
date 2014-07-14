@@ -3,14 +3,14 @@
 angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('LiitepyyntoData', [ 'FormEditor','$rootScope', 'ThemeQuestions', '$q', 'TarjontaAPI',
         function (FormEditor, $rootScope, ThemeQuestions, $q, TarjontaAPI ) {
-
+            $rootScope.LOGS('LiitepyyntoData');
             var _liitePyynto = {},
                 _editFlag = false;
             /**
              * luo alustuksen uudelle liitekysymys oliolle
              */
             this.createNewLiitepyynto = function(optionId){
-                console.log('####', 'createNewLiitepyynto()');
+                $rootScope.LOGS('createNewLiitepyynto()');
                 _liitePyynto = {};
                 _liitePyynto.id = optionId;
                 _liitePyynto.liitenimi = {};

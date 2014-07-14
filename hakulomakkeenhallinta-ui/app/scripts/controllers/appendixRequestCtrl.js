@@ -1,3 +1,4 @@
+
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
@@ -8,26 +9,32 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tallennaClicked = false;
             $scope.option = option;
             $scope.hakukohde =  hakukohde;
+            $scope.toimitusosoiteFlag = true;
+
             if(LiitepyyntoData.getEditFlag()){
                 $scope.liitePyynto = LiitepyyntoData.getLiitepyynto();
+                if($scope.liitePyynto.address.kaytaryhmanOsoitetta){
+                    $scope.toimitusosoiteFlag = false;
+                }
             }else{
                 $scope.liitePyynto = LiitepyyntoData.createNewLiitepyynto(option.id);
                 setHakukohdeToimitusOsoite();
             }
-
-            $scope.toimitusosoiteFlag = true;
-            $scope.toimitusmuu = true;
-
 
             $scope.tanaan = new Date();
             var vuosiPvm = new Date();
             vuosiPvm.setFullYear(vuosiPvm.getFullYear() + 1 );
             $scope.vuosi = vuosiPvm;
 
+            $scope.postiKoodit = [];
+            /**
+             * haetaan postinumerot ja postitoimipaikat'
+             * Koodistosta
+             */
+            Koodisto.getPostiKoodit().then(function(data){
+                $scope.postiKoodit = data;
+            });
 
-        /*  Koodisto.getPostiKoodit().then(function(data){
-                    console.log('Saatiin koodisto',data);
-                });*/
             /**
              * tallentaa liitepyynnön ja sulkee liitepyyntö dialogin
              * @param valid
@@ -53,25 +60,20 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 switch (value){
                     case 0:
                         $scope.toimitusosoiteFlag = true;
-                        $scope.toimitusmuu = true;
                         setHakukohdeToimitusOsoite();
                         break;
                     case 1:
                         $scope.toimitusosoiteFlag = false;
                         kaytaRyhmanToimitusOsoitetta();
                         break;
-                    case 2:
-                        $scope.toimitusosoiteFlag = true;
-                        $scope.toimitusmuu = false;
-                        setHakukohdeToimitusOsoite();
-                        break;
                 }
-            }
+            };
             /**
              * asettaa liitepyyntö olioon liitteen toimitus osoitteen
              */
             function setHakukohdeToimitusOsoite(){
-                console.log('setHakukohdeToimitusOsoite()');
+                $rootScope.LOGS('setHakukohdeToimitusOsoite()');
+                $scope.liitePyynto.address = {};
                 if(hakukohde.liitteidenToimitusOsoite){
                     $scope.liitePyynto.address.osoite = hakukohde.liitteidenToimitusOsoite.osoiterivi1;
                     $scope.liitePyynto.address.postinumero = hakukohde.liitteidenToimitusOsoite.postinumero.slice(6);
@@ -82,7 +84,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.liitePyynto.address.postitoimipaikka;
                 }
 
-            }
+            };
             /**
              * asettaa liitepyyntö olioon liitteen toimitus osoitteen
              * tiedon käyttää hakukohteen ryhmän osoitetta
@@ -90,6 +92,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             function kaytaRyhmanToimitusOsoitetta(){
                 $scope.liitePyynto.address = {};
                 $scope.liitePyynto.address.kaytaryhmanOsoitetta = true;
-            }
+            };
+            /**
+             * asettaa postitoimi paikan valitulla postinumerolla
+             */
+            $scope.setPostitoimipaikka = function(){
+                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.liitePyynto.address.postinumero);
+                for(var ptn in $scope.postiKoodit){
+                    if($scope.postiKoodit[ptn].koodiArvo === $scope.liitePyynto.address.postinumero){
+                        $scope.liitePyynto.address.postitoimipaikka = $scope.postiKoodit[ptn].metadata[0].nimi;
+                        return;
+                    }
+                }
+            };
 
         }]);
