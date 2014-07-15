@@ -132,10 +132,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.hakukohdeInfo = function(oid){
                 if(oid !== undefined){
                     TarjontaAPI.fetchHakukohdeInfo(oid).then(
-                         function(data){
-                             return data;
-                         }
-                     );
+                        function(data){
+                            console.log(data);
+                            return data;
+                        }
+                    );
                     return oid;
                 }
             };
