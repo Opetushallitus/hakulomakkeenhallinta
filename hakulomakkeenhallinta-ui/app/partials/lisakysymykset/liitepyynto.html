@@ -42,7 +42,6 @@
                            datepicker-fix
                            name="liitteenpalautuspvm"
                            type="text"
-                           class="datepicker"
                            datepicker-popup="dd.MM.yyyy"
                            data-ng-model="liitePyynto.toimitusmennessa.pvm"
                            datepicker-options="{'starting-day':1}"
@@ -53,8 +52,11 @@
                            close-text="{{t('datepicker.close')}}"
                            min="tanaan"
                            max="vuosi"
-                            > &nbsp;&nbsp;
-                    {{ t('klo') || 'klo' }} <input name="liitteenpalautusklo" type="time" data-ng-model="liitePyynto.toimitusmennessa.klo" ng-required="true">
+                            >
+                    <i class="glyphicon glyphicon-calendar glyphicon-inside-input-right"></i>
+                        &nbsp;&nbsp;
+                    {{ t('klo') || 'klo' }} <input name="liitteenpalautusklo" type="time" data-ng-model="liitePyynto.toimitusmennessa.klo" ng-required="true" >
+                    <i class="glyphicon glyphicon-time glyphicon-inside-input-right" style="right: 30px;"></i>
                 </div>
             </div>
 
