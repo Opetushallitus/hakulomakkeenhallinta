@@ -20,7 +20,13 @@
             <table class="table table-striped table-hover" >
                 <tr data-ng-repeat="question in theme.additionalQuestions">
                     <td>
-                        <a data-ng-click="muokkaaKysymysta(question)">{{ question.messageText.translations.fi || question.messageText.translations.sv}} {{question.type | i18next}}</a>
+                        <a data-ng-click="muokkaaKysymysta(question)">{{ question.messageText.translations.fi || question.messageText.translations.sv}}</a>
+                    </td>
+                    <td>
+                        {{question.type | i18next}} ({{question.options.length}})
+                    </td>
+                    <td>
+                        {{question.learningOpportunityId}}
                     </td>
                 </tr>
             </table>
