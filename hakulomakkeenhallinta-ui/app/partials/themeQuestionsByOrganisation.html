@@ -26,7 +26,7 @@
                         {{question.type | i18next}} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
                     </td>
                     <td>
-                        {{ hakukohdeInfo() | hakukohdeNimi:userLang }}
+                        {{ hakukohdeInfo(question.learningOpportunityId) | hakukohdeNimi:userLang }}
                     </td>
                     <td>
                         fi, sv, en
