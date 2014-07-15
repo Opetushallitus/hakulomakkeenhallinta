@@ -19,10 +19,10 @@
             </accordion-heading>
             <table class="table table-striped table-hover" >
                 <tr>
-                    <th>{{ t('th.otsikko') | 'Otsikko' }}</th>
-                    <th>{{ t('th.tyyppi') | 'Tyyppi' }}</th>
-                    <th>{{ t('th.hakukohde') | 'Hakukohde' }}</th>
-                    <th>{{ t('th.kieliversiot') | 'Kieliversiot' }}</th>
+                    <th>{{ t('th.otsikko') || 'Otsikko' }}</th>
+                    <th>{{ t('th.tyyppi') || 'Tyyppi' }}</th>
+                    <th>{{ t('th.hakukohde') || 'Hakukohde' }}</th>
+                    <th>{{ t('th.kieliversiot') || 'Kieliversiot' }}</th>
                 </tr>
                 <tr data-ng-repeat="question in theme.additionalQuestions">
 
