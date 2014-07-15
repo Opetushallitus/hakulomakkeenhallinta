@@ -130,12 +130,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.hakukohdeInfo = function(oid){
-                 TarjontaAPI.fetchHakukohdeInfo(oid).then(
-                     function(data){
-                         return data;
-                     }
-                 );
-                return oid;
+                if(oid !== undefined){
+                    TarjontaAPI.fetchHakukohdeInfo(oid).then(
+                         function(data){
+                             return data;
+                         }
+                     );
+                    return oid;
+                }
             };
 
             $scope.sortQuestions = function() {
