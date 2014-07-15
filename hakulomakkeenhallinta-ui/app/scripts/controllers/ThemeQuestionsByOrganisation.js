@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter',
-        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter ) {
+    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter', 'TarjontaAPI',
+        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter, TarjontaAPI ) {
             $rootScope.LOGS('ThemeQuestionByOrganisationCtrl');
 
             $scope.haunNimi = '';
@@ -127,7 +127,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     return true;
                 }
                 return false;
-            }
+            };
+
+            $scope.hakukohdeInfo = function(oid){
+                 TarjontaAPI.fetchHakukohdeInfo(oid).then(
+                     function(data){
+                         return data;
+                     }
+                 );
+                return oid;
+            };
 
             $scope.sortQuestions = function() {
                 $modal.open({
