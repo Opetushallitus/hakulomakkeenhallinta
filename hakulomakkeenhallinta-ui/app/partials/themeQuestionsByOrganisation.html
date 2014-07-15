@@ -23,13 +23,13 @@
                         <a data-ng-click="muokkaaKysymysta(question)">{{ question | i18n:'messageText'}}</a>
                     </td>
                     <td>
-                        {{question.type | i18next}} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
+                        {{ question.type | i18next }} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
                     </td>
                     <td>
-                        {{ hakukohdeInfo(question.learningOpportunityId) | hakukohdeNimi:userLang }}
+                        {{ question.learningOpportunityId }}
                     </td>
                     <td>
-                        fi, sv, en
+                        <question-translations></question-translations>
                     </td>
                 </tr>
             </table>
