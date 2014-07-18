@@ -10,17 +10,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.option = option;
             $scope.hakukohde =  hakukohde;
             $scope.toimitusosoiteFlag = true;
-            $scope.liitePyynto = {};
+            $scope.attachmentRequests = {};
             $scope.liite = {};
 
             if(LiitepyyntoData.getEditFlag()){
-                $scope.liitePyynto = LiitepyyntoData.getLiitepyynto();
-                if($scope.liitePyynto.address.kaytaryhmanOsoitetta){
+                $scope.attachmentRequests = LiitepyyntoData.getLiitepyynto();
+                if($scope.attachmentRequests.useGroupAddress){
                     $scope.toimitusosoiteFlag = false;
                 }
-                $scope.liite.toimitusAika = toHHMMTime($scope.liitePyynto.toimitusmennessa);
+                $scope.liite.toimitusAika = toHHMMTime($scope.attachmentRequests.deliveryDue);
             }else{
-                $scope.liitePyynto = LiitepyyntoData.createNewLiitepyynto(option.id);
+                $scope.attachmentRequests = LiitepyyntoData.createNewLiitepyynto(option.id);
                 setHakukohdeToimitusOsoite();
             }
 
@@ -49,7 +49,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.tallennaClicked = true;
                 if(valid){
                     LiitepyyntoData.setEditFlag(false);
-                    $modalInstance.close($scope.liitePyynto);
+                    $modalInstance.close($scope.attachmentRequests);
                 }
             };
 
@@ -78,15 +78,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             function setHakukohdeToimitusOsoite(){
                 $rootScope.LOGS('setHakukohdeToimitusOsoite()');
-                $scope.liitePyynto.address = {};
+                delete $scope.attachmentRequests.useGroupAddress;
+                $scope.attachmentRequests.deliveryAddress = {};
                 if(hakukohde.liitteidenToimitusOsoite){
-                    $scope.liitePyynto.address.osoite = hakukohde.liitteidenToimitusOsoite.osoiterivi1;
-                    $scope.liitePyynto.address.postinumero = hakukohde.liitteidenToimitusOsoite.postinumero.slice(6);
-                    $scope.liitePyynto.address.postitoimipaikka = hakukohde.liitteidenToimitusOsoite.postitoimipaikka;
+                    $scope.attachmentRequests.deliveryAddress.street = hakukohde.liitteidenToimitusOsoite.osoiterivi1;
+                    $scope.attachmentRequests.deliveryAddress.postCode = hakukohde.liitteidenToimitusOsoite.postinumero.slice(6);
+                    $scope.attachmentRequests.deliveryAddress.postOffice = hakukohde.liitteidenToimitusOsoite.postitoimipaikka;
                 }else{
-                    $scope.liitePyynto.address.osoite;
-                    $scope.liitePyynto.address.postinumero;
-                    $scope.liitePyynto.address.postitoimipaikka;
+                    $scope.attachmentRequests.deliveryAddress.street;
+                    $scope.attachmentRequests.deliveryAddress.postCode;
+                    $scope.attachmentRequests.deliveryAddress.postOffice;
                 }
             };
             /**
@@ -94,17 +95,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * tiedon käyttää hakukohteen ryhmän osoitetta
              */
             function kaytaRyhmanToimitusOsoitetta(){
-                $scope.liitePyynto.address = {};
-                $scope.liitePyynto.address.kaytaryhmanOsoitetta = true;
+                delete $scope.attachmentRequests.deliveryAddress;
+                $scope.attachmentRequests.useGroupAddress = true;
             };
             /**
              * asettaa postitoimi paikan valitulla postinumerolla
              */
             $scope.setPostitoimipaikka = function(){
-                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.liitePyynto.address.postinumero);
+                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequests.deliveryAddress.postinumero);
                 for(var ptn in $scope.postiKoodit){
-                    if($scope.postiKoodit[ptn].koodiArvo === $scope.liitePyynto.address.postinumero){
-                        $scope.liitePyynto.address.postitoimipaikka = $scope.postiKoodit[ptn].metadata[0].nimi;
+                    if($scope.postiKoodit[ptn].koodiArvo === $scope.attachmentRequests.deliveryAddress.postinumero){
+                        $scope.attachmentRequests.deliveryAddress.postitoimipaikka = $scope.postiKoodit[ptn].metadata[0].nimi;
                         return;
                     }
                 }
@@ -113,12 +114,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * asettaa kellon ajan päivä objetiin
              */
             $scope.setKellonaikaToDate = function(){
-                if($scope.liite.toimitusAika !== undefined && $scope.liitePyynto.toimitusmennessa !== ''){
-                    var dmsec = Date.parse($scope.liitePyynto.toimitusmennessa),
+                if($scope.liite.toimitusAika !== undefined && $scope.attachmentRequests.deliveryDue !== ''){
+                    var dmsec = Date.parse($scope.attachmentRequests.deliveryDue),
                         d = new Date(dmsec),
                         t =  $scope.liite.toimitusAika;
                     var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), t.substr(0,2), t.substr(3,2));
-                    $scope.liitePyynto.toimitusmennessa = nd;
+                    $scope.attachmentRequests.deliveryDue = nd;
                 }
             };
             /**
@@ -126,8 +127,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.pvmBlur = function(){
                 $timeout(function(){
-                    if($scope.liitePyynto.toimitusmennessa !== ''){
-                        $scope.liite.toimitusAika = toHHMMTime($scope.liitePyynto.toimitusmennessa);
+                    if($scope.attachmentRequests.deliveryDue !== ''){
+                        $scope.liite.toimitusAika = toHHMMTime($scope.attachmentRequests.deliveryDue);
                     }
                 }, 250);
             };
@@ -149,12 +150,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @returns {string} paluttaa kellon ajan mutoa hh:mm
              */
             function toHHMMTime(date){
-                console.log(date);
                 var dmsec = Date.parse(date),
                     hhmm = new Date(dmsec),
                     hh = addZeros(hhmm.getHours()),
                     mm = addZeros(hhmm.getMinutes());
-                console.log(hh+':'+mm);
                 return hh+':'+mm;
             }
 

@@ -31,10 +31,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         $scope.removeAppendixRequest(indx);
                     }
                     for(var optionIndx in question.options){
-                        if(question.liitepyynnot !== undefined){
-                            for(var li in question.liitepyynnot){
-                                if(question.options[optionIndx].id === question.liitepyynnot[li].id){
-                                    question.liitepyynnot[li].id = 'option_'+optionIndx;
+                        if(question.attachmentRequests !== undefined){
+                            for(var li in question.attachmentRequests){
+                                if(question.options[optionIndx].id === question.attachmentRequests[li].attachedToOptionId){
+                                    question.attachmentRequests[li].attachedToOptionId = 'option_'+optionIndx;
                                 }
                             }
                         }
