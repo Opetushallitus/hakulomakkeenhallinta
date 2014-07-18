@@ -4,35 +4,37 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('LiitepyyntoData', [ 'FormEditor','$rootScope', 'ThemeQuestions', '$q', 'TarjontaAPI',
         function (FormEditor, $rootScope, ThemeQuestions, $q, TarjontaAPI ) {
             $rootScope.LOGS('LiitepyyntoData');
-            var _liitePyynto = {},
+            var _attachmentRequests = {},
                 _editFlag = false;
             /**
              * luo alustuksen uudelle liitekysymys oliolle
              */
             this.createNewLiitepyynto = function(optionId){
                 $rootScope.LOGS('createNewLiitepyynto()');
-                _liitePyynto = {};
-                _liitePyynto.id = optionId;
-                _liitePyynto.liitenimi = {};
-                _liitePyynto.liitekuvaus = {};
-                _liitePyynto.toimitusmennessa ='';
-                _liitePyynto.address = {};
-                return _liitePyynto;
+                _attachmentRequests = {};
+                _attachmentRequests.attachedToOptionId = optionId;
+                _attachmentRequests.header = {};
+                _attachmentRequests.header.translations = {};
+                _attachmentRequests.description = {};
+                _attachmentRequests.description.translations = {};
+                _attachmentRequests.deliveryDue ='';
+                _attachmentRequests.deliveryAddress = {};
+                return _attachmentRequests;
             };
             /**
              * asetaan liitepyynnön tiedot muuttujaan
-             * @param liitePyynto
+             * @param attachmentRequests
              */
-            this.setLiitepyynto = function(liitePyynto){
+            this.setLiitepyynto = function(attachmentRequests){
                 this.setEditFlag(true);
-                _liitePyynto = liitePyynto;
+                _attachmentRequests = attachmentRequests;
             }
             /**
              * palautetaan liitepyynnön tiedot muuttujasta
              * @returns {{}}
              */
             this.getLiitepyynto = function(){
-                return _liitePyynto;
+                return _attachmentRequests;
             }
             /**
              * palautetaan liitepyynnön muokkaus lippu
