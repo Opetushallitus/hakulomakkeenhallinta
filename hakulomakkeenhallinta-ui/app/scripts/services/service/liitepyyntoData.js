@@ -15,7 +15,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 _liitePyynto.id = optionId;
                 _liitePyynto.liitenimi = {};
                 _liitePyynto.liitekuvaus = {};
-                _liitePyynto.toimitusmennessa = {};
+                _liitePyynto.toimitusmennessa ='';
                 _liitePyynto.address = {};
                 return _liitePyynto;
             };

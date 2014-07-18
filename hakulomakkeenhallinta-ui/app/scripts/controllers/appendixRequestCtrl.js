@@ -2,29 +2,34 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl',[ '$scope', '$rootScope', '$modalInstance', '$location', '$routeParams', 'hakukohde', 'option', 'Koodisto','$filter','LiitepyyntoData',
-        function ($scope, $rootScope, $modalInstance, $location, $routeParams, hakukohde, option, Koodisto, $filter, LiitepyyntoData) {
+    .controller('AppendixRequestCtrl',[ '$scope', '$rootScope', '$modalInstance', '$location', '$routeParams', 'hakukohde', 'option', 'Koodisto','$filter','LiitepyyntoData', '$timeout',
+        function ($scope, $rootScope, $modalInstance, $location, $routeParams, hakukohde, option, Koodisto, $filter, LiitepyyntoData, $timeout) {
             $rootScope.LOGS('AppendixRequestCtrl');
             $scope.organisaatio ={};
             $scope.tallennaClicked = false;
             $scope.option = option;
             $scope.hakukohde =  hakukohde;
             $scope.toimitusosoiteFlag = true;
+            $scope.liitePyynto = {};
+            $scope.liite = {};
 
             if(LiitepyyntoData.getEditFlag()){
                 $scope.liitePyynto = LiitepyyntoData.getLiitepyynto();
                 if($scope.liitePyynto.address.kaytaryhmanOsoitetta){
                     $scope.toimitusosoiteFlag = false;
                 }
+                $scope.liite.toimitusAika = toHHMMTime($scope.liitePyynto.toimitusmennessa);
             }else{
                 $scope.liitePyynto = LiitepyyntoData.createNewLiitepyynto(option.id);
                 setHakukohdeToimitusOsoite();
             }
 
+
             $scope.tanaan = new Date();
+            $scope.tanaan.setHours(23,59);
             var vuosiPvm = new Date();
             vuosiPvm.setFullYear(vuosiPvm.getFullYear() + 1 );
-            $scope.vuosi = vuosiPvm;
+            $scope.vuosi = vuosiPvm.setHours(23, 59);
 
             $scope.postiKoodit = [];
             /**
@@ -83,7 +88,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.liitePyynto.address.postinumero;
                     $scope.liitePyynto.address.postitoimipaikka;
                 }
-
             };
             /**
              * asettaa liitepyyntö olioon liitteen toimitus osoitteen
@@ -105,5 +109,53 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 }
             };
+            /**
+             * asettaa kellon ajan päivä objetiin
+             */
+            $scope.setKellonaikaToDate = function(){
+                if($scope.liite.toimitusAika !== undefined && $scope.liitePyynto.toimitusmennessa !== ''){
+                    var dmsec = Date.parse($scope.liitePyynto.toimitusmennessa),
+                        d = new Date(dmsec),
+                        t =  $scope.liite.toimitusAika;
+                    var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), t.substr(0,2), t.substr(3,2));
+                    $scope.liitePyynto.toimitusmennessa = nd;
+                }
+            };
+            /**
+             * asettaa kellon ajan kun kalenteri syötteestä poistuttaessa
+             */
+            $scope.pvmBlur = function(){
+                $timeout(function(){
+                    if($scope.liitePyynto.toimitusmennessa !== ''){
+                        $scope.liite.toimitusAika = toHHMMTime($scope.liitePyynto.toimitusmennessa);
+                    }
+                }, 250);
+            };
+            /**
+             * muokkaa kellon aikaa kaksi numeroiseksi merkkijonoksia
+             * @param hhmm kellon ajan tunnit /minuutit
+             * @returns {*} kaksinumeroisen merkkijonon kellon ajasta
+             */
+            function addZeros(hhmm){
+                if(hhmm<10){
+                    hhmm = '0'+hhmm;
+                }
+                return hhmm;
+            }
+
+            /**
+             * parsiin kellon ajan päivä objektista
+             * @param date
+             * @returns {string} paluttaa kellon ajan mutoa hh:mm
+             */
+            function toHHMMTime(date){
+                console.log(date);
+                var dmsec = Date.parse(date),
+                    hhmm = new Date(dmsec),
+                    hh = addZeros(hhmm.getHours()),
+                    mm = addZeros(hhmm.getMinutes());
+                console.log(hh+':'+mm);
+                return hh+':'+mm;
+            }
 
         }]);

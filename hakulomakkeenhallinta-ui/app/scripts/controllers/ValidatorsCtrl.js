@@ -40,7 +40,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/liitepyynto.html',
                     controller: 'AppendixRequestCtrl',
-                    scope: $scope,
                     resolve: {
                         hakukohde: function(){
                             return hakukohde;
