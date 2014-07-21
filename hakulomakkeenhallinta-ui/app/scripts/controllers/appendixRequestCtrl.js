@@ -102,10 +102,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * asettaa postitoimi paikan valitulla postinumerolla
              */
             $scope.setPostitoimipaikka = function(){
-                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequests.deliveryAddress.postinumero);
+                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequests.deliveryAddress.postCode);
                 for(var ptn in $scope.postiKoodit){
-                    if($scope.postiKoodit[ptn].koodiArvo === $scope.attachmentRequests.deliveryAddress.postinumero){
-                        $scope.attachmentRequests.deliveryAddress.postitoimipaikka = $scope.postiKoodit[ptn].metadata[0].nimi;
+                    if($scope.postiKoodit[ptn].koodiArvo === $scope.attachmentRequests.deliveryAddress.postCode){
+                        $scope.attachmentRequests.deliveryAddress.postOffice = $scope.postiKoodit[ptn].metadata[0].nimi;
                         return;
                     }
                 }
