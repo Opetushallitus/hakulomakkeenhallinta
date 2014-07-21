@@ -21,6 +21,7 @@
                 <tr>
                     <th>{{ t('th.otsikko') || 'Otsikko' }}</th>
                     <th>{{ t('th.tyyppi') || 'Tyyppi' }}</th>
+                    <th>{{ t('th.liitepyynnot') || 'Liitepyynnöt' }}</th>
                     <th>{{ t('th.hakukohde') || 'Hakukohde' }}</th>
                     <th>{{ t('th.kieliversiot') || 'Kieliversiot' }}</th>
                 </tr>
@@ -31,6 +32,9 @@
                     </td>
                     <td>
                         {{ question.type | i18next }} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
+                    </td>
+                    <td>
+                        <span data-ng-if="question.attachmentRequests.length >0">({{ question.attachmentRequests.length }})</span>
                     </td>
                     <td>
                         {{ question.learningOpportunityId }}

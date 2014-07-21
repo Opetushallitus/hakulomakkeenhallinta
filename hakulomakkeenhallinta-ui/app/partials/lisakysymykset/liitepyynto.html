@@ -33,13 +33,13 @@
             <div class="form-group">
                 <label>{{ t('toimitettava.menessa') || 'Toimitettava mennessä *' }}
                     <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.date && tallennaClicked" style="color:red;">pvm tulee olla pp.kk.yyyy muodossa</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkday && tallennaClicked" style="color:red;">tarkista päivä</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkmonth && tallennaClicked" style="color:red;">tarkista kuukausi</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkyear && tallennaClicked" style="color:red;">tarkista vuosi</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.maxdate" style="color:red;">syötetty pvm. oli enemmän kuin vuosi eteenpäin tästäpäivästä </span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.mindate" style="color:red;">syötetty pvm. oli pienempi kuin tänään</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautusklo.$error.pattern && tallennaClicked" style="color:red;">tarkista syötetty kellonaika </span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.date && tallennaClicked" style="color:red;">{{ t('pvm.format') || 'päivämäärän muoto pp.kk.yyyy' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkday && tallennaClicked" style="color:red;">{{ t('pvm.check.day') || 'tarkista antamasi päivä' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkmonth && tallennaClicked" style="color:red;">{{ t('pvm.check.month') || 'tarkista antamasi kuukausi' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkyear && tallennaClicked" style="color:red;">{{ t('pvm.check.year') || 'tarkista antamasi vuosi' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.maxdate" style="color:red;">{{ t('pvm.check.plus.year') || 'annettu pvm. enemmän kuin vuosi eteenpäin tästäpäivästä' }} </span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.mindate" style="color:red;">{{ t('pvm.check.toosmall.date') || 'annettu pvm. pienempi kuin tämäpäivä' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautusklo.$error.pattern && tallennaClicked" style="color:red;">{{ t('klo.check.format') || 'tarkista antamasi kellonaika' }} </span>
                 </label>
 
                 <div>
