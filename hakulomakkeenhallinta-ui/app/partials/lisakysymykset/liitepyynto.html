@@ -13,11 +13,11 @@
             <tabset>
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
                     <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
-                    <div ng-form="liitepyyntotab{{language.id}}" style="background-color: #f5f5f5; border-color: #ddd !important;">
+                    <div ng-form="liitepyyntotab{{language.id}}" style="background-color: #f5f5f5;">
                         <br>
                         <div class="form-group">
                             <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }}
-                                <span data-ng-show="liitepyyntotabfi.liitenimi.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                                <span data-ng-show="liitepyyntotabfi.liitenimi.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                             </label>
                             <input name="liitenimi" type="text" class="form-control" data-ng-model="attachmentRequests.header.translations[language.id]" ng-required="requiredByFiLang(language.id)">
                         </div>
@@ -32,14 +32,14 @@
 
             <div class="form-group">
                 <label>{{ t('toimitettava.menessa') || 'Toimitettava mennessä *' }}
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.date && tallennaClicked" style="color:red;">{{ t('pvm.format') || 'päivämäärän muoto pp.kk.yyyy' }}</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkday && tallennaClicked" style="color:red;">{{ t('pvm.check.day') || 'tarkista antamasi päivä' }}</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkmonth && tallennaClicked" style="color:red;">{{ t('pvm.check.month') || 'tarkista antamasi kuukausi' }}</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkyear && tallennaClicked" style="color:red;">{{ t('pvm.check.year') || 'tarkista antamasi vuosi' }}</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.maxdate" style="color:red;">{{ t('pvm.check.plus.year') || 'annettu pvm. enemmän kuin vuosi eteenpäin tästäpäivästä' }} </span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.mindate" style="color:red;">{{ t('pvm.check.toosmall.date') || 'annettu pvm. pienempi kuin tämäpäivä' }}</span>
-                    <span data-ng-show="liitepyyntoDialog.liitteenpalautusklo.$error.pattern && tallennaClicked" style="color:red;">{{ t('klo.check.format') || 'tarkista antamasi kellonaika' }} </span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.date && tallennaClicked" class="label-warning-text">{{ t('pvm.format') || 'päivämäärän muoto pp.kk.yyyy' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkday && tallennaClicked" class="label-warning-text">{{ t('pvm.check.day') || 'tarkista antamasi päivä' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkmonth && tallennaClicked" class="label-warning-text">{{ t('pvm.check.month') || 'tarkista antamasi kuukausi' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.checkyear && tallennaClicked" class="label-warning-text">{{ t('pvm.check.year') || 'tarkista antamasi vuosi' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.maxdate" class="label-warning-text">{{ t('pvm.check.plus.year') || 'annettu pvm. enemmän kuin vuosi eteenpäin tästäpäivästä' }} </span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautuspvm.$error.mindate" class="label-warning-text">{{ t('pvm.check.toosmall.date') || 'annettu pvm. pienempi kuin tämäpäivä' }}</span>
+                    <span data-ng-show="liitepyyntoDialog.liitteenpalautusklo.$error.pattern && tallennaClicked" class="label-warning-text">{{ t('klo.check.format') || 'tarkista antamasi kellonaika' }} </span>
                 </label>
 
                 <div>
@@ -94,7 +94,7 @@
             <div data-ng-if="toimitusosoiteFlag">
                 <div class="form-group">
                     <label>{{ t('liitteen.osoite') || 'Osoite *' }}
-                        <span data-ng-show="liitepyyntoDialog.osoite.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                        <span data-ng-show="liitepyyntoDialog.osoite.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                     </label>
                     <input type="text" name="osoite" class="form-control" data-ng-model="attachmentRequests.deliveryAddress.street"  data-ng-required="true">
                 </div>
@@ -102,16 +102,16 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }}
-                            <span data-ng-show="(attachmentRequests.deliveryAddress.postinumero === undefined || liitepyyntoDialog.postinro.$error.required ) && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                            <span data-ng-show="(attachmentRequests.deliveryAddress.postCode === undefined || liitepyyntoDialog.postinro.$error.required ) && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                         </label>
                         <input type="text" name="postinro"  class="form-control"
                                data-ng-model="attachmentRequests.deliveryAddress.postCode" data-ng-required="true"
                                data-typeahead-on-select="setPostitoimipaikka()" data-typeahead-editable="false"
-                               data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:liitepyyntoDialog.postinro.$viewValue | limitTo:8 | orderBy:'koodiArvo' "  >
+                               data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:liitepyyntoDialog.postinro.$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
                     </div>
                     <div class="col-md-8">
                         <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}
-                            <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required && tallennaClicked" style="color:red;">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                            <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                         </label>
                         <input type="text" name="postitoimipaikka" class="form-control" data-ng-model="attachmentRequests.deliveryAddress.postOffice"
                                data-ng-required="true" ng-disabled="true" >

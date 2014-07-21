@@ -1,8 +1,8 @@
 <div class="col-md-offset-3 col-md-9">
-    <span data-ng-show="kysymys.minvalintaruutuja.$error.checkboxminvalue" style="color:red;">{{ t('tarkista.valintaruutu.arvo') || 'tarkista asetamasi arvo vastaaman valintaruutujen määrää' }}</span>
-    <span data-ng-show="kysymys.minvalintaruutuja.$error.pattern" style="color:red;">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
-    <span data-ng-show="kysymys.maxvalintaruutuja.$error.checkboxmaxvalue" style="color:red;">{{ t('tarkista.valintaruutu.arvo') || 'tarkista asetamasi arvo vastaaman valintaruutujen määrää' }}</span>
-    <span data-ng-show="kysymys.maxvalintaruutuja.$error.pattern" style="color:red;">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
+    <span data-ng-show="kysymys.minvalintaruutuja.$error.checkboxminvalue && tallennaClicked" class="label-warning-text">{{ t('tarkista.valintaruutu.arvo') || 'tarkista asetamasi arvo vastaaman valintaruutujen määrää' }}</span>
+    <span data-ng-show="kysymys.minvalintaruutuja.$error.pattern && tallennaClicked" class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
+    <span data-ng-show="kysymys.maxvalintaruutuja.$error.checkboxmaxvalue && tallennaClicked" class="label-warning-text">{{ t('tarkista.valintaruutu.arvo') || 'tarkista asetamasi arvo vastaaman valintaruutujen määrää' }}</span>
+    <span data-ng-show="kysymys.maxvalintaruutuja.$error.pattern && tallennaClicked" class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
 
 </div>
 
