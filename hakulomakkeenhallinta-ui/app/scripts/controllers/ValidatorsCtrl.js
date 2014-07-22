@@ -93,7 +93,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             return option;
                         }
                     }
-                });
+                }).result.then(function(data){
+                        for (var atcrq in $scope.question.attachmentRequests) {
+                            if($scope.question.attachmentRequests[atcrq].attachedToOptionId === data.attachedToOptionId){
+                                $scope.question.attachmentRequests[atcrq] = data;
+                                return;
+                            }
+                        }
+                    });
             };
             /**
              * tarkistaa ui:ssa onko kysymykseen liitetty liitepyyntö

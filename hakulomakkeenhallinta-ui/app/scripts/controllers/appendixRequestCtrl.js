@@ -5,22 +5,22 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('AppendixRequestCtrl',[ '$scope', '$rootScope', '$modalInstance', '$location', '$routeParams', 'hakukohde', 'option', 'Koodisto','$filter','LiitepyyntoData', '$timeout',
         function ($scope, $rootScope, $modalInstance, $location, $routeParams, hakukohde, option, Koodisto, $filter, LiitepyyntoData, $timeout) {
             $rootScope.LOGS('AppendixRequestCtrl');
-            $scope.organisaatio ={};
             $scope.tallennaClicked = false;
             $scope.option = option;
             $scope.hakukohde =  hakukohde;
             $scope.toimitusosoiteFlag = true;
-            $scope.attachmentRequests = {};
+            $scope.attachmentRequest = {};
             $scope.liite = {};
 
             if(LiitepyyntoData.getEditFlag()){
-                $scope.attachmentRequests = LiitepyyntoData.getLiitepyynto();
-                if($scope.attachmentRequests.useGroupAddress){
+                $scope.attachmentRequest = LiitepyyntoData.getLiitepyynto();
+                localStorage.setItem('attachmentRequest', JSON.stringify($scope.attachmentRequest));
+                if($scope.attachmentRequest.useGroupAddress){
                     $scope.toimitusosoiteFlag = false;
                 }
-                $scope.liite.toimitusAika = toHHMMTime($scope.attachmentRequests.deliveryDue);
+                $scope.liite.toimitusAika = toHHMMTime($scope.attachmentRequest.deliveryDue);
             }else{
-                $scope.attachmentRequests = LiitepyyntoData.createNewLiitepyynto(option.id);
+                $scope.attachmentRequest = LiitepyyntoData.createNewLiitepyynto(option.id);
                 setHakukohdeToimitusOsoite();
             }
 
@@ -49,13 +49,23 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.tallennaClicked = true;
                 if(valid){
                     LiitepyyntoData.setEditFlag(false);
-                    $modalInstance.close($scope.attachmentRequests);
+                    if(localStorage.getItem('attachmentRequest') !== undefined){
+                        localStorage.removeItem('attachmentRequest');
+                    }
+                    $modalInstance.close($scope.attachmentRequest);
                 }
             };
 
             $scope.cancel = function() {
-                LiitepyyntoData.setEditFlag(false);
-                $modalInstance.dismiss('cancel');
+                if(LiitepyyntoData.getEditFlag()){
+                    $scope.attachmentRequest = JSON.parse(localStorage.getItem('attachmentRequest'));
+                    localStorage.removeItem('attachmentRequest');
+                    LiitepyyntoData.setEditFlag(false);
+                    $modalInstance.close($scope.attachmentRequest);
+                }else{
+                    $modalInstance.dismiss('cancel');
+                }
+
             };
             /**
              * radio napeilla tapahtuva liitteiden toimitus osoite
@@ -78,16 +88,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             function setHakukohdeToimitusOsoite(){
                 $rootScope.LOGS('setHakukohdeToimitusOsoite()');
-                delete $scope.attachmentRequests.useGroupAddress;
-                $scope.attachmentRequests.deliveryAddress = {};
+                delete $scope.attachmentRequest.useGroupAddress;
+                $scope.attachmentRequest.deliveryAddress = {};
                 if(hakukohde.liitteidenToimitusOsoite){
-                    $scope.attachmentRequests.deliveryAddress.street = hakukohde.liitteidenToimitusOsoite.osoiterivi1;
-                    $scope.attachmentRequests.deliveryAddress.postCode = hakukohde.liitteidenToimitusOsoite.postinumero.slice(6);
-                    $scope.attachmentRequests.deliveryAddress.postOffice = hakukohde.liitteidenToimitusOsoite.postitoimipaikka;
+                    $scope.attachmentRequest.deliveryAddress.street = hakukohde.liitteidenToimitusOsoite.osoiterivi1;
+                    $scope.attachmentRequest.deliveryAddress.postCode = hakukohde.liitteidenToimitusOsoite.postinumero.slice(6);
+                    $scope.attachmentRequest.deliveryAddress.postOffice = hakukohde.liitteidenToimitusOsoite.postitoimipaikka;
                 }else{
-                    $scope.attachmentRequests.deliveryAddress.street;
-                    $scope.attachmentRequests.deliveryAddress.postCode;
-                    $scope.attachmentRequests.deliveryAddress.postOffice;
+                    $scope.attachmentRequest.deliveryAddress.street;
+                    $scope.attachmentRequest.deliveryAddress.postCode;
+                    $scope.attachmentRequest.deliveryAddress.postOffice;
                 }
             };
             /**
@@ -95,17 +105,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * tiedon käyttää hakukohteen ryhmän osoitetta
              */
             function kaytaRyhmanToimitusOsoitetta(){
-                delete $scope.attachmentRequests.deliveryAddress;
-                $scope.attachmentRequests.useGroupAddress = true;
+                delete $scope.attachmentRequest.deliveryAddress;
+                $scope.attachmentRequest.useGroupAddress = true;
             };
             /**
              * asettaa postitoimi paikan valitulla postinumerolla
              */
             $scope.setPostitoimipaikka = function(){
-                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequests.deliveryAddress.postCode);
+                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequest.deliveryAddress.postCode);
                 for(var ptn in $scope.postiKoodit){
-                    if($scope.postiKoodit[ptn].koodiArvo === $scope.attachmentRequests.deliveryAddress.postCode){
-                        $scope.attachmentRequests.deliveryAddress.postOffice = $scope.postiKoodit[ptn].metadata[0].nimi;
+                    if($scope.postiKoodit[ptn].koodiArvo === $scope.attachmentRequest.deliveryAddress.postCode){
+                        $scope.attachmentRequest.deliveryAddress.postOffice = $scope.postiKoodit[ptn].metadata[0].nimi;
                         return;
                     }
                 }
@@ -114,12 +124,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * asettaa kellon ajan päivä objetiin
              */
             $scope.setKellonaikaToDate = function(){
-                if($scope.liite.toimitusAika !== undefined && $scope.attachmentRequests.deliveryDue !== ''){
-                    var dmsec = Date.parse($scope.attachmentRequests.deliveryDue),
+                if($scope.liite.toimitusAika !== undefined && $scope.attachmentRequest.deliveryDue !== ''){
+                    var dmsec = Date.parse($scope.attachmentRequest.deliveryDue),
                         d = new Date(dmsec),
                         t =  $scope.liite.toimitusAika;
                     var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), t.substr(0,2), t.substr(3,2));
-                    $scope.attachmentRequests.deliveryDue = nd;
+                    $scope.attachmentRequest.deliveryDue = nd;
                 }
             };
             /**
@@ -127,8 +137,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.pvmBlur = function(){
                 $timeout(function(){
-                    if($scope.attachmentRequests.deliveryDue !== ''){
-                        $scope.liite.toimitusAika = toHHMMTime($scope.attachmentRequests.deliveryDue);
+                    if($scope.attachmentRequest.deliveryDue !== ''){
+                        $scope.liite.toimitusAika = toHHMMTime($scope.attachmentRequest.deliveryDue);
                     }
                 }, 250);
             };
