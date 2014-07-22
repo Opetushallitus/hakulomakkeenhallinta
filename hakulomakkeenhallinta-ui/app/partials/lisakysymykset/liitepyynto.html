@@ -19,11 +19,11 @@
                             <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }}
                                 <span data-ng-show="liitepyyntotabfi.liitenimi.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                             </label>
-                            <input name="liitenimi" type="text" class="form-control" data-ng-model="attachmentRequests.header.translations[language.id]" ng-required="requiredByFiLang(language.id)">
+                            <input name="liitenimi" type="text" class="form-control" data-ng-model="attachmentRequest.header.translations[language.id]" ng-required="requiredByFiLang(language.id)">
                         </div>
                         <div class="form-group">
                             <label for="liitteenkuvaus">{{ t('liitteen.kuvaus') || 'Kuvaus' }}</label>
-                            <textarea name="liitteenkuvaus" class="form-control" data-ng-model="attachmentRequests.description.translations[language.id]" rows="4"></textarea>
+                            <textarea name="liitteenkuvaus" class="form-control" data-ng-model="attachmentRequest.description.translations[language.id]" rows="4"></textarea>
                         </div>
                         <br>
                     </div>
@@ -49,7 +49,7 @@
                            name="liitteenpalautuspvm"
                            type="text"
                            datepicker-popup="dd.MM.yyyy"
-                           data-ng-model="attachmentRequests.deliveryDue"
+                           data-ng-model="attachmentRequest.deliveryDue"
                            datepicker-options="{'starting-day':1}"
                            ng-required="true"
                            current-text="{{t('datepicker.today')}}"
@@ -96,16 +96,16 @@
                     <label>{{ t('liitteen.osoite') || 'Osoite *' }}
                         <span data-ng-show="liitepyyntoDialog.osoite.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                     </label>
-                    <input type="text" name="osoite" class="form-control" data-ng-model="attachmentRequests.deliveryAddress.street"  data-ng-required="true">
+                    <input type="text" name="osoite" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.street"  data-ng-required="true">
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
                         <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }}
-                            <span data-ng-show="(attachmentRequests.deliveryAddress.postCode === undefined || liitepyyntoDialog.postinro.$error.required ) && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                            <span data-ng-show="(attachmentRequest.deliveryAddress.postCode === undefined || liitepyyntoDialog.postinro.$error.required ) && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                         </label>
                         <input type="text" name="postinro"  class="form-control"
-                               data-ng-model="attachmentRequests.deliveryAddress.postCode" data-ng-required="true"
+                               data-ng-model="attachmentRequest.deliveryAddress.postCode" data-ng-required="true"
                                data-typeahead-on-select="setPostitoimipaikka()" data-typeahead-editable="false"
                                data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:liitepyyntoDialog.postinro.$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
                     </div>
@@ -113,7 +113,7 @@
                         <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}
                             <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                         </label>
-                        <input type="text" name="postitoimipaikka" class="form-control" data-ng-model="attachmentRequests.deliveryAddress.postOffice"
+                        <input type="text" name="postitoimipaikka" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.postOffice"
                                data-ng-required="true" ng-disabled="true" >
                     </div>
                 </div>
@@ -149,6 +149,6 @@
 
         <div data-ng-if="logs">
             valid: {{liitepyyntoDialog.$valid}}<br>
-            <pre>{{attachmentRequests | without | json}}</pre>
+            <pre>{{attachmentRequest | without | json}}</pre>
         </div>
 </form>
