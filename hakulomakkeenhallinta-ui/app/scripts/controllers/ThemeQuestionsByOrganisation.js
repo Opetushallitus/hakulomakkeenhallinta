@@ -35,18 +35,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             function hakukohdeKohtaisetKysymykset (){
                 var deferred = $q.defer();
-
                 FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
                     function(data){
                         var themes = data;
-                        console.log('## teemat', themes);
                         ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
                             function(data){
                                 var themeQues = [];
                                 var hakukohdeIds = [];
                                 themeQues = data;
-                                console.log('## kysymykset', themeQues);
-                                console.log('## themes', themes);
                                 //parsitaan lisäkysymyksistä hakukohteet taulukkoon
                                 for(var tqIndx = 0; tqIndx < themeQues.length; tqIndx += 1){
                                     if(hakukohdeIds.indexOf(themeQues[tqIndx].learningOpportunityId) === -1){
@@ -58,7 +54,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 for( var themeIndx = 0; themeIndx < themes.length; themeIndx += 1){
                                     themes[themeIndx].hkkohde = [];
                                     for( var hkIndx = 0; hkIndx < hakukohdeIds.length; hkIndx += 1){
-                                        console.log('## teme, hk',themes[themeIndx].hkkohde, themeIndx, hkIndx );
                                         themes[themeIndx].hkkohde[hkIndx] = {};
                                         themes[themeIndx].hkkohde[hkIndx].aoid = hakukohdeIds[hkIndx];
                                         themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
@@ -71,7 +66,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         }
                                     }
                                 }
-                                console.log('*** tehmes: ', themes);
                                 deferred.resolve(themes);
                             });
                     });
