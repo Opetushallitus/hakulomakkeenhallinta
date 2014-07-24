@@ -59,7 +59,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
                                         for(var queIndx in themeQues){
                                             if(themeQues[queIndx].theme !== undefined ){
-                                                if(themes[themeIndx].id == themeQues[que].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
+                                                if(themes[themeIndx].id == themeQues[queIndx].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
                                                     themes[themeIndx].hkkohde[hkIndx].additionalQuestions.push(themeQues[queIndx]);
                                                 }
                                             }
