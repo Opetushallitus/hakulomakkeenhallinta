@@ -17,6 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         );
         /**
          * Palauttaa hakulomakkeeseen tehdyt teema kysymykset hakulomakkeen id:llä
+         * ja käyttäjän organisaation perusteella
          * @param applicationSystemId
          * @returns {promise}
          */
