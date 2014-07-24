@@ -7,7 +7,7 @@
         <form role="form" class="form-horizontal">
             <div class="form-group">
                 <label for="theme">Teema</label>
-                <select class="form-control" id="theme" ng-model="theme"
+                <select class="form-control" id="theme" ng-model="theme" data-ng-change="teemaValittu()"
                         ng-options="a.name.translations.fi for a in themes">
                     <option value="">-- Valitse teema --</option>
                 </select>
