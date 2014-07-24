@@ -50,7 +50,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 //parsitaan lisäkysymyksistä hakukohteet taulukkoon
                                 for(var tqIndx = 0; tqIndx < themeQues.length; tqIndx += 1){
                                     if(hakukohdeIds.indexOf(themeQues[tqIndx].learningOpportunityId) === -1){
-                                        console.log(themeQues[tqIndx].learningOpportunityId), ' # ', tqIndx);
+                                        console.log(themeQues[tqIndx].learningOpportunityId, ' # ', tqIndx);
                                         hakukohdeIds.push(themeQues[tqIndx].learningOpportunityId);
                                     }
                                 }
