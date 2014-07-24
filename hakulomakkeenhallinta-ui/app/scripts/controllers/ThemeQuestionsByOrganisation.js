@@ -39,25 +39,30 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
                     function(data){
                         var themes = data;
+                        console.log('## teemat', themes);
                         ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
                             function(data){
-                                var themeQues = [],
-                                    hakukohdeIds = [];
+                                var themeQues = [];
+                                var hakukohdeIds = [];
                                 themeQues = data;
+                                console.log('## kysymykset', themeQues);
+                                console.log('## themes', themes);
                                 //parsitaan lisäkysymyksistä hakukohteet taulukkoon
-                                for(var tqIndx = 0; tqIndx < themeQues.length; tqIndx +=1){
+                                for(var tqIndx = 0; tqIndx < themeQues.length; tqIndx += 1){
                                     if(hakukohdeIds.indexOf(themeQues[tqIndx].learningOpportunityId) === -1){
+                                        console.log(themeQues[tqIndx].learningOpportunityId), ' # ', tqIndx);
                                         hakukohdeIds.push(themeQues[tqIndx].learningOpportunityId);
                                     }
                                 }
                                 //parsitaan lisäkysmys oikean teeman ja hakukohteen alle
-                                for( var themeIndx in themes){
+                                for( var themeIndx = 0; themeIndx < themes.length; themeIndx += 1){
                                     themes[themeIndx].hkkohde = [];
-                                    for( var hkIndx in hakukohdeIds){
+                                    for( var hkIndx = 0; hkIndx < hakukohdeIds.length; hkIndx += 1){
+                                        console.log('## teme, hk',themes[themeIndx].hkkohde, themeIndx, hkIndx );
                                         themes[themeIndx].hkkohde[hkIndx] = {};
                                         themes[themeIndx].hkkohde[hkIndx].aoid = hakukohdeIds[hkIndx];
                                         themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
-                                        for(var queIndx in themeQues){
+                                        for(var queIndx = 0; queIndx < themeQues.length; queIndx += 1){
                                             if(themeQues[queIndx].theme !== undefined ){
                                                 if(themes[themeIndx].id == themeQues[queIndx].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
                                                     themes[themeIndx].hkkohde[hkIndx].additionalQuestions.push(themeQues[queIndx]);
@@ -66,6 +71,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         }
                                     }
                                 }
+                                console.log('*** tehmes: ', themes);
                                 deferred.resolve(themes);
                             });
                     });
