@@ -11,7 +11,6 @@
 <div class="from-group">
     <accordion data-ng-repeat="theme in themes">
         <accordion-group is-open="accordianState(theme)">
-        <!--<accordion-group is-open="true">-->
             <accordion-heading>
                 <button type="button" class=" btn btn-primary btn-xs" data-ng-click="addQuestion(theme)" >{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus-sign"></i> </button>
                 <i class="glyphicon" ng-class="{'glyphicon-chevron-down': accordianState(theme), 'glyphicon-chevron-right': !accordianState(theme) }"></i>
@@ -24,16 +23,24 @@
                     <hakukohde-lisakysmykset aoid="{{hakukohde.aoid}}"></hakukohde-lisakysmykset>
                     <table class="table table-striped table-hover" data-ng-show="naytaHakukohdeQues">
                         <tr>
+                            <th><i class="glyphicon glyphicon-sort"></i></th>
+                            <th>#</th>
                             <th>{{ t('th.otsikko') || 'Otsikko' }}</th>
                             <th>{{ t('th.tyyppi') || 'Tyyppi' }}</th>
                             <th>{{ t('th.liitepyynnot') || 'Liitepyynnöt' }}</th>
                             <th>{{ t('th.kieliversiot') || 'Kieliversiot' }}</th>
                         </tr>
 
-                        <tr data-ng-repeat="question in hakukohde.additionalQuestions" >
-
+                        <tr data-ng-repeat="question in hakukohde.additionalQuestions | orderBy:'ordinal'" >
+                            <td style="width: 70px">
+                                <button class="btn btn-xs" data-ng-disabled="sortBtns || $first" data-ng-click="up($index)"><i class="glyphicon glyphicon-chevron-up"></i> </button>
+                                <button class="btn btn-xs" data-ng-disabled="sortBtns || $last" data-ng-click="down($index)"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                            </td>
                             <td>
-                                <a data-ng-click="muokkaaKysymysta(question)">{{ question | i18n:'messageText'}}</a>
+                            {{question.ordinal}}
+                            </td>
+                            <td>
+                                <a data-ng-click="muokkaaKysymysta(question)">{{ question | i18n:'messageText':userLang}}</a>
                             </td>
                             <td>
                                 {{ question.type | i18next }} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
