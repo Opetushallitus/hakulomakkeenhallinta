@@ -13,40 +13,41 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * valitun organisaation id:llä
              */
             Organisaatio.fetchOrganisation($routeParams.oid).then(
-                function(data){
+                function (data) {
                     $scope.organisation = data;
                     $scope.organisationNimi = $filter('organisaatioNimi')($scope.organisation, $scope.userLang);
-            });
+                }
+            );
 
             $scope.applicationSystem = {};
             /**
              * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
              */
             FormEditor.fetchApplicationSystemForm($routeParams.id).then(
-                function(data){
+                function (data) {
                     $scope.applicationSystem = data;
                     $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
-            });
+                }
+            );
 
             $scope.themes = [];
             /**
              * heataan hakulomakkeen teemat halomamekkeen id:llä ja siihen liityvä lisäkysymykset
              * ja asetetaan ne käyttöliittymään oikean teeman ja hakukohteen alle
              */
-            function hakukohdeKohtaisetKysymykset (){
+            function hakukohdeKohtaisetKysymykset() {
                 var deferred = $q.defer();
                 FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
-                    function(data){
+                    function (data) {
                         var themes = data;
                         ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
-                            function(data){
-                                var themeQues = [];
-                                var hakukohdeIds = [];
+                            function (data) {
+                                var themeQues = [],
+                                    hakukohdeIds = [];
                                 themeQues = data;
                                 //parsitaan lisäkysymyksistä hakukohteet taulukkoon
-                                for(var tqIndx = 0; tqIndx < themeQues.length; tqIndx += 1){
+                                for( var tqIndx = 0; tqIndx < themeQues.length; tqIndx += 1){
                                     if(hakukohdeIds.indexOf(themeQues[tqIndx].learningOpportunityId) === -1){
-                                        console.log(themeQues[tqIndx].learningOpportunityId, ' # ', tqIndx);
                                         hakukohdeIds.push(themeQues[tqIndx].learningOpportunityId);
                                     }
                                 }
@@ -153,20 +154,4 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
                 return false;
             };
-
-            $scope.sortQuestions = function() {
-                $modal.open({
-                    templateUrl: 'partials/lisakysymykset/sort-questions.html',
-                    controller: 'SortQuestionsCtrl',
-                    resolve: {
-                        themes: function(){
-                            return $scope.themes;
-                        }
-                    }
-
-                });
-            };
-
-
-
         }]);
