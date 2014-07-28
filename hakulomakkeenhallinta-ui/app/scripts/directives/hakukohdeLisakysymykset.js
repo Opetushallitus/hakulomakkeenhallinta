@@ -9,10 +9,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo.hakukohteenNimi }} : {{ hakukohdeInfo.tarjoajaNimet.fi }}' +
                 '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }"></i></a> </h4>' +
                 '<div class="form-group">' +
-                '<button type="button" class="btn" data-ng-click="cancelSortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && !sortBtns">Peruuta</button>' +
-                '<button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions()" data-ng-show="naytaHakukohdeQues && !sortBtns">Tallenne järjestys</button>' +
-                '<button type="button" class="btn" data-ng-click="sortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && sortBtns">Järjestä kysymykset</button>' +
-                '<button type="button" class="btn" data-ng-click="addRule()" data-ng-disabled="!addRule" data-ng-show="naytaHakukohdeQues && sortBtns">  Lisää sääntö</button>' +
+                '<button type="button" class="btn" data-ng-click="cancelSortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
+                ' <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions()" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenne järjestys\' }}</button>' +
+                ' <button type="button" class="btn" data-ng-click="sortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
+                ' <button type="button" class="btn disabled" data-ng-click="addRule()" data-ng-disabled="!addRule" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'lisaa.saanto\')|| \'Lisää sääntö\' }}</button>' +
                 '</div></div>',
             link: function (scope, element, attrs) {
                 TarjontaAPI.fetchHakukohdeInfo(attrs.aoid).then(function (data) {
