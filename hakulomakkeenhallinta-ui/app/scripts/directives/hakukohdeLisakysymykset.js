@@ -56,8 +56,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.up = function (qIndx) {
                     var  tmp = $scope.questions[qIndx];
                     $scope.questions[qIndx] = $scope.questions[qIndx - 1];
-                    $scope.questions[qIndx].ordinal = qIndx;
-                    tmp.ordinal = qIndx - 1;
+                    $scope.questions[qIndx].ordinal = qIndx + 1;
+                    tmp.ordinal = (qIndx - 1) + 1;
                     $scope.questions[qIndx - 1] = tmp;
                 };
                 /**
@@ -67,21 +67,20 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.down = function (qIndx) {
                     var tmp = $scope.questions[qIndx];
                     $scope.questions[qIndx] = $scope.questions[qIndx + 1];
-                    $scope.questions[qIndx].ordinal = qIndx;
-                    tmp.ordinal = qIndx + 1;
+                    $scope.questions[qIndx].ordinal = qIndx + 1;
+                    tmp.ordinal = (qIndx + 1) + 1;
                     $scope.questions[qIndx + 1] = tmp;
                 };
                 /**
                  * tallentaan kysmysten järjetyksen lisäkymyksiin
                  */
                 $scope.saveSortQuestions = function (){
-                    console.log('Tallenetaan järjestys', ordinals);
                     toggleShowSortBtns();
                     console.log($scope.questions);
                     for (var tqueId in ordinals){
                         for (var newOrd = 0, saveQuesLength = $scope.questions.length; newOrd < saveQuesLength; newOrd +=1){
                             if (tqueId === $scope.questions[newOrd]._id){
-                                ordinals[tqueId].newOrdinal = newOrd;
+                                ordinals[tqueId].newOrdinal = newOrd + 1;
                                 break;
                             }
                         }
