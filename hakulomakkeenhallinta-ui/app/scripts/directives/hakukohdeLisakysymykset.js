@@ -30,9 +30,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.sortBtns = true;
                 $scope.questions = [];
                 /**
-                 * vaihtaa näytä nappien muuttujan arvoa
+                 * vaihtaa näytä/piilota napit muuttujan arvoa
                  */
-                function toggleShowSortBtns () {
+                function toggleShowSortBtns() {
                     $scope.sortBtns = !$scope.sortBtns;
                 };
                 /**
@@ -44,7 +44,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.sortQuestions = function (additionalQuestions) {
                     $scope.questions = additionalQuestions;
                     toggleShowSortBtns();
-                    for( var ord = 0; ord<additionalQuestions.length ; ord += 1){
+                    for (var ord = 0, adnlQuesLength = additionalQuestions.length; ord < adnlQuesLength; ord += 1){
                         ordinals[additionalQuestions[ord]._id] = {};
                         ordinals[additionalQuestions[ord]._id].oldOrdinal = additionalQuestions[ord].ordinal;
                     }
@@ -77,16 +77,26 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.saveSortQuestions = function (){
                     console.log('Tallenetaan järjestys', ordinals);
                     toggleShowSortBtns();
+                    console.log($scope.questions);
+                    for (var tqueId in ordinals){
+                        for (var newOrd = 0, saveQuesLength = $scope.questions.length; newOrd < saveQuesLength; newOrd +=1){
+                            if (tqueId === $scope.questions[newOrd]._id){
+                                ordinals[tqueId].newOrdinal = newOrd;
+                                break;
+                            }
+                        }
+                    }
+                    console.log('tallenttava tulos:', ordinals);
                 };
                 /**
                  * peruuttaa lisäkysymysten järjestelyn lähtötilanteeseen
                  */
                 $scope.cancelSortQuestions = function () {
                     toggleShowSortBtns();
-                    for(var tqId in ordinals){
+                    for (var tqId in ordinals){
                         console.log(ordinals[tqId], tqId);
-                        for(var ord = 0; ord < $scope.questions.length ; ord += 1){
-                            if($scope.questions[ord]._id === tqId){
+                        for (var ord = 0, quesLength = $scope.questions.length; ord < quesLength; ord += 1){
+                            if ($scope.questions[ord]._id === tqId){
                                 $scope.questions[ord].ordinal = ordinals[tqId].oldOrdinal;
                             }
                         }

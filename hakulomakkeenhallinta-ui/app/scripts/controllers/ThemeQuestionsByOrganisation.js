@@ -46,21 +46,21 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                     hakukohdeIds = [];
                                 themeQues = data;
                                 //parsitaan lisäkysymyksistä hakukohteet taulukkoon
-                                for( var tqIndx = 0; tqIndx < themeQues.length; tqIndx += 1){
+                                for (var tqIndx = 0, themQuesLength = themeQues.length; tqIndx < themQuesLength; tqIndx += 1){
                                     if(hakukohdeIds.indexOf(themeQues[tqIndx].learningOpportunityId) === -1){
                                         hakukohdeIds.push(themeQues[tqIndx].learningOpportunityId);
                                     }
                                 }
                                 //parsitaan lisäkysmys oikean teeman ja hakukohteen alle
-                                for( var themeIndx = 0; themeIndx < themes.length; themeIndx += 1){
+                                for (var themeIndx = 0, themesLength = themes.length; themeIndx < themesLength; themeIndx += 1){
                                     themes[themeIndx].hkkohde = [];
-                                    for( var hkIndx = 0; hkIndx < hakukohdeIds.length; hkIndx += 1){
+                                    for (var hkIndx = 0, hakukohdeIdsLength = hakukohdeIds.length; hkIndx < hakukohdeIdsLength; hkIndx += 1){
                                         themes[themeIndx].hkkohde[hkIndx] = {};
                                         themes[themeIndx].hkkohde[hkIndx].aoid = hakukohdeIds[hkIndx];
                                         themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
-                                        for(var queIndx = 0; queIndx < themeQues.length; queIndx += 1){
-                                            if(themeQues[queIndx].theme !== undefined ){
-                                                if(themes[themeIndx].id == themeQues[queIndx].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
+                                        for (var queIndx = 0, themeQsLength = themeQues.length; queIndx < themeQsLength; queIndx += 1){
+                                            if (themeQues[queIndx].theme !== undefined ){
+                                                if (themes[themeIndx].id === themeQues[queIndx].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
                                                     themes[themeIndx].hkkohde[hkIndx].additionalQuestions.push(themeQues[queIndx]);
                                                 }
                                             }
@@ -147,8 +147,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.accordianState = function(theme){
-                for(var hkIndx =0; hkIndx < theme.hkkohde.length ; hkIndx+=1){
-                    if(theme.hkkohde[hkIndx].additionalQuestions !== undefined && theme.hkkohde[hkIndx].additionalQuestions.length > 0){
+                for (var hkIndx = 0, hkkohdeLength = theme.hkkohde.length; hkIndx < hkkohdeLength; hkIndx+=1){
+                    if (theme.hkkohde[hkIndx].additionalQuestions !== undefined && theme.hkkohde[hkIndx].additionalQuestions.length > 0){
                         return true;
                     }
                 }
