@@ -13,7 +13,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $modalInstance.close();
                         $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
                     } else {
-                        $modalInstance.close();
+                        $modalInstance.close('close');
                     }
                 });
         };

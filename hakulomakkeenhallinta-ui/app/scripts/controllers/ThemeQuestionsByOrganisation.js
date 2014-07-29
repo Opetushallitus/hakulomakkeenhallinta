@@ -164,6 +164,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     }
                 }).result.then(function(){
+                        console.log('poistettiin kysssäri ja ladataan lista uudelleen');
                         hakukohdeKohtaisetKysymykset();
                     });
             };
