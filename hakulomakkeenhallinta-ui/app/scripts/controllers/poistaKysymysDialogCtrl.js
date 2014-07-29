@@ -14,7 +14,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
                     } else {
                         $modalInstance.close();
-                        $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
                     }
                 });
         };
