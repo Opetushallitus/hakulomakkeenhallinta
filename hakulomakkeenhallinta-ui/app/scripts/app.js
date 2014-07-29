@@ -31,19 +31,10 @@ var app = angular.module('hakulomakkeenhallinta', [
             }).when('/applicationSystemForm/:id/:eid', {
                 templateUrl: 'partials/elements/edit/Element.html',
                 controller: 'ApplicationSystemFormCtrl'
-            }).when('/additionalQuestion/:id/:aoid', {
-                templateUrl: 'partials/additionalQuestions.html',
-                controller: 'AdditionalQuestionsCtrl'
-            }).when('/additionalQuestion/:id/:aoid/:eid', {
-                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                controller: 'CreateAdditionalQuestionCtrl'
             }).when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
             }).when('/applicationSystems', {
                 templateUrl: 'partials/applicationForms.html'
-            }).when('/applicationSystems/:applicationFormId/:applicationOptionId', {
-                templateUrl: 'partials/additionalQuestions.html',
-                controller: 'AdditionalQuestionsCtrl'
             }).when('/themeQuestionsByOrganisation/:id/:oid', {
                 templateUrl: 'partials/themeQuestionsByOrganisation.html',
                 controller: 'ThemeQuestionsByOrganisationCtrl'
