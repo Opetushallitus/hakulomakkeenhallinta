@@ -163,7 +163,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             return 'list';
                         }
                     }
-                });
+                }).result.then(function(){
+                        hakukohdeKohtaisetKysymykset();
+                    });
             };
 
             $scope.accordianState = function(theme){
