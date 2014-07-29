@@ -5,7 +5,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.question = question;
 
         $scope.poista = function () {
-            console.log('poistetaan ', $scope.question._id, where);
             ThemeQuestions.deleteQuestion($scope.question._id).then(
                 function(data) {
                     AlertMsg($scope, 'success', 'kysymyksen.poisto.ok');

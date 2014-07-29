@@ -150,7 +150,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * hakukohdekohtaisen lisäkymys listasta
              * @param question poistettavan kysymyksen tiedot objekti
              */
-            $scope.poistaKysymys = function(question) {
+            $scope.poistaKysymys = function(question, hkKysymysLista) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/poista-kysymys-dialog.html',
                     controller: 'poistaKysymysDialogCtrl',
@@ -163,9 +163,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             return 'list';
                         }
                     }
-                }).result.then(function(){
-                        console.log('poistettiin kysssäri ja ladataan lista uudelleen');
-                        hakukohdeKohtaisetKysymykset();
+                }).result.then(function () {
+                        for (var i = 0, quesLength = hkKysymysLista.length; i < quesLength; i +=1) {
+                            if (hkKysymysLista[i]._id === question._id) {
+                                hkKysymysLista.splice(i, 1);
+                                break;
+                            }
+                        }
                     });
             };
 
