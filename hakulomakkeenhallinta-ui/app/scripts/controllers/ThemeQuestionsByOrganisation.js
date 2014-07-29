@@ -158,6 +158,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     resolve: {
                         question: function () {
                             return question;
+                        },
+                        where: function () {
+                            return 'list';
                         }
                     }
                 });
