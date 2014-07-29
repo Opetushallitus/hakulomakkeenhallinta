@@ -45,23 +45,23 @@
                 <div>
                     {{ t('pvm') || 'pvm.'}}
                     <input
-                           datepicker-fix
-                           name="liitteenpalautuspvm"
-                           type="text"
-                           datepicker-popup="dd.MM.yyyy"
-                           data-ng-model="attachmentRequest.deliveryDue"
-                           datepicker-options="{'starting-day':1}"
-                           ng-required="true"
-                           current-text="{{t('datepicker.today')}}"
-                           toggle-weeks-text="{{t('datepicker.weeks')}}"
-                           clear-text="{{t('datepicker.clear')}}"
-                           close-text="{{t('datepicker.close')}}"
-                           min="tanaan"
-                           max="vuosi"
-                           style="width:110px; height: 34px; font-size: 14px;"
-                           >
+                            datepicker-fix
+                            name="liitteenpalautuspvm"
+                            type="text"
+                            datepicker-popup="dd.MM.yyyy"
+                            data-ng-model="attachmentRequest.deliveryDue"
+                            datepicker-options="{'starting-day':1}"
+                            ng-required="true"
+                            current-text="{{t('datepicker.today')}}"
+                            toggle-weeks-text="{{t('datepicker.weeks')}}"
+                            clear-text="{{t('datepicker.clear')}}"
+                            close-text="{{t('datepicker.close')}}"
+                            min="tanaan"
+                            max="vuosi"
+                            style="width:110px; height: 34px; font-size: 14px;"
+                            >
                     <i class="glyphicon glyphicon-calendar glyphicon-inside-input-right"></i>
-                        &nbsp;&nbsp;
+                    &nbsp;&nbsp;
                     {{ t('klo') || 'klo' }} <input
                         name="liitteenpalautusklo"
                         type="text"
@@ -143,8 +143,10 @@
 
 
         <div class="modal-footer">
-            <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
-            <button class="btn btn-primary pull-right" ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="tallenna">Tallenne</button>
+            <div class="form-group pull-right">
+                <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+                <button class="btn btn-primary pull-right" ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="tallenna">Tallenne</button>
+            </div>
         </div>
 
         <!--<div data-ng-if="logs">

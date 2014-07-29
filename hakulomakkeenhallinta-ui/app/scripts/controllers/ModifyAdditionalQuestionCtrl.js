@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ModifyAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter ) {
+    .controller('ModifyAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '$modal',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, $modal ) {
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -85,12 +85,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.poistaKysymys = function(){
                 $rootScope.LOGS('ModifyAdditionalQuestionCtrl','poistaKysymys()');
                 QuestionData.setEditFlag(false);
-                ThemeQuestions.deleteQuestion($scope.question._id).then(
-                    function(data){
-                        AlertMsg($scope, 'success','kysymyksen.poisto.ok');
-                        $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
-                    });
-
+                $modal.open({
+                    templateUrl: 'partials/lisakysymykset/poista-kysymys-dialog.html',
+                    controller: 'poistaKysymysDialogCtrl',
+                    scope: $scope,
+                    resolve: {
+                        question: function () {
+                            return $scope.question;
+                        },
+                        where: function () {
+                            return 'modify';
+                        }
+                    }
+                });
             };
 
             $scope.esikatselu = function(){
