@@ -1,4 +1,4 @@
-<form role="form" class="form-horizontal" name="organisaatioValinta">
+<form role="form" name="organisaatioValinta">
     <div class="modal-header">
         <h4 tl="valitse.hakukohde.hakukohdejoukko">Valitse hakukohde tai hakukohdejoukko</h4>
     </div>
@@ -39,6 +39,8 @@
         <alertmsg></alertmsg>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+        <div class="form-group pull-right">
+            <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+        </div>
     </div>
 </form>

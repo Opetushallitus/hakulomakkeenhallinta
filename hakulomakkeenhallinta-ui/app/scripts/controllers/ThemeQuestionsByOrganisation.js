@@ -145,6 +145,23 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.back = function() {
                 $location.path('/');
             };
+            /**
+             * avaa varmistus dialogin kysymyksen poistolle
+             * hakukohdekohtaisen lisäkymys listasta
+             * @param question poistettavan kysymyksen tiedot objekti
+             */
+            $scope.poistaKysymys = function(question) {
+                $modal.open({
+                    templateUrl: 'partials/lisakysymykset/poista-kysymys-dialog.html',
+                    controller: 'poistaKysymysDialogCtrl',
+                    scope: $scope,
+                    resolve: {
+                        question: function () {
+                            return question;
+                        }
+                    }
+                });
+            };
 
             $scope.accordianState = function(theme){
                 for (var hkIndx = 0, hkkohdeLength = theme.hkkohde.length; hkIndx < hkkohdeLength; hkIndx+=1){
