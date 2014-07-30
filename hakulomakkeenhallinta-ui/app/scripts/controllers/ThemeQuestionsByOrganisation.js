@@ -130,14 +130,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param question valittu kysymys
              */
             $scope.muokkaaKysymysta = function(question){
-                QuestionData.setEditFlag(true);
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'muokkaaKysmysta()', question._id);
-                ThemeQuestions.getThemeQuestionById(question._id).then(
-                    function(data){
-                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','muokkaaKysymysta() data:', data);
-                        QuestionData.setQuestion(data);
-                        $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
-                    });
+                if ($scope.sortBtns) {
+                    QuestionData.setEditFlag(true);
+                    $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'muokkaaKysmysta()', question._id);
+                    ThemeQuestions.getThemeQuestionById(question._id).then(
+                        function(data){
+                            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','muokkaaKysymysta() data:', data);
+                            QuestionData.setQuestion(data);
+                            $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
+                        });
+                }
             };
             /**
              * takaisin edelliselle sivulle
