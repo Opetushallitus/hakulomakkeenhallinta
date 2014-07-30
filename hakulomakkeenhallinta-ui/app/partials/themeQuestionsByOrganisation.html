@@ -38,16 +38,14 @@
                                 <button class="btn btn-xs" data-ng-disabled="sortBtns || $last" data-ng-click="down($index)"><i class="glyphicon glyphicon-chevron-down"></i></button>
                             </td>
                             <td style="width: 180px; text-align: center;">
-                                <button class="btn btn-xs" data-ng-click="muokkaaKysymysta(question)" data-ng-disabled="!sortBtns">{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-xs" data-ng-click="muokkaaKysymysta(question, sortBtns)" data-ng-disabled="!sortBtns">{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></button>
                                 <button class="btn btn-xs" data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns">{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></button>
                             </td>
                             <td style="width: 12px;">
                             {{question.ordinal}}
                             </td>
                             <td>
-                                <a data-ng-click="muokkaaKysymysta(question)" >{{ question | i18n:'messageText':userLang}}</a>
-
-
+                                <a data-ng-click="muokkaaKysymysta(question, sortBtns)" >{{ question | i18n:'messageText':userLang}}</a>
                             </td>
                             <td>
                                 {{ question.type | i18next }} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
