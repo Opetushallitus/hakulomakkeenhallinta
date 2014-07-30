@@ -167,10 +167,27 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     }
                 }).result.then(function () {
+                        var splIndx = 0,
+                            ordinals = {};
                         for (var i = 0, quesLength = hkKysymysLista.length; i < quesLength; i +=1) {
                             if (hkKysymysLista[i]._id === question._id) {
                                 hkKysymysLista.splice(i, 1);
+                                splIndx = i;
                                 break;
+                            }
+                        }
+                        //TODO: kysymysten järjestys sen poiston yhteydessä UI/back end?
+                        for (var j = 0, quesLnth = hkKysymysLista.length; j < quesLnth; j += 1) {
+                            if (hkKysymysLista[j].ordinal) {
+                                var oldOrd = hkKysymysLista[j].ordinal;
+                                if (j >= splIndx){
+                                    hkKysymysLista[j].ordinal = hkKysymysLista[j].ordinal - 1;
+                                }
+                                ordinals[hkKysymysLista[j]._id] = {};
+                                ordinals[hkKysymysLista[j]._id].newOrdinal = hkKysymysLista[j].ordinal;
+                                ordinals[hkKysymysLista[j]._id].oldOrdinal = oldOrd;
+                            } else {
+                                hkKysymysLista[j].ordinal = j + 1;
                             }
                         }
                     });
