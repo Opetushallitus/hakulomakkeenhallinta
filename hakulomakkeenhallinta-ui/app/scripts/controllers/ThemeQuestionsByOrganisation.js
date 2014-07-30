@@ -128,9 +128,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * valitun kysymyksen muokkaus näkymään
              * @param question valittu kysymys
+             * @param sortBtns kysymysten järjestämis lippu
              */
-            $scope.muokkaaKysymysta = function(question){
-                if ($scope.sortBtns) {
+            $scope.muokkaaKysymysta = function(question, sortBtns){
+                if (sortBtns) {
                     QuestionData.setEditFlag(true);
                     $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'muokkaaKysmysta()', question._id);
                     ThemeQuestions.getThemeQuestionById(question._id).then(
