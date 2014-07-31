@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
+<<<<<<< HEAD
     .directive('hakukohdeLisakysmykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
         function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location) {
             return {
@@ -32,6 +33,25 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             }
                         );
                     }
+=======
+    .directive('hakukohdeLisakysmykset', [ 'TarjontaAPI', function (TarjontaAPI) {
+        return {
+            restrict: 'E',
+            replace: true,
+            template: '<div>' +
+                '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo | hakukohdeNimi:userLang }} : {{ hakukohdeInfo.tarjoajaNimet[userLang]  }}' +
+                '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }"></i></a> </h4>' +
+                '<div class="form-group">' +
+                '<button type="button" class="btn" data-ng-click="cancelSortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
+                ' <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions()" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenne järjestys\' }}</button>' +
+                ' <button type="button" class="btn" data-ng-click="sortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
+                ' <button type="button" class="btn" data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" data-ng-disabled="" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'lisaa.saanto\')|| \'Lisää sääntö\' }}</button>' +
+                '</div></div>',
+            link: function (scope, element, attrs) {
+                TarjontaAPI.fetchHakukohdeInfo(attrs.aoid).then(function (data) {
+                    scope.hakukohdeInfo = data;
+                });
+>>>>>>> HH-104 lisää sääntö UI:n alustava viritys
 
                     scope.naytaHakukohdeQues = false;
                     scope.toggleNaytaHakukohdeKysymykset = function () {
