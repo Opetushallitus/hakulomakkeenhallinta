@@ -216,7 +216,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             return hkKysymysLista;
                         }
                     }
-                });
+                }).result.then(function (data) {
+                        console.log('##', data);
+                        hkKysymysLista = data;
+                    });
 
             }
         }]);

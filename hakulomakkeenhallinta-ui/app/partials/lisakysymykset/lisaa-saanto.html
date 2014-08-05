@@ -7,63 +7,64 @@
         <div>
             <h4>VALITSE VASTAUS TAI VASTAUKSET, JOIHIN SÄÄNTÖ LIITETÄÄN:</h4>
 
-            <select class="form-control" name="valittuKysymys" data-ng-model="valittukysymys" ng-options="kysymys | i18n:'messageText':userLang for kysymys in hkKysymysLista"  data-ng-change="valittuKysymys()">
-                <option value="" > Valitse kysymys</option>
+            <select class="form-control" name="valittuKysymys" data-ng-model="valittukysymys"
+                    ng-options="kysymys | i18n:'messageText':userLang for kysymys in hkKysymysLista"
+                    data-ng-change="valittuKysymys()">
+                <option value=""> Valitse kysymys</option>
             </select>
             <h4>HAKIJAN VASTAUS:</h4>
+
             <div data-ng-repeat="vast in vastauksia">
                 <div class="row">
                     <!--hakijan vastaus-->
                     <div class="col-md-2">
-                        <select class="form-control" name="valittuSaanto" data-ng-model="valittusaanto"  data-ng-disabled="!valittukysymys" >
-                            <option value="on" > on </option>
-                            <option value="ei" > ei ole</option>
+                        <select class="form-control" name="valittuSaanto" data-ng-model="saanto"
+                                data-ng-disabled="!valittukysymys"
+                                data-ng-change="valittuSaanto(saanto)" >
+                            <option value="on"> on</option>
+                            <option value="ei"> ei ole</option>
                         </select>
                     </div>
 
-                    <div class="col-md-9">
-                        <select class="form-control" name="valittuVastaus" data-ng-model="valittuvastaus"  ng-options=" option | i18n:'optionText':userLang for option in valittukysymys.options" data-ng-disabled="!valittusaanto" >
-                            <option value="" > Valitse vastaus</option>
+                    <div class="col-md-10">
+                        <select class="form-control" name="valittuVastaus" data-ng-model="vastaus"
+                                ng-options=" option | i18n:'optionText':userLang for option in valittukysymys.options"
+                                data-ng-disabled="!saanto"
+                                data-ng-change="valittuVastaus(vastaus)">
+                            <option value=""> Valitse vastaus</option>
                         </select>
                     </div>
-                    <div class="col-md-1">
-                        <a data-ng-click="lisaaVastaus()" data-ng-show="$last && !(($index + 1) === valittukysymys.options.length)"><i class="glyphicon glyphicon-plus"></i></a>
-                        <a data-ng-click="vahennaVastaus()" data-ng-show="vastauksia.length > 1 && $last"><i class="glyphicon glyphicon-remove"></i></a>
-                    </div>
+<!--                    <div class="col-md-1">
+                        <a data-ng-click="lisaaVastaus()"
+                           data-ng-show="$last && !(($index + 1) === valittukysymys.options.length) && valittuvastaus">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                        <a data-ng-click="vahennaVastaus()" data-ng-show="vastauksia.length > 1 && $last">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </div>-->
                 </div>
-                {{$last}}
-                {{$index}}
-                {{valittukysymys.options.length}}
-                {{(($index + 1) === valittukysymys.options.length)}}
                 <br>
             </div>
-
-            <!--<br>-->
-            <!--<table class="table table-striped table-hover">-->
-            <!--<tr data-ng-repeat="kys in valittukysymys.options">-->
-            <!--<td>{{kys | i18n:'optionText':userLang}}</td>-->
-            <!--&lt;!&ndash;<td>{{kys.messageText.translations.fi}}</td>&ndash;&gt;-->
-            <!--</tr>-->
-            <!--</table>-->
-            <!--<br>-->
             <h4>KUN EHTO TOTEUTUU HAKIJALLE NÄYTETÄÄN:</h4>
 
             <div data-ng-repeat="jaa in jatkokysymysLista">
                 <div class="row">
                     <div class="col-md-11">
-                        <select class="form-control" name="lisakysymykset"  ng-model="lisakysymykset" ng-options="jatkokysymys | i18n:'messageText':userLang for jatkokysymys in jatkoKysymykset" >
-                            <option value="" >Valitse kysymys</option>
+                        <select class="form-control" name="lisaKysymykset" ng-model="valittujatkokysymys"
+                                ng-options="jatkokysymys | i18n:'messageText':userLang for jatkokysymys in jatkoKysymykset"
+                                data-ng-change="valittuJatkoKysymys(valittujatkokysymys)" >
+                            <option value="">Valitse kysymys</option>
                         </select>
                     </div>
                     <div class="col-md-1">
-                        <a data-ng-click="lisaaJatkoKysymys()" data-ng-show="$last && !(($index + 1) === jatkoKysymykset.length) "><i class="glyphicon glyphicon-plus"></i></a>
-                        <!--<a data-ng-click="lisaaJatkoKysymys()" data-ng-show="$last"><i class="glyphicon glyphicon-plus"></i></a>-->
-                        <a data-ng-click="vahennaJatkoKysymys()" data-ng-show="$last && jatkokysymysLista.length > 1" ><i class="glyphicon glyphicon-remove"></i></a>
+                        <a data-ng-click="lisaaJatkoKysymys()"
+                           data-ng-show="$last && !(($index + 1) === jatkoKysymykset.length) "><i
+                                class="glyphicon glyphicon-plus"></i></a>
+                        <a data-ng-click="vahennaJatkoKysymys()" data-ng-show="$last && jatkokysymysLista.length > 1"><i
+                                class="glyphicon glyphicon-remove"></i></a>
                     </div>
                 </div>
-                {{$index}}
-                {{jatkoKysymykset.length}}
-                {{!(($index +1) === jatkoKysymykset.length)}}
                 <br>
             </div>
         </div>
@@ -74,6 +75,13 @@
             <button class="btn " ng-click="cancel()" tl="peruuta"></button>
             <button class="btn btn-primary" ng-click="tallennaSaanto()" tl="tallenna"></button>
         </div>
+
+    </div>
+
+    <div>
+        <pre>{{jatkokysymysLista | without | json}}</pre>
+        <br>
+        <pre>{{hkKysymysLista | without | json}}</pre>
 
     </div>
 </form>

@@ -7,3 +7,27 @@
     color: red;
 }
 
+.hh-hierarkia-list {
+    list-style: none;
+    width: 100%;
+    font-size: 14px;
+    padding: 5px 5px;
+    line-height: 34px;
+}
+
+.hh-hierarkia-list ul li.icon{
+    text-indent: -1.4em;
+}
+.icon div{
+    display: inline-block;
+}
+.hh-hierarkia-list ul li{
+    padding-left: 20px;
+}
+
+.hh-hierarkia-list li:nth-child(odd){
+    background: rgba(20, 158, 203, 0.06);
+}
+.hh-hierarkia-list li:nth-child(even){
+    background: #ffffff;
+}
