@@ -87,10 +87,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     console.log('ordinals:', ordinals);
                     console.log('hakukohde:', $scope.hakukohdeInfo.oid);
                     console.log('teema: ', themeId);
-                    /*ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then( function (data) {
+                    ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then( function (data) {
                         console.log('vastaus reorderThemeQuestions: ', data);
                         console.log($scope.questions);
-                    });*/
+                    });
                 };
                 /**
                  * peruuttaa lisäkysymysten järjestelyn lähtötilanteeseen
