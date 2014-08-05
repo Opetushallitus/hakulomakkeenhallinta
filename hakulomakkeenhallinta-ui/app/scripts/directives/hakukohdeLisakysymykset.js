@@ -46,7 +46,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     toggleShowSortBtns();
                     for (var ord = 0, adnlQuesLength = additionalQuestions.length; ord < adnlQuesLength; ord += 1){
                         ordinals[additionalQuestions[ord]._id] = {};
-                        ordinals[additionalQuestions[ord]._id].oldOrdinal = additionalQuestions[ord].ordinal;
+                        ordinals[additionalQuestions[ord]._id].oldOrdinal = additionalQuestions[ord].ordinal ? additionalQuestions[ord].ordinal : ord +1;
                     }
                 };
                 /**
@@ -87,10 +87,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     console.log('ordinals:', ordinals);
                     console.log('hakukohde:', $scope.hakukohdeInfo.oid);
                     console.log('teema: ', themeId);
-                    ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then( function (data) {
+                    /*ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then( function (data) {
                         console.log('vastaus reorderThemeQuestions: ', data);
                         console.log($scope.questions);
-                    });
+                    });*/
                 };
                 /**
                  * peruuttaa lisäkysymysten järjestelyn lähtötilanteeseen
