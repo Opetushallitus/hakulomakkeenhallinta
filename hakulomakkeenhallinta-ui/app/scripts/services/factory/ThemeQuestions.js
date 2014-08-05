@@ -9,8 +9,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 getThemeQuestionListByOrgId: {
                     method: 'GET',
                     isArray: true,
-                    url: Props.themeQuestionUri+'/list/:_id/.',
+                    url: Props.themeQuestionUri + '/list/:_id/.',
                     params:{_id: '@_id'}
+                },
+                reorderThemeQuestions: {
+                    method: 'POST',
+                    isArray: false,
+                    url: Props.themeQuestionUri + '/reorder/:_lopId/:_themeId',
+                    params: { _lopId: '@_lopId', _themeId: '@_themeId' }
                 }
 
             }
@@ -70,7 +76,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         themeQuestion.saveModifiedQuestion = function(questionId, questionData){
             $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()');
             var deferred = $q.defer();
-            ThemeQuestion.save( {'_id': questionId }, questionData).$promise.then(
+            ThemeQuestion.save( { '_id': questionId }, questionData).$promise.then(
                 function(data){
                     $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()', data);
                     deferred.resolve(data);
@@ -92,6 +98,24 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             });
             return deferred.promise;
         };
+        /**
+         * Tallentaan teemassa olevien kysymysten järjestyksen kantaan
+         * @param learningOportunityId hakukohde id
+         * @param themeId teeman id
+         * @param questionOrdinals kysymysten järjestys objekti
+         * @returns {promise}
+         */
+        themeQuestion.reorderThemeQuestions = function(learningOportunityId, themeId, ordinals){
+            $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', ordinals );
+            var deferred = $q.defer();
+            ThemeQuestion.reorderThemeQuestions( { _lopId: learningOportunityId, _themeId: themeId  }, ordinals).$promise.then(
+                function(data){
+                    $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', data);
+                    deferred.resolve(data);
+                });
+            return deferred.promise;
+        };
+
 
         return themeQuestion;
     }]);
