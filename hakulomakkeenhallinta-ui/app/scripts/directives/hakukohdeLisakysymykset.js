@@ -46,7 +46,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     toggleShowSortBtns();
                     for (var ord = 0, adnlQuesLength = additionalQuestions.length; ord < adnlQuesLength; ord += 1){
                         ordinals[additionalQuestions[ord]._id] = {};
-                        ordinals[additionalQuestions[ord]._id].oldOrdinal = additionalQuestions[ord].ordinal ? additionalQuestions[ord].ordinal : ord +1;
+                        ordinals[additionalQuestions[ord]._id].oldOrdinal = additionalQuestions[ord].ordinal ? additionalQuestions[ord].ordinal : 0;
                     }
                 };
                 /**
