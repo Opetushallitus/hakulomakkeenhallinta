@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysmykset', [ 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', function (TarjontaAPI, ThemeQuestions, AlertMsg) {
+    .directive('hakukohdeLisakysmykset', ['$rootScope', '$scope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', function (TarjontaAPI, ThemeQuestions, AlertMsg) {
         return {
             restrict: 'E',
             replace: true,
@@ -13,11 +13,15 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 ' <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenne järjestys\' }}</button>' +
                 ' <button type="button" class="btn" data-ng-click="sortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
                 ' <button type="button" class="btn disabled" data-ng-click="addRule()" data-ng-disabled="!addRule" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'lisaa.saanto\')|| \'Lisää sääntö\' }}</button>' +
-                '</div></div>',
+                '</div>' +
+                '<alertmsg></alertmsg>' +
+                '</div>',
             link: function (scope, element, attrs) {
-                TarjontaAPI.fetchHakukohdeInfo(attrs.aoid).then(function (data) {
-                    scope.hakukohdeInfo = data;
-                });
+                TarjontaAPI.fetchHakukohdeInfo(attrs.aoid).then(
+                    function (data) {
+                        scope.hakukohdeInfo = data;
+                    }
+                );
 
                 scope.naytaHakukohdeQues = false;
                 scope.toggleNaytaHakukohdeKysymykset = function () {
@@ -44,7 +48,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.sortQuestions = function (additionalQuestions) {
                     $scope.questions = additionalQuestions;
                     toggleShowSortBtns();
-                    for (var ord = 0, adnlQuesLength = additionalQuestions.length; ord < adnlQuesLength; ord += 1){
+                    for (var ord = 0, adnlQuesLength = additionalQuestions.length; ord < adnlQuesLength; ord += 1) {
                         ordinals[additionalQuestions[ord]._id] = {};
                         ordinals[additionalQuestions[ord]._id].oldOrdinal = additionalQuestions[ord].ordinal ? additionalQuestions[ord].ordinal : 0;
                     }
@@ -84,16 +88,16 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             }
                         }
                     }
-                    console.log('ordinals:', ordinals);
-                    console.log('hakukohde:', $scope.hakukohdeInfo.oid);
-                    console.log('teema: ', themeId);
+                    $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'ordinals:', ordinals);
+                    $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'hakukohde:', $scope.hakukohdeInfo.oid);
+                    $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'teema: ', themeId);
                     ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then(
                         function success (data) {
-                            console.log('vastaus reorderThemeQuestions: ', data);
-                            console.log($scope.questions);
+                            $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', data);
+                            $rootScope.LOGS('hakukohdeLisakysmykset', $scope.questions);
                         }, function error (resp) {
-                            console.log('ERROR reorderThemeQuestions: ','saveSortQuestions()', resp.messageText, resp.status);
-                            AlertMsg($scope, 'warning', 'error.jarjestyksen.tallennus' );
+                            $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', resp.statusText, resp.status);
+                            AlertMsg($scope, 'warning', 'error.jarjestyksen.tallennus');
                         }
                     );
                 };
