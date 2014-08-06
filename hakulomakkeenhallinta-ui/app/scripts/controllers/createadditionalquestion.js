@@ -77,11 +77,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ','tallennaUusi()');
                 if($scope.kysymys.$valid){
                     ThemeQuestions.createNewQuestion( $routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
-                        function(data){
+                        function success (data){
                             QuestionData.setQuestion(data);
                             AlertMsg($scope, 'success','kysymyksen.tallennus.ok');
                             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
-                        });
+                        }, function error (resp){
+                            console.log('##** ', resp);
+                            AlertMsg($scope, 'error', resp);
+                    });
                 }
                 $scope.tallennaClicked = true;
             };
