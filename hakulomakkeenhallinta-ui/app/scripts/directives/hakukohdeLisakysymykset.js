@@ -95,6 +95,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         function success (data) {
                             $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', data);
                             $rootScope.LOGS('hakukohdeLisakysmykset', $scope.questions);
+                            AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
                         }, function error (resp) {
                             $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', resp.statusText, resp.status);
                             AlertMsg($scope, 'warning', 'error.jarjestyksen.tallennus');

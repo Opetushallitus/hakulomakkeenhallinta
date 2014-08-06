@@ -64,7 +64,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         themeQuestion.createNewQuestion = function (applicationSystemId, hakuOid, themeId, questionData) {
             $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()');
             var deferred = $q.defer();
-            ThemeQuestion.save({'_id': applicationSystemId, '_aoid': hakuOid , '_themeId': themeId  }, questionData).$promise.then(
+            ThemeQuestion.save({'_id': applicationSystemId, '_aoid': hakuOid, '_themeId': themeId  }, questionData).$promise.then(
                 function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()', data);
                     deferred.resolve(data);
