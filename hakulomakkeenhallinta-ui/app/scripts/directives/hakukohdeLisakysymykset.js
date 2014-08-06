@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysmykset', [ 'TarjontaAPI', 'ThemeQuestions', function (TarjontaAPI, ThemeQuestions) {
+    .directive('hakukohdeLisakysmykset', [ 'TarjontaAPI', 'ThemeQuestions', 'AlerMsg', function (TarjontaAPI, ThemeQuestions, AlerMsg) {
         return {
             restrict: 'E',
             replace: true,
@@ -87,10 +87,15 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     console.log('ordinals:', ordinals);
                     console.log('hakukohde:', $scope.hakukohdeInfo.oid);
                     console.log('teema: ', themeId);
-                    ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then( function (data) {
-                        console.log('vastaus reorderThemeQuestions: ', data);
-                        console.log($scope.questions);
-                    });
+                    ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then(
+                        function success (data) {
+                            console.log('vastaus reorderThemeQuestions: ', data);
+                            console.log($scope.questions);
+                        }, function error (resp) {
+                            console.log('ERROR reorderThemeQuestions: ','saveSortQuestions()', resp.messageText, resp.status);
+                            AlerMsg($scope, 'warning', 'error.jarjestyksen.tallennus' );
+                        }
+                    );
                 };
                 /**
                  * peruuttaa lisäkysymysten järjestelyn lähtötilanteeseen

@@ -64,8 +64,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()', data);
                     deferred.resolve(data);
-            }, function error (resp) {
-                    console.log('**** ERROR --> ', resp);
+                }, function error (resp) {
+                    $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()', 'ERROR', resp);
                     deferred.reject(resp);
                 });
             return deferred.promise;
@@ -80,10 +80,13 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()');
             var deferred = $q.defer();
             ThemeQuestion.save( { '_id': questionId }, questionData).$promise.then(
-                function(data){
+                function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()', data);
                     deferred.resolve(data);
-            });
+                }, function error (resp) {
+                    $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()', 'ERROR', resp);
+                    deferred.reject(resp);
+                });
             return deferred.promise;
         };
         /**
@@ -95,10 +98,13 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()');
             var deferred = $q.defer();
             ThemeQuestion.delete( {'_id': questionId }).$promise.then(
-                function(data){
+                function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()', data);
                     deferred.resolve(data);
-            });
+                }, function error (resp) {
+                    $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()', 'ERROR', resp);
+                    deferred.reject(resp);
+                });
             return deferred.promise;
         };
         /**
@@ -112,9 +118,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', ordinals );
             var deferred = $q.defer();
             ThemeQuestion.reorderThemeQuestions( { _lopId: learningOportunityId, _themeId: themeId  }, ordinals).$promise.then(
-                function(data){
+                function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', data);
                     deferred.resolve(data);
+                }, function error (resp) {
+                    $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', 'ERROR', resp);
+                    deferred.reject(resp);
                 });
             return deferred.promise;
         };

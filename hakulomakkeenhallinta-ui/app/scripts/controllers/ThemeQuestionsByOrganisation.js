@@ -68,8 +68,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                     }
                                 }
                                 deferred.resolve(themes);
-                            });
-                    });
+                            }
+                        );
+                    }
+                );
                 return deferred.promise;
             };
             /**
@@ -102,17 +104,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             controller: 'SelectQuestionTypeCtrl',
                             scope: $scope,
                             resolve: {
-                                applicationSystem: function(){
+                                applicationSystem: function () {
                                     return data.applicationSystem;
                                 },
-                                theme: function(){
+                                theme: function () {
                                     return data.theme;
                                 },
-                                hakukohde: function(){
+                                hakukohde: function () {
                                     return data.hakukohde;
                                 }
                             }
-                        }).result.then(function(data) {
+                        }).result.then(function (data) {
                                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','addQuestion()', data);
                                 QuestionData.newAdditionalQuestion();
                                 QuestionData.setQuestionType(data.type);
@@ -121,9 +123,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 QuestionData.setEditFlag(false);
                                 QuestionData.setLearningOpportunityId(QuestionData.getApplicationOption().oid);
                                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl', QuestionData.getQuestion() );
-                                $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id+'/'+data.type.id);
-                            });
-                    });
+                                $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid + '/' + QuestionData.getApplicationOption().oid + '/' + theme.id + '/' + data.type.id);
+                            }
+                        );
+                    }
+                );
             };
             /**
              * valitun kysymyksen muokkaus näkymään
@@ -135,17 +139,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     QuestionData.setEditFlag(true);
                     $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'muokkaaKysmysta()', question._id);
                     ThemeQuestions.getThemeQuestionById(question._id).then(
-                        function(data){
+                        function (data) {
                             $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','muokkaaKysymysta() data:', data);
                             QuestionData.setQuestion(data);
                             $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
-                        });
+                        }
+                    );
                 }
             };
             /**
              * takaisin edelliselle sivulle
              */
-            $scope.back = function() {
+            $scope.back = function () {
                 $location.path('/');
             };
             /**
@@ -153,7 +158,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * hakukohdekohtaisen lisäkymys listasta
              * @param question poistettavan kysymyksen tiedot objekti
              */
-            $scope.poistaKysymys = function(question, hkKysymysLista) {
+            $scope.poistaKysymys = function (question, hkKysymysLista) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/poista-kysymys-dialog.html',
                     controller: 'poistaKysymysDialogCtrl',
@@ -166,7 +171,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             return 'list';
                         }
                     }
-                }).result.then(function () {
+                }).result.then( function () {
                         AlertMsg($scope, 'success', 'kysymyksen.poisto.ok');
                         var splIndx = 0,
                             ordinals = {};
@@ -191,7 +196,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 hkKysymysLista[j].ordinal = j + 1;
                             }
                         }
-                    });
+                    }
+                );
             };
 
             $scope.accordianState = function(theme){
