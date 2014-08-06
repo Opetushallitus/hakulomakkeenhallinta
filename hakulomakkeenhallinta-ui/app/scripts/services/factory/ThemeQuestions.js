@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ThemeQuestions',[ '$rootScope','$resource', 'Props','$q', function ($rootScope, $resource, Props, $q) {
+    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', function ($rootScope, $resource, Props, $q) {
         var themeQuestion = {};
 
-        var ThemeQuestion = $resource(Props.themeQuestionUri+'/:_id/:_aoid/:_themeId',
-            {_id: '@_id', _aoid: '@_aoid', _themeId: '@_themeId'},{
+        var ThemeQuestion = $resource(Props.themeQuestionUri + '/:_id/:_aoid/:_themeId',
+            {_id: '@_id', _aoid: '@_aoid', _themeId: '@_themeId'},
+            {
                 getThemeQuestionListByOrgId: {
                     method: 'GET',
                     isArray: true,
@@ -27,13 +28,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param applicationSystemId
          * @returns {promise}
          */
-        themeQuestion.getThemeQuestionListByOrgId = function(applicationSystemId, organisationId){
+        themeQuestion.getThemeQuestionListByOrgId = function (applicationSystemId, organisationId) {
             $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionListByOrgId()', applicationSystemId);
             var deferred = $q.defer();
-            ThemeQuestion.getThemeQuestionListByOrgId({'_id':applicationSystemId, orgId: organisationId}).$promise.then(
-                function(data){
-                deferred.resolve(data);
-                });
+            ThemeQuestion.getThemeQuestionListByOrgId({'_id': applicationSystemId, orgId: organisationId}).$promise.then(
+                function (data) {
+                    deferred.resolve(data);
+                }
+            );
             return deferred.promise;
         };
         /**
@@ -41,12 +43,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param questionId kysymyksen id
          * @returns {promise}
          */
-        themeQuestion.getThemeQuestionById = function(questionId){
+        themeQuestion.getThemeQuestionById = function (questionId) {
             $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionById()', questionId);
             var deferred = $q.defer();
-            ThemeQuestion.get({'_id': questionId}).$promise.then(function(data){
-                deferred.resolve(data);
-            });
+            ThemeQuestion.get({'_id': questionId}).$promise.then(
+                function (data) {
+                    deferred.resolve(data);
+                }
+            );
             return deferred.promise;
         };
         /**
@@ -57,17 +61,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param questionData kysymys data
          * @returns {promise} palauttaa tallennetun kysymyksen
          */
-        themeQuestion.createNewQuestion = function(applicationSystemId, hakuOid, themeId, questionData){
+        themeQuestion.createNewQuestion = function (applicationSystemId, hakuOid, themeId, questionData) {
             $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()');
             var deferred = $q.defer();
-            ThemeQuestion.save( { _id: applicationSystemId, '_aoid': hakuOid , '_themeId': themeId  }, questionData).$promise.then(
+            ThemeQuestion.save({'_id': applicationSystemId, '_aoid': hakuOid , '_themeId': themeId  }, questionData).$promise.then(
                 function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()', data);
                     deferred.resolve(data);
-                }, function error (resp) {
+                },
+                function error (resp) {
                     $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()', 'ERROR', resp);
                     deferred.reject(resp);
-                });
+                }
+            );
             return deferred.promise;
         };
         /**
@@ -76,17 +82,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param questionData kysymys data
          * @returns {promise} palauttaa tallennetu kysymyksen
          */
-        themeQuestion.saveModifiedQuestion = function(questionId, questionData){
+        themeQuestion.saveModifiedQuestion = function (questionId, questionData) {
             $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()');
             var deferred = $q.defer();
-            ThemeQuestion.save( { '_id': questionId }, questionData).$promise.then(
+            ThemeQuestion.save({'_id': questionId }, questionData).$promise.then(
                 function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()', data);
                     deferred.resolve(data);
-                }, function error (resp) {
+                },
+                function error (resp) {
                     $rootScope.LOGS('ThemeQuestions', 'saveModifiedQuestion()', 'ERROR', resp);
                     deferred.reject(resp);
-                });
+                }
+            );
             return deferred.promise;
         };
         /**
@@ -94,17 +102,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param questionId
          * @returns {promise}
          */
-        themeQuestion.deleteQuestion = function(questionId){
+        themeQuestion.deleteQuestion = function (questionId) {
             $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()');
             var deferred = $q.defer();
-            ThemeQuestion.delete( {'_id': questionId }).$promise.then(
+            ThemeQuestion.delete({'_id': questionId }).$promise.then(
                 function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()', data);
                     deferred.resolve(data);
-                }, function error (resp) {
+                },
+                function error (resp) {
                     $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()', 'ERROR', resp);
                     deferred.reject(resp);
-                });
+                }
+            );
             return deferred.promise;
         };
         /**
@@ -114,17 +124,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param questionOrdinals kysymysten järjestys objekti
          * @returns {promise}
          */
-        themeQuestion.reorderThemeQuestions = function(learningOportunityId, themeId, ordinals){
-            $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', ordinals );
+        themeQuestion.reorderThemeQuestions = function (learningOportunityId, themeId, ordinals) {
+            $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', ordinals);
             var deferred = $q.defer();
-            ThemeQuestion.reorderThemeQuestions( { _lopId: learningOportunityId, _themeId: themeId  }, ordinals).$promise.then(
+            ThemeQuestion.reorderThemeQuestions({ _lopId: learningOportunityId, _themeId: themeId }, ordinals).$promise.then(
                 function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', data);
                     deferred.resolve(data);
-                }, function error (resp) {
+                },
+                function error (resp) {
                     $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', 'ERROR', resp);
                     deferred.reject(resp);
-                });
+                }
+            );
             return deferred.promise;
         };
 
