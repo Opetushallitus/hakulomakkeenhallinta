@@ -61,10 +61,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()');
             var deferred = $q.defer();
             ThemeQuestion.save( { _id: applicationSystemId, '_aoid': hakuOid , '_themeId': themeId  }, questionData).$promise.then(
-                function(data){
+                function success (data) {
                     $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()', data);
                     deferred.resolve(data);
-            });
+            }, function error (resp) {
+                    console.log('**** ERROR --> ', resp);
+                });
             return deferred.promise;
         };
         /**
