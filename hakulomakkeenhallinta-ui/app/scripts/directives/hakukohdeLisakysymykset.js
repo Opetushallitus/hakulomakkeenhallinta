@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysmykset', ['$rootScope', '$scope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', function ($rootScope, $scope, TarjontaAPI, ThemeQuestions, AlertMsg) {
+    .directive('hakukohdeLisakysmykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg) {
         return {
             restrict: 'E',
             replace: true,
