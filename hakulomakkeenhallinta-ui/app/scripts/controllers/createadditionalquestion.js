@@ -82,8 +82,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             AlertMsg($scope, 'success','kysymyksen.tallennus.ok');
                             $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
                         }, function error (resp){
-                            console.log('##** ', resp);
-                            AlertMsg($scope, 'error', resp);
+                            $rootScope.LOGS('CreateAdditionalQuestionCtrl', 'tallennaUusi()', resp.statusText);
+                            AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
                     });
                 }
                 $scope.tallennaClicked = true;
