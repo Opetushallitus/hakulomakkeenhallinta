@@ -6,14 +6,15 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
         $scope.poista = function () {
             ThemeQuestions.deleteQuestion($scope.question._id).then(
-                function(data) {
+                function (data) {
                     if (where === 'modify') {
                         $modalInstance.close();
                         $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
                     } else {
                         $modalInstance.close('close');
                     }
-                });
+                }
+            );
         };
 
         $scope.cancel = function () {
