@@ -66,6 +66,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     deferred.resolve(data);
             }, function error (resp) {
                     console.log('**** ERROR --> ', resp);
+                    deferred.reject(resp);
                 });
             return deferred.promise;
         };
