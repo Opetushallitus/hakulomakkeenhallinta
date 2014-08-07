@@ -108,7 +108,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.cancelSortQuestions = function () {
                     toggleShowSortBtns();
                     for (var tqId in ordinals){
-                        console.log(ordinals[tqId], tqId);
+                        $rootScope.LOGS('hakukohdeLisakysmykset', ordinals[tqId], tqId);
                         for (var ord = 0, quesLength = $scope.questions.length; ord < quesLength; ord += 1){
                             if ($scope.questions[ord]._id === tqId){
                                 $scope.questions[ord].ordinal = ordinals[tqId].oldOrdinal;
@@ -116,7 +116,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     }
                 };
-
             }
         };
     }]);
