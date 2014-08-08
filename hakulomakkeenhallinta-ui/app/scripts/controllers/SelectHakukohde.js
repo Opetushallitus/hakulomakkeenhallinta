@@ -22,7 +22,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * Haetaa hakulomakkeeseen ja käyttäjän organisaation liittyvät hakukohteet
              */
-            TarjontaAPI.usersApplicationOptions($routeParams.id, $routeParams.oid).then(
+            TarjontaAPI.usersApplicationOptions2($routeParams.id, $routeParams.oid).then(
                 function(data){
                     $scope.$emit('LOADREADY');
                     if(data.length != 0){
