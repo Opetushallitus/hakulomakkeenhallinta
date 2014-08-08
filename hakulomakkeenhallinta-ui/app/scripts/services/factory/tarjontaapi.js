@@ -75,10 +75,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                 applicationOptions.push(org);
                             }
                         );
-                        console.log('getHakukohdeJoukot() --> ');
                         getHakukohdeJoukot(applicationOptions).then(
                             function (data) {
-                                console.log('# 6', data);
                                 deferred.resolve(data);
                             }
                         );
@@ -103,11 +101,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
                 for (var t = 0, tl = ao.length; t < tl; ) {
                     for (var i = 0, il = ao[t].tulokset.length; i < il; t += 1, i += 1) {
-                        console.log('# 2', ao[t].tulokset[i].oid, 't',t ,'i',i);
                         hakukohdeOids.push(ao[t].tulokset[i].oid);
                     }
                 }
-                console.log('# 3', hakukohdeOids);
                 for (var r = 0, rl = hakukohdeOids.length; r < rl ; r += 1) {
                     var hkInfo = TarjontaAPI.fetchHakukohdeInfo(hakukohdeOids[r]);
                     hakukohteet.push(hkInfo);
@@ -115,9 +111,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
                 $q.all(hakukohteet).then(
                     function (data) {
-                        console.log('# 4', data);
                         for (var d = 0, dl = data.length; d < dl; d += 1) {
-                            console.log('##', data[d].organisaatioRyhmaOids);
                             if (data[d].organisaatioRyhmaOids) {
                                 var orgInfo = Organisaatio.getOrganisation2(data[d].organisaatioRyhmaOids);
                                 organisaatiot.push(orgInfo);
@@ -125,9 +119,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         }
                         $q.all(organisaatiot).then(
                             function (data) {
-                                console.log('# 5', data);
                                 for (var orgs = 0, orgDl= data.length; orgs < orgDl; orgs += 1){
-                                    console.log('# 5,',orgs);
                                     org.push(data[orgs]);
                                 }
                                 deferred.resolve(org);
