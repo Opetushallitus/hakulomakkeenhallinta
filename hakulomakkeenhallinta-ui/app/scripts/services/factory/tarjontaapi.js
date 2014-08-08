@@ -47,7 +47,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                             applicationOptions.push(org);
                         }
                     );
-                    console.log('getHakukohdeJoukot() --> ')
+                    console.log('getHakukohdeJoukot() --> ');
                     getHakukohdeJoukot(applicationOptions).then(
                         function (data) {
                             console.log('# 6', data);
