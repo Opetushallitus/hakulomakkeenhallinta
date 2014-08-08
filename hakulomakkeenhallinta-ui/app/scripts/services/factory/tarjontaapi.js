@@ -119,7 +119,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         for (var d = 0, dl = data.length; d < dl; d += 1) {
                             console.log('##', data[d].organisaatioRyhmaOids);
                             if (data[d].organisaatioRyhmaOids) {
-                                var orgInfo = Organisaatio.getOrganisation(data[d].organisaatioRyhmaOids);
+                                var orgInfo = Organisaatio.getOrganisation2(data[d].organisaatioRyhmaOids);
                                 organisaatiot.push(orgInfo);
                             }
                         }

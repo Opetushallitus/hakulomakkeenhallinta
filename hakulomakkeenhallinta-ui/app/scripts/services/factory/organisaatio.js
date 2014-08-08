@@ -39,7 +39,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             return defferred.promise;
         };
 
-        organisaatio.getOrganisation = function (oid) {
+        organisaatio.getOrganisation2 = function (oid) {
             console.log('getOrganisation() -->', oid);
             var defferred = $q.defer();
             hae.get({'_oid': oid}).$promise.then(
