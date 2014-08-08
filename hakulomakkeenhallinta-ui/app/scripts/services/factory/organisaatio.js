@@ -40,11 +40,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         };
 
         organisaatio.getOrganisation2 = function (oid) {
-            console.log('getOrganisation() -->', oid);
             var defferred = $q.defer();
             hae.get({'_oid': oid}).$promise.then(
                 function (data) {
-                    console.log(data);
                     defferred.resolve(data);
                 }
             );
