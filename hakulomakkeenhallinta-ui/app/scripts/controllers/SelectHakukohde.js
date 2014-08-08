@@ -35,6 +35,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $rootScope.LOGS('SelectHakukohdeCtrl', $scope.applicationOptions);
             $scope.jatka = function(hakukohde) {
                 $rootScope.LOGS('SelectHakukohdeCtrl','jatka()',hakukohde);
+                if (hakukohde.kayttoryhmat) {
+                    QuestionData.setIsGroup(true);
+                } else {
+                    QuestionData.setIsGroup(false);
+                }
+
                 QuestionData.setApplicationOption(hakukohde);
                 $modalInstance.close({
                     hakukohde: hakukohde,

@@ -24,23 +24,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             );
             return deffered.promise;
         };
-
-/*            TarjontaAPI.fetchHakukohdeInfos = function (hakuOid, callback) {
-                var deffered = $q.defer();
-                $rootScope.LOGS('## TarjontaAPI fetchHakukohdeInfos haku oids:', hakuOid);
-                $http.get(Props.tarjontaAPI + "/hakukohde/" + hakuOid).success(
-                    function (data) {
-                        if (data.result) {
-                            $rootScope.LOGS('TarjontaAPI', data.result);
-//                            return callback(data.result);
-//                            deffered.resolve(data.result);
-                            deffered.resolve(callback(data.result));
-                        }
-                    }
-                );
-                return deffered.promise;
-            };*/
-
         /**
          * Heataan käyttäjän organisaation liittyvät hakukohteet
          * @param hakuOid:haun id
@@ -61,7 +44,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }
             ).success( function (data) {
                     _.each(data.result.tulokset, function (org) {
-                            console.log('# 1',org);
                             applicationOptions.push(org);
                         }
                     );
@@ -76,9 +58,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }
             );
             return deferred.promise;
-//            return applicationOptions;
         };
-
+        /**
+         * Hakee kayttäjän hakukohteisiin perustuen
+         * ne hakukohdejoukot ja ryhmät joihin käyttäjä
+         * voi kuulua
+         * @param org käyttäjän hakukohteet
+         * @returns {promise}
+         */
         function getHakukohdeJoukot (org) {
             var deferred = $q.defer();
             var ao = org,
@@ -90,7 +77,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 for (var i = 0, il = ao[t].tulokset.length; i < il; t += 1, i += 1) {
                     console.log('# 2', ao[t].tulokset[i].oid, 't',t ,'i',i);
                     hakukohdeOids.push(ao[t].tulokset[i].oid);
-
                 }
             }
             console.log('# 3', hakukohdeOids);
@@ -112,29 +98,16 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     $q.all(organisaatiot).then(
                         function (data) {
                             console.log('# 5', data);
-                            for (var o = 0, ol = data.length, o < dl; o += 1){
-                                var hakukohdeJoukko = {};
-                                tulokset[]
+                            for (var orgs = 0, orgDl= data.length; orgs < orgDl; orgs += 1){
+                                console.log('# 5,',orgs);
+                                org.push(data[orgs]);
                             }
                             deferred.resolve(org);
                         }
                     );
-
-
                 }
             );
-
-            /*if (data.organisaatioRyhmaOids) {
-                console.log('4&&& ', data);
-               Organisaatio.getOrganisation(data.organisaatioRyhmaOids).then(
-                    function (data) {
-                        console.log('5###', data);
-//                                        applicationOptions.push(ao[t]);
-                    }
-                );
-            }*/
-
-                return deferred.promise;
+            return deferred.promise;
         };
 
         TarjontaAPI.query = function(){

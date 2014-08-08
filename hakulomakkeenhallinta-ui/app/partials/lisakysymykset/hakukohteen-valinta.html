@@ -22,6 +22,8 @@
                     <accordion-heading>
                         <i class="glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen }"></i>
                         {{ applicationOption.nimi.fi || applicationOption.nimi.sv }}
+                        {{applicationOption.oid}}
+                        <button data-ng-if="applicationOption.kayttoryhmat" class="btn btn-primary btn-xs pull-right" ng-click="jatka(applicationOption)" tl="jatka">Jatka</button>
                     </accordion-heading>
                     <table class="table table-striped table-hover" >
                         <tr data-ng-repeat="hakukohde in applicationOption.tulokset">

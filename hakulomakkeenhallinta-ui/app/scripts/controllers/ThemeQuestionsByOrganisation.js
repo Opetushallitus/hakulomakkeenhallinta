@@ -35,7 +35,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * heataan hakulomakkeen teemat halomamekkeen id:llä ja siihen liityvä lisäkysymykset
              * ja asetetaan ne käyttöliittymään oikean teeman ja hakukohteen alle
              */
-            /*function hakukohdeKohtaisetKysymykset() {
+            function hakukohdeKohtaisetKysymykset() {
                 var deferred = $q.defer();
                 FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
                     function (data) {
@@ -74,80 +74,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 );
                 return deferred.promise;
             };
-            *//**
+            /**
              * päivitetään asynkroninen teema data $scopeen kun se on käsitelty
              * yllä olevassa funtiossa
-             *//*
+             */
             hakukohdeKohtaisetKysymykset().then(function(data){
-                $scope.themes = data;
-            });*/
-
-            function lista() {
-                var def = $q.defer();
-                getThemes().then(function (data) {
-                    var themes = data;
-//                    console.log('*** teemat');
-                    getThemeQuestions().then(function (data) {
-//                        console.log('*** kysmykset', data);
-                        var que = [];
-                        var lopIds = [];
-                        que = data;
-                        for (var oa = 0; oa < que.length; oa += 1) {
-                            if (lopIds.indexOf(que[oa].learningOpportunityId) === -1) {
-//                                console.log(que[oa].learningOpportunityId, '# ', oa);
-                                lopIds.push(que[oa].learningOpportunityId);
-                            }
-                        }
-                        for (var the in themes){
-//                            console.log(themes[the]);
-                            themes[the].hkkohde = [];
-                            for(var lo in lopIds){
-//                                console.log(themes[the].lop, the, lo);
-                                themes[the].hkkohde[lo] = {};
-                                themes[the].hkkohde[lo].aoid = lopIds[lo] ;
-                                themes[the].hkkohde[lo].additionalQuestions = [];
-                                for(var qe in que){
-                                    if(que[qe].theme !== undefined){
-                                        if(themes[the].id === que[qe].theme && lopIds[lo] === que[qe].learningOpportunityId){
-//                                            console.log(que[qe]);
-                                            themes[the].hkkohde[lo].additionalQuestions.push(que[qe]);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        def.resolve(themes);
-                    });
-                });
-                return def.promise;
-            }
-
-            function getQuestons(hakuOid, teema){
-                var deferred = $q.defer();
-                console.log(teema, hakuOid);
-                $.getJSON('http://localhost:8080/app/test-data/'+teema+'.'+hakuOid+'.json',function(data){
-                    deferred.resolve(data);
-                });
-                return deferred.promise;
-            };
-
-            function getThemes(){
-                var deferred = $q.defer();
-                $.getJSON('http://localhost:8080/app/test-data/additional-question-themes.json',function(data){
-                    deferred.resolve(data);
-                });
-                return deferred.promise;
-            };
-
-            function getThemeQuestions(){
-                var deferred = $q.defer();
-                $.getJSON('http://localhost:8080/app/test-data/themequestions2.json',function(data){
-                    deferred.resolve(data);
-                });
-                return deferred.promise;
-            };
-
-            lista().then(function(data){
                 $scope.themes = data;
             });
             /**
