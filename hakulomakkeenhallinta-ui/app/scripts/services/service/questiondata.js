@@ -99,7 +99,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 _question.applicationSystemId= "";
                 _question.learningOpportunityId = "";
                 if (_isGroup){
-                    _question.isGroup = true;
+                    _question.targetIsGroup = true;
                 }
                 _questionType = '';
                 _applicationSystemId;
