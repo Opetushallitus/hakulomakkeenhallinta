@@ -22,7 +22,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * Haetaa hakulomakkeeseen ja käyttäjän organisaation liittyvät hakukohteet
              */
-            TarjontaAPI.usersApplicationOptions($routeParams.id, $routeParams.oid).then(
+
+            TarjontaAPI.usersApplicationOptions2($routeParams.id, $routeParams.oid).then(
                 function(data){
                     $scope.$emit('LOADREADY');
                     if(data.length != 0){
@@ -35,6 +36,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $rootScope.LOGS('SelectHakukohdeCtrl', $scope.applicationOptions);
             $scope.jatka = function(hakukohde) {
                 $rootScope.LOGS('SelectHakukohdeCtrl','jatka()',hakukohde);
+                if (hakukohde.kayttoryhmat) {
+                    QuestionData.setIsGroup(true);
+                } else {
+                    QuestionData.setIsGroup(false);
+                }
                 QuestionData.setApplicationOption(hakukohde);
                 $modalInstance.close({
                     hakukohde: hakukohde,

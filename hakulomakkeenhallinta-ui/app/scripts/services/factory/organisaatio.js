@@ -3,17 +3,19 @@
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
     .factory('Organisaatio',[ '$resource', 'Props', '$q', function ($resource, Props, $q) {
 
-        var hae =  $resource(Props.organisaatioService+'/rest/organisaatio/:_oid',
-            {_oid:'@_oid'}, {}
+
+        var hae =  $resource(Props.organisaatioService + '/rest/organisaatio/:_oid',
+            { _oid: '@_oid'},
+            {}
         );
-        var organisaatio ={};
+        var organisaatio = {};
         var _organisation = {};
 
-        organisaatio.setOrganisation = function(organization){
+        organisaatio.setOrganisation = function (organization) {
             _organisation = organization;
         };
 
-        organisaatio.getOrganisation = function() {
+        organisaatio.getOrganisation = function () {
             return _organisation;
         };
 
@@ -23,20 +25,31 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @param oid: organisaation id
          * @returns {promise}: palauttaa organisaation
          */
-        organisaatio.fetchOrganisation = function(oid){
+
+        organisaatio.fetchOrganisation = function (oid) {
             var defferred = $q.defer();
-            if(_organisation != undefined && _organisation.oid != undefined){
-                if( _organisation.oid == oid){
+            if (_organisation !== undefined && _organisation.oid !== undefined) {
+                if (_organisation.oid === oid) {
                     defferred.resolve(_organisation);
                 }
             }
-            hae.get({'_oid':oid}).$promise.then(
-                function(data){
+            hae.get({'_oid': oid}).$promise.then(
+                function (data) {
                     defferred.resolve(data);
-                });
+                }
+            );
             return defferred.promise;
         };
 
+        organisaatio.getOrganisation2 = function (oid) {
+            var defferred = $q.defer();
+            hae.get({'_oid': oid}).$promise.then(
+                function (data) {
+                    defferred.resolve(data);
+                }
+            );
+            return defferred.promise;
+        };
 
         return organisaatio;
     }]);

@@ -17,6 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             var _editFlag = false;
             //hakukohde muuttuja objekti
             var _applicationOption = null;
+            var _isGroup = false;
             /**
              * tallennetaan hakukohde objectin muuttujaan
              * @param applicationOption
@@ -97,6 +98,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 _question.type= "";
                 _question.applicationSystemId= "";
                 _question.learningOpportunityId = "";
+                if (_isGroup){
+                    _question.targetIsGroup = true;
+                }
                 _questionType = '';
                 _applicationSystemId;
             };
@@ -265,7 +269,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 $rootScope.LOGS('QuestionData ','getQuestionTypeValidators() ',question.type);
                 switch(question.type){
                     case 'TextQuestion':
-
                         validators = this.getTextQuestionValidators();
                         break;
 
@@ -301,7 +304,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         validators = this.getRadioValidators();
                         break;
                 };
-            return validators;
+                return validators;
             };
             /**
              * hakeen hakukohteen tiedot sen id:llä
@@ -315,5 +318,16 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         deferred.resolve(data);
                     });
                 return deferred.promise;
+            };
+            /**
+             * asetaan ksymykseen tieto siitä onko
+             * hakukohde ryhmä johon kysymys on kohdistettu
+             * @param value boolen true/false
+             */
+            this.setIsGroup = function (value) {
+                $rootScope.LOGS('QuestionData', 'setIsGroup()', value);
+                _isGroup = value;
+                $rootScope.LOGS('QuestionData', 'setIsGroup()', _isGroup);
+
             };
         }]);

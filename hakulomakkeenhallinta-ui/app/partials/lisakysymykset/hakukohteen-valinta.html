@@ -17,11 +17,12 @@
             <input type="text" class="form-control" data-ng-model="queryParameters.term">
         </div>
         <div class="from-group">
-            <accordion data-ng-repeat="applicationOption in applicationOptions | filter:queryParameters.term">
+            <accordion data-ng-repeat="applicationOption in applicationOptions | filter:queryParameters.term ">
                 <accordion-group is-open="">
                     <accordion-heading>
                         <i class="glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen }"></i>
                         {{ applicationOption.nimi.fi || applicationOption.nimi.sv }}
+                        <button data-ng-if="applicationOption.kayttoryhmat" class="btn btn-primary btn-xs pull-right" ng-click="jatka(applicationOption)" tl="jatka">Jatka</button>
                     </accordion-heading>
                     <table class="table table-striped table-hover" >
                         <tr data-ng-repeat="hakukohde in applicationOption.tulokset">
