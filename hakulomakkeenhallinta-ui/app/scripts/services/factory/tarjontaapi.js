@@ -99,15 +99,20 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     hakukohdeOids = [],
                     organisaatiot = [];
 
-                for (var t = 0, tl = ao.length; t < tl; ) {
-                    for (var i = 0, il = ao[t].tulokset.length; i < il; t += 1, i += 1) {
-                        hakukohdeOids.push(ao[t].tulokset[i].oid);
+                for (var t = 0; t < ao.length; t++ ) {
+                    for (var i = 0; i < ao[t].tulokset.length; i++) {
+                        hakukohteet.push(TarjontaAPI.fetchHakukohdeInfo(ao[t].tulokset[i].oid));
                     }
                 }
-                for (var r = 0, rl = hakukohdeOids.length; r < rl ; r += 1) {
-                    var hkInfo = TarjontaAPI.fetchHakukohdeInfo(hakukohdeOids[r]);
-                    hakukohteet.push(hkInfo);
-                }
+                // for (var t = 0, tl = ao.length; t < tl; ) {
+                //     for (var i = 0, il = ao[t].tulokset.length; i < il; t += 1, i += 1) {
+                //         hakukohdeOids.push(ao[t].tulokset[i].oid);
+                //     }
+                // }
+                // for (var r = 0, rl = hakukohdeOids.length; r < rl ; r += 1) {
+                //     var hkInfo = TarjontaAPI.fetchHakukohdeInfo(hakukohdeOids[r]);
+                //     hakukohteet.push(hkInfo);
+                // }
 
                 $q.all(hakukohteet).then(
                     function (data) {
