@@ -4,6 +4,5 @@
 
 ## Käynnistys 
 
-    cd hakulomakkeenhallinta-ui
     python -m SimpleHTTPServer
     http://localhost:8000/app/
