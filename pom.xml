@@ -16,7 +16,6 @@
 
     <modules>
         <module>hakulomakkeenhallinta-ui</module>
-        <module>hakulomakkeenhallinta-temporary</module>
   </modules>
 
     <properties>
