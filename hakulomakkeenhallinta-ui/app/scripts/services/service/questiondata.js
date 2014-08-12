@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('QuestionData', [ 'FormEditor','$rootScope', 'ThemeQuestions', '$q', 'TarjontaAPI',
@@ -304,22 +304,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         }
                         validators = this.getRadioValidators();
                         break;
-                };
+                }
             return validators;
             };
             /**
              * hakeen hakukohteen tiedot sen id:llä
              * @param lopId hakukohde id
              */
-            this.getHakukohdeInfo = function(lopId){
-                $rootScope.LOGS('QuestionData','getHakukohdeInfo()',lopId);
-                var deferred = $q.defer();
-                TarjontaAPI.fetchHakukohdeInfo(lopId).then(
-                    function(data){
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            };
+            this.getHakukohdeInfo = TarjontaAPI.fetchHakukohdeInfo;
             /**
              * asetaan ksymykseen tieto siitä onko
              * hakukohde ryhmä johon kysymys on kohdistettu
@@ -332,4 +324,4 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
             };
 
-        }]);
+}]);

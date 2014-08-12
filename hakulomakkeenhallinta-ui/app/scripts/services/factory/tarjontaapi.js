@@ -60,9 +60,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             TarjontaAPI.usersApplicationOptions2 = function (hakuOid, userOrganisations) {
                 var deferred = $q.defer();
-                var applicationOptions = [];
-                $rootScope.LOGS('TarjontaAPI', ' haku oid:', hakuOid);
-                $rootScope.LOGS('TarjontaAPI', ' organisaatio: ', userOrganisations);
 
                 $http.get(Props.tarjontaAPI + "/hakukohde/search", {
                         params: {
@@ -71,63 +68,44 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         }
                     }
                 ).success( function (data) {
-                        _.each(data.result.tulokset, function (org) {
-                                applicationOptions.push(org);
-                            }
-                        );
-                        getHakukohdeJoukot(applicationOptions).then(
-                            function (data) {
-                                deferred.resolve(data);
-                            }
-                        );
-
-                    }
-                );
+                    // Tulokset on lista hakukohteita (ao)
+                    getHakukohdeJoukot(data.result.tulokset).then(
+                        function (groups) {
+                            deferred.resolve(data.result.tulokset.concat(groups));
+                        }
+                    );
+                });
                 return deferred.promise;
             };
             /**
              * Hakee kayttäjän hakukohteisiin perustuen
              * ne hakukohdejoukot ja ryhmät joihin käyttäjä
              * voi kuulua
-             * @param org käyttäjän hakukohteet
+             * @param applicationOptions käyttäjän hakukohteet
              * @returns {promise}
              */
-            function getHakukohdeJoukot (org) {
+            function getHakukohdeJoukot (applicationOptions) {
                 var deferred = $q.defer();
-                var ao = org,
-                    hakukohteet = [],
-                    hakukohdeOids = [],
-                    organisaatiot = [];
+                var hakukohteet = [];
 
-                for (var t = 0; t < ao.length; t++ ) {
-                    for (var i = 0; i < ao[t].tulokset.length; i++) {
-                        hakukohteet.push(TarjontaAPI.fetchHakukohdeInfo(ao[t].tulokset[i].oid));
+                for (var t = 0; t < applicationOptions.length; t++ ) {
+                    for (var i = 0; i < applicationOptions[t].tulokset.length; i++) {
+                        hakukohteet.push(TarjontaAPI.fetchHakukohdeInfo(applicationOptions[t].tulokset[i].oid));
                     }
                 }
-                // for (var t = 0, tl = ao.length; t < tl; ) {
-                //     for (var i = 0, il = ao[t].tulokset.length; i < il; t += 1, i += 1) {
-                //         hakukohdeOids.push(ao[t].tulokset[i].oid);
-                //     }
-                // }
-                // for (var r = 0, rl = hakukohdeOids.length; r < rl ; r += 1) {
-                //     var hkInfo = TarjontaAPI.fetchHakukohdeInfo(hakukohdeOids[r]);
-                //     hakukohteet.push(hkInfo);
-                // }
 
                 $q.all(hakukohteet).then(
                     function (data) {
-                        for (var d = 0, dl = data.length; d < dl; d += 1) {
-                            if (data[d].organisaatioRyhmaOids) {
-                                var orgInfo = Organisaatio.getOrganisation2(data[d].organisaatioRyhmaOids);
-                                organisaatiot.push(orgInfo);
-                            }
-                        }
+                    var organisaatiot = _.chain(data)
+                        .pluck('organisaatioRyhmaOids')
+                        .flatten(true)
+                        .uniq()
+                        .map(function (ryhmaOid) {return Organisaatio.getOrganisation2(ryhmaOid);})
+                        .value();
+
                         $q.all(organisaatiot).then(
-                            function (data) {
-                                for (var orgs = 0, orgDl= data.length; orgs < orgDl; orgs += 1){
-                                    org.push(data[orgs]);
-                                }
-                                deferred.resolve(org);
+                            function (groups) {   
+                                deferred.resolve(groups);
                             }
                         );
                     }
