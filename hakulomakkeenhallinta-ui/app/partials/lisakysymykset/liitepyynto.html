@@ -86,7 +86,7 @@
                         <input type="text" class="form-control"
                                data-ng-model="attachmentRequest.deliveryAddress.postCode" data-ng-required="true"
                                data-typeahead-on-select="setPostitoimipaikka()" data-typeahead-editable="false"
-                               data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:liitepyyntoDialog.postinro.$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
+                               data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
                     </div>
                     <div class="col-md-8">
                         <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}
