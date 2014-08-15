@@ -29,20 +29,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $modalInstance.close($scope.attachmentRequest);
             };
 
-            $scope.removeAddress = function() { 
-                delete $scope.attachmentRequest.deliveryAddress;
-            };
-
             $scope.cancel = function() {
                 $modalInstance.dismiss('cancel');
-            };
-             /**
-             * asettaa liitepyyntö olioon liitteen toimitus osoitteen
-             * tiedon käyttää hakukohteen ryhmän osoitetta
-             */
-            function kaytaRyhmanToimitusOsoitetta() {
-                delete $scope.attachmentRequest.deliveryAddress;
-                $scope.attachmentRequest.useGroupAddress = true;
             };
             /**
              * asettaa postitoimi paikan valitulla postinumerolla

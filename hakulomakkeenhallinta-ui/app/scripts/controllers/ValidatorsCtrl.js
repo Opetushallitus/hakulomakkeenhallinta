@@ -38,21 +38,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.addAppendixRequest = function(hakukohde, option) {
                 var attachmentRequest = {
-                    useGroupAddress: false,
                     header: {
                         translations: {}
                     },
                     description: {
                         translations: {}
-                    }
+                    },
+                    deliveryAddress : {}
                 };
-                if (hakukohde.liitteidenToimitusOsoite) {
-                    attachmentRequest.deliveryAddress = {
-                        street: hakukohde.liitteidenToimitusOsoite.osoiterivi1,
-                        postCode: hakukohde.liitteidenToimitusOsoite.postinumero.slice(6),
-                        postOffice: hakukohde.liitteidenToimitusOsoite.postitoimipaikka
-                    };
-                }
                 if (option) {
                     attachmentRequest.attachedToOptionId = option.id;
                 }

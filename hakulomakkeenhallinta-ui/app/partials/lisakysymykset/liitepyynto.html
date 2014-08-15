@@ -72,44 +72,27 @@
 
             <div class="form-group" >
                 <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" data-ng-model="attachmentRequest.useGroupAddress" ng-value="false">
-                        {{ t('organisaation.hakijapalveluiden.osoite') || 'Käytetään koulutuksen järjestävän organisaation hakijapalveluiden postiosoitetta' }}
-                    </label>
-                </div>
-
-                <div class="radio">
-                    <label>
-                        <input type="radio" data-ng-model="attachmentRequest.useGroupAddress" data-ng-value="true" data-ng-change="removeAddress()">
-                        {{ t('ryhman.osoite') || 'Käytetään ryhmän osoitetta' }}
-                    </label>
-                </div>
             </div>
 
-            <div data-ng-if="!attachmentRequest.useGroupAddress">
+            <div>
                 <div class="form-group">
-                    <label>{{ t('liitteen.osoite') || 'Osoite *' }}
-                        <span data-ng-show="liitepyyntoDialog.osoite.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
-                    </label>
+                    <label>{{ t('liitteen.osoite') || 'Osoite *' }} </label>
                     <input type="text" name="osoite" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.street"  data-ng-required="true">
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }}
-                            <span data-ng-show="(attachmentRequest.deliveryAddress.postCode === undefined || liitepyyntoDialog.postinro.$error.required ) && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
-                        </label>
-                        <input type="text" name="postinro"  class="form-control"
+                        <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }} </label>
+                        <input type="text" class="form-control"
                                data-ng-model="attachmentRequest.deliveryAddress.postCode" data-ng-required="true"
                                data-typeahead-on-select="setPostitoimipaikka()" data-typeahead-editable="false"
                                data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:liitepyyntoDialog.postinro.$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
                     </div>
                     <div class="col-md-8">
                         <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}
-                            <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                            <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                         </label>
-                        <input type="text" name="postitoimipaikka" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.postOffice"
+                        <input type="text" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.postOffice"
                                data-ng-required="true" ng-disabled="true" >
                     </div>
                 </div>
