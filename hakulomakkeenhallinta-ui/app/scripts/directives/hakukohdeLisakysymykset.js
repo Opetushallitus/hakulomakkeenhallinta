@@ -18,15 +18,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 '</div>',
             link: function (scope, element, attrs) {
                 var hakukohdeJson = JSON.parse(attrs.hakukohdeolio);
-                console.log('##', hakukohdeJson);
-                if (hakukohdeJson.additionalQuestions[0].targetIsGroup) {
+                if (hakukohdeJson.additionalQuestions.length > 0 && hakukohdeJson.additionalQuestions[0].targetIsGroup) {
                      Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
                         function (data) {
                             scope.hakukohdeInfo = data;
                         }
                     );
                 } else {
-                    console.log('***', hakukohdeJson.aoid);
                     TarjontaAPI.fetchHakukohdeInfo(hakukohdeJson.aoid).then(
                         function (data) {
                             scope.hakukohdeInfo = data;
