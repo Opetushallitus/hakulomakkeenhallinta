@@ -17,14 +17,17 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 '<alertmsg></alertmsg>' +
                 '</div>',
             link: function (scope, element, attrs) {
-                if (attrs.hakukohde.group) {
-                     Organisaatio.getOrganisation2(attrs.hakukohde.aoid).then(
+                var hakukohdeJson = JSON.parse(attrs.hakukohdeolio);
+                console.log('##', hakukohdeJson);
+                if (hakukohdeJson.additionalQuestions && hakukohdeJson.additionalQuestions[0].targetIsGroup !== undefined) {
+                     Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
                         function (data) {
                             scope.hakukohdeInfo = data;
                         }
                     );
                 } else {
-                    TarjontaAPI.fetchHakukohdeInfo(attrs.hakukohde.aoid).then(
+                    console.log('***', hakukohdeJson.aoid);
+                    TarjontaAPI.fetchHakukohdeInfo(hakukohdeJson.aoid).then(
                         function (data) {
                             scope.hakukohdeInfo = data;
                         }
@@ -43,7 +46,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.questions = [];
                 /**
                  * vaihtaa näytä/piilota napit muuttujan arvoa
-                 */
+             */
                 function toggleShowSortBtns() {
                     $scope.sortBtns = !$scope.sortBtns;
                 };
