@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout',
-        function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout) {
+    .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout', '_',
+        function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _) {
             $scope.attachmentRequest = attachmentRequest;
 
             $scope.toimitusaika = toHHMMTime($scope.attachmentRequest.deliveryDue);
@@ -12,6 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             var vuosiPvm = new Date();
             vuosiPvm.setFullYear(vuosiPvm.getFullYear() + 1);
             $scope.vuosi = vuosiPvm.setHours(23, 59);
+            $scope.lisaaCliked = false;
 
             /**
              * haetaan postinumerot ja postitoimipaikat'
@@ -26,7 +27,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param valid
              */
             $scope.tallennaLiitepyynto = function(valid) {
-                $modalInstance.close($scope.attachmentRequest);
+                $scope.lisaaCliked = true;
+                if($scope.liitepyyntoDialog.$valid){
+                    $modalInstance.close($scope.attachmentRequest);
+                }
             };
 
             $scope.cancel = function() {
@@ -91,5 +95,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 return hh + ':' + mm;
             }
 
+            $scope.tarkista = function () {
+                $scope.liitepyyntoDialog.liitenimi.$setValidity('required', $scope.tarkistaPakollisuus($scope.attachmentRequest.header.translations));
+            };
         }
     ]);

@@ -1,14 +1,19 @@
 <div>
     <div ng-repeat="option in question.options">
-        <div class="form-group" ng-form="kysymyscheckbox{{language.id}}">
-
+        <div class="form-group" ng-form="kysymyscheckbox">
             <div class="col-md-3 control-label">
-               <br>
-                <label for="valintaruutu"><i ng-show="question.options.length >1" class="glyphicon glyphicon-remove"  data-ng-click="removeCheckbox($index, question)"></i>&nbsp;&nbsp;{{ t('valintalaatikko') || 'Vastaus' }} {{$index +1}} *</label>
+                <br>
+                <label for="valintaruutu"><i ng-show="question.options.length >1" class="glyphicon glyphicon-remove"
+                                             data-ng-click="removeCheckbox($index, question)"></i>&nbsp;&nbsp;{{
+                    t('valintalaatikko') || 'Vastaus' }} {{$index +1}} *</label>
             </div>
             <div class="col-md-6">
-                <span ng-show="kysymyscheckboxfi.valintaruutu.$error.required && tallennaClicked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span> <br>
-                <input name="valintaruutu" type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" ng-required="requiredByFiLang(language.id)">
+                <span ng-show="kysymyscheckbox.valintaruutu.$error.required && tallennaClicked"
+                      class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span> <br>
+                <input name="valintaruutu" type="text"
+                       data-ng-model="question.options[$index].optionText.translations[language.id]"
+                       class="form-control"
+                       ng-required="tarkistaCheckBox(question.options[$index].optionText.translations, kysymyscheckbox.valintaruutu)">
             </div>
             <div class="col-md-2 control-label">
                 <liitepyynto-napit></liitepyynto-napit>
@@ -17,7 +22,8 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-3 col-md-2">
-            <button class="btn" data-ng-click="addCheckbox(question)" > {{ t('lisaa.valintalaatikko') || 'Lisää valintaruutu' }} <i class="glyphicon glyphicon-plus-sign"></i> </button>
+            <button class="btn" data-ng-click="addCheckbox(question)"> {{ t('lisaa.valintalaatikko') || 'Lisää
+                valintaruutu' }} <i class="glyphicon glyphicon-plus-sign"></i></button>
         </div>
     </div>
 </div>

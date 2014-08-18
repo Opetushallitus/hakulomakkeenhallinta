@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -80,6 +80,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.tallennaUusi = function () {
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'tallennaUusi()');
+                $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
                 if ($scope.kysymys.$valid) {
                     ThemeQuestions.createNewQuestion($routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                         function success (data) {
@@ -94,10 +95,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     );
                 }
                 $scope.tallennaClicked = true;
-            };
-
-            $scope.esikatselu = function () {
-                $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'ei vielä toteutettu !!!!');
             };
 
         }]);

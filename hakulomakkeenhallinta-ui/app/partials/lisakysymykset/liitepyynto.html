@@ -12,11 +12,13 @@
             <tabset>
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
                     <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
-                    <div ng-form="liitepyyntotab{{language.id}}" style="background-color: #f5f5f5;">
+                    <div style="background-color: #f5f5f5;">
                         <br>
                         <div class="form-group">
-                            <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }}</label>
-                            <input name="liitenimi" type="text" class="form-control" data-ng-model="attachmentRequest.header.translations[language.id]" ng-required="requiredByFiLang(language.id)">
+                            <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }}
+                                <span data-ng-show="liitepyyntoDialog.liitenimi.$error.required && lisaaCliked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                            </label>
+                            <input name="liitenimi" type="text" class="form-control" data-ng-model="attachmentRequest.header.translations[language.id]" data-ng-required="tarkista()" >
                         </div>
                         <div class="form-group">
                             <label for="liitteenkuvaus">{{ t('liitteen.kuvaus') || 'Kuvaus' }}</label>
@@ -107,9 +109,4 @@
                 <button class="btn btn-primary pull-right" data-ng-disabled="!liitepyyntoDialog.$valid" data-ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="lisaa.liitepyynto">Lisää liitepyyntö</button>
             </div>
         </div>
-
-        <!-- <div data-ng-if="logs"> -->
-        <!--     valid: {{liitepyyntoDialog.$valid}}<br> -->
-        <!--     <pre>{{attachmentRequest | without | json}}</pre> -->
-        <!-- </div> -->
 </form>
