@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysmykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg) {
+    .directive('hakukohdeLisakysmykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio) {
         return {
             restrict: 'E',
             replace: true,
@@ -17,11 +17,19 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 '<alertmsg></alertmsg>' +
                 '</div>',
             link: function (scope, element, attrs) {
-                TarjontaAPI.fetchHakukohdeInfo(attrs.aoid).then(
-                    function (data) {
-                        scope.hakukohdeInfo = data;
-                    }
-                );
+                if (attrs.hakukohde.group) {
+                     Organisaatio.getOrganisation2(attrs.hakukohde.aoid).then(
+                        function (data) {
+                            scope.hakukohdeInfo = data;
+                        }
+                    );
+                } else {
+                    TarjontaAPI.fetchHakukohdeInfo(attrs.hakukohde.aoid).then(
+                        function (data) {
+                            scope.hakukohdeInfo = data;
+                        }
+                    );
+                }
 
                 scope.naytaHakukohdeQues = false;
                 scope.toggleNaytaHakukohdeKysymykset = function () {
