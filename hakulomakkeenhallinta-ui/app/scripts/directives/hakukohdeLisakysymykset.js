@@ -6,7 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             restrict: 'E',
             replace: true,
             template: '<div>' +
-                '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo | hakukohdeNimi:userLang }} : {{ hakukohdeInfo.tarjoajaNimet[userLang]  }}' +
+                '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo | hakukohdeNimi:userLang }} <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >:</span> {{ hakukohdeInfo.tarjoajaNimet[userLang] }}' +
                 '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }"></i></a> </h4>' +
                 '<div class="form-group">' +
                 '<button type="button" class="btn" data-ng-click="cancelSortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
@@ -19,7 +19,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             link: function (scope, element, attrs) {
                 var hakukohdeJson = JSON.parse(attrs.hakukohdeolio);
                 console.log('##', hakukohdeJson);
-                if (hakukohdeJson.additionalQuestions && hakukohdeJson.additionalQuestions[0].targetIsGroup !== undefined) {
+                if (hakukohdeJson.additionalQuestions[0].targetIsGroup) {
                      Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
                         function (data) {
                             scope.hakukohdeInfo = data;
