@@ -1,198 +1,100 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-  .controller('CreateAdditionalQuestionCtrl',[ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData ) {
-        $rootScope.LOGS('CreateAdditionalQuestionCtrl ',6);
-        $scope.languages = [];
-        FormEditor.query({'_path':'languages'}).$promise.then(
-            function(data){
-                $rootScope.LOGS('CreateAdditionalQuestionCtrl ',10, data, 'languages');
-                $scope.languages = data;
-            });
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _) {
+            $rootScope.LOGS('CreateAdditionalQuestionCtrl');
+            $scope.languages = [];
+            $scope.theme = {};
+            $scope.question = {};
+            $scope.questionType = {};
+            $scope.editFlag = false;
+            $scope.validators = [];
+            $scope.hakukohde = {};
+            $scope.applicationSystem = {};
+            $scope.haunNimi = '';
+            $scope.hakukohdeNimi = '';
+            $scope.teema = '';
+            $scope.kysymysTyyppi = '';
+            $scope.tallennaClicked = false;
 
-        $scope.question = QuestionData.getQuestion();
-        $scope.element = QuestionData.getElement();
-        $scope.questionType = QuestionData.getQuestionType();
-        $scope.editFlag = QuestionData.getEditFlag();
-        getQuestionTypeValidators();
+            FormEditor.getLanguages().then(
+                function (data) {
+                    $scope.languages = data;
+                }
+            );
+            /**
+             * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
+             */
+            FormEditor.fetchApplicationSystemForm($routeParams.id).then(
+                function (data) {
+                    $scope.applicationSystem = data;
+                    $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
+                }
+            );
+            QuestionData.getHakukohdeInfo($routeParams.hakuOid).then(
+                function (data) {
+                    $scope.hakukohde = data;
+                    $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
+                }
+            );
+            /**
+             * selaimen refresh tapauksessa luodaan lisäkysymys uudestaan
+             */
+            if ($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined) {
+                QuestionData.newAdditionalQuestion();
 
-        $rootScope.LOGS('CreatAdditionalQuestionCtrl',15, ' themeId: ',$routeParams.themeId);
-        $rootScope.LOGS('CreatAdditionalQuestionCtrl',16,' QuestionId ', $routeParams.questionId );
-        $rootScope.LOGS('CreatAdditionalQuestionCtrl',21,' QuestionId ', QuestionData.getApplicationSystemId() );
-
-        //browser refresh luodaan uusi lisäkysymys case
-        if($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined){
-            QuestionData.newAdditionalQuestion();
-            QuestionData.setElement($routeParams.themeId);
-            QuestionData.setQuestionType($routeParams.qtype);
+            }
             QuestionData.setApplicatioSystemId($routeParams.id);
+            QuestionData.setLearningOpportunityId($routeParams.hakuOid);
+            QuestionData.setThemeId($routeParams.themeId);
+            QuestionData.setQuestionType($routeParams.qtype);
             QuestionData.setEditFlag(false);
-            QuestionData.setType($routeParams.qtype);
-            QuestionData.setLearningOpportunityId($routeParams.oid);
             $scope.question = QuestionData.getQuestion();
-            $scope.element = QuestionData.getElement();
-            $scope.questionType = QuestionData.getQuestionType();
+            QuestionData.getTheme().then(
+                function (data) {
+                    $scope.theme = data;
+                    $scope.teema = $filter('i18n')($scope.theme, 'name', $scope.userLang);
+                }
+            );
+
+            QuestionData.getType($routeParams.qtype).then(
+                function (data) {
+                    $scope.questionType =  data;
+                    $scope.kysymysTyyppi = $filter('i18n')($scope.questionType, 'name', $scope.userLang);
+                }
+            );
+
             $scope.editFlag = QuestionData.getEditFlag();
-            getQuestionTypeValidators();
-        }
-
-        //browser refresh muokkaa kysymysta case
-        if($routeParams.questionId !== undefined){
-            QuestionData.setQuestionData($routeParams.questionId).then(
-                function(){
-                    $scope.question = QuestionData.getQuestion();
-                    $scope.element = QuestionData.getElement();
-                    $scope.questionType = QuestionData.getQuestionType();
-                    QuestionData.setEditFlag(true);
-                    $scope.editFlag = QuestionData.getEditFlag();
-                    getQuestionTypeValidators();
-                });
-
-        }
-
-        $scope.back = function() {
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC back');
-            QuestionData.setEditFlag(false);
-            $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
-        };
-
-        $scope.tallennaUusi = function() {
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallenna uusi');
-            ThemeQuestions.save( { _id: $routeParams.id, '_aoid': $routeParams.hakuOid , '_themeId': $routeParams.themeId  }, $scope.question).$promise.then(
-                function(data){
-                    QuestionData.setQuestion(data);
-                    $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
-                });
-        };
-
-       $scope.tallennaMuokkaus = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC tallennaMuokkaus');
-           QuestionData.setEditFlag(false);
-           ThemeQuestions.save({'_id': $scope.question._id }, $scope.question).$promise.then(
-               function(){
-                   $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
-               });
-       };
-
-       $scope.poistaKysymys = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','CQC poistaKysymys');
-           QuestionData.setEditFlag(false);
-           ThemeQuestions.delete({'_id': $scope.question._id }).$promise.then(
-               function(){
-                   $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid);
-               });
-
-       };
-
-       $scope.esikatselu = function(){
-           $rootScope.LOGS('CreateAdditionalQuestionCtrl ','ei vielä toteutettu !!!!');
-       };
-
-       $scope.addCheckbox = function(question){
-           var optionObj = {};
-           var qIndx = question.options.length;
-           optionObj.optionText = {}
-           optionObj.optionText.translations = {};
-           optionObj.id = 'option_'+qIndx;
-           question.options[qIndx] = optionObj;
-       };
-
-       $scope.removeCheckbox = function(indx, question){
-           if(question.options.length >1 ){
-               question.options.splice(indx ,1);
-           }
-           for(var optionIndx in question.options){
-                question.options[optionIndx].id = 'option_'+optionIndx;
-           }
-       };
-
-       $scope.addRadio = function(question){
-           var optionObj = {};
-           var qIndx = question.options.length;
-           optionObj.optionText = {};
-           optionObj.optionText.translations = {};
-           optionObj.id = 'option_'+qIndx;
-           question.options[qIndx] = optionObj;
-
-       };
-
-       $scope.removeRadio = function(indx, question){
-           if(question.options.length >2 ){
-               question.options.splice(indx ,1);
-           }
-           for(var optionIndx in question.options){
-               question.options[optionIndx].id = 'option_'+optionIndx;
-           }
-       };
-
-       $scope.minValueValidator = function(question, value){
-           if(question.validators === undefined){
-                question.validators = [];
-            }else{
-                $rootScope.LOGS('createAdditionalQuestion', 134, $scope.validatorMin );
-                $rootScope.LOGS('createAdditionalQuestion', 134, value );
-                var min = {};
-                min.min = value;
-                question.validators[0] = min
-            }
-       };
-
-        $scope.maxValueValidator = function(question, value){
-            if(question.validators === undefined){
-                question.validators = [];
-            }else{
-                var max = {};
-                max.max = value;
-                question.validators[1] = max;
-            }
-        };
-
-        function getQuestionTypeValidators(){
-            var question = QuestionData.getQuestion();
-            var editFlag = QuestionData.getEditFlag();
-
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ' , $scope.element , $scope.questionType );
-            $rootScope.LOGS('CreateAdditionalQuestionCtrl ','getQuestionTypeValidators() ',question.type);
-            switch(question.type){
-                case 'TextQuestion':
-
-                    $scope.validators = QuestionData.getTextQuestionValidators();
-                    break;
-
-                case 'CheckBox':
-
-                    if(!editFlag){
-                        question.options = [];
-                        question.validators = {};
-                        var optionObj = {};
-                        optionObj.optionText ={};
-                        optionObj.optionText.translations = {};
-                        optionObj.id = 'option_0';
-                        question.options[0] = optionObj;
-                    }
-                    $scope.validators = QuestionData.getCheckboxValidators();
-                    break;
-
-                case 'RadioButton':
-
-                    if(!editFlag){
-                        question.options = [];
-                        var radioObj = {};
-                        radioObj.optionText ={};
-                        radioObj.optionText.translations = {};
-                        radioObj.id = 'option_0';
-                        var radioObj2 = {};
-                        radioObj2.optionText = {};
-                        radioObj2.optionText.translations = {};
-                        radioObj2.id = 'option_1';
-                        question.options[0] = radioObj;
-                        question.options[1] = radioObj2;
-                    }
-                    $scope.validators = QuestionData.getRadioValidators();
-                    break;
+            $scope.validators = QuestionData.getQuestionTypeValidators();
+            /**
+             * paluu takaisin edelliselle sivulle
+             */
+            $scope.back = function () {
+                $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'back()');
+                QuestionData.setEditFlag(false);
+                $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
+            };
+            /**
+             *Tallentaan uusi lisäkysymys HH:n taustajärjestelmään
+             */
+            $scope.tallennaUusi = function () {
+                $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'tallennaUusi()');
+                $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
+                if ($scope.kysymys.$valid) {
+                    ThemeQuestions.createNewQuestion($routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
+                        function success (data) {
+                            QuestionData.setQuestion(data);
+                            AlertMsg($scope, 'success', 'kysymyksen.tallennus.ok');
+                            $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
+                        },
+                        function error (resp) {
+                            $rootScope.LOGS('CreateAdditionalQuestionCtrl', 'tallennaUusi()', resp.statusText, resp.status);
+                            AlertMsg($scope, 'warning', 'error.tallennus.epaonnistui');
+                        }
+                    );
+                }
+                $scope.tallennaClicked = true;
             };
 
-        };
-
-  }]);
+        }]);

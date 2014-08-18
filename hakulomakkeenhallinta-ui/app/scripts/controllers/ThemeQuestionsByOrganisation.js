@@ -1,121 +1,211 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'HH', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions',
-        function($rootScope, $scope, $modal, $location, _, $routeParams, HH, FormEditor, FormWalker, QuestionData, ThemeQuestions ) {
-            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 6 );
-            $scope.lang = "fi";
-            $scope.organisation;
-            HH.fetchOrganisation($routeParams.oid).then(
-                function(data){
-                    $scope.organisation = data;
-            });
+    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter', 'TarjontaAPI', '$q', '$timeout', 'AlertMsg',
+        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter, TarjontaAPI, $q, $timeout, AlertMsg ) {
+            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl');
 
-            $scope.applicationSystem;
-            HH.fetchApplicationSystemForm($routeParams.id).then(
-                function(data){
+            $scope.haunNimi = '';
+            $scope.organisation = '';
+            $scope.organisationNimi = '';
+            /**
+             * haetaan valitun organisaation tiedot organisaatio palvelusta
+             * valitun organisaation id:llä
+             */
+            Organisaatio.fetchOrganisation($routeParams.oid).then(
+                function (data) {
+                    $scope.organisation = data;
+                    $scope.organisationNimi = $filter('organisaatioNimi')($scope.organisation, $scope.userLang);
+                }
+            );
+
+            $scope.applicationSystem = {};
+            /**
+             * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
+             */
+            FormEditor.fetchApplicationSystemForm($routeParams.id).then(
+                function (data) {
                     $scope.applicationSystem = data;
-            });
+                    $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
+                }
+            );
 
             $scope.themes = [];
-            FormEditor.query({'_path':'application-system-form', '_id':$routeParams.id ,'_oper':'additional-question-themes'}).$promise.then(
-                function(data){
-                    $scope.themes = data;
-                    ThemeQuestions.getThemeQuestionListByOrgId({'_id':$routeParams.id, orgId: $routeParams.oid}).$promise.then(
-                        function(data){
-                            var que = [];
-                            que = data;
-                            for( var theme in $scope.themes){
-                                $scope.themes[theme].additionalQuestions = [];
-                                for(var question in que){
-                                    if(que[question].theme != undefined){
-                                        if($scope.themes[theme].id === que[question].theme){
-                                            $scope.themes[theme].additionalQuestions.push(que[question]);
+            /**
+             * heataan hakulomakkeen teemat halomamekkeen id:llä ja siihen liityvä lisäkysymykset
+             * ja asetetaan ne käyttöliittymään oikean teeman ja hakukohteen alle
+             */
+            function hakukohdeKohtaisetKysymykset() {
+                var deferred = $q.defer();
+                FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
+                    function (data) {
+                        var themes = data;
+                        ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
+                            function (data) {
+                                var themeQues = [],
+                                    hakukohdeIds = [];
+                                themeQues = data;
+                                //parsitaan lisäkysymyksistä hakukohteet taulukkoon
+                                for (var tqIndx = 0, themQuesLength = themeQues.length; tqIndx < themQuesLength; tqIndx += 1){
+                                    if(hakukohdeIds.indexOf(themeQues[tqIndx].learningOpportunityId) === -1){
+                                        hakukohdeIds.push(themeQues[tqIndx].learningOpportunityId);
+                                    }
+                                }
+                                //parsitaan lisäkysmys oikean teeman ja hakukohteen alle
+                                for (var themeIndx = 0, themesLength = themes.length; themeIndx < themesLength; themeIndx += 1){
+                                    themes[themeIndx].hkkohde = [];
+                                    for (var hkIndx = 0, hakukohdeIdsLength = hakukohdeIds.length; hkIndx < hakukohdeIdsLength; hkIndx += 1){
+                                        themes[themeIndx].hkkohde[hkIndx] = {};
+                                        themes[themeIndx].hkkohde[hkIndx].aoid = hakukohdeIds[hkIndx];
+                                        themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
+                                        for (var queIndx = 0, themeQsLength = themeQues.length; queIndx < themeQsLength; queIndx += 1){
+                                            if (themeQues[queIndx].theme !== undefined ){
+                                                if (themes[themeIndx].id === themeQues[queIndx].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
+                                                    themes[themeIndx].hkkohde[hkIndx].additionalQuestions.push(themeQues[queIndx]);
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                                deferred.resolve(themes);
                             }
-                        });
-                });
-
-            $scope.getHakukohdeInfo = function(lopId){
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',42,' getHakukohdeInfo ');
-                HH.fetchHakukohdeInfo(lopId).then(
-                    function(data){
-                        return data;
-                    });
+                        );
+                    }
+                );
+                return deferred.promise;
             };
-
+            /**
+             * päivitetään asynkroninen teema data $scopeen kun se on käsitelty
+             * yllä olevassa funtiossa
+             */
+            hakukohdeKohtaisetKysymykset().then(function(data){
+                $scope.themes = data;
+            });
+            /**
+             * avataan dialogit uuden kysymyksen hakukohteen ja tyypin alustamiseksi
+             * @param theme
+             */
             $scope.addQuestion = function(theme) {
                 $modal.open({
                     templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
-                    controller: 'SelectHakukohdeCtrl'
-                }).result.then(function(){
+                    controller: 'SelectHakukohdeCtrl',
+                    scope: $scope,
+                    resolve: {
+                        applicationSystem: function(){
+                            return $scope.applicationSystem;
+                        },
+                        theme: function(){
+                            return theme;
+                        }
+                    }
+                }).result.then(function(data){
                         $modal.open({
                             templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
-                            controller: 'SelectThemeAndQuestionTypeCtrl'
-                        }).result.then(function(data) {
-                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',58, data);
+                            controller: 'SelectQuestionTypeCtrl',
+                            scope: $scope,
+                            resolve: {
+                                applicationSystem: function () {
+                                    return data.applicationSystem;
+                                },
+                                theme: function () {
+                                    return data.theme;
+                                },
+                                hakukohde: function () {
+                                    return data.hakukohde;
+                                }
+                            }
+                        }).result.then(function (data) {
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','addQuestion()', data);
                                 QuestionData.newAdditionalQuestion();
                                 QuestionData.setQuestionType(data.type);
-                                QuestionData.setElement(theme);
+                                QuestionData.setTheme(theme);
                                 QuestionData.setApplicatioSystemId($routeParams.id);
                                 QuestionData.setEditFlag(false);
                                 QuestionData.setLearningOpportunityId(QuestionData.getApplicationOption().oid);
-                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',65, QuestionData.getQuestion() );
-                                $location.path('/themeQuestionsByOrganisation/'+$routeParams.id+'/'+$routeParams.oid+'/'+QuestionData.getApplicationOption().oid+'/'+ theme.id+'/'+data.type.id);
-                            });
-                    });
+                                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl', QuestionData.getQuestion() );
+                                $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid + '/' + QuestionData.getApplicationOption().oid + '/' + theme.id + '/' + data.type.id);
+                            }
+                        );
+                    }
+                );
             };
-
-            $scope.muokkaaKysymysta = function(question){
-                QuestionData.setEditFlag(true);
-                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',72 ,' muokkaaKysmysta', question._id);
-                ThemeQuestions.get({'_id': question._id}).$promise.then(
-                    function(data){
-                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ',75,' muokkaa:', data);
-                        QuestionData.setQuestion(data);
-                        $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
-                    });
+            /**
+             * valitun kysymyksen muokkaus näkymään
+             * @param question valittu kysymys
+             * @param sortBtns kysymysten järjestämis lippu
+             */
+            $scope.muokkaaKysymysta = function(question, sortBtns){
+                if (sortBtns) {
+                    QuestionData.setEditFlag(true);
+                    $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'muokkaaKysmysta()', question._id);
+                    ThemeQuestions.getThemeQuestionById(question._id).then(
+                        function (data) {
+                            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','muokkaaKysymysta() data:', data);
+                            QuestionData.setQuestion(data);
+                            $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
+                        }
+                    );
+                }
             };
-
-            $scope.back = function() {
+            /**
+             * takaisin edelliselle sivulle
+             */
+            $scope.back = function () {
                 $location.path('/');
             };
-
-
-            $scope.accordianState = function(theme){
-                if(theme.additionalQuestions !== undefined && theme.additionalQuestions.length > 0){
-                    return true;
-                }
-                return false;
-            }
-
-            $scope.edit = function(additionalQuestion) {
+            /**
+             * avaa varmistus dialogin kysymyksen poistolle
+             * hakukohdekohtaisen lisäkymys listasta
+             * @param question poistettavan kysymyksen tiedot objekti
+             */
+            $scope.poistaKysymys = function (question, hkKysymysLista) {
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                    controller: 'ModalQuestionCtrl',
+                    templateUrl: 'partials/lisakysymykset/poista-kysymys-dialog.html',
+                    controller: 'poistaKysymysDialogCtrl',
+                    scope: $scope,
                     resolve: {
-                        element: function() {
-                            return HH.find($scope.applicationSystem, function(el) {
-                                return el._id === additionalQuestion.parentId;
-                            });
+                        question: function () {
+                            return question;
                         },
-                        applicationSystem: function() {
-                            return $scope.applicationSystem;
-                        },
-                        question: function() {
-                            return additionalQuestion;
+                        where: function () {
+                            return 'list';
                         }
-                    },
-                    scope: $scope
-                });
+                    }
+                }).result.then( function () {
+                        AlertMsg($scope, 'success', 'kysymyksen.poisto.ok');
+                        var splIndx = 0,
+                            ordinals = {};
+                        for (var i = 0, quesLength = hkKysymysLista.length; i < quesLength; i +=1) {
+                            if (hkKysymysLista[i]._id === question._id) {
+                                hkKysymysLista.splice(i, 1);
+                                splIndx = i;
+                                break;
+                            }
+                        }
+                        //TODO: kysymysten järjestys sen poiston yhteydessä UI/back end?
+                        for (var j = 0, quesLnth = hkKysymysLista.length; j < quesLnth; j += 1) {
+                            if (hkKysymysLista[j].ordinal) {
+                                var oldOrd = hkKysymysLista[j].ordinal;
+                                if (j >= splIndx){
+                                    hkKysymysLista[j].ordinal = hkKysymysLista[j].ordinal - 1;
+                                }
+                                ordinals[hkKysymysLista[j]._id] = {};
+                                ordinals[hkKysymysLista[j]._id].newOrdinal = hkKysymysLista[j].ordinal;
+                                ordinals[hkKysymysLista[j]._id].oldOrdinal = oldOrd;
+                            } else {
+                                hkKysymysLista[j].ordinal = j + 1;
+                            }
+                        }
+                    }
+                );
             };
 
-            $scope.sortQuestions = function() {
-                $modal.open({
-                    templateUrl: 'partials/lisakysymykset/sort-questions.html',
-                    controller: 'SortQuestionsCtrl'
-                });
+            $scope.accordianState = function(theme){
+                for (var hkIndx = 0, hkkohdeLength = theme.hkkohde.length; hkIndx < hkkohdeLength; hkIndx+=1){
+                    if (theme.hkkohde[hkIndx].additionalQuestions !== undefined && theme.hkkohde[hkIndx].additionalQuestions.length > 0){
+                        return true;
+                    }
+                }
+                return false;
             };
         }]);

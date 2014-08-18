@@ -5,6 +5,7 @@ var app = angular.module('hakulomakkeenhallinta', [
         'ngResource',
         'ui.bootstrap',
         'jm.i18next',
+        'ngSanitize',
         'hakulomakkeenhallintaUiApp.filters',
         'hakulomakkeenhallintaUiApp.directives',
         'hakulomakkeenhallintaUiApp.services.provider',
@@ -12,7 +13,6 @@ var app = angular.module('hakulomakkeenhallinta', [
         'hakulomakkeenhallintaUiApp.services.util',
         'hakulomakkeenhallintaUiApp.services.factory',
         'hakulomakkeenhallintaUiApp.controllers'
-        /*,'ngMockE2E'*/
     ]);
 
     app.config(['$resourceProvider', function ($resourceProvider) {
@@ -31,28 +31,19 @@ var app = angular.module('hakulomakkeenhallinta', [
             }).when('/applicationSystemForm/:id/:eid', {
                 templateUrl: 'partials/elements/edit/Element.html',
                 controller: 'ApplicationSystemFormCtrl'
-            }).when('/additionalQuestion/:id/:aoid', {
-                templateUrl: 'partials/additionalQuestions.html',
-                controller: 'AdditionalQuestionsCtrl'
-            }).when('/additionalQuestion/:id/:aoid/:eid', {
-                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                controller: 'CreateAdditionalQuestionCtrl'
             }).when('/applicationSystem', {
                 templateUrl: 'partials/applicationSystem.html'
             }).when('/applicationSystems', {
                 templateUrl: 'partials/applicationForms.html'
-            }).when('/applicationSystems/:applicationFormId/:applicationOptionId', {
-                templateUrl: 'partials/additionalQuestions.html',
-                controller: 'AdditionalQuestionsCtrl'
             }).when('/themeQuestionsByOrganisation/:id/:oid', {
                 templateUrl: 'partials/themeQuestionsByOrganisation.html',
                 controller: 'ThemeQuestionsByOrganisationCtrl'
             }).when('/themeQuestionsByOrganisation/:id/:oid/:hakuOid/:themeId/:qtype', {
-                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                    controller: 'CreateAdditionalQuestionCtrl'
+                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                controller: 'CreateAdditionalQuestionCtrl'
             }).when('/modifyThemeQuestion/:id/:oid/:questionId', {
-                    templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
-                    controller: 'CreateAdditionalQuestionCtrl'
+                templateUrl: 'partials/lisakysymykset/kysymystekstit.html',
+                controller: 'ModifyAdditionalQuestionCtrl'
             }).otherwise({
                 redirectTo: '/applicationSystemForm'
             });
@@ -86,6 +77,6 @@ var app = angular.module('hakulomakkeenhallinta', [
         ];
     });
 
-    app.run(['$rootScope', function($rootScope ){
+    app.run(['$rootScope', function($rootScope){
         $rootScope.devFlag = true;
     }]);

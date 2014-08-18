@@ -1,52 +1,73 @@
-<div>
-    <div class="row">
-        <div class="col-md-6">
-            <tabset>
-                <tab ng-repeat="language in languages | orderBy:'order':false " >
-                    <!--<tab-heading>{{language | i18n}}</tab-heading>-->
-                    <tab-heading>{{language.translations.fi}}</tab-heading>
-                    <hh-inputtext data-ng-model="question.messageText.translations[language.id]" label="question-title"></hh-inputtext>
-                    <hh-inputtext data-ng-model="question.helpText.translations[language.id]" label="question-help"></hh-inputtext>
-                    <hh-inputtext data-ng-model="question.verboseHelpText.translations[language.id]" label="question-additional-help"></hh-inputtext>
-                    <div data-ng-if="question.type === 'CheckBox'">
-                        <label data-ng-click="addCheckbox(question)">Lisää valintalaatikko </label>
-                        <i class="glyphicon glyphicon-plus" data-ng-click="addCheckbox(question)"></i>
-                        <div ng-repeat="option in question.options">
-                            <div class="form-group">
-                                <label> Valintalaatikko {{$index +1}}</label>
-                                <i class="glyphicon glyphicon-trash"  data-ng-click="removeCheckbox($index, question)"></i>
-                                <input type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" >
-                            </div>
-                        </div>
-                    </div>
+<div data-ng-controller="ValidatorsCtrl">
+    <tabset>
+        <tab ng-repeat="language in languages | orderBy:'order':false ">
+            <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
+            <div style="background-color: #f5f5f5; border-color: #ddd !important; ">
+                <br>
 
-                    <div data-ng-if="question.type === 'RadioButton'">
-                        <label data-ng-click="addRadio(question)">Lisää valintanappi </label>
-                        <i class="glyphicon glyphicon-plus" data-ng-click="addRadio(question)"></i>
-                        <div ng-repeat="option in question.options">
-                            <div class="form-group">
-                                <label> Valintanappi {{$index +1}}</label>
-                                <i class="glyphicon glyphicon-trash"  data-ng-click="removeRadio($index, question)"></i>
-                                <input type="text" data-ng-model="question.options[$index].optionText.translations[language.id]" class="form-control" >
-                            </div>
-                        </div>
-                    </div>
-                </tab>
-            </tabset>
-
-            <div data-ng-if="validators.length > 0" class="control-group">
-                <hr/>
-                <label>Rajoitteet ja tarkastukset</label>
-                <div ng-repeat="validator in validators">
-                    <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
+                <div class="col-md-offset-3 col-md-7">
+                    <span ng-show="kysymys.otsikko.$error.required" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                    <br>
                 </div>
-                <hr/>
+                <div class="form-group">
+                    <br>
+
+                    <div class="col-md-3 control-label">
+                        <label for="otsikko">{{ t('kysymyksen.otsikko') || 'Kysymyksen otsikko' }} </label>
+                    </div>
+                    <div class="col-md-8">
+
+                        <input name="otsikko" type="text" data-ng-model="question.messageText.translations[language.id]"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="ohjeteksti">{{ t('kysymyksen.ohjeteksti') || 'Ohjeteksti'
+                        }}</label>
+
+                    <div class="col-md-8">
+                        <textarea name="ohjeteksti" type="text"
+                                  data-ng-model="question.helpText.translations[language.id]" class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="lisaohjeteksti">{{ t('kysymyksen.lisaohjeteksti')
+                        || 'Lisäohjeteksti' }}</label>
+
+                    <div class="col-md-8">
+                        <textarea name="lisaohjeteksti" type="text"
+                                  data-ng-model="question.verboseHelpText.translations[language.id]"
+                                  class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div data-ng-if="question.type === 'TextQuestion'">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-8">
+                            <liitepyynto-napit></liitepyynto-napit>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-if="question.type === 'CheckBox'">
+                    <check-box></check-box>
+                </div>
+
+                <div data-ng-if="question.type === 'RadioButton'">
+                    <radio-button></radio-button>
+                </div>
+                <br>
             </div>
+        </tab>
+    </tabset>
 
-
-        </div>
-        <div class="col-md-6">
-            <pre data-ng-if="logs" >{{question | without | json}}</pre>
+    <div data-ng-if="validators.length > 0">
+        <div ng-repeat="validator in validators">
+            <div data-ng-include="'partials/elements/edit/validators/' + validator+ '.html'"></div>
         </div>
     </div>
 </div>

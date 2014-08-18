@@ -1,4 +1,6 @@
 <div class="form-group">
-    <label>Aseta valittavien valintaruutujen minimimäärä</label>
-    <input type="text" data-ng-model="question.validators.min" class="form-control" ng-pattern="/[0-9]/"  >
+    <label> {{ t('valintaruutujen.min') || 'Aseta valittavien valintaruutujen minimimäärä' }}</label>
+    <span data-ng-show="kysymys.minvalintaruutuja.$error.checkboxminvalue && tallennaClicked" class="label-warning-text">{{ t('tarkista.valintaruutu.arvo') || 'tarkista asetamasi arvo vastaaman valintaruutujen määrää' }}</span>
+    <span data-ng-show="kysymys.minvalintaruutuja.$error.pattern && tallennaClicked" class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
+    <input name="minvalintaruutuja" type="text" data-ng-model="question.validators.min" class="form-control" ng-pattern="/^[0-9]+$/"  checkboxminvalue>
 </div>

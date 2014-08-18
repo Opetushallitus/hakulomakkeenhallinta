@@ -3,22 +3,28 @@
 <html lang="en" ng-app="hakulomakkeenhallinta">
 <head>
     <meta charset="utf-8">
-    <title>Hakulomakkeet</title>
+    <title>Hakulomakkeenhallinta</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 
     <link href="css/virkailija.css" rel="stylesheet">
+    <link href="css/other.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
     <!--Virkailija layout script -->
     <script type="text/javascript" src="/virkailija-raamit/apply-raamit.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
     <script src="lib/underscore.collections.walk.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-route.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-resource.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-mocks.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-sanitize.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-mocks.js"></script>
+
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
     <script src="lib/i18next-1.7.1.min.js"></script>
+
+
     <script src="lib/ng-i18next.min.js"></script>
     <script src="lib/jquery-1.11.1.min.js"></script>
 
@@ -36,47 +42,64 @@
 <script src="scripts/controllers/koodisto.js"></script>
 <script src="scripts/controllers/applicationsystemform.js"></script>
 <script src="scripts/controllers/hakulomakkeet.js"></script>
-<script src="scripts/controllers/questions.js"></script>
-<script src="scripts/controllers/modalapplicationoption.js"></script>
 <script src="scripts/controllers/ThemeQuestionsByOrganisation.js"></script>
 <script src="scripts/controllers/back.js"></script>
 <script src="scripts/controllers/formtemplates.js"></script>
-<script src="scripts/controllers/modalquestion.js"></script>
 <script src="scripts/controllers/selectorganisation.js"></script>
-<script src="scripts/controllers/additionalquestions.js"></script>
 <script src="scripts/controllers/SelectHakukohde.js"></script>
-<script src="scripts/controllers/sortquestions.js"></script>
 <script src="scripts/controllers/element.js"></script>
-<script src="scripts/controllers/question.js"></script>
-<script src="scripts/controllers/validatormodal.js"></script>
 <script src="scripts/controllers/expr.js"></script>
 <script src="scripts/controllers/createapplicationsystemform.js"></script>
-<script src="scripts/controllers/selectthemeandquestiontype.js"></script>
+<script src="scripts/controllers/selectquestiontype.js"></script>
+<script src="scripts/controllers/createadditionalquestion.js"></script>
+<script src="scripts/controllers/ValidatorsCtrl.js"></script>
+<script src="scripts/controllers/ModifyAdditionalQuestionCtrl.js"></script>
+<script src="scripts/controllers/appendixRequestCtrl.js"></script>
+<script src="scripts/controllers/poistaKysymysDialogCtrl.js"></script>
+
 <script src="scripts/services/provider/applicationsystemresource.js"></script>
-<script src="scripts/services/provider/typeresource.js"></script>
-<script src="scripts/services/provider/asfresource.js"></script>
 <script src="scripts/services/provider/props.js"></script>
-<script src="scripts/services/provider/formresource.js"></script>
-<script src="scripts/services/service/koodisto.js"></script>
-<script src="scripts/services/service/resources.js"></script>
-<script src="scripts/services/util/formwalker.js"></script>
-<script src="scripts/services/service/hh.js"></script>
-<script src="scripts/filters/i18n.js"></script>
-<script src="scripts/filters/without.js"></script>
-<script src="scripts/directives/appversion.js"></script>
-<script src="scripts/directives/hhrequiredfield.js"></script>
-<script src="scripts/directives/hhinputtext.js"></script>
-<script src="scripts/directives/hhinputlink.js"></script>
+<script src="scripts/services/provider/dynamicLocalization.js"></script>
+
+<script src="scripts/services/factory/MyRoles.js"></script>
 <script src="scripts/services/factory/FormEditor.js"></script>
 <script src="scripts/services/factory/ThemeQuestions.js"></script>
 <script src="scripts/services/factory/mallipohjat.js"></script>
 <script src="scripts/services/factory/tarjontaapi.js"></script>
-<script src="scripts/services/factory/elementtypes.js"></script>
 <script src="scripts/services/factory/organisaatiohenkilo.js"></script>
 <script src="scripts/services/factory/organisaatio.js"></script>
-<script src="scripts/services/factory/languages.js"></script>
+<script src="scripts/services/factory/localisations.js"></script>
+<script src="scripts/services/factory/AlertMsg.js"></script>
+
+<script src="scripts/services/service/koodisto.js"></script>
 <script src="scripts/services/service/questiondata.js"></script>
-<script src="scripts/controllers/createadditionalquestion.js"></script>
+<script src="scripts/services/service/localisationService.js"></script>
+
+<script src="scripts/services/util/formwalker.js"></script>
+
+<script src="scripts/filters/i18n.js"></script>
+<script src="scripts/filters/without.js"></script>
+<script src="scripts/filters/hakukohdeNimi.js"></script>
+<script src="scripts/filters/languageTab.js"></script>
+<script src="scripts/filters/organisaatioNimi.js"></script>
+
+<script src="scripts/directives/appversion.js"></script>
+<script src="scripts/directives/hhrequiredfield.js"></script>
+<script src="scripts/directives/hhinputtext.js"></script>
+<script src="scripts/directives/hhinputlink.js"></script>
+<script src="scripts/directives/tl.js"></script>
+<script src="scripts/directives/alertmsg.js"></script>
+<script src="scripts/directives/loading.js"></script>
+<script src="scripts/directives/checkBox.js"></script>
+<script src="scripts/directives/radioButton.js"></script>
+<script src="scripts/directives/checkBoxMinValue.js"></script>
+<script src="scripts/directives/checkBoxMaxValue.js"></script>
+<script src="scripts/directives/lisakysymysNapit.js"></script>
+<script src="scripts/directives/lisakysymyksetListaNapit.js"></script>
+<script src="scripts/directives/datepickerFix.js"></script>
+<script src="scripts/directives/liitepyyntoNapit.js"></script>
+<script src="scripts/directives/questionTranslations.js"></script>
+<script src="scripts/directives/hakukohdeLisakysymykset.js"></script>
 <!-- endbuild -->
 
 </html>

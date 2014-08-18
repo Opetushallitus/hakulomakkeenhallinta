@@ -1,8 +1,8 @@
 <div>
     <div class="form-group">
-        <button type="button" class="btn" data-ng-click="back()" data-ng-controller="BackCtrl">Takaisin</button>
-        <button type="button" class="btn" data-ng-controller="QuestionsCtrl" data-ng-click="addNewAdditionalQuestion(applicationSystem)">Tee hakukohdekohtaisi lisäkysymyksiä</button>
-        <button type="button" class="btn" data-ng-click="release(tree)" data-ng-disabled="devFlag">Julkaise</button>
+        <button type="button" class="btn" data-ng-click="back()" data-ng-controller="BackCtrl" tl="takaisin">Takaisin</button>
+        <button type="button" class="btn" data-ng-controller="QuestionsCtrl" data-ng-click="addNewAdditionalQuestion(applicationSystem)" tl="tee.hakukohdekohtaisia.lisakysymyksia">Tee hakukohdekohtaisi lisäkysymyksiä</button>
+        <button type="button" class="btn" data-ng-click="release(tree)" data-ng-disabled="devFlag" tl="julkaise">Julkaise</button>
     </div>
     <div class="form-group">
         <h1>{{tree | i18n:'name'}}</h1>

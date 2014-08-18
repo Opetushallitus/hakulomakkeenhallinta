@@ -1,4 +1,6 @@
 <div class="form-group">
-    <label>Aseta valittavien valintaruutujen maksimimäärä</label>
-    <input type="text" data-ng-model="question.validators.max" class="form-control" ng-pattern="/[0-9]/" >
+    <label>{{ t('valintaruutujen.max') || 'Aseta valittavien valintaruutujen maksimimäärä' }}</label>
+    <span data-ng-show="kysymys.maxvalintaruutuja.$error.checkboxmaxvalue && tallennaClicked" class="label-warning-text">{{ t('tarkista.valintaruutu.arvo') || 'tarkista asetamasi arvo vastaaman valintaruutujen määrää' }}</span>
+    <span data-ng-show="kysymys.maxvalintaruutuja.$error.pattern && tallennaClicked" class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}</span>
+    <input name="maxvalintaruutuja" type="text" data-ng-model="question.validators.max" class="form-control" ng-pattern="/^[0-9]+$/" checkboxmaxvalue >
 </div>
