@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysmykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg) {
+    .directive('hakukohdeLisakysmykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio) {
         return {
             restrict: 'E',
             replace: true,
             template: '<div>' +
-                '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo | hakukohdeNimi:userLang }} : {{ hakukohdeInfo.tarjoajaNimet[userLang]  }}' +
+                '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo | hakukohdeNimi:userLang }} <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >:</span> {{ hakukohdeInfo.tarjoajaNimet[userLang] }}' +
                 '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }"></i></a> </h4>' +
                 '<div class="form-group">' +
                 '<button type="button" class="btn" data-ng-click="cancelSortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
@@ -17,11 +17,20 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 '<alertmsg></alertmsg>' +
                 '</div>',
             link: function (scope, element, attrs) {
-                TarjontaAPI.fetchHakukohdeInfo(attrs.aoid).then(
-                    function (data) {
-                        scope.hakukohdeInfo = data;
-                    }
-                );
+                var hakukohdeJson = JSON.parse(attrs.hakukohdeolio);
+                if (hakukohdeJson.additionalQuestions.length > 0 && hakukohdeJson.additionalQuestions[0].targetIsGroup) {
+                     Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
+                        function (data) {
+                            scope.hakukohdeInfo = data;
+                        }
+                    );
+                } else {
+                    TarjontaAPI.fetchHakukohdeInfo(hakukohdeJson.aoid).then(
+                        function (data) {
+                            scope.hakukohdeInfo = data;
+                        }
+                    );
+                }
 
                 scope.naytaHakukohdeQues = false;
                 scope.toggleNaytaHakukohdeKysymykset = function () {
@@ -35,7 +44,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.questions = [];
                 /**
                  * vaihtaa näytä/piilota napit muuttujan arvoa
-                 */
+             */
                 function toggleShowSortBtns() {
                     $scope.sortBtns = !$scope.sortBtns;
                 };

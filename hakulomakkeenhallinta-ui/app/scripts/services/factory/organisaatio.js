@@ -40,8 +40,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             );
             return defferred.promise;
         };
-
-        organisaatio.getOrganisation2 = function (oid) {
+        /**
+         * Hakee organisaatioon liittyvän datan
+         * @param oid organisaation id
+         * @returns {promise}
+         */
+        organisaatio.getOrganisationData = function (oid) {
             var defferred = $q.defer();
             hae.get({'_oid': oid}).$promise.then(
                 function (data) {

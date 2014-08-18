@@ -100,7 +100,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         .pluck('organisaatioRyhmaOids')
                         .flatten(true)
                         .uniq()
-                        .map(function (ryhmaOid) {return Organisaatio.getOrganisation2(ryhmaOid);})
+                        .map(function (ryhmaOid) {return Organisaatio.getOrganisationData(ryhmaOid);})
                         .value();
 
                         $q.all(organisaatiot).then(

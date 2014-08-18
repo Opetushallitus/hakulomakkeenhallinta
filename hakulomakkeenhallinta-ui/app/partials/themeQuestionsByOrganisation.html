@@ -20,7 +20,7 @@
 
             <div data-ng-repeat="hakukohde in theme.hkkohde">
                 <div data-ng-show="hakukohde.additionalQuestions.length >0">
-                    <hakukohde-lisakysmykset aoid="{{hakukohde.aoid}}"></hakukohde-lisakysmykset>
+                    <hakukohde-lisakysmykset hakukohdeolio="{{hakukohde}}" ></hakukohde-lisakysmykset>
                     <table class="table table-striped table-hover table-condensed" data-ng-show="naytaHakukohdeQues">
                         <tr>
                             <th style="text-align: center;"><i class="glyphicon glyphicon-sort"></i></th>
