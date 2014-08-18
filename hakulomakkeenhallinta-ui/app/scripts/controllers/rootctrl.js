@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('RootCtrl', [ '$rootScope', '$scope', 'Props', 'MyRoles', 'LocalisationService', 'AlertMsg', 'dynamicLocalization',
-        function ($rootScope, $scope, Props, MyRoles, LocalisationService, AlertMsg, dynamicLocalization) {
+    .controller('RootCtrl', [ '$rootScope', '$scope', 'Props', 'MyRoles', 'LocalisationService', 'AlertMsg', 'dynamicLocalization', '_',
+        function ($rootScope, $scope, Props, MyRoles, LocalisationService, AlertMsg, dynamicLocalization, _) {
 
             /**
              * käyttäjän käyttöprofiilin tarkastus cas/myroles tiedostosta
@@ -66,17 +66,20 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                     $scope.loading = false;
                 }
             );
-            /**
-             * asettaa suomenkielisen kentän vaadituksi arvoksi
-             * lomakkeen ng-required tarkistuksesssa
-             * @param langId kielien id ( fi | sv | en)
-             * @returns boolean
-             */
-            $scope.requiredByFiLang = function (langId) {
-                if (langId === 'fi') {
-                    return true;
+
+            $scope.tarkistaPakollisuus = function (translations) {
+                if ( _.size(translations) < 1) {
+                    return false;
                 }
-                return false;
+                return _.some( _.values(translations), function (item) { return item !== ""; });
+            };
+
+            $scope.tarkistaRadioButton = function (translations, validy) {
+                validy.$setValidity('required', $scope.tarkistaPakollisuus(translations));
+            };
+
+            $scope.tarkistaCheckBox = function (translations, validy) {
+                validy.$setValidity('required', $scope.tarkistaPakollisuus(translations));
             };
 
         }]);
