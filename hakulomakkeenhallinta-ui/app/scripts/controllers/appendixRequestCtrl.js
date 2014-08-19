@@ -5,6 +5,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _) {
             $scope.attachmentRequest = attachmentRequest;
 
+            if (typeof $scope.attachmentRequest.deliveryDue !== 'Object') {
+                var d = new Date($scope.attachmentRequest.deliveryDue);
+                $scope.attachmentRequest.deliveryDue = d;
+            }
+
             $scope.toimitusaika = toHHMMTime($scope.attachmentRequest.deliveryDue);
 
             $scope.tanaan = new Date();
