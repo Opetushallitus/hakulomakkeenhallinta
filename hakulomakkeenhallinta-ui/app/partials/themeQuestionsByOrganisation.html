@@ -45,7 +45,7 @@
                             {{question.ordinal}}
                             </td>
                             <td>
-                                <a data-ng-click="muokkaaKysymysta(question, sortBtns)" >{{ question | kysymysOtsikko:'messageText.translations':userLang}}</a>
+                                <a data-ng-click="muokkaaKysymysta(question, sortBtns)" >{{ question.messageText | kysymysOtsikko:'translations':userLang}}</a>
                             </td>
                             <td>
                                 {{ question.type | i18next }} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
