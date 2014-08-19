@@ -6,7 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param question
              * @param value
              */
-            $scope.minValueValidator = function(question, value) {
+            $scope.minValueValidator = function (question, value) {
                 if (question.validators === undefined) {
                     question.validators = [];
                 } else {
@@ -22,7 +22,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param question
              * @param value
              */
-            $scope.maxValueValidator = function(question, value) {
+            $scope.maxValueValidator = function (question, value) {
                 if (question.validators === undefined) {
                     question.validators = [];
                 } else {
@@ -36,7 +36,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param hakukohde hakukohteen tiedot liitpyynnölle
              * @param option kysymyksen tiedot liitepyynnölle
              */
-            $scope.addAppendixRequest = function(hakukohde, option) {
+            $scope.addAppendixRequest = function (hakukohde, option) {
                 var attachmentRequest = {
                     header: {
                         translations: {}
@@ -55,7 +55,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     controller: 'AppendixRequestCtrl',
                     scope: $scope,
                     resolve: {
-                        attachmentRequest: function() {
+                        attachmentRequest: function () {
                             return attachmentRequest;
                         }
                     }
@@ -70,9 +70,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * liitepyynnön poisto kysymyksestä
              * @param index kysymyksen indx, joka on liitetty liitepyyntöön
              */
-            $scope.removeAppendixRequest = function(option) {
+            $scope.removeAppendixRequest = function (option) {
                 if (option) {
-                    $scope.question.attachmentRequests = _.reject($scope.question.attachmentRequests, function(attachment) {
+                    $scope.question.attachmentRequests = _.reject($scope.question.attachmentRequests, function (attachment) {
                         return attachment.attachedToOptionId === option.id;
                     });
                 } else {
@@ -84,10 +84,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param hakukohde hakukohteen tiedot liitepyynnölle
              * @param option kysymyksen tiedot liitepyynnölle
              */
-            $scope.modifyAppendixRequest = function(option) {
+            $scope.modifyAppendixRequest = function (option) {
                 var attachmentRequest;
                 if (option) {
-                    attachmentRequest = _.find($scope.question.attachmentRequests, function(attachment) {
+                    attachmentRequest = _.find($scope.question.attachmentRequests, function (attachment) {
                         return attachment.attachedToOptionId === option.id;
                     });
                 } else {
@@ -98,12 +98,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     controller: 'AppendixRequestCtrl',
                     scope: $scope,
                     resolve: {
-                        attachmentRequest: function() {
-                            console.log('### open modal: ', attachmentRequest.deliveryDue);
+                        attachmentRequest: function () {
                             return angular.copy(attachmentRequest);
                         }
                     }
-                }).result.then(function(data) {
+                }).result.then(function (data) {
                     for (var atcrq in $scope.question.attachmentRequests) {
                         if ($scope.question.attachmentRequests[atcrq].attachedToOptionId === data.attachedToOptionId) {
                             $scope.question.attachmentRequests[atcrq] = data;
@@ -119,7 +118,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.hasLiitepyynto = function(element) {
                 if (element) {
-                    return _.some($scope.question.attachmentRequests, function(attachmentRequest) {
+                    return _.some($scope.question.attachmentRequests, function (attachmentRequest) {
                         return attachmentRequest.attachedToOptionId === element.id;
                     });
                 } else {

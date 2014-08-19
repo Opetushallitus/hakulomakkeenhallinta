@@ -6,8 +6,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.attachmentRequest = attachmentRequest;
 
             if (typeof $scope.attachmentRequest.deliveryDue !== 'Object') {
-                var d = new Date($scope.attachmentRequest.deliveryDue);
-                $scope.attachmentRequest.deliveryDue = d;
+                var paivaObject = new Date($scope.attachmentRequest.deliveryDue);
+                $scope.attachmentRequest.deliveryDue = paivaObject;
             }
 
             $scope.toimitusaika = toHHMMTime($scope.attachmentRequest.deliveryDue);
@@ -34,7 +34,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tallennaLiitepyynto = function () {
                 $scope.lisaaCliked = true;
                 if ($scope.liitepyyntoDialog.$valid) {
-                    console.log('### save liitepyyntö: ', $scope.attachmentRequest.deliveryDue);
                     $modalInstance.close($scope.attachmentRequest);
                 }
             };
@@ -47,8 +46,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.setPostitoimipaikka = function () {
                 $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequest.deliveryAddress.postCode);
-                var postikoodi = _.find($scope.postiKoodit, function(koodi) { return koodi.koodiArvo ===  $scope.attachmentRequest.deliveryAddress.postCode; });
-                $scope.attachmentRequest.deliveryAddress.postOffice =  _.find(postikoodi.metadata, function(meta) {return meta.kieli.toLowerCase() === $scope.userLang;}).nimi;
+                var postikoodi = _.find($scope.postiKoodit, function (koodi) { return koodi.koodiArvo ===  $scope.attachmentRequest.deliveryAddress.postCode; });
+                $scope.attachmentRequest.deliveryAddress.postOffice =  _.find(postikoodi.metadata, function (meta) {return meta.kieli.toLowerCase() === $scope.userLang;}).nimi;
             };
             /**
              * asettaa kellon ajan päivä objetiin
@@ -58,7 +57,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     var dmsec = Date.parse($scope.attachmentRequest.deliveryDue),
                         d = new Date(dmsec),
                         t = this.toimitusaika;
-                    console.log('setKellonaikaToDate', t);
                     var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), t.substr(0, 2), t.substr(3, 2));
                     $scope.attachmentRequest.deliveryDue = nd;
                 }
@@ -66,8 +64,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * asettaa kellon ajan kun kalenteri syötteestä poistuttaessa
              */
-            $scope.pvmBlur = function() {
-                $timeout(function() {
+            $scope.pvmBlur = function () {
+                $timeout(function () {
                     if ($scope.attachmentRequest.deliveryDue !== '') {
                         $scope.toimitusaika = toHHMMTime($scope.attachmentRequest.deliveryDue);
                     }
@@ -91,7 +89,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @returns {string} paluttaa kellon ajan mutoa hh:mm
              */
             function toHHMMTime(date) {
-                console.log('toHHMMTime() -->', date, typeof date);
                 var dmsec;
                 if (typeof date === 'Object') {
                     dmsec = Date.parse(date);
