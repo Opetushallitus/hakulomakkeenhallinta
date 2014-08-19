@@ -41,12 +41,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.setPostitoimipaikka = function() {
                 $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequest.deliveryAddress.postCode);
-                for (var ptn in $scope.postiKoodit) {
-                    if ($scope.postiKoodit[ptn].koodiArvo === $scope.attachmentRequest.deliveryAddress.postCode) {
-                        $scope.attachmentRequest.deliveryAddress.postOffice = $scope.postiKoodit[ptn].metadata[0].nimi;
-                        return;
-                    }
-                }
+                var postikoodi = _.find($scope.postiKoodit, function(koodi) { return koodi.koodiArvo ===  $scope.attachmentRequest.deliveryAddress.postCode; });
+                $scope.attachmentRequest.deliveryAddress.postOffice =  _.find(postikoodi.meta, function(meta) {return meta.kieli === $scope.userLang;}).nimi;
             };
             /**
              * asettaa kellon ajan päivä objetiin
