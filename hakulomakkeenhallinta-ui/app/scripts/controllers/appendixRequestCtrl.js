@@ -86,9 +86,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @returns {string} paluttaa kellon ajan mutoa hh:mm
              */
             function toHHMMTime(date) {
-                console.log('toHHMMTime() -->', date);
-                var dmsec = Date.parse(date),
-                    hhmm = new Date(dmsec),
+                console.log('toHHMMTime() -->', date, typeof date);
+                var dmsec;
+                if (typeof date === 'Object') {
+                    dmsec = Date.parse(date);
+                } else {
+                    dmsec = date;
+                }
+                var hhmm = new Date(dmsec),
                     hh = addZeros(hhmm.getHours()),
                     mm = addZeros(hhmm.getMinutes());
                 return hh + ':' + mm;
