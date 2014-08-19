@@ -44,7 +44,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              * @returns {string[]}
              */
             this.getCheckboxValidators = function(){
-                return ['minMaxValueValidator', 'requiredFieldValidator'];
+                return ['minMaxValueValidator'];
             };
             /**
              * palauttaa valintanapin validaattorit
@@ -277,6 +277,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         if(!editFlag){
                             question.options = [];
                             question.validators = {};
+                            question.validators.min = 0;
+                            question.validators.max = 1;
                             var optionObj = {};
                             optionObj.optionText ={};
                             optionObj.optionText.translations = {};
