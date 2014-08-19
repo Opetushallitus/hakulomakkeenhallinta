@@ -2,17 +2,17 @@
 
 angular.module('hakulomakkeenhallintaUiApp.filters')
     .filter('kysymysOtsikko', function () {
-        return function(translations, userLang) {
-            console.log('***', translations);
-            if (translations) {
-                if (translations[userLang]) {
-                    return translations[userLang];
-                } else if (translations.fi) {
-                    return translations.fi;
-                } else if (translations.sv) {
-                    return translations.sv;
-                } else if (translations.en) {
-                    return translations.en;
+        return function(otsikko, userLang) {
+            console.log('***', otsikko);
+            if (otsikko.translations) {
+                if (otsikko.translations[userLang]) {
+                    return otsikko.translations[userLang];
+                } else if (otsikko.translations.fi) {
+                    return otsikko.translations.fi;
+                } else if (otsikko.translations.sv) {
+                    return otsikko.translations.sv;
+                } else if (otsikko.translations.en) {
+                    return otsikko.translations.en;
                 }
             }
             return undefined;
