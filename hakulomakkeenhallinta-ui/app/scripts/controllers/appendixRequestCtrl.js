@@ -18,7 +18,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * haetaan postinumerot ja postitoimipaikat'
              * Koodistosta
              */
-            Koodisto.getPostiKoodit().then(function(data) {
+            Koodisto.getPostiKoodit().then(function (data) {
                 $scope.postiKoodit = data;
             });
 
@@ -26,32 +26,34 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * tallentaa liitepyynnön ja sulkee liitepyyntö dialogin
              * @param valid
              */
-            $scope.tallennaLiitepyynto = function(valid) {
+            $scope.tallennaLiitepyynto = function () {
                 $scope.lisaaCliked = true;
-                if($scope.liitepyyntoDialog.$valid){
+                if ($scope.liitepyyntoDialog.$valid) {
+                    console.log('### save liitepyyntö: ', $scope.attachmentRequest.deliveryDue);
                     $modalInstance.close($scope.attachmentRequest);
                 }
             };
 
-            $scope.cancel = function() {
+            $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
             /**
              * asettaa postitoimi paikan valitulla postinumerolla
              */
-            $scope.setPostitoimipaikka = function() {
+            $scope.setPostitoimipaikka = function () {
                 $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequest.deliveryAddress.postCode);
                 var postikoodi = _.find($scope.postiKoodit, function(koodi) { return koodi.koodiArvo ===  $scope.attachmentRequest.deliveryAddress.postCode; });
-                $scope.attachmentRequest.deliveryAddress.postOffice =  _.find(postikoodi.meta, function(meta) {return meta.kieli === $scope.userLang;}).nimi;
+                $scope.attachmentRequest.deliveryAddress.postOffice =  _.find(postikoodi.metadata, function(meta) {return meta.kieli.toLowerCase() === $scope.userLang;}).nimi;
             };
             /**
              * asettaa kellon ajan päivä objetiin
              */
-            $scope.setKellonaikaToDate = function() {
-                if ($scope.toimitusraika !== undefined && $scope.attachmentRequest.deliveryDue !== '') {
+            $scope.setKellonaikaToDate = function () {
+                if (this.toimitusaika !== undefined && $scope.attachmentRequest.deliveryDue !== '') {
                     var dmsec = Date.parse($scope.attachmentRequest.deliveryDue),
                         d = new Date(dmsec),
-                        t = $scope.toimitusaika;
+                        t = this.toimitusaika;
+                    console.log('setKellonaikaToDate', t);
                     var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), t.substr(0, 2), t.substr(3, 2));
                     $scope.attachmentRequest.deliveryDue = nd;
                 }
@@ -84,6 +86,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @returns {string} paluttaa kellon ajan mutoa hh:mm
              */
             function toHHMMTime(date) {
+                console.log('toHHMMTime() -->', date);
                 var dmsec = Date.parse(date),
                     hhmm = new Date(dmsec),
                     hh = addZeros(hhmm.getHours()),

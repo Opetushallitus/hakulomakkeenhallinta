@@ -99,6 +99,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     scope: $scope,
                     resolve: {
                         attachmentRequest: function() {
+                            console.log('### open modal: ', attachmentRequest.deliveryDue);
                             return angular.copy(attachmentRequest);
                         }
                     }
