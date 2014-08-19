@@ -3,7 +3,6 @@
 angular.module('hakulomakkeenhallintaUiApp.filters')
     .filter('kysymysOtsikko', function () {
         return function(otsikko, userLang) {
-            console.log('***', otsikko);
             if (otsikko.translations) {
                 if (otsikko.translations[userLang]) {
                     return otsikko.translations[userLang];
