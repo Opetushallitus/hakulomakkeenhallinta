@@ -9,8 +9,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                     tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
                     contextRoot: '',
                     themeQuestionUri: 'http://localhost:9090/haku-app/application-system-form-editor/theme-question',
-//                    formEditorUri: 'http://localhost:9090/haku-app/application-system-form-editor',
-                    formEditorUri: 'https://itest-virkailija.oph.ware.fi/haku-app/application-system-form-editor',
+                    formEditorUri: 'http://localhost:9090/haku-app/application-system-form-editor',
                     authService: 'https://itest-virkailija.oph.ware.fi:443/authentication-service',
                     organisaatioService: 'https://itest-virkailija.oph.ware.fi/organisaatio-service',
                     backEndRoot : 'http://localhost:9090/',
@@ -19,7 +18,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider')
                 };
             } else {
                 return {
-                    enableConsoleLogs: true,
+                    enableConsoleLogs: false,
                     tarjontaAPI: '/tarjonta-service/rest/v1',
                     contextRoot: '/hakulomakkeenhallinta-ui',
                     themeQuestionUri: '/haku-app/application-system-form-editor/theme-question',
