@@ -4,8 +4,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout', '_',
         function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _) {
             $scope.attachmentRequest = attachmentRequest;
-
-            if (typeof $scope.attachmentRequest.deliveryDue !== 'Object') {
+            if ($scope.attachmentRequest.deliveryDue !== undefined &&
+                typeof $scope.attachmentRequest.deliveryDue !== 'Object') {
                 var paivaObject = new Date($scope.attachmentRequest.deliveryDue);
                 $scope.attachmentRequest.deliveryDue = paivaObject;
             }

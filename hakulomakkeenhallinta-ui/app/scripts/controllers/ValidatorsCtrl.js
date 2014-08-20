@@ -51,7 +51,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
 
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/liitepyynto.html',
+                    templateUrl: 'partials/dialogs/liitepyynto.html',
                     controller: 'AppendixRequestCtrl',
                     scope: $scope,
                     resolve: {
@@ -94,7 +94,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     attachmentRequest = $scope.question.attachmentRequests[0];
                 }
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/liitepyynto.html',
+                    templateUrl: 'partials/dialogs/liitepyynto.html',
                     controller: 'AppendixRequestCtrl',
                     scope: $scope,
                     resolve: {

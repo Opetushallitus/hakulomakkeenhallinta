@@ -1,0 +1,16 @@
+<div data-ng-controller="HakulomakkeetListaCtrl">
+    <div>
+        <select class="pull-right form-control" style="width: 140px;" type="select" ng-model="order">
+            <option value="false" selected="selected">{{ t('jarjestys.ab') || 'Järjestys AB' }}</option>
+            <option value="true">{{ t('jarjestys.ba') || 'Järjestys BA' }}</option>
+        </select>
+    </div>
+    <div class="clearfix"></div>
+    <table class="table table-striped">
+        <tr ng-repeat="applicationForm in applicationForms | filter:search | orderBy:'name.translations.fi':order">
+            <td><a href data-ng-click="valitseOrganisaatio(applicationForm)" data-ng-controller="BackCtrl">{{applicationForm
+                | i18n:'name' }} </a> {{applicationForm.status.translations.fi}} {{applicationForm.year}}
+            </td>
+        </tr>
+    </table>
+</div>

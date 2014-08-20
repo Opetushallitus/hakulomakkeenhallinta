@@ -1,15 +1,10 @@
 <h3 class="text-info" tl="hakulomakkeet">Hakulomakkeet</h3>
 
-  <alertmsg></alertmsg>
+<alertmsg></alertmsg>
 
 <div class="form-group">
-     <input type="text" data-ng-model="search" id="hakuKentta" size="30" >
+    <input type="text" data-ng-model="search" id="hakuKentta" size="30" >
 </div>
-<!--<tabset>-->
-    <!--<tab heading="Hakulomakkeet">-->
-        <ng-include src="'partials/applicationSystemForms.html'"/>
-    <!--</tab>-->
-    <!--<tab heading="Mallipohjat">
-        <ng-include src="'partials/formTemplates.html'"/>
-    </tab>
-</tabset>-->
+
+<ng-include src="'partials/applicationSystemFormsList.html'"/>
+
