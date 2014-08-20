@@ -6,7 +6,7 @@
     <div class="modal-body">
         <div>
             {{t('poista.kysymys')||'Poista kysymys'}}:
-            {{ question | i18n:'messageText':userLang}}
+            {{ question.messageText | kysymysOtsikko:'translations':userLang}}
 
         </div>
     </div>
