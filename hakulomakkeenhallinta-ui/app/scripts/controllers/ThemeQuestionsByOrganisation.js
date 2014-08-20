@@ -87,7 +87,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.addQuestion = function(theme) {
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/hakukohteen-valinta.html',
+                    templateUrl: 'partials/dialogs/hakukohteen-valinta.html',
                     controller: 'SelectHakukohdeCtrl',
                     scope: $scope,
                     resolve: {
@@ -100,7 +100,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 }).result.then(function(data){
                         $modal.open({
-                            templateUrl: 'partials/lisakysymykset/kysymystyypin-valinta.html',
+                            templateUrl: 'partials/dialogs/kysymystyypin-valinta.html',
                             controller: 'SelectQuestionTypeCtrl',
                             scope: $scope,
                             resolve: {
@@ -160,7 +160,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.poistaKysymys = function (question, hkKysymysLista) {
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/poista-kysymys-dialog.html',
+                    templateUrl: 'partials/dialogs/poista-kysymys-dialog.html',
                     controller: 'poistaKysymysDialogCtrl',
                     scope: $scope,
                     resolve: {
