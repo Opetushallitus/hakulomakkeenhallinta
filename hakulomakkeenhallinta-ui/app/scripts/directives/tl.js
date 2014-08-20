@@ -1,7 +1,7 @@
 /**
  * UI-directive käännösten käyttämiseen
  */
-angular.module('hakulomakkeenhallintaUiApp.directives')
+angular.module('hakulomakkeenhallintaUiApp.directives', [])
     .directive('tl', ['LocalisationService', function(LocalisationService) {
 
     return {

@@ -97,7 +97,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $rootScope.LOGS('ModifyAdditionalQuestionCtrl', 'poistaKysymys()');
                 QuestionData.setEditFlag(false);
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/poista-kysymys-dialog.html',
+                    templateUrl: 'partials/dialogs/poista-kysymys-dialog.html',
                     controller: 'poistaKysymysDialogCtrl',
                     scope: $scope,
                     resolve: {
