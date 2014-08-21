@@ -6,7 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
         $scope.poista = function () {
             ThemeQuestions.deleteQuestion($scope.question._id).then(
-                function success (data) {
+                function success() {
                     if (where === 'modify') {
                         $modalInstance.close();
                         $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
@@ -14,7 +14,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $modalInstance.close('close');
                     }
                 },
-                function error (resp) {
+                function error(resp) {
                     $rootScope.LOGS('poistaKysymysDialogCtrl', 'poista', resp.messageText, resp.status);
                     AlertMsg($scope, 'warning', 'error.kysymyksen.poisto');
                 }
