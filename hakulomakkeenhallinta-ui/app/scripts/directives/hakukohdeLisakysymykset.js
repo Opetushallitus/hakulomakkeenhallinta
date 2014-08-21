@@ -158,7 +158,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                         $scope.hakukohde.additionalQuestions = data;
                                         AlertMsg($scope, 'success', 'kysymyksen.poisto.ok');
                                     },
-                                    function errro (resp) {
+                                    function error (resp) {
                                         $rootScope.LOGS('hakukohdeLisakysmykset', 'poistaKysymys()', resp.messageText, resp.status);
                                         AlertMsg($scope, 'warning', 'error.kysymyksen.poisto');
                                     }

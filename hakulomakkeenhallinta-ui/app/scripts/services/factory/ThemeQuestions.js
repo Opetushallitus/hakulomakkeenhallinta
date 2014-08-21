@@ -24,7 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         method: 'GET',
                         isArray: true,
                         url: Props.themeQuestionUri + '/list/:_id',
-                        params:{_id: '@_id', aoId:'_aoId', themeId: '_themId', orgId: '_orgId'}
+                        params:{_id: '@_id', aoId: '_aoId', themeId: '_themId', orgId: '_orgId'}
                     }
 
                 }
@@ -157,7 +157,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             themeQuestion.getThemeQuestionByThemeLop = function (applicationSystemId, learningOppId, themeId, orgId) {
                 $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionByThemeLop()');
                 var deferred = $q.defer();
-                ThemeQuestion.getThemeQuestionListByThemeAndLearningOpportunity({_id: applicationSystemId, aoid: learningOppId, themeId: themeId, orgId: orgId}).$promise.then(
+                ThemeQuestion.getThemeQuestionListByThemeAndLearningOpportunity({_id: applicationSystemId, aoId: learningOppId, themeId: themeId, orgId: orgId}).$promise.then(
                     function success(data) {
                         $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionByThemeLop()', data);
                         deferred.resolve(data);
