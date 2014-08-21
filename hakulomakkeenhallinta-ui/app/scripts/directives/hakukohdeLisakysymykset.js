@@ -145,16 +145,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 }
                             }
                         }).result.then( function () {
-
-                                console.log('#1 ',$scope.hakukohde.additionalQuestions);
-                                console.log('#1 ',$scope.hakukohde);
-                                console.log('applicationsystemId:', $routeParams.id);
-                                console.log('orgId:', $routeParams.oid);
-                                console.log('aoId:', $scope.hakukohde.aoid);
-                                console.log('aoId:', $scope.theme.id);
                                 ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, $scope.hakukohde.aoid, $scope.theme.id, $routeParams.oid).then(
                                     function success (data) {
-                                        console.log('######', data);
                                         $scope.hakukohde.additionalQuestions = data;
                                         AlertMsg($scope, 'success', 'kysymyksen.poisto.ok');
                                     },
@@ -163,7 +155,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                         AlertMsg($scope, 'warning', 'error.kysymyksen.poisto');
                                     }
                                 );
-                                console.log('#2 ',$scope.hakukohde.additionalQuestions);
                             }
                         );
                     };
