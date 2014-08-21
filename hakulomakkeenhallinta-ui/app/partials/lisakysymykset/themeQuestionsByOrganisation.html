@@ -39,7 +39,7 @@
                             </td>
                             <td style="width: 180px; text-align: center;">
                                 <button class="btn btn-xs" data-ng-click="muokkaaKysymysta(question, sortBtns)" data-ng-disabled="!sortBtns">{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></button>
-                                <button class="btn btn-xs" data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns">{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></button>
+                                <button class="btn btn-xs" data-ng-click="poistaKysymys(question)" data-ng-disabled="!sortBtns">{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></button>
                             </td>
                             <td style="width: 12px;">
                             {{question.ordinal}}

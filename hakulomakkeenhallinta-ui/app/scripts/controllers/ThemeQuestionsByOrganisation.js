@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter', 'TarjontaAPI', '$q', '$timeout', 'AlertMsg',
-        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter, TarjontaAPI, $q, $timeout, AlertMsg ) {
+    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope','$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter', 'TarjontaAPI', '$q', 'AlertMsg',
+        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter, TarjontaAPI, $q, AlertMsg ) {
             $rootScope.LOGS('ThemeQuestionByOrganisationCtrl');
 
             $scope.haunNimi = '';
@@ -130,74 +130,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 );
             };
             /**
-             * valitun kysymyksen muokkaus näkymään
-             * @param question valittu kysymys
-             * @param sortBtns kysymysten järjestämis lippu
-             */
-            $scope.muokkaaKysymysta = function(question, sortBtns){
-                if (sortBtns) {
-                    QuestionData.setEditFlag(true);
-                    $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'muokkaaKysmysta()', question._id);
-                    ThemeQuestions.getThemeQuestionById(question._id).then(
-                        function (data) {
-                            $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','muokkaaKysymysta() data:', data);
-                            QuestionData.setQuestion(data);
-                            $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
-                        }
-                    );
-                }
-            };
-            /**
              * takaisin edelliselle sivulle
              */
             $scope.back = function () {
                 $location.path('/');
-            };
-            /**
-             * avaa varmistus dialogin kysymyksen poistolle
-             * hakukohdekohtaisen lisäkymys listasta
-             * @param question poistettavan kysymyksen tiedot objekti
-             */
-            $scope.poistaKysymys = function (question, hkKysymysLista) {
-                $modal.open({
-                    templateUrl: 'partials/dialogs/poista-kysymys-dialog.html',
-                    controller: 'poistaKysymysDialogCtrl',
-                    scope: $scope,
-                    resolve: {
-                        question: function () {
-                            return question;
-                        },
-                        where: function () {
-                            return 'list';
-                        }
-                    }
-                }).result.then( function () {
-                        AlertMsg($scope, 'success', 'kysymyksen.poisto.ok');
-                        var splIndx = 0,
-                            ordinals = {};
-                        for (var i = 0, quesLength = hkKysymysLista.length; i < quesLength; i +=1) {
-                            if (hkKysymysLista[i]._id === question._id) {
-                                hkKysymysLista.splice(i, 1);
-                                splIndx = i;
-                                break;
-                            }
-                        }
-                        //TODO: kysymysten järjestys sen poiston yhteydessä UI/back end?
-                        for (var j = 0, quesLnth = hkKysymysLista.length; j < quesLnth; j += 1) {
-                            if (hkKysymysLista[j].ordinal) {
-                                var oldOrd = hkKysymysLista[j].ordinal;
-                                if (j >= splIndx){
-                                    hkKysymysLista[j].ordinal = hkKysymysLista[j].ordinal - 1;
-                                }
-                                ordinals[hkKysymysLista[j]._id] = {};
-                                ordinals[hkKysymysLista[j]._id].newOrdinal = hkKysymysLista[j].ordinal;
-                                ordinals[hkKysymysLista[j]._id].oldOrdinal = oldOrd;
-                            } else {
-                                hkKysymysLista[j].ordinal = j + 1;
-                            }
-                        }
-                    }
-                );
             };
 
             $scope.accordianState = function(theme){
