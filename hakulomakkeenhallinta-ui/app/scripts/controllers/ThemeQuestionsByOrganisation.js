@@ -38,19 +38,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             function hakukohdeKohtaisetKysymykset() {
                 var deferred = $q.defer();
                 FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
-                    function (data) {
-                        var themes = data;
+                    function (themes) {
                         ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
-                            function (data) {
-                                var themeQues = [],
-                                    hakukohdeIds = [];
-                                themeQues = data;
-                                //parsitaan lisäkysymyksistä hakukohteet taulukkoon
-                                for (var tqIndx = 0, themQuesLength = themeQues.length; tqIndx < themQuesLength; tqIndx += 1){
-                                    if(hakukohdeIds.indexOf(themeQues[tqIndx].learningOpportunityId) === -1){
-                                        hakukohdeIds.push(themeQues[tqIndx].learningOpportunityId);
-                                    }
-                                }
+                            function (themeQues) {
+                                var hakukohdeIds = [];
+                                //parsitaan lisäkysymyksistä hakukohde id:t taulukkoon
+                                hakukohdeIds = _.uniq( _.map(themeQues, function (lopIds) { return lopIds.learningOpportunityId; }));
                                 //parsitaan lisäkysmys oikean teeman ja hakukohteen alle
                                 for (var themeIndx = 0, themesLength = themes.length; themeIndx < themesLength; themeIndx += 1){
                                     themes[themeIndx].hkkohde = [];
