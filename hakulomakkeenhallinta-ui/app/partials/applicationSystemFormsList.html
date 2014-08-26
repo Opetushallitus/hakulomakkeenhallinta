@@ -1,20 +1,16 @@
 <div data-ng-controller="HakulomakkeetListaCtrl">
     <div>
-        <!--<select class="pull-right form-control" style="width: 140px;" type="select" ng-model="order">-->
-            <!--<option value="false" selected="selected">{{ t('jarjestys.ab') || 'Järjestys AB' }}</option>-->
-            <!--<option value="true">{{ t('jarjestys.ba') || 'Järjestys BA' }}</option>-->
-        <!--</select>-->
         <input type="text" data-ng-model="search" id="hakuKentta" size="32" >
     </div>
     <br>
     <div>
     <table class="table table-striped">
         <tr>
-            <th>Hakulomake</th>
-            <th>Hakutyyppi</th>
-            <th>Tila</th>
-            <th>Vuosi</th>
-            <th>Hakukausi</th>
+            <th>{{ t('hakulomake') || 'Hakulomake' }}</th>
+            <th>{{ t('hakutyyppi') || 'Hakutyyppi' }}</th>
+            <th>{{ t('tila') || 'Tila' }}</th>
+            <th>{{ t('vuosi') || 'Vuosi' }}</th>
+            <th>{{ t('hakukausi') || 'Hakukausi' }}</th>
         </tr>
         <tr>
 
@@ -26,8 +22,8 @@
                 </select>
             </td>
             <td>
-                <select class="form-control" style="width: 100px;" type="select" ng-model="hakutyyppi.type"
-                        data-ng-options="hakut for hakut in hakutyypit">
+                <select class="form-control" style="width: 150px;" type="select" ng-model="hakutyyppi"
+                        data-ng-options="hakut.translations[userLang] for hakut in hakutyypit">
                 </select>
             </td>
             <td>
@@ -48,12 +44,12 @@
                 </select>
             </td>
         </tr>
-        <tr ng-repeat="applicationForm in applicationForms | filter:search | orderBy:'name.translations.fi':order | filter:hakutyyppi | filter:vuosi | filter:st | filter:kausi.period">
+        <tr ng-repeat="applicationForm in applicationForms | filter:search | orderBy:'name.translations.fi':order | filter:hakutyyppi.type | filter:vuosi | filter:st | filter:kausi.period">
 
             <td><a href data-ng-click="valitseOrganisaatio(applicationForm)" data-ng-controller="BackCtrl">{{applicationForm
                 | i18n:'name':userLang }} </a>
             </td>
-            <td>{{applicationForm.type}}  </td>
+            <td>{{applicationForm.type | hakutyyppiNimi:hakutyypit:userLang}}  </td>
             <td>{{applicationForm.status.translations[userLang]}}</td>
             <td>{{applicationForm.year}}</td>
             <td>{{applicationForm.period | kausiNimi:kaudet:userLang}}</td>

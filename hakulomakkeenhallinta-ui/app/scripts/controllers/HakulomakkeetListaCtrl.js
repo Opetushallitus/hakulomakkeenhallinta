@@ -29,12 +29,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             $scope.kaudet =  $filter('orderBy')(kausiKoodit, 'period');
                         }
                     );
-
-                    $scope.hakutyypit = _.uniq(_.map(data, function (hakutyyppi) { return hakutyyppi.type; }));
-                    $scope.hakutyypit.push('');
-                    $scope.hakutyypit =  $filter('orderBy')($scope.hakutyypit, 'toString()');
-                    console.log('**', $scope.hakutyypit);
-
+                    Koodisto.getHakutyyppiKoodit().then(
+                        function (hakutyyppiKoodit) {
+                            hakutyyppiKoodit.push(
+                                {
+                                    translations: {
+                                        fi: '',
+                                        sv: ''
+                                    }
+                                }
+                            );
+                            $scope.hakutyypit = $filter('orderBy')(hakutyyppiKoodit, 'translations.' + $scope.userLang);
+                        }
+                    );
                     $scope.applicationForms = data;
 
                 }
