@@ -53,6 +53,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             return defferred.promise;
         };
 
+
+
+
         return organisaatio;
     }]);
 

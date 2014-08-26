@@ -58,11 +58,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         formEditor.getApplicationSystemForms = function () {
             $rootScope.LOGS('FormEditor', 'getApplicationSystemForms()');
             var deferred = $q.defer();
-            FormEditor.query({'_path':'application-system-form'}).$promise.then(
+            /*FormEditor.query({'_path':'application-system-form'}).$promise.then(
                 function (data) {
                     deferred.resolve(data);
                 }
-            );
+            );*/
+            $.getJSON(Props.contextRoot+'/app/test-data/application-system-form.json', function(data){
+                console.log('mock data hakulomakkeet ');
+                deferred.resolve(data);
+            });
 
             return deferred.promise;
         };
@@ -131,15 +135,18 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         formEditor.getApplicationSystemFormOrgnisations = function (applicationSystemId) {
             $rootScope.LOGS('FormEditor','getApplicationSystemFormOrgnisations()', applicationSystemId);
             var deferred = $q.defer();
-            FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
+            /*FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
                 function (data) {
                     deferred.resolve(data);
                 },
                 function (error) {
                     deferred.resolve(error);
                 }
-            );
-
+            );*/
+            $.getJSON(Props.contextRoot+'/app/test-data/represented-organizations.json', function(data){
+                console.log('mock data orgnisaatiot ');
+                deferred.resolve(data);
+            });
             return deferred.promise;
         };
         /**
