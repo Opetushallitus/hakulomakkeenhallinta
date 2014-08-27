@@ -31,25 +31,24 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @returns {promise}
          */
         formEditor.fetchApplicationSystemForm = function (id) {
-            var deffered = $q.defer();
+            var deferred = $q.defer();
             $rootScope.LOGS('FormEditor', 'fetchApplicationSystemForm() haku oid: ', id);
             $rootScope.LOGS('FormEditor', 'fetchApplicationSystemForm()', '_applicationsSystemForm: ', _applicationsSystemForm);
             if (_applicationsSystemForm !== undefined &&_applicationsSystemForm._id !== undefined) {
                 if (_applicationsSystemForm._id === id) {
-                    deffered.resolve(_applicationsSystemForm);
+                    deferred.resolve(_applicationsSystemForm);
                 }
             } else {
                 $rootScope.LOGS('FormEditor', 'fetchApplicationSystemForm()', 'else');
                 FormEditor.get({'_path': 'application-system-form', '_id': id, '_oper': 'name'}).$promise.then(
                     function (data) {
                         $rootScope.LOGS('FormEditor', data);
-                        deffered.resolve(data);
+                        deferred.resolve(data);
 
                     }
                 );
             }
-
-            return deffered.promise;
+            return deferred.promise;
         };
         /**
          * Palauttaa kaikki hakulomakkeet tiedot listan
