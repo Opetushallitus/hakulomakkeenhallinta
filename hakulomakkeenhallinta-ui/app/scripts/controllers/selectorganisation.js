@@ -21,9 +21,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.$emit('LOADREADY');
                     if (data.length !== 0) {
                         _.each(data, function (d) {
-                                d.name.translations.fi = d.name.translations.fi + ' (' + d.types[0] + ')';
-                                d.name.translations.sv = d.name.translations.sv + ' (' + d.types[0] + ')';
-                                d.name.translations.en = d.name.translations.en + ' (' + d.types[0] + ')';
+                                if (d.types) {
+                                    d.name.translations.fi = d.name.translations.fi + ' (' + d.types[0] + ')';
+                                    d.name.translations.sv = d.name.translations.sv + ' (' + d.types[0] + ')';
+                                    d.name.translations.en = d.name.translations.en + ' (' + d.types[0] + ')';
+                                }
                             }
                         );
                         $scope.organisations =  $filter('orderBy')(data, 'name.translations.' + $scope.userLang);
