@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout', '_',
-        function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _) {
+    .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout', '_', '$routeParams', 'Organisaatio',
+        function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _, $routeParams, Organisaatio) {
             $scope.attachmentRequest = attachmentRequest;
             if ($scope.attachmentRequest.deliveryDue !== undefined &&
                 typeof $scope.attachmentRequest.deliveryDue !== 'Object') {
@@ -18,6 +18,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             vuosiPvm.setFullYear(vuosiPvm.getFullYear() + 1);
             $scope.vuosi = vuosiPvm.setHours(23, 59);
             $scope.lisaaCliked = false;
+
+
 
             /**
              * haetaan postinumerot ja postitoimipaikat'
@@ -104,5 +106,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tarkista = function () {
                 $scope.liitepyyntoDialog.liitenimi.$setValidity('required', $scope.tarkistaPakollisuus($scope.attachmentRequest.header.translations));
             };
+            /**
+             * Esitätäytetään liitepyynnön palautus osoitteeksi käyttäjän organisaatiosta saatu postiosoite
+             * jos se on saatavilla.
+             */
+            Organisaatio.getOrganisationData($routeParams.oid).then(
+                function (orgInfo) {
+                    if (orgInfo.postiosoite && $scope.attachmentRequest.deliveryAddress.street === undefined) {
+                        $scope.attachmentRequest.deliveryAddress.street = orgInfo.postiosoite.osoite;
+                        $scope.attachmentRequest.deliveryAddress.postCode = orgInfo.postiosoite.postinumeroUri.slice(6);
+                        $scope.attachmentRequest.deliveryAddress.postOffice = orgInfo.postiosoite.postitoimipaikka;
+                    }
+                }
+            );
         }
     ]);
