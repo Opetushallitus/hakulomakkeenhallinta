@@ -1,17 +1,20 @@
 {
-  "name": "angualrjs-seed",
-  "description": "A starter project for angular js",
+  "name": "hh",
+  "version": "0.1.0",
   "devDependencies": {
-    "phantomjs": "*",
-    "karma": "~0.12.14",
-    "karma-junit-reporter": "*",
-    "karma-jasmine": "*",
-    "karma-ng-scenario": "~0.1.0",
-    "grunt": "~0.4.4",
-    "grunt-karma": "~0.8.3",
-    "karma-ng-html2js-preprocessor": "~0.1.0"
+    "grunt": "~0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-rename": "0.0.3",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-usemin": "^2.3.0"
   },
-  "scripts": {
-    "test": "grunt test"
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-usemin": "^2.3.0"
   }
 }
