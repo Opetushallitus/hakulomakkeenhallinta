@@ -42,8 +42,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * käyttöä varten
              */
             $scope.selectedOrganisation = function () {
-                if (this.organisation !==null) {
+                if (this.organisation !== null) {
                     $rootScope.LOGS('SelectOrganisationCtrl', 'selectedOrganisation()', this.organisation);
+                    Organisaatio.fetchOrganisation(this.organisation);
                     $scope.applicationOptions = TarjontaAPI.usersApplicationOptions(applicationSystemForm._id, this.organisation.oid);
                 }
             };
