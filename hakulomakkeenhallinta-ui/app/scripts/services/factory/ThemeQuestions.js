@@ -38,12 +38,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             themeQuestion.getThemeQuestionListByOrgId = function (applicationSystemId, organisationId) {
                 $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionListByOrgId()', applicationSystemId);
                 var deferred = $q.defer();
-                /*ThemeQuestion.getThemeQuestionListByOrgId({'_id': applicationSystemId, orgId: organisationId}).$promise.then(
+                ThemeQuestion.getThemeQuestionListByOrgId({'_id': applicationSystemId, orgId: organisationId}).$promise.then(
                     function (data) {
-                        deferred.resolve(data);
-                    }
-                );*/
-                $.getJSON('http://localhost:8080/app/test-data/themequestions2.json', function (data) {
                         deferred.resolve(data);
                     }
                 );

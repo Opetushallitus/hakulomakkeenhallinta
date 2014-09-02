@@ -42,6 +42,7 @@
                     <charset>UTF-8</charset>
                     <uriEncoding>UTF-8</uriEncoding>
                     <port>8090</port>
+
                 </configuration>
             </plugin>
             <!-- # grunt UI packaging-->

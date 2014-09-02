@@ -53,20 +53,6 @@ var app = angular.module('hakulomakkeenhallinta', [
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }]);
 
-    app.config(['$i18nextProvider',
-        function($i18nextProvider) {
-            $i18nextProvider.options = {
-                resGetPath: 'locales/__ns__-__lng__.json',
-                lng: 'fi',
-                ns: 'language',
-                getAsync: false,
-                sendMissing: false,
-                fallbackLng: 'fi',
-                debug: false
-            };
-        }
-    ]);
-
     app.provider('_', function() {
         this.$get = [
             function() {
