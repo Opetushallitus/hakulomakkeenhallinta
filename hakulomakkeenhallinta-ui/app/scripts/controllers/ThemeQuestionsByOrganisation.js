@@ -6,7 +6,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $rootScope.LOGS('ThemeQuestionByOrganisationCtrl');
 
             $scope.haunNimi = '';
-            $scope.organisation = '';
             $scope.organisationNimi = '';
             /**
              * haetaan valitun organisaation tiedot organisaatio palvelusta
@@ -14,7 +13,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             Organisaatio.fetchOrganisation($routeParams.oid).then(
                 function (data) {
-                    $scope.organisation = data;
                     $scope.organisationNimi = $filter('organisaatioNimi')(data, $scope.userLang);
                 }
             );
