@@ -101,11 +101,22 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'ordinals:', ordinals);
                         $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'hakukohde:', $scope.hakukohdeInfo.oid);
                         $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'teema: ', themeId);
+                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'organisaatio: ', $routeParams.oid);
                         ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then(
                             function success (data) {
                                 $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', data);
                                 $rootScope.LOGS('hakukohdeLisakysmykset', $scope.questions);
-                                AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
+                                ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, $scope.hakukohde.oid, themeId, $routeParams.oid).then(
+                                    function success (data) {
+                                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', data);
+                                        $scope.questions = data;
+                                        AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
+                                    },
+                                    function error (resp) {
+                                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', resp.statusText, resp.status);
+                                    }
+                                );
+
                             }, function error (resp) {
                                 $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', resp.statusText, resp.status);
                                 AlertMsg($scope, 'warning', 'error.jarjestyksen.tallennus');
