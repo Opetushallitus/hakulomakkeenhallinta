@@ -12,7 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<div class="form-group">' +
                     '<button type="button" class="btn" data-ng-click="cancelSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
                     ' <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenna järjestys\' }}</button>' +
-                    ' <button type="button" class="btn" data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
+                    ' <button type="button" class="btn" data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid, hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
                     ' <button type="button" class="btn disabled" data-ng-click="addRule()" data-ng-disabled="!addRule" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'lisaa.saanto\')|| \'Lisää sääntö\' }}</button>' +
                     '</div>' +
                     '<alertmsg></alertmsg>' +
@@ -40,10 +40,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 },
                 controller: function ($scope) {
 
-                    var ordinals = {},
-                        questions = [];
+                    var ordinals = {};
                     $scope.sortBtns = true;
-                    $scope.questions = $scope.hakukohde.additionalQuestions;
+                    $scope.questions = [];
                     /**
                      * vaihtaa näytä/piilota napit muuttujan arvoa
                      */
@@ -56,7 +55,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * tallennusta ja peruuta toimintoa varten
                      * @param themeId
                      */
-                    $scope.sortQuestions = function (themeId, hakukohdeOid) {
+                    $scope.sortQuestions = function (themeId, hakukohdeOid, additionalQuestions) {
+                        $scope.questions = additionalQuestions;
+                        console.log('BBBBB', $scope.questions);
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
                                 $scope.questions = data;
@@ -65,6 +66,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                     ordinals[data[ord]._id].oldOrdinal = data[ord].ordinal ? data[ord].ordinal : 0;
                                 }
                                 console.log('*** ordinals *** @ begin', ordinals);
+                                console.log('VVVVV', $scope.questions);
                             },
                             function error(resp) {
                                 console.log('### ERROR ##', resp);
