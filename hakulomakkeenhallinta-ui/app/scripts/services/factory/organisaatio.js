@@ -35,6 +35,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             }
             hae.get({'_oid': oid}).$promise.then(
                 function (data) {
+                    organisaatio.setOrganisation(data);
                     defferred.resolve(data);
                 }
             );
