@@ -82,11 +82,11 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      */
                     $scope.up = function (qIndx) {
                         var  tmp = $scope.questions[qIndx];
-                        console.log('b# ',tmp);
+                        console.log('b# ',tmp , $scope.questions);
                         $scope.questions[qIndx] = $scope.questions[qIndx - 1];
                         $scope.questions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx - 1) + 1;
-                        console.log('a# ',tmp);
+                        console.log('a# ',tmp, $scope.questions);
                         $scope.questions[qIndx - 1] = tmp;
                     };
                     /**
@@ -95,11 +95,11 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      */
                     $scope.down = function (qIndx) {
                         var tmp = $scope.questions[qIndx];
-                        console.log('b# ',tmp);
+                        console.log('b# ',tmp, $scope.questions);
                         $scope.questions[qIndx] = $scope.questions[qIndx + 1];
                         $scope.questions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx + 1) + 1;
-                        console.log('a# ',tmp);
+                        console.log('a# ',tmp, $scope.questions);
                         $scope.questions[qIndx + 1] = tmp;
                     };
                     /**
