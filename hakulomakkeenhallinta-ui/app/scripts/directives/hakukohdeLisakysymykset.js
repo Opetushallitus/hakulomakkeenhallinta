@@ -43,8 +43,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     var ordinals = {},
                         questions = [];
                     $scope.sortBtns = true;
-                    questions = $scope.hakukohde.additionalQuestions;
-                    console.log('€€€€€ ', $scope.hakukohde.additionalQuestions);
+                    $scope.questions = $scope.hakukohde.additionalQuestions;
                     /**
                      * vaihtaa näytä/piilota napit muuttujan arvoa
                      */
@@ -60,7 +59,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.sortQuestions = function (themeId, hakukohdeOid) {
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
-                                questions = data;
+                                $scope.questions = data;
                                 for (var ord = 0, adnlQuesLength = data.length; ord < adnlQuesLength; ord += 1) {
                                     ordinals[data[ord]._id] = {};
                                     ordinals[data[ord]._id].oldOrdinal = data[ord].ordinal ? data[ord].ordinal : 0;
@@ -80,22 +79,22 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * @param qIndx siirrettävän kysymyksen indeksi taulukossa
                      */
                     $scope.up = function (qIndx) {
-                        var  tmp = questions[qIndx];
-                        questions[qIndx] = questions[qIndx - 1];
-                        questions[qIndx].ordinal = qIndx + 1;
+                        var  tmp = $scope.questions[qIndx];
+                        $scope.questions[qIndx] = $scope.questions[qIndx - 1];
+                        $scope.questions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx - 1) + 1;
-                        questions[qIndx - 1] = tmp;
+                        $scope.questions[qIndx - 1] = tmp;
                     };
                     /**
                      * siirtää kysymystä listassa alaspäin
                      * @param qIndx siirrettävän kysymyksen indeksi taulukossa
                      */
                     $scope.down = function (qIndx) {
-                        var tmp = questions[qIndx];
-                        questions[qIndx] = questions[qIndx + 1];
-                        questions[qIndx].ordinal = qIndx + 1;
+                        var tmp = $scope.questions[qIndx];
+                        $scope.questions[qIndx] = $scope.questions[qIndx + 1];
+                        $scope.questions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx + 1) + 1;
-                        questions[qIndx + 1] = tmp;
+                        $scope.questions[qIndx + 1] = tmp;
                     };
                     /**
                      * tallentaan kysmysten järjetyksen lisäkymyksiin
@@ -103,7 +102,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.saveSortQuestions = function (themeId, hakukohdeOid){
                         toggleShowSortBtns();
                         for (var tqueId in ordinals){
-                            for (var newOrd = 0, saveQuesLength = questions.length; newOrd < saveQuesLength; newOrd +=1){
+                            for (var newOrd = 0, saveQuesLength = $scope.questions.length; newOrd < saveQuesLength; newOrd +=1){
                                 if (tqueId === questions[newOrd]._id){
                                     ordinals[tqueId].newOrdinal = newOrd + 1;
                                     break;
@@ -117,12 +116,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         ThemeQuestions.reorderThemeQuestions(hakukohdeOid, themeId, ordinals).then(
                             function success (data) {
                                 $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', data);
-                                $rootScope.LOGS('hakukohdeLisakysmykset', questions);
+                                $rootScope.LOGS('hakukohdeLisakysmykset', $scope.questions);
                                 ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                                     function success (data) {
                                         $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', data);
-                                        questions = data;
-                                        console.log('####', questions);
+                                        $scope.questions = data;
+                                        console.log('####', $scope.questions);
                                         AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
                                     },
                                     function error (resp) {
@@ -144,7 +143,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
-                                questions = data;
+                                $scope.questions = data;
                             },
                             function error(resp) {
                                 console.log('### ERROR ##', resp);
