@@ -10,7 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.hakukohde = hakukohde;
         $scope.haunNimi = $filter('i18n')(applicationSystem, 'name', $scope.userLang);
         $scope.teema = $filter('i18n')(theme, 'name', $scope.userLang);
-        $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
+        $scope.hakukohdeNimi = $filter('hakukohdeNimi')(hakukohde, $scope.userLang);
         $scope.types;
         /**
          * haetaan kysymys tyypit HH:n taustajärjestelmästä
