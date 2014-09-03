@@ -40,9 +40,11 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 },
                 controller: function ($scope) {
 
-                    var ordinals = {};
+                    var ordinals = {},
+                        questions = [];
                     $scope.sortBtns = true;
-                    $scope.questions = [];
+                    questions = $scope.hakukohde.additionalQuestions;
+                    console.log('€€€€€ ', $scope.hakukohde.additionalQuestions);
                     /**
                      * vaihtaa näytä/piilota napit muuttujan arvoa
                      */
@@ -58,11 +60,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.sortQuestions = function (themeId, hakukohdeOid) {
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
-                                $scope.questions = data;
+                                questions = data;
                                 for (var ord = 0, adnlQuesLength = data.length; ord < adnlQuesLength; ord += 1) {
                                     ordinals[data[ord]._id] = {};
                                     ordinals[data[ord]._id].oldOrdinal = data[ord].ordinal ? data[ord].ordinal : 0;
                                 }
+                                console.log('*** ordinals *** @ begin', ordinals);
                             },
                             function error(resp) {
                                 console.log('### ERROR ##', resp);
@@ -77,22 +80,22 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * @param qIndx siirrettävän kysymyksen indeksi taulukossa
                      */
                     $scope.up = function (qIndx) {
-                        var  tmp = $scope.questions[qIndx];
-                        $scope.questions[qIndx] = $scope.questions[qIndx - 1];
-                        $scope.questions[qIndx].ordinal = qIndx + 1;
+                        var  tmp = questions[qIndx];
+                        questions[qIndx] = questions[qIndx - 1];
+                        questions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx - 1) + 1;
-                        $scope.questions[qIndx - 1] = tmp;
+                        questions[qIndx - 1] = tmp;
                     };
                     /**
                      * siirtää kysymystä listassa alaspäin
                      * @param qIndx siirrettävän kysymyksen indeksi taulukossa
                      */
                     $scope.down = function (qIndx) {
-                        var tmp = $scope.questions[qIndx];
-                        $scope.questions[qIndx] = $scope.questions[qIndx + 1];
-                        $scope.questions[qIndx].ordinal = qIndx + 1;
+                        var tmp = questions[qIndx];
+                        questions[qIndx] = questions[qIndx + 1];
+                        questions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx + 1) + 1;
-                        $scope.questions[qIndx + 1] = tmp;
+                        questions[qIndx + 1] = tmp;
                     };
                     /**
                      * tallentaan kysmysten järjetyksen lisäkymyksiin
@@ -100,8 +103,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.saveSortQuestions = function (themeId, hakukohdeOid){
                         toggleShowSortBtns();
                         for (var tqueId in ordinals){
-                            for (var newOrd = 0, saveQuesLength = $scope.questions.length; newOrd < saveQuesLength; newOrd +=1){
-                                if (tqueId === $scope.questions[newOrd]._id){
+                            for (var newOrd = 0, saveQuesLength = questions.length; newOrd < saveQuesLength; newOrd +=1){
+                                if (tqueId === questions[newOrd]._id){
                                     ordinals[tqueId].newOrdinal = newOrd + 1;
                                     break;
                                 }
@@ -114,12 +117,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         ThemeQuestions.reorderThemeQuestions(hakukohdeOid, themeId, ordinals).then(
                             function success (data) {
                                 $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', data);
-                                $rootScope.LOGS('hakukohdeLisakysmykset', $scope.questions);
+                                $rootScope.LOGS('hakukohdeLisakysmykset', questions);
                                 ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                                     function success (data) {
                                         $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', data);
-                                        $scope.questions = data;
-                                        console.log('####', $scope.questions);
+                                        questions = data;
+                                        console.log('####', questions);
                                         AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
                                     },
                                     function error (resp) {
@@ -141,7 +144,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
-                                $scope.questions = data;
+                                questions = data;
                             },
                             function error(resp) {
                                 console.log('### ERROR ##', resp);
