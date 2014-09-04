@@ -171,7 +171,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         deferred.reject(resp);
                     }
                 );
-                /*$.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
+               /* $.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
                         deferred.resolve(data);
 //        deferred.reject('error testi');
                     }

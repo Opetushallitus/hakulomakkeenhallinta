@@ -58,7 +58,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.sortQuestions = function (themeId, hakukohdeOid) {
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
-                                $scope.hakukohde.additionalQuestions = data;
+                                $scope.hakukohde.additionalQuestions = _.map(data, function (aq) { if (aq.hasOwnProperty('_id')) return aq; });
                                 orderQuestions = $scope.hakukohde.additionalQuestions;
                                 console.log('###', orderQuestions);
                                 console.log('###', orderQuestions.length);
