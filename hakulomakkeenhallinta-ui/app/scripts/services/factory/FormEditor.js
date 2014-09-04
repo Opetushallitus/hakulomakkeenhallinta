@@ -77,6 +77,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     deferred.resolve(data);
                 }
             );
+            /*$.getJSON(Props.contextRoot + '/app/test-data/additional-question-themes.json',function(data){
+                    deferred.resolve(data);
+                }
+            );*/
             return deferred.promise;
         };
         /**
