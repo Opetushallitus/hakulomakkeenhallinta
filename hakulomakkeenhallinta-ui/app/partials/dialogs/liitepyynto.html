@@ -78,6 +78,11 @@
 
             <div>
                 <div class="form-group">
+                    <label>{{ t('liitteen.vastaanottaja') || 'Vastaanottaja' }} </label>
+                    <input type="text" name="vastaanottaja" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.recipient" >
+                </div>
+
+                <div class="form-group">
                     <label>{{ t('liitteen.osoite') || 'Osoite *' }} </label>
                     <input type="text" name="osoite" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.street"  data-ng-required="true">
                 </div>
