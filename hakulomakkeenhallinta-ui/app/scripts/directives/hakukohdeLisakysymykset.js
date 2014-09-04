@@ -10,9 +10,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo | hakukohdeNimi:userLang }} <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >:</span> {{ hakukohdeInfo.tarjoajaNimet[userLang] }}' +
                     '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }"></i></a> </h4>' +
                     '<div class="form-group">' +
-                    '<button type="button" class="btn" data-ng-click="cancelSortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
-                    ' <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenna järjestys\' }}</button>' +
-                    ' <button type="button" class="btn" data-ng-click="sortQuestions(hakukohde.additionalQuestions)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
+                    '<button type="button" class="btn" data-ng-click="cancelSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
+                    ' <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenna järjestys\' }}</button>' +
+                    ' <button type="button" class="btn" data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
                     ' <button type="button" class="btn disabled" data-ng-click="addRule()" data-ng-disabled="!addRule" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'lisaa.saanto\')|| \'Lisää sääntö\' }}</button>' +
                     '</div>' +
                     '<alertmsg></alertmsg>' +
@@ -40,9 +40,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 },
                 controller: function ($scope) {
 
-                    var ordinals = {};
+                    var ordinals = {},
+                        orderQuestions = [];
                     $scope.sortBtns = true;
-                    $scope.questions = [];
                     /**
                      * vaihtaa näytä/piilota napit muuttujan arvoa
                      */
@@ -53,59 +53,86 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * aktivoi kysymysten järjestely napit
                      * ja tallentaa kysymysten alkuperäisen järjestyksen
                      * tallennusta ja peruuta toimintoa varten
-                     * @param additionalQuestions
+                     * @param themeId
                      */
-                    $scope.sortQuestions = function (additionalQuestions) {
-                        $scope.questions = additionalQuestions;
-                        toggleShowSortBtns();
-                        for (var ord = 0, adnlQuesLength = additionalQuestions.length; ord < adnlQuesLength; ord += 1) {
-                            ordinals[additionalQuestions[ord]._id] = {};
-                            ordinals[additionalQuestions[ord]._id].oldOrdinal = additionalQuestions[ord].ordinal ? additionalQuestions[ord].ordinal : 0;
-                        }
+                    $scope.sortQuestions = function (themeId, hakukohdeOid) {
+                        ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
+                            function success(data) {
+                                $scope.hakukohde.additionalQuestions = _.sortBy(_.map(data, function (aq) { if (aq.hasOwnProperty('_id')) return aq; }),
+                                    function (d) {
+                                        return d.ordinal;
+                                    }
+                                );
+                                orderQuestions = $scope.hakukohde.additionalQuestions;
+                                _.each(data, function (question) {
+                                        ordinals[question._id] = {};
+                                        ordinals[question._id].oldOrdinal = question.ordinal ? question.ordinal : 0;
+                                    }
+                                );
+                                toggleShowSortBtns();
+                            },
+                            function error(resp) {
+                                $rootScope.LOGS('hakukohdeLisakysmykset', 'sortQuestions() ->', 'getThemeQuestionByThemeLop()', resp.statusText, resp.status);
+                                AlertMsg($scope, 'warning', 'error.kysymysten.haku');
+                            }
+                        );
+
                     };
                     /**
                      * siirtää kysymystä listassa ylöspäin
                      * @param qIndx siirrettävän kysymyksen indeksi taulukossa
                      */
                     $scope.up = function (qIndx) {
-                        var  tmp = $scope.questions[qIndx];
-                        $scope.questions[qIndx] = $scope.questions[qIndx - 1];
-                        $scope.questions[qIndx].ordinal = qIndx + 1;
+                        var  tmp = orderQuestions[qIndx];
+                        orderQuestions[qIndx] = orderQuestions[qIndx - 1];
+                        orderQuestions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx - 1) + 1;
-                        $scope.questions[qIndx - 1] = tmp;
+                        orderQuestions[qIndx - 1] = tmp;
                     };
                     /**
                      * siirtää kysymystä listassa alaspäin
                      * @param qIndx siirrettävän kysymyksen indeksi taulukossa
                      */
                     $scope.down = function (qIndx) {
-                        var tmp = $scope.questions[qIndx];
-                        $scope.questions[qIndx] = $scope.questions[qIndx + 1];
-                        $scope.questions[qIndx].ordinal = qIndx + 1;
+                        var tmp = orderQuestions[qIndx];
+                        orderQuestions[qIndx] = orderQuestions[qIndx + 1];
+                        orderQuestions[qIndx].ordinal = qIndx + 1;
                         tmp.ordinal = (qIndx + 1) + 1;
-                        $scope.questions[qIndx + 1] = tmp;
+                        orderQuestions[qIndx + 1] = tmp;
                     };
                     /**
                      * tallentaan kysmysten järjetyksen lisäkymyksiin
                      */
-                    $scope.saveSortQuestions = function (themeId){
+                    $scope.saveSortQuestions = function (themeId, hakukohdeOid){
                         toggleShowSortBtns();
                         for (var tqueId in ordinals){
-                            for (var newOrd = 0, saveQuesLength = $scope.questions.length; newOrd < saveQuesLength; newOrd +=1){
-                                if (tqueId === $scope.questions[newOrd]._id){
+                            for (var newOrd = 0, saveQuesLength = orderQuestions.length; newOrd < saveQuesLength; newOrd +=1){
+                                if (tqueId === orderQuestions[newOrd]._id){
                                     ordinals[tqueId].newOrdinal = newOrd + 1;
                                     break;
                                 }
                             }
                         }
                         $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'ordinals:', ordinals);
-                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'hakukohde:', $scope.hakukohdeInfo.oid);
+                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'hakukohde:', hakukohdeOid);
                         $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'teema: ', themeId);
-                        ThemeQuestions.reorderThemeQuestions($scope.hakukohdeInfo.oid, themeId, ordinals).then(
+                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions()', 'organisaatio: ', $routeParams.oid);
+                        ThemeQuestions.reorderThemeQuestions(hakukohdeOid, themeId, ordinals).then(
                             function success (data) {
                                 $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', data);
-                                $rootScope.LOGS('hakukohdeLisakysmykset', $scope.questions);
-                                AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
+                                $rootScope.LOGS('hakukohdeLisakysmykset', orderQuestions);
+                                ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
+                                    function success (data) {
+                                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', data);
+                                        $scope.hakukohde.additionalQuestions = data;
+                                        AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
+                                    },
+                                    function error (resp) {
+                                        $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', resp.statusText, resp.status);
+                                        AlertMsg($scope, 'warning', 'error.kysymysten.haku');
+                                    }
+                                );
+
                             }, function error (resp) {
                                 $rootScope.LOGS('hakukohdeLisakysmykset', 'saveSortQuestions() ->', 'reorderThemeQuestions()', resp.statusText, resp.status);
                                 AlertMsg($scope, 'warning', 'error.jarjestyksen.tallennus');
@@ -115,16 +142,19 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     /**
                      * peruuttaa lisäkysymysten järjestelyn lähtötilanteeseen
                      */
-                    $scope.cancelSortQuestions = function () {
+                    $scope.cancelSortQuestions = function (themeId, hakukohdeOid) {
                         toggleShowSortBtns();
-                        for (var tqId in ordinals){
-                            $rootScope.LOGS('hakukohdeLisakysmykset', ordinals[tqId], tqId);
-                            for (var ord = 0, quesLength = $scope.questions.length; ord < quesLength; ord += 1){
-                                if ($scope.questions[ord]._id === tqId){
-                                    $scope.questions[ord].ordinal = ordinals[tqId].oldOrdinal;
-                                }
+
+                        ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
+                            function success(data) {
+                                $scope.hakukohde.additionalQuestions = data;
+                            },
+                            function error(resp) {
+                                $rootScope.LOGS('hakukohdeLisakysmykset', 'cancelSortQuestions() ->', 'getThemeQuestionByThemeLop()', resp.statusText, resp.status);
+                                AlertMsg($scope, 'warning', 'error.kysymysten.haku');
+
                             }
-                        }
+                        );
                     };
                     /**
                      * avaa varmistus dialogin kysymyksen poistolle
@@ -163,7 +193,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * @param question valittu kysymys
                      * @param sortBtns kysymysten järjestämis lippu
                      */
-                    $scope.muokkaaKysymysta = function(question, sortBtns){
+                    $scope.muokkaaKysymysta = function (question, sortBtns) {
                         if (sortBtns) {
                             QuestionData.setEditFlag(true);
                             $rootScope.LOGS('hakukohdeLisakysmykset ', 'muokkaaKysmysta()', question._id);
@@ -171,7 +201,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 function (data) {
                                     $rootScope.LOGS('hakukohdeLisakysmykset','muokkaaKysymysta() data:', data);
                                     QuestionData.setQuestion(data);
-                                    $location.path('/modifyThemeQuestion/'+$routeParams.id+'/'+$routeParams.oid+'/'+ question._id);
+                                    $location.path('/modifyThemeQuestion/'+$routeParams.id + '/' + $routeParams.oid + '/' + question._id);
                                 }
                             );
                         }
