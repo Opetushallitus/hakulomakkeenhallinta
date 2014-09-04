@@ -43,10 +43,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         deferred.resolve(data);
                     }
                 );
-                /*$.getJSON(Props.contextRoot + '/app/test-data/themequestions2.json', function (data) {
-                        deferred.resolve(data);
-                    }
-                );*/
                 return deferred.promise;
             };
             /**
@@ -171,11 +167,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         deferred.reject(resp);
                     }
                 );
-               /* $.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
-                        deferred.resolve(data);
-//        deferred.reject('error testi');
-                    }
-                );*/
                 return deferred.promise;
             };
 

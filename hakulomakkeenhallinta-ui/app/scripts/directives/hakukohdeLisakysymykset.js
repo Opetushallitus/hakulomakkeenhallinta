@@ -58,10 +58,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.sortQuestions = function (themeId, hakukohdeOid) {
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
-                                $scope.hakukohde.additionalQuestions = _.map(data, function (aq) { if (aq.hasOwnProperty('_id')) return aq; });
+                                $scope.hakukohde.additionalQuestions = _.sortBy(_.map(data, function (aq) { if (aq.hasOwnProperty('_id')) return aq; }),
+                                    function (d) {
+                                        return d.ordinal;
+                                    }
+                                );
                                 orderQuestions = $scope.hakukohde.additionalQuestions;
-                                console.log('###', orderQuestions);
-                                console.log('###', orderQuestions.length);
                                 _.each(data, function (question) {
                                         ordinals[question._id] = {};
                                         ordinals[question._id].oldOrdinal = question.ordinal ? question.ordinal : 0;
@@ -92,7 +94,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * @param qIndx siirrettävän kysymyksen indeksi taulukossa
                      */
                     $scope.down = function (qIndx) {
-                        console.log('€€€ ',orderQuestions, orderQuestions.length );
                         var tmp = orderQuestions[qIndx];
                         orderQuestions[qIndx] = orderQuestions[qIndx + 1];
                         orderQuestions[qIndx].ordinal = qIndx + 1;
