@@ -7,25 +7,25 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
             /**
              * käyttäjän käyttöprofiilin tarkastus cas/myroles tiedostosta
              */
-            MyRoles.accessRightCheck().then(
+            /*MyRoles.accessRightCheck().then(
                 function (data) {
                     if (!data) {
                         AlertMsg($scope, 'warning', 'ei.riittavia.kaytto.oikeuksia');
                     }
                 }
-            );
+            );*/
             $scope.userLang = 'fi';
             /**
              * katsotaan käyttäjän käyttöprofiilista cas/myroles tiedostosta
              * hänen palveluun määrittämä käyttökieli
              */
-            MyRoles.getUserLang().then(
+            /*MyRoles.getUserLang().then(
                 function (data) {
                     $scope.userLang = data;
                     $rootScope.LOGS('RootCtrl', 'userLanguage: ', data);
                     dynamicLocalization.set($scope.userLang);
                 }
-            );
+            );*/
 
             var logs = Props.enableConsoleLogs;
             $scope.logs = logs;

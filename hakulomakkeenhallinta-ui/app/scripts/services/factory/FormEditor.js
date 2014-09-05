@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('FormEditor',['$rootScope', '$q','$resource', 'Props', '$timeout',
+    .factory('FormEditor', ['$rootScope', '$q', '$resource', 'Props', '$timeout',
         function ($rootScope, $q, $resource, Props, $timeout) {
         var formEditor = {};
 
