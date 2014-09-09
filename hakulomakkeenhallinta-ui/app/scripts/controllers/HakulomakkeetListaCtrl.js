@@ -13,10 +13,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * haetaan hakulomakkeet lista
              */
-            console.log('### ödflkglk');
             FormEditor.getApplicationSystemForms().then(
                 function (data) {
-                    console.log('###', data);
                     $scope.statukset = _.uniq(_.map(data, function (status) { return status.status.translations[$scope.userLang]; }));
                     $scope.statukset.push('');
                     $scope.statukset =  $filter('orderBy')($scope.statukset, 'toString()');

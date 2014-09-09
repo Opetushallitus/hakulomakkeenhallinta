@@ -62,39 +62,130 @@ app.provider('_', function() {
     ];
 });
 
-app.run(['$rootScope', '$httpBackend', 'Props', '$q', function($rootScope, $httpBackend, Props, $q){
+app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBackend, Props){
     $rootScope.devFlag = true;
 
-    var hakulomakkeet;
+    var hakulomakkeet = [],
+        hakukausiKoodit = [],
+        hakutyyppiKoodit = [],
+        organisaatiot = [],
+        organisaatio = {},
+        organisaationHakukohteet = {},
+        teemat = [],
+        lisakysymykset = [],
+        hakulomakeName = {};
 
+    //käyttäjän organisaatiot
+    $.getJSON(Props.contextRoot + '/app/test-data/represented-organizations.json', function (data) {
+            console.log('### mock data 4 organisaatio valinta ###');
+            organisaatiot = data;
+        }
+    );
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/application\-system\-form\/([0-9]+\.)+[0-9]+\/represented\-organizations/).respond(
+        function () {
+            return [200, organisaatiot, {status: 200}];
+        }
+    );
+
+    //hakulomakkeet
     $.getJSON(Props.contextRoot + '/app/test-data/application-system-form.json', function (data) {
-            console.log('mock data hakulomakkeet ', data);
+            console.log('### mock data 4 hakulomakkeet ###');
             hakulomakkeet = data;
-//                        return data;
-
-//                    return data;
-//            deferred.resolve(data);
+        }
+    );
+    $httpBackend.whenGET(Props.formEditorUri + '/application-system-form').respond(
+        function () {
+            return [200, hakulomakkeet, {status: 200}];
         }
     );
 
-    $httpBackend.whenGET(/\haku-app\/application-system-form-editor\/application-system-form/).respond(
-        function (method, url) {
-            console.log('***', method, url);
-//            var deferred = $q.defer();
-            return [200, hakulomakkeet ,{status:200, message:' hakulomakkeet'}];
-//            return deferred.promise;
+    //hakukausien koodit
+    $.getJSON(Props.contextRoot + '/app/test-data/kausi-koodit.json', function (data) {
+            console.log('### mock data 4 hakukausi koodit ###');
+            hakukausiKoodit = data;
+        }
+    );
+    $httpBackend.whenGET(/\/koodisto\-service\/rest\/json\/kausi\/koodi\?onlyValidKoodis\=true/).respond(
+        function () {
+            return [200, hakukausiKoodit, {status: 200}];
         }
     );
 
+    //hakutyyppien koodit
+    $.getJSON(Props.contextRoot + '/app/test-data/hakutyyppi-koodit.json', function (data) {
+            console.log('### mock data 4 hakutyyppi koodit ###');
+            hakutyyppiKoodit = data;
+        }
+    );
+    $httpBackend.whenGET(/\/koodisto\-service\/rest\/json\/hakutyyppi\/koodi\?onlyValidKoodis\=true/).respond(
+        function () {
+            return [200, hakutyyppiKoodit, {status: 200}];
+        }
+    );
 
-    //hakulomake lista mock data
-    /*$.getJSON(Props.contextRoot+'/app/test-data/application-system-forms.json', function(data){
-     console.log('mock data json hakulomakkeet ');
-     return data;
-     });*/
+    //aalto korkeakoulu organisaatio
+    $.getJSON(Props.contextRoot + '/app/test-data/aalto-korkeakoulusaatio.json', function (data) {
+            console.log('### mock data 4 valittu organisaatio  ###');
+            organisaatio = data;
+        }
+    );
+    $httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\/([0-9]+\.)+[0-9]+/).respond(
+        function () {
+            return [200, organisaatio, {status: 200}];
+        }
+    );
+
+    //organisaation hakukohteet
+    $.getJSON(Props.contextRoot + '/app/test-data/organisaation-hakukohteet.json', function (data) {
+            console.log('### mock data 4 valittun organisaation hakukohteet  ###');
+            organisaationHakukohteet = data;
+        }
+    );
+//    $httpBackend.whenGET(/^https\:\/\/itest\-virkailija\.oph\.ware\.fi\/tarjonta\-service\/rest\/v1\/hakukohde\/search\?hakuOid\=([0-9]+\.)+[0-9]+\&organisationOid\=([0-9]+\.)+[0-9]+/).respond(
+    $httpBackend.whenGET(/.*\:\/+([a-z0-9]+\-)+([a-z0-9]+\.)+[a-z]+\/tarjonta\-service\/rest\/v1\/hakukohde\/search\?hakuOid\=([0-9]+\.)+[0-9]+\&organisationOid\=([0-9]+\.)+[0-9]+/).respond(
+        function () {
+            return [200, organisaationHakukohteet, {status: 200}];
+        }
+    );
+
+    //lisäkysmysten teemat
+    $.getJSON(Props.contextRoot + '/app/test-data/additional-question-themes.json', function (data) {
+            console.log('### mock data 4 lisäkysmysten teemat ###');
+            teemat = data;
+        }
+    );
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/application\-system\-form\/([0-9]+\.)+[0-9]+\/additional\-question\-themes/).respond(
+        function () {
+            return [200, teemat, {status: 200}];
+        }
+    );
+
+    //lisäkysymys lista
+    $.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
+            console.log('### mock data 4 lisäkysymykset lista ###');
+            lisakysymykset = data;
+        }
+    );
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/theme\-question\/list\/([0-9]+\.)+[0-9]+\//).respond(
+        function () {
+            return [200, lisakysymykset, {status: 200}];
+        }
+    );
+
+    //hakulomake nimi
+    $.getJSON(Props.contextRoot + '/app/test-data/hakulomakkeen-name.json', function (data) {
+            console.log('### mock data 4 hakulomakkeen nimi ###');
+            hakulomakeName = data;
+        }
+    );
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/application\-system\-form\/([0-9]+\.)+[0-9]+\/name+/).respond(
+        function () {
+            return [200, hakulomakeName, {status: 200}];
+        }
+    );
 
     //lisäkysymys tyypit mock
-    $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/types').respond(
+  /*  $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/types').respond(
         function( method, url){
             console.log('-- Lisäkysymys tyypit ', url);
             var lisakysymysTyypit = $.getJSON(Props.contextRoot+'/app/test-data/types.json', function(data){
@@ -103,10 +194,10 @@ app.run(['$rootScope', '$httpBackend', 'Props', '$q', function($rootScope, $http
             });
             return [200, lisakysymysTyypit ,{status:200, message:' lisäkysymys tyypit'}];
         }
-    );
+    );*/
 
     //kielet mock
-    $httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).respond(
+    /*$httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).respond(
         function( method, url){
             console.log('******* Languages *****');
             var languages = $.getJSON(Props.contextRoot+'/app/test-data/languages.json', function(data){
@@ -115,10 +206,10 @@ app.run(['$rootScope', '$httpBackend', 'Props', '$q', function($rootScope, $http
             });
             return [200, languages ,{status:200, message:'Haettiin kielet'}];
         }
-    );
+    );*/
 
     //tarjonan api käyttö
-    $httpBackend.whenGET(/tarjonta-service\/rest\/v1\//).passThrough();
+    $httpBackend.whenGET(/tarjonta-service\/rest\/v1\/hakukohde\//).passThrough();
     $httpBackend.whenGET(/cas\/myroles/).passThrough();
     $httpBackend.whenGET(/test-data\//).passThrough();
     $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();

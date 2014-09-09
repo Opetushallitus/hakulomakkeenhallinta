@@ -1,0 +1,391 @@
+{
+  "oid" : "1.2.246.562.10.82388989657",
+  "nimi" : {
+    "fi" : "Aalto-korkeakoulusäätiö"
+  },
+  "kayntiosoite" : {
+    "osoiteTyyppi" : "kaynti",
+    "yhteystietoOid" : "1.2.246.562.5.91312778094",
+    "postinumeroUri" : "posti_02150",
+    "osoite" : "Otakaari 1",
+    "postitoimipaikka" : "ESPOO",
+    "ytjPaivitysPvm" : null,
+    "lng" : null,
+    "lap" : null,
+    "coordinateType" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  },
+  "kieletUris" : [ "oppilaitoksenopetuskieli_1#1" ],
+  "kotipaikkaUri" : "kunta_091",
+  "kuvaus2" : {
+  },
+  "maaUri" : "maatjavaltiot1_fin",
+  "postiosoite" : {
+    "osoiteTyyppi" : "posti",
+    "yhteystietoOid" : "1.2.246.562.5.33583179388",
+    "postinumeroUri" : "posti_00076",
+    "osoite" : "PL 11000",
+    "postitoimipaikka" : "AALTO",
+    "ytjPaivitysPvm" : null,
+    "lng" : null,
+    "lap" : null,
+    "coordinateType" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  },
+  "toimipistekoodi" : "",
+  "metadata" : {
+    "nimi" : {
+    },
+    "hakutoimistonNimi" : {
+      "kieli_fi#1" : "Aalto-yliopiston hakijapalvelut",
+      "kieli_en#1" : "Aalto University Admission Services",
+      "kieli_sv#1" : "Aalto-universitetets ansökningsservice"
+    },
+    "yhteystiedot" : [ {
+      "osoiteTyyppi" : "kaynti",
+      "kieli" : "kieli_fi#1",
+      "id" : "271532",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455301983874",
+      "osoite" : "Otakaari 1",
+      "postinumeroUri" : "posti_02150",
+      "postitoimipaikka" : "ESPOO",
+      "ytjPaivitysPvm" : null,
+      "coordinateType" : null,
+      "lap" : null,
+      "lng" : null,
+      "osavaltio" : null,
+      "extraRivi" : null,
+      "maaUri" : null
+    }, {
+      "osoiteTyyppi" : "posti",
+      "kieli" : "kieli_fi#1",
+      "id" : "271533",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302019515",
+      "osoite" : "PL 11110",
+      "postinumeroUri" : "posti_00076",
+      "postitoimipaikka" : "AALTO",
+      "ytjPaivitysPvm" : null,
+      "coordinateType" : null,
+      "lap" : null,
+      "lng" : null,
+      "osavaltio" : null,
+      "extraRivi" : null,
+      "maaUri" : null
+    }, {
+      "kieli" : "kieli_fi#1",
+      "id" : "271534",
+      "yhteystietoOid" : "13995459530170.15260905453917883",
+      "email" : "hakijapalvelut@aalto.fi"
+    }, {
+      "kieli" : "kieli_fi#1",
+      "id" : "271535",
+      "yhteystietoOid" : "13995459530170.4635816844538614",
+      "www" : "http://www.aalto.fi/fi/studies"
+    }, {
+      "tyyppi" : "puhelin",
+      "kieli" : "kieli_fi#1",
+      "id" : "271536",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302003251",
+      "numero" : "0503616430"
+    }, {
+      "osoiteTyyppi" : "kaynti",
+      "kieli" : "kieli_sv#1",
+      "id" : "271537",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302039057",
+      "osoite" : "Otsvängen 1",
+      "postinumeroUri" : "posti_02150",
+      "postitoimipaikka" : "ESBO",
+      "ytjPaivitysPvm" : null,
+      "coordinateType" : null,
+      "lap" : null,
+      "lng" : null,
+      "osavaltio" : null,
+      "extraRivi" : null,
+      "maaUri" : null
+    }, {
+      "osoiteTyyppi" : "posti",
+      "kieli" : "kieli_sv#1",
+      "id" : "271538",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302076484",
+      "osoite" : "PL 11110",
+      "postinumeroUri" : "posti_00076",
+      "postitoimipaikka" : "AALTO",
+      "ytjPaivitysPvm" : null,
+      "coordinateType" : null,
+      "lap" : null,
+      "lng" : null,
+      "osavaltio" : null,
+      "extraRivi" : null,
+      "maaUri" : null
+    }, {
+      "kieli" : "kieli_sv#1",
+      "id" : "271539",
+      "yhteystietoOid" : "13995459530170.7087646613827638",
+      "email" : "ansokningsservice@aalto.fi"
+    }, {
+      "kieli" : "kieli_sv#1",
+      "id" : "271540",
+      "yhteystietoOid" : "13995459530170.7562010301308293",
+      "www" : "http://www.aalto.fi/sv/studies"
+    }, {
+      "tyyppi" : "puhelin",
+      "kieli" : "kieli_sv#1",
+      "id" : "271541",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302069345",
+      "numero" : "0503616430"
+    }, {
+      "osoiteTyyppi" : "ulkomainen_kaynti",
+      "kieli" : "kieli_en#1",
+      "id" : "271542",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302068701",
+      "osoite" : "Otakaari 1\nFI-02150 Espoo\nFinland",
+      "postinumeroUri" : null,
+      "postitoimipaikka" : null,
+      "ytjPaivitysPvm" : null,
+      "coordinateType" : null,
+      "lap" : null,
+      "lng" : null,
+      "osavaltio" : null,
+      "extraRivi" : null,
+      "maaUri" : null
+    }, {
+      "osoiteTyyppi" : "ulkomainen_posti",
+      "kieli" : "kieli_en#1",
+      "id" : "271543",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302038964",
+      "osoite" : "P.O. Box 11110\nFI-00076 Aalto\nFinland",
+      "postinumeroUri" : null,
+      "postitoimipaikka" : null,
+      "ytjPaivitysPvm" : null,
+      "coordinateType" : null,
+      "lap" : null,
+      "lng" : null,
+      "osavaltio" : null,
+      "extraRivi" : null,
+      "maaUri" : null
+    }, {
+      "kieli" : "kieli_en#1",
+      "id" : "271544",
+      "yhteystietoOid" : "13995459530180.9006582673343715",
+      "email" : "admissions@aalto.fi"
+    }, {
+      "kieli" : "kieli_en#1",
+      "id" : "271545",
+      "yhteystietoOid" : "13995459530180.42804919314618173",
+      "www" : "http://www.aalto.fi/en/studies"
+    }, {
+      "tyyppi" : "puhelin",
+      "kieli" : "kieli_en#1",
+      "id" : "271546",
+      "yhteystietoOid" : "1.2.246.562.5.2014050813455302035046",
+      "numero" : "+358503616430"
+    } ],
+    "luontiPvm" : 1390411901565,
+    "muokkausPvm" : 1390411901565,
+    "data" : {
+      "VALINTAMENETTELY" : {
+      },
+      "VAPAA_AIKA" : {
+      },
+      "LINKED_IN" : {
+      },
+      "TWITTER" : {
+      },
+      "FACEBOOK" : {
+      },
+      "RAHOITUS" : {
+      },
+      "OPISKELIJALIIKUNTA" : {
+      },
+      "AIEMMIN_HANKITTU_OSAAMINEN" : {
+      },
+      "MUU" : {
+      },
+      "OPISKELIJALIIKKUVUUS" : {
+      },
+      "OPPIMISYMPARISTO" : {
+      },
+      "KANSAINVALISET_KOULUTUSOHJELMAT" : {
+      },
+      "OPISKELIJARUOKAILU" : {
+      },
+      "GOOGLE_PLUS" : {
+      },
+      "TIETOA_ASUMISESTA" : {
+      },
+      "ESTEETOMYYS" : {
+      },
+      "TERVEYDENHUOLTOPALVELUT" : {
+      },
+      "VASTUUHENKILOT" : {
+      },
+      "VAKUUTUKSET" : {
+      },
+      "KIELIOPINNOT" : {
+      },
+      "VUOSIKELLO" : {
+      },
+      "YLEISKUVAUS" : {
+      },
+      "KUSTANNUKSET" : {
+      },
+      "TYOHARJOITTELU" : {
+      },
+      "OPISKELIJA_JARJESTOT" : {
+      }
+    }
+  },
+  "alkuPvm" : "2008-10-29",
+  "tyypit" : [ "Koulutustoimija" ],
+  "parentOid" : "1.2.246.562.10.00000000001",
+  "ytunnus" : "2228357-4",
+  "yhteystietoArvos" : [ ],
+  "yhteystiedot" : [ {
+    "tyyppi" : "puhelin",
+    "kieli" : "kieli_fi#1",
+    "id" : "271548",
+    "yhteystietoOid" : "1.2.246.562.5.70421316913",
+    "numero" : "+358947001"
+  }, {
+    "kieli" : "kieli_fi#1",
+    "id" : "271549",
+    "yhteystietoOid" : "1.2.246.562.5.277575826910",
+    "email" : "kirjaamo@aalto.fi"
+  }, {
+    "kieli" : "kieli_fi#1",
+    "id" : "271550",
+    "yhteystietoOid" : "1.2.246.562.5.77990439851",
+    "www" : "http://www.aalto.fi"
+  }, {
+    "osoiteTyyppi" : "posti",
+    "kieli" : "kieli_fi#1",
+    "id" : "271551",
+    "yhteystietoOid" : "1.2.246.562.5.33583179388",
+    "osoite" : "PL 11000",
+    "postinumeroUri" : "posti_00076",
+    "postitoimipaikka" : "AALTO",
+    "ytjPaivitysPvm" : null,
+    "coordinateType" : null,
+    "lap" : null,
+    "lng" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  }, {
+    "osoiteTyyppi" : "kaynti",
+    "kieli" : "kieli_fi#1",
+    "id" : "271552",
+    "yhteystietoOid" : "1.2.246.562.5.91312778094",
+    "osoite" : "Otakaari 1",
+    "postinumeroUri" : "posti_02150",
+    "postitoimipaikka" : "ESPOO",
+    "ytjPaivitysPvm" : null,
+    "coordinateType" : null,
+    "lap" : null,
+    "lng" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  }, {
+    "osoiteTyyppi" : "kaynti",
+    "kieli" : "kieli_sv#1",
+    "id" : "271553",
+    "yhteystietoOid" : "1.2.246.562.5.2014041712483460479895",
+    "osoite" : "Otsvängen 1",
+    "postinumeroUri" : "posti_02150",
+    "postitoimipaikka" : "ESBO",
+    "ytjPaivitysPvm" : null,
+    "coordinateType" : null,
+    "lap" : null,
+    "lng" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  }, {
+    "osoiteTyyppi" : "posti",
+    "kieli" : "kieli_sv#1",
+    "id" : "271554",
+    "yhteystietoOid" : "1.2.246.562.5.2014041712483460503723",
+    "osoite" : "PB 11000",
+    "postinumeroUri" : "posti_00076",
+    "postitoimipaikka" : "AALTO",
+    "ytjPaivitysPvm" : null,
+    "coordinateType" : null,
+    "lap" : null,
+    "lng" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  }, {
+    "kieli" : "kieli_sv#1",
+    "id" : "271555",
+    "yhteystietoOid" : "13977281146030.7381899592100777",
+    "email" : "kirjaamo@aalto.fi"
+  }, {
+    "kieli" : "kieli_sv#1",
+    "id" : "271556",
+    "yhteystietoOid" : "13977281146030.274401622907016",
+    "www" : "http://www.aalto.fi/sv"
+  }, {
+    "tyyppi" : "puhelin",
+    "kieli" : "kieli_sv#1",
+    "id" : "271557",
+    "yhteystietoOid" : "1.2.246.562.5.2014041712483460580237",
+    "numero" : "0947001"
+  }, {
+    "osoiteTyyppi" : "ulkomainen_kaynti",
+    "kieli" : "kieli_en#1",
+    "id" : "271558",
+    "yhteystietoOid" : "1.2.246.562.5.2014041712483460519261",
+    "osoite" : "Otakaari 1\nFI-02150 Espoo\nFinland",
+    "postinumeroUri" : null,
+    "postitoimipaikka" : null,
+    "ytjPaivitysPvm" : null,
+    "coordinateType" : null,
+    "lap" : null,
+    "lng" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  }, {
+    "osoiteTyyppi" : "ulkomainen_posti",
+    "kieli" : "kieli_en#1",
+    "id" : "271559",
+    "yhteystietoOid" : "1.2.246.562.5.2014041712483460575949",
+    "osoite" : "P.O. Box 11000\nFI-00076 Aalto\nFinland",
+    "postinumeroUri" : null,
+    "postitoimipaikka" : null,
+    "ytjPaivitysPvm" : null,
+    "coordinateType" : null,
+    "lap" : null,
+    "lng" : null,
+    "osavaltio" : null,
+    "extraRivi" : null,
+    "maaUri" : null
+  }, {
+    "kieli" : "kieli_en#1",
+    "id" : "271560",
+    "yhteystietoOid" : "13977281146030.27377889667496746",
+    "email" : "registry@aalto.fi"
+  }, {
+    "kieli" : "kieli_en#1",
+    "id" : "271561",
+    "yhteystietoOid" : "13977281146030.6977150264977557",
+    "www" : "http://www.aalto.fi/en"
+  }, {
+    "tyyppi" : "puhelin",
+    "kieli" : "kieli_en#1",
+    "id" : "271562",
+    "yhteystietoOid" : "1.2.246.562.5.2014041712483460589489",
+    "numero" : "+358947001"
+  } ],
+  "parentOidPath" : "|1.2.246.562.10.00000000001|",
+  "vuosiluokat" : [ ],
+  "ryhmatyypit" : [ ],
+  "kayttoryhmat" : [ ],
+  "version" : 15
+}
