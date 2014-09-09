@@ -35,6 +35,10 @@ module.exports = function(grunt) {
                 src: ['app/config/app_mockBackend.js' ],
                 dest: 'app/scripts/app.js'
             },
+            localcas: {
+                src: ['app/config/myroles' ],
+                dest: '.tmp/app/cas/myroles'
+            },
             propsservers: {
                 src: ['app/config/props_2server.js'],
                 dest: 'app/scripts/services/provider/props.js'
@@ -53,6 +57,16 @@ module.exports = function(grunt) {
         clean: {
             start: ['.tmp'],
             end: ['.tmp/concat']
+        },
+        uglify: {
+            options: {
+                mangle: false
+            },
+            hh_target : {
+                files: {
+                    '.tmp/app/scripts/hh.min.js': ['.tmp/app/scripts/hh.js']
+                }
+            }
         }
 
 
@@ -66,7 +80,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-rename');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('dev', ['clean:start', 'copy:propslocal', 'copy:propslocalapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'copy:testdata', 'usemin', 'clean:end']);
+    grunt.registerTask('dev', ['clean:start', 'copy:propslocal', 'copy:propslocalapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'copy:testdata', 'copy:localcas', 'usemin', 'uglify:hh_target', 'clean:end']);
     grunt.registerTask('default', ['clean:start', 'copy:propsservers', 'copy:propsserversapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'usemin', 'clean:end']);
 
 };

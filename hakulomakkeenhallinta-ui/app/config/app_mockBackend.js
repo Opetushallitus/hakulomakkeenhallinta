@@ -209,6 +209,8 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     );*/
 
     //tarjonan api käyttö
+
+    $httpBackend.whenGET(/lokalisointi\/cxf\/rest\/v1\/localisation\?category\=hakulomakkeenhallinta/).passThrough();
     $httpBackend.whenGET(/tarjonta-service\/rest\/v1\/hakukohde\//).passThrough();
     $httpBackend.whenGET(/cas\/myroles/).passThrough();
     $httpBackend.whenGET(/test-data\//).passThrough();
