@@ -73,7 +73,11 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
         organisaationHakukohteet = {},
         teemat = [],
         lisakysymykset = [],
-        hakulomakeName = {};
+        hakulomakeName = {},
+        teemaHakukohdeKysymykset = [],
+        teemaHakukohdeKysymyksetTallennus = {},
+        lisakysymysTyypit = [],
+        kielet = [];
 
     //käyttäjän organisaatiot
     $.getJSON(Props.contextRoot + '/app/test-data/represented-organizations.json', function (data) {
@@ -183,35 +187,49 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
             return [200, hakulomakeName, {status: 200}];
         }
     );
-
-    //lisäkysymys tyypit mock
-  /*  $httpBackend.whenGET(Props.backEndRoot+'haku-app/lomakkeenhallinta/themequestion/types').respond(
-        function( method, url){
-            console.log('-- Lisäkysymys tyypit ', url);
-            var lisakysymysTyypit = $.getJSON(Props.contextRoot+'/app/test-data/types.json', function(data){
-                console.log('mock data json lisäkysmys tyypeille ');
-                return data;
-            });
-            return [200, lisakysymysTyypit ,{status:200, message:' lisäkysymys tyypit'}];
+    //teema hakukohde kysymykset
+    $.getJSON(Props.contextRoot + '/app/test-data/teema-hakukohde-kysymykset.json', function (data) {
+            console.log('### mock data 4 teema hakukohde kysymykset ###');
+            teemaHakukohdeKysymykset = data;
         }
-    );*/
-
-    //kielet mock
-    /*$httpBackend.whenGET(/\haku-app\/lomakkeenhallinta\/themequestion\/languages/).respond(
-        function( method, url){
-            console.log('******* Languages *****');
-            var languages = $.getJSON(Props.contextRoot+'/app/test-data/languages.json', function(data){
-                console.log('mock data json kielet');
-                return data;
-            });
-            return [200, languages ,{status:200, message:'Haettiin kielet'}];
+    );
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/theme\-question\/list\/([0-9]+\.)+[0-9]+\?aoId\=([0-9]+\.)+[0-9]+\&orgId\=([0-9]+\.)+[0-9]+\&themeId\=hakutoiveet\.teema/).respond(
+        function () {
+            return [200, teemaHakukohdeKysymykset, {status: 200}];
         }
-    );*/
-
-    //tarjonan api käyttö
+    );
+    //teema hakukohde kysymykset tallenuksessa
+    $.getJSON(Props.contextRoot + '/app/test-data/teema-hakukohde-kysymykset-tallennus.json', function (data) {
+            console.log('### mock data 4 teema hakukohde kysymykset tallennus ###');
+            teemaHakukohdeKysymyksetTallennus = data;
+        }
+    );
+    //tallentaan teema hakukohde kysymysten järjetys palautetaan vain onrginaali järjestys
+    $httpBackend.whenPOST(/\/haku\-app\/application\-system\-form\-editor\/theme\-question\/reorder\/([0-9]+\.)+[0-9]+\/hakutoiveet\.teema/).respond(teemaHakukohdeKysymyksetTallennus);
+    //lisäkysymysten kysymystyypit
+    $.getJSON(Props.contextRoot+'/app/test-data/types.json', function(data){
+        console.log('### mock data 4 lisäkysymys tyypit ###');
+        lisakysymysTyypit = data;
+    });
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/types/).respond(
+        function(){
+            return [200, lisakysymysTyypit, {status:200}];
+        }
+    );
+    //kielet
+    $.getJSON(Props.contextRoot+'/app/test-data/languages.json', function(data){
+        console.log('### mock data 4 kysymysten kieli versiot ###');
+        kielet = data;
+    });
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form-editor\/languages/).respond(
+        function () {
+            return [200, kielet ,{status:200}];
+        }
+    );
 
     $httpBackend.whenGET(/lokalisointi\/cxf\/rest\/v1\/localisation\?category\=hakulomakkeenhallinta/).passThrough();
     $httpBackend.whenGET(/tarjonta-service\/rest\/v1\/hakukohde\//).passThrough();
+    $httpBackend.whenGET(/\/koodisto-service\/rest\/json\/posti\/koodi\?onlyValidKoodis\=true/).passThrough();
     $httpBackend.whenGET(/cas\/myroles/).passThrough();
     $httpBackend.whenGET(/test-data\//).passThrough();
     $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
