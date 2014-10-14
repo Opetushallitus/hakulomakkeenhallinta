@@ -4,6 +4,8 @@
 
 ## Käynnistys lokaalissa kehitysympäristössä
 
+cd hakulomakkeenhallinta-ui
+
 mvn clean install -P dev; mvn tomcat7:run-war-only -P dev
 
 jonka jälkeen avaa selaimessa allaoleva urli:
