@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('FormEditor',['$rootScope', '$q','$resource', 'Props', '$timeout',
+    .factory('FormEditor', ['$rootScope', '$q', '$resource', 'Props', '$timeout',
         function ($rootScope, $q, $resource, Props, $timeout) {
         var formEditor = {};
 
@@ -130,11 +130,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             $rootScope.LOGS('FormEditor','getApplicationSystemFormOrgnisations()', applicationSystemId);
             var deferred = $q.defer();
             FormEditor.query({'_path':'application-system-form','_id': applicationSystemId, '_oper':'represented-organizations'}).$promise.then(
-                function (data) {
+                function success (data) {
                     deferred.resolve(data);
                 },
-                function (error) {
-                    deferred.resolve(error);
+                function error (error) {
+                    deferred.reject(error);
                 }
             );
             return deferred.promise;

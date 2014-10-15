@@ -1,1 +1,29 @@
-[{"id":"fi","order":1,"translations":{"fi":"Suomi","sv":"Suomi (sv)","en":"Suomi (en)"}},{"id":"sv","order":2,"translations":{"fi":"Ruotsi","sv":"Ruotsi (sv)","en":"Ruotsi (en)"}},{"id":"en","order":3,"translations":{"fi":"Englanti","sv":"Englanti (sv)","en":"Englanti (en)"}}]
+[
+    {
+        "id": "fi",
+        "order": 1,
+        "translations": {
+            "fi": "Suomi",
+            "sv": "Suomi (sv)",
+            "en": "Suomi (en)"
+        }
+    },
+    {
+        "id": "sv",
+        "order": 2,
+        "translations": {
+            "fi": "Ruotsi",
+            "sv": "Ruotsi (sv)",
+            "en": "Ruotsi (en)"
+        }
+    },
+    {
+        "id": "en",
+        "order": 3,
+        "translations": {
+            "fi": "Englanti",
+            "sv": "Englanti (sv)",
+            "en": "Englanti (en)"
+        }
+    }
+]

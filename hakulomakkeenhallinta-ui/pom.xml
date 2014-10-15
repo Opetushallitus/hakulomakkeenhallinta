@@ -42,7 +42,56 @@
                     <charset>UTF-8</charset>
                     <uriEncoding>UTF-8</uriEncoding>
                     <port>8090</port>
+
                 </configuration>
+            </plugin>
+            <!-- # grunt UI packaging-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target name="building">
+                                <echo>
+                                </echo>
+                                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+                                    <arg line="/c npm config set color false"/>
+                                </exec>
+                                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                                    <arg line="-c 'npm config set color false'"/>
+                                </exec>
+                                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+                                    <arg line="/c npm install"/>
+                                </exec>
+                                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                                    <arg line="-c 'npm install'"/>
+                                </exec>
+                                <echo>
+                                </echo>
+                                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" resultproperty="cmdresult" output="grunt.status">
+                                    <arg line="/c grunt" />
+                                </exec>
+                                <exec executable="bash" dir="${project.basedir}" osfamily="unix" resultproperty="cmdresult" output="grunt.status">
+                                    <arg line="-c 'grunt'"/>
+                                </exec>
+
+                                <loadfile property="grunt.status" srcFile="grunt.status"/>
+                                <echo>${grunt.status}</echo>
+                                <delete file="grunt.status" quiet="true"/>
+                                <condition property="cmdsuccess">
+                                    <equals arg1="${cmdresult}" arg2="0"/>
+                                </condition>
+                                <fail unless="cmdsuccess"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- # Include ui -->
             <plugin>
@@ -53,12 +102,34 @@
                     <webResources>
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
-                            <directory>app</directory>
+                            <directory>.tmp/app</directory>
                             <targetPath>/app</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
             </plugin>
+            <!-- # clean UI .tmp packaging directory-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>clean</phase>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>.tmp</directory>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -78,6 +149,56 @@
                             <port>8090</port>
                         </configuration>
                     </plugin>
+
+                    <!-- # grunt UI packaging-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <target name="building">
+                                        <echo>
+                                        </echo>
+                                        <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+                                            <arg line="/c npm config set color false"/>
+                                        </exec>
+                                        <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                                            <arg line="-c 'npm config set color false'"/>
+                                        </exec>
+                                        <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+                                            <arg line="/c npm install"/>
+                                        </exec>
+                                        <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                                            <arg line="-c 'npm install'"/>
+                                        </exec>
+                                        <echo>
+                                        </echo>
+                                        <exec executable="cmd" dir="${project.basedir}" osfamily="windows" resultproperty="cmdresult" output="grunt.status">
+                                            <arg line="/c grunt dev" />
+                                        </exec>
+                                        <exec executable="bash" dir="${project.basedir}" osfamily="unix" resultproperty="cmdresult" output="grunt.status">
+                                            <arg line="-c 'grunt dev'"/>
+                                        </exec>
+
+                                        <loadfile property="grunt.status" srcFile="grunt.status"/>
+                                        <echo>${grunt.status}</echo>
+                                        <delete file="grunt.status" quiet="true"/>
+                                        <condition property="cmdsuccess">
+                                            <equals arg1="${cmdresult}" arg2="0"/>
+                                        </condition>
+                                        <fail unless="cmdsuccess"/>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                     <!-- # Include ui -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -87,12 +208,35 @@
                             <webResources>
                                 <resource>
                                     <!-- this is relative to the pom.xml directory -->
-                                    <directory>app</directory>
+                                    <directory>.tmp/app</directory>
                                     <targetPath>/app</targetPath>
                                 </resource>
                             </webResources>
                         </configuration>
                     </plugin>
+
+                    <!-- # clean UI .tmp packaging directory-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>2.5</version>
+                        <executions>
+                            <execution>
+                                <phase>clean</phase>
+                                <configuration>
+                                    <filesets>
+                                        <fileset>
+                                            <directory>.tmp</directory>
+                                        </fileset>
+                                    </filesets>
+                                </configuration>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
@@ -119,6 +263,9 @@
                         <version>2.4</version>
                         <configuration>
                             <webResources>
+                                <packagingExcludes>
+                                    app/test-data/
+                                </packagingExcludes>
                                 <resource>
                                     <!-- this is relative to the pom.xml directory -->
                                     <directory>app</directory>
@@ -127,6 +274,36 @@
                             </webResources>
                         </configuration>
                     </plugin>
+
+                    <!--<plugin>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>2.6</version>
+    <configuration>
+        <encoding>UTF-8</encoding>
+    </configuration>
+    <executions>
+        <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+                <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+                <outputDirectory>${basedir}/target/haku-app/resources/</outputDirectory>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>version.txt</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>-->
+
                 </plugins>
             </build>
         </profile>
