@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         },
         copy: {
             main: {
-                src: ['app/index.html', 'app/img/**', 'app/lib/**', 'app/partials/**'],
+                src: ['app/index.html', 'app/img/**', 'app/lib/**', 'app/partials/**', 'app/font/**'],
                 dest: '.tmp/'
             },
             nd: {
