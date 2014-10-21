@@ -7,6 +7,26 @@
     color: red;
 }
 
+.hh-list-h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.hh-list-h4 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.hh-list-h5 {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hh-list-h6 {
+    font-size: 12px;
+    font-weight: bold;
+}
+
 .hh-hierarkia-list {
     list-style: none;
     width: 100%;
@@ -15,19 +35,53 @@
     line-height: 34px;
 }
 
-.hh-hierarkia-list ul li.icon{
-    text-indent: -1.4em;
-}
-.icon div{
-    display: inline-block;
-}
-.hh-hierarkia-list ul li{
-    padding-left: 20px;
+.hh-hierarkia-list>li {
+    padding-left: 30px;
 }
 
-.hh-hierarkia-list li:nth-child(odd){
+.hh-hierarkia-list>li div div {
+    display: inline-block;
+}
+
+.hh-hierarkia-list>li:nth-child(odd) {
     background: rgba(20, 158, 203, 0.06);
 }
-.hh-hierarkia-list li:nth-child(even){
+
+.hh-hierarkia-list>li:nth-child(even) {
     background: #ffffff;
+}
+
+.rotate-90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.hh-icon-right {
+    background: url("../img/right.gif") no-repeat;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.hh-icon-down {
+    background: url("../img/down.gif") no-repeat;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.hh-icon-menu{
+    display: inline-block;
+    background: url("../img/icon-treetable-button.png") no-repeat;
+    width: 25px;
+    height: 20px;
+    padding: 0 1px 0 10px;
+}
+a:hover .hh-menu {
+    display: block;
+    width: 20px;
+    height: 20px;
 }

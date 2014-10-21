@@ -46,12 +46,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 for (var themeIndx = 0, themesLength = themes.length; themeIndx < themesLength; themeIndx += 1){
                                     themes[themeIndx].hkkohde = [];
                                     for (var hkIndx = 0, hakukohdeIdsLength = hakukohdeIds.length; hkIndx < hakukohdeIdsLength; hkIndx += 1){
-                                        themes[themeIndx].hkkohde[hkIndx] = {};
-                                        themes[themeIndx].hkkohde[hkIndx].aoid = hakukohdeIds[hkIndx];
-                                        themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
                                         for (var queIndx = 0, themeQsLength = themeQues.length; queIndx < themeQsLength; queIndx += 1){
                                             if (themeQues[queIndx].theme !== undefined ){
                                                 if (themes[themeIndx].id === themeQues[queIndx].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
+                                                    if (themes[themeIndx].hkkohde[hkIndx] === undefined) {
+                                                        themes[themeIndx].hkkohde[hkIndx] = {};
+                                                        themes[themeIndx].hkkohde[hkIndx].aoid = hakukohdeIds[hkIndx];
+                                                        themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
+                                                    }
                                                     themes[themeIndx].hkkohde[hkIndx].additionalQuestions.push(themeQues[queIndx]);
                                                 }
                                             }
@@ -140,7 +142,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 console.log('Tähän avataan dialogi säännöille ');
                 console.log(hkKysymysLista);
                 $modal.open({
-                    templateUrl: 'partials/lisakysymykset/lisaa-saanto.html',
+                    templateUrl: 'partials/dialogs/lisaa-saanto.html',
                     controller: 'addRuleCtrl',
                     resolve:{
                         hkKysymysLista: function () {

@@ -1,41 +1,56 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysmykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
+    .directive('hakukohdeLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
         function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location) {
             return {
                 restrict: 'E',
                 replace: true,
                 template: '<div>' +
-                    '<h4 data-ng-click="toggleNaytaHakukohdeKysymykset()"><a>{{ hakukohdeInfo | hakukohdeNimi:userLang }} <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >:</span> {{ hakukohdeInfo.tarjoajaNimet[userLang] }}' +
-                    '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }"></i></a> </h4>' +
-                    '<div class="form-group">' +
-                    '<button type="button" class="btn" data-ng-click="cancelSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button>' +
-                    ' <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && !sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenna järjestys\' }}</button>' +
-                    ' <button type="button" class="btn" data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} </button>' +
-                    ' <button type="button" class="btn disabled" data-ng-click="addRule()" data-ng-disabled="!addRule" data-ng-show="naytaHakukohdeQues && sortBtns">{{ t(\'lisaa.saanto\')|| \'Lisää sääntö\' }}</button>' +
+                    '<div class="hh-list-h4">' +
+                    '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }" data-ng-click="toggleNaytaHakukohdeKysymykset()"></i>' +
+
+                    '<div class="dropdown" style="display: inline-block !important;"> <a class="dropdown-toggle">' +
+                    '<i class="hh-icon-menu"></i>' +
+                    '</a>' +
+                    '<ul class="dropdown-menu">' +
+                    '<li data-ng-click="addQuestion(theme)"><a>{{ t(\'lisaa.uusi.kysymys\') || \'Lisää uusi kysymys\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
+                    '<li data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)"><a>{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} <i class="glyphicon glyphicon-sort"></i></a> </li>' +
+                    '<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)"><a>{{ t(\'lisaa.saanto\') || \'Lisää sääntö\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
+                    '</ul>' +
+                    '</div>' +
+                    '<a data-ng-click="toggleNaytaHakukohdeKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >:</span> {{ hakukohdeInfo.tarjoajaNimet[userLang] }} ({{kysymysMaara}})</a>' +
+                    '</div>' +
+
+                    '<div class="form-group" data-ng-show="!sortBtns && naytaHakukohdeQues">' +
+                    '<button type="button" class="btn" data-ng-click="cancelSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="!sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button> &nbsp;' +
+                    '<button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="!sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenna järjestys\' }}</button>' +
                     '</div>' +
                     '<alertmsg></alertmsg>' +
                     '</div>',
-                link: function (scope, element, attrs) {
+                link: function ($scope, element, attrs) {
                     var hakukohdeJson = JSON.parse(attrs.hakukohdeolio);
                     if (hakukohdeJson.additionalQuestions.length > 0 && hakukohdeJson.additionalQuestions[0].targetIsGroup) {
                         Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
                             function (data) {
-                                scope.hakukohdeInfo = data;
+                                $scope.hakukohdeInfo = data;
                             }
                         );
                     } else {
                         TarjontaAPI.fetchHakukohdeInfo(hakukohdeJson.aoid).then(
                             function (data) {
-                                scope.hakukohdeInfo = data;
+                                $scope.hakukohdeInfo = data;
                             }
                         );
                     }
-                    scope.naytaHakukohdeQues = false;
-                    scope.toggleNaytaHakukohdeKysymykset = function () {
-                        scope.naytaHakukohdeQues = !scope.naytaHakukohdeQues;
+                    $scope.naytaHakukohdeQues = false;
+                    $scope.toggleNaytaHakukohdeKysymykset = function () {
+                        $scope.naytaHakukohdeQues = !$scope.naytaHakukohdeQues;
                     };
+                    $scope.kysymysMaara = 0;
+                    if (hakukohdeJson.additionalQuestions) {
+                        $scope.kysymysMaara = hakukohdeJson.additionalQuestions.length;
+                    }
                 },
                 controller: function ($scope) {
 
@@ -47,7 +62,18 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      */
                     function toggleShowSortBtns() {
                         $scope.sortBtns = !$scope.sortBtns;
+                        if (!$scope.naytaHakukohdeQues) {
+                            $scope.toggleNaytaHakukohdeKysymykset();
+                        }
                     };
+                    /**
+                     * Avaa kaikki teemassa olevat kysymykset näkymään
+                     * lähetetty $broadcast arvo tulee parent $scope:sta
+                     */
+                    $scope.$on('SHOW_HIDE_ALL_QUESTION', function () {
+                            $scope.toggleNaytaHakukohdeKysymykset();
+                        }
+                    );
                     /**
                      * aktivoi kysymysten järjestely napit
                      * ja tallentaa kysymysten alkuperäisen järjestyksen

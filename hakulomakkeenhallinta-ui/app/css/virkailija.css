@@ -139,11 +139,13 @@ h6 {
     background-image:url("../img/dialog-pat.png");
     border-bottom:1px solid #24a4cc;
 }
-
+.modal-footer {
+    background-color: #f2f2f2;
+}
 /*dialogin tyyli*/
-.modal {
+.modal-dialog-border {
     border:1px solid #dadada;
-    border-radius:3px;
+    border-radius: 5px;
     box-shadow:0 1px 3px rgba(0, 0, 0, 0.49);
 }
 

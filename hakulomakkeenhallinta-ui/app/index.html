@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <title>Hakulomakkeenhallinta</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="lib/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>-->
 
     <!--build:css css/hh.css-->
-    <link href="css/virkailija.css" rel="stylesheet">
     <link href="css/other.css" rel="stylesheet">
+    <link href="css/virkailija.css" rel="stylesheet">
     <link href="css/hh-kysymys-lista.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
     <!--endbuild-->
@@ -19,16 +20,15 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
     <script src="lib/underscore.collections.walk.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-sanitize.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-route.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-resource.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-mocks.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-sanitize.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-mocks.js"></script>
 
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <!--<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>-->
+    <script src="lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="lib/i18next-1.7.1.min.js"></script>
-
-
     <script src="lib/ng-i18next.min.js"></script>
     <script src="lib/jquery-1.11.1.min.js"></script>
 
@@ -98,6 +98,8 @@
 <script src="scripts/directives/liitepyyntoNapit.js"></script>
 <script src="scripts/directives/questionTranslations.js"></script>
 <script src="scripts/directives/hakukohdeLisakysymykset.js"></script>
+<script src="scripts/directives/teemaOtsikko.js"></script>
+<script src="scripts/directives/lisakysymykset.js"></script>
 <!-- endbuild -->
 
 </html>

@@ -193,6 +193,128 @@
         "_id": "53e37f55e4b0d272fdc5d864"
     },
     {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.80171652938",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.43518216312",
+        "targetIsGroup": false,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "jlkjlkj"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "kj"
+                    }
+                },
+                "deliveryDue": 1411851540000,
+                "useGroupAddress": true,
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 2,
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.25401456758", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "kjhkjh-1"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "kjhkjh"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "lkjlkjh"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "lkhkljh"
+                    }
+                }
+            }
+        ],
+        "_id": "53e37f55e4b0d272fdc5d861"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.80171652938",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.43518216312",
+        "targetIsGroup": false,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "jlkjlkj"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "kj"
+                    }
+                },
+                "deliveryDue": 1411851540000,
+                "useGroupAddress": true,
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 2,
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.25401456758", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "kjhkjh-2"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "kjhkjh"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "lkjlkjh"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "lkhkljh"
+                    }
+                }
+            }
+        ],
+        "_id": "53e37f55e4b0d272fdc5d862"
+    },
+    {
         "type": "TextQuestion",
         "applicationSystemId": "1.2.246.562.29.80171652938",
         "theme": "hakutoiveet.teema",
@@ -217,6 +339,57 @@
         "size": 33,
         "_id": "53ec6727e4b0d853ab84168d"
     },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.80171652938",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.43518216312",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "ownerOrganizationOids": ["1.2.246.562.10.25401456758", "1.2.246.562.10.56753942459", "1.2.246.562.10.82388989657", "1.2.246.562.10.00000000001"],
+        "messageText": {
+            "translations": {
+                "fi": "Testing-1"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 33,
+        "_id": "53ec6727e4b0d853ab841681"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.80171652938",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.43518216312",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "ownerOrganizationOids": ["1.2.246.562.10.25401456758", "1.2.246.562.10.56753942459", "1.2.246.562.10.82388989657", "1.2.246.562.10.00000000001"],
+        "messageText": {
+            "translations": {
+                "fi": "Testing-2"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 33,
+        "_id": "53ec6727e4b0d853ab841682"
+    },
+
     {
         "type": "TextQuestion",
         "applicationSystemId": "1.2.246.562.29.80171652938",
