@@ -44,11 +44,11 @@
                         <div style="width: 140px;">
                             <question-translations></question-translations>
                         </div>-->
-                        <ul data-ng-show="question.options && naytaVastaukset" class="hh-hierarkia-list">
+                        <!--<ul data-ng-show="question.options && naytaVastaukset" class="hh-hierarkia-list">
                             <li data-ng-repeat="option in question.options"  class="icon-comment-empty">
                                 <div>
                                     {{option | i18n:'optionText':userLang}}
-                                    <!--TODO: lisää käännös tälle käännöspalveluun -->
+                                    &lt;!&ndash;TODO: lisää käännös tälle käännöspalveluun &ndash;&gt;
                                     <button class="btn btn-xs" data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns">{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></button>
                                     <button type="button" class="btn btn-primary btn-xs" data-ng-click="addQuestion(theme)" >{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus-sign"></i> </button>
                                 </div>
@@ -66,7 +66,7 @@
                                     <li data-ng-repeat="question in option.questions" data-ng-controller="hakukohdeKysymysCtrl">
                                         <div class="icon"
                                              data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}">
-                                            <!--{{jatkokys | i18n:'messageText':userLang}}-->
+                                            &lt;!&ndash;{{jatkokys | i18n:'messageText':userLang}}&ndash;&gt;
 
                                             <div style="width: 70px; text-align: center;">
                                                 <button class="btn btn-xs" data-ng-disabled="sortBtns || $first" data-ng-click="up($index)"><i class="glyphicon glyphicon-chevron-up"></i> </button>
@@ -103,7 +103,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                </ul>
+                                </ul>-->
                             </li>
 
 
