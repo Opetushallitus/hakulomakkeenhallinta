@@ -4,7 +4,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider', [])
     .provider('Props', function () {
         this.$get = [function () {
             return {
-                enableConsoleLogs: false,
+                enableConsoleLogs: true,
                 tarjontaAPI: '/tarjonta-service/rest/v1',
                 contextRoot: '/hakulomakkeenhallinta-ui',
                 themeQuestionUri: '/haku-app/application-system-form-editor/theme-question',

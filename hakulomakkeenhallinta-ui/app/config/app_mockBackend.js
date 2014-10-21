@@ -63,7 +63,6 @@ app.provider('_', function() {
 });
 
 app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBackend, Props){
-    $rootScope.devFlag = true;
 
     var hakulomakkeet = [],
         hakukausiKoodit = [],

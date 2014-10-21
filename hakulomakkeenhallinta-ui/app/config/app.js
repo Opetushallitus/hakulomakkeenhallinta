@@ -62,5 +62,4 @@ app.provider('_', function() {
 });
 
 app.run(['$rootScope', function($rootScope){
-    $rootScope.devFlag = true;
 }]);
