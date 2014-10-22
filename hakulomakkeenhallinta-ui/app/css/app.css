@@ -73,13 +73,14 @@
     width: 20px;
 }
 
-.hh-icon-menu{
+.hh-icon-menu {
     display: inline-block;
     background: url("../img/icon-treetable-button.png") no-repeat;
     width: 25px;
     height: 20px;
     padding: 0 1px 0 10px;
 }
+
 a:hover .hh-menu {
     display: block;
     width: 20px;

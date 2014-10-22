@@ -27,46 +27,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.haunNimi = $filter('i18n')(data, 'name', $scope.userLang);
                 }
             );
-
             $scope.themes = [];
             /**
-             * heataan hakulomakkeen teemat halomamekkeen id:llä ja siihen liityvä lisäkysymykset
-             * ja asetetaan ne käyttöliittymään oikean teeman ja hakukohteen alle
+             * heataan hakulomakkeen lisäkysymykset halomamekkeen id:llä ja valitulla organisaation id:llä
              */
-            function hakukohdeKohtaisetKysymykset() {
-                var deferred = $q.defer();
-                FormEditor.getApplicationSystemFormThemes($routeParams.id).then(
-                    function (themes) {
-                        ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
-                            function (themeQues) {
-                                _.each(themes, function (teema, indx) {
-                                        console.log('#1 ',teema.id, indx, teema);
-                                        themes[indx].hkkohde = [];
-                                        var teemanKysymykset = _.where(themeQues, {theme: teema.id}),
-                                            teemanHakukohteet = _.uniq( _.map(teemanKysymykset, function (lopIds) { return lopIds.learningOpportunityId; }));
-
-                                        _.each(teemanHakukohteet, function(lopId, indx2) {
-                                                themes[indx].hkkohde[indx2] = {};
-                                                themes[indx].hkkohde[indx2].aoid = lopId;
-                                                themes[indx].hkkohde[indx2].additionalQuestions = _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId});
-                                                console.log('#2.1 ', _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId}));
-                                            }
-                                        );
-                                        console.log('#2 ',themes[indx].hkkohde);
-                                    }
-                                );
-                                deferred.resolve(themes);
-                            }
-                        );
-                    }
-                );
-                return deferred.promise;
-            };
-            /**
-             * päivitetään asynkroninen teema data $scopeen kun se on käsitelty
-             * yllä olevassa funtiossa
-             */
-            hakukohdeKohtaisetKysymykset().then(function(data){
+            ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(function (data) {
                 $scope.themes = data;
             });
             /**

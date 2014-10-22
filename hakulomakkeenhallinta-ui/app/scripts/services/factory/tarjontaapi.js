@@ -19,6 +19,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         if (data.result) {
                             $rootScope.LOGS('TarjontaAPI', data.result);
                             deffered.resolve(data.result);
+                        } else if (data.status === 'NOT_FOUND') {
+                            $rootScope.LOGS('TarjontaAPI', data);
+                            deffered.resolve(data.status);
                         }
                     }
                 );

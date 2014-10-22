@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', '$timeout',
-        function ($rootScope, $resource, Props, $q, $timeout) {
+    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', 'FormEditor',
+        function ($rootScope, $resource, Props, $q, FormEditor) {
             var themeQuestion = {};
 
             var ThemeQuestion = $resource(Props.themeQuestionUri + '/:_id/:_aoid/:_themeId',
@@ -165,6 +165,42 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     function error(resp) {
                         $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionByThemeLop()', 'ERROR', resp);
                         deferred.reject(resp);
+                    }
+                );
+                return deferred.promise;
+            };
+            /**
+             * heataan hakulomakkeen hakukohde kohtaiset lisäkysymykset hakulomamekkeen - ja organisaation id:llä
+             * ja asetetaan ne käyttöliittymään oikean teeman ja hakukohteen alle
+             * @param applicationSystemId hakulomakkeen Id
+             * @param organisationId organisaation Id
+             * @returns {promise}
+             */
+            themeQuestion.hakukohdeKohtaisetKysymykset = function (applicationSystemId, organisationId) {
+                $rootScope.LOGS('ThemeQuestions', 'hakukohdeKohtaisetKysymykset()');
+                var deferred = $q.defer();
+                FormEditor.getApplicationSystemFormThemes(applicationSystemId).then(
+                    function (themes) {
+                        themeQuestion.getThemeQuestionListByOrgId(applicationSystemId, organisationId).then(
+                            function (themeQues) {
+                                _.each(themes, function (teema, indx) {
+                                        $rootScope.LOGS('ThemeQuestions', '#1 ', teema.id, indx, teema);
+                                        themes[indx].hkkohde = [];
+                                        var teemanKysymykset = _.where(themeQues, {theme: teema.id}),
+                                            teemanHakukohteet = _.uniq( _.map(teemanKysymykset, function (lopIds) { return lopIds.learningOpportunityId; }));
+
+                                        _.each(teemanHakukohteet, function(lopId, indx2) {
+                                                themes[indx].hkkohde[indx2] = {};
+                                                themes[indx].hkkohde[indx2].aoid = lopId;
+                                                themes[indx].hkkohde[indx2].additionalQuestions = _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId});
+                                            }
+                                        );
+                                        $rootScope.LOGS('ThemeQuestions', '#2 ', themes[indx].hkkohde);
+                                    }
+                                );
+                                deferred.resolve(themes);
+                            }
+                        );
                     }
                 );
                 return deferred.promise;

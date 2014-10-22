@@ -10,7 +10,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<div class="hh-list-h4">' +
                     '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }" data-ng-click="toggleNaytaHakukohdeKysymykset()"></i>' +
 
-                    '<div class="dropdown" style="display: inline-block !important;"> <a class="dropdown-toggle">' +
+                    '<div class="dropdown" style="display: inline-block !important;">' +
+                    '<a class="dropdown-toggle" data-ng-hide="hakukohdePoistettu">' +
                     '<i class="hh-icon-menu"></i>' +
                     '</a>' +
                     '<ul class="dropdown-menu">' +
@@ -30,6 +31,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '</div>',
                 link: function ($scope, element, attrs) {
                     var hakukohdeJson = JSON.parse(attrs.hakukohdeolio);
+                    $scope.hakukohdePoistettu = false;
                     if (hakukohdeJson.additionalQuestions.length > 0 && hakukohdeJson.additionalQuestions[0].targetIsGroup) {
                         Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
                             function (data) {
@@ -39,7 +41,18 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     } else {
                         TarjontaAPI.fetchHakukohdeInfo(hakukohdeJson.aoid).then(
                             function (data) {
-                                $scope.hakukohdeInfo = data;
+                                if (data === 'NOT_FOUND') {
+                                    $scope.hakukohdePoistettu = true;
+                                    $scope.hakukohdeInfo = {};
+                                    $scope.hakukohdeInfo.nimi = {
+                                        fi: 'HAKUKOHDE POISTETTU',
+                                        sv: 'HAKUKOHDE POISTETTU',
+                                        en: 'HAKUKOHDE POISTETTU'
+                                    };
+                                } else {
+                                    $scope.hakukohdeInfo = data;
+                                }
+
                             }
                         );
                     }
@@ -81,6 +94,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * @param themeId
                      */
                     $scope.sortQuestions = function (themeId, hakukohdeOid) {
+                        console.log('Järjestä kysymykset: ', $routeParams.id, hakukohdeOid, themeId, $routeParams.oid);
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
                                 $scope.hakukohde.additionalQuestions = _.sortBy(_.map(data, function (aq) { if (aq.hasOwnProperty('_id')) return aq; }),
@@ -88,6 +102,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                         return d.ordinal;
                                     }
                                 );
+                                console.log('järjestättävät kysymykset: ', $scope.hakukohde.additionalQuestions);
                                 orderQuestions = $scope.hakukohde.additionalQuestions;
                                 _.each(data, function (question) {
                                         ordinals[question._id] = {};
