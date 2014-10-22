@@ -39,27 +39,22 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function (themes) {
                         ThemeQuestions.getThemeQuestionListByOrgId($routeParams.id, $routeParams.oid).then(
                             function (themeQues) {
-                                var hakukohdeIds = [];
-                                //parsitaan lisäkysymyksistä hakukohde id:t taulukkoon
-                                hakukohdeIds = _.uniq( _.map(themeQues, function (lopIds) { return lopIds.learningOpportunityId; }));
-                                //parsitaan lisäkysmys oikean teeman ja hakukohteen alle
-                                for (var themeIndx = 0, themesLength = themes.length; themeIndx < themesLength; themeIndx += 1){
-                                    themes[themeIndx].hkkohde = [];
-                                    for (var hkIndx = 0, hakukohdeIdsLength = hakukohdeIds.length; hkIndx < hakukohdeIdsLength; hkIndx += 1){
-                                        for (var queIndx = 0, themeQsLength = themeQues.length; queIndx < themeQsLength; queIndx += 1){
-                                            if (themeQues[queIndx].theme !== undefined ){
-                                                if (themes[themeIndx].id === themeQues[queIndx].theme && hakukohdeIds[hkIndx] === themeQues[queIndx].learningOpportunityId){
-                                                    if (themes[themeIndx].hkkohde[hkIndx] === undefined) {
-                                                        themes[themeIndx].hkkohde[hkIndx] = {};
-                                                        themes[themeIndx].hkkohde[hkIndx].aoid = hakukohdeIds[hkIndx];
-                                                        themes[themeIndx].hkkohde[hkIndx].additionalQuestions = [];
-                                                    }
-                                                    themes[themeIndx].hkkohde[hkIndx].additionalQuestions.push(themeQues[queIndx]);
-                                                }
+                                _.each(themes, function (teema, indx) {
+                                        console.log('#1 ',teema.id, indx, teema);
+                                        themes[indx].hkkohde = [];
+                                        var teemanKysymykset = _.where(themeQues, {theme: teema.id}),
+                                            teemanHakukohteet = _.uniq( _.map(teemanKysymykset, function (lopIds) { return lopIds.learningOpportunityId; }));
+
+                                        _.each(teemanHakukohteet, function(lopId, indx2) {
+                                                themes[indx].hkkohde[indx2] = {};
+                                                themes[indx].hkkohde[indx2].aoid = lopId;
+                                                themes[indx].hkkohde[indx2].additionalQuestions = _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId});
+                                                console.log('#2.1 ', _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId}));
                                             }
-                                        }
+                                        );
+                                        console.log('#2 ',themes[indx].hkkohde);
                                     }
-                                }
+                                );
                                 deferred.resolve(themes);
                             }
                         );

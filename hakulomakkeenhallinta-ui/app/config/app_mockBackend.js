@@ -164,7 +164,8 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     );
 
     //lisäkysymys lista
-    $.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
+//    $.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
+    $.getJSON(Props.contextRoot + '/app/test-data/themequestions.json', function (data) {
             console.log('### mock data 4 lisäkysymykset lista ###');
             lisakysymykset = data;
         }
