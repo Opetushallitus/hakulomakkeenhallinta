@@ -38,7 +38,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     if (hakukohdeJson.additionalQuestions.length > 0 && hakukohdeJson.additionalQuestions[0].targetIsGroup) {
                         Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
                             function (data) {
-                                console.log('### ', data, data.oid);
                                 if (data.oid) {
                                     $scope.hakukohdeInfo = data;
                                 } else {

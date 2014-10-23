@@ -44,11 +44,10 @@
                         <div style="width: 140px;">
                             <question-translations></question-translations>
                         </div>-->
-                        <!--<ul data-ng-show="question.options && naytaVastaukset" class="hh-hierarkia-list">
+                        <ul data-ng-show="question.options && naytaVastaukset" class="hh-hierarkia-list">
                             <li data-ng-repeat="option in question.options"  class="icon-comment-empty">
                                 <div>
                                     {{option | i18n:'optionText':userLang}}
-                                    &lt;!&ndash;TODO: lisää käännös tälle käännöspalveluun &ndash;&gt;
                                     <button class="btn btn-xs" data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns">{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></button>
                                     <button type="button" class="btn btn-primary btn-xs" data-ng-click="addQuestion(theme)" >{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus-sign"></i> </button>
                                 </div>
@@ -66,7 +65,7 @@
                                     <li data-ng-repeat="question in option.questions" data-ng-controller="hakukohdeKysymysCtrl">
                                         <div class="icon"
                                              data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}">
-                                            &lt;!&ndash;{{jatkokys | i18n:'messageText':userLang}}&ndash;&gt;
+                                            <!--{{jatkokys | i18n:'messageText':userLang}}-->
 
                                             <div style="width: 70px; text-align: center;">
                                                 <button class="btn btn-xs" data-ng-disabled="sortBtns || $first" data-ng-click="up($index)"><i class="glyphicon glyphicon-chevron-up"></i> </button>
@@ -103,7 +102,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                </ul>-->
+                                </ul>
                             </li>
 
 
@@ -116,165 +115,6 @@
         </div>
         <hr>
     </div>
-
-<!--
-    <accordion data-ng-repeat="theme in themes">
-        <accordion-group is-open="accordianState(theme)">
-            <accordion-heading>
-                <button type="button" class=" btn btn-primary btn-xs" data-ng-click="addQuestion(theme)" >{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus-sign"></i> </button>
-                <i class="glyphicon" ng-class="{'glyphicon-chevron-down': accordianState(theme), 'glyphicon-chevron-right': !accordianState(theme) }"></i>
-                {{ theme | i18n:'name':userLang }}
-            </accordion-heading>
-
-
-            <div data-ng-repeat="hakukohde in theme.hkkohde">
-
-                <div data-ng-show="hakukohde.additionalQuestions.length >0">
-                    <hakukohde-lisakysmykset hakukohdeolio="{{hakukohde}}"></hakukohde-lisakysmykset>
-                    <ul data-ng-show="naytaHakukohdeQues" class="hh-hierarkia-list">
-                        <li style="background-color: #add8e6; font-weight: bold;" class="icon">
-                            <div style="text-align: center; width: 95px;"><i class="glyphicon glyphicon-sort"></i></div>
-                            <div style="text-align: center; width: 45px;"></div>
-                            <div style="width: 12px;">#</div>
-                            <div style="width: 340px;">{{ t('th.otsikko') || 'Otsikko' }}</div>
-                            <div style="width: 140px;">{{ t('th.tyyppi') || 'Tyyppi' }}</div>
-                            <div style="width: 140px;">{{ t('th.liitepyynnot') || 'Liitepyynnöt' }}</div>
-                            <div style="width: 140px;">{{ t('th.kieliversiot') || 'Kieliversiot' }}</div>
-                        </li>
-
-                        <li data-ng-repeat="question in hakukohde.additionalQuestions | orderBy:'ordinal'" class="icon"
-                            data-ng-controller="hakukohdeKysymysCtrl">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle">
-                                    &lt;!&ndash;<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-tasks"></i></button>&ndash;&gt;
-                                    <button type="button" class="btn btn-default"><i class="icon" data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}" ></i></button>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li data-ng-click="muokkaaKysymysta(question, sortBtns)" data-ng-disabled="!sortBtns" ><a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a></li>
-                                    <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                    <li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                    <li data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns"><a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a></li>
-                                </ul>
-                            </div>
-                            &lt;!&ndash;<a href="#"><i class="icon" data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}" ></i></a>&ndash;&gt;
-                            &lt;!&ndash;<ul class="hh-menu">&ndash;&gt;
-                                &lt;!&ndash;<li data-ng-click="muokkaaKysymysta(question, sortBtns)" data-ng-disabled="!sortBtns" ><a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a></li>&ndash;&gt;
-                                &lt;!&ndash;<li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus-sign"></i></a></li>&ndash;&gt;
-                                &lt;!&ndash;<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>&ndash;&gt;
-                                &lt;!&ndash;<li data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns"><a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a></li>&ndash;&gt;
-                            &lt;!&ndash;</ul>&ndash;&gt;
-
-                            <div style="width: 70px; text-align: center;">
-                                <button class="btn btn-xs" data-ng-disabled="sortBtns || $first" data-ng-click="up($index)"><i class="glyphicon glyphicon-chevron-up"></i> </button>
-                                <button class="btn btn-xs" data-ng-disabled="sortBtns || $last" data-ng-click="down($index)"><i class="glyphicon glyphicon-chevron-down"></i></button>
-                            </div>
-
-                            <div style="width: 30px; text-align: left;">
-
-
-
-                                &lt;!&ndash;<button class="btn btn-xs" data-ng-click="muokkaaKysymysta(question, sortBtns)" data-ng-disabled="!sortBtns">{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></button>
-                                <button class="btn btn-xs" data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns">{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></button>&ndash;&gt;
-
-                            </div>
-
-                            <div style="width: 12px;">
-                            {{question.ordinal}}
-                            </div>
-
-                            <div style="width: 340px;">
-                                <a data-ng-click="toggleNaytaVastaukset()" data-ng-disabled="!question.options" >{{ question | i18n:'messageText':userLang}}
-                                    <i class="glyphicon"
-                                       ng-class="{'glyphicon-chevron-down': naytaVastaukset, 'glyphicon-chevron-right': !naytaVastukset }"
-                                       data-ng-show="question.options"> </i>
-                                </a>
-                            </div>
-
-                            <div style="width: 140px;">
-                                {{ question.type | i18next }} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
-                            </div>
-
-                            <div style="width: 140px;">
-                                <span data-ng-if="question.attachmentRequests.length >0">({{ question.attachmentRequests.length }})</span>
-                            </div>
-
-                            <div style="width: 140px;">
-                                <question-translations></question-translations>
-                            </div>
-                                <ul data-ng-show="question.options && naytaVastaukset" class="hh-hierarkia-list">
-                                    <li data-ng-repeat="option in question.options"  class="icon-comment-empty">
-                                        <div>
-                                            {{option | i18n:'optionText':userLang}}
-                                            &lt;!&ndash;TODO: lisää käännös tälle käännöspalveluun &ndash;&gt;
-                                            <button class="btn btn-xs" data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns">{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></button>
-                                            <button type="button" class=" btn btn-primary btn-xs" data-ng-click="addQuestion(theme)" >{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus-sign"></i> </button>
-                                        </div>
-                                        <ul class="hh-hierarkia-list">
-                                            <li data-ng-repeat="liitepyynto in question.attachmentRequests">
-                                                <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
-                                                    {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
-                                                    <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
-                                                    <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
-                                                    <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="hh-hierarkia-list">
-                                            <li data-ng-repeat="question in option.questions" data-ng-controller="hakukohdeKysymysCtrl">
-                                                <div class="icon"
-                                                     data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}">
-                                                    &lt;!&ndash;{{jatkokys | i18n:'messageText':userLang}}&ndash;&gt;
-
-                                                    <div style="width: 70px; text-align: center;">
-                                                        <button class="btn btn-xs" data-ng-disabled="sortBtns || $first" data-ng-click="up($index)"><i class="glyphicon glyphicon-chevron-up"></i> </button>
-                                                        <button class="btn btn-xs" data-ng-disabled="sortBtns || $last" data-ng-click="down($index)"><i class="glyphicon glyphicon-chevron-down"></i></button>
-                                                    </div>
-
-                                                    <div style="width: 180px; text-align: center;">
-                                                        <button class="btn btn-xs" data-ng-click="muokkaaKysymysta(question, sortBtns)" data-ng-disabled="!sortBtns">{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></button>
-                                                        <button class="btn btn-xs" data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)" data-ng-disabled="!sortBtns">{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></button>
-                                                    </div>
-
-                                                    <div style="width: 12px;">
-                                                        {{question.ordinal}}
-                                                    </div>
-
-                                                    <div style="width: 340px;">
-                                                        <a data-ng-click="toggleNaytaVastaukset()" data-ng-disabled="!question.options" >{{ question | i18n:'messageText':userLang}}
-                                                            <i class="glyphicon"
-                                                               ng-class="{'glyphicon-chevron-down': naytaVastaukset, 'glyphicon-chevron-right': !naytaVastukset }"
-                                                               data-ng-show="question.options"> </i>
-                                                        </a>
-                                                    </div>
-
-                                                    <div style="width: 140px;">
-                                                        {{ question.type | i18next }} <span data-ng-if="question.options.length >0">({{ question.options.length }})</span>
-                                                    </div>
-
-                                                    <div style="width: 140px;">
-                                                        <span data-ng-if="question.attachmentRequests.length >0">({{ question.attachmentRequests.length }})</span>
-                                                    </div>
-
-                                                    <div style="width: 140px;">
-                                                        <question-translations></question-translations>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-
-                                </ul>
-                        </li>
-
-                    </ul>
-                </div>
-                &lt;!&ndash;<pre>{{hakukohde | without | json}}</pre>&ndash;&gt;
-            </div>
-
-        </accordion-group>
-    </accordion>
--->
 </div>
 <br>
 
