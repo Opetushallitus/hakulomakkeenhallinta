@@ -127,7 +127,7 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     );
 
     //aalto korkeakoulu organisaatio
-    $.getJSON(Props.contextRoot + '/app/test-data/aalto-korkeakoulusaatio.json', function (data) {
+    /*$.getJSON(Props.contextRoot + '/app/test-data/aalto-korkeakoulusaatio.json', function (data) {
             console.log('### mock data 4 valittu organisaatio  ###');
             organisaatio = data;
         }
@@ -136,7 +136,7 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
         function () {
             return [200, organisaatio, {status: 200}];
         }
-    );
+    );*/
 
     //organisaation hakukohteet
     $.getJSON(Props.contextRoot + '/app/test-data/organisaation-hakukohteet.json', function (data) {
@@ -232,6 +232,7 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     $httpBackend.whenGET(/\/koodisto-service\/rest\/json\/posti\/koodi\?onlyValidKoodis\=true/).passThrough();
     $httpBackend.whenGET(/cas\/myroles/).passThrough();
     $httpBackend.whenGET(/test-data\//).passThrough();
+    $httpBackend.whenGET(/\/organisaatio-service\/rest\/organisaatio\//).passThrough();
     $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
     $httpBackend.whenGET(/partials\//).passThrough();
 }]);

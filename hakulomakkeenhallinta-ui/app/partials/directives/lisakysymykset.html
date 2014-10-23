@@ -20,7 +20,7 @@
         <button class="btn btn-xs" data-ng-disabled="sortBtns || $last" data-ng-click="down($index)"><i class="glyphicon glyphicon-chevron-down"></i></button>
     </div>
 
-    <div style="width: 340px;">
+    <div>
         <a data-ng-click="toggleNaytaVastaukset()" data-ng-disabled="!question.options" >{{ question | i18n:'messageText':userLang}}
             <i class="icon" data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}" ></i>
             <i class="glyphicon"

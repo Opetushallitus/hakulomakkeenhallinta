@@ -48,6 +48,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             var defferred = $q.defer();
             hae.get({'_oid': oid}).$promise.then(
                 function (data) {
+                    console.log('***', data);
                     defferred.resolve(data);
                 }
             );

@@ -20,7 +20,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)"><a>{{ t(\'lisaa.saanto\') || \'Lisää sääntö\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '</ul>' +
                     '</div>' +
-                    '<a data-ng-click="toggleNaytaHakukohdeKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >:</span> {{ hakukohdeInfo.tarjoajaNimet[userLang] }} ({{kysymysMaara}})</a>' +
+                    '<a data-ng-click="toggleNaytaHakukohdeKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} ' +
+                    '<span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span> ' +
+                    '<span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span> ' +
+                    '({{kysymysMaara}})</a>' +
                     '</div>' +
 
                     '<div class="form-group" data-ng-show="!sortBtns && naytaHakukohdeQues">' +
@@ -35,7 +38,18 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     if (hakukohdeJson.additionalQuestions.length > 0 && hakukohdeJson.additionalQuestions[0].targetIsGroup) {
                         Organisaatio.getOrganisationData(hakukohdeJson.aoid).then(
                             function (data) {
-                                $scope.hakukohdeInfo = data;
+                                console.log('### ', data, data.oid);
+                                if (data.oid) {
+                                    $scope.hakukohdeInfo = data;
+                                } else {
+                                    $scope.hakukohdePoistettu = true;
+                                    $scope.hakukohdeInfo = {};
+                                    $scope.hakukohdeInfo.nimi = {
+                                        fi: 'HAKUKOHDE RYHMÄ POISTETTU',
+                                        sv: 'HAKUKOHDE RYHMÄ POISTETTU',
+                                        en: 'HAKUKOHDE RYHMÄ POISTETTU'
+                                    };
+                                }
                             }
                         );
                     } else {
