@@ -15,7 +15,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<i class="hh-icon-menu"></i>' +
                     '</a>' +
                     '<ul class="dropdown-menu">' +
-                    '<li data-ng-click="addQuestion(theme)"><a>{{ t(\'lisaa.uusi.kysymys\') || \'Lisää uusi kysymys\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
+                    '<li data-ng-click="addQuestionAtHakukohde(theme)"><a>{{ t(\'lisaa.uusi.kysymys\') || \'Lisää uusi kysymys\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '<li data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)"><a>{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} <i class="glyphicon glyphicon-sort"></i></a> </li>' +
                     '<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)"><a>{{ t(\'lisaa.saanto\') || \'Lisää sääntö\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '</ul>' +

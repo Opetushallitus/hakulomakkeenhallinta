@@ -82,20 +82,42 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 );
             };
+
+            $scope.addQuestionAtHakukohde = function (theme) {
+                $modal.open({
+                    templateUrl: 'partials/dialogs/kysymystyypin-valinta.html',
+                    controller: 'SelectQuestionTypeCtrl',
+                    scope: $scope,
+                    resolve: {
+                        applicationSystem: function () {
+                            return $scope.applicationSystem;
+                        },
+                        theme: function () {
+                            return theme;
+                        },
+                        hakukohde: function () {
+                            return $scope.hakukohde;
+                        }
+                    }
+                }).result.then(function (data) {
+                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl','addQuestion()', data);
+                        QuestionData.newAdditionalQuestion();
+                        QuestionData.setQuestionType(data.type);
+                        QuestionData.setTheme(theme);
+                        QuestionData.setApplicatioSystemId($routeParams.id);
+                        QuestionData.setEditFlag(false);
+                        QuestionData.setLearningOpportunityId(QuestionData.getApplicationOption().oid);
+                        $rootScope.LOGS('ThemeQuestionByOrganisationCtrl', QuestionData.getQuestion() );
+                        $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid + '/' + QuestionData.getApplicationOption().oid + '/' + theme.id + '/' + data.type.id);
+                    }
+                );
+            }
+
             /**
              * takaisin edelliselle sivulle
              */
             $scope.back = function () {
                 $location.path('/');
-            };
-
-            $scope.accordianState = function(theme){
-                for (var hkIndx = 0, hkkohdeLength = theme.hkkohde.length; hkIndx < hkkohdeLength; hkIndx+=1){
-                    if (theme.hkkohde[hkIndx].additionalQuestions !== undefined && theme.hkkohde[hkIndx].additionalQuestions.length > 0){
-                        return true;
-                    }
-                }
-                return false;
             };
 
             $scope.lisaaSaanto = function (hkKysymysLista) {

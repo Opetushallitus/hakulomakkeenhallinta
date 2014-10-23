@@ -43,13 +43,13 @@
     display: inline-block;
 }
 
-.hh-hierarkia-list>li:nth-child(odd) {
+.hh-hierarkia-list>li:nth-child(2n) {
     background: rgba(20, 158, 203, 0.06);
 }
 
-.hh-hierarkia-list>li:nth-child(even) {
-    background: #ffffff;
-}
+/*.hh-hierarkia-list>li:nth-child(even) {*/
+/*background: #ffffff;*/
+/*}*/
 
 .rotate-90 {
     -webkit-transform: rotate(90deg);

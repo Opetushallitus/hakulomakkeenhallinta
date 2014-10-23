@@ -9,7 +9,7 @@
         </a>
         <ul class="dropdown-menu">
             <li data-ng-click="muokkaaKysymysta(question, sortBtns)"><a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a></li>
-            <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
+            <li data-ng-click="addQuestionAtHakukohde(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
             <li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>
             <li data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)"><a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a></li>
         </ul>
