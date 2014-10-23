@@ -83,7 +83,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 );
             };
 
-            $scope.addQuestionAtHakukohde = function (theme) {
+            $scope.addQuestionAtHakukohde = function (theme, hakukohde) {
+                if (hakukohde.kayttoryhmat) {
+                    QuestionData.setIsGroup(true);
+                } else {
+                    QuestionData.setIsGroup(false);
+                }
+                QuestionData.setApplicationOption(hakukohde);
                 $modal.open({
                     templateUrl: 'partials/dialogs/kysymystyypin-valinta.html',
                     controller: 'SelectQuestionTypeCtrl',
@@ -96,7 +102,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             return theme;
                         },
                         hakukohde: function () {
-                            return $scope.hakukohde;
+                            return hakukohde;
                         }
                     }
                 }).result.then(function (data) {
