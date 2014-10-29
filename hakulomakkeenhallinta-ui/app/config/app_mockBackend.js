@@ -76,7 +76,9 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
         teemaHakukohdeKysymykset = [],
         teemaHakukohdeKysymyksetTallennus = {},
         lisakysymysTyypit = [],
-        kielet = [];
+        kielet = [],
+        organisaationhenkilo = [];
+
 
     //käyttäjän organisaatiot
     $.getJSON(Props.contextRoot + '/app/test-data/represented-organizations.json', function (data) {
@@ -132,11 +134,11 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
             organisaatio = data;
         }
     );
-    $httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\/([0-9]+\.)+[0-9]+/).respond(
+    /*$httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\/([0-9]+\.)+[0-9]+/).respond(
         function () {
             return [200, organisaatio, {status: 200}];
         }
-    );
+    );*/
 
     //organisaation hakukohteet
     $.getJSON(Props.contextRoot + '/app/test-data/organisaation-hakukohteet.json', function (data) {
@@ -164,8 +166,8 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     );
 
     //lisäkysymys lista
-    $.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
-//    $.getJSON(Props.contextRoot + '/app/test-data/themequestions.json', function (data) {
+//    $.getJSON(Props.contextRoot + '/app/test-data/hakukohde-additional-questions.json', function (data) {
+    $.getJSON(Props.contextRoot + '/app/test-data/themequestions.json', function (data) {
             console.log('### mock data 4 lisäkysymykset lista ###');
             lisakysymykset = data;
         }
@@ -227,12 +229,23 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
         }
     );
 
+    $.getJSON(Props.contextRoot+'/app/test-data/organisaatiohenkilo.json', function(data){
+        console.log('### mock data 4 organisaatio henkilö ###');
+        organisaationhenkilo = data;
+    });
+    $httpBackend.whenGET(/authentication\-service\/resources\/omattiedot\/organisaatiohenkilo/).respond(
+        function () {
+            return [200, organisaationhenkilo ,{status:200}];
+        }
+    );
+
     $httpBackend.whenGET(/lokalisointi\/cxf\/rest\/v1\/localisation\?category\=hakulomakkeenhallinta/).passThrough();
     $httpBackend.whenGET(/tarjonta-service\/rest\/v1\/hakukohde\//).passThrough();
     $httpBackend.whenGET(/\/koodisto-service\/rest\/json\/posti\/koodi\?onlyValidKoodis\=true/).passThrough();
     $httpBackend.whenGET(/cas\/myroles/).passThrough();
     $httpBackend.whenGET(/test-data\//).passThrough();
-//    $httpBackend.whenGET(/\/organisaatio-service\/rest\/organisaatio\//).passThrough();
+    $httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\//).passThrough();
+//    $httpBackend.whenGET(/authentication-service\/resources\/omattiedot\/organisaatiohenkilo/).passThrough();
     $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
     $httpBackend.whenGET(/partials\//).passThrough();
 }]);

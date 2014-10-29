@@ -43,9 +43,9 @@
     display: inline-block;
 }
 
-.hh-hierarkia-list>li:nth-child(2n) {
+/*.hh-hierarkia-list>li:nth-child(2n) {
     background: rgba(20, 158, 203, 0.06);
-}
+}*/
 
 /*.hh-hierarkia-list>li:nth-child(even) {*/
 /*background: #ffffff;*/
@@ -81,8 +81,42 @@
     padding: 0 1px 0 10px;
 }
 
-a:hover .hh-menu {
+/*a:hover .hh-menu {
     display: block;
     width: 20px;
     height: 20px;
+}*/
+
+ul.tree, ul.tree ul {
+    list-style-type: none;
+    background: url("../img/vline.png") repeat-y;
+    margin: 0;
+    padding: 0;
+    margin-left: 30px;
+}
+
+ul.tree ul {
+    margin-left: 10px;
+}
+
+ul.tree li {
+    margin: 0;
+    padding: 0 12px 0 20px;
+    line-height: 20px;
+    background: url("../img/node.png") no-repeat;
+    color: #369;
+    font-weight: bold;
+}
+
+ul.tree li:last-child {
+    background: #fff url("../img/lastnode.png") no-repeat;
+}
+ul.menu-inside-tree li{
+    list-style-type: none;
+    background: #fff;
+    padding: 0;
+}
+ul.menu-inside-tree li:last-child{
+    list-style-type: none;
+    background: #fff;
 }

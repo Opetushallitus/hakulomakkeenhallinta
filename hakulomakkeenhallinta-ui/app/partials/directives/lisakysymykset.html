@@ -1,4 +1,4 @@
-<div>
+<div data-ng-hide="hakukohdePoistettu">
     <div style="width: 12px;">
         {{question.ordinal}}
     </div>
@@ -7,7 +7,7 @@
         <a class="dropdown-toggle" data-ng-hide="hakukohdePoistettu">
             <i class="hh-icon-menu"></i>
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu menu-inside-tree">
             <li data-ng-click="muokkaaKysymysta(question, sortBtns)"><a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a></li>
             <li data-ng-click="addQuestionAtHakukohde(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
             <li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>

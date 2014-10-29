@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', 'FormEditor',
-        function ($rootScope, $resource, Props, $q, FormEditor) {
+    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', 'FormEditor', '_',
+        function ($rootScope, $resource, Props, $q, FormEditor, _) {
             var themeQuestion = {};
 
             var ThemeQuestion = $resource(Props.themeQuestionUri + '/:_id/:_aoid/:_themeId',
@@ -183,6 +183,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     function (themes) {
                         themeQuestion.getThemeQuestionListByOrgId(applicationSystemId, organisationId).then(
                             function (themeQues) {
+//                                console.log(themeQues);
                                 _.each(themes, function (teema, indx) {
                                         $rootScope.LOGS('ThemeQuestions', '#1 ', teema.id, indx, teema);
                                         themes[indx].hkkohde = [];
@@ -198,6 +199,31 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                         $rootScope.LOGS('ThemeQuestions', '#2 ', themes[indx].hkkohde);
                                     }
                                 );
+                                /*var hakukohteet = _.uniq(_.map(themeQues, function (lpId) { return lpId.learningOpportunityId; }));
+                                console.log('### ', hakukohteet, themes.length);
+                                var themesIndx = themes.length;
+                                _.each(themes, function (teema, ind) {
+                                        var indx3 =0;
+                                    _.each(hakukohteet, function (hakukohde) {
+                                                var indx2 = themesIndx + ind;
+                                                console.log(indx2);
+                                                themes[indx2] = {};
+                                                themes[indx2].hakukohteittain = [];
+                                                var kysymyksetHakukohteittain =
+                                                _.where(themeQues, ({theme: teema.id, learningOpportunityId: hakukohde}));
+                                                if(kysymyksetHakukohteittain.length > 0) {
+                                                    console.log(indx2);
+                                                    themes[indx2].hakukohteittain[indx3] = kysymyksetHakukohteittain;
+                                                    console.log(teema.id, hakukohde);
+                                                    console.log('kysymykset hakukohteittain: ',  kysymyksetHakukohteittain);
+                                                    indx3 += 1;
+                                                }
+                                            }
+                                        );
+
+                                    }
+                                );*/
+
                                 deferred.resolve(themes);
                             }
                         );

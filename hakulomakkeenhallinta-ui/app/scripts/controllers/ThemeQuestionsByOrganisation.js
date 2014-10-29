@@ -7,6 +7,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.haunNimi = '';
             $scope.organisationNimi = '';
+            $scope.byTeema = true;
             /**
              * haetaan valitun organisaation tiedot organisaatio palvelusta
              * valitun organisaation id:llä
@@ -28,12 +29,51 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
             );
             $scope.themes = [];
+            $scope.hakukohteittain = {};
             /**
              * heataan hakulomakkeen lisäkysymykset halomamekkeen id:llä ja valitulla organisaation id:llä
              */
-            ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(function (data) {
-                $scope.themes = data;
-            });
+            ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(
+                function (data) {
+//                    console.log('##1 ',data);
+                    $scope.themes = data;
+//                    console.log('##2 ', _.uniq(_.map(data, function(teema) { return teema.id; })));
+
+                    _.each(data, function (d) {
+                            _.each(d.hkkohde, function (hk) {
+//                                    console.log('*', hk);
+//                                    console.log(hk.aoid, $scope.hakukohteittain[hk.aoid]);
+                                    if ($scope.hakukohteittain[hk.aoid] === undefined) {
+//                                        console.log('luodaan uusi');
+                                        $scope.hakukohteittain[hk.aoid] = {};
+                                        console.log(hk.additionalQuestions[0].theme);
+                                        if ($scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] === undefined) {
+                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = [];
+                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = hk.additionalQuestions;
+                                        } else {
+//                                            console.log('model exist lisätään kysymykset ')
+                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme].push(hk.additionalQuestions);
+                                        }
+
+                                    } else {
+//                                        console.log('lisätään olemassa olevaan ');
+                                        if ($scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] === undefined) {
+//                                            console.log( 'lisätään teema ');
+                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = [];
+                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = hk.additionalQuestions;
+                                        } else {
+//                                            console.log('model exist')
+                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme].push(hk.additionalQuestions);
+                                        }
+                                    }
+                                }
+                            );
+                        }
+                    );
+
+//                    console.log('##', $scope.hakukohteittain);
+                }
+            );
             /**
              * avataan dialogit uuden kysymyksen hakukohteen ja tyypin alustamiseksi
              * @param theme

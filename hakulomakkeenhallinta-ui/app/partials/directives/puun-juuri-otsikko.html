@@ -1,0 +1,17 @@
+<div>
+    <div class="hh-list-h3"><i data-ng-class="{'hh-icon-right':!naytaHakukohteet, 'hh-icon-down':naytaHakukohteet}" data-ng-click="toggleNaytaHakukohteet()" ></i>
+    <div class="dropdown" style="display: inline-block !important;"> <a class="dropdown-toggle">
+        <i class="hh-icon-menu"></i>
+    </a>
+        <ul class="dropdown-menu">
+            <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
+            <li data-ng-click="showAllQuestions()"><a>{{ t('nayta.piilota.kysymykset') || 'Näytä/piilota kysymykset' }} <i class="glyphicon glyphicon-resize-vertical"></i></a></li>
+        </ul>
+    </div>
+    <a data-ng-click="toggleNaytaHakukohteet()"> {{ otsikko }}
+        <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span>
+        <span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span>
+        <span data-ng-show="naytaMaara">({{hakukohdeMaara}})</span>
+    </a>
+    </div>
+</div>

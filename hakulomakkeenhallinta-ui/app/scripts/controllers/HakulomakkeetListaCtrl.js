@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto',
-        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto) {
+    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio',
+        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio) {
             $rootScope.LOGS('HakulomakkeetListaCtrl');
 
             $scope.applicationForms = [];
@@ -10,6 +10,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.vuodet = [];
             $scope.kaudet = [];
             $scope.hakutyypit = [];
+
             /**
              * haetaan hakulomakkeet lista
              */
@@ -47,6 +48,15 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
             );
 
+            $scope.userOrganisations = [];
+            /**
+             * haetaan käyttäjän organisaatiot
+             */
+            Organisaatio.getUserOrganisations().then(
+                function (data) {
+                    $scope.userOrganisations =  $filter('orderBy')(data, 'nimi.' + $scope.userLang);
+                }
+            );
             /**
              * avataan organisaation valinta dialogi valitulle hakulomakkeell
              * @param applicationSystemForm valittu hakulomake

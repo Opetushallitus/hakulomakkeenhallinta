@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('Organisaatio',[ '$resource', 'Props', '$q', function ($resource, Props, $q) {
+    .factory('Organisaatio',[ '$resource', 'Props', '$q', '_', function ($resource, Props, $q, _) {
 
         var hae =  $resource(Props.organisaatioService + '/rest/organisaatio/:_oid',
             { _oid: '@_oid'},
@@ -53,10 +53,51 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             );
             return defferred.promise;
         };
+        /**
+         * Hakee käyttjän organisaatiot
+         * @returns {promise}
+         */
+        organisaatio.getUserOrganisations = function () {
+            var defferred = $q.defer();
+            $resource(Props.authService + '/resources/omattiedot/organisaatiohenkilo').query().$promise.then(
+                function (data) {
+                    var userOrganisations = _.map(data, function (userOrgs) { return userOrgs.organisaatioOid; }),
+                        getUserOrgs = [];
+                    _.each(userOrganisations, function (oid) {
+                            getUserOrgs.push(hae.get({'_oid': oid}).$promise);
+                        }
+                    );
 
+                    $q.all(getUserOrgs).then(
+                        function (data) {
+                            var orgs = [];
+                            _.each(data, function (orgInfo) {
+                                    var org = {};
+                                    if (orgInfo.nimi) {
+                                        if (orgInfo.nimi.fi) {
+                                            orgInfo.nimi.fi = orgInfo.nimi.fi + ' (' + orgInfo.tyypit[0] + ')';
+                                        }
+                                        if (orgInfo.nimi.sv) {
+                                            orgInfo.nimi.sv = orgInfo.nimi.sv + ' (' + orgInfo.tyypit[0] + ')';
+                                        }
+                                        if (orgInfo.nimi.en) {
+                                            orgInfo.nimi.en = orgInfo.nimi.en + ' (' + orgInfo.tyypit[0] + ')';
+                                        }
+                                    }
 
+                                    org.nimi = orgInfo.nimi;
+                                    org.oid = orgInfo.oid;
+                                    orgs.push(org);
+                                }
+                            );
+                            defferred.resolve(orgs);
+                        }
+                    );
 
-
+                }
+            );
+            return defferred.promise;
+        }
         return organisaatio;
     }]);
 

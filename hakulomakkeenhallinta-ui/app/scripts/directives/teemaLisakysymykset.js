@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
+    .directive('teemaLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
         function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location) {
             return {
                 restrict: 'E',
                 replace: true,
-                template: '<div data-ng-hide="hakukohdePoistettu">' +
+                template: '<div>' +
                     '<div class="hh-list-h4">' +
                     '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }" data-ng-click="toggleNaytaHakukohdeKysymykset()"></i>' +
 
@@ -20,9 +20,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)"><a>{{ t(\'lisaa.saanto\') || \'Lisää sääntö\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '</ul>' +
                     '</div>' +
-                    '<a data-ng-click="toggleNaytaHakukohdeKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} ' +
-                    '<span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span> ' +
-                    '<span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span> ' +
+                    '<a data-ng-click="toggleNaytaHakukohdeKysymykset()">{{teema}} ' +
                     '({{kysymysMaara}})</a>' +
                     '</div>' +
 
@@ -33,59 +31,18 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<alertmsg></alertmsg>' +
                     '</div>',
                 controller: function ($scope) {
-                    var ordinals = {},
-                        orderQuestions = [];
-                    $scope.sortBtns = true;
 
-                    $scope.hakukohdePoistettu = false;
-                    $scope.kysymysMaara = 0;
-
-                    if ($scope.hakukohde.additionalQuestions.length > 0 && $scope.hakukohde.additionalQuestions[0].targetIsGroup) {
-                        Organisaatio.getOrganisationData($scope.hakukohde.aoid).then(
-                            function (data) {
-                                if (data.oid) {
-                                    $scope.hakukohdeInfo = data;
-                                    $scope.setHakukohdeMaara();
-                                } else {
-                                    $scope.hakukohdePoistettu = true;
-                                    $scope.hakukohdeInfo = {};
-                                    $scope.hakukohdeInfo.nimi = {
-                                        fi: 'HAKUKOHDE RYHMÄ POISTETTU',
-                                        sv: 'HAKUKOHDE RYHMÄ POISTETTU',
-                                        en: 'HAKUKOHDE RYHMÄ POISTETTU'
-                                    };
-                                }
-                            }
-                        );
-                    } else {
-                        TarjontaAPI.fetchHakukohdeInfo($scope.hakukohde.aoid).then(
-                            function (data) {
-                                if (data === 'NOT_FOUND') {
-                                    $scope.hakukohdePoistettu = true;
-                                    $scope.hakukohdeInfo = {};
-                                    $scope.hakukohdeInfo.nimi = {
-                                        fi: 'HAKUKOHDE POISTETTU',
-                                        sv: 'HAKUKOHDE POISTETTU',
-                                        en: 'HAKUKOHDE POISTETTU'
-                                    };
-                                } else {
-                                    $scope.hakukohdeInfo = data;
-                                    $scope.setHakukohdeMaara();
-                                }
-
-                            }
-                        );
-                    }
+                    console.log('##', $scope.teema);
 
                     $scope.naytaHakukohdeQues = false;
                     $scope.toggleNaytaHakukohdeKysymykset = function () {
                         $scope.naytaHakukohdeQues = !$scope.naytaHakukohdeQues;
                     };
+                    $scope.kysymysMaara = $scope.questions.length;
 
-                    if ($scope.hakukohde.additionalQuestions) {
-                        $scope.kysymysMaara = $scope.hakukohde.additionalQuestions.length;
-                    }
-
+                    var ordinals = {},
+                        orderQuestions = [];
+                    $scope.sortBtns = true;
                     /**
                      * vaihtaa näytä/piilota napit muuttujan arvoa
                      */
