@@ -13,7 +13,7 @@
 
          console.log('### \n', jatkokysymysObj, '\n ####');
          $scope.hkKysymysLista = jatkokysymysObj.kysymykset;
-
+            var hkKysymysLista = jatkokysymysObj.kysymykset;
          $scope.jatkoKysymykset = [];
          $scope.vastauksia = [];
          var vastaus = {};
@@ -27,9 +27,8 @@
 
 
          $scope.tallennaSaanto = function () {
-             console.log('GGGG ',jatkokysymysObj.kysymykset);
-             JatkokysymysService.setJatkokysymysObj(undefined);
-             $modalInstance.close(jatkokysymysObj.kysymykset);
+             console.log('GGGG ',hkKysymysLista);
+             $modalInstance.close(hkKysymysLista);
 
          };
 
@@ -47,9 +46,9 @@
          $scope.valittuKysymys = function () {
              console.log('##', this.valittukysymys._id);
              var valKysymys = this.valittukysymys;
-             $scope.jatkoKysymykset = $filter('filter')(jatkokysymysObj.kysymykset,
-                function (jatkokysymysObj.kysymykset) {
-                    if (valKysymys._id === jatkokysymysObj.kysymykset._id) {
+             $scope.jatkoKysymykset = $filter('filter')(hkKysymysLista,
+                function (hkKysymysList) {
+                    if (valKysymys._id === hkKysymysList._id) {
                         return false;
                     }
                     return true;
@@ -94,23 +93,23 @@
              console.log('*** ', $scope.saanto);
              jatkokysymys.parentId = this.valittukysymys._id;
              jatkokysymys.optionId = $scope.vastaus.id;
-            for (var i = 0, hkKysL = jatkokysymysObj.kysymykset.length; i < hkKysL; i += 1) {
-                if (jatkokysymysObj.kysymykset[i]._id === jatkokysymys._id) {
-                    jatkokysymysObj.kysymykset.splice(i,1);
+            for (var i = 0, hkKysL = hkKysymysLista.length; i < hkKysL; i += 1) {
+                if (hkKysymysLista[i]._id === jatkokysymys._id) {
+                    hkKysymysLista.splice(i,1);
                     break;
                 }
             };
 
-             for (var j = 0, hkKysL2 = jatkokysymysObj.kysymykset.length; j < hkKysL2; j += 1) {
-                 if (jatkokysymysObj.kysymykset[j]._id === this.valittukysymys._id) {
-                        for (var o = 0, optionsL = jatkokysymysObj.kysymykset[j].options.length; o < optionsL; o += 1) {
-                            if (jatkokysymysObj.kysymykset[j].options[o].id === $scope.vastaus.id) {
-                                console.log('onkose vai: ',jatkokysymysObj.kysymykset[j].options[o].questions);
-                                if (!jatkokysymysObj.kysymykset[j].options[o].questions) {
-                                    jatkokysymysObj.kysymykset[j].options[o].questions = [];
+             for (var j = 0, hkKysL2 = hkKysymysLista.length; j < hkKysL2; j += 1) {
+                 if (hkKysymysLista[j]._id === this.valittukysymys._id) {
+                        for (var o = 0, optionsL = hkKysymysLista[j].options.length; o < optionsL; o += 1) {
+                            if (hkKysymysLista[j].options[o].id === $scope.vastaus.id) {
+                                console.log('onkose vai: ',hkKysymysLista[j].options[o].questions);
+                                if (!hkKysymysLista[j].options[o].questions) {
+                                    hkKysymysLista[j].options[o].questions = [];
                                 }
-                                jatkokysymysObj.kysymykset[j].options[o].questions.push(jatkokysymys);
-                                console.log(jatkokysymysObj.kysymykset[j].options[o]);
+                                hkKysymysLista[j].options[o].questions.push(jatkokysymys);
+                                console.log(hkKysymysLista[j].options[o]);
                             }
                         }
                  }
