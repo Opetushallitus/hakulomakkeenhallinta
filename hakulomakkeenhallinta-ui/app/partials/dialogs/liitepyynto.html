@@ -2,7 +2,6 @@
     <div class="modal-header">
         <h4 tl="liitepyynto">Liitepyyntö</h4>
     </div>
-
     <div class="modal-body">
         <div class="alert alert-info">
             <i class="glyphicon glyphicon-info-sign"></i> <span data-ng-bind-html="t('liitepyynto.hakukohteen.vastaukseen', ['{{ hakukohde | hakukohdeNimi:userLang }}', '{{ option | i18n:'optionText' }}' ])"></span>
@@ -107,8 +106,8 @@
             </div>
         </div>
         <alertmsg></alertmsg>
-
-        <div class="modal-footer">
+        </div>
+    <div class="modal-footer">
             <div class="form-group pull-right">
                 <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
                 <button class="btn btn-primary pull-right" data-ng-disabled="!liitepyyntoDialog.$valid" data-ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="lisaa.liitepyynto">Lisää liitepyyntö</button>

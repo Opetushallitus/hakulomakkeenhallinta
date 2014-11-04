@@ -1,0 +1,2006 @@
+[
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.13137248202",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.39920288212", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "Millä paikkakunnalla haluat osallistua pääsy- ja soveltuvuuskokeeseen?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Valintakoe on kaikilla paikkakunnilla identtinen ja järjestetään samaan aikaan."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": ""
+            }
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Tampere"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Turku"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Oulu"
+                    }
+                }
+            },
+            {
+                "id": "option_3",
+                "optionText": {
+                    "translations": {
+                        "fi": "Helsinki"
+                    }
+                }
+            },
+            {
+                "id": "option_4",
+                "optionText": {
+                    "translations": {
+                        "fi": "Joensuu"
+                    }
+                }
+            }
+        ],
+        "_id": "53b550ace4b00c5103adf89d"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "arvosanat",
+        "learningOpportunityId": "1.2.246.562.20.13137248202",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.39920288212", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "Mikä biologian arvosana sinulla on lukion päättötodistuksessasi?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": ""
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 2,
+        "_id": "53b55143e4b00c5103adf89e"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "lupatiedot",
+        "learningOpportunityId": "1.2.246.562.20.13137248202",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "0",
+            "max": "3"
+        },
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.39920288212", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "Valitse miten haluat vastaanottaa tietoa hakuprosessista ja opiskelijavalinnan tuloksista"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Mikäli et anna tässä lupatietoja, valinnan tulos ilmoitetaan sinulle kirjeellä."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Haluan vastaanottaa tietoja valinnan etenemisestä sähköpostilla"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Tietoni saa julkaista korkeakoulun ovessa"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Tietoni saa julkaista korkeakoulun www-sivuilla"
+                    }
+                }
+            }
+        ],
+        "_id": "53b5525ee4b00c5103adf89f"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.17928538945",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "Millä paikkakunnalla haluat osallistua pääsy- ja soveltuvuuskokeeseen?"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Espoo"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Helsinki"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Vantaa"
+                    }
+                }
+            }
+        ],
+        "_id": "53b5529be4b00c5103adf8a0"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "arvosanat",
+        "learningOpportunityId": "1.2.246.562.20.17928538945",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "Montako fysiikan kurssia olet suorittanut lukion aikana?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Ilmoita pakollisten ja valinnaisten kurssien yhteenlaskettu määrä."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 2,
+        "_id": "53b5531ae4b00c5103adf8a1"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "lupatiedot",
+        "learningOpportunityId": "1.2.246.562.20.17928538945",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "1",
+            "max": "1"
+        },
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.56753942459", "1.2.246.562.10.00000000001", "1.2.246.562.10.82388989657"],
+        "messageText": {
+            "translations": {
+                "fi": "Valitse miten haluat vastaanottaa tietoa hakuprosessista ja opiskelijavalinnan tuloksista"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Valinnan tuloksen saa julkaista korkeakoulun verkkosivuilla"
+                    }
+                }
+            }
+        ],
+        "_id": "53b55388e4b00c5103adf8a2"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.645785477510",
+        "targetIsGroup": false,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "Maol-voitto"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "Lähetä kopio todistuksestasi."
+                    }
+                },
+                "deliveryDue": 1408104000000,
+                "deliveryAddress": {
+                    "street": "Hyn osoite",
+                    "postOffice": "HELSINKI",
+                    "postCode": "00100"
+                },
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "ownerOrganizationOids": ["1.2.246.562.10.94639300915", "1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062"],
+        "messageText": {
+            "translations": {
+                "fi": "Haen maol-kilpailun voiton perusteella?",
+                "sv": "Haen maol-kilpailun voiton perusteella? på svenska"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "sv": "ohjeteksti",
+                "fi": "näytöllä näkyvä"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "sv": "?-merkin takaa avautuva",
+                "fi": "?-merkin taakse"
+            }
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "sv": "Kyllä",
+                        "fi": "Kyllä"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "sv": "Ei",
+                        "fi": "Ei"
+                    }
+                }
+            }
+        ],
+        "_id": "53e47429e4b0d272fdc5d865"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.32713102765",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ordinal": 2,
+        "ownerOrganizationOids": ["1.2.246.562.10.94505003361", "1.2.246.562.10.727160772010", "1.2.246.562.10.00000000001", "1.2.246.562.10.69981965515"],
+        "messageText": {
+            "translations": {
+                "fi": "Kerro paras matkamuistosi?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Kirjoita tähän lomamatkoistasi. Tämä teksti näkyy näytöllä."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": ""
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 800,
+        "_id": "53e9c455e4b0aece3ff6dd5a"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.32713102765",
+        "targetIsGroup": false,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "Matkalippusi"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "Toimita junalippusi Haaga-Heliaan."
+                    }
+                },
+                "deliveryDue": 1411732800000,
+                "deliveryAddress": {
+                    "street": "Haaga-Helian toimisto yy",
+                    "postOffice": "HELSINKI",
+                    "postCode": "00100"
+                },
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "ownerOrganizationOids": ["1.2.246.562.10.94505003361", "1.2.246.562.10.727160772010", "1.2.246.562.10.00000000001", "1.2.246.562.10.69981965515"],
+        "messageText": {
+            "translations": {
+                "fi": "Millä paikkakunnalla osallistut kokeeseen?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Vastaus on sitova."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "Lisätietoja Haaga-Heliasta."
+            }
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Helsinki"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Porvoo"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Loviisa"
+                    }
+                }
+            }
+        ],
+        "_id": "53e9c62ce4b0aece3ff6dd5b"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "arvosanat",
+        "learningOpportunityId": "1.2.246.562.20.32713102765",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "2",
+            "max": "3"
+        },
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.94505003361", "1.2.246.562.10.727160772010", "1.2.246.562.10.00000000001", "1.2.246.562.10.69981965515"],
+        "messageText": {
+            "translations": {
+                "fi": "MIhin kokeisiin osallistut pääsykokeissa?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Valitse koetyypit. Vastaus on sitova."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Opastus"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Suunnistus"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Ruokakultuuri"
+                    }
+                }
+            }
+        ],
+        "_id": "53e9c7cce4b0aece3ff6dd5c"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.17956132108",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ordinal": 2,
+        "ownerOrganizationOids": ["1.2.246.562.10.91392558028", "1.2.246.562.10.00000000001", "1.2.246.562.10.949530408410", "1.2.246.562.10.77055527103"],
+        "messageText": {
+            "translations": {
+                "fi": "Kerro miksi haluat hakea Jyväskylän yliopistoon?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Tämä teksti näkyy heti kysymyksen alla näytöllä."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "?-merkin taakse tuleva lisäohjeteksti"
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 829,
+        "_id": "53eb11ace4b08ac93de25a14"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.17956132108",
+        "targetIsGroup": false,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "Matkalippusi"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "Toimita matkalippusi pääsykokeen yhteydessä."
+                    }
+                },
+                "deliveryDue": 1411732800000,
+                "deliveryAddress": {
+                    "street": "Jyväskylän kampus",
+                    "postOffice": "HELSINKI",
+                    "postCode": "00100"
+                },
+                "attachedToOptionId": "option_1"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "ownerOrganizationOids": ["1.2.246.562.10.91392558028", "1.2.246.562.10.00000000001", "1.2.246.562.10.949530408410", "1.2.246.562.10.77055527103"],
+        "messageText": {
+            "translations": {
+                "fi": "Millä paikkakunnalla osallistut kokeeseen?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Vastaus on sitova. Ilmoita paikkakunta."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Jyväskylä"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Helsinki"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Kajaani"
+                    }
+                }
+            }
+        ],
+        "_id": "53eb12a2e4b08ac93de25a15"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.17956132108",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "0",
+            "max": "3"
+        },
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.91392558028", "1.2.246.562.10.00000000001", "1.2.246.562.10.949530408410", "1.2.246.562.10.77055527103"],
+        "messageText": {
+            "translations": {
+                "fi": "MItä ohjelmointikieliä osaat?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Ilmoita kaikki."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Java"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Css"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Mongo"
+                    }
+                }
+            }
+        ],
+        "_id": "53eb1357e4b08ac93de25a17"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.503873550310",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.91392558028", "1.2.246.562.10.00000000001", "1.2.246.562.10.949530408410", "1.2.246.562.10.77055527103"],
+        "messageText": {
+            "translations": {
+                "fi": "Mitä mielestäsi tarkoitetaan TAITEELLA?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Vastaaminen on pakollista, vastaa omin sanoin"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "vastauksen max pituus vain 160 merkkiä."
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 160,
+        "_id": "53eb6a30e4b0d94d2baf9669"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.503873550310",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.91392558028", "1.2.246.562.10.00000000001", "1.2.246.562.10.949530408410", "1.2.246.562.10.77055527103"],
+        "messageText": {
+            "translations": {
+                "fi": "Mikä seuraavista ei kuulu joukkoon:"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "(valitse yksi)"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "pakollinen valinta"
+            }
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "mustikka"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "vadelma"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "mansikki"
+                    }
+                }
+            },
+            {
+                "id": "option_3",
+                "optionText": {
+                    "translations": {
+                        "fi": "herukka"
+                    }
+                }
+            }
+        ],
+        "_id": "53eb6abee4b0d94d2baf966a"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "arvosanat",
+        "learningOpportunityId": "1.2.246.562.20.503873550310",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "1",
+            "max": "4"
+        },
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.91392558028", "1.2.246.562.10.00000000001", "1.2.246.562.10.949530408410", "1.2.246.562.10.77055527103"],
+        "messageText": {
+            "translations": {
+                "fi": "Ovatko arvosanasi..."
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "valitse 1-4 eri vaihtoehtoa"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "vähintään 1 kpl on pakollisia"
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "...keksittyjä"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "...siskon vanhoja"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "....totta"
+                    }
+                }
+            },
+            {
+                "id": "option_3",
+                "optionText": {
+                    "translations": {
+                        "fi": "...oikeita?"
+                    }
+                }
+            }
+        ],
+        "_id": "53eb6b6ae4b0d94d2baf966b"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "lupatiedot",
+        "learningOpportunityId": "1.2.246.562.20.503873550310",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.91392558028", "1.2.246.562.10.00000000001", "1.2.246.562.10.949530408410", "1.2.246.562.10.77055527103"],
+        "messageText": {
+            "translations": {
+                "fi": "Saako sinulle soitella?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "valitse yksi vaihtoehto.."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "...pakosti."
+            }
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Ei"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "kYLLÄ"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Ottiatuota..."
+                    }
+                }
+            },
+            {
+                "id": "option_3",
+                "optionText": {
+                    "translations": {
+                        "fi": "Vaarin housut"
+                    }
+                }
+            }
+        ],
+        "_id": "53eb6bb3e4b0d94d2baf966c"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.30956399732",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.00000000001", "1.2.246.562.28.30956399732"],
+        "messageText": {
+            "translations": {
+                "fi": "Test XYZ"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 34,
+        "_id": "53eca9a9e4b03ce1dad0c4f6"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.30956399732",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.50880626531", "1.2.246.562.10.38429345754", "1.2.246.562.10.378163080610", "1.2.246.562.10.92267596275", "1.2.246.562.10.97223455078", "1.2.246.562.10.2014040315555036429408", "1.2.246.562.10.34676359085", "1.2.246.562.10.93011914426", "1.2.246.562.10.21989237215", "1.2.246.562.10.14858298327", "1.2.246.562.10.31543894393", "1.2.246.562.10.26327467473", "1.2.246.562.10.74057379666", "1.2.246.562.10.42160341923", "1.2.246.562.10.41075576847", "1.2.246.562.10.76308491109", "1.2.246.562.10.50822930082", "1.2.246.562.10.39155102187", "1.2.246.562.10.875704637010", "1.2.246.562.10.64213824028", "1.2.246.562.10.52306976201", "1.2.246.562.10.2014050812362375184900", "1.2.246.562.10.38382525541", "1.2.246.562.10.90160242427", "1.2.246.562.10.36025978549", "1.2.246.562.10.240484683010", "1.2.246.562.10.83122281013", "1.2.246.562.10.48791047698", "1.2.246.562.10.64582714578", "1.2.246.562.10.28342991297", "1.2.246.562.10.53170463706", "1.2.246.562.10.65685484225", "1.2.246.562.10.80252743028", "1.2.246.562.10.69770604747", "1.2.246.562.10.83775162874", "1.2.246.562.10.64291752455", "1.2.246.562.10.14842710486", "1.2.246.562.10.67019405611", "1.2.246.562.10.996964959210", "1.2.246.562.10.74054416107", "1.2.246.562.10.44734481839", "1.2.246.562.10.2014041814430212995701", "1.2.246.562.10.2013102115000831176124", "1.2.246.562.10.14661553223", "1.2.246.562.10.68886479911", "1.2.246.562.10.72590401013", "1.2.246.562.10.60198812368", "1.2.246.562.10.94639300915", "1.2.246.562.10.38515028629", "1.2.246.562.10.2013102115041525541196", "1.2.246.562.10.2014032612400514508638", "1.2.246.562.10.89308930505", "1.2.246.562.10.152716032910", "1.2.246.562.10.2014050812381215095888", "1.2.246.562.10.2014050615360888388032", "1.2.246.562.10.00000000001", "1.2.246.562.10.69981965515", "1.2.246.562.10.98212669513", "1.2.246.562.10.2014042311353317272645", "1.2.246.562.10.18931090833", "1.2.246.562.10.45852282313", "1.2.246.562.10.39346098807", "1.2.246.562.10.58033697481", "1.2.246.562.10.58083501534", "1.2.246.562.10.94505003361", "1.2.246.562.10.39218317368", "1.2.246.562.10.99686429624", "1.2.246.562.10.31775378982", "1.2.246.562.10.53814745062", "1.2.246.562.10.98188511467", "1.2.246.562.10.77713971099", "1.2.246.562.10.86412320003", "1.2.246.562.10.31973111268", "1.2.246.562.10.665851030310", "1.2.246.562.10.2014040211431474146052", "1.2.246.562.10.67476956288", "1.2.246.562.10.13808970365", "1.2.246.562.10.2014050812331492766794", "1.2.246.562.10.14813165926", "1.2.246.562.10.16023324607", "1.2.246.562.10.57531791028", "1.2.246.562.10.840465873610", "1.2.246.562.10.27756776996", "1.2.246.562.10.41209513476", "1.2.246.562.10.182673266610", "1.2.246.562.10.2013102114565876612670", "1.2.246.562.10.77055527103", "1.2.246.562.10.2014041511401945349694", "1.2.246.562.10.77463907491", "1.2.246.562.10.94665834845", "1.2.246.562.10.23178783348", "1.2.246.562.10.13905763275", "1.2.246.562.10.91392558028", "1.2.246.562.10.39804091914", "1.2.246.562.10.594252633210", "1.2.246.562.10.80942776321", "1.2.246.562.10.83878914437", "1.2.246.562.10.25922247595", "1.2.246.562.10.72974448119", "1.2.246.562.10.54453921329", "1.2.246.562.10.727160772010", "1.2.246.562.10.47216288507", "1.2.246.562.10.2013102114310829376114", "1.2.246.562.10.2014043013262365921278", "1.2.246.562.10.16758825075", "1.2.246.562.10.64349055349", "1.2.246.562.10.2014041814420657444022", "1.2.246.562.10.2014050812360137079853", "1.2.246.562.10.81673969382", "1.2.246.562.10.949530408410", "1.2.246.562.10.28108180424", "1.2.246.562.10.57572539237", "1.2.246.562.10.13803815193", "1.2.246.562.10.334947182910", "1.2.246.562.10.25804452495", "1.2.246.562.10.81835478767", "1.2.246.562.10.35213003326", "1.2.246.562.10.42284872852", "1.2.246.562.10.2013102114284069378000"],
+        "messageText": {
+            "translations": {
+                "fi": "Multi3"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 3,
+        "_id": "53ecac2be4b0d78239c5d4d5"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.30956399732",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.50880626531", "1.2.246.562.10.38429345754", "1.2.246.562.10.378163080610", "1.2.246.562.10.92267596275", "1.2.246.562.10.97223455078", "1.2.246.562.10.2014040315555036429408", "1.2.246.562.10.34676359085", "1.2.246.562.10.93011914426", "1.2.246.562.10.21989237215", "1.2.246.562.10.14858298327", "1.2.246.562.10.31543894393", "1.2.246.562.10.26327467473", "1.2.246.562.10.74057379666", "1.2.246.562.10.42160341923", "1.2.246.562.10.41075576847", "1.2.246.562.10.76308491109", "1.2.246.562.10.50822930082", "1.2.246.562.10.39155102187", "1.2.246.562.10.875704637010", "1.2.246.562.10.64213824028", "1.2.246.562.10.52306976201", "1.2.246.562.10.2014050812362375184900", "1.2.246.562.10.38382525541", "1.2.246.562.10.90160242427", "1.2.246.562.10.36025978549", "1.2.246.562.10.240484683010", "1.2.246.562.10.83122281013", "1.2.246.562.10.48791047698", "1.2.246.562.10.64582714578", "1.2.246.562.10.28342991297", "1.2.246.562.10.53170463706", "1.2.246.562.10.65685484225", "1.2.246.562.10.80252743028", "1.2.246.562.10.69770604747", "1.2.246.562.10.83775162874", "1.2.246.562.10.64291752455", "1.2.246.562.10.14842710486", "1.2.246.562.10.67019405611", "1.2.246.562.10.996964959210", "1.2.246.562.10.74054416107", "1.2.246.562.10.44734481839", "1.2.246.562.10.2014041814430212995701", "1.2.246.562.10.2013102115000831176124", "1.2.246.562.10.14661553223", "1.2.246.562.10.68886479911", "1.2.246.562.10.72590401013", "1.2.246.562.10.60198812368", "1.2.246.562.10.94639300915", "1.2.246.562.10.38515028629", "1.2.246.562.10.2013102115041525541196", "1.2.246.562.10.2014032612400514508638", "1.2.246.562.10.89308930505", "1.2.246.562.10.152716032910", "1.2.246.562.10.2014050812381215095888", "1.2.246.562.10.2014050615360888388032", "1.2.246.562.10.00000000001", "1.2.246.562.10.69981965515", "1.2.246.562.10.98212669513", "1.2.246.562.10.2014042311353317272645", "1.2.246.562.10.18931090833", "1.2.246.562.10.45852282313", "1.2.246.562.10.39346098807", "1.2.246.562.10.58033697481", "1.2.246.562.10.58083501534", "1.2.246.562.10.94505003361", "1.2.246.562.10.39218317368", "1.2.246.562.10.99686429624", "1.2.246.562.10.31775378982", "1.2.246.562.10.53814745062", "1.2.246.562.10.98188511467", "1.2.246.562.10.77713971099", "1.2.246.562.10.86412320003", "1.2.246.562.10.31973111268", "1.2.246.562.10.665851030310", "1.2.246.562.10.2014040211431474146052", "1.2.246.562.10.67476956288", "1.2.246.562.10.13808970365", "1.2.246.562.10.2014050812331492766794", "1.2.246.562.10.14813165926", "1.2.246.562.10.16023324607", "1.2.246.562.10.57531791028", "1.2.246.562.10.840465873610", "1.2.246.562.10.27756776996", "1.2.246.562.10.41209513476", "1.2.246.562.10.182673266610", "1.2.246.562.10.2013102114565876612670", "1.2.246.562.10.77055527103", "1.2.246.562.10.2014041511401945349694", "1.2.246.562.10.77463907491", "1.2.246.562.10.94665834845", "1.2.246.562.10.23178783348", "1.2.246.562.10.13905763275", "1.2.246.562.10.91392558028", "1.2.246.562.10.39804091914", "1.2.246.562.10.594252633210", "1.2.246.562.10.80942776321", "1.2.246.562.10.83878914437", "1.2.246.562.10.25922247595", "1.2.246.562.10.72974448119", "1.2.246.562.10.54453921329", "1.2.246.562.10.727160772010", "1.2.246.562.10.47216288507", "1.2.246.562.10.2013102114310829376114", "1.2.246.562.10.2014043013262365921278", "1.2.246.562.10.16758825075", "1.2.246.562.10.64349055349", "1.2.246.562.10.2014041814420657444022", "1.2.246.562.10.2014050812360137079853", "1.2.246.562.10.81673969382", "1.2.246.562.10.949530408410", "1.2.246.562.10.28108180424", "1.2.246.562.10.57572539237", "1.2.246.562.10.13803815193", "1.2.246.562.10.334947182910", "1.2.246.562.10.25804452495", "1.2.246.562.10.81835478767", "1.2.246.562.10.35213003326", "1.2.246.562.10.42284872852", "1.2.246.562.10.2013102114284069378000"],
+        "messageText": {
+            "translations": {
+                "fi": "Multi4"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 4,
+        "_id": "53ecb193e4b02c6c9878efac"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.30956399732",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.58083501534", "1.2.246.562.10.13803815193", "1.2.246.562.10.53170463706", "1.2.246.562.10.00000000001", "1.2.246.562.10.2014032612400514508638", "1.2.246.562.10.81673969382", "1.2.246.562.10.74054416107", "1.2.246.562.10.98188511467", "1.2.246.562.10.42284872852", "1.2.246.562.10.77713971099", "1.2.246.562.10.98212669513", "1.2.246.562.10.52306976201"],
+        "messageText": {
+            "translations": {
+                "fi": "MultiX2"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 2,
+        "_id": "53ecc167e4b0a81acc46b1bd"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.88096186379",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "",
+            "max": ""
+        },
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "tes"
+                    }
+                },
+                "description": {
+                    "translations": {}
+                },
+                "deliveryDue": 1410987540000,
+                "deliveryAddress": {
+                    "street": "teas",
+                    "postOffice": "HELSINGFORS",
+                    "postCode": "00550"
+                },
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.93011914426", "1.2.246.562.10.00000000001", "1.2.246.562.10.35213003326", "1.2.246.562.10.64349055349"],
+        "messageText": {
+            "translations": {
+                "fi": "Millä paikkakunnalla osallistut kokeeseen?"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "hr"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "hr"
+                    }
+                }
+            }
+        ],
+        "_id": "53f1e9fae4b0ac383f8f3536"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.88096186379",
+        "targetIsGroup": false,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "helsingin liite"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "liitekuvaus"
+                    }
+                },
+                "deliveryDue": 1410987540000,
+                "deliveryAddress": {
+                    "street": "tes",
+                    "postOffice": "HELSINKI",
+                    "postCode": "00100"
+                },
+                "attachedToOptionId": "option_1"
+            }
+        ],
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.93011914426", "1.2.246.562.10.00000000001", "1.2.246.562.10.35213003326", "1.2.246.562.10.64349055349"],
+        "messageText": {
+            "translations": {
+                "fi": "Haen maol-kilpailun voiton perusteella?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "te"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "te"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Helsinki"
+                    }
+                }
+            }
+        ],
+        "_id": "53f1ec53e4b0ac383f8f3537"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.20.218242175710",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.25922247595", "1.2.246.562.10.47216288507", "1.2.246.562.10.68886479911", "1.2.246.562.10.00000000001"],
+        "messageText": {
+            "translations": {
+                "sv": "Haen maol-kilpailun voiton perusteella?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "sv": "te"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "sv": "te"
+            }
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "sv": "Matematiikka"
+                    }
+                }
+            }
+        ],
+        "_id": "53f2f228e4b0ec8a79e37624"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.20.70679320237",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ordinal": 2,
+        "ownerOrganizationOids": ["1.2.246.562.10.00000000001", "1.2.246.562.10.64582714578", "1.2.246.562.10.50822930082", "1.2.246.562.10.64213824028"],
+        "messageText": {
+            "translations": {
+                "sv": "testiruotsi"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "sv": "tes"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 1000,
+        "_id": "53f3165ee4b051d6e43a4062"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.20.70679320237",
+        "targetIsGroup": false,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "en": "testieng"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "en": "test"
+                    }
+                },
+                "deliveryDue": 1409432340000,
+                "deliveryAddress": {
+                    "street": "Hakijapalveluiden osoite",
+                    "postOffice": "HELSINGFORS",
+                    "postCode": "00550"
+                },
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "ownerOrganizationOids": ["1.2.246.562.10.00000000001", "1.2.246.562.10.64582714578", "1.2.246.562.10.50822930082", "1.2.246.562.10.64213824028"],
+        "messageText": {
+            "translations": {
+                "en": "testienglanti"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "en": "tes"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "en": "k"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "en": "e"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "en": "j"
+                    }
+                }
+            }
+        ],
+        "_id": "53f31686e4b051d6e43a4063"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.20.70883151881",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.00000000001", "1.2.246.562.10.2013102114310829376114", "1.2.246.562.10.2013102114284069378000", "1.2.246.562.10.2013102114565876612670"],
+        "messageText": {
+            "translations": {
+                "fi": "Testikysymys"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "OHJE! Vastaa rehellisesti tai hakemuksesi hylätään."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "LISÄOHJE!"
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 6,
+        "_id": "53f32f0ce4b051d6e43a4066"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "lupatiedot",
+        "learningOpportunityId": "1.2.246.562.28.90373737623",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.2014042311353317272645", "1.2.246.562.10.18931090833", "1.2.246.562.10.45852282313", "1.2.246.562.10.50880626531", "1.2.246.562.10.38429345754", "1.2.246.562.10.378163080610", "1.2.246.562.10.39346098807", "1.2.246.562.10.2014040315555036429408", "1.2.246.562.10.34676359085", "1.2.246.562.10.58083501534", "1.2.246.562.10.58033697481", "1.2.246.562.10.93011914426", "1.2.246.562.10.14858298327", "1.2.246.562.10.21989237215", "1.2.246.562.10.31543894393", "1.2.246.562.10.31775378982", "1.2.246.562.10.42160341923", "1.2.246.562.10.41075576847", "1.2.246.562.10.50822930082", "1.2.246.562.10.76308491109", "1.2.246.562.10.39155102187", "1.2.246.562.10.875704637010", "1.2.246.562.10.64213824028", "1.2.246.562.10.31973111268", "1.2.246.562.10.2014040211431474146052", "1.2.246.562.10.2014050812362375184900", "1.2.246.562.10.67476956288", "1.2.246.562.10.38382525541", "1.2.246.562.10.13808970365", "1.2.246.562.10.36025978549", "1.2.246.562.10.2014050812331492766794", "1.2.246.562.10.83122281013", "1.2.246.562.10.14813165926", "1.2.246.562.10.16023324607", "1.2.246.562.10.840465873610", "1.2.246.562.10.27756776996", "1.2.246.562.10.41209513476", "1.2.246.562.10.64582714578", "1.2.246.562.10.48791047698", "1.2.246.562.10.182673266610", "1.2.246.562.10.2013102114565876612670", "1.2.246.562.10.2014041511401945349694", "1.2.246.562.10.77463907491", "1.2.246.562.10.53170463706", "1.2.246.562.10.65685484225", "1.2.246.562.10.80252743028", "1.2.246.562.10.94665834845", "1.2.246.562.10.69770604747", "1.2.246.562.10.14842710486", "1.2.246.562.10.64291752455", "1.2.246.562.10.67019405611", "1.2.246.562.10.23178783348", "1.2.246.562.10.39804091914", "1.2.246.562.10.996964959210", "1.2.246.562.10.594252633210", "1.2.246.562.10.80942776321", "1.2.246.562.10.44734481839", "1.2.246.562.10.83878914437", "1.2.246.562.10.2013102115000831176124", "1.2.246.562.10.25922247595", "1.2.246.562.10.14661553223", "1.2.246.562.10.72974448119", "1.2.246.562.10.54453921329", "1.2.246.562.10.47216288507", "1.2.246.562.10.72590401013", "1.2.246.562.10.68886479911", "1.2.246.562.10.2013102114310829376114", "1.2.246.562.10.2014043013262365921278", "1.2.246.562.10.64349055349", "1.2.246.562.10.16758825075", "1.2.246.562.10.60198812368", "1.2.246.562.10.2014050812360137079853", "1.2.246.562.10.2013102115041525541196", "1.2.246.562.10.2014032612400514508638", "1.2.246.562.10.89308930505", "1.2.246.562.10.28108180424", "1.2.246.562.10.57572539237", "1.2.246.562.10.2014050812381215095888", "1.2.246.562.10.2014050615360888388032", "1.2.246.562.10.334947182910", "1.2.246.562.10.00000000001", "1.2.246.562.10.25804452495", "1.2.246.562.10.35213003326", "1.2.246.562.10.42284872852", "1.2.246.562.10.2013102114284069378000"],
+        "messageText": {
+            "translations": {
+                "fi": "Testikysymys II"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "OHJE 123"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "LISÄOHJE 123"
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 10,
+        "_id": "53f333bbe4b051d6e43a4068"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "lupatiedot",
+        "learningOpportunityId": "1.2.246.562.20.89100672511",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.64291752455", "1.2.246.562.10.00000000001", "1.2.246.562.10.45852282313", "1.2.246.562.10.41209513476"],
+        "messageText": {
+            "translations": {
+                "fi": "Testikysymys"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "OHJETEKSTI!"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "LISÄOHJETEKSTI"
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 5,
+        "_id": "53f341a8e4b051d6e43a406a"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.89100672511",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ownerOrganizationOids": ["1.2.246.562.10.64291752455", "1.2.246.562.10.00000000001", "1.2.246.562.10.45852282313", "1.2.246.562.10.41209513476"],
+        "messageText": {
+            "translations": {
+                "fi": "KYSYMYS 1"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Vastaa"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "lisääääää"
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 5,
+        "_id": "53f34439e4b0fad1142577ab"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "lupatiedot",
+        "learningOpportunityId": "1.2.246.562.28.11569810327",
+        "targetIsGroup": true,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "ryhmän liite muokataan",
+                        "sv": "ruotsiksi liitettä"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "liite ryhmän"
+                    }
+                },
+                "deliveryDue": 1412846100000,
+                "deliveryAddress": {
+                    "street": "Ratapihantie 13",
+                    "postOffice": "HELSINKI",
+                    "postCode": "00520"
+                }
+            }
+        ],
+        "state": "ACTIVE",
+        "creatorPersonOid": "1.2.246.562.24.72453542949",
+        "ownerOrganizationOids": ["1.2.246.562.10.94505003361", "1.2.246.562.10.13905763275", "1.2.246.562.10.727160772010", "1.2.246.562.10.00000000001", "1.2.246.562.10.81835478767", "1.2.246.562.10.69981965515", "1.2.246.562.10.97223455078"],
+        "messageText": {
+            "translations": {
+                "fi": "testikysymys ryhmälle",
+                "sv": "testikysymys ruotsiksi"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "ryhmälle ohjette",
+                "sv": "ruotsia"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "size": 555,
+        "_id": "53fdb809e4b0f89b6ab1f940"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.28.37542709623",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "creatorPersonOid": "1.2.246.562.24.00000000001",
+        "ownerOrganizationOids": ["1.2.246.562.10.83775162874", "1.2.246.562.10.93011914426", "1.2.246.562.10.152716032910", "1.2.246.562.10.99686429624", "1.2.246.562.10.00000000001", "1.2.246.562.10.35213003326", "1.2.246.562.10.64349055349"],
+        "messageText": {
+            "translations": {
+                "fi": "Ilmoita missä ammattikorkekaoulussa suoritat tekniikan valintakokeen"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 20,
+        "_id": "54006170e4b0651a40cf04d5"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.28.91139385270",
+        "targetIsGroup": true,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "Työtodistuksen kopio"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": ""
+                    }
+                },
+                "deliveryDue": 1412596800000,
+                "deliveryAddress": {
+                    "street": "Ratapihantie 13",
+                    "postOffice": "HELSINKI",
+                    "postCode": "00520"
+                }
+            }
+        ],
+        "state": "ACTIVE",
+        "creatorPersonOid": "1.2.246.562.24.00000000001",
+        "ownerOrganizationOids": ["1.2.246.562.10.13803815193", "1.2.246.562.10.727160772010", "1.2.246.562.10.57531791028", "1.2.246.562.10.00000000001", "1.2.246.562.10.69981965515", "1.2.246.562.10.81835478767", "1.2.246.562.10.74054416107", "1.2.246.562.10.98188511467", "1.2.246.562.10.98212669513", "1.2.246.562.10.97223455078"],
+        "messageText": {
+            "translations": {
+                "fi": "Työkokemus"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Työkokemuspisteitä laskettaessa hakulomakkeelle otetaan huomioon 18-vuotiaana ja sen jälkeen hankittu yleinen työkokemus, joka on kertynyt 31.12. mennessä. Kaksi kuukautta yleistä (ei tarvitse olla alakohtaista) työkokemusta tuottaa yhden pisteen. Merkitse työkokemus täysinä kuukausina. Merkitse 0 jos sinulla ei ole työkokemusta."
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "Osa-aikatyö muunnetaan kokoaikaiseksi niin, että 150 tuntia tai 20 täysimittaista työpäivää (vähintään 7 tuntia päivää kohti) vastaa yhtä kuukautta. Työkokemuksen ei tarvitse olla yhtäjaksoista eikä saman työnantajan palveluksessa hankittua. Työkokemukseksi ei lueta työharjoittelua eikä työssä oppimista, jos ne sisältyvät haussa käytettyyn tutkintoon. Äitiys- ja vanhempainvapaa lasketaan työkokemukseksi, mutta varusmiespalvelusta, siviilipalvelusta tai hoitovapaata ei lasketa. Pisteitä voi saada vain työkokemuksesta, josta on työnantajan todistus. Yrittäjyys hyväksytään työkokemukseksi, jos siitä on todistus, joka osoittaa, että hakija on tai on ollut YEL- (yrittäjäeläkevakuutus)- tai MYEL-vakuutettu (viljelijöiden, metsätilallisten, kalastajien ja poronhoitajien sekä heidän perheenjäsentensä työeläkevakuutus).\n\nPoikkeuksena on käsi- ja taideteollisuusala, viestintä- ja kuvataideala, teatteri- ja tanssiala ja musiikkiala, joissa työkokemuksen asemesta voidaan hyväksyä vastaavan pituinen taiteellinen toiminta, jonka voi osoittaa esim. portfoliolla. Huom. portfolion käyttö ei ole voimassa haettaessa HAAGA-HELIA ja Satakunnan ammattikorkeakouluun.\n\nTyökokemuksen määrä on pystyttävä osoittamaan työtodistuksin, jotka tarkistetaan valituiksi tulleilta.\n\nAlkuperäiskielisen työtodistuskopion lisäksi on toimitettava virallisen kielenkääntäjän suomeksi, ruotsiksi tai englanniksi tekemä käännöskopio työtodistuksesta, jos työtodistuksen kieli ei ole mikään näistä. Käännöksessä tulee olla kääntäjän allekirjoitus ja leima. Kopiot toimitetaan vasta opiskelupaikan vastaanoton yhteydessä."
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 3,
+        "_id": "5400717ae4b07dfeda0c933e"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.28.56164573357",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "creatorPersonOid": "1.2.246.562.24.72453542949",
+        "ownerOrganizationOids": ["1.2.246.562.10.94639300915", "1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062"],
+        "messageText": {
+            "translations": {
+                "fi": "Caseliuksen testiryhmän kysymys osaamisvaiheeseen"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "kolme aineenopettajaa"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 100,
+        "_id": "54043b87e4b0ec7e82139116"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.56164573357",
+        "targetIsGroup": true,
+        "validators": {
+            "min": "0",
+            "max": "1"
+        },
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "Kirjattu todistus"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": ""
+                    }
+                },
+                "deliveryDue": 1410123540000,
+                "deliveryAddress": {
+                    "street": "Juksutie 11",
+                    "postOffice": "HELSINKI",
+                    "postCode": "00100"
+                },
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "creatorPersonOid": "1.2.246.562.24.72453542949",
+        "ownerOrganizationOids": ["1.2.246.562.10.94639300915", "1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062"],
+        "messageText": {
+            "translations": {
+                "fi": "hakutoiveet-vaiheen ryhmäkysymys",
+                "sv": "ruotsiksi sama testikysymys"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "testiohje",
+                "sv": "testi"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Kyllä",
+                        "sv": "Ja"
+                    }
+                }
+            }
+        ],
+        "_id": "54045cbfe4b076a70eb67c63"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.645785477510",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "creatorPersonOid": "1.2.246.562.24.72453542949",
+        "ownerOrganizationOids": ["1.2.246.562.10.94639300915", "1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062"],
+        "messageText": {
+            "translations": {
+                "fi": "Järjestyskysymys"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "näyttö"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "ei näyttö"
+            }
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Kyllä"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Ei"
+                    }
+                }
+            }
+        ],
+        "_id": "5406a5e2e4b0bf956c2e42d9"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.55851937810",
+        "targetIsGroup": true,
+        "validators": {
+            "min": "1",
+            "max": "1"
+        },
+        "state": "ACTIVE",
+        "creatorPersonOid": "1.2.246.562.24.99836483323",
+        "ownerOrganizationOids": ["1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062", "1.2.246.562.10.94997228401"],
+        "messageText": {
+            "translations": {
+                "fi": "Testiryhmän testikysymys",
+                "sv": "testiryhmän testikysymys på svenskadf",
+                "en": "testiryhmän kys in English"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "ewrrew",
+                "sv": "dsfsdsddfs",
+                "en": "åååå"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {
+                "fi": "ffdsfsfs",
+                "sv": "rettete",
+                "en": "¨på'pooo,,-,M;::;"
+            }
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "valintaruutu 1 -kysymys",
+                        "sv": "valintaruta ett",
+                        "en": "checboksi one"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "valintaruutu 2 -kysymys",
+                        "sv": "valintaruta två",
+                        "en": "check boksi two"
+                    }
+                }
+            }
+        ],
+        "_id": "5406c511e4b06e30feb0fbd4"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.31799204008",
+        "targetIsGroup": false,
+        "state": "ACTIVE",
+        "creatorPersonOid": "1.2.246.562.24.99836483323",
+        "ownerOrganizationOids": ["1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062", "1.2.246.562.10.94997228401"],
+        "messageText": {
+            "translations": {
+                "fi": "Mikä on sininen ja lentää?",
+                "sv": "Vad är blå som flyger?",
+                "en": "What is blue and flies?"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "valitse oikea vaihtoehto",
+                "sv": "välj rätt svaret",
+                "en": "choose the right answear"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "jäätynyt teräsmies",
+                        "sv": "fryst superman",
+                        "en": "frozen superman"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "liitosmurffi",
+                        "sv": "flygsmurff",
+                        "en": "flying smurff"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "kahen kilon siika",
+                        "sv": "två kilo fisk",
+                        "en": "two kilos of fish"
+                    }
+                }
+            }
+        ],
+        "_id": "5406c6a1e4b0893d512f056d"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.86298037006",
+        "targetIsGroup": true,
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "creatorPersonOid": "1.2.246.562.24.72453542949",
+        "ownerOrganizationOids": ["1.2.246.562.10.94639300915", "1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062"],
+        "messageText": {
+            "translations": {
+                "fi": "Caseliuksen testiryhmän 2 kysymys"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "vastaa tähän"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 100,
+        "_id": "540851c7e4b084b90fe707b7"
+    },
+    {
+        "type": "TextQuestion",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.28.98941416059",
+        "targetIsGroup": true,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "atk liite pyyntö"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "Tämä on pyyntö atk osaamisesta"
+                    }
+                },
+                "deliveryDue": 1424008800000,
+                "deliveryAddress": {
+                    "street": "PL 4000",
+                    "postOffice": "METROPOLIA",
+                    "postCode": "00079"
+                }
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "creatorPersonOid": "1.2.246.562.24.85857930225",
+        "ownerOrganizationOids": ["1.2.246.562.10.60198812368", "1.2.246.562.10.14858298327", "1.2.246.562.10.00000000001", "1.2.246.562.10.2014050812362375184900", "1.2.246.562.10.67476956288"],
+        "messageText": {
+            "translations": {
+                "fi": "tiedän jotain ATK:sta"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "size": 256,
+        "_id": "542c045ce4b0e18302e92235"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.97899601468",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "1",
+            "max": "1"
+        },
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "olen jooa"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "kaikki mitä tiedät olen joosta laita postia tulemaan"
+                    }
+                },
+                "deliveryDue": 1426888740000,
+                "deliveryAddress": {
+                    "street": "PL 4022",
+                    "postOffice": "METROPOLIA",
+                    "postCode": "00079"
+                },
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "creatorPersonOid": "1.2.246.562.24.85857930225",
+        "ownerOrganizationOids": ["1.2.246.562.10.60198812368", "1.2.246.562.10.00000000001", "1.2.246.562.10.67476956288", "1.2.246.562.10.2014050812362375184900"],
+        "messageText": {
+            "translations": {
+                "fi": "Atk tietovisa"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "dfkgjf"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "olen joo"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "en ole"
+                    }
+                }
+            }
+        ],
+        "_id": "542c0527e4b0e18302e92236"
+    },
+    {
+        "type": "RadioButton",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "osaaminenteema",
+        "learningOpportunityId": "1.2.246.562.28.98941416059",
+        "targetIsGroup": true,
+        "attachmentRequests": [
+            {
+                "header": {
+                    "translations": {
+                        "fi": "The Liite"
+                    }
+                },
+                "description": {
+                    "translations": {
+                        "fi": "Joo joo liite"
+                    }
+                },
+                "deliveryDue": 1413406740000,
+                "deliveryAddress": {
+                    "recipient": "Jukujukumaa",
+                    "street": "4011",
+                    "postOffice": "METROPOLIA",
+                    "postCode": "00079"
+                },
+                "attachedToOptionId": "option_0"
+            }
+        ],
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "creatorPersonOid": "1.2.246.562.24.72453542949",
+        "ownerOrganizationOids": ["1.2.246.562.10.60198812368", "1.2.246.562.10.14858298327", "1.2.246.562.10.31775378982", "1.2.246.562.10.00000000001", "1.2.246.562.10.2014050812362375184900", "1.2.246.562.10.67476956288"],
+        "messageText": {
+            "translations": {
+                "fi": "Liitteitä kiitos"
+            }
+        },
+        "helpText": {
+            "translations": {}
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": false,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "paljon"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "ei yhtään"
+                    }
+                }
+            }
+        ],
+        "_id": "542c0bace4b0e18302e92238"
+    },
+    {
+        "type": "CheckBox",
+        "applicationSystemId": "1.2.246.562.29.173465377510",
+        "theme": "hakutoiveet.teema",
+        "learningOpportunityId": "1.2.246.562.20.63231645142",
+        "targetIsGroup": false,
+        "validators": {
+            "min": "1",
+            "max": "5"
+        },
+        "state": "ACTIVE",
+        "ordinal": 1,
+        "creatorPersonOid": "1.2.246.562.24.480305445310",
+        "ownerOrganizationOids": ["1.2.246.562.10.94639300915", "1.2.246.562.10.39218317368", "1.2.246.562.10.00000000001", "1.2.246.562.10.53814745062"],
+        "messageText": {
+            "translations": {
+                "fi": "Mitkä seuraavista eivät kuulu joukkoon: (checkbox)"
+            }
+        },
+        "helpText": {
+            "translations": {
+                "fi": "Valitse oikeat vaihtoehdot seuraavista:"
+            }
+        },
+        "verboseHelpText": {
+            "translations": {}
+        },
+        "requiredFieldValidator": true,
+        "onCompletedPage": false,
+        "options": [
+            {
+                "id": "option_0",
+                "optionText": {
+                    "translations": {
+                        "fi": "Kärpässieni"
+                    }
+                }
+            },
+            {
+                "id": "option_1",
+                "optionText": {
+                    "translations": {
+                        "fi": "Herkkusieni"
+                    }
+                }
+            },
+            {
+                "id": "option_2",
+                "optionText": {
+                    "translations": {
+                        "fi": "Jalkasieni"
+                    }
+                }
+            },
+            {
+                "id": "option_3",
+                "optionText": {
+                    "translations": {
+                        "fi": "Suppilovahvero"
+                    }
+                }
+            },
+            {
+                "id": "option_4",
+                "optionText": {
+                    "translations": {
+                        "fi": "Pesusieni"
+                    }
+                }
+            }
+        ],
+        "_id": "543cc74de4b0c2be8601e024"
+    }
+]

@@ -14,7 +14,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider', [])
                 backEndRoot : 'http://localhost:9090/',
                 localizationUrl: 'https://itest-virkailija.oph.ware.fi/lokalisointi/cxf/rest/v1',
                 koodisto: 'https://itest-virkailija.oph.ware.fi:443/koodisto-service/rest/json',
-                casurl: '/hakulomakkeenhallinta-ui/app/cas/myroles'
+                casurl: '/cas/myroles'
+//                casurl: '/hakulomakkeenhallinta-ui/app/cas/myroles'
             };
         }]
     });

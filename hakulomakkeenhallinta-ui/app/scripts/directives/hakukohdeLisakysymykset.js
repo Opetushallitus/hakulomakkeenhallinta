@@ -8,25 +8,24 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 replace: true,
                 template: '<div data-ng-hide="hakukohdePoistettu">' +
                     '<div class="hh-list-h4">' +
-                    '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaHakukohdeQues, \'glyphicon-chevron-right\': !naytaHakukohdeQues }" data-ng-click="toggleNaytaHakukohdeKysymykset()"></i>' +
+                    '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaKysymysLista, \'glyphicon-chevron-right\': !naytaKysymysLista }" data-ng-click="toggleNaytaKysymykset()"></i>' +
 
                     '<div class="dropdown" style="display: inline-block !important;">' +
                     '<a class="dropdown-toggle" data-ng-hide="hakukohdePoistettu">' +
                     '<i class="hh-icon-menu"></i>' +
                     '</a>' +
                     '<ul class="dropdown-menu">' +
-                    '<li data-ng-click="addQuestionAtHakukohde(theme, hakukohdeInfo)"><a>{{ t(\'lisaa.uusi.kysymys\') || \'Lisää uusi kysymys\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
+                    '<li data-ng-click="addQuestionAtHakukohde(theme, hakukohde)"><a>{{ t(\'lisaa.uusi.kysymys\') || \'Lisää uusi kysymys\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '<li data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)"><a>{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} <i class="glyphicon glyphicon-sort"></i></a> </li>' +
-                    '<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)"><a>{{ t(\'lisaa.saanto\') || \'Lisää sääntö\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '</ul>' +
                     '</div>' +
-                    '<a data-ng-click="toggleNaytaHakukohdeKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} ' +
+                    '<a data-ng-click="toggleNaytaKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} ' +
                     '<span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span> ' +
                     '<span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span> ' +
                     '({{kysymysMaara}})</a>' +
                     '</div>' +
 
-                    '<div class="form-group" data-ng-show="!sortBtns && naytaHakukohdeQues">' +
+                    '<div class="form-group" data-ng-show="!sortBtns && naytaKysymysLista">' +
                     '<button type="button" class="btn" data-ng-click="cancelSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="!sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button> &nbsp;' +
                     '<button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="!sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenna järjestys\' }}</button>' +
                     '</div>' +
@@ -39,6 +38,17 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
                     $scope.hakukohdePoistettu = false;
                     $scope.kysymysMaara = 0;
+
+//                    $scope.naytaKysymysLista = false;
+                    $scope.naytaKysymysLista = true;
+                    $scope.toggleNaytaKysymykset = function () {
+                        $scope.naytaKysymysLista = !$scope.naytaKysymysLista;
+                    };
+
+                    if ($scope.hakukohde.additionalQuestions) {
+                        $scope.kysymysMaara = $scope.hakukohde.additionalQuestions.length;
+                    }
+
 
                     if ($scope.hakukohde.additionalQuestions.length > 0 && $scope.hakukohde.additionalQuestions[0].targetIsGroup) {
                         Organisaatio.getOrganisationData($scope.hakukohde.aoid).then(
@@ -77,22 +87,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         );
                     }
 
-                    $scope.naytaHakukohdeQues = false;
-                    $scope.toggleNaytaHakukohdeKysymykset = function () {
-                        $scope.naytaHakukohdeQues = !$scope.naytaHakukohdeQues;
-                    };
-
-                    if ($scope.hakukohde.additionalQuestions) {
-                        $scope.kysymysMaara = $scope.hakukohde.additionalQuestions.length;
-                    }
-
                     /**
                      * vaihtaa näytä/piilota napit muuttujan arvoa
                      */
                     function toggleShowSortBtns() {
                         $scope.sortBtns = !$scope.sortBtns;
-                        if (!$scope.naytaHakukohdeQues) {
-                            $scope.toggleNaytaHakukohdeKysymykset();
+                        if (!$scope.naytaKysymysLista) {
+                            $scope.toggleNaytaKysymykset();
                         }
                     };
                     /**
@@ -100,7 +101,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * lähetetty $broadcast arvo tulee parent $scope:sta
                      */
                     $scope.$on('SHOW_HIDE_ALL_QUESTION', function () {
-                            $scope.toggleNaytaHakukohdeKysymykset();
+                            $scope.toggleNaytaKysymykset();
                         }
                     );
                     /**

@@ -199,31 +199,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                         $rootScope.LOGS('ThemeQuestions', '#2 ', themes[indx].hkkohde);
                                     }
                                 );
-                                /*var hakukohteet = _.uniq(_.map(themeQues, function (lpId) { return lpId.learningOpportunityId; }));
-                                console.log('### ', hakukohteet, themes.length);
-                                var themesIndx = themes.length;
-                                _.each(themes, function (teema, ind) {
-                                        var indx3 =0;
-                                    _.each(hakukohteet, function (hakukohde) {
-                                                var indx2 = themesIndx + ind;
-                                                console.log(indx2);
-                                                themes[indx2] = {};
-                                                themes[indx2].hakukohteittain = [];
-                                                var kysymyksetHakukohteittain =
-                                                _.where(themeQues, ({theme: teema.id, learningOpportunityId: hakukohde}));
-                                                if(kysymyksetHakukohteittain.length > 0) {
-                                                    console.log(indx2);
-                                                    themes[indx2].hakukohteittain[indx3] = kysymyksetHakukohteittain;
-                                                    console.log(teema.id, hakukohde);
-                                                    console.log('kysymykset hakukohteittain: ',  kysymyksetHakukohteittain);
-                                                    indx3 += 1;
-                                                }
-                                            }
-                                        );
-
-                                    }
-                                );*/
-
                                 deferred.resolve(themes);
                             }
                         );

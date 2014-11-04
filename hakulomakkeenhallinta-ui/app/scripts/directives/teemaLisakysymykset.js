@@ -17,7 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<ul class="dropdown-menu">' +
                     '<li data-ng-click="addQuestionAtHakukohde(theme, hakukohdeInfo)"><a>{{ t(\'lisaa.uusi.kysymys\') || \'Lisää uusi kysymys\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '<li data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)"><a>{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} <i class="glyphicon glyphicon-sort"></i></a> </li>' +
-                    '<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)"><a>{{ t(\'lisaa.saanto\') || \'Lisää sääntö\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
+                    '<li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)"><a>{{ t(\'lisaa.jatkokysymys\') || \'Lisää jatkokysymys\' }} <i class="glyphicon glyphicon-plus"></i></a></li>' +
                     '</ul>' +
                     '</div>' +
                     '<a data-ng-click="toggleNaytaHakukohdeKysymykset()">{{teema}} ' +
@@ -31,9 +31,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<alertmsg></alertmsg>' +
                     '</div>',
                 controller: function ($scope) {
-
-                    console.log('##', $scope.teema);
-
                     $scope.naytaHakukohdeQues = false;
                     $scope.toggleNaytaHakukohdeKysymykset = function () {
                         $scope.naytaHakukohdeQues = !$scope.naytaHakukohdeQues;

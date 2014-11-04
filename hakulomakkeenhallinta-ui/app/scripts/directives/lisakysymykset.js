@@ -7,9 +7,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             replace: true,
             templateUrl: 'partials/directives/lisakysymykset.html',
             controller: function ($scope) {
-                $scope.naytaVastaukset = false;
-                $scope.toggleNaytaVastaukset = function () {
-                    $scope.naytaVastaukset = !$scope.naytaVastaukset;
+                $scope.naytaKysymysLista = false;
+//                $scope.naytaKysymysLista = true;
+                $scope.toggleNaytaKysymykset = function () {
+                    $scope.naytaKysymysLista = !$scope.naytaKysymysLista;
                 };
             }
 

@@ -7,132 +7,17 @@
 <lisakysymys-lista-napit></lisakysymys-lista-napit>
 
 <h3 class="text-info" tl="hakukohdekohtaiset.lisakysymykset" >Hakukohdekohtaiset lisäkysymykset</h3>
-<div>
-    <button data-ng-click="byTeema = true">Näytä teema kohtaisesti</button>
-    <button data-ng-click="byTeema = false">Näytä hakukohde kohtaisesti</button>
-    <!--<button>Näytä myös poistetut</button>-->
-</div>
-<hr>
-<div class="from-group">
-    <div data-ng-repeat="theme in themes" data-ng-show="byTeema">
-        <teema-otsikko></teema-otsikko>
-        <div data-ng-repeat="hakukohde in theme.hkkohde" data-ng-show="naytaHakukohteet">
-            <div data-ng-show="hakukohde.additionalQuestions.length >0" style="margin-left: 30px;">
-                <hakukohde-lisakysymykset></hakukohde-lisakysymykset>
-                <ul data-ng-show="naytaHakukohdeQues" class="tree hh-hierarkia-list">
-                    <li data-ng-repeat="question in hakukohde.additionalQuestions | orderBy:'ordinal'" >
-                        <lisakysymykset></lisakysymykset>
-                        <ul data-ng-show="question.options && naytaVastaukset" class="hh-hierarkia-list">
-                            <li data-ng-repeat="option in question.options">
-                                <div>
-                                    <i class="icon-comment-empty"></i>
-                                    <div class="dropdown" data-ng-show="sortBtns">
-                                        <a class="dropdown-toggle">
-                                            <i class="hh-icon-menu"></i>
-                                        </a>
-                                        <ul class="dropdown-menu menu-inside-tree">
-                                            <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                            <li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    {{option | i18n:'optionText':userLang}}
-                                </div>
 
-                                <ul class="hh-hierarkia-list">
-                                    <li data-ng-repeat="liitepyynto in question.attachmentRequests" data-ng-if="question.attachmentRequests.length >0">
-                                        <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
-                                            {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
-                                            <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
-                                            <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
-                                            <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
-                                        </div>
-                                    </li>
-                                    <li data-ng-repeat="question in option.questions" data-ng-if="option.questions.length > 0">
-                                        <lisakysymykset></lisakysymykset>
-                                        <ul data-ng-show="question.options && naytaVastaukset" class="hh-hierarkia-list">
-                                            <li data-ng-repeat="option in question.options">
-                                                <div>
-                                                    <i class="icon-comment-empty"></i>
-                                                    <div class="dropdown" data-ng-show="sortBtns">
-                                                        <a class="dropdown-toggle">
-                                                            <i class="hh-icon-menu"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu">
-                                                            <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                                            <li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    {{option | i18n:'optionText':userLang}}
-                                                </div>
-                                                <ul class="hh-hierarkia-list" data-ng-if="question.attachmentRequests.length >0">
-                                                    <li data-ng-repeat="liitepyynto in question.attachmentRequests">
-                                                        <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
-                                                            {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
-                                                            <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
-                                                            <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
-                                                            <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!--<pre>{{hakukohde | without | json}}</pre>-->
-        </div>
-        <hr>
-    </div>
-
-    <div data-ng-repeat="(hakukohdeOid, teemat) in hakukohteittain" data-ng-show="!byTeema">
-        <hakukohde-otsikko data-ng-hide="hakukohdePoistettu"></hakukohde-otsikko>
-        <div data-ng-repeat="(teema, questions) in teemat" data-ng-show="naytaHakukohteet && !hakukohdePoistettu">
-            <div data-ng-show="!hakukohdePoistettu" style="margin-left: 30px;">
-                <teema-lisakysymykset></teema-lisakysymykset>
-                <ul class="tree hh-hierarkia-list" data-ng-if="questions.length > 0">
-                    <li data-ng-repeat="question in questions">
-                        <lisakysymykset></lisakysymykset>
-                        <ul data-ng-show="question.options" class="hh-hierarkia-list">
-                            <li data-ng-repeat="option in question.options">
-                                <div>
-                                    <i class="icon-comment-empty"></i>
-                                    <div class="dropdown" data-ng-show="">
-                                        <a class="dropdown-toggle">
-                                            <i class="hh-icon-menu"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                            <li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    {{option | i18n:'optionText':userLang}}
-                                </div>
-                                <ul class="hh-hierarkia-list" data-ng-if="question.attachmentRequests.length >0">
-                                    <li data-ng-repeat="liitepyynto in question.attachmentRequests">
-                                        <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
-                                            {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
-                                            <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
-                                            <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
-                                            <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
-                                        </div>
-                                    </li>
-                                </ul>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-        <hr data-ng-if="!hakukohdePoistettu">
-    </div>
-
-</div>
-</div>
+<tabset>
+    <tab heading="{{ t('lisakysymykset.teemakohtaisesti')|| 'Teemakohtaisesti' }}">
+        <br>
+        <ng-include src="'partials/lisakysymykset/lisakysymyslista-teemakohtaisesti.html'"/>
+    </tab>
+    <tab heading="{{ t('lisakysymykset.hakukohdekohtaisesti') || 'Hakukohdekohtaisesti' }}">
+        <br>
+        <ng-include src="'partials/lisakysymykset/lisakysymyslista-hakukohdekohtaisesti.html'"/>
+    </tab>
+</tabset>
 <br>
-
 <lisakysymys-lista-napit></lisakysymys-lista-napit>
 

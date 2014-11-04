@@ -1,0 +1,99 @@
+<div class="from-group">
+    <div data-ng-repeat="theme in themes">
+        <teema-otsikko></teema-otsikko>
+        <!--<div data-ng-repeat="hakukohde in theme.hkkohde" data-ng-show="naytaLista" data-ng-controller="jatkoKysymysCtrl">-->
+        <div data-ng-repeat="hakukohde in theme.hkkohde" data-ng-show="naytaLista">
+            <div data-ng-show="hakukohde.additionalQuestions.length >0" style="margin-left: 30px;">
+                <hakukohde-lisakysymykset></hakukohde-lisakysymykset>
+                <ul data-ng-show="naytaKysymysLista" class="tree hh-hierarkia-list">
+                    <li data-ng-repeat="question in hakukohde.additionalQuestions | orderBy:'ordinal'" >
+                        <lisakysymykset></lisakysymykset>
+
+                        <ul data-ng-if="question.attachmentRequests.length > 0 && !question.options" data-ng-show="naytaKysymysLista" class="hh-hierarkia-list">
+                            <li data-ng-repeat="liitepyynto in question.attachmentRequests">
+                            <div  class="icon-attach">
+                                {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
+                                <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
+                                <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
+                                <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
+                            </div>
+                            </li>
+                        </ul>
+
+                        <ul data-ng-if="question.options" data-ng-show="naytaKysymysLista" class="hh-hierarkia-list">
+                            <li data-ng-repeat="option in question.options">
+                                <div>
+                                    <i class="icon-comment-empty"></i>
+                                    <div class="dropdown" data-ng-show="sortBtns">
+                                        <a class="dropdown-toggle">
+                                            <i class="hh-icon-menu"></i>
+                                        </a>
+                                        <ul class="dropdown-menu menu-inside-tree">
+                                            <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question, option)" ><a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    {{option | i18n:'optionText':userLang}}
+                                </div>
+
+                                <ul class="hh-hierarkia-list">
+                                    <li data-ng-repeat="liitepyynto in question.attachmentRequests" data-ng-if="question.attachmentRequests.length >0">
+                                        <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
+                                            {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
+                                            <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
+                                            <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
+                                            <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
+                                        </div>
+
+                                    </li>
+                                    <li data-ng-repeat="question in option.questions" data-ng-if="option.questions.length > 0">
+                                        <lisakysymykset></lisakysymykset>
+
+                                        <ul data-ng-if="question.attachmentRequests.length > 0 && !question.options" data-ng-show="naytaKysymysLista" class="hh-hierarkia-list">
+                                            <li data-ng-repeat="liitepyynto in question.attachmentRequests">
+                                                <div  class="icon-attach">
+                                                    {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
+                                                    <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
+                                                    <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
+                                                    <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <ul data-ng-show="question.options && naytaKysymysLista" class="hh-hierarkia-list">
+                                            <li data-ng-repeat="option in question.options">
+                                                <div>
+                                                    <i class="icon-comment-empty"></i>
+                                                    <div class="dropdown" data-ng-show="sortBtns">
+                                                        <a class="dropdown-toggle">
+                                                            <i class="hh-icon-menu"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu menu-inside-tree">
+                                                            <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question, option)" ><a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    {{option | i18n:'optionText':userLang}}
+                                                </div>
+                                                <ul class="hh-hierarkia-list" data-ng-if="question.attachmentRequests.length >0">
+                                                    <li data-ng-repeat="liitepyynto in question.attachmentRequests">
+                                                        <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
+                                                            {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
+                                                            <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
+                                                            <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
+                                                            <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <hr>
+    </div>
+</div>

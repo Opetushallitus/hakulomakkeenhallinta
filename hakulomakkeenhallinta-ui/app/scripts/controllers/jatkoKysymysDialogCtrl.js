@@ -1,15 +1,18 @@
 'use strict';
  angular.module('hakulomakkeenhallintaUiApp.controllers')
-     .controller('addRuleCtrl', function($scope, $modalInstance, hkKysymysLista, $filter) {
+     .controller('jatkoKysymysDialogCtrl', [ '$scope', '$modalInstance', 'jatkokysymysObj', '$filter', 'JatkokysymysService',
+          function ($scope, $modalInstance, jatkokysymysObj, $filter, JatkokysymysService) {
 
-
-         $scope.hkKysymysLista = $filter('filter')(hkKysymysLista,
+         /*$scope.hkKysymysLista = $filter('filter')(hkKysymysLista,
              function (hkKysymysLista) {
                 if (hkKysymysLista.type === 'RadioButton' || hkKysymysLista.type === 'CheckBox'){
                     return true;
                 }
                  return false;
-         });
+         });*/
+
+         console.log('### \n', jatkokysymysObj, '\n ####');
+         $scope.hkKysymysLista = jatkokysymysObj.kysymykset;
 
          $scope.jatkoKysymykset = [];
          $scope.vastauksia = [];
@@ -30,8 +33,15 @@
          };
 
          $scope.cancel = function () {
+             JatkokysymysService.setJatkokysymysObj = undefined;
              $modalInstance.dismiss('cancel');
          };
+         console.log('23545 question ',jatkokysymysObj.kysymys);
+         console.log('23545 option', jatkokysymysObj.vastaus);
+         if (jatkokysymysObj.kysymys !== undefined) {
+             $scope.valittuKysymys = jatkokysymysObj.kysymys;
+         }
+
 
          $scope.valittuKysymys = function () {
              console.log('##', this.valittukysymys._id);
@@ -106,5 +116,17 @@
              };
 
          };
-});
+
+         $scope.lisaaUusiKysymysFromJatkokysymys = function () {
+             console.log('## ', 'Lisää uus kysymys', jatkokysymysObj.kysymykset);
+             console.log('## ', 'Lisää uus kysymys', jatkokysymysObj.teema, jatkokysymysObj.hakukohde);
+//             $modalInstance.close(hkKysymysLista);
+
+             $modalInstance.dismiss('lisaa uusi kysymys');
+             $scope.addQuestionAtHakukohde(jatkokysymysObj.teema, jatkokysymysObj.hakukohde, jatkokysymysObj)
+         }
+
+
+
+}]);
 

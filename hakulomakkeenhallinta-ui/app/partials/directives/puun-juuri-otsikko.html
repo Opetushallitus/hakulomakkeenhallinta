@@ -1,6 +1,7 @@
 <div>
-    <div class="hh-list-h3"><i data-ng-class="{'hh-icon-right':!naytaHakukohteet, 'hh-icon-down':naytaHakukohteet}" data-ng-click="toggleNaytaHakukohteet()" ></i>
-    <div class="dropdown" style="display: inline-block !important;"> <a class="dropdown-toggle">
+    <div class="hh-list-h3"><i data-ng-class="{'hh-icon-right':!naytaLista, 'hh-icon-down':naytaLista}" data-ng-click="toggleLista()" ></i>
+    <div class="dropdown" style="display: inline-block !important;">
+    <a class="dropdown-toggle">
         <i class="hh-icon-menu"></i>
     </a>
         <ul class="dropdown-menu">
@@ -8,10 +9,10 @@
             <li data-ng-click="showAllQuestions()"><a>{{ t('nayta.piilota.kysymykset') || 'Näytä/piilota kysymykset' }} <i class="glyphicon glyphicon-resize-vertical"></i></a></li>
         </ul>
     </div>
-    <a data-ng-click="toggleNaytaHakukohteet()"> {{ otsikko }}
+    <a data-ng-click="toggleLista()"> {{ otsikko }}
         <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span>
         <span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span>
-        <span data-ng-show="naytaMaara">({{hakukohdeMaara}})</span>
+        <span data-ng-show="naytaMaara">({{maara}})</span>
     </a>
     </div>
 </div>
