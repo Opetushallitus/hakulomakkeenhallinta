@@ -163,9 +163,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         QuestionData.setTheme(theme);
                         QuestionData.setApplicatioSystemId($routeParams.id);
                         QuestionData.setEditFlag(false);
-                        QuestionData.setLearningOpportunityId(QuestionData.getApplicationOption().oid);
+                        QuestionData.setLearningOpportunityId(hakukohde.aoid);
                         $rootScope.LOGS('ThemeQuestionByOrganisationCtrl', QuestionData.getQuestion() );
-                        $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid + '/' + QuestionData.getApplicationOption().oid + '/' + theme.id + '/' + data.type.id);
+                        $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid + '/' + hakukohde.aoid + '/' + theme.id + '/' + data.type.id);
                     }, function (data) {
                         console.log('DSFGDFgh ', data);
                         if (data.msg === 'jatkokysymys') {
