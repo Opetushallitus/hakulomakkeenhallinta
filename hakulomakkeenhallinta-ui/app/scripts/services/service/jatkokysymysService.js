@@ -35,6 +35,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             };
 
             this.setJatkokysymysObj = function (jtksObj) {
+                console.log('JatkokysymysService', 'setJatkokysymysObj()', jtksObj);
                 _jatkokysymysObj = jtksObj;
             };
 
