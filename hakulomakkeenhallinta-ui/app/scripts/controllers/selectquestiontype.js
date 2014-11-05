@@ -34,8 +34,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
         $scope.ok = function () {
             $modalInstance.close({
-                    type: this.type,
-                    jatkokysymysObj: jatkokysymysObj;
+                    type: this.type
                 }
             );
         };
