@@ -1,6 +1,6 @@
 <div data-ng-controller="HakulomakkeetListaCtrl">
     <div class="input-group">
-        <input class="form-control" type="text" data-ng-model="search" id="hakuKentta" size="32" >
+        <input class="form-control" type="text" data-ng-model="search" id="hakuKentta" size="32" data-ng-change="setSearchToCookie()" >
         <!--TODO: mahdollistetaan tämä kun taustajärjestelmä tukee tätä-->
             <!--<label for="organisation" >{{ t('valitse.organisaatio') || 'Valitse organisaatio' }} </label>-->
             <!--<select class="form-control" name="organisaatio" id="organisation" ng-model="userOrg"

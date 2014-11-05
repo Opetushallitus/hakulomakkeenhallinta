@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
-        function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location) {
+    .directive('hakukohdeLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location', '$cookies',
+        function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location, $cookies) {
             return {
                 restrict: 'E',
                 replace: true,
                 template: '<div data-ng-hide="hakukohdePoistettu">' +
                     '<div class="hh-list-h4">' +
-                    '<i class="glyphicon" ng-class="{\'glyphicon-chevron-down\': naytaKysymysLista, \'glyphicon-chevron-right\': !naytaKysymysLista }" data-ng-click="toggleNaytaKysymykset()"></i>' +
+                    '<i class="glyphicon" data-ng-class="{\'hh-icon-right\':!naytaKysymysLista, \'hh-icon-down\':naytaKysymysLista}" data-ng-click="toggleNaytaKysymykset()"></i>' +
 
                     '<div class="dropdown" style="display: inline-block !important;">' +
                     '<a class="dropdown-toggle" data-ng-hide="hakukohdePoistettu">' +
@@ -39,7 +39,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.hakukohdePoistettu = false;
                     $scope.kysymysMaara = 0;
 
-//                    $scope.naytaKysymysLista = false;
+
+
+//                        $scope.naytaKysymysLista = false;
                     $scope.naytaKysymysLista = true;
                     $scope.toggleNaytaKysymykset = function () {
                         $scope.naytaKysymysLista = !$scope.naytaKysymysLista;

@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SelectQuestionTypeCtrl',
-        function($scope, $rootScope, $modalInstance, FormEditor, applicationSystem, theme, hakukohde, $filter, jatkokysymysObj, TarjontaAPI) {
+        function($scope, $rootScope, $modalInstance, FormEditor, applicationSystem, theme, hakukohde, $filter, JatkokysymysService, TarjontaAPI) {
 
         $rootScope.LOGS('SelectQuestionTypeCtrl');
         $scope.applicationSystem =  applicationSystem;
@@ -23,6 +23,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         }
 
         $scope.types;
+        var jatkokysymysObj = JatkokysymysService.getJatkokysymysObj();
         /**
          * haetaan kysymys tyypit HH:n taustajärjestelmästä
          */
@@ -34,7 +35,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.ok = function () {
             $modalInstance.close({
                     type: this.type,
-                    jatkokysymysObj: jatkokysymysObj
+                    jatkokysymysObj: jatkokysymysObj;
                 }
             );
         };

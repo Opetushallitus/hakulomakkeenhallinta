@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio',
-        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio) {
+    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio', '$cookies',
+        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio, $cookies) {
             $rootScope.LOGS('HakulomakkeetListaCtrl');
 
             $scope.applicationForms = [];
@@ -10,7 +10,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.vuodet = [];
             $scope.kaudet = [];
             $scope.hakutyypit = [];
+            $scope.search = $cookies.formListSearch;
 
+            $scope.setSearchToCookie = function () {
+                $cookies.formListSearch = $scope.search;
+            }
             /**
              * haetaan hakulomakkeet lista
              */

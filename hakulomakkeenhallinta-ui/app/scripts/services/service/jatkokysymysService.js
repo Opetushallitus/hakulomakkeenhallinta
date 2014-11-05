@@ -12,7 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             this.lisaaJatkokysymys = function (jatkokysymysObj) {
                 console.log('JatkokysymysService', 'lisaaJatkokysymys', 'Jatkokysymys dialogin avaus ');
                 console.log('Teema: ', jatkokysymysObj.teema);
-                console.log('Hakukohde: ',jatkokysymysObj.hakukohde);
+                console.log('Hakukohde: ', jatkokysymysObj.hakukohde);
                 console.log('Kysymykset: ', jatkokysymysObj.kysymykset);
                 console.log('Vastaus: ', jatkokysymysObj.vastaus);
                 console.log('jatkokysymys Objecti: ', jatkokysymysObj);

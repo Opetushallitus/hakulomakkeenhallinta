@@ -6,6 +6,7 @@ var app = angular.module('hakulomakkeenhallinta', [
     'ui.bootstrap',
     'jm.i18next',
     'ngSanitize',
+    'ngCookies',
     'hakulomakkeenhallintaUiApp.filters',
     'hakulomakkeenhallintaUiApp.directives',
     'hakulomakkeenhallintaUiApp.services.provider',
