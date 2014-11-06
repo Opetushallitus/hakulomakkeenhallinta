@@ -1,7 +1,6 @@
 <div class="from-group">
     <div data-ng-repeat="theme in themes">
         <teema-otsikko></teema-otsikko>
-        <!--<div data-ng-repeat="hakukohde in theme.hkkohde" data-ng-show="naytaLista" data-ng-controller="jatkoKysymysCtrl">-->
         <div data-ng-repeat="hakukohde in theme.hkkohde" data-ng-show="naytaLista">
             <div data-ng-show="hakukohde.additionalQuestions.length >0" style="margin-left: 30px;">
                 <hakukohde-lisakysymykset></hakukohde-lisakysymykset>

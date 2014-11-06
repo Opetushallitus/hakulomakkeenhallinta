@@ -1,132 +1,89 @@
 'use strict';
- angular.module('hakulomakkeenhallintaUiApp.controllers')
-     .controller('jatkoKysymysDialogCtrl', [ '$scope', '$modalInstance', 'jatkokysymysObj', '$filter', 'JatkokysymysService',
-          function ($scope, $modalInstance, jatkokysymysObj, $filter, JatkokysymysService) {
+angular.module('hakulomakkeenhallintaUiApp.controllers')
+    .controller('jatkoKysymysDialogCtrl', [ '$scope', '$modalInstance', '$filter', 'JatkokysymysService', '_',
+        function ($scope, $modalInstance, $filter, JatkokysymysService, _) {
 
-         /*$scope.hkKysymysLista = $filter('filter')(hkKysymysLista,
-             function (hkKysymysLista) {
-                if (hkKysymysLista.type === 'RadioButton' || hkKysymysLista.type === 'CheckBox'){
-                    return true;
+            var jatkokysymysObj = JatkokysymysService.getJatkokysymysObj(),
+                kysymykset = jatkokysymysObj.kysymykset;
+            $scope.kysymykset = kysymykset;
+            $scope.valittukysymys = jatkokysymysObj.kysymys;
+            $scope.vastaus = jatkokysymysObj.vastaus;
+            $scope.vastauksenJatkoKysymykset = _.without(kysymykset, jatkokysymysObj.kysymys);
+
+//            console.log('### \n', jatkokysymysObj, '\n ####');
+            console.log('### kysymys: ', jatkokysymysObj.kysymys);
+            console.log('### vastaus: ', jatkokysymysObj.vastaus);
+            $scope.tallennettavatJatkokysymykset = [];
+            $scope.jatkokysymysLista = [];
+
+            var jatko = {};
+            jatko.parentId = $scope.valittukysymys._id;
+            jatko.condition = '';
+            jatko.vastauksenJatkoKysymykset = $scope.vastauksenJatkoKysymykset;
+            if ($scope.vastaus !== undefined) {
+                jatko.condition = $scope.vastaus.id;
+            }
+
+            $scope.jatkokysymysLista.push(jatko);
+
+            /**
+             * Tallentaa jatkokysymykset valittuu
+             * kysymyksen vastaukseen
+             */
+            $scope.tallennaJatkokysymykset = function () {
+                console.log('GGGG ',kysymykset);
+                //TODO: tähän jatkokysmysten tallennus kun bacend tukee sitä
+                $modalInstance.close(kysymykset);
+            };
+            /**
+             * Suljetaan jatkokysymys dialogi
+             */
+            $scope.cancel = function () {
+                JatkokysymysService.setJatkokysymysObj(undefined);
+                $modalInstance.dismiss('cancel');
+            };
+            /**
+             * asetetaa valittu kysymys johon jatkokysymykset
+             * liitetään
+             * valitun kysymyksen suhteen
+             */
+            $scope.valittuKysymys = function () {
+                $scope.vastaus = null;
+                jatko.condition = '';
+                if (this.valittukysymys !== null) {
+                    $scope.vastauksenJatkoKysymykset = _.without(kysymykset, this.valittukysymys);
+                    jatko.parentId = this.valittukysymys._id;
+                } else {
+                    jatko.parentId = '';
                 }
-                 return false;
-         });*/
-
-         console.log('### \n', jatkokysymysObj, '\n ####');
-         $scope.hkKysymysLista = jatkokysymysObj.kysymykset;
-            var hkKysymysLista = jatkokysymysObj.kysymykset;
-         $scope.jatkoKysymykset = [];
-         $scope.vastauksia = [];
-         var vastaus = {};
-            vastaus.id = 'option_0';
-         $scope.vastauksia.push(vastaus);
-
-         $scope.jatkokysymysLista = [];
-         var jatko = {};
-             jatko._id = 'muuta tamä';
-         $scope.jatkokysymysLista.push(jatko);
-
-
-         $scope.tallennaSaanto = function () {
-             console.log('GGGG ',hkKysymysLista);
-             $modalInstance.close(hkKysymysLista);
-
-         };
-
-         $scope.cancel = function () {
-             JatkokysymysService.setJatkokysymysObj(undefined);
-             $modalInstance.dismiss('cancel');
-         };
-         console.log('23545 question ',jatkokysymysObj.kysymys);
-         console.log('23545 option', jatkokysymysObj.vastaus);
-         if (jatkokysymysObj.kysymys !== undefined) {
-             $scope.valittuKysymys = jatkokysymysObj.kysymys;
-         }
-
-
-         $scope.valittuKysymys = function () {
-             console.log('##', this.valittukysymys._id);
-             var valKysymys = this.valittukysymys;
-             $scope.jatkoKysymykset = $filter('filter')(hkKysymysLista,
-                function (hkKysymysList) {
-                    if (valKysymys._id === hkKysymysList._id) {
-                        return false;
-                    }
-                    return true;
-                });
-         };
-
-         $scope.lisaaVastaus = function () {
-
-             var vastaus = {};
-                vastaus.id = 'option_' + $scope.vastauksia.length;
-             $scope.vastauksia.push(vastaus);
-             console.log($scope.vastauksia);
-         };
-
-         $scope.vahennaVastaus = function () {
-             $scope.vastauksia.pop();
-             console.log($scope.vastauksia);
-         };
-
-         $scope.lisaaJatkoKysymys = function () {
-             var jatko = {};
-             jatko._id = $scope.jatkokysymysLista.length;
-             $scope.jatkokysymysLista.push(jatko);
-
-         };
-        $scope.vastaus;
-        $scope.saanto;
-         $scope.valittuVastaus = function (vastaus) {
-             $scope.vastaus = vastaus;
-         };
-
-         $scope.valittuSaanto = function (saanto) {
-             $scope.saanto = saanto;
-         };
-         $scope.vahennaJatkoKysymys = function () {
-             $scope.jatkokysymysLista.pop();
-         };
-
-         $scope.valittuJatkoKysymys = function (jatkokysymys) {
-             console.log('*** ',jatkokysymys._id);
-             console.log('*** ', $scope.vastaus.id);
-             console.log('*** ', $scope.saanto);
-             jatkokysymys.parentId = this.valittukysymys._id;
-             jatkokysymys.optionId = $scope.vastaus.id;
-            for (var i = 0, hkKysL = hkKysymysLista.length; i < hkKysL; i += 1) {
-                if (hkKysymysLista[i]._id === jatkokysymys._id) {
-                    hkKysymysLista.splice(i,1);
-                    break;
+            };
+            /**
+             * asetetaan kysymyksen vastaus johon jatkokysymykset
+             * liitetään
+             * @param vastaus
+             */
+            $scope.valittuVastaus = function (vastaus) {
+                $scope.vastaus = vastaus;
+                if (vastaus !== null) {
+                    jatko.condition = vastaus.id;
+                } else {
+                    jatko.condition = '';
                 }
             };
 
-             for (var j = 0, hkKysL2 = hkKysymysLista.length; j < hkKysL2; j += 1) {
-                 if (hkKysymysLista[j]._id === this.valittukysymys._id) {
-                        for (var o = 0, optionsL = hkKysymysLista[j].options.length; o < optionsL; o += 1) {
-                            if (hkKysymysLista[j].options[o].id === $scope.vastaus.id) {
-                                console.log('onkose vai: ',hkKysymysLista[j].options[o].questions);
-                                if (!hkKysymysLista[j].options[o].questions) {
-                                    hkKysymysLista[j].options[o].questions = [];
-                                }
-                                hkKysymysLista[j].options[o].questions.push(jatkokysymys);
-                                console.log(hkKysymysLista[j].options[o]);
-                            }
-                        }
-                 }
-             };
-
-         };
-
-         $scope.lisaaUusiKysymysFromJatkokysymys = function () {
-             console.log('## ', 'Lisää uus kysymys', jatkokysymysObj.kysymykset);
-             console.log('## ', 'Lisää uus kysymys', jatkokysymysObj.teema, jatkokysymysObj.hakukohde);
-//             $modalInstance.close(hkKysymysLista);
-
-             $modalInstance.dismiss('lisaa uusi kysymys');
-             $scope.addQuestionAtHakukohde(jatkokysymysObj.teema, jatkokysymysObj.hakukohde, jatkokysymysObj)
-         }
+            /**
+             * Luodaan uusi jatkokysymys
+             */
+            $scope.luoJatkokysymys = function () {
+                console.log('## ', 'Luo uusi jatkokysymys ', jatkokysymysObj.kysymykset);
+                console.log('## ', 'Luo uusi jatkokysymys ', jatkokysymysObj.teema, jatkokysymysObj.hakukohde);
+                //suljetaan lisää jatkokysymys dialogi
+                $modalInstance.dismiss('Luo_uusi_jatkokysymys');
+                //avataan lisää uusi kysymys dialogit
+                $scope.addQuestionAtHakukohde(jatkokysymysObj.teema, jatkokysymysObj.hakukohde)
+            }
 
 
 
-}]);
+        }]);
 

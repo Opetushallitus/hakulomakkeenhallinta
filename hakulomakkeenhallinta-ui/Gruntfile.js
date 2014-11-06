@@ -80,7 +80,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-rename');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('dev', ['clean:start', 'copy:propslocal', 'copy:propslocalapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'copy:testdata', 'copy:localcas', 'usemin', 'uglify:hh_target', 'clean:end']);
+    grunt.registerTask('dev_static', ['clean:start', 'copy:propslocal', 'copy:propslocalapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'copy:testdata', 'copy:localcas', 'usemin', 'uglify:hh_target', 'clean:end']);
+    grunt.registerTask('dev', ['clean:start', 'copy:propslocal', 'copy:propsserversapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'copy:testdata', 'copy:localcas', 'usemin', 'uglify:hh_target', 'clean:end']);
     grunt.registerTask('default', ['clean:start', 'copy:propsservers', 'copy:propsserversapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'usemin', 'clean:end']);
 
 };

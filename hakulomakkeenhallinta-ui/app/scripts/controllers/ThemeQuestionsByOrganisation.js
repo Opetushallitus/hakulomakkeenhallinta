@@ -181,16 +181,22 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.back = function () {
                 $location.path('/');
             };
-
-
-            $scope.lisaaJatkokysymys = function (hkKysymysLista, hakukohde, theme, question, option){
-                console.log('ThemeQuestionByOrganisationCtrl ', 'lisaaJatkokysymys()');
-                console.log('Hakukohde: ', hakukohde);
+            /**
+             * Lisätään uusi jatkokysymys kysymyksen vastaukseen
+             * @param kysymykset lista kysymyksiä
+             * @param hakukohde johon kysymys liitetään
+             * @param teema johon kysymys liitetään
+             * @param kysymys johon kysymys liitetään
+             * @param vastaus johon kysymys liitetään [optional]
+             */
+            $scope.lisaaJatkokysymys = function (kysymykset, hakukohde, teema, kysymys, vastaus){
+                $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'lisaaJatkokysymys()');
+                /*console.log('Hakukohde: ', hakukohde);
                 console.log('Teema: ', theme);
                 console.log('Kysymys: ', question);
-                console.log('Vastaus: ', option);
+                console.log('Vastaus: ', option);*/
 
-                JatkokysymysService.lisaaJatkokysymys({ kysymykset: hkKysymysLista, hakukohde: hakukohde, teema: theme, scope: $scope, kysymys: question, vastaus:option });
+                JatkokysymysService.lisaaJatkokysymys({ kysymykset: kysymykset, hakukohde: hakukohde, teema: teema, scope: $scope, kysymys: kysymys, vastaus: vastaus });
             };
 
 
