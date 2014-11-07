@@ -5,7 +5,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             var jatkokysymysObj = JatkokysymysService.getJatkokysymysObj(),
                 kysymykset = jatkokysymysObj.kysymykset;
-            $scope.kysymykset = kysymykset;
+
+            $scope.kysymykset = _.filter(kysymykset, function (k) { if (k.type === 'RadioButton' || k.type === 'CheckBox') { return k; } });
             $scope.valittukysymys = jatkokysymysObj.kysymys;
             $scope.vastaus = jatkokysymysObj.vastaus;
             $scope.vastauksenJatkoKysymykset = _.without(kysymykset, jatkokysymysObj.kysymys);
@@ -30,11 +31,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * Tallentaa jatkokysymykset valittuu
              * kysymyksen vastaukseen
              */
-            $scope.tallennaJatkokysymykset = function () {
-                console.log('Tallentaan jatkokysymykset -->',kysymykset);
-                //TODO: tähän jatkokysmysten tallennus kun bacend tukee sitä
-                $modalInstance.close(kysymykset);
-            };
+//            $scope.tallennaJatkokysymykset = function () {
+//                console.log('Tallentaan jatkokysymykset -->',kysymykset);
+//                //TODO: tähän jatkokysmysten tallennus kun bacend tukee sitä
+//                $modalInstance.close(kysymykset);
+//            };
             /**
              * Suljetaan jatkokysymys dialogi
              */

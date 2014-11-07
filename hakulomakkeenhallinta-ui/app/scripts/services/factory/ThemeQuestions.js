@@ -194,6 +194,39 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                                 themes[indx].hkkohde[indx2] = {};
                                                 themes[indx].hkkohde[indx2].aoid = lopId;
                                                 themes[indx].hkkohde[indx2].additionalQuestions = _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId});
+
+                                                var jatkoQarray = _.filter(themes[indx].hkkohde[indx2].additionalQuestions, function (jatkoQ) {
+                                                    if (jatkoQ.parentId !== undefined) {
+                                                        return jatkoQ;
+                                                    }
+                                                });
+
+                                                if (jatkoQarray.length  > 0) {
+                                                    themes[indx].hkkohde[indx2].additionalQuestions = _.difference(themes[indx].hkkohde[indx2].additionalQuestions, jatkoQarray);
+                                                    _.each(themes[indx].hkkohde[indx2].additionalQuestions, function (question, indx3) {
+                                                            console.log('€€ ', question._id);
+                                                            _.each(jatkoQarray, function (jatQ) {
+                                                                if (jatQ.parentId === question._id) {
+                                                                    console.log('€€ ', question.options);
+                                                                    _.each(question.options, function (option, indx4) {
+                                                                            console.log('&& ', option.id, jatQ.followupCondition);
+                                                                            if (option.id === jatQ.followupCondition) {
+                                                                                console.log('^^^ ', jatQ);
+                                                                                if (themes[indx].hkkohde[indx2].additionalQuestions[indx3].options[indx4].questions === undefined) {
+                                                                                    themes[indx].hkkohde[indx2].additionalQuestions[indx3].options[indx4].questions = [];
+                                                                                }
+                                                                                themes[indx].hkkohde[indx2].additionalQuestions[indx3].options[indx4].questions.push(jatQ);
+                                                                            }
+                                                                        }
+                                                                    );
+                                                                }
+                                                            });
+
+                                                        }
+                                                    );
+                                                    console.log('###### ', jatkoQarray);
+                                                    console.log('###### ', themes[indx].hkkohde[indx2].additionalQuestions);
+                                                }
                                             }
                                         );
                                         $rootScope.LOGS('ThemeQuestions', '#2 ', themes[indx].hkkohde);
