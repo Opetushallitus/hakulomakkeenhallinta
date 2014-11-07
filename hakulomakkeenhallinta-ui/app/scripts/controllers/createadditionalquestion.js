@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -17,6 +17,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.teema = '';
             $scope.kysymysTyyppi = '';
             $scope.tallennaClicked = false;
+
+            if(JatkokysymysService.getParentQuestion() !== undefined) {
+                console.log('##### JATKOKYSYMYS OLEMASSA ####');
+                console.log(JatkokysymysService.getParentQuestion());
+            }
 
             FormEditor.getLanguages().then(
                 function (data) {
@@ -81,6 +86,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tallennaUusi = function () {
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'tallennaUusi()');
                 $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
+                if(JatkokysymysService.getParentQuestion() !== undefined) {
+                    $scope.question.parentId = JatkokysymysService.getParentQuestion().parentId;
+                    $scope.question.followupCondition = JatkokysymysService.getParentQuestion().followupCondition;
+                }
                 if ($scope.kysymys.$valid) {
                     ThemeQuestions.createNewQuestion($routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                         function success (data) {

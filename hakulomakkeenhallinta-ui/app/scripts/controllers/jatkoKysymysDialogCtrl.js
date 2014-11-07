@@ -13,25 +13,25 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 //            console.log('### \n', jatkokysymysObj, '\n ####');
             console.log('### kysymys: ', jatkokysymysObj.kysymys);
             console.log('### vastaus: ', jatkokysymysObj.vastaus);
+
             $scope.tallennettavatJatkokysymykset = [];
             $scope.jatkokysymysLista = [];
 
-            var jatko = {};
-            jatko.parentId = $scope.valittukysymys._id;
-            jatko.condition = '';
-            jatko.vastauksenJatkoKysymykset = $scope.vastauksenJatkoKysymykset;
+            $scope.jatko = {};
+            $scope.jatko.parentId = $scope.valittukysymys._id;
+            $scope.jatko.followupCondition = '';
+//            $scope.jatko.vastauksenJatkoKysymykset = $scope.vastauksenJatkoKysymykset;
             if ($scope.vastaus !== undefined) {
-                jatko.condition = $scope.vastaus.id;
+                $scope.jatko.followupCondition = $scope.vastaus.id;
             }
 
-            $scope.jatkokysymysLista.push(jatko);
-
+            $scope.jatkokysymysLista.push($scope.jatko);
             /**
              * Tallentaa jatkokysymykset valittuu
              * kysymyksen vastaukseen
              */
             $scope.tallennaJatkokysymykset = function () {
-                console.log('GGGG ',kysymykset);
+                console.log('Tallentaan jatkokysymykset -->',kysymykset);
                 //TODO: tähän jatkokysmysten tallennus kun bacend tukee sitä
                 $modalInstance.close(kysymykset);
             };
@@ -40,6 +40,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.cancel = function () {
                 JatkokysymysService.setJatkokysymysObj(undefined);
+                JatkokysymysService.setParentQuestion(undefined);
                 $modalInstance.dismiss('cancel');
             };
             /**
@@ -49,12 +50,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.valittuKysymys = function () {
                 $scope.vastaus = null;
-                jatko.condition = '';
+                $scope.jatko.followupCondition = '';
                 if (this.valittukysymys !== null) {
                     $scope.vastauksenJatkoKysymykset = _.without(kysymykset, this.valittukysymys);
-                    jatko.parentId = this.valittukysymys._id;
+                    $scope.jatko.parentId = this.valittukysymys._id;
                 } else {
-                    jatko.parentId = '';
+                    $scope.jatko.parentId = '';
                 }
             };
             /**
@@ -65,9 +66,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.valittuVastaus = function (vastaus) {
                 $scope.vastaus = vastaus;
                 if (vastaus !== null) {
-                    jatko.condition = vastaus.id;
+                    $scope.jatko.followupCondition = vastaus.id;
                 } else {
-                    jatko.condition = '';
+                    $scope.jatko.followupCondition = '';
                 }
             };
 
@@ -78,9 +79,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 console.log('## ', 'Luo uusi jatkokysymys ', jatkokysymysObj.kysymykset);
                 console.log('## ', 'Luo uusi jatkokysymys ', jatkokysymysObj.teema, jatkokysymysObj.hakukohde);
                 //suljetaan lisää jatkokysymys dialogi
+                console.log('Luo_uusi_jatkokysymys', $scope.jatko);
+                JatkokysymysService.setParentQuestion($scope.jatko);
                 $modalInstance.dismiss('Luo_uusi_jatkokysymys');
                 //avataan lisää uusi kysymys dialogit
-                $scope.addQuestionAtHakukohde(jatkokysymysObj.teema, jatkokysymysObj.hakukohde)
+                $scope.addQuestionAtHakukohde(jatkokysymysObj.teema, jatkokysymysObj.hakukohde);
             }
 
 

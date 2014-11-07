@@ -4,7 +4,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('JatkokysymysService', [ '$rootScope', '$modal',
         function ($rootScope, $modal) {
 
-            var _jatkokysymysObj = undefined;
+            var _jatkokysymysObj = undefined,
+                _parentQuestion = undefined;
             /**
              * Function jatkokysymys dialogin avaamiseksi
              * @param jatkokysymysObj
@@ -43,5 +44,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             this.getJatkokysymysObj = function () {
                 return _jatkokysymysObj;
             };
+
+            this.getParentQuestion = function () {
+                return _parentQuestion;
+            }
+
+            this.setParentQuestion = function (parentQ) {
+                _parentQuestion = parentQ;
+            }
+
         }
     ]);

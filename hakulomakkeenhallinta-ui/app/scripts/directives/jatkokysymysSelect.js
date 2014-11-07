@@ -1,17 +1,19 @@
 'use strick';
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('jatkokysymysSelect', function () {
+    .directive('jatkokysymysSelect', [ '_', function (_) {
         return {
             restrict: 'E',
             replace: true,
             templateUrl: 'partials/directives/jatkokysymys-select.html',
             controller: function ($scope) {
+
                 /**
                  * Lisätään vastaukseen liittyviä
                  * jatkokysymyksiä
                  */
                 $scope.plussaaJatkokysmyksia = function (valittujatkokysymys, vastauksenJatkoKysymykset) {
-                    jatko.vastauksenJatkoKysymykset = _.without(vastauksenJatkoKysymykset, valittujatkokysymys);
+                    $scope.jatko.vastauksenJatkoKysymykset = _.without(vastauksenJatkoKysymykset, valittujatkokysymys);
+//                    if ()
                     $scope.jatkokysymysLista.push(jatko);
                 };
                 /**
@@ -21,6 +23,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.vahennaJatkoKysymys = function () {
                     $scope.jatkokysymysLista.pop();
                 };
+
 
                 /*            jatkokysymysLista [
                  {
@@ -44,8 +47,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     if (valittujatkokysymys !== null) {
                         console.log('*** ', valittujatkokysymys._id);
 //                    console.log('*** ', valittujatkokysymys.vastaus.id);
-                        valittujatkokysymys.parentId = jatko.parentId;
-                        valittujatkokysymys.condition = jatko.condition;
+                        valittujatkokysymys.parentId = $scope.jatko.parentId;
+                        valittujatkokysymys.followupCondition = $scope.jatko.followupCondition;
                         $scope.tallennettavatJatkokysymykset.push(valittujatkokysymys);
                     }
                     /*jatkokysymys.parentId = ;
@@ -79,4 +82,4 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 };
             }
         }
-    });
+    }]);
