@@ -10,7 +10,14 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<div class="hh-list-h4">' +
                     '<i class="glyphicon" data-ng-class="{\'hh-icon-right\':!naytaKysymysLista, \'hh-icon-down\':naytaKysymysLista}" data-ng-click="toggleNaytaKysymykset()"></i>' +
 
-                    '<div class="dropdown" style="display: inline-block !important;">' +
+
+                    '<a data-ng-click="toggleNaytaKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} ' +
+                    '<span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span> ' +
+                    '<span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span> ' +
+                    '({{kysymysMaara}})</a>' +
+
+
+                    '<div class="dropdown pull-right">' +
                     '<a class="dropdown-toggle" data-ng-hide="hakukohdePoistettu">' +
                     '<i class="hh-icon-menu"></i>' +
                     '</a>' +
@@ -19,12 +26,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     '<li data-ng-click="sortQuestions(theme.id, hakukohdeInfo.oid)"><a>{{ t(\'jarjesta.kysymykset\')|| \'Järjestä kysymykset\' }} <i class="glyphicon glyphicon-sort"></i></a> </li>' +
                     '</ul>' +
                     '</div>' +
-                    '<a data-ng-click="toggleNaytaKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }} ' +
-                    '<span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span> ' +
-                    '<span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span> ' +
-                    '({{kysymysMaara}})</a>' +
                     '</div>' +
-
                     '<div class="form-group" data-ng-show="!sortBtns && naytaKysymysLista">' +
                     '<button type="button" class="btn" data-ng-click="cancelSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="!sortBtns">{{ t(\'peruuta\')|| \'Peruutak\' }}</button> &nbsp;' +
                     '<button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id, hakukohdeInfo.oid)" data-ng-show="!sortBtns">{{ t(\'tallenna.jarjestys\')|| \'Tallenna järjestys\' }}</button>' +

@@ -1,24 +1,9 @@
-<div data-ng-hide="hakukohdePoistettu">
+<div class="hh-kysymys">
     <!--<div style="width: 12px;">
         {{question.ordinal}}
     </div>-->
 
-    <div class="dropdown" data-ng-show="sortBtns">
-        <a class="dropdown-toggle" data-ng-hide="hakukohdePoistettu">
-            <i class="hh-icon-menu"></i>
-        </a>
-        <ul class="dropdown-menu menu-inside-tree">
-            <li data-ng-click="muokkaaKysymysta(question, sortBtns)">
-                <a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a>
-            </li>
-            <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question)" >
-                <a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }} <i class="glyphicon glyphicon-plus"></i></a>
-            </li>
-            <li data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)">
-                <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
-            </li>
-        </ul>
-    </div>
+
 
     <div style="width: 70px; text-align: center;" data-ng-show="!sortBtns">
         <button class="btn btn-xs" data-ng-disabled="sortBtns || $first" data-ng-click="up($index)">
@@ -30,17 +15,37 @@
     </div>
 
     <div>
+        <i data-ng-class="{'hh-icon-right':!naytaKysymysLista, 'hh-icon-down':naytaKysymysLista}" data-ng-click="toggleNaytaKysymykset()"></i>
         <a data-ng-click="toggleNaytaKysymykset()"
            data-ng-disabled="!question.options || !question.attachmentRequests > 0" >{{ question | i18n:'messageText':userLang}}
             <i class="icon"
                data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}">
             </i>
-            <i class="glyphicon"
-               ng-class="{'glyphicon-chevron-down': naytaKysymysLista, 'glyphicon-chevron-right': !naytaKysymysLista }"
-               data-ng-show="question.options || question.attachmentRequests">
-            </i>
+            <!--<i class="glyphicon"-->
+               <!--ng-class="{'glyphicon-chevron-down': naytaKysymysLista, 'glyphicon-chevron-right': !naytaKysymysLista }"-->
+               <!--data-ng-show="question.options || question.attachmentRequests">-->
+            <!--</i>-->
         </a>
         <input type="checkbox" data-ng-model="showJson" >
+
+        <div class="dropdown pull-right" data-ng-show="sortBtns">
+            <a class="dropdown-toggle" data-ng-hide="hakukohdePoistettu">
+                <i class="hh-icon-menu"></i>
+            </a>
+            <ul class="dropdown-menu menu-inside-tree">
+                <li data-ng-click="muokkaaKysymysta(question, sortBtns)">
+                    <a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a>
+                </li>
+                <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question)">
+                    <a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }} <i
+                            class="glyphicon glyphicon-plus"></i></a>
+                </li>
+                <li data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)">
+                    <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
+                </li>
+            </ul>
+        </div>
     </div>
+
     <pre data-ng-show="showJson">{{question | without | json}}</pre>
 </div>
