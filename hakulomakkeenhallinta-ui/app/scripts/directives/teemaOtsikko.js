@@ -7,8 +7,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             replace: true,
             templateUrl: 'partials/directives/puun-juuri-otsikko.html',
             controller: function ($scope) {
-//                $scope.naytaLista = false;
-                $scope.naytaLista = true;
+                $scope.naytaLista = false;
                 $scope.maara = 0;
                 $scope.naytaMaara = true;
                 $scope.otsikko = $filter('i18n')($scope.theme, 'name', $scope.userLang);
@@ -16,9 +15,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * näyttää / piilottaa otsikon alla olevan listan
                  */
                 $scope.toggleLista = function () {
-                    if ($scope.maara > 0) {
-                        $scope.naytaLista = !$scope.naytaLista;
-                    }
+                    $scope.naytaLista = !$scope.naytaLista;
                 };
                 /**
                  * näyttää / piilottaa kaikki hakukohteessa olevat kysymykset

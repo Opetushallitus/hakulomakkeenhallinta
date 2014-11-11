@@ -21,37 +21,14 @@
                 data-ng-change="valittuVastaus(vastaus)">
             <option value=""> Valitse </option>
         </select>
-        <!--<label>Tällöin hakijalle näytetään jatkokysymys</label>-->
-        <!--<div>-->
-            <!--<button class="btn" data-ng-click="luoJatkokysymys()"-->
-                    <!--data-ng-disabled="!vastaus">-->
-                <!--<i class="glyphicon glyphicon-plus-sign"></i>-->
-                <!--{{ t('luo.jatkokysymys') || 'Luo jatkokysymys' }}-->
-            <!--</button>-->
-        <!--</div>-->
-        <!--<label>tai</label>-->
-
-
-        <!--<div data-ng-repeat="jatkoQ in jatkokysymysLista">-->
-            <!--<jatkokysymys-select></jatkokysymys-select>-->
-        <!--</div>-->
     </div>
 
     <div class="modal-footer">
-        <button class="btn" ng-click="cancel()" tl="peruuta"></button>
+        <button class="btn" ng-click="cancel()" tl="peruuta">Peruuta</button>
         <button class="btn btn-primary" data-ng-click="luoJatkokysymys()"
                 data-ng-disabled="!vastaus">
             <i class="glyphicon glyphicon-plus-sign"></i>
             {{ t('luo.jatkokysymys') || 'Luo jatkokysymys' }}
         </button>
-        <!--<button class="btn btn-primary" ng-click="tallennaJatkokysymykset()" tl="tallenna"></button>-->
     </div>
-
-    <!--<div>-->
-        <!--<pre>{{jatko | without | json}}</pre>-->
-        <!--<pre>{{tallennettavatJatkokysymykset | without | json}}</pre>-->
-    <!--    <br>
-        <pre>{{jatkokysymysLista | without | json}}</pre>
-        <br>-->
-    <!--</div>-->
 </form>

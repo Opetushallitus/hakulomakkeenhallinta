@@ -8,7 +8,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             templateUrl: 'partials/directives/lisakysymykset.html',
             controller: function ($scope) {
                 $scope.naytaKysymysLista = false;
-//                $scope.naytaKysymysLista = true;
                 $scope.toggleNaytaKysymykset = function () {
                     $scope.naytaKysymysLista = !$scope.naytaKysymysLista;
                 };

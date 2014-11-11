@@ -11,14 +11,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.naytaHakukohteet = false;
                 $scope.hakukohdePoistettu = false;
                 $scope.naytaMaara = false;
-/*                console.log('** ', $scope.hakukohdeOid);
-                console.log('** ', $scope.teemat);
-
-                if ($scope.teemat !== undefined) {
-                    console.log('## ', $scope.teemat);
-                    console.log('## ', Object.keys($scope.teemat)[0]);
-                    console.log('## ', $scope.teemat[Object.keys($scope.teemat)[0]][0].targetIsGroup);
-                }*/
 
                 if($scope.teemat[Object.keys($scope.teemat)[0]][0].targetIsGroup) {
                     Organisaatio.getOrganisationData($scope.hakukohdeOid).then(
@@ -56,11 +48,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
                 }
                 $scope.hakukohdeMaara = 0;
-                /*if (teema.hkkohde !== undefined && teema.hkkohde.length > 0) {
-                 $scope.hakukohdeMaara = teema.hkkohde.length;
-                 }*/
-
-
                 /**
                  * näyttää / piilottaa teeman alla olevat hakukohteet
                  */

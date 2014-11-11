@@ -8,16 +8,18 @@
 
 <h3 class="text-info" tl="hakukohdekohtaiset.lisakysymykset" >Hakukohdekohtaiset lisäkysymykset</h3>
 
-<tabset>
-    <tab heading="{{ t('lisakysymykset.teemakohtaisesti')|| 'Teemakohtaisesti' }}">
+<!--<tabset>
+    <tab heading="{{ t('lisakysymykset.teemakohtaisesti')|| 'Teemakohtaisesti' }}">-->
+
         <br>
+        <hr>
         <ng-include src="'partials/lisakysymykset/lisakysymyslista-teemakohtaisesti.html'"/>
-    </tab>
+    <!--</tab>
     <tab heading="{{ t('lisakysymykset.hakukohdekohtaisesti') || 'Hakukohdekohtaisesti' }}">
         <br>
         <ng-include src="'partials/lisakysymykset/lisakysymyslista-hakukohdekohtaisesti.html'"/>
     </tab>
 </tabset>
-<br>
+<br>-->
 <lisakysymys-lista-napit></lisakysymys-lista-napit>
 

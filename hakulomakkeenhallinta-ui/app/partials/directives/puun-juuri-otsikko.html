@@ -11,11 +11,16 @@
                 <i class="hh-icon-menu"></i>
             </a>
             <ul class="dropdown-menu">
-                <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i
-                        class="glyphicon glyphicon-plus"></i></a></li>
-                <li data-ng-click="showAllQuestions()"><a>{{ t('nayta.piilota.kysymykset') || 'Näytä/piilota kysymykset'
-                    }}
-                    <i class="glyphicon glyphicon-resize-vertical"></i></a></li>
+                <li data-ng-click="addQuestion(theme)">
+                    <a> {{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }}
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a>
+                </li>
+                <li data-ng-click="showAllQuestions()">
+                    <a>{{ t('nayta.piilota.kysymykset') || 'Näytä/piilota kysymykset'}}
+                        <i class="glyphicon glyphicon-resize-vertical"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

@@ -17,10 +17,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.teema = '';
             $scope.kysymysTyyppi = '';
             $scope.tallennaClicked = false;
+            var luodaaJatkoKysymys = undefined;
 
-            if(JatkokysymysService.getParentQuestion() !== undefined) {
-                console.log('##### JATKOKYSYMYS OLEMASSA ####');
-                console.log(JatkokysymysService.getParentQuestion());
+            if (JatkokysymysService.getParentQuestion() !== undefined) {
+                luodaaJatkoKysymys = JatkokysymysService.getParentQuestion();
             }
 
             FormEditor.getLanguages().then(
@@ -78,6 +78,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.back = function () {
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'back()');
                 QuestionData.setEditFlag(false);
+                if (luodaaJatkoKysymys !== undefined) {
+                    JatkokysymysService.setJatkokysymysObj(undefined);
+                    JatkokysymysService.setParentQuestion(undefined);
+                }
                 $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
             };
             /**
@@ -86,7 +90,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tallennaUusi = function () {
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'tallennaUusi()');
                 $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
-                if(JatkokysymysService.getParentQuestion() !== undefined) {
+                if (luodaaJatkoKysymys !== undefined) {
                     $scope.question.parentId = JatkokysymysService.getParentQuestion().parentId;
                     $scope.question.followupCondition = JatkokysymysService.getParentQuestion().followupCondition;
                 }
@@ -94,6 +98,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     ThemeQuestions.createNewQuestion($routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                         function success (data) {
                             QuestionData.setQuestion(data);
+                            if (luodaaJatkoKysymys !== undefined) {
+                                JatkokysymysService.setJatkokysymysObj(undefined);
+                                JatkokysymysService.setParentQuestion(undefined);
+                            }
                             AlertMsg($scope, 'success', 'kysymyksen.tallennus.ok');
                             $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
                         },

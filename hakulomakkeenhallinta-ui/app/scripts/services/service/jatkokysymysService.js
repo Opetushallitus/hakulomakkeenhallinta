@@ -11,12 +11,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              * @param jatkokysymysObj
              */
             this.lisaaJatkokysymys = function (jatkokysymysObj) {
-                /*console.log('JatkokysymysService', 'lisaaJatkokysymys', 'Jatkokysymys dialogin avaus ');
-                console.log('Teema: ', jatkokysymysObj.teema);
-                console.log('Hakukohde: ', jatkokysymysObj.hakukohde);
-                console.log('Kysymykset: ', jatkokysymysObj.kysymykset);
-                console.log('Vastaus: ', jatkokysymysObj.vastaus);
-                console.log('jatkokysymys Objecti: ', jatkokysymysObj);*/
                 _jatkokysymysObj = jatkokysymysObj;
                 $modal.open({
                     templateUrl: 'partials/dialogs/lisaa-jatkokysymys.html',
@@ -27,7 +21,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         jatkokysymysObj.kysymykset = data;
                     }
                 );
-
             };
             /**
              * asettaa olion _jatkokysymysObj:hin
@@ -44,14 +37,20 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             this.getJatkokysymysObj = function () {
                 return _jatkokysymysObj;
             };
-
+            /**
+             * palauttaa parent kysymys
+             * objektin
+             * @returns {undefined}
+             */
             this.getParentQuestion = function () {
                 return _parentQuestion;
             }
-
+            /**
+             * asetetaan olio _parentQuestion muuttujaan
+             * @param parentQ parent kysymys olio
+             */
             this.setParentQuestion = function (parentQ) {
                 _parentQuestion = parentQ;
             }
-
         }
     ]);

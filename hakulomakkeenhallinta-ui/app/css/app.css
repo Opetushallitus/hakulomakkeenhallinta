@@ -37,62 +37,49 @@
 
 .hh-hierarkia-list {
     list-style: none;
-    width: 100%;
     font-size: 14px;
     padding-top: 5px;
     line-height: 34px;
-}
-
-.hh-hierarkia-list>li {
-    margin-left: -60px;
-    margin-right: -30px;
+    margin-left: -30px;
     padding-left: 30px;
 }
 
-.hh-hierarkia-list>li>.hh-kysymys {
+.hh-hierarkia-list li {
+    list-style: none;
+}
+
+.hh-hierarkia-list li .hh-kysymys {
     display: block;
     border-bottom: dashed #b7b7b7 1px;
     line-height: 14px;
     margin-top: 8px;
     margin-left: -30px;
-    /*margin-right: -30px;*/
     padding-left: 60px;
     padding-bottom: 6px;
-    width: 100%;
 }
 
-/*.hh-hierarkia-list>li>ul {
-    list-style: none;
-    display: block;
-    *//*border-bottom: dashed #b7b7b7 1px;
-    line-height: 14px;
-    margin-top: 8px;*//*
-}*/
+.hh-list-level-2 li .hh-kysymys {
+    margin-left: -71px;
+    padding-left: 120px;
+}
 
-.hh-hierarkia-list>li>ul>li {
-    list-style: none;
-    display: block;
+.hh-hierarkia-list li>.hh-vastaus {
     border-bottom: dashed #b7b7b7 1px;
-    line-height: 14px;
     margin-top: 8px;
     margin-left: -71px;
     padding-left: 90px;
-    /*width: 100%;*/
-    line-height: 12px;
-    margin-right: 30px;
+    line-height: 14px;
+    padding-bottom: 8px;
 }
 
-/*.hh-hierarkia-list>li div div {*/
-    /*display: inline-block;*/
-/*}*/
-
-/*.hh-hierarkia-list>li:nth-child(2n) {
-    background: rgba(20, 158, 203, 0.06);
-}*/
-
-/*.hh-hierarkia-list>li:nth-child(even) {*/
-/*background: #ffffff;*/
-/*}*/
+.hh-list-level-2 li>.hh-vastaus {
+    border-bottom: dashed #b7b7b7 1px;
+    margin-top: 8px;
+    margin-left: -112px;
+    padding-left: 150px;
+    line-height: 14px;
+    padding-bottom: 8px;
+}
 
 .rotate-90 {
     -webkit-transform: rotate(90deg);
@@ -104,6 +91,12 @@
 
 .hh-icon-right {
     background: url("../img/right.gif") no-repeat;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.hh-icon-empty {
     display: inline-block;
     height: 20px;
     width: 20px;

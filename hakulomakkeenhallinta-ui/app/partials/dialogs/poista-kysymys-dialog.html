@@ -6,7 +6,7 @@
     <div class="modal-body">
         <alertmsg></alertmsg>
         <div>
-            {{t('poista.kysymys')||'Poista kysymys'}}:
+            {{t('poista.kysymys')|| 'Poista kysymys'}}:
             {{ question.messageText | kysymysOtsikko:'translations':userLang}}
 
         </div>
@@ -14,8 +14,8 @@
 
     <div class="modal-footer">
         <div class="form-group pull-right">
-            <button class="btn " ng-click="cancel()" tl="peruuta"></button>
-            <button class="btn btn-primary" ng-click="poista()" tl="ok"></button>
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary" ng-click="poista()" tl="ok">Ok</button>
         </div>
     </div>
 </form>
