@@ -1,16 +1,9 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout', '_', '$routeParams', 'Organisaatio',
-        function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _, $routeParams, Organisaatio) {
+    .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout', '_', '$routeParams', 'Organisaatio', '$filter',
+        function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _, $routeParams, Organisaatio, $filter) {
             $scope.attachmentRequest = attachmentRequest;
-            if ($scope.attachmentRequest.deliveryDue !== undefined &&
-                typeof $scope.attachmentRequest.deliveryDue !== 'Object') {
-                var paivaObject = new Date($scope.attachmentRequest.deliveryDue);
-                $scope.attachmentRequest.deliveryDue = paivaObject;
-            }
-
-            $scope.toimitusaika = toHHMMTime($scope.attachmentRequest.deliveryDue);
 
             $scope.tanaan = new Date();
             $scope.tanaan.setHours(23, 59);
@@ -18,9 +11,20 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             vuosiPvm.setFullYear(vuosiPvm.getFullYear() + 1);
             $scope.vuosi = vuosiPvm.setHours(23, 59);
             $scope.lisaaCliked = false;
+            $scope.datePicOpen = false;
+            $scope.modify = false;
 
+            if ($scope.attachmentRequest.deliveryDue  !== undefined) {
+                $scope.modify = true;
+            }
 
+            if ($scope.attachmentRequest.deliveryDue !== undefined &&
+                typeof $scope.attachmentRequest.deliveryDue !== 'object') {
+                var paivaObject = new Date($scope.attachmentRequest.deliveryDue);
+                $scope.toimitusaika = toHHMMTime($scope.attachmentRequest.deliveryDue);
+                $scope.attachmentRequest.deliveryDue = $filter('date')(paivaObject, 'dd.MM.yyyy');
 
+            }
             /**
              * haetaan postinumerot ja postitoimipaikat'
              * Koodistosta
@@ -36,6 +40,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tallennaLiitepyynto = function () {
                 $scope.lisaaCliked = true;
                 if ($scope.liitepyyntoDialog.$valid) {
+                    $scope.setKellonaikaToDate();
                     $modalInstance.close($scope.attachmentRequest);
                 }
             };
@@ -55,12 +60,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * asettaa kellon ajan päivä objetiin
              */
             $scope.setKellonaikaToDate = function () {
-                if (this.toimitusaika !== undefined && $scope.attachmentRequest.deliveryDue !== '') {
+                if (this.toimitusaika !== undefined && this.toimitusaika !== '' && $scope.attachmentRequest.deliveryDue !== '') {
                     var dmsec = Date.parse($scope.attachmentRequest.deliveryDue),
                         d = new Date(dmsec),
                         t = this.toimitusaika;
                     var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), t.substr(0, 2), t.substr(3, 2));
-                    $scope.attachmentRequest.deliveryDue = nd;
+                    $scope.attachmentRequest.deliveryDue = Date.parse(nd);
                 }
             };
             /**
@@ -84,7 +89,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
                 return hhmm;
             }
-
             /**
              * parsiin kellon ajan päivä objektista
              * @param date
@@ -112,12 +116,22 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             Organisaatio.getOrganisationData($routeParams.oid).then(
                 function (orgInfo) {
-                    if (orgInfo.postiosoite && $scope.attachmentRequest.deliveryAddress.street === undefined) {
-                        $scope.attachmentRequest.deliveryAddress.street = orgInfo.postiosoite.osoite;
-                        $scope.attachmentRequest.deliveryAddress.postCode = orgInfo.postiosoite.postinumeroUri.slice(6);
-                        $scope.attachmentRequest.deliveryAddress.postOffice = orgInfo.postiosoite.postitoimipaikka;
+                    if (orgInfo.postiosoite) {
+                        if (orgInfo.postiosoite.osoite && $scope.attachmentRequest.deliveryAddress.street === undefined) {
+                            $scope.attachmentRequest.deliveryAddress.street = orgInfo.postiosoite.osoite;
+                        }
+                        if (orgInfo.postiosoite.postinumeroUri && $scope.attachmentRequest.deliveryAddress.postCode === undefined) {
+                            $scope.attachmentRequest.deliveryAddress.postCode = orgInfo.postiosoite.postinumeroUri.slice(6);
+                        }
+                        if (orgInfo.postiosoite.postitoimipaikka && $scope.attachmentRequest.deliveryAddress.postOffice === undefined) {
+                            $scope.attachmentRequest.deliveryAddress.postOffice = orgInfo.postiosoite.postitoimipaikka;
+                        }
                     }
                 }
             );
+
+            $scope.openDatePicker = function () {
+                $scope.datePicOpen = true;
+            }
         }
     ]);

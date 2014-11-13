@@ -38,7 +38,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
             );
         };
-        console.log('€€€€ ', jatkokysymysObj);
+
         $scope.cancel = function () {
             if (jatkokysymysObj !== undefined && jatkokysymysObj.kysymykset !== undefined) {
                 console.log('jatko kysymyksen cancel 11');
