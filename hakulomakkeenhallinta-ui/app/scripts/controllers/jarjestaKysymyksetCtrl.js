@@ -119,7 +119,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
                                 $rootScope.LOGS('jarjestaKysymyksetCtrl', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', data);
-                                $scope.hakukohde.additionalQuestions = asetaJatkokysymykset(data);
+                                $scope.hakukohde.additionalQuestions = data;
                                 AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
                             },
                             function error(resp) {
@@ -151,38 +151,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 );
             };
-            /**
-             * Parsiin hakukohteen jatkokysymyksen oikeaan
-             * muotoon käyttöliittymälle
-             * @param data taulukko kysymyksistä
-             * @returns {*}
-             */
-            function asetaJatkokysymykset(data) {
-                var jatkoQarray = _.filter(data, function (jatkoQ) {
-                    if (jatkoQ.parentId !== undefined) {
-                        return jatkoQ;
-                    }
-                });
-                if (jatkoQarray.length > 0) {
-                    data = _.difference(data, jatkoQarray);
-                    _.each(data, function (question, indx1) {
-                        _.each(jatkoQarray, function (jatQ) {
-                            if (jatQ.parentId === question._id) {
-                                _.each(question.options, function (option, indx2) {
-                                    if (jatQ.followupCondition === option.id) {
-                                        if (data[indx1].options[indx2].questions === undefined) {
-                                            data[indx1].options[indx2].questions = [];
-                                        }
-                                        data[indx1].options[indx2].questions.push(jatQ);
-                                    }
-                                });
-                            }
-                        });
-                    });
-                    return data;
-                } else {
-                    return data;
-                }
-            }
+
 
     }]);

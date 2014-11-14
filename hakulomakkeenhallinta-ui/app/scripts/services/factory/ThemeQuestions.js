@@ -137,6 +137,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 ThemeQuestion.reorderThemeQuestions({ _lopId: learningOportunityId, _themeId: themeId }, ordinals).$promise.then(
                     function success(data) {
                         $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', data);
+                        data = themeQuestion.jarjestaJatkokysymyksetPuu(data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
@@ -160,6 +161,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 ThemeQuestion.getThemeQuestionListByThemeAndLearningOpportunity({_id: applicationSystemId, aoId: learningOppId, themeId: themeId, orgId: orgId}).$promise.then(
                     function success(data) {
                         $rootScope.LOGS('ThemeQuestions', 'getThemeQuestionByThemeLop()', data);
+                        data = themeQuestion.jarjestaJatkokysymyksetPuu(data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
@@ -193,34 +195,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                                 themes[indx].hkkohde[indx2].aoid = lopId;
                                                 themes[indx].hkkohde[indx2].additionalQuestions = _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId});
 
-                                                var jatkoQarray = _.filter(themes[indx].hkkohde[indx2].additionalQuestions, function (jatkoQ) {
-                                                    if (jatkoQ.parentId !== undefined) {
-                                                        return jatkoQ;
-                                                    }
-                                                });
-
-                                                if (jatkoQarray.length  > 0) {
-                                                    themes[indx].hkkohde[indx2].additionalQuestions = _.difference(themes[indx].hkkohde[indx2].additionalQuestions, jatkoQarray);
-                                                    _.each(themes[indx].hkkohde[indx2].additionalQuestions, function (question, indx3) {
-                                                            _.each(jatkoQarray, function (jatQ) {
-                                                                if (jatQ.parentId === question._id) {
-                                                                    _.each(question.options, function (option, indx4) {
-                                                                            if (option.id === jatQ.followupCondition) {
-                                                                                if (themes[indx].hkkohde[indx2].additionalQuestions[indx3].options[indx4].questions === undefined) {
-                                                                                    themes[indx].hkkohde[indx2].additionalQuestions[indx3].options[indx4].questions = [];
-                                                                                }
-                                                                                themes[indx].hkkohde[indx2].additionalQuestions[indx3].options[indx4].questions.push(jatQ);
-                                                                            }
-                                                                        }
-                                                                    );
-                                                                }
-                                                            });
-
-                                                        }
-                                                    );
-                                                }
-                                            }
-                                        );
+                                                themes[indx].hkkohde[indx2].additionalQuestions = themeQuestion.jarjestaJatkokysymyksetPuu(themes[indx].hkkohde[indx2].additionalQuestions);
+                                        });
                                     }
                                 );
                                 deferred.resolve(themes);
@@ -229,6 +205,40 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 );
                 return deferred.promise;
+            };
+
+            /**
+             * Parsiin hakukohteen jatkokysymyksen oikeaan
+             * muotoon käyttöliittymälle
+             * @param data taulukko kysymyksistä
+             * @returns {*}
+             */
+            themeQuestion.jarjestaJatkokysymyksetPuu = function (data) {
+                var jatkoQarray = _.filter(data, function (jatkoQ) {
+                    if (jatkoQ.parentId !== undefined) {
+                        return jatkoQ;
+                    }
+                });
+                if (jatkoQarray.length > 0) {
+                    data = _.difference(data, jatkoQarray);
+                    _.each(data, function (question, indx1) {
+                        _.each(jatkoQarray, function (jatQ) {
+                            if (jatQ.parentId === question._id) {
+                                _.each(question.options, function (option, indx2) {
+                                    if (jatQ.followupCondition === option.id) {
+                                        if (data[indx1].options[indx2].questions === undefined) {
+                                            data[indx1].options[indx2].questions = [];
+                                        }
+                                        data[indx1].options[indx2].questions.push(jatQ);
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    return data;
+                } else {
+                    return data;
+                }
             };
 
             return themeQuestion;
