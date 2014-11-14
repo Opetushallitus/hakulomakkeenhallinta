@@ -50,6 +50,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 }
                             );
                         } else {
+                            console.log('data', data);
                             data = _.filter(data, function (jatkoQs) {
                                 if (jatkoQs.parentId === question._id && jatkoQs.followupCondition === option.id) {
                                     return jatkoQs;
@@ -119,7 +120,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
                                 $rootScope.LOGS('jarjestaKysymyksetCtrl', 'saveSortQuestions() ->', 'reorderThemeQuestions() -> getThemeQuestionByThemeLop()', data);
-                                $scope.hakukohde.additionalQuestions = data;
+                                $scope.hakukohde.additionalQuestions = ThemeQuestions.jarjestaJatkokysymyksetPuu(data);
                                 AlertMsg($scope, 'success', 'success.kysymysten.jarjestys');
                             },
                             function error(resp) {
@@ -142,7 +143,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                 ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                     function success(data) {
-                        $scope.hakukohde.additionalQuestions = asetaJatkokysymykset(data);
+                        $scope.hakukohde.additionalQuestions = ThemeQuestions.jarjestaJatkokysymyksetPuu(data);
                     },
                     function error(resp) {
                         $rootScope.LOGS('jarjestaKysymyksetCtrl', 'cancelSortQuestions() ->', 'getThemeQuestionByThemeLop()', resp.statusText, resp.status);
