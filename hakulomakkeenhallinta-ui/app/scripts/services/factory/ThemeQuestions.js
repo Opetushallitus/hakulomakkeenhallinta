@@ -115,6 +115,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 ThemeQuestion.delete({'_id': questionId }).$promise.then(
                     function success(data) {
                         $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()', data);
+                        data = themeQuestion.jarjestaJatkokysymyksetPuu(data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
@@ -213,7 +214,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {*}
              */
             themeQuestion.jarjestaJatkokysymyksetPuu = function (data) {
-                console.log('ThemeQuestions', 'jarjestaJatkokysymyksetPuu()');
                 var jatkoQarray = _.filter(data, function (jatkoQ) {
                     if (jatkoQ.parentId !== undefined) {
                         return jatkoQ;
