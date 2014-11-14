@@ -151,6 +151,21 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 })
             };
 
+            TarjontaAPI.haeRyhmanHakukohteet = function (ryhmaOid) {
+                var deferred = $q.defer();
+                $resource(Props.tarjontaAPI +'/hakukohde/search', {}, {
+                    method: 'GET',
+                    params: {
+                        organisaatioRyhmaOid: ryhmaOid
+                    }
+                }).promise.then(
+                        function (data) {
+                            console.log('####', data);
+                            deffered.resolve(data);
+                        }
+                    );
+                return deferred.promise;
+            }
 
             return TarjontaAPI;
         }]);
