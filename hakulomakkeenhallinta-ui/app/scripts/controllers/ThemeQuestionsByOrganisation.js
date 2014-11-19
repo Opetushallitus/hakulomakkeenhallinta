@@ -160,7 +160,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 );
             };
-
             /**
              * takaisin edelliselle sivulle
              */
@@ -179,6 +178,5 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'lisaaJatkokysymys()');
                 JatkokysymysService.lisaaJatkokysymys({ kysymykset: kysymykset, hakukohde: hakukohde, teema: teema, scope: $scope, kysymys: kysymys, vastaus: vastaus });
             };
-
 
         }]);

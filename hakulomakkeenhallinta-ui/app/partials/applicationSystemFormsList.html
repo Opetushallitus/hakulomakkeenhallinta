@@ -1,13 +1,11 @@
 <div data-ng-controller="HakulomakkeetListaCtrl">
-    <div class="input-group">
-        <input class="form-control" type="text" data-ng-model="search" id="hakuKentta" size="32" data-ng-change="setSearchToCookie()" >
-        <!--TODO: mahdollistetaan tämä kun taustajärjestelmä tukee tätä-->
-            <!--<label for="organisation" >{{ t('valitse.organisaatio') || 'Valitse organisaatio' }} </label>-->
-            <!--<select class="form-control" name="organisaatio" id="organisation" ng-model="userOrg"
-                    data-ng-options="org.nimi[userLang] for org in userOrganisations" >
-                <option value="">-- {{ t('valitse.organisaatio') || 'Valitse organisaatio' }} --</option>
-            </select>-->
+    <br>
+    <div>
+        <input class="" type="text" data-ng-model="search" id="hakuKentta" size="52" style="height: 32px;" data-ng-change="setSearchToCookie()" >
+        <button class="btn pull-right">Luo uusi hakemuslomake</button>
     </div>
+    <br>
+    <user-organisation-select></user-organisation-select>
     <br>
     <div>
     <table class="table table-striped">
@@ -17,6 +15,7 @@
             <th>{{ t('tila') || 'Tila' }}</th>
             <th>{{ t('vuosi') || 'Vuosi' }}</th>
             <th>{{ t('hakukausi') || 'Hakukausi' }}</th>
+            <th></th>
         </tr>
         <tr>
 
@@ -49,17 +48,40 @@
                         data-ng-options="kaus.translations[userLang] for kaus in kaudet">
                 </select>
             </td>
+            <td></td>
         </tr>
         <tr ng-repeat="applicationForm in applicationForms | filter:search | orderBy:'name.translations.fi':order | filter:hakutyyppi.type | filter:vuosi | filter:st | filter:kausi.period">
 
-            <td><a href data-ng-click="valitseOrganisaatio(applicationForm)" data-ng-controller="BackCtrl">{{applicationForm
-                | i18n:'name':userLang }} </a>
-            </td>
+            <td> {{applicationForm | i18n:'name':userLang }}</td>
             <td>{{applicationForm.type | hakutyyppiNimi:hakutyypit:userLang}}  </td>
             <td>{{applicationForm.status.translations[userLang]}}</td>
             <td>{{applicationForm.year}}</td>
             <td>{{applicationForm.period | kausiNimi:kaudet:userLang}}</td>
+            <td>
+                <div class="dropdown pull-right">
+                    <a class="dropdown-toggle">
+                        <i class="hh-icon-menu"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!--<a data-ng-click="valitseOrganisaatio(applicationForm)"> HakukohdeKohtaiset lisäkysymykset</a>-->
+                            <a data-ng-click="hakukohdeKohtaisetLisakysymykset(applicationForm)"> HakukohdeKohtaiset lisäkysymykset</a>
+                        </li>
+                        <li>
+                            <a>
+                                Lomakepohjan asetukset
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                Poista lomake
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
         </tr>
+
     </table>
     </div>
 </div>

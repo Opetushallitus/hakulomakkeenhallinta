@@ -117,6 +117,36 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             );
                         }
                     };
+
+                    $scope.asetaRyhmaanRajoite = function (hakukohderyhmaOid, hakukohderyhmaInfo) {
+                        console.log('asetaRyhmaanRajoite() ', hakukohderyhmaOid, hakukohderyhmaInfo);
+
+                        $modal.open({
+                            templateUrl: 'partials/dialogs/aseta-hakukohderyhmalle-rajoite-dialog.html',
+                            controller: 'asetaHakukohderyhmalleRajoiteDialogCtrl',
+                            resolve: {
+                                hakukohderyhmaInfo: function () {
+                                    return hakukohderyhmaInfo;
+                                }
+                            }
+                        });/*.result.then(function () {
+                                ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, $scope.hakukohde.aoid, $scope.theme.id, $routeParams.oid).then(
+                                    function success(data) {
+                                        $scope.hakukohde.additionalQuestions = ThemeQuestions.jarjestaJatkokysymyksetPuu(data);
+                                        AlertMsg($scope, 'success', 'kysymyksen.poisto.ok');
+                                    },
+                                    function error(resp) {
+                                        $rootScope.LOGS('hakukohdeLisakysmykset', 'poistaKysymys()', resp.messageText, resp.status);
+                                        AlertMsg($scope, 'warning', 'error.kysymyksen.poisto');
+                                    }
+                                );
+                            }*/
+//                        );
+
+
+
+                    }
+
                 }
             };
         }]);

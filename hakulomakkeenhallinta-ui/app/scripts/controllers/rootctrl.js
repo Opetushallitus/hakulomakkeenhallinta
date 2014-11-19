@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers', [])
-    .controller('RootCtrl', [ '$rootScope', '$scope', 'Props', 'MyRoles', 'LocalisationService', 'AlertMsg', 'dynamicLocalization', '_',
-        function ($rootScope, $scope, Props, MyRoles, LocalisationService, AlertMsg, dynamicLocalization, _) {
+    .controller('RootCtrl', [ '$rootScope', '$scope', 'Props', 'MyRoles', 'LocalisationService', 'AlertMsg', 'dynamicLocalization',
+        function ($rootScope, $scope, Props, MyRoles, LocalisationService, AlertMsg, dynamicLocalization) {
 
             /**
              * käyttäjän käyttöprofiilin tarkastus cas/myroles tiedostosta

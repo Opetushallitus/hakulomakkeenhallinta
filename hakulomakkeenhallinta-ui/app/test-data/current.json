@@ -1,0 +1,226 @@
+[ {
+  "ryhmaId" : 1550,
+  "myonnettyTapahtumaId" : 213870,
+  "organisaatioOid" : "1.2.246.562.10.346830761110",
+  "tehtavanimike" : "HH-testausta",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Hakulomakkeen ylläpitäjä"
+  }, {
+    "lang" : "SV",
+    "text" : "Hakulomakkeen ylläpitäjä"
+  }, {
+    "lang" : "EN",
+    "text" : "Hakulomakkeen ylläpitäjä"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-06-04",
+  "voimassaPvm" : "2015-06-04",
+  "kasitelty" : 1401866111182,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 1221,
+  "myonnettyTapahtumaId" : 214697,
+  "organisaatioOid" : "1.2.246.562.10.00000000001",
+  "tehtavanimike" : "kehittäjä",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Rekisterinpitäjä (OPH:n käytössä oleva virallinen ryhmä)"
+  }, {
+    "lang" : "SV",
+    "text" : "Rekisterinpitäjä (OPH:n käytössä oleva virallinen ryhmä)"
+  }, {
+    "lang" : "EN",
+    "text" : "Rekisterinpitäjä (OPH:n käytössä oleva virallinen ryhmä)"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-06-11",
+  "voimassaPvm" : "2015-06-11",
+  "kasitelty" : 1402469406470,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 1560,
+  "myonnettyTapahtumaId" : 213872,
+  "organisaatioOid" : "1.2.246.562.10.346830761110",
+  "tehtavanimike" : "HH-testausta",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Valintakäyttäjä (Virallinen ryhmä)"
+  }, {
+    "lang" : "SV",
+    "text" : "Valintakäyttäjä (Virallinen ryhmä)"
+  }, {
+    "lang" : "EN",
+    "text" : "Valintakäyttäjä (Virallinen ryhmä)"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-06-04",
+  "voimassaPvm" : "2015-06-04",
+  "kasitelty" : 1401866111251,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 1216,
+  "myonnettyTapahtumaId" : 206822,
+  "organisaatioOid" : "1.2.246.562.10.65530732232",
+  "tehtavanimike" : "kehittäjä",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Vastuukäyttäjä (Virallinen ryhmä)"
+  }, {
+    "lang" : "SV",
+    "text" : "Vastuukäyttäjä (Virallinen ryhmä)"
+  }, {
+    "lang" : "EN",
+    "text" : "Vastuukäyttäjä (Virallinen ryhmä)"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-04-08",
+  "voimassaPvm" : "2015-04-08",
+  "kasitelty" : 1396958322669,
+  "kasittelijaOid" : "1.2.246.562.24.75293462118",
+  "kasittelijaNimi" : "tonitestaa, toni",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 1550,
+  "myonnettyTapahtumaId" : 213290,
+  "organisaatioOid" : "1.2.246.562.10.65530732232",
+  "tehtavanimike" : "kehittäjä",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Hakulomakkeen ylläpitäjä"
+  }, {
+    "lang" : "SV",
+    "text" : "Hakulomakkeen ylläpitäjä"
+  }, {
+    "lang" : "EN",
+    "text" : "Hakulomakkeen ylläpitäjä"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-05-26",
+  "voimassaPvm" : "2015-05-26",
+  "kasitelty" : 1401090038107,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 1560,
+  "myonnettyTapahtumaId" : 213874,
+  "organisaatioOid" : "1.2.246.562.10.65530732232",
+  "tehtavanimike" : "kehittäjä",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Valintakäyttäjä (Virallinen ryhmä)"
+  }, {
+    "lang" : "SV",
+    "text" : "Valintakäyttäjä (Virallinen ryhmä)"
+  }, {
+    "lang" : "EN",
+    "text" : "Valintakäyttäjä (Virallinen ryhmä)"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-06-04",
+  "voimassaPvm" : "2015-06-04",
+  "kasitelty" : 1401866169792,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 1474,
+  "myonnettyTapahtumaId" : 365433,
+  "organisaatioOid" : "1.2.246.562.10.25959512689",
+  "tehtavanimike" : "testis",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Tarkkailijat"
+  }, {
+    "lang" : "SV",
+    "text" : "Cyb-Tarkkailijat"
+  }, {
+    "lang" : "EN",
+    "text" : "Tarkkailijat"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-09-26",
+  "voimassaPvm" : "2015-09-02",
+  "kasitelty" : 1409632305441,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 85714,
+  "myonnettyTapahtumaId" : 214695,
+  "organisaatioOid" : "1.2.246.562.10.00000000001",
+  "tehtavanimike" : "kehittäjä",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Sisällönhallinta"
+  }, {
+    "lang" : "EN",
+    "text" : "Sisällönhallinta"
+  }, {
+    "lang" : "SV",
+    "text" : "Sisällönhallinta"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-06-11",
+  "voimassaPvm" : "2015-06-11",
+  "kasitelty" : 1402469016495,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+}, {
+  "ryhmaId" : 85714,
+  "myonnettyTapahtumaId" : 213292,
+  "organisaatioOid" : "1.2.246.562.10.65530732232",
+  "tehtavanimike" : "kehittäjä",
+  "ryhmaNames" : [ {
+    "lang" : "FI",
+    "text" : "Sisällönhallinta"
+  }, {
+    "lang" : "EN",
+    "text" : "Sisällönhallinta"
+  }, {
+    "lang" : "SV",
+    "text" : "Sisällönhallinta"
+  } ],
+  "tila" : "MYONNETTY",
+  "tyyppi" : "KORyhma",
+  "alkuPvm" : "2014-05-26",
+  "voimassaPvm" : "2015-05-26",
+  "kasitelty" : 1401090038413,
+  "kasittelijaOid" : "1.2.246.562.24.00000000001",
+  "kasittelijaNimi" : "USER, ROOT",
+  "selected" : false,
+  "removed" : false,
+  "muutosSyy" : null
+} ]

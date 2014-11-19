@@ -151,21 +151,31 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 })
             };
 
-            TarjontaAPI.haeRyhmanHakukohteet = function (ryhmaOid) {
-                var deferred = $q.defer();
-                $resource(Props.tarjontaAPI +'/hakukohde/search', {}, {
+            var tarjonta = $resource(Props.tarjontaAPI + '/hakukohde/search', {},
+                {
+                    getRyhmanHakukohteet: {
                     method: 'GET',
                     params: {
-                        organisaatioRyhmaOid: ryhmaOid
+                            organisaatioRyhmaOid: '@_hakukohdeRyhmanOid'
+                    },
+                    isArray: false
                     }
-                }).promise.then(
+                });
+            /**
+             * Haetaan hakukohderyhmään kuuluvat hakukohteet
+             * @param hakukohdeRyhmanOid hakukohderyhman id
+             * @returns {promise}
+             */
+            TarjontaAPI.haeRyhmanHakukohteet = function (hakukohdeRyhmanOid) {
+                var deferred = $q.defer();
+
+                tarjonta.getRyhmanHakukohteet({ organisaatioRyhmaOid: hakukohdeRyhmanOid }).$promise.then(
                         function (data) {
-                            console.log('####', data);
-                            deffered.resolve(data);
+                            deferred.resolve(angular.fromJson(data).result);
                         }
                     );
                 return deferred.promise;
-            }
+            };
 
             return TarjontaAPI;
         }]);

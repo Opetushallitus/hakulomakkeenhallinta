@@ -51,21 +51,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                 }
             );
-
-            $scope.userOrganisations = [];
             /**
-             * haetaan käyttäjän organisaatiot
-             */
-            Organisaatio.getUserOrganisations().then(
-                function (data) {
-                    $scope.userOrganisations =  $filter('orderBy')(data, 'nimi.' + $scope.userLang);
-                }
-            );
-            /**
-             * avataan organisaation valinta dialogi valitulle hakulomakkeell
+             * avataan organisaation valinta dialogi valitulle hakulomakkeel
              * @param applicationSystemForm valittu hakulomake
              */
-            $scope.valitseOrganisaatio = function (applicationSystemForm) {
+            /*$scope.valitseOrganisaatio = function (applicationSystemForm) {
                 $rootScope.LOGS('HakulomakkeetListaCtrl', 'valitseOrganisaatio()', applicationSystemForm);
                     $modal.open({
                     templateUrl: 'partials/dialogs/organisaation-valinta.html',
@@ -77,6 +67,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     }
                 });
+            };*/
+
+            $scope.hakukohdeKohtaisetLisakysymykset = function (applicationSystemForm) {
+                $location.path("/themeQuestionsByOrganisation/" + applicationSystemForm._id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
             };
+
         }
     ]);

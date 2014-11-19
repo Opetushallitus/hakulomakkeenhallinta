@@ -1,12 +1,36 @@
 <div class="alert alert-info alert-block ">
     <i class="glyphicon glyphicon-info-sign"></i>
     <span data-ng-bind-html="t('olet.luomassa.lisakysymys.organisaatiolla', [ haunNimi, organisationNimi])"></span>
+
+    <div class="dropdown pull-right">
+        <a class="dropdown-toggle">
+            <i class="glyphicon glyphicon-wrench"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a>
+                    Lomakepohjan asetukset
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 <alertmsg></alertmsg>
 
 <lisakysymys-lista-napit></lisakysymys-lista-napit>
 
-<h3 class="text-info" tl="hakukohdekohtaiset.lisakysymykset" >Hakukohdekohtaiset lisäkysymykset</h3>
+<h1 tl="hakukohdekohtaiset.lisakysymykset" >Hakukohdekohtaiset lisäkysymykset</h1>
+<!--data-ng-show="userOrganisations.length > 1"-->
+
+<user-organisation-select></user-organisation-select>
+
+<!--<select  class="form-control"
+        style="width: 300px;" name="organisaatio" id="organisation" ng-model="userOrg"
+        data-ng-options="org.nimi[userLang] for org in userOrganisations" data-ng-change="vaihdaOrganisaatio(userOrg)">
+    <option value="">{{ t('valitse.organisaatio') || 'Valitse organisaatio' }}</option>
+</select>-->
+<!--<span data-ng-if="userOrganisations.length === 1"
+      style="width: 300px; font-size: 16px;">{{userOrganisations[0].nimi[userLang]}}</span>-->
 
 <!--<tabset>
     <tab heading="{{ t('lisakysymykset.teemakohtaisesti')|| 'Teemakohtaisesti' }}">-->
