@@ -1,8 +1,8 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectHakukohdeCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg', 'theme', '$filter',
+    .controller('SelectHakukohdeDialogCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg', 'theme', '$filter',
         function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg, theme, $filter ) {
-            $rootScope.LOGS('SelectHakukohdeCtrl ');
+            $rootScope.LOGS('SelectHakukohdeDialogCtrl ');
             $scope.applicationOptions = [];
             $scope.$emit('LOAD');
             $scope.applicationSystem = applicationSystem;
@@ -10,31 +10,34 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.haunNimi = $filter('i18n')(applicationSystem, 'name', $scope.userLang);
             $scope.teema = $filter('i18n')(theme, 'name', $scope.userLang);
 
-            if(applicationSystem === undefined){
+            if (applicationSystem === undefined) {
                 /**
                  * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
                  */
                 FormEditor.fetchApplicationSystemForm($routeParams.id).then(
-                    function(data){
+                    function (data) {
                         $scope.applicationSystem = data;
-                    });
+                    }
+                );
             };
             /**
              * Haetaa hakulomakkeeseen ja käyttäjän organisaation liittyvät hakukohteet
              */
             TarjontaAPI.usersApplicationOptions2($routeParams.id, $routeParams.oid).then(
-                function(data){
+                function (data) {
+                    console.log('usersApplicationOptions2', $routeParams.id, $routeParams.oid);
                     $scope.$emit('LOADREADY');
-                    if(data.length != 0){
+                    if (data.length !== 0) {
                         $scope.applicationOptions = data;
-                    }else{
-                        AlertMsg($scope, 'warning','organisaatiossa.ei.hakukohdetta.hakukohdejoukko');
+                    } else {
+                        AlertMsg($scope, 'warning', 'organisaatiossa.ei.hakukohdetta.hakukohdejoukko');
                     }
-                });
+                }
+            );
 
-            $rootScope.LOGS('SelectHakukohdeCtrl', $scope.applicationOptions);
-            $scope.jatka = function(hakukohde) {
-                $rootScope.LOGS('SelectHakukohdeCtrl','jatka()',hakukohde);
+            $rootScope.LOGS('SelectHakukohdeDialogCtrl', $scope.applicationOptions);
+            $scope.jatka = function (hakukohde) {
+                $rootScope.LOGS('SelectHakukohdeDialogCtrl', 'jatka()', hakukohde);
                 if (hakukohde.kayttoryhmat) {
                     QuestionData.setIsGroup(true);
                 } else {
@@ -49,7 +52,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 });
             };
 
-            $scope.cancel = function() {
+            $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
 

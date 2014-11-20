@@ -75,7 +75,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.addQuestion = function (theme) {
                 $modal.open({
                     templateUrl: 'partials/dialogs/hakukohteen-valinta.html',
-                    controller: 'SelectHakukohdeCtrl',
+                    controller: 'SelectHakukohdeDialogCtrl',
                     scope: $scope,
                     resolve: {
                         applicationSystem: function () {

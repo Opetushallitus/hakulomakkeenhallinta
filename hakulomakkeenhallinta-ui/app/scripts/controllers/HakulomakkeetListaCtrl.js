@@ -51,27 +51,23 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
                 }
             );
-            /**
-             * avataan organisaation valinta dialogi valitulle hakulomakkeel
-             * @param applicationSystemForm valittu hakulomake
-             */
-            /*$scope.valitseOrganisaatio = function (applicationSystemForm) {
-                $rootScope.LOGS('HakulomakkeetListaCtrl', 'valitseOrganisaatio()', applicationSystemForm);
-                    $modal.open({
-                    templateUrl: 'partials/dialogs/organisaation-valinta.html',
-                    controller: 'SelectOrganisationCtrl',
-                    scope: $scope,
-                    resolve: {
-                        applicationSystemForm: function () {
-                            return applicationSystemForm;
-                        }
-                    }
-                });
-            };*/
 
             $scope.hakukohdeKohtaisetLisakysymykset = function (applicationSystemForm) {
                 $location.path("/themeQuestionsByOrganisation/" + applicationSystemForm._id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
             };
 
+            $scope.luoUusiHakemuslomake = function () {
+                $rootScope.LOGS('HakulomakkeetListaCtrl', 'luoUusiHakemuslomake()', Organisaatio.getUserSelectedOrganisation().nimi);
+                $modal.open({
+                    templateUrl: 'partials/dialogs/luo-hakulomake.html',
+                    controller: 'LuoHakemuslomakeCtrl',
+                    scope: $scope,
+                    resolve: {
+                        userOrganisation: function () {
+                            return Organisaatio.getUserSelectedOrganisation();
+                        }
+                    }
+                });
+            };
         }
     ]);

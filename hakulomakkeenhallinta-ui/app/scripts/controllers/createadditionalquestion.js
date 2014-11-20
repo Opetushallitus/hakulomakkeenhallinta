@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -37,7 +37,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
                 }
             );
-            QuestionData.getHakukohdeInfo($routeParams.hakuOid).then(
+            TarjontaAPI.fetchHakukohdeInfo($routeParams.hakuOid).then(
                 function (data) {
                     $scope.hakukohde = data;
                     $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);

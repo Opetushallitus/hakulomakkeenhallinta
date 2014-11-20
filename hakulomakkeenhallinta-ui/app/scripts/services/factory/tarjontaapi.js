@@ -74,28 +74,38 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     // Tulokset on lista hakukohteita (ao)
                     getHakukohdeJoukot(data.result.tulokset).then(
                         function (groups) {
-                            deferred.resolve(data.result.tulokset.concat(groups));
+                            if (groups.length > 0) {
+                                deferred.resolve(data.result.tulokset.concat(groups));
+                            } else {
+                                console.log('groups 0');
+                                deferred.resolve(data.result.tulokset);
+                            }
+
                         }
                     );
                 });
                 return deferred.promise;
             };
             /**
-             * Hakee kayttäjän hakukohteisiin perustuen
+             * Hakee kayttäjän organisaation hakukohteisiin perustuen
              * ne hakukohdejoukot ja ryhmät joihin käyttäjä
              * voi kuulua
              * @param applicationOptions käyttäjän hakukohteet
              * @returns {promise}
              */
-            function getHakukohdeJoukot (applicationOptions) {
+            function getHakukohdeJoukot(applicationOptions) {
                 var deferred = $q.defer();
                 var hakukohteet = [];
+                var hakukohdeOids = _.chain(applicationOptions)
+                    .map(function (hakuorganisaationHakukohteet) { return hakuorganisaationHakukohteet.tulokset; })
+                    .flatten()
+                    .map(function (hakukohde) { return hakukohde.oid; })
+                    .value();
 
-                for (var t = 0; t < applicationOptions.length; t++ ) {
-                    for (var i = 0; i < applicationOptions[t].tulokset.length; i++) {
-                        hakukohteet.push(TarjontaAPI.fetchHakukohdeInfo(applicationOptions[t].tulokset[i].oid));
+                _.each(hakukohdeOids, function (oid) {
+                        hakukohteet.push(TarjontaAPI.fetchHakukohdeInfo(oid));
                     }
-                }
+                );
 
                 $q.all(hakukohteet).then(
                     function (data) {
@@ -103,11 +113,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         .pluck('organisaatioRyhmaOids')
                         .flatten(true)
                         .uniq()
-                        .map(function (ryhmaOid) {return Organisaatio.getOrganisationData(ryhmaOid);})
+                        .without(undefined)
+                        .map(function (ryhmaOid) { return Organisaatio.getOrganisationData(ryhmaOid); })
                         .value();
 
                         $q.all(organisaatiot).then(
-                            function (groups) {   
+                            function (groups) {
                                 deferred.resolve(groups);
                             }
                         );
@@ -116,8 +127,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 return deferred.promise;
             };
 
-            TarjontaAPI.query = function(){
-                $resource(Props.tarjontaAPI+'/haku/findAll', {}, {
+            TarjontaAPI.query = function () {
+                $resource(Props.tarjontaAPI + '/haku/findAll', {}, {
                     query: {
                         method: 'GET',
                         isArray: true,

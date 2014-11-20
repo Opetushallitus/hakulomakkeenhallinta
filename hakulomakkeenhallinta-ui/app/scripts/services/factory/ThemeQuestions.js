@@ -70,6 +70,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             themeQuestion.createNewQuestion = function (applicationSystemId, hakuOid, themeId, questionData) {
                 $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()');
+                console.log('## ', applicationSystemId, hakuOid, themeId, questionData);
                 var deferred = $q.defer();
                 ThemeQuestion.save({'_id': applicationSystemId, '_aoid': hakuOid, '_themeId': themeId  }, questionData).$promise.then(
                     function success(data) {
@@ -180,6 +181,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             themeQuestion.hakukohdeKohtaisetKysymykset = function (applicationSystemId, organisationId) {
                 $rootScope.LOGS('ThemeQuestions', 'hakukohdeKohtaisetKysymykset()');
+                console.log(applicationSystemId, organisationId);
                 var deferred = $q.defer();
                 FormEditor.getApplicationSystemFormThemes(applicationSystemId).then(
                     function (themes) {
