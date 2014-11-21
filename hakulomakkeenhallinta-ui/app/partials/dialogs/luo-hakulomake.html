@@ -1,0 +1,56 @@
+<form class="modal-dialog-border" role="form" >
+    <div class="modal-header">
+        <h4 tl="uusi.hakumuslomake">Uusi hakemuslomake</h4>
+    </div>
+    <div class="modal-body">
+
+        <div>
+
+            <div class="form-inline">
+
+                <select class="form-control" style="width: 70px;" type="select" ng-model="vuosi.year"
+                        data-ng-options="v for v in vuodet">
+                    <option value="" disabled>Vuosi</option>
+                </select>
+
+                <select class="form-control" style="width: 100px;" type="select" ng-model="kausi"
+                        data-ng-options="kaus.translations[userLang] for kaus in kaudet">
+                    <option value="" disabled>Hakukausi</option>
+                </select>
+
+                <select class="form-control" style="width: 150px;" type="select" ng-model="hakutyyppi"
+                        data-ng-options="hakut.translations[userLang] for hakut in hakutyypit">
+                    <option value="" disabled>Tyyppi</option>
+                </select>
+                <loading></loading>
+                <button class="btn btn-primary pull-right" data-ng-click="haeHaut()">Hae haku</button>
+
+                </div>
+
+            <label>Haku</label>
+
+            <select class="form-control" name="haku" id="kauku" ng-model="haku"
+                    ng-options="haku | haunNimi:userLang for haku in haut"
+                    data-ng-change="selectedHaku()">
+                <option value="" disabled>Valitse haku</option>
+            </select>
+
+            <br>
+            <label>Lomakepohja</label>
+            <select class="form-control" name="lomakepohja" id="lomakepohja" ng-model="lomakepohja"
+                    ng-options="pohja.nimi[userLang] for pohja in lomakepohjat"
+                    data-ng-change="valittuLomakepohja()">
+                <option value="">Valitse lomakepohja</option>
+            </select>
+        </div>
+        <!--<alertmsg></alertmsg>-->
+    </div>
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary pull-right" ng-click="tallennaHakemuslomake()" data-ng-disabled="!organisation" tl="tallenna">
+                Tallenne
+            </button>
+        </div>
+    </div>
+</form>

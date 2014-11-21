@@ -79,7 +79,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             if (_userOrganisations.length > 0) {
                 defferred.resolve(_userOrganisations);
             } else {
-                $resource(Props.authService + '/resources/omattiedot/organisaatiohenkilo').query().$promise.then(
+//                $resource(Props.authService + '/resources/omattiedot/organisaatiohenkilo').query().$promise.then(
+                $.getJSON(Props.contextRoot + '/app/test-data/organisaatiohenkilo.json',
                     function (data) {
                         var userOrganisations = _.map(_.filter(data, function (activeOrg) { if (!activeOrg.passivoitu) { return activeOrg; } }), function (userOrgs) { return userOrgs.organisaatioOid; }),
                             getUserOrgs = [];
@@ -119,8 +120,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 );
             }
-        return defferred.promise;
+            return defferred.promise;
         }
+
         return organisaatio;
     }]);
 

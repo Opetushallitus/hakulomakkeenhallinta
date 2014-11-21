@@ -7,7 +7,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             var TarjontaAPI = {};
 
             /**
-             * Hakee hakukoteen tiedot haun id:llä
+             * Hakee hakukohteen tiedot hakukohteen id:llä
              * @param hakuOid: hakukohteen id
              * @returns {promise}
              */
@@ -15,6 +15,27 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 var deffered = $q.defer();
                 $rootScope.LOGS('TarjontaAPI fetchHakukohdeInfo haku oid:', hakuOid);
                 $http.get(Props.tarjontaAPI + "/hakukohde/" + hakuOid).success(
+                    function (data) {
+                        if (data.result) {
+                            $rootScope.LOGS('TarjontaAPI', data.result);
+                            deffered.resolve(data.result);
+                        } else if (data.status === 'NOT_FOUND') {
+                            $rootScope.LOGS('TarjontaAPI', data);
+                            deffered.resolve(data.status);
+                        }
+                    }
+                );
+                return deffered.promise;
+            };
+            /**
+             * Hakee haun tiedot haun id:llä
+             * @param oid: haun id
+             * @returns {promise}
+             */
+            TarjontaAPI.fetchHakuInfo = function (oid) {
+                var deffered = $q.defer();
+                $rootScope.LOGS('TarjontaAPI fetchHakuInfo haku oid:', oid);
+                $http.get(Props.tarjontaAPI + "/haku/" + oid).success(
                     function (data) {
                         if (data.result) {
                             $rootScope.LOGS('TarjontaAPI', data.result);
@@ -70,7 +91,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                             hakuOid: hakuOid
                         }
                     }
-                ).success( function (data) {
+                ).success(function (data) {
                     // Tulokset on lista hakukohteita (ao)
                     getHakukohdeJoukot(data.result.tulokset).then(
                         function (groups) {
@@ -128,6 +149,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             };
 
             TarjontaAPI.query = function () {
+                console.log('query');
                 $resource(Props.tarjontaAPI + '/haku/findAll', {}, {
                     query: {
                         method: 'GET',
@@ -138,6 +160,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                     return as.tila === "JULKAISTU";
                                 })
                                 .map(function(as) {
+                                    console.log('€€', as);
                                     return {
                                         _id : as.id,
                                         applicationPeriods : [
@@ -161,6 +184,40 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 })
             };
+            /**
+             * Heataan tarjonnasta haut hakuparametrien perusteella
+             * @param hakuvuosi
+             * @param hakukausi
+             * @param hakutyyppi
+             * @returns {promise}
+             */
+            TarjontaAPI.haeHautParametreilla = function (hakuvuosi, hakukausi, hakutyyppi) {
+                $rootScope.LOGS('TarjontaAPI', 'haeHautParametreilla');
+                var deferred = $q.defer();
+                $http.get(Props.tarjontaAPI + "/haku/", {
+                    params: {
+                        HAKUVUOSI: hakuvuosi,
+                        HAKUKAUSI: hakukausi + '#1',
+                        HAKUTYYPPI: hakutyyppi + '#1',
+                        TILA: 'NOT_POISTETTU'
+                    }
+                }).success(
+                    function (data) {
+                        var haut = [];
+                        _.each(data.result, function (oid) {
+                                haut.push(TarjontaAPI.fetchHakuInfo(oid));
+                            }
+                        );
+                        $q.all(haut).then(
+                            function (data) {
+                                deferred.resolve(data);
+                            }
+                        );
+
+                    }
+                );
+                return deferred.promise;
+            }
 
             var tarjonta = $resource(Props.tarjontaAPI + '/hakukohde/search', {},
                 {

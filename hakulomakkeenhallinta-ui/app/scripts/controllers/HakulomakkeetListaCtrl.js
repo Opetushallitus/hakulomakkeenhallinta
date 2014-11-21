@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio', '$cookies',
-        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio, $cookies) {
+    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio', '$cookies', 'TarjontaAPI',
+        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio, $cookies, TarjontaAPI) {
             $rootScope.LOGS('HakulomakkeetListaCtrl');
 
             $scope.applicationForms = [];
@@ -61,12 +61,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $modal.open({
                     templateUrl: 'partials/dialogs/luo-hakulomake.html',
                     controller: 'LuoHakemuslomakeCtrl',
-                    scope: $scope,
-                    resolve: {
-                        userOrganisation: function () {
-                            return Organisaatio.getUserSelectedOrganisation();
-                        }
-                    }
+                    scope: $scope
                 });
             };
         }
