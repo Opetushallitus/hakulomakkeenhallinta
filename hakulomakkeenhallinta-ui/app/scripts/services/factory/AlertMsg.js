@@ -26,5 +26,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 model.alerts.splice(index, 1);
             }, 10000);
         }
+
     }
 }]);

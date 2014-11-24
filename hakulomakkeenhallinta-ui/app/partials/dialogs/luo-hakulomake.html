@@ -5,30 +5,30 @@
     <div class="modal-body">
 
         <div>
-
+            <alertmsg></alertmsg>
             <div class="form-inline">
 
                 <select class="form-control" style="width: 70px;" type="select" ng-model="hakuvuosi"
                         data-ng-options="v for v in valittavatVuodet">
-                    <option value="" disabled>Vuosi</option>
+                    <option value="" disabled>{{ t('vuosi') || 'Vuosi' }}</option>
                 </select>
 
                 <select class="form-control" style="width: 100px;" type="select" ng-model="hakukausi"
                         data-ng-options="kausi.translations[userLang] for kausi in kaudet"
                         data-ng-disabled="!hakuvuosi">
-                    <option value="" disabled>Hakukausi</option>
+                    <option value="" disabled>{{ t('hakukausi') || 'Hakukausi' }}</option>
                 </select>
 
                 <select class="form-control" style="width: 150px;" type="select" ng-model="hakutyyppi"
                         data-ng-options="hakutype.translations[userLang] for hakutype in hakutyypit"
                         data-ng-disabled="!hakukausi">
-                    <option value="" disabled>Tyyppi</option>
+                    <option value="" disabled>{{ t('hakutyyppi') || 'Hakutyyppi' }}</option>
                 </select>
 
                 <loading style="position: absolute !important; top: 16px !important; margin-left: 8px; padding-right: 0 !important;"></loading>
 
                 <button class="btn btn-primary pull-right" data-ng-click="haeHaut()"
-                        data-ng-disabled="!hakutyyppi">Hae haku</button>
+                        data-ng-disabled="!hakutyyppi">{{ t('hea.haut') || 'Hae haut' }}</button>
 
                 </div>
 
@@ -36,27 +36,26 @@
             <label>Haku</label>
             <select class="form-control" name="haku" id="kauku" ng-model="haku"
                     ng-options="haku | haunNimi:userLang for haku in haut"
-                    data-ng-change="selectedHaku()"
                     data-ng-disabled="!haut.length > 0">
-                <option value="" disabled>Valitse haku</option>
+                <option value="" disabled>{{ t('valitse.haku') || 'Valitse haku' }}</option>
             </select>
 
             <br>
             <label>Lomakepohja</label>
             <select class="form-control" name="lomakepohja" id="lomakepohja" ng-model="lomakepohja"
                     ng-options="pohja.nimi[userLang] for pohja in lomakepohjat"
-                    data-ng-change="valittuLomakepohja()"
                     data-ng-disabled="!haku">
-                <option value="">Valitse lomakepohja</option>
+                <option value="">{{ t('valitse.lomakepohja') || 'Valitse lomakepohja' }}</option>
             </select>
         </div>
-        <!--<alertmsg></alertmsg>-->
+
     </div>
     <div class="modal-footer">
         <div class="form-group pull-right">
             <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
-            <button class="btn btn-primary pull-right" ng-click="tallennaHakemuslomake()" data-ng-disabled="!lomakepohja" tl="tallenna">
-                Tallenne
+            <!--<button class="btn btn-primary pull-right" ng-click="tallennaLiitahakuLomakepohjaan()" data-ng-disabled="!lomakepohja" tl="tallenna">-->
+            <button class="btn btn-primary pull-right" ng-click="tallennaLiitahakuLomakepohjaan()" data-ng-disabled="!haku" tl="tallenna">
+                Tallenna
             </button>
         </div>
     </div>

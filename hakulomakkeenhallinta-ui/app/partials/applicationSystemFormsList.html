@@ -2,7 +2,7 @@
     <br>
     <div>
         <input class="" type="text" data-ng-model="search" id="hakuKentta" size="52" style="height: 32px;" data-ng-change="setSearchToCookie()" >
-        <button class="btn pull-right" data-ng-click="luoUusiHakemuslomake()" >Luo uusi hakemuslomake</button>
+        <button class="btn pull-right" data-ng-click="luoUusiHakemuslomake()" tl="luo.hakemuslomake">Luo hakemuslomake</button>
     </div>
     <br>
     <user-organisation-select></user-organisation-select>
@@ -52,8 +52,8 @@
         </tr>
         <tr ng-repeat="applicationForm in applicationForms | filter:search | orderBy:'name.translations.fi':order | filter:hakutyyppi.type | filter:vuosi | filter:st | filter:kausi.period">
 
-            <td> {{applicationForm | i18n:'name':userLang }}</td>
-            <td>{{applicationForm.type | hakutyyppiNimi:hakutyypit:userLang}}  </td>
+            <td>{{applicationForm | i18n:'name':userLang }}</td>
+            <td>{{applicationForm.type | hakutyyppiNimi:hakutyypit:userLang}}</td>
             <td>{{applicationForm.status.translations[userLang]}}</td>
             <td>{{applicationForm.year}}</td>
             <td>{{applicationForm.period | kausiNimi:kaudet:userLang}}</td>
@@ -64,19 +64,18 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <!--<a data-ng-click="valitseOrganisaatio(applicationForm)"> HakukohdeKohtaiset lisäkysymykset</a>-->
-                            <a data-ng-click="hakukohdeKohtaisetLisakysymykset(applicationForm)"> HakukohdeKohtaiset lisäkysymykset</a>
+                            <a data-ng-click="hakukohdeKohtaisetLisakysymykset(applicationForm)">{{ t('hakukohdekohtaiset.lisakysymykset') || 'Hakukohdekohtaiset lisäkysymykset' }}</a>
                         </li>
                         <li>
                             <a>
                                 Lomakepohjan asetukset
                             </a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a>
                                 Poista lomake
                             </a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </td>

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio', '$cookies', 'TarjontaAPI',
-        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio, $cookies, TarjontaAPI) {
+    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio', '$cookies', 'TarjontaAPI', 'AlertMsg',
+        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio, $cookies, TarjontaAPI, AlertMsg) {
             $rootScope.LOGS('HakulomakkeetListaCtrl');
 
             $scope.applicationForms = [];
@@ -58,7 +58,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.hakukohdeKohtaisetLisakysymykset = function (applicationSystemForm) {
                 $location.path("/themeQuestionsByOrganisation/" + applicationSystemForm._id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
             };
-
+            /**
+             * Avaa dialogin haun ja lomakepohjan yhdistämiselle
+             * hakemuslomakkeeksi
+             */
             $scope.luoUusiHakemuslomake = function () {
                 $rootScope.LOGS('HakulomakkeetListaCtrl', 'luoUusiHakemuslomake()', Organisaatio.getUserSelectedOrganisation().nimi);
                 $modal.open({
@@ -66,7 +69,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     controller: 'LuoHakemuslomakeCtrl',
                     scope: $scope,
                     resolve: {
-                        lomakkeidenVuodet: function (){
+                        lomakkeidenVuodet: function () {
                             return $scope.vuodet;
                         }
                     }

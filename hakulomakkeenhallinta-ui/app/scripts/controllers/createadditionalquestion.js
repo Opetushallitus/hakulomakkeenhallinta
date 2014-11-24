@@ -107,7 +107,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         },
                         function error (resp) {
                             $rootScope.LOGS('CreateAdditionalQuestionCtrl', 'tallennaUusi()', resp.statusText, resp.status);
-                            AlertMsg($scope, 'warning', 'error.tallennus.epaonnistui');
+                            AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
                         }
                     );
                 }

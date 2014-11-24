@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('LuoHakemuslomakeCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'Koodisto', '$filter', 'lomakkeidenVuodet',
-        function ($rootScope, $scope, $modalInstance, TarjontaAPI, Koodisto, $filter, lomakkeidenVuodet) {
+    .controller('LuoHakemuslomakeCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'Koodisto', '$filter', 'lomakkeidenVuodet', 'ThemeQuestions', 'AlertMsg',
+        function ($rootScope, $scope, $modalInstance, TarjontaAPI, Koodisto, $filter, lomakkeidenVuodet, ThemeQuestions, AlertMsg) {
             $rootScope.LOGS('LuoHakemuslomakeCtrl');
 
             $scope.haut = [];
-            console.log('***', lomakkeidenVuodet);
             $scope.valittavatVuodet = lomakkeidenVuodet;
             $scope.kaudet = [];
             $scope.hakutyypit = [];
@@ -21,7 +20,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.hakutyypit = $filter('orderBy')(hakutyyppiKoodit, 'translations.' + $scope.userLang);
                 }
             );
-
+            /**
+             * Heataan haut hakuvuoden, hakukauden ja hakutyypin mukaan
+             */
             $scope.haeHaut = function () {
                 $scope.haku = '';
                 $scope.lomakepohja = '';
@@ -33,9 +34,29 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 );
             }
+            /**
+             * Tallennataan haku lomakepohjaan
+             */
+            $scope.tallennaLiitahakuLomakepohjaan = function () {
+               console.log('LuoHakemuslomakeCtrl', 'TODO tallennaLiitahakuLomakepohjaan tähän ', $scope.haku);
+                //TODO: lisää tähän oikea lomakepohjan id: kun back end tukee tätä.
+                ThemeQuestions.tallennaLiitahakuLomakepohjaan($scope.haku, '123.45.400999').then(
+                    function success (data) {
+                        console.log(data);
+                        AlertMsg($scope, 'success', 'hakemuslomakkeen.luonti.onnistui');
+                        $modalInstance.close(data);
+                    },
+                    function error (resp) {
+                        AlertMsg($scope, 'warning', 'error.tallennus.epaonnistui');
+                    }
+                );
+
+            };
+
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
+
 
         }
     ]);
