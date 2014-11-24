@@ -33,7 +33,7 @@
                 </div>
 
             <br>
-            <label>Haku</label>
+            <label>{{ t('haku') || 'Haku' }}</label>
             <select class="form-control" name="haku" id="kauku" ng-model="haku"
                     ng-options="haku | haunNimi:userLang for haku in haut"
                     data-ng-disabled="!haut.length > 0">
@@ -41,7 +41,7 @@
             </select>
 
             <br>
-            <label>Lomakepohja</label>
+            <label>{{ t('lomakepohja') || 'Lomakepohja' }}</label>
             <select class="form-control" name="lomakepohja" id="lomakepohja" ng-model="lomakepohja"
                     ng-options="pohja.nimi[userLang] for pohja in lomakepohjat"
                     data-ng-disabled="!haku">
