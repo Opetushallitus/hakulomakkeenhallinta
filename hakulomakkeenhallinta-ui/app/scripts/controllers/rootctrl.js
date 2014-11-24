@@ -66,6 +66,22 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                     $scope.loading = false;
                 }
             );
+            /**
+             * lataus indikaattori näyttäminen käyttöliittymässä
+             */
+            $scope.$on('LOADPAGE', function () {
+                    $rootScope.LOGS('RootCtrl', 'LOAD');
+                    $scope.loadingPage = true;
+                }
+            );
+            /**
+             * lataus indikaattorin poistaminen käyttöliittymästä
+             */
+            $scope.$on('LOADPAGEREADY', function () {
+                    $rootScope.LOGS('RootCtrl', 'LOADREADY');
+                    $scope.loadingPage = false;
+                }
+            );
 
             $scope.tarkistaPakollisuus = function (translations) {
                 if ( _.size(translations) < 1) {

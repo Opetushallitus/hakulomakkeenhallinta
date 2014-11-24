@@ -8,30 +8,36 @@
 
             <div class="form-inline">
 
-                <select class="form-control" style="width: 70px;" type="select" ng-model="vuosi.year"
-                        data-ng-options="v for v in vuodet">
+                <select class="form-control" style="width: 70px;" type="select" ng-model="hakuvuosi"
+                        data-ng-options="v for v in valittavatVuodet">
                     <option value="" disabled>Vuosi</option>
                 </select>
 
-                <select class="form-control" style="width: 100px;" type="select" ng-model="kausi"
-                        data-ng-options="kaus.translations[userLang] for kaus in kaudet">
+                <select class="form-control" style="width: 100px;" type="select" ng-model="hakukausi"
+                        data-ng-options="kausi.translations[userLang] for kausi in kaudet"
+                        data-ng-disabled="!hakuvuosi">
                     <option value="" disabled>Hakukausi</option>
                 </select>
 
                 <select class="form-control" style="width: 150px;" type="select" ng-model="hakutyyppi"
-                        data-ng-options="hakut.translations[userLang] for hakut in hakutyypit">
+                        data-ng-options="hakutype.translations[userLang] for hakutype in hakutyypit"
+                        data-ng-disabled="!hakukausi">
                     <option value="" disabled>Tyyppi</option>
                 </select>
-                <loading></loading>
-                <button class="btn btn-primary pull-right" data-ng-click="haeHaut()">Hae haku</button>
+
+                <loading style="position: absolute !important; top: 16px !important; margin-left: 8px; padding-right: 0 !important;"></loading>
+
+                <button class="btn btn-primary pull-right" data-ng-click="haeHaut()"
+                        data-ng-disabled="!hakutyyppi">Hae haku</button>
 
                 </div>
 
+            <br>
             <label>Haku</label>
-
             <select class="form-control" name="haku" id="kauku" ng-model="haku"
                     ng-options="haku | haunNimi:userLang for haku in haut"
-                    data-ng-change="selectedHaku()">
+                    data-ng-change="selectedHaku()"
+                    data-ng-disabled="!haut.length > 0">
                 <option value="" disabled>Valitse haku</option>
             </select>
 
@@ -39,7 +45,8 @@
             <label>Lomakepohja</label>
             <select class="form-control" name="lomakepohja" id="lomakepohja" ng-model="lomakepohja"
                     ng-options="pohja.nimi[userLang] for pohja in lomakepohjat"
-                    data-ng-change="valittuLomakepohja()">
+                    data-ng-change="valittuLomakepohja()"
+                    data-ng-disabled="!haku">
                 <option value="">Valitse lomakepohja</option>
             </select>
         </div>
@@ -48,7 +55,7 @@
     <div class="modal-footer">
         <div class="form-group pull-right">
             <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
-            <button class="btn btn-primary pull-right" ng-click="tallennaHakemuslomake()" data-ng-disabled="!organisation" tl="tallenna">
+            <button class="btn btn-primary pull-right" ng-click="tallennaHakemuslomake()" data-ng-disabled="!lomakepohja" tl="tallenna">
                 Tallenne
             </button>
         </div>

@@ -3,7 +3,8 @@
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
     .factory('FormEditor', ['$rootScope', '$q', '$resource', 'Props', '$timeout',
         function ($rootScope, $q, $resource, Props, $timeout) {
-        var formEditor = {};
+        var formEditor = {},
+            _applicationsSystemForms = [];
 
         var FormEditor = $resource(Props.formEditorUri + '/:_path/:_id/:_oper',
             {_path: '@_path', _id: '@_id', _oper:'@_oper'}, {}
@@ -57,11 +58,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         formEditor.getApplicationSystemForms = function () {
             $rootScope.LOGS('FormEditor', 'getApplicationSystemForms()');
             var deferred = $q.defer();
-            FormEditor.query({'_path':'application-system-form'}).$promise.then(
-                function (data) {
-                    deferred.resolve(data);
-                }
-            );
+            if (_applicationsSystemForms.length > 0){
+                deferred.resolve(_applicationsSystemForms);
+            } else {
+                FormEditor.query({'_path': 'application-system-form'}).$promise.then(
+                    function (data) {
+                        _applicationsSystemForms = data;
+                        deferred.resolve(data);
+                    }
+                );
+            }
+
             return deferred.promise;
         };
         /**

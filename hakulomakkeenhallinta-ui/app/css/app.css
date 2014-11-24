@@ -156,3 +156,15 @@ ul.menu-inside-tree li:last-child{
     list-style-type: none;
     background: #fff;
 }
+
+#veil {
+    position: absolute;
+    top: 89px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: not-allowed;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    background: #000000 url("../img/loading-page.gif") no-repeat center;
+}

@@ -29,13 +29,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             );
             $scope.themes = [];
             $scope.hakukohteittain = {};
+            $scope.$emit('LOADPAGE');
             /**
              * heataan hakulomakkeen lisäkysymykset halomamekkeen id:llä ja valitulla organisaation id:llä
              */
             ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(
                 function (data) {
                     $scope.themes = data;
-
+                    $scope.$emit('LOADPAGEREADY');
                     _.each(data, function (d) {
                             _.each(d.hkkohde, function (hk) {
                                     if ($scope.hakukohteittain[hk.aoid] === undefined) {
@@ -66,6 +67,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         jatkoK.scope = $scope;
                         JatkokysymysService.lisaaJatkokysymys(jatkoK);
                     }
+
                 }
             );
             /**

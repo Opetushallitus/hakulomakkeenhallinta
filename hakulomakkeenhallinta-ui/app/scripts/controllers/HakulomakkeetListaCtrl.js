@@ -14,12 +14,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.setSearchToCookie = function () {
                 $cookies.formListSearch = $scope.search;
-            }
+            };
+            $scope.$emit('LOADPAGE');
             /**
              * haetaan hakulomakkeet lista
              */
             FormEditor.getApplicationSystemForms().then(
                 function (data) {
+
                     $scope.statukset = _.uniq(_.map(data, function (status) { return status.status.translations[$scope.userLang]; }));
                     $scope.statukset.push('');
                     $scope.statukset =  $filter('orderBy')($scope.statukset, 'toString()');
@@ -47,6 +49,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             $scope.hakutyypit = $filter('orderBy')(hakutyyppiKoodit, 'translations.' + $scope.userLang);
                         }
                     );
+                    $scope.$emit('LOADPAGEREADY');
                     $scope.applicationForms = data;
 
                 }
@@ -61,7 +64,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $modal.open({
                     templateUrl: 'partials/dialogs/luo-hakulomake.html',
                     controller: 'LuoHakemuslomakeCtrl',
-                    scope: $scope
+                    scope: $scope,
+                    resolve: {
+                        lomakkeidenVuodet: function (){
+                            return $scope.vuodet;
+                        }
+                    }
                 });
             };
         }
