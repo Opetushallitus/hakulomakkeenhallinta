@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio', '$cookies', 'TarjontaAPI', 'AlertMsg',
-        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio, $cookies, TarjontaAPI, AlertMsg) {
+    .controller('HakulomakkeetListaCtrl', ['$scope', '$rootScope', '$modal', '$log', '$location', 'FormEditor', '_', '$filter', 'Koodisto', 'Organisaatio', '$cookies', 'LomakepohjanAsetuksetService',
+        function ($scope, $rootScope, $modal, $log, $location, FormEditor, _, $filter, Koodisto, Organisaatio, $cookies, LomakepohjanAsetuksetService) {
             $rootScope.LOGS('HakulomakkeetListaCtrl');
 
             $scope.applicationForms = [];
@@ -75,5 +75,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 });
             };
+
+            $scope.lomakepohjanAsetukset = function (applicationForm) {
+
+                LomakepohjanAsetuksetService.lomakepohjanAsetukset(applicationForm, $scope);
+            }
         }
     ]);

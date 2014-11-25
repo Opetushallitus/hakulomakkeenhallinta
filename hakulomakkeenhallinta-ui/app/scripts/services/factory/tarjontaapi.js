@@ -98,10 +98,34 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                             if (groups.length > 0) {
                                 deferred.resolve(data.result.tulokset.concat(groups));
                             } else {
-                                console.log('groups 0');
                                 deferred.resolve(data.result.tulokset);
                             }
 
+                        }
+                    );
+                });
+                return deferred.promise;
+            };
+            /**
+             * Heataan käyttäjän organisaation liittyvät hakukohderyhmät
+             * @param hakuOid:haun id
+             * @param userOrganisation: käyttäjän organisaatio
+             * @returns {Array}: palauttaa käyttäjän hakukohderyhmät
+             */
+            TarjontaAPI.usersApplicationOptionGroups = function (hakuOid, userOrganisation) {
+                var deferred = $q.defer();
+
+                $http.get(Props.tarjontaAPI + "/hakukohde/search", {
+                        params: {
+                            organisationOid: userOrganisation,
+                            hakuOid: hakuOid
+                        }
+                    }
+                ).success(function (data) {
+                    // Tulokset on lista hakukohteita (ao)
+                    getHakukohdeJoukot(data.result.tulokset).then(
+                        function (groups) {
+                            deferred.resolve(groups);
                         }
                     );
                 });

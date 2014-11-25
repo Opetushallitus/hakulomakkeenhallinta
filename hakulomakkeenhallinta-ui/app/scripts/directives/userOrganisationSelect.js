@@ -1,8 +1,8 @@
 'use strickt';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('userOrganisationSelect', [ 'Organisaatio', '$filter', '$location', '$routeParams', '$rootScope', '_', 'FormEditor',
-        function (Organisaatio, $filter, $location, $routeParams, $rootScope, _ , FormEditor) {
+    .directive('userOrganisationSelect', [ 'Organisaatio', '$filter', '$location', '$routeParams', '$rootScope', '_',
+        function (Organisaatio, $filter, $location, $routeParams, $rootScope, _) {
             return {
                 restrict: 'E',
                 replace: true,
