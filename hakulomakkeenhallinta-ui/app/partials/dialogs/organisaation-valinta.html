@@ -1,4 +1,4 @@
-<form role="form" name="organisaatioValinta">
+<form class="modal-dialog-border" role="form" name="organisaatioValinta">
     <div class="modal-header">
         <h4 tl="organisaation.valinta">Organisaation valinta</h4>
     </div>
@@ -16,12 +16,11 @@
             </div>
         </div>
         <alertmsg></alertmsg>
-        <div>
-
-            <div class="modal-footer">
-                <div class="form-group pull-right">
-                    <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
-                    <button class="btn btn-primary pull-right" ng-click="jatka()" data-ng-disabled="!organisation" tl="jatka">Jatka</button>
-                </div>
-            </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary pull-right" ng-click="jatka()" data-ng-disabled="!organisation" tl="jatka">Jatka</button>
+        </div>
+    </div>
 </form>

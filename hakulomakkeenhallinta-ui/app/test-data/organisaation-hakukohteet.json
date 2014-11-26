@@ -1,0 +1,301 @@
+{
+  "result" : {
+    "tulokset" : [ {
+      "oid" : "1.2.246.562.10.39920288212",
+      "version" : 0,
+      "nimi" : {
+        "fi" : "Aalto-yliopisto",
+        "sv" : "Aalto-universitetet, Högskolan för teknikvetenskaper",
+        "en" : "Aalto University, School of Science"
+      },
+      "tulokset" : [ {
+        "oid" : "1.2.246.562.20.87168918313",
+        "nimi" : {
+          "fi" : "sdasd",
+          "sv" : "adsa",
+          "en" : "d"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 22,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.48204976764",
+        "nimi" : {
+          "fi" : "asdasdasd"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 1,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.51777932339",
+        "nimi" : {
+          "fi" : "asdasdasd",
+          "sv" : "asdads",
+          "en" : "asd"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 222,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.85193655868",
+        "nimi" : {
+          "fi" : "sdf",
+          "sv" : "sdfs",
+          "en" : "d"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 2,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.837320247210",
+        "nimi" : {
+          "fi" : "sdfsfdsdfs",
+          "sv" : "dsdf",
+          "en" : ""
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 1,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      } ]
+    }, {
+      "oid" : "1.2.246.562.10.72985435253",
+      "version" : 0,
+      "nimi" : {
+        "fi" : "Aalto-yliopisto, opisto",
+        "sv" : "Aalto-universitetet, Högskolan för ingenjörsvetenskaper",
+        "en" : "Aalto university, School of Engineering"
+      },
+      "tulokset" : [ {
+        "oid" : "1.2.246.562.20.32449220121",
+        "nimi" : {
+          "fi" : "ympäristötekniikan hakukohde"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "VALMIS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 5,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      } ]
+    }, {
+      "oid" : "1.2.246.562.10.25401456758",
+      "version" : 0,
+      "nimi" : {
+        "fi" : "Aalto-yliopisto, Taiteiden ja suunnittelun korkeakoulu",
+        "sv" : "Högskolan för konst, design och arkitektur",
+        "en" : "School of Arts, Design and Architecture"
+      },
+      "tulokset" : [ {
+        "oid" : "1.2.246.562.20.43518216312",
+        "nimi" : {
+          "fi" : "Visual Culture and Contemporary Art (ViCCA), Master of Arts",
+          "sv" : "",
+          "en" : ""
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "VALMIS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 10,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      } ]
+    }, {
+      "oid" : "1.2.246.562.10.56753942459",
+      "version" : 0,
+      "nimi" : {
+        "fi" : "Aalto-yliopisto",
+        "sv" : "Aalto-universitetet",
+        "en" : "Aalto University"
+      },
+      "tulokset" : [ {
+        "oid" : "1.2.246.562.20.95363309253",
+        "nimi" : {
+          "fi" : "hakukohde test 1",
+          "sv" : "",
+          "en" : ""
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 77,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.14748238509",
+        "nimi" : {
+          "fi" : "sdfsdfsdfsdf",
+          "sv" : "",
+          "en" : ""
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "VALMIS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 1,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.21967722352",
+        "nimi" : {
+          "fi" : "a",
+          "sv" : "dasd",
+          "en" : "asd"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "VALMIS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 1,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.41101460248",
+        "nimi" : {
+          "fi" : "asa",
+          "sv" : "sdasd"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 3,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      }, {
+        "oid" : "1.2.246.562.20.24470777509",
+        "nimi" : {
+          "fi" : "fddfg"
+        },
+        "kausi" : {
+          "fi" : "Syksy",
+          "sv" : "Höst",
+          "en" : "Autumn"
+        },
+        "vuosi" : 2015,
+        "tila" : "LUONNOS",
+        "hakutapa" : {
+          "fi" : "Erillishaku",
+          "sv" : "Separata antagningar",
+          "en" : "Erillishaku"
+        },
+        "aloituspaikat" : 11,
+        "hakuOid" : "1.2.246.562.29.80171652938",
+        "koulutuslaji" : { }
+      } ]
+    } ],
+    "tuloksia" : 12
+  },
+  "status" : "OK",
+  "accessRights" : { }
+}

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', '$timeout',
-        function ($rootScope, $resource, Props, $q, $timeout) {
+    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', 'FormEditor', '_', '$timeout',
+        function ($rootScope, $resource, Props, $q, FormEditor, _, $timeout) {
             var themeQuestion = {};
 
             var ThemeQuestion = $resource(Props.themeQuestionUri + '/:_id/:_aoid/:_themeId',
@@ -70,6 +70,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             themeQuestion.createNewQuestion = function (applicationSystemId, hakuOid, themeId, questionData) {
                 $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()');
+                console.log('## ', applicationSystemId, hakuOid, themeId, questionData);
                 var deferred = $q.defer();
                 ThemeQuestion.save({'_id': applicationSystemId, '_aoid': hakuOid, '_themeId': themeId  }, questionData).$promise.then(
                     function success(data) {
@@ -115,6 +116,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 ThemeQuestion.delete({'_id': questionId }).$promise.then(
                     function success(data) {
                         $rootScope.LOGS('ThemeQuestions', 'deleteQuestion()', data);
+                        data = themeQuestion.jarjestaJatkokysymyksetPuu(data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
@@ -137,6 +139,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 ThemeQuestion.reorderThemeQuestions({ _lopId: learningOportunityId, _themeId: themeId }, ordinals).$promise.then(
                     function success(data) {
                         $rootScope.LOGS('ThemeQuestions', 'reorderThemeQuestions()', data);
+                        data = themeQuestion.jarjestaJatkokysymyksetPuu(data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
@@ -167,6 +170,98 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         deferred.reject(resp);
                     }
                 );
+                return deferred.promise;
+            };
+            /**
+             * heataan hakulomakkeen hakukohde kohtaiset lisäkysymykset hakulomamekkeen - ja organisaation id:llä
+             * ja asetetaan ne käyttöliittymään oikean teeman ja hakukohteen alle
+             * @param applicationSystemId hakulomakkeen Id
+             * @param organisationId organisaation Id
+             * @returns {promise}
+             */
+            themeQuestion.hakukohdeKohtaisetKysymykset = function (applicationSystemId, organisationId) {
+                $rootScope.LOGS('ThemeQuestions', 'hakukohdeKohtaisetKysymykset()');
+                console.log(applicationSystemId, organisationId);
+                var deferred = $q.defer();
+                FormEditor.getApplicationSystemFormThemes(applicationSystemId).then(
+                    function (themes) {
+                        themeQuestion.getThemeQuestionListByOrgId(applicationSystemId, organisationId).then(
+                            function (themeQues) {
+                                _.each(themes, function (teema, indx) {
+                                        themes[indx].hkkohde = [];
+                                        var teemanKysymykset = _.where(themeQues, {theme: teema.id}),
+                                            teemanHakukohteet = _.uniq( _.map(teemanKysymykset, function (lopIds) { return lopIds.learningOpportunityId; }));
+
+                                        _.each(teemanHakukohteet, function(lopId, indx2) {
+                                                themes[indx].hkkohde[indx2] = {};
+                                                themes[indx].hkkohde[indx2].aoid = lopId;
+                                                themes[indx].hkkohde[indx2].additionalQuestions = _.where(themeQues, {theme: teema.id, learningOpportunityId: lopId});
+
+                                                themes[indx].hkkohde[indx2].additionalQuestions = themeQuestion.jarjestaJatkokysymyksetPuu(themes[indx].hkkohde[indx2].additionalQuestions);
+                                        });
+                                    }
+                                );
+                                deferred.resolve(themes);
+                            }
+                        );
+                    }
+                );
+                return deferred.promise;
+            };
+
+            /**
+             * Parsiin hakukohteen jatkokysymyksen oikeaan
+             * muotoon käyttöliittymälle
+             * @param data taulukko kysymyksistä
+             * @returns {*}
+             */
+            themeQuestion.jarjestaJatkokysymyksetPuu = function (data) {
+                var jatkoQarray = _.filter(data, function (jatkoQ) {
+                    if (jatkoQ.parentId !== undefined) {
+                        return jatkoQ;
+                    }
+                });
+                if (jatkoQarray.length > 0) {
+                    data = _.difference(data, jatkoQarray);
+                    _.each(data, function (question, indx1) {
+                        _.each(jatkoQarray, function (jatQ) {
+                            if (jatQ.parentId === question._id) {
+                                _.each(question.options, function (option, indx2) {
+                                    if (jatQ.followupCondition === option.id) {
+                                        if (data[indx1].options[indx2].questions === undefined) {
+                                            data[indx1].options[indx2].questions = [];
+                                        }
+                                        data[indx1].options[indx2].questions.push(jatQ);
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    return data;
+                } else {
+                    return data;
+                }
+            };
+
+            themeQuestion.tallennaLiitahakuLomakepohjaan = function (haunOid, lomakepohjaOid) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ThemeQuestions', 'TODO: tällä', 'tallennaLiitahakuLomakepohjaan()');
+                //TODO: tälle backend post kun se on saatavilla
+                $timeout(function () {
+                    deferred.resolve({status:200, message: 'hakemuslomakkeen.luonti.onnistui'});
+//                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
+                }, 500);
+                return deferred.promise;
+            };
+
+            themeQuestion.tallennaHakukohderyhmaRajoite = function (hakukohdeRyhmaOid, hakukohdeRajoite) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ThemeQuestions', 'TODO: tällä', 'tallennaHakukohderyhmaRajoite()');
+                //TODO: tälle backend post kun se on saatavilla
+                $timeout(function () {
+                    deferred.resolve({status: 200, message: 'tallennus ok'});
+//                    deferred.reject({status:400, message: 'tallennus ei onnistu'});
+                }, 500);
                 return deferred.promise;
             };
 

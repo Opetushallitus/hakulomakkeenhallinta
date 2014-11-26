@@ -1,1 +1,692 @@
-[{"template":"hakutyyppi_03","_id":"1.2.246.562.29.32820950486","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Lisähaku kevään yhteishaussa vapaaksi jääneille opiskelupaikoille","sv":"Tilläggsansökan till lediga platser i vårens gemensamma ansökan 2014"}},"year":2014,"type":"hakutyyppi_03","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.89961767772","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"TAMKin erillishaku syksy 2014","en":"Application to TAMK autumn 2014"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.554815766710","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Ammatillisen koulutuksen ja lukiokoulutuksen syksyn 2014 yhteishaku","sv":"Gemensam ansökan till yrkes- och gymnasieutbildning hösten 2014"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.20612728228","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Haku maisterikoulutukseen (Turun yliopisto)"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.90346572044","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Haku avoimessa yliopistossa opintoja suorittaneille (Turun yliopisto)"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_03","_id":"1.2.246.562.29.48221303398","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Perusopetuksen jälkeisen valmistavan koulutuksen kesän 2014 lisähaku","sv":"Tilläggsansökan till de förberedande utbildningarna sommaren 2014"}},"year":2014,"type":"hakutyyppi_03","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.95390561488","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Korkeakoulujen yhteishaku kevät 2015"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.61506169087","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Erillishaku syksy 2014 (Itä-Suomen yliopisto) "}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.5.2013080813081926341927","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku","sv":"Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.80171652938","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Haku maisterikoulutukseen (Aalto-yliopisto)"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.87791663161","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Haku tiedekilpailuissa menestyneille (Helsingin yliopisto, maatalous-metsätieteellinen tiedekunta)","sv":"Ansökan på basis av framgång i vetenskapstävling"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.5.2014022808591368740155","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Haku vapaan sivistystyön koulutukseen","sv":"Ansökan till utbildning inom fri bildning"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.77742788829","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Yhteishaku syksy 2014"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_03","_id":"1.2.246.562.5.2013100416514851336462","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"Lisähaku syksyn yhteishaussa vapaaksi jääneille opiskelupaikoille"}},"year":2013,"type":"hakutyyppi_03","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.5.2013112910452702965370","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"Haku erityisopetuksena järjestettäviin ammatillisiin perustutkintoihin","sv":"Ansökan till yrkesinriktad grundutbildning som anordnas som specialundervisning"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.5.2013112910480420004764","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"Haku valmentavaan ja kuntouttavaan opetukseen ja ohjaukseen","sv":"Ansökan till undervisning och handledning i tränings- och rehabiliteringssyfte"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.34517530365","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Maisterihaku syksy 2014 (Itä-Suomen yliopisto)"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.987595507210","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"Ullan testihaku 1"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.5.2013060313080811526781","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"Ammatillisen koulutuksen ja lukiokoulutuksen yhteishaku","sv":"Gemensam ansökan till yrkes- och gymnasieutbildning"}},"year":2013,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.98758580447","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Testihaku testipisteeseen"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.44089544686","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"xxxxx","sv":"xxxxx","en":"xxxxx"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_03","_id":"1.2.246.562.29.42213990833","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"pppppppp"}},"year":2014,"type":"hakutyyppi_03","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.30219796437","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Helsingin yliopiston erillishaku syksy 2014"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.46501130317","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"dddd"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.46295524931","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"a","sv":"a","en":"a"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.5.2014022711042555034240","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Perusopetuksen jälkeisen valmistavan koulutuksen kesän 2014 haku","sv":"Ansökan sommaren 2014 till förberedande utbildningar efter grundskolan"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.92478804245","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Pieni amk & yliopistohaku","sv":"lilla","en":"small"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.39470501766","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku (Kopioitu 14.08.2014 17:24:37)","sv":"Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014 (Kopioitu 14.08.2014 17:24:37)","en":" (Kopioitu 14.08.2014 17:24:37)"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.24610029977","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"aiku testihaku 1"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.23946770437","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Sarin testihaku A"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.98579277736","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku (Kopioitu 07.08.2014 09:09:33)","sv":"Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014 (Kopioitu 07.08.2014 09:09:33)","en":" (Kopioitu 07.08.2014 09:09:33)"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_k"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.36623836099","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"testataan haun kopiointia,tämä haku s 2012"}},"year":2012,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.40239539519","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"testataan haun kopiointia,tämä haku s 2012 (Kopioitu 07.08.2014 13:06:16)"}},"year":2013,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.671251923510","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"XXXXXXXX tämä haku on tyhjä"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.881746045910","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Sarin testihaku B"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.29226660495","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"XXXXXXXX tämä haku on tyhjä (Kopioitu 07.08.2014 13:21:42)"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_03","_id":"1.2.246.562.29.26529508074","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"Extrahaku ÅÅÅÅ"}},"year":2013,"type":"hakutyyppi_03","period":"kausi_s"},{"template":"hakutyyppi_03","_id":"1.2.246.562.29.10636711383","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"zzzzzzzzzzz (Kopioitu 07.08.2014 13:56:24)","sv":" (Kopioitu 07.08.2014 13:56:24)","en":" (Kopioitu 07.08.2014 13:56:24)"}},"year":2015,"type":"hakutyyppi_03","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.61651623383","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"testataan haun kopiointia,tämä haku s 2012 (Kopioitu 07.08.2014 14:58:47)"}},"year":2013,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_03","_id":"1.2.246.562.29.32599084962","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"zzzzzzzzzzz"}},"year":2014,"type":"hakutyyppi_03","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.52768806243","status":{"translations":{"fi":"Aktiivinen"}},"name":{"translations":{"fi":"Korkeakoulujen yhteishaku syksy 2014 (Kopioitu 07.08.2014 08:52:15)","sv":"Högskolornas gemensamma ansökan hösten 2014 (Kopioitu 07.08.2014 08:52:15)","en":"Joint application to higher education autumn 2014 (Kopioitu 07.08.2014 08:52:15)"}},"year":2015,"type":"hakutyyppi_01","period":"kausi_s"},{"template":"hakutyyppi_03","_id":"1.2.246.562.29.96137272983","status":{"translations":{"fi":"Suljettu"}},"name":{"translations":{"fi":"Kymppiluokan testihaku","sv":"Kymppiluokan testihaku","en":"Kymppiluokan testihaku"}},"year":2014,"type":"hakutyyppi_03","period":"kausi_s"},{"template":"hakutyyppi_01","_id":"1.2.246.562.29.173465377510","status":{"translations":{"fi":"Julkaistu"}},"name":{"translations":{"fi":"Korkeakoulujen yhteishaku syksy 2014","sv":"Högskolornas gemensamma ansökan hösten 2014","en":"Joint application to higher education autumn 2014"}},"year":2014,"type":"hakutyyppi_01","period":"kausi_s"}]
+[
+    {
+        "template": "hakutyyppi_03",
+        "_id": "1.2.246.562.29.32820950486",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Lisähaku kevään yhteishaussa vapaaksi jääneille opiskelupaikoille",
+                "sv": "Tilläggsansökan till lediga platser i vårens gemensamma ansökan 2014"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_03",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.89961767772",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "TAMKin erillishaku syksy 2014",
+                "en": "Application to TAMK autumn 2014"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.554815766710",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen syksyn 2014 yhteishaku",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning hösten 2014"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.20612728228",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Haku maisterikoulutukseen (Turun yliopisto)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.90346572044",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Haku avoimessa yliopistossa opintoja suorittaneille (Turun yliopisto)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_03",
+        "_id": "1.2.246.562.29.48221303398",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Perusopetuksen jälkeisen valmistavan koulutuksen kesän 2014 lisähaku",
+                "sv": "Tilläggsansökan till de förberedande utbildningarna sommaren 2014"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_03",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.95390561488",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Korkeakoulujen yhteishaku kevät 2015"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.61506169087",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Erillishaku syksy 2014 (Itä-Suomen yliopisto) "
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.5.2013080813081926341927",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.80171652938",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Haku maisterikoulutukseen (Aalto-yliopisto)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.87791663161",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Haku tiedekilpailuissa menestyneille (Helsingin yliopisto, maatalous-metsätieteellinen tiedekunta)",
+                "sv": "Ansökan på basis av framgång i vetenskapstävling"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.5.2014022808591368740155",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Haku vapaan sivistystyön koulutukseen",
+                "sv": "Ansökan till utbildning inom fri bildning"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.77742788829",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Yhteishaku syksy 2014"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_03",
+        "_id": "1.2.246.562.5.2013100416514851336462",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Lisähaku syksyn yhteishaussa vapaaksi jääneille opiskelupaikoille"
+            }
+        },
+        "year": 2013,
+        "type": "hakutyyppi_03",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.5.2013112910452702965370",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Haku erityisopetuksena järjestettäviin ammatillisiin perustutkintoihin",
+                "sv": "Ansökan till yrkesinriktad grundutbildning som anordnas som specialundervisning"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.5.2013112910480420004764",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Haku valmentavaan ja kuntouttavaan opetukseen ja ohjaukseen",
+                "sv": "Ansökan till undervisning och handledning i tränings- och rehabiliteringssyfte"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.34517530365",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Maisterihaku syksy 2014 (Itä-Suomen yliopisto)"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.987595507210",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Ullan testihaku 1"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.5.2013060313080811526781",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen yhteishaku",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning"
+            }
+        },
+        "year": 2013,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.98758580447",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Testihaku testipisteeseen"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.46295524931",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "a",
+                "sv": "a",
+                "en": "a"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.5.2014022711042555034240",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Perusopetuksen jälkeisen valmistavan koulutuksen kesän 2014 haku",
+                "sv": "Ansökan sommaren 2014 till förberedande utbildningar efter grundskolan"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.92478804245",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Pieni amk & yliopistohaku",
+                "sv": "lilla",
+                "en": "small"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.39470501766",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku (Kopioitu 14.08.2014 17:24:37)",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014 (Kopioitu 14.08.2014 17:24:37)",
+                "en": " (Kopioitu 14.08.2014 17:24:37)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.24610029977",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "aiku testihaku 1"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.23946770437",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Sarin testihaku A"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.98579277736",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Ammatillisen koulutuksen ja lukiokoulutuksen kevään 2014 yhteishaku (Kopioitu 07.08.2014 09:09:33)",
+                "sv": "Gemensam ansökan till yrkes- och gymnasieutbildning våren 2014 (Kopioitu 07.08.2014 09:09:33)",
+                "en": " (Kopioitu 07.08.2014 09:09:33)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_k"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.36623836099",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "testataan haun kopiointia,tämä haku s 2012"
+            }
+        },
+        "year": 2012,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.40239539519",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "testataan haun kopiointia,tämä haku s 2012 (Kopioitu 07.08.2014 13:06:16)"
+            }
+        },
+        "year": 2013,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.671251923510",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "XXXXXXXX tämä haku on tyhjä"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.881746045910",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Sarin testihaku B"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.29226660495",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "XXXXXXXX tämä haku on tyhjä (Kopioitu 07.08.2014 13:21:42)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_03",
+        "_id": "1.2.246.562.29.26529508074",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Extrahaku ÅÅÅÅ"
+            }
+        },
+        "year": 2013,
+        "type": "hakutyyppi_03",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_03",
+        "_id": "1.2.246.562.29.10636711383",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "zzzzzzzzzzz (Kopioitu 07.08.2014 13:56:24)",
+                "sv": " (Kopioitu 07.08.2014 13:56:24)",
+                "en": " (Kopioitu 07.08.2014 13:56:24)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_03",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.61651623383",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "testataan haun kopiointia,tämä haku s 2012 (Kopioitu 07.08.2014 14:58:47)"
+            }
+        },
+        "year": 2013,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.52768806243",
+        "status": {
+            "translations": {
+                "fi": "Aktiivinen"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Korkeakoulujen yhteishaku syksy 2014 (Kopioitu 07.08.2014 08:52:15)",
+                "sv": "Högskolornas gemensamma ansökan hösten 2014 (Kopioitu 07.08.2014 08:52:15)",
+                "en": "Joint application to higher education autumn 2014 (Kopioitu 07.08.2014 08:52:15)"
+            }
+        },
+        "year": 2015,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_03",
+        "_id": "1.2.246.562.29.96137272983",
+        "status": {
+            "translations": {
+                "fi": "Suljettu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Kymppiluokan testihaku",
+                "sv": "Kymppiluokan testihaku",
+                "en": "Kymppiluokan testihaku"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_03",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_03",
+        "_id": "1.2.246.562.29.32599084962",
+        "status": {
+            "translations": {
+                "fi": "Lukittu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "zzzzzzzzzzz"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_03",
+        "period": "kausi_s"
+    },
+    {
+        "template": "hakutyyppi_01",
+        "_id": "1.2.246.562.29.173465377510",
+        "status": {
+            "translations": {
+                "fi": "Julkaistu"
+            }
+        },
+        "name": {
+            "translations": {
+                "fi": "Korkeakoulujen yhteishaku syksy 2014",
+                "sv": "Högskolornas gemensamma ansökan hösten 2014",
+                "en": "Joint application to higher education autumn 2014"
+            }
+        },
+        "year": 2014,
+        "type": "hakutyyppi_01",
+        "period": "kausi_s"
+    }
+]

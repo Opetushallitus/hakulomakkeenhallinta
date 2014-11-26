@@ -3,7 +3,7 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('poistaKysymysDialogCtrl', function ($rootScope, $scope, $modalInstance, question, ThemeQuestions, AlertMsg, where, $routeParams, $location) {
         $scope.question = question;
-
+        $scope.poistoEiOnnistu = false;
         $scope.poista = function () {
             ThemeQuestions.deleteQuestion($scope.question._id).then(
                 function success() {
@@ -16,7 +16,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 },
                 function error(resp) {
                     $rootScope.LOGS('poistaKysymysDialogCtrl', 'poista', resp.messageText, resp.status);
-                    AlertMsg($scope, 'warning', 'error.kysymyksen.poisto');
+                    $scope.poistoEiOnnistu = true;
+                    if(resp.data.message !== undefined) {
+                        AlertMsg($scope, 'warning', resp.data.message);
+                    } else {
+                        AlertMsg($scope, 'warning', 'error.kysymyksen.poisto');
+                    }
+
                 }
             );
         };

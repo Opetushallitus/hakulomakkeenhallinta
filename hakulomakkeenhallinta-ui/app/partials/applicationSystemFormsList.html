@@ -1,7 +1,11 @@
 <div data-ng-controller="HakulomakkeetListaCtrl">
+    <br>
     <div>
-        <input type="text" data-ng-model="search" id="hakuKentta" size="32" >
+        <input class="" type="text" data-ng-model="search" id="hakuKentta" size="52" style="height: 32px;" data-ng-change="setSearchToCookie()" >
+        <button class="btn pull-right" data-ng-click="luoUusiHakemuslomake()" tl="luo.hakemuslomake">Luo hakulomake</button>
     </div>
+    <br>
+    <user-organisation-select></user-organisation-select>
     <br>
     <div>
     <table class="table table-striped">
@@ -11,6 +15,7 @@
             <th>{{ t('tila') || 'Tila' }}</th>
             <th>{{ t('vuosi') || 'Vuosi' }}</th>
             <th>{{ t('hakukausi') || 'Hakukausi' }}</th>
+            <th></th>
         </tr>
         <tr>
 
@@ -43,17 +48,34 @@
                         data-ng-options="kaus.translations[userLang] for kaus in kaudet">
                 </select>
             </td>
+            <td></td>
         </tr>
         <tr ng-repeat="applicationForm in applicationForms | filter:search | orderBy:'name.translations.fi':order | filter:hakutyyppi.type | filter:vuosi | filter:st | filter:kausi.period">
 
-            <td><a href data-ng-click="valitseOrganisaatio(applicationForm)" data-ng-controller="BackCtrl">{{applicationForm
-                | i18n:'name':userLang }} </a>
-            </td>
-            <td>{{applicationForm.type | hakutyyppiNimi:hakutyypit:userLang}}  </td>
+            <td>{{applicationForm | i18n:'name':userLang }}</td>
+            <td>{{applicationForm.type | hakutyyppiNimi:hakutyypit:userLang}}</td>
             <td>{{applicationForm.status.translations[userLang]}}</td>
             <td>{{applicationForm.year}}</td>
             <td>{{applicationForm.period | kausiNimi:kaudet:userLang}}</td>
+            <td>
+                <div class="dropdown pull-right">
+                    <a class="dropdown-toggle">
+                        <i class="hh-icon-menu"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a data-ng-click="hakukohdeKohtaisetLisakysymykset(applicationForm)">{{ t('hakukohdekohtaiset.lisakysymykset') || 'Hakukohdekohtaiset lisäkysymykset' }}</a>
+                        </li>
+                        <li>
+                            <a data-ng-click="lomakepohjanAsetukset(applicationForm)">
+                                {{ t('lomakepohjan.asetukset') || 'Lomakepohjan asetukset' }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
         </tr>
+
     </table>
     </div>
 </div>

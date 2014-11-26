@@ -306,7 +306,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         validators = this.getRadioValidators();
                         break;
                 }
-            return validators;
+                return validators;
             };
             /**
              * hakeen hakukohteen tiedot sen id:llä

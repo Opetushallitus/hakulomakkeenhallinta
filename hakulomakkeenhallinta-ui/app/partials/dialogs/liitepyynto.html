@@ -1,13 +1,8 @@
-<form role="form" name="$parent.liitepyyntoDialog" >
+<form class="modal-dialog-border" role="form" name="$parent.liitepyyntoDialog" >
     <div class="modal-header">
         <h4 tl="liitepyynto">Liitepyyntö</h4>
     </div>
-
     <div class="modal-body">
-        <div class="alert alert-info">
-            <i class="glyphicon glyphicon-info-sign"></i> <span data-ng-bind-html="t('liitepyynto.hakukohteen.vastaukseen', ['{{ hakukohde | hakukohdeNimi:userLang }}', '{{ option | i18n:'optionText' }}' ])"></span>
-        </div>
-
         <div>
             <tabset>
                 <tab ng-repeat="language in languages | orderBy:'order':false " >
@@ -44,6 +39,7 @@
                     {{ t('pvm') || 'pvm.'}}
                     <input
                             datepicker-fix
+                            is-open="datePicOpen"
                             name="liitteenpalautuspvm"
                             type="text"
                             datepicker-popup="dd.MM.yyyy"
@@ -54,17 +50,18 @@
                             toggle-weeks-text="{{t('datepicker.weeks')}}"
                             clear-text="{{t('datepicker.clear')}}"
                             close-text="{{t('datepicker.close')}}"
-                            min="tanaan"
-                            max="vuosi"
+                            min-date="tanaan"
+                            max-date="vuosi"
                             style="width:110px; height: 34px; font-size: 14px;"
-                            >
-                    <i class="glyphicon glyphicon-calendar glyphicon-inside-input-right"></i>
+                            data-ng-click="openDatePicker()">
+
+                    <i class="glyphicon glyphicon-calendar glyphicon-inside-input-right"
+                       data-ng-click="openDatePicker()"></i>
                     &nbsp;&nbsp;
                     {{ t('klo') || 'klo' }} <input
                         name="liitteenpalautusklo"
                         type="text"
                         data-ng-model="toimitusaika"
-                        data-ng-change="setKellonaikaToDate()"
                         placeholder="--:--"
                         ng-pattern="/^(([0-1][0-9])|([2][0-3]))[:]([0-5][0-9])$/"
                         style="width: 70px; height: 34px; font-size: 14px;" >
@@ -92,7 +89,7 @@
                         <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }} </label>
                         <input type="text" class="form-control"
                                data-ng-model="attachmentRequest.deliveryAddress.postCode" data-ng-required="true"
-                               data-typeahead-on-select="setPostitoimipaikka()" data-typeahead-editable="false"
+                               data-typeahead-on-select="setPostitoimipaikka()"
                                data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
                     </div>
                     <div class="col-md-8">
@@ -107,11 +104,12 @@
             </div>
         </div>
         <alertmsg></alertmsg>
-
-        <div class="modal-footer">
+        </div>
+    <div class="modal-footer">
             <div class="form-group pull-right">
                 <button class="btn btn-warning pull-left" ng-click="cancel()" tl="peruuta">Peruuta</button>
-                <button class="btn btn-primary pull-right" data-ng-disabled="!liitepyyntoDialog.$valid" data-ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="lisaa.liitepyynto">Lisää liitepyyntö</button>
+                <button class="btn btn-primary pull-right" data-ng-hide="modify" data-ng-disabled="!liitepyyntoDialog.$valid" data-ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="lisaa.liitepyynto">Lisää liitepyyntö</button>
+                <button class="btn btn-primary pull-right" data-ng-show="modify" data-ng-disabled="!liitepyyntoDialog.$valid" data-ng-click="tallennaLiitepyynto(liitepyyntoDialog.$valid)" tl="tallenna">Tallenna</button>
             </div>
         </div>
 </form>

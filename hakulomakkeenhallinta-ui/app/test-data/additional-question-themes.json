@@ -4,7 +4,8 @@
         "name": {
             "translations": {
                 "fi": "Hakutoiveet",
-                "sv": "Ansökningsönskemål"
+                "sv": "Ansökningsönskemål",
+                "en": "Study programme choices"
             }
         }
     },
@@ -18,11 +19,22 @@
         }
     },
     {
+        "id": "osaaminenteema",
+        "name": {
+            "translations": {
+                "fi": "Osaaminen",
+                "sv": "Kunskaper",
+                "en": "Knowledge and experience"
+            }
+        }
+    },
+    {
         "id": "lupatiedot",
         "name": {
             "translations": {
                 "fi": "Lupatiedot",
-                "sv": "Tillståndsuppgifter"
+                "sv": "Tillståndsuppgifter",
+                "en": "Permissions"
             }
         }
     }

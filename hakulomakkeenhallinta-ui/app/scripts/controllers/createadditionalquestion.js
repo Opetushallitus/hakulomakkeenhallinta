@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -17,6 +17,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.teema = '';
             $scope.kysymysTyyppi = '';
             $scope.tallennaClicked = false;
+            var luodaaJatkoKysymys = undefined;
+
+            if (JatkokysymysService.getParentQuestion() !== undefined) {
+                luodaaJatkoKysymys = JatkokysymysService.getParentQuestion();
+            }
 
             FormEditor.getLanguages().then(
                 function (data) {
@@ -32,7 +37,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
                 }
             );
-            QuestionData.getHakukohdeInfo($routeParams.hakuOid).then(
+            TarjontaAPI.fetchHakukohdeInfo($routeParams.hakuOid).then(
                 function (data) {
                     $scope.hakukohde = data;
                     $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
@@ -73,6 +78,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.back = function () {
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'back()');
                 QuestionData.setEditFlag(false);
+                if (luodaaJatkoKysymys !== undefined) {
+                    JatkokysymysService.setJatkokysymysObj(undefined);
+                    JatkokysymysService.setParentQuestion(undefined);
+                }
                 $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
             };
             /**
@@ -81,16 +90,24 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tallennaUusi = function () {
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'tallennaUusi()');
                 $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
+                if (luodaaJatkoKysymys !== undefined) {
+                    $scope.question.parentId = JatkokysymysService.getParentQuestion().parentId;
+                    $scope.question.followupCondition = JatkokysymysService.getParentQuestion().followupCondition;
+                }
                 if ($scope.kysymys.$valid) {
                     ThemeQuestions.createNewQuestion($routeParams.id, $routeParams.hakuOid, $routeParams.themeId, $scope.question).then(
                         function success (data) {
                             QuestionData.setQuestion(data);
+                            if (luodaaJatkoKysymys !== undefined) {
+                                JatkokysymysService.setJatkokysymysObj(undefined);
+                                JatkokysymysService.setParentQuestion(undefined);
+                            }
                             AlertMsg($scope, 'success', 'kysymyksen.tallennus.ok');
                             $location.path('/themeQuestionsByOrganisation/' + $routeParams.id + '/' + $routeParams.oid);
                         },
                         function error (resp) {
                             $rootScope.LOGS('CreateAdditionalQuestionCtrl', 'tallennaUusi()', resp.statusText, resp.status);
-                            AlertMsg($scope, 'warning', 'error.tallennus.epaonnistui');
+                            AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
                         }
                     );
                 }

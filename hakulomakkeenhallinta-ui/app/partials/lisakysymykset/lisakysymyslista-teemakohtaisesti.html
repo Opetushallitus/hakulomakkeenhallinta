@@ -1,0 +1,74 @@
+<div class="from-group">
+    <div data-ng-repeat="theme in themes">
+        <teema-otsikko></teema-otsikko>
+        <div data-ng-repeat="hakukohde in theme.hkkohde" data-ng-show="naytaLista">
+            <div data-ng-show="hakukohde.additionalQuestions.length >0" style="padding-left: 30px;"
+                 data-ng-controller="jarjestaKysymyksetCtrl">
+                <hakukohde-lisakysymykset></hakukohde-lisakysymykset>
+                <ul data-ng-show="naytaKysymysLista && !hakukohdePoistettu" class="hh-hierarkia-list" >
+                    <li data-ng-repeat="question in hakukohde.additionalQuestions | orderBy:'ordinal'">
+                    <lisakysymykset></lisakysymykset>
+
+                        <ul data-ng-if="question.options" data-ng-show="naytaKysymysLista">
+                        <li data-ng-repeat="option in question.options" data-ng-controller="jarjestaKysymyksetCtrl">
+
+                                <div class="hh-vastaus">
+                                    <i class="icon-comment-empty"></i>
+                                    {{option | i18n:'optionText':userLang}}
+                                    <div data-ng-show="!sortBtns && naytaKysymysLista" style="display: inline-block">
+                                        &nbsp;
+                                        <button type="button" class="btn btn-xs"
+                                                data-ng-click="cancelSortQuestions(theme.id, hakukohde.aoid)"
+                                                data-ng-show="!sortBtns">{{ t('peruuta') || 'Peruuta' }}
+                                        </button>
+                                        &nbsp;
+                                        <button type="button" class="btn btn-xs btn-primary"
+                                                data-ng-click="saveSortQuestions(theme.id, hakukohde.aoid)"
+                                                data-ng-show="!sortBtns">{{ t('tallenna.jarjestys')|| 'Tallenna
+                                            järjestys' }}
+                                        </button>
+                                    </div>
+                                    <div class="dropdown pull-right" data-ng-show="sortBtns">
+                                        <a class="dropdown-toggle">
+                                            <i class="hh-icon-menu"></i>
+                                        </a>
+                                        <ul class="dropdown-menu menu-inside-tree">
+                                            <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question, option)">
+                                                <a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }}
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                </a>
+                                            </li>
+                                            <li data-ng-if="option.questions.length >0"
+                                                data-ng-click="sortQuestions(theme.id, hakukohde.aoid, question, option)">
+                                                <a>{{ t('jarjesta.kysymykset')|| 'Järjestä kysymykset' }}
+                                                    <i class="glyphicon glyphicon-sort"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <ul class="hh-hierarkia-list hh-list-level-2" >
+
+                                    <li data-ng-repeat="question in option.questions | orderBy:'ordinal'" data-ng-if="option.questions.length > 0">
+                                        <lisakysymykset></lisakysymykset>
+
+                                        <ul data-ng-show="question.options && naytaKysymysLista" class="hh-list-level-2">
+                                        <li data-ng-repeat="option in question.options">
+                                                <div class="hh-vastaus">
+                                                    <i class="icon-comment-empty"></i>
+                                                    {{option | i18n:'optionText':userLang}}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
