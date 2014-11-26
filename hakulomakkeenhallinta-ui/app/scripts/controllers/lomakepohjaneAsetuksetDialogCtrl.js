@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('lomakepohjanAsetuksetDialogCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'applicationForm', 'Organisaatio',
-        function ($rootScope, $scope, $modalInstance, TarjontaAPI, applicationForm, Organisaatio) {
+    .controller('lomakepohjanAsetuksetDialogCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'applicationForm', 'Organisaatio', 'AlertMsg',
+        function ($rootScope, $scope, $modalInstance, TarjontaAPI, applicationForm, Organisaatio, AlertMsg) {
         $rootScope.LOGS('lomakepohjanAsetuksetDialogCtrl');
 
             $scope.hakukohdeRyhmat = [];
@@ -13,6 +13,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function (data) {
                     $scope.$emit('LOADREADY');
                     $scope.hakukohdeRyhmat = data;
+                    if ($scope.hakukohdeRyhmat.length === 0) {
+                        AlertMsg($scope, 'warning', 'valitulla.organisaatiolla.ei.tassa.hakulomakkeella.ole.hakukohderyhmia');
+                    }
                 }
             );
 

@@ -7,7 +7,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
             this.lomakepohjanAsetukset = function (applicationForm, $scope) {
                 _applicationForm = applicationForm;
-                console.log(applicationForm);
                 $modal.open({
                     templateUrl: 'partials/dialogs/lomakepohjan-asetukset-dialog.html',
                     controller: 'lomakepohjanAsetuksetDialogCtrl',
@@ -18,11 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                             return applicationForm;
                         }
                     }
-                });/*.result.then(function (data) {
-                        console.log('Jatkokysymys dialogin tuottama data: ', data);
-                        jatkokysymysObj.kysymykset = data;
-                    }
-                );*/
+                });
             };
 
             this.getApplicationForm = function () {

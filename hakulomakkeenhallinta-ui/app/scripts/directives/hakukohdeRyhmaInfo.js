@@ -1,8 +1,8 @@
 'use strickt';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeRyhmaInfo', [ 'TarjontaAPI', '_',
-        function (TarjontaAPI, _) {
+    .directive('hakukohdeRyhmaInfo', [ 'TarjontaAPI', '_', 'AlertMsg', 'ThemeQuestions',
+        function (TarjontaAPI, _, AlertMsg, ThemeQuestions) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -23,7 +23,17 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
                     $scope.tallennaHakukohdeRajaus = function (hakukohdeRyhmaOid, hakukohdeRajoite) {
                         //TODO: tähän tallenus kun back end valmis
-                        console.log('####', hakukohdeRyhmaOid, hakukohdeRajoite);
+                        if(hakukohdeRajoite !== undefined){
+                            ThemeQuestions.tallennaHakukohderyhmaRajoite(hakukohdeRyhmaOid, hakukohdeRajoite).then(
+                                function success(data) {
+                                    AlertMsg($scope, 'success', 'tallennus.ok');
+                                },
+                                function error(resp) {
+                                    AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
+                                }
+                            );
+
+                        }
                     }
                 }
             };

@@ -9,6 +9,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.valittavatVuodet = lomakkeidenVuodet;
             $scope.kaudet = [];
             $scope.hakutyypit = [];
+            //TODO: poista tämä kun oikea data saatavilla
+            $scope.lomakepohjat = [
+                {
+                    nimi: {
+                        fi: 'Toisen asteen hakulomakepohja testi data'
+                    }
+                },
+                {
+                    nimi: {
+                        fi: 'Korkeakoulujen hakulomakepohja testi data'
+                    }
+                }
+            ];
 
             Koodisto.getKausiKoodit().then(
                 function (kausiKoodit) {
@@ -38,11 +51,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * Tallennataan haku lomakepohjaan
              */
             $scope.tallennaLiitahakuLomakepohjaan = function () {
-               console.log('LuoHakemuslomakeCtrl', 'TODO tallennaLiitahakuLomakepohjaan tähän ', $scope.haku);
+               $rootScope.LOGS('LuoHakemuslomakeCtrl', 'TODO tallennaLiitahakuLomakepohjaan tähän ', $scope.haku);
                 //TODO: lisää tähän oikea lomakepohjan id: kun back end tukee tätä.
                 ThemeQuestions.tallennaLiitahakuLomakepohjaan($scope.haku, '123.45.400999').then(
                     function success (data) {
-                        console.log(data);
+                        $rootScope.LOGS(data);
                         AlertMsg($scope, 'success', 'hakemuslomakkeen.luonti.onnistui');
                         $modalInstance.close(data);
                     },

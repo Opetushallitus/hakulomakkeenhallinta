@@ -245,11 +245,22 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
             themeQuestion.tallennaLiitahakuLomakepohjaan = function (haunOid, lomakepohjaOid) {
                 var deferred = $q.defer();
-                console.log('ThemeQuestions', 'TODO: tällä', 'tallennaLiitahakuLomakepohjaan()');
+                $rootScope.LOGS('ThemeQuestions', 'TODO: tällä', 'tallennaLiitahakuLomakepohjaan()');
                 //TODO: tälle backend post kun se on saatavilla
                 $timeout(function () {
                     deferred.resolve({status:200, message: 'hakemuslomakkeen.luonti.onnistui'});
-//                    deferred.reject({status:200, message: 'hakemuslomakkeen.luonti.onnistui'});
+//                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
+                }, 500);
+                return deferred.promise;
+            };
+
+            themeQuestion.tallennaHakukohderyhmaRajoite = function (hakukohdeRyhmaOid, hakukohdeRajoite) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ThemeQuestions', 'TODO: tällä', 'tallennaHakukohderyhmaRajoite()');
+                //TODO: tälle backend post kun se on saatavilla
+                $timeout(function () {
+                    deferred.resolve({status: 200, message: 'tallennus ok'});
+//                    deferred.reject({status:400, message: 'tallennus ei onnistu'});
                 }, 500);
                 return deferred.promise;
             };
