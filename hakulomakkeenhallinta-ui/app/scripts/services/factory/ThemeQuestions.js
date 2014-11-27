@@ -69,8 +69,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {promise} palauttaa tallennetun kysymyksen
              */
             themeQuestion.createNewQuestion = function (applicationSystemId, hakuOid, themeId, questionData) {
-                $rootScope.LOGS('ThemeQuestions', 'createNewQuestion()');
-                console.log('## ', applicationSystemId, hakuOid, themeId, questionData);
+                $rootScope.LOGS('ThemeQuestions', 'createNewQuestion('+ applicationSystemId + ',' + hakuOid  + ',' + themeId + ',' + questionData + ')');
                 var deferred = $q.defer();
                 ThemeQuestion.save({'_id': applicationSystemId, '_aoid': hakuOid, '_themeId': themeId  }, questionData).$promise.then(
                     function success(data) {
@@ -180,8 +179,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {promise}
              */
             themeQuestion.hakukohdeKohtaisetKysymykset = function (applicationSystemId, organisationId) {
-                $rootScope.LOGS('ThemeQuestions', 'hakukohdeKohtaisetKysymykset()');
-                console.log(applicationSystemId, organisationId);
+                $rootScope.LOGS('ThemeQuestions', 'hakukohdeKohtaisetKysymykset(' + applicationSystemId + ',' + organisationId + ')');
                 var deferred = $q.defer();
                 FormEditor.getApplicationSystemFormThemes(applicationSystemId).then(
                     function (themes) {
@@ -226,6 +224,13 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     _.each(data, function (question, indx1) {
                         _.each(jatkoQarray, function (jatQ) {
                             if (jatQ.parentId === question._id) {
+
+                                if (question.type === 'TextQuestion') {
+                                    if (data[indx1].questions === undefined) {
+                                        data[indx1].questions = [];
+                                    }
+                                    data[indx1].questions.push(jatQ);
+                                }
                                 _.each(question.options, function (option, indx2) {
                                     if (jatQ.followupCondition === option.id) {
                                         if (data[indx1].options[indx2].questions === undefined) {

@@ -15,10 +15,10 @@
         </div>
 
         <i data-ng-class="{'hh-icon-right':!naytaKysymysLista, 'hh-icon-down':naytaKysymysLista}" data-ng-click="toggleNaytaKysymykset()"
-                data-ng-hide="question.type ==='TextQuestion'" ></i>
-        <i class="hh-icon-empty" data-ng-show="question.type ==='TextQuestion'"></i>
+                data-ng-show="question.questions.length > 0 || question.type !== 'TextQuestion'" ></i> 
+        <i class="hh-icon-empty" data-ng-show="!question.questions.length > 0 && question.type === 'TextQuestion'"></i>
         <a data-ng-click="toggleNaytaKysymykset()"
-           data-ng-disabled="!question.options" >{{ question | i18n:'messageText':userLang}}
+           data-ng-disabled="!question.options || !question.questions" >{{ question | i18n:'messageText':userLang}}
             <i class="icon"
                data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}">
             </i>
@@ -34,7 +34,7 @@
                 <li data-ng-click="muokkaaKysymysta(question, sortBtns)">
                     <a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a>
                 </li>
-                <li data-ng-hide="question.type ==='TextQuestion' || question.parentId !== undefined" data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question)">
+                <li data-ng-hide="question.parentId !== undefined" data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question)">
                     <a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }} <i
                             class="glyphicon glyphicon-plus"></i></a>
                 </li>

@@ -13,7 +13,9 @@
             <option value=""> {{ t('valitse.kysymys') || 'Valitse kysymys' }} </option>
         </select>
 
-        <label>{{ t('kun.hakijan.vastaus.on') || 'Kun hakijan vastaus on' }}</label>
+        <label>
+            {{ t('kun.hakijan.vastaus.on') || 'Kun hakijan vastaus on' }}
+        </label>
 
         <select class="form-control" name="valittuVastaus" data-ng-model="vastaus"
                 ng-options=" option | i18n:'optionText':userLang for option in valittukysymys.options"

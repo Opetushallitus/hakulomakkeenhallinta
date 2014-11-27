@@ -178,7 +178,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.lisaaJatkokysymys = function (kysymykset, hakukohde, teema, kysymys, vastaus){
                 $rootScope.LOGS('ThemeQuestionByOrganisationCtrl ', 'lisaaJatkokysymys()');
-                JatkokysymysService.lisaaJatkokysymys({ kysymykset: kysymykset, hakukohde: hakukohde, teema: teema, scope: $scope, kysymys: kysymys, vastaus: vastaus });
+
+                if(kysymys.type === 'TextQuestion') {
+                    var jatko = {};
+                    jatko.parentId = kysymys._id;
+                    jatko.followupCondition = '';
+                    JatkokysymysService.setParentQuestion(jatko);
+                    $scope.addQuestionAtHakukohde(teema, hakukohde);
+
+                } else {
+                    JatkokysymysService.lisaaJatkokysymys({ kysymykset: kysymykset, hakukohde: hakukohde, teema: teema, scope: $scope, kysymys: kysymys, vastaus: vastaus });
+                }
+
+
             };
 
         }]);
