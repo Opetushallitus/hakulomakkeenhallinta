@@ -25,7 +25,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             TarjontaAPI.usersApplicationOptions2($routeParams.id, $routeParams.oid).then(
                 function (data) {
-                    console.log('usersApplicationOptions2', $routeParams.id, $routeParams.oid);
+                    $rootScope.LOGS('usersApplicationOptions2', $routeParams.id, $routeParams.oid);
                     $scope.$emit('LOADREADY');
                     if (data.length !== 0) {
                         $scope.applicationOptions = data;

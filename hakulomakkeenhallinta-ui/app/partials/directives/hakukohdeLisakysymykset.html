@@ -1,19 +1,21 @@
 <div data-ng-hide="hakukohdePoistettu">
-    <div class="hh-list-h4">
-        <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaKysymysLista, 'hh-icon-down':naytaKysymysLista}"
-            data-ng-click="toggleNaytaKysymykset()"></i>
+    <div class="hh-list-h4" >
+        <div style="width: 26px; display: inline; float: left;">
+            <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaKysymysLista, 'hh-icon-down':naytaKysymysLista}"
+               data-ng-click="toggleNaytaKysymykset()"></i>
+        </div>
+        <div style="padding-right: 5px; width: 95%; display: inline;">
+            <a data-ng-click="toggleNaytaKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }}
+                <span data-ng-if="hakukohdeInfo.tarjoajaNimet">: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span>
+                <span data-ng-if="hakukohdeInfo.tyypit">: {{ hakukohdeInfo.tyypit[0] }}</span>
+                ({{kysymysMaara}})
+            </a>
+        </div>
 
-
-        <a data-ng-click="toggleNaytaKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }}
-            <span data-ng-if="hakukohdeInfo.tarjoajaNimet">: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span>
-            <span data-ng-if="hakukohdeInfo.tyypit">: {{ hakukohdeInfo.tyypit[0] }}</span>
-            ({{kysymysMaara}})
-        </a>
-
-        <div class="dropdown pull-right">
+        <div class="dropdown pull-right" style="display: inline;">
             <a class="dropdown-toggle">
                 <i class="hh-icon-menu"></i>
-                </a>
+            </a>
             <ul class="dropdown-menu">
                 <li data-ng-click="addQuestionAtHakukohde(theme, hakukohde)">
                     <a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }}
@@ -27,13 +29,14 @@
                     </a>
                 </li>
                 <li data-ng-if="hakukohdeInfo.tyypit[0] === 'Ryhma' "
-                        data-ng-click="asetaRyhmaanRajoite(hakukohde.aoid, hakukohdeInfo)">
+                    data-ng-click="asetaRyhmaanRajoite(hakukohde.aoid, hakukohdeInfo)">
                     <a>
                         Aseta ryhmälle hakukohde rajaus
                     </a>
                 </li>
             </ul>
         </div>
+
     </div>
 
     <div class="form-group" data-ng-show="!sortBtns && naytaKysymysLista">
