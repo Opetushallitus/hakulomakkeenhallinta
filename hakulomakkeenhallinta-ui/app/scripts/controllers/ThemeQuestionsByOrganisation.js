@@ -163,12 +163,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 );
             };
             /**
-             * takaisin edelliselle sivulle
-             */
-            $scope.back = function () {
-                $location.path('/');
-            };
-            /**
              * Lisätään uusi jatkokysymys kysymyksen vastaukseen
              * @param kysymykset lista kysymyksiä
              * @param hakukohde johon kysymys liitetään

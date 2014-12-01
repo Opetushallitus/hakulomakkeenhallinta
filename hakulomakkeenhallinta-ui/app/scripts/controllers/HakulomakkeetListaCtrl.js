@@ -77,8 +77,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
 
             $scope.lomakepohjanAsetukset = function (applicationForm) {
-
-                LomakepohjanAsetuksetService.lomakepohjanAsetukset(applicationForm, $scope);
-            }
+                console.log(applicationForm);
+                $location.path("/applicationSystemFormConfigurations/" + applicationForm._id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
+                //LomakepohjanAsetuksetService.lomakepohjanAsetukset(applicationForm, $scope);
+            };
         }
     ]);

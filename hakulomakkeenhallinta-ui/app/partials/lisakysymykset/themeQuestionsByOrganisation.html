@@ -1,12 +1,10 @@
-<div class="alert alert-info alert-block ">
-    <i class="glyphicon glyphicon-info-sign"></i>
-    <span data-ng-bind-html="t('olet.luomassa.lisakysymys.organisaatiolla', [ haunNimi, organisationNimi])"></span>
-</div>
+<i class="glyphicon glyphicon-home hh-home-icon"></i> <a href="index.html#/applicationSystemForm"> Hakulomakkeiden
+    hallinta</a>
+<span class="hh-bread-crumb-chevron"> > </span> <span tl="hakukohdekohtaiset.lisakysymykset">Hakukohdekohtaiset lisäkysymykset</span>
+
 <alertmsg></alertmsg>
 
-<lisakysymys-lista-napit></lisakysymys-lista-napit>
-
-<h1 tl="hakukohdekohtaiset.lisakysymykset" >Hakukohdekohtaiset lisäkysymykset</h1>
+<h1>{{ t('hakukohdekohtaiset.lisakysymykset') || 'Hakukohdekohtaiset lisäkysymykset' }} ({{haunNimi}})</h1>
 <loading-page></loading-page>
 <!--data-ng-show="userOrganisations.length > 1"-->
 
@@ -33,5 +31,4 @@
     </tab>
 </tabset>
 <br>-->
-<lisakysymys-lista-napit></lisakysymys-lista-napit>
 

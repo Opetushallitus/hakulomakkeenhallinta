@@ -1,0 +1,24 @@
+<i class="glyphicon glyphicon-home hh-home-icon" ></i> <a href="index.html#/applicationSystemForm"> Hakulomakkeiden hallinta</a>
+<span class="hh-bread-crumb-chevron"> > </span> <span tl="lomakepohjan.asetukset">Lomakepohjan
+    asetukset</span>
+<h1>{{ t('lomakepohjan.asetukset') || 'Lomakepohjan asetukset'}} ({{applicationForm | i18n:'name':userLang }})</h1>
+
+<user-organisation-select></user-organisation-select>
+
+<alertmsg></alertmsg>
+
+<loading style="top: -16px;"></loading>
+<div class="hh-list-h3">
+    <i data-ng-class="{'hh-icon-right':!naytaRyhmat, 'hh-icon-down':naytaRyhmat}"
+       data-ng-click="toggleNaytaHakukohderyhmat()"></i>
+    <a data-ng-click="toggleNaytaHakukohderyhmat()">
+        {{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Hakukohderyhmien hakukohteiden rajaus'}}
+    </a>
+</div>
+<div data-ng-show="naytaRyhmat" class="hh-hierarkia-list">
+    <ul data-ng-repeat="hakukohdeRyhma in hakukohdeRyhmat">
+        <li>
+            <hakukohde-ryhma-info></hakukohde-ryhma-info>
+        </li>
+    </ul>
+</div>
