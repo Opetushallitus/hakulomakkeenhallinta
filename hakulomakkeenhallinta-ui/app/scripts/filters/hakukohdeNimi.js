@@ -8,13 +8,23 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                     userLang = 'fi';
                 }
                 var kieli = 'kieli_'+userLang;
-                if ( hakukohde.hakukohteenNimet && hakukohde.hakukohteenNimet[kieli]) {
+                if (hakukohde.hakukohteenNimet && hakukohde.hakukohteenNimet[kieli]) {
                     return hakukohde.hakukohteenNimet[kieli];
-                }else if(hakukohde.hakukohteenNimi){
+                } else if (hakukohde.hakukohteenNimi) {
                     return hakukohde.hakukohteenNimi;
-                }else if(hakukohde.nimi && hakukohde.nimi[userLang]){
+                } else if (hakukohde.nimi && hakukohde.nimi[userLang]) {
                     return hakukohde.nimi[userLang];
-                }else {
+                } else if (hakukohde.nimi) {
+                    if (hakukohde.nimi.fi) {
+                        return hakukohde.nimi.fi;
+                    }
+                    if (hakukohde.nimi.sv) {
+                        return hakukohde.nimi.sv;
+                    }
+                    if (hakukohde.nimi.en) {
+                        return hakukohde.nimi.en;
+                    }
+                } else {
                     return undefined;
                 }
             }
