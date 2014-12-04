@@ -20,6 +20,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         if ($location.path().indexOf('themeQuestionsByOrganisation') !== -1) {
                             $location.path("/themeQuestionsByOrganisation/" + $routeParams.id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
                         }
+                        if ($location.path().indexOf('applicationSystemFormConfigurations') !== -1) {
+                            $location.path("/applicationSystemFormConfigurations/" + $routeParams.id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
+                        }
                     };
                     /**
                      * haetaan käyttäjän organisaatiot valintalistaan
@@ -30,7 +33,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             if (Organisaatio.getUserSelectedOrganisation().oid !== undefined) {
                                 $scope.userOrg = Organisaatio.getUserSelectedOrganisation();
                             } else {
-                                if ($location.path().indexOf('themeQuestionsByOrganisation') !== -1) {
+                                if ($location.path().indexOf('themeQuestionsByOrganisation') !== -1 ||
+                                    $location.path().indexOf('applicationSystemFormConfigurations') !== -1) {
                                     if ($routeParams.oid !== undefined) {
                                         $scope.userOrg = _.findWhere($scope.userOrganisations, { oid: $routeParams.oid});
                                     }

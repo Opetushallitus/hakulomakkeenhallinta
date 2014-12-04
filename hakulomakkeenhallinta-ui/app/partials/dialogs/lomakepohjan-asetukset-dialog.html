@@ -3,11 +3,12 @@
         <h4 tl="lomakepohjan.asetukset">Lomakepohjan asetukset</h4>
     </div>
 
+
     <div class="modal-body">
         <alertmsg></alertmsg>
         <h1>{{applicationForm | i18n:'name':userLang }}</h1>
 
-        <loading></loading>
+        <loading style="top: -16px;"></loading>
         <div class="hh-list-h3">
             <i data-ng-class="{'hh-icon-right':!naytaRyhmat, 'hh-icon-down':naytaRyhmat}"
                                    data-ng-click="toggleNaytaHakukohderyhmat()"></i>

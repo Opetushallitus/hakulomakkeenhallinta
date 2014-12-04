@@ -43,6 +43,9 @@ app.config(['$routeProvider',
             }).when('/modifyThemeQuestion/:id/:oid/:questionId', {
                 templateUrl: 'partials/lisakysymykset/kysymysLomake.html',
                 controller: 'ModifyAdditionalQuestionCtrl'
+            }).when('/applicationSystemFormConfigurations/:id/:oid', {
+                templateUrl: 'partials/lomakepohjanAsetukset.html',
+                controller: 'lomakepohjanAsetuksetCtrl'
             }).otherwise({
                 redirectTo: '/applicationSystemForm'
             });

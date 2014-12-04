@@ -65,6 +65,21 @@
                                 </ul>
                             </li>
                         </ul>
+
+                        <ul data-ng-if="question.questions" data-ng-show="naytaKysymysLista">
+                            <li data-ng-repeat="question in question.questions" data-ng-controller="jarjestaKysymyksetCtrl">
+                                <lisakysymykset></lisakysymykset>
+                                <ul data-ng-show="question.options && naytaKysymysLista" class="hh-list-level-2">
+                                    <li data-ng-repeat="option in question.options">
+                                        <div class="hh-vastaus">
+                                            <i class="icon-comment-empty"></i>
+                                            {{option | i18n:'optionText':userLang}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
                     </li>
                 </ul>
             </div>
