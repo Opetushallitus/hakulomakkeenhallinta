@@ -16,7 +16,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              */
               function getTranslations(userLang){
                 var deferred = $q.defer();
-                if(cache.info().size == 0){
+                if(cache.info().size === 0){
                     Localisations.getLocalisations().then(function(data){
                         for(var trl in data){
                             if(data[trl].id !== undefined && data[trl].locale === userLang){

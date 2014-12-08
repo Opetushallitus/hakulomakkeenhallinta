@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div data-ng-if="question.type === 'TextQuestion'">
+                <div data-ng-if="question.type === 'TextQuestion'" data-ng-controller="liitepyyntoCtrl">
                     <div class="form-group">
                         <div class="col-md-3">
                         </div>
@@ -53,11 +53,11 @@
                     </div>
                 </div>
 
-                <div data-ng-if="question.type === 'CheckBox'">
+                <div data-ng-if="question.type === 'CheckBox'" data-ng-controller="liitepyyntoCtrl">
                     <check-box></check-box>
                 </div>
 
-                <div data-ng-if="question.type === 'RadioButton'">
+                <div data-ng-if="question.type === 'RadioButton'" data-ng-controller="liitepyyntoCtrl">
                     <radio-button></radio-button>
                 </div>
                 <br>

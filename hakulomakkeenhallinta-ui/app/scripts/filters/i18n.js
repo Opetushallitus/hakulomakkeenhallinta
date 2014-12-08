@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.filters', [])
   .filter('i18n', function () {
-        return function(element, attribute, lang) {
+        return function (element, attribute, lang) {
             if (element) {
                 if (!attribute) {
                     attribute = 'i18nText';

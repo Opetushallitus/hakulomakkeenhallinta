@@ -1,0 +1,34 @@
+<form class="modal-dialog-border" role="form">
+    <div class="modal-header">
+        <h4 tl="lomakepohjan.asetukset">Lomakepohjan asetukset</h4>
+    </div>
+
+
+    <div class="modal-body">
+        <alertmsg></alertmsg>
+        <h1>{{applicationForm | i18n:'name':userLang }}</h1>
+
+        <loading style="top: -16px;"></loading>
+        <div class="hh-list-h3">
+            <i data-ng-class="{'hh-icon-right':!naytaRyhmat, 'hh-icon-down':naytaRyhmat}"
+                                   data-ng-click="toggleNaytaHakukohderyhmat()"></i>
+            <a data-ng-click="toggleNaytaHakukohderyhmat()">
+                {{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Hakukohderyhmien hakukohteiden rajaus'}}
+            </a>
+        </div>
+        <div data-ng-show="naytaRyhmat" class="hh-hierarkia-list">
+            <ul data-ng-repeat="hakukohdeRyhma in hakukohdeRyhmat" >
+                <li>
+                <hakukohde-ryhma-info></hakukohde-ryhma-info>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <!--<button class="btn btn-primary" tl="tallenna">Tallenna</button>-->
+        </div>
+    </div>
+</form>

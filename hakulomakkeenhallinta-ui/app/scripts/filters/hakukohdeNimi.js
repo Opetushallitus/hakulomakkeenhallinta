@@ -7,7 +7,8 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                 if (!userLang) {
                     userLang = 'fi';
                 }
-                var kieli = 'kieli_'+userLang;
+
+                var kieli = 'kieli_' + userLang;
                 if (hakukohde.hakukohteenNimet && hakukohde.hakukohteenNimet[kieli]) {
                     return hakukohde.hakukohteenNimet[kieli];
                 } else if (hakukohde.hakukohteenNimi) {

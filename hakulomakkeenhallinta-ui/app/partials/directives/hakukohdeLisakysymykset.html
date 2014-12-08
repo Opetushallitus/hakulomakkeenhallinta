@@ -1,0 +1,52 @@
+<div data-ng-hide="hakukohdePoistettu">
+    <div class="hh-list-h4" >
+        <div style="width: 26px; display: inline; float: left;">
+            <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaKysymysLista, 'hh-icon-down':naytaKysymysLista}"
+               data-ng-click="toggleNaytaKysymykset()"></i>
+        </div>
+        <div style="padding-right: 5px; width: 95%; display: inline;">
+            <a data-ng-click="toggleNaytaKysymykset()">{{ hakukohdeInfo | hakukohdeNimi:userLang }}
+                <span data-ng-if="hakukohdeInfo.tarjoajaNimet">: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span>
+                <span data-ng-if="hakukohdeInfo.tyypit">: {{ hakukohdeInfo.tyypit[0] }}</span>
+                ({{kysymysMaara}})
+            </a>
+        </div>
+
+        <div class="dropdown pull-right" style="display: inline;">
+            <a class="dropdown-toggle">
+                <i class="hh-icon-menu"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li data-ng-click="addQuestionAtHakukohde(theme, hakukohde)">
+                    <a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }}
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a>
+                </li>
+
+                <li data-ng-click="sortQuestions(theme.id, hakukohde.aoid)">
+                    <a> {{ t('jarjesta.kysymykset')|| 'Järjestä kysymykset' }}
+                        <i class="glyphicon glyphicon-sort"></i>
+                    </a>
+                </li>
+                <li data-ng-if="hakukohdeInfo.tyypit[0] === 'Ryhma' "
+                    data-ng-click="asetaRyhmaanRajoite(hakukohde.aoid, hakukohdeInfo)">
+                    <a>
+                        Aseta ryhmälle hakukohde rajaus
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="form-group" data-ng-show="!sortBtns && naytaKysymysLista">
+        <button type="button" class="btn" data-ng-click="cancelSortQuestions(theme.id, hakukohde.aoid)"
+                data-ng-show="!sortBtns">{{ t('peruuta') || 'Peruuta' }}
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-primary" data-ng-click="saveSortQuestions(theme.id, hakukohde.aoid)"
+                data-ng-show="!sortBtns">{{ t('tallenna.jarjestys')|| 'Tallenna järjestys' }}
+        </button>
+    </div>
+    <alertmsg></alertmsg>
+</div>

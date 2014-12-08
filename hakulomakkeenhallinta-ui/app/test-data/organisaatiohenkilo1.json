@@ -1,0 +1,26 @@
+[ {
+  "id" : 498600,
+  "organisaatioOid" : "1.2.246.562.10.56753942459",
+  "tehtavanimike" : "HH:n testausta",
+  "passivoitu" : false
+}, {
+  "id" : 206752,
+  "organisaatioOid" : "1.2.246.562.10.00000000001",
+  "tehtavanimike" : "kehittäjä",
+  "passivoitu" : true
+}, {
+  "id" : 206988,
+  "organisaatioOid" : "1.2.246.562.10.49279275801",
+  "tehtavanimike" : "kehitys testaus",
+  "passivoitu" : true
+}, {
+  "id" : 214758,
+  "organisaatioOid" : "1.2.246.562.10.82388989657",
+  "tehtavanimike" : "Kehitys testaus",
+  "passivoitu" : true
+}, {
+  "id" : 206986,
+  "organisaatioOid" : "1.2.246.562.10.95104398284",
+  "tehtavanimike" : "poista",
+  "passivoitu" : true
+} ]

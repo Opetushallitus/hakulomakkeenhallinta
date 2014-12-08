@@ -1,0 +1,9 @@
+<div>
+    <select data-ng-show="userOrganisations.length > 1" class="form-control" style="width: 400px;" name="organisaatio"
+            id="organisation" ng-model="userOrg"
+            data-ng-options="org.nimi[userLang] for org in userOrganisations"
+            data-ng-change="asetaOrganisaatio(userOrg)">
+        <option value="" disabled>{{ t('valitse.organisaatio') || 'Valitse organisaatio' }}</option>
+    </select>
+    <span data-ng-show="userOrganisations.length === 1" style="width: 400px; font-size: 16px;">{{userOrganisations[0].nimi[userLang]}}</span>
+</div>

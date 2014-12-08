@@ -1,0 +1,42 @@
+<div class="from-group">
+    <div data-ng-repeat="(hakukohdeOid, teemat) in hakukohteittain">
+        <hakukohde-otsikko data-ng-hide="hakukohdePoistettu"></hakukohde-otsikko>
+        <div data-ng-repeat="(teema, questions) in teemat" data-ng-show="naytaHakukohteet && !hakukohdePoistettu">
+            <div data-ng-show="!hakukohdePoistettu" style="margin-left: 30px;">
+                <teema-lisakysymykset></teema-lisakysymykset>
+                <ul class="tree hh-hierarkia-list" data-ng-if="questions.length > 0">
+                    <li data-ng-repeat="question in questions">
+                        <lisakysymykset></lisakysymykset>
+                        <ul data-ng-show="question.options" class="hh-hierarkia-list">
+                            <li data-ng-repeat="option in question.options">
+                                <div>
+                                    <i class="icon-comment-empty"></i>
+                                    <div class="dropdown" data-ng-show="">
+                                        <a class="dropdown-toggle">
+                                            <i class="hh-icon-menu"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li data-ng-click="addQuestion(theme)"><a>{{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }} <i class="glyphicon glyphicon-plus"></i></a></li>
+                                            <li data-ng-click="lisaaSaanto(hakukohde.additionalQuestions)" ><a>{{ t('lisaa.saanto') || 'Lisää sääntö' }} <i class="glyphicon glyphicon-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    {{option | i18n:'optionText':userLang}}
+                                </div>
+                                <ul class="hh-hierarkia-list" data-ng-if="question.attachmentRequests.length >0">
+                                    <li data-ng-repeat="liitepyynto in question.attachmentRequests">
+                                        <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
+                                            {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
+                                            <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
+                                            <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
+                                            <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
+                                        </div>
+                                    </li>
+                                </ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

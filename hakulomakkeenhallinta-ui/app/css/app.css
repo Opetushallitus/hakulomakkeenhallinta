@@ -1,3 +1,12 @@
+.hh-home-icon {
+    color: #f8b600;
+    font-size: 16px;
+}
+.hh-bread-crumb-chevron {
+    color: #f8b600;
+    font-size: 12px;
+}
+
 .glyphicon-inside-input-right {
     right: 25px;
     top: 3px;
@@ -7,3 +16,164 @@
     color: red;
 }
 
+.hh-list-h3 {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: solid #188cc0 1px;
+    margin-top: 18px;
+    padding-bottom: 5px;
+}
+
+.hh-list-h4 {
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: solid #c5dfeb 1px;
+    margin-left: -30px;
+    padding-left: 30px;
+    margin-top: 9px;
+    padding-bottom: 4px;
+}
+
+.hh-list-h5 {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hh-list-h6 {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.hh-hierarkia-list {
+    list-style: none;
+    font-size: 14px;
+    padding-top: 5px;
+    line-height: 34px;
+    margin-left: -30px;
+    padding-left: 30px;
+}
+
+.hh-hierarkia-list li {
+    list-style: none;
+}
+
+.hh-hierarkia-list li .hh-kysymys {
+    display: block;
+    border-bottom: dashed #b7b7b7 1px;
+    line-height: 14px;
+    margin-top: 8px;
+    margin-left: -30px;
+    padding-left: 60px;
+    padding-bottom: 6px;
+}
+
+.hh-list-level-2 li .hh-kysymys {
+    margin-left: -71px;
+    padding-left: 120px;
+}
+
+.hh-hierarkia-list li>.hh-vastaus {
+    border-bottom: dashed #b7b7b7 1px;
+    margin-top: 8px;
+    margin-left: -71px;
+    padding-left: 90px;
+    line-height: 14px;
+    padding-bottom: 8px;
+}
+
+.hh-list-level-2 li>.hh-vastaus {
+    border-bottom: dashed #b7b7b7 1px;
+    margin-top: 8px;
+    margin-left: -112px;
+    padding-left: 150px;
+    line-height: 14px;
+    padding-bottom: 8px;
+}
+
+.rotate-90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.hh-icon-right {
+    background: url("../img/right.gif") no-repeat;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.hh-icon-empty {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.hh-icon-down {
+    background: url("../img/down.gif") no-repeat;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.hh-icon-menu {
+    display: inline-block;
+    background: url("../img/icon-treetable-button.png") no-repeat;
+    width: 25px;
+    height: 20px;
+    padding: 0 1px 0 10px;
+}
+
+/*a:hover .hh-menu {
+    display: block;
+    width: 20px;
+    height: 20px;
+}*/
+
+ul.tree, ul.tree ul {
+    list-style-type: none;
+    background: url("../img/vline.png") repeat-y;
+    margin: 0;
+    padding: 0;
+    margin-left: 30px;
+}
+
+ul.tree ul {
+    margin-left: 10px;
+}
+
+ul.tree li {
+    margin: 0;
+    padding: 0 12px 0 20px;
+    line-height: 20px;
+    background: url("../img/node.png") no-repeat;
+    color: #369;
+    font-weight: bold;
+}
+
+ul.tree li:last-child {
+    background: #fff url("../img/lastnode.png") no-repeat;
+}
+ul.menu-inside-tree li{
+    list-style-type: none;
+    background: #fff;
+    padding: 0;
+}
+ul.menu-inside-tree li:last-child{
+    list-style-type: none;
+    background: #fff;
+}
+
+#veil {
+    position: absolute;
+    top: 89px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: not-allowed;
+    filter: alpha(opacity=60);
+    opacity: 0.75;
+    background: #FFFFFF url("../img/loading-page.gif") no-repeat center;
+}

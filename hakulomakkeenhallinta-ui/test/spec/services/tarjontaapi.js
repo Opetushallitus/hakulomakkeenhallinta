@@ -3,9 +3,13 @@
 describe('Service: TarjontaAPI', function () {
 
   // load the service's module
-  beforeEach(module('hakulomakkeenhallintaUiApp'));
+  beforeEach(module({
+      FormEditor: {
+          getApplicationSystemForms
+      }
+  });
 
-  // instantiate service
+  /*// instantiate service
   var TarjontaAPI;
   beforeEach(inject(function (_TarjontaAPI_) {
     TarjontaAPI = _TarjontaAPI_;
@@ -15,4 +19,4 @@ describe('Service: TarjontaAPI', function () {
     expect(!!TarjontaAPI).toBe(true);
   });
 
-});
+})*/;

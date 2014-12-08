@@ -1,0 +1,36 @@
+<form class="modal-dialog-border" role="form">
+    <div class="modal-header">
+        <h4 tl="lisaa.jatkokysymys">Lisää jatkokysymys</h4>
+    </div>
+
+    <div class="modal-body">
+
+        <label>{{ t('kysymys.johon.jatkokysymys.liitetaan') ||  'Kysymys johon jatkokysymys liitetään' }}</label>
+
+        <select class="form-control" name="valittuKysymys" data-ng-model="valittukysymys"
+                ng-options="kysymys | i18n:'messageText':userLang for kysymys in kysymykset"
+                data-ng-change="valittuKysymys()">
+            <option value=""> {{ t('valitse.kysymys') || 'Valitse kysymys' }} </option>
+        </select>
+
+        <label>
+            {{ t('kun.hakijan.vastaus.on') || 'Kun hakijan vastaus on' }}
+        </label>
+
+        <select class="form-control" name="valittuVastaus" data-ng-model="vastaus"
+                ng-options=" option | i18n:'optionText':userLang for option in valittukysymys.options"
+                data-ng-disabled="!valittukysymys"
+                data-ng-change="valittuVastaus(vastaus)">
+            <option value=""> {{ t('valitse') ||  'Valitse' }} </option>
+        </select>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" ng-click="cancel()" tl="peruuta">Peruuta</button>
+        <button class="btn btn-primary" data-ng-click="luoJatkokysymys()"
+                data-ng-disabled="!vastaus">
+            <i class="glyphicon glyphicon-plus-sign"></i>
+            {{ t('luo.jatkokysymys') || 'Luo jatkokysymys' }}
+        </button>
+    </div>
+</form>

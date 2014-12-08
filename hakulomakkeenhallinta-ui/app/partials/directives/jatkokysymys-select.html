@@ -1,0 +1,18 @@
+<div class="row" ng-form="jatkokysymysSelect">
+    <div class="col-md-11">
+        <select class="form-control" name="lisaKysymykset" ng-model="valittujatkokysymys"
+                ng-options="jatkokysymys | i18n:'messageText':userLang for jatkokysymys in jatkokysymysLista[$index].vastauksenJatkoKysymykset"
+                data-ng-change="valittuJatkoKysymys(valittujatkokysymys, $index)"
+                data-ng-disabled="!vastaus">
+            <option value="">Valitse kysymys</option>
+        </select>
+    </div>
+    <div class="col-md-1">
+        <a data-ng-click="plussaaJatkokysmyksia(valittujatkokysymys, jatkokysymysLista[$index].vastauksenJatkoKysymykset)"
+           data-ng-show="$last && !(($index + 1) === jatkoKysymykset.length) && valittujatkokysymys"><i
+                class="glyphicon glyphicon-plus"></i></a>
+        <a data-ng-click="vahennaJatkoKysymys()" data-ng-show="$last && jatkokysymysLista.length > 1"><i
+                class="glyphicon glyphicon-remove"></i></a>
+    </div>
+    <br>
+</div>

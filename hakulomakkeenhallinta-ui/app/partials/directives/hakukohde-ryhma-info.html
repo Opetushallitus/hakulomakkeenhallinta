@@ -1,0 +1,26 @@
+<div>
+    <div class="hh-list-h4">
+        <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaHakukohdeLista, 'hh-icon-down':naytaHakukohdeLista}"
+           data-ng-click="toggleNaytaHakukohteet()"></i>
+        <a data-ng-click="toggleNaytaHakukohteet()">
+            {{hakukohdeRyhma | hakukohdeNimi:userLang}} ({{hakukohteidenMaara}})
+        </a>
+        <div style="padding-left: inherit;" ng-form="hakuryhmanRajoite">
+            <alertMsg></alertMsg>
+            <span>{{ t('aseta.rajoite') || 'Aseta rajoite' }} </span> <input type="number" min="0" max="{{hakukohteidenMaara}}" name="rajoite" data-ng-model="hakukohdeRajoite" ng-pattern="/^[0-9]+$/" style="width: 48px;" >
+            <button class="btn btn-primary" data-ng-click="tallennaHakukohdeRajaus(hakukohdeRyhma.oid, hakukohdeRajoite)" tl="tallenna">Tallenna</button>
+            <span ng-show="hakuryhmanRajoite.rajoite.$error.pattern || hakuryhmanRajoite.rajoite.$error.number"
+                  class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}
+            </span>
+            <span ng-show="hakuryhmanRajoite.rajoite.$error.max"
+                  class="label-warning-text">
+                {{ t('arvo.suurempi.kuin.hakukohteiden.maara.ryhmassa') || 'asetettu arvo suurempi kuin hakukohteiden määrä ryhmässä' }}
+            </span>
+        </div>
+    </div>
+    <div data-ng-show="naytaHakukohdeLista">
+    <ul data-ng-repeat="hakukohde in hakukohteet">
+        <li>{{ hakukohde | hakukohdeNimi:userLang }}</li>
+    </ul>
+    </div>
+</div>
