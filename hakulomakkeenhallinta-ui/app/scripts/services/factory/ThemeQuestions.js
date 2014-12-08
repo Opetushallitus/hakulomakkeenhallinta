@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', 'FormEditor', '_', '$timeout',
-        function ($rootScope, $resource, Props, $q, FormEditor, _, $timeout) {
+    .factory('ThemeQuestions', [ '$rootScope', '$resource', 'Props', '$q', 'FormEditor', '_',
+        function ($rootScope, $resource, Props, $q, FormEditor, _) {
             var themeQuestion = {};
 
             var ThemeQuestion = $resource(Props.themeQuestionUri + '/:_id/:_aoid/:_themeId',
@@ -246,28 +246,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 } else {
                     return data;
                 }
-            };
-
-            themeQuestion.tallennaLiitahakuLomakepohjaan = function (haunOid, lomakepohjaOid) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ThemeQuestions', 'TODO: tällä', 'tallennaLiitahakuLomakepohjaan()');
-                //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
-                    deferred.resolve({status:200, message: 'hakemuslomakkeen.luonti.onnistui'});
-//                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
-                }, 500);
-                return deferred.promise;
-            };
-
-            themeQuestion.tallennaHakukohderyhmaRajoite = function (hakukohdeRyhmaOid, hakukohdeRajoite) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ThemeQuestions', 'TODO: tällä', 'tallennaHakukohderyhmaRajoite()');
-                //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
-                    deferred.resolve({status: 200, message: 'tallennus ok'});
-//                    deferred.reject({status:400, message: 'tallennus ei onnistu'});
-                }, 500);
-                return deferred.promise;
             };
 
             return themeQuestion;

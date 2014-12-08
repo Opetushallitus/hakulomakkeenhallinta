@@ -1,27 +1,15 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('LuoHakemuslomakeCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'Koodisto', '$filter', 'lomakkeidenVuodet', 'ThemeQuestions', 'AlertMsg',
-        function ($rootScope, $scope, $modalInstance, TarjontaAPI, Koodisto, $filter, lomakkeidenVuodet, ThemeQuestions, AlertMsg) {
+    .controller('LuoHakemuslomakeCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'Koodisto', '$filter', 'lomakkeidenVuodet', 'ApplicationFormConfiguration', 'AlertMsg',
+        function ($rootScope, $scope, $modalInstance, TarjontaAPI, Koodisto, $filter, lomakkeidenVuodet, ApplicationFormConfiguration, AlertMsg) {
             $rootScope.LOGS('LuoHakemuslomakeCtrl');
 
             $scope.haut = [];
             $scope.valittavatVuodet = lomakkeidenVuodet;
             $scope.kaudet = [];
             $scope.hakutyypit = [];
-            //TODO: poista tämä kun oikea data saatavilla
-            $scope.lomakepohjat = [
-                {
-                    nimi: {
-                        fi: 'Toisen asteen hakulomakepohja testi data'
-                    }
-                },
-                {
-                    nimi: {
-                        fi: 'Korkeakoulujen hakulomakepohja testi data'
-                    }
-                }
-            ];
+            $scope.lomakepohjat = [];
 
             Koodisto.getKausiKoodit().then(
                 function (kausiKoodit) {
@@ -33,6 +21,15 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.hakutyypit = $filter('orderBy')(hakutyyppiKoodit, 'translations.' + $scope.userLang);
                 }
             );
+            /**
+             * haetaan lomakepohjat taustajärjestelmästä
+             */
+            ApplicationFormConfiguration.haeLomakepohjat().then(
+                function (lomakepohjat) {
+                    $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'translations.' + $scope.userLang);
+                }
+            );
+
             /**
              * Heataan haut hakuvuoden, hakukauden ja hakutyypin mukaan
              */
@@ -51,9 +48,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * Tallennataan haku lomakepohjaan
              */
             $scope.tallennaLiitahakuLomakepohjaan = function () {
-               $rootScope.LOGS('LuoHakemuslomakeCtrl', 'TODO tallennaLiitahakuLomakepohjaan tähän ', $scope.haku);
-                //TODO: lisää tähän oikea lomakepohjan id: kun back end tukee tätä.
-                ThemeQuestions.tallennaLiitahakuLomakepohjaan($scope.haku, '123.45.400999').then(
+                $rootScope.LOGS('LuoHakemuslomakeCtrl', 'TODO tallennaLiitahakuLomakepohjaan tähän ', $scope.haku, $scope.lomakepohja);
+                ApplicationFormConfiguration.tallennaLiitahakuLomakepohjaan($scope.haku.oid, $scope.lomakepohja.id).then(
                     function success (data) {
                         $rootScope.LOGS(data);
                         AlertMsg($scope, 'success', 'hakemuslomakkeen.luonti.onnistui');

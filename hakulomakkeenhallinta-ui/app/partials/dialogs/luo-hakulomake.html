@@ -43,7 +43,7 @@
             <br>
             <label>{{ t('lomakepohja') || 'Lomakepohja' }}</label>
             <select class="form-control" name="lomakepohja" id="lomakepohja" ng-model="lomakepohja"
-                    ng-options="pohja.nimi[userLang] for pohja in lomakepohjat"
+                    ng-options="pohja.translations[userLang] for pohja in lomakepohjat"
                     data-ng-disabled="!haku">
                 <option value="">{{ t('valitse.lomakepohja') || 'Valitse lomakepohja' }}</option>
             </select>
