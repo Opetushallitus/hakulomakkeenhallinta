@@ -1,0 +1,17 @@
+<form class="modal-dialog-border" role="form">
+    <div class="modal-header">
+        <h4>Poista hakukohderyhmän hakukohteiden rajaus</h4>
+    </div>
+
+    <div class="modal-body">
+        <alertmsg></alertmsg>
+        <h3>{{hakukohdeRyhma | hakukohdeNimi:userLang}}</h3>
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary" ng-click="poista()" data-ng-disabled="poistoEiOnnistu" tl="ok">Ok</button>
+        </div>
+    </div>
+</form>

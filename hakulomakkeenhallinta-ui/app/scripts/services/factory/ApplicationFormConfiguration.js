@@ -22,30 +22,32 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             };
             /**
              * Vaihtaa haun lomakepohjan
+             *  @param applicationSysmtemId hakulomakkeen id
              * @param haunOid haun id
              * @param lomakepohjaOid lomakepohjan id
              * @returns {promise}
              */
-            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (haunOid, lomakepohjaOid) {
+            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (applicationSystemId ,haunOid, lomakepohjaOid) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'vaihdaHaunLomakepohja()');
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'vaihdaHaunLomakepohja()',applicationSystemId, haunOid, lomakepohjaOid);
                 //TODO: tälle backend post kun se on saatavilla
                 $timeout(function () {
                     deferred.resolve({status: 200, message: 'tallennus ok'});
-//                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
+                    //deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
                 }, 500);
                 return deferred.promise;
             };
             /**
              * Tallentaa hakulomakkeen asetuksiin hakukohderyhmälle hakukohteiden
              * haku määrä rajoiteen
+             * @param applicationSysmtemId hakulomakkeen id
              * @param hakukohdeRyhmaOid hakukohde ryhmän id
              * @param hakukohdeRajoite numero arvo valittavien hakukohteiden määrälle hakukohde ryhmässä
              * @returns {promise}
              */
-            ApplicationFormConfiguration.tallennaHakukohderyhmaRajoite = function (hakukohdeRyhmaOid, hakukohdeRajoite) {
+            ApplicationFormConfiguration.tallennaHakukohderyhmaRajoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'tallennaHakukohderyhmaRajoite()');
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'tallennaHakukohderyhmaRajoite()',applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite);
                 //TODO: tälle backend post kun se on saatavilla
                 $timeout(function () {
                     deferred.resolve({status: 200, message: 'tallennus ok'});
@@ -96,23 +98,60 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             };
 
             var lomakePohjanAsetukset = {
-                applicationFormId: '1.2.3.222',
-                applicationSystemForm: '1.2.246.562.29.173465377510',
+                applicationFormBaseId: '1.2.3.222',
+                applicationSystemForm: '1.2.246.562.29.173465377510', //haun oid
                 configurations: [
                     {
-                        groupId: '11111',
+                        groupId: '1.2.246.562.28.11347982643',
                         type: 'restriction',
-                        configuration: 11
-                    }
+                        configuration: {
+                            maxSelection: 4
+                        }
+                    },
+                    {
+                        groupId: '1.2.246.562.28.28738790866',
+                        type: 'restriction',
+                        configuration: {
+                            maxSelection: 11
+                        }
+                    },
+                    {
+                        groupId: '1.2.246.562.28.86934808281',
+                        type: 'restriction',
+                        configuration: {
+                            maxSelection: 5
+                        }
+                    },
+                    {
+                        groupId: '1.2.246.562.28.11347982643',
+                        type: 'priority',
+                        configuration: {}
+                    },
+                    {
+                        groupId: '1.2.246.562.28.11347982643',
+                        type: 'exclusion',
+                        configuration: {}
+                    },
                 ]
             };
-            ApplicationFormConfiguration.haeLomakepohjanAsetukset = function () {
+            ApplicationFormConfiguration.haeLomakepohjanAsetukset = function (applicationSystemId) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'haeLomakepohjat()');
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'haeLomakepohjat()', applicationSystemId);
                 //TODO: tälle backend post kun se on saatavilla
                 $timeout(function () {
                     deferred.resolve(lomakePohjanAsetukset);
 //                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
+                }, 500);
+                return deferred.promise;
+            };
+
+             ApplicationFormConfiguration.poistaHakukohderyhmaRajoite = function (applicationSystemId, hakukohdeRajoite) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'poistaHakukohderyhmaRajoite()',applicationSystemId, hakukohdeRajoite);
+                //TODO: tälle backend post kun se on saatavilla
+                $timeout(function () {
+                    deferred.resolve({status: 200, message: 'Poisto ok'});
+                    //deferred.reject({status:400, message: 'poisto ei onnistu'});
                 }, 500);
                 return deferred.promise;
             };
