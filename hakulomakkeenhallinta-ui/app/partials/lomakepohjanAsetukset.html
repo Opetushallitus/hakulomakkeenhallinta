@@ -7,18 +7,47 @@
 
 <alertmsg></alertmsg>
 
-<loading style="top: -16px;"></loading>
-<div class="hh-list-h3">
-    <i data-ng-class="{'hh-icon-right':!naytaRyhmat, 'hh-icon-down':naytaRyhmat}"
-       data-ng-click="toggleNaytaHakukohderyhmat()"></i>
-    <a data-ng-click="toggleNaytaHakukohderyhmat()">
-        {{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Hakukohderyhmien hakukohteiden rajaus'}}
-    </a>
+<div>
+    <h2>{{ t('lomakepohjan.asetukset') || 'Lomakepohjan asetukset'}}</h2>
+    <button class="btn pull-right" style="margin-top: -32px;" data-ng-click="vaihdaLomakepohja()">Vaihda lomakepohja
+    </button>
+    <hr>
+
+        <div class="hh-form-conf">
+            <ul>
+                <li>Haun nimi: {{applicationForm | i18n:'name':userLang }}</li>
+                <li>Lomakepohja: {{ lomakepohja.translations[userLang] }}</li>
+            </ul>
+        </div>
 </div>
-<div data-ng-show="naytaRyhmat" class="hh-hierarkia-list">
-    <ul data-ng-repeat="hakukohdeRyhma in hakukohdeRyhmat">
-        <li>
-            <hakukohde-ryhma-info></hakukohde-ryhma-info>
-        </li>
-    </ul>
+
+<div>
+    <h2> {{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Hakukohderyhmien hakukohteiden rajaus'}}</h2>
+    <button class="btn pull-right" style="margin-top: -32px;" data-ng-click="lisaaRyhmaanRajoite()">Lisää rajaus
+    </button>
+    <hr>
+
+    <div class="hh-form-conf">
+        <ul data-ng-repeat="rajoiteRyhma in rajoiteRyhmat" class="hh-hakukohde">
+            <li>
+                <hakukohde-ryhma-info></hakukohde-ryhma-info>
+            </li>
+        </ul>
+    </div>
 </div>
+
+<!--<loading style="top: -16px;"></loading-->
+<!--<div class="hh-list-h3">-->
+    <!--<i data-ng-class="{'hh-icon-right':!naytaRyhmat, 'hh-icon-down':naytaRyhmat}"-->
+       <!--data-ng-click="toggleNaytaHakukohderyhmat()"></i>-->
+    <!--<a data-ng-click="toggleNaytaHakukohderyhmat()">-->
+        <!--{{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Hakukohderyhmien hakukohteiden rajaus'}}-->
+    <!--</a>-->
+<!--</div>-->
+<!--<div data-ng-show="naytaRyhmat" class="hh-hierarkia-list">-->
+    <!--<ul data-ng-repeat="hakukohdeRyhma in hakukohdeRyhmat">-->
+        <!--<li>-->
+            <!--<hakukohde-ryhma-info></hakukohde-ryhma-info>-->
+        <!--</li>-->
+    <!--</ul>-->
+<!--</div>-->

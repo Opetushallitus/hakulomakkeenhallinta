@@ -184,7 +184,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                     return as.tila === "JULKAISTU";
                                 })
                                 .map(function(as) {
-                                    console.log('€€', as);
                                     return {
                                         _id : as.id,
                                         applicationPeriods : [

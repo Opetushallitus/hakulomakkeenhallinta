@@ -1,8 +1,8 @@
 'use strickt';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeRyhmaInfo', [ 'TarjontaAPI', '_', 'AlertMsg', 'ThemeQuestions',
-        function (TarjontaAPI, _, AlertMsg, ThemeQuestions) {
+    .directive('hakukohdeRyhmaInfo', [ 'TarjontaAPI', '_', 'AlertMsg', 'ThemeQuestions', 'Organisaatio',
+        function (TarjontaAPI, _, AlertMsg, ThemeQuestions, Organisaatio) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -10,7 +10,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 controller: function ($scope) {
                     $scope.naytaHakukohdeLista = false;
                     $scope.hakukohteidenMaara = 0;
-                    TarjontaAPI.haeRyhmanHakukohteet($scope.hakukohdeRyhma.oid).then(
+                    $scope.hakukohdeRyhma = {};
+                    Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupId).then(
+                        function (data) {
+                            $scope.hakukohdeRyhma = data;
+                        }
+                    );
+                    TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupId).then(
                         function (data) {
                             $scope.hakukohteet = _.flatten( _.map(data.tulokset, function(tulokset) { return tulokset.tulokset; }));
                             $scope.hakukohteidenMaara = data.tuloksia;
