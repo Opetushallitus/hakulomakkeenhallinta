@@ -1,38 +1,41 @@
-<form class="modal-dialog-border" role="form" >
+<form class="modal-dialog-border" role="form">
     <div class="modal-header">
-        <h4>Lisää hakukohde rajoite</h4>
+        <h4 tl="lisaa.hakukohde.rajoite">Lisää hakukohde rajoite</h4>
     </div>
 
 
-    <div class="modal-body" >
+    <div class="modal-body">
         <alertmsg></alertmsg>
         <h1>{{applicationForm | i18n:'name':userLang }}</h1>
 
-
         <div>
-        <label>Hakukohderyhmä</label>
-        <select class="form-control" ng-model="hakukohderyhma"
-                ng-options="hakukohdeRyhma | hakukohdeNimi:userLang for hakukohdeRyhma in hakukohdeRyhmat"
-                data-ng-change="hakukohdeRyhmaValittu()">
-            <option value="" disabled>{{ t('valitse.hakukohderyhma') || 'Valitse hakukohderyhma' }}</option>
-        </select>
-        <loading style="margin-top: 32px;"></loading>
+            <label>{{ t('hakukohderyhma') || 'Hakukohderyhmä' }}</label>
+            <select class="form-control" ng-model="hakukohderyhma"
+                    ng-options="hakukohdeRyhma | hakukohdeNimi:userLang for hakukohdeRyhma in hakukohdeRyhmat"
+                    data-ng-change="hakukohdeRyhmaValittu()">
+                <option value="" disabled>{{ t('valitse.hakukohderyhma') || 'Valitse hakukohderyhma' }}</option>
+            </select>
+            <loading style="margin-top: 32px;"></loading>
         </div>
         <br>
+
         <div>
-            Hakukohteiden määrä valitussa ryhmässä: {{hakukohteidenMaara}}
+            {{ t('hakukohteiden.maara.ryhmassa') || 'Hakukohteiden määrä ryhmässä' }}: {{hakukohteidenMaara}}
             <br>
             <span ng-show="hakuryhmanRajoite.rajoite.$error.pattern || hakuryhmanRajoite.rajoite.$error.number"
-              class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}
+                  class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}
             </span>
             <span ng-show="hakuryhmanRajoite.rajoite.$error.max"
                   class="label-warning-text">
                 {{ t('arvo.suurempi.kuin.hakukohteiden.maara.ryhmassa') || 'asetettu arvo suurempi kuin hakukohteiden määrä ryhmässä' }}
             </span>
         </div>
+
         <div class="form-inline" ng-form="hakuryhmanRajoite">
             <span>{{ t('aseta.rajoite') || 'Aseta rajoite' }} </span>
-            <input class="form-control" type="number" min="0" max="{{hakukohteidenMaara}}" data-ng-disabled="!hakukohderyhma" name="rajoite" data-ng-model="hakukohdeRajoite" ng-pattern="/^[0-9]+$/" style="width: 80px; height: 32px;" >
+            <input class="form-control" type="number" min="0" max="{{hakukohteidenMaara}}"
+                   data-ng-disabled="!hakukohderyhma" name="rajoite" data-ng-model="hakukohdeRajoite"
+                   ng-pattern="/^[0-9]+$/" style="width: 80px; height: 32px;">
 
         </div>
 
@@ -41,7 +44,9 @@
     <div class="modal-footer">
         <div class="form-group pull-right">
             <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
-            <button class="btn btn-primary" data-ng-click="tallennaHakukohdeRajaus(hakukohderyhma.oid, hakukohdeRajoite)" tl="tallenna">Tallenna</button>
+            <button class="btn btn-primary"
+                    data-ng-click="tallennaHakukohdeRajaus(hakukohderyhma.oid, hakukohdeRajoite)" tl="tallenna">Tallenna
+            </button>
         </div>
     </div>
 </form>
