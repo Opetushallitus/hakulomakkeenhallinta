@@ -1,6 +1,6 @@
 <form class="modal-dialog-border" role="form">
     <div class="modal-header">
-        <h4>Muokkaa rajoitetta</h4>
+        <h4 tl="muokkaa.rajoitetta">Muokkaa rajoitetta</h4>
     </div>
 
 
@@ -10,7 +10,7 @@
 
         <br>
         <div>
-            Hakukohteiden määrä valitussa ryhmässä: {{hakukohteidenMaara}}
+            {{ t('hakukohteiden.maara.ryhmassa') || 'Hakukohteiden määrä ryhmässä' }}: {{hakukohteidenMaara}}
             <br>
             <span ng-show="hakuryhmanRajoite.rajoite.$error.pattern || hakuryhmanRajoite.rajoite.$error.number"
               class="label-warning-text">{{ t('numerot.hyvaksyttyja') || 'vain numerot ovat hyväksyttyjä' }}

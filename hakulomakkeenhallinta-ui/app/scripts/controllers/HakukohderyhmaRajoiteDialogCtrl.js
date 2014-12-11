@@ -20,7 +20,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         _.each(rajoitetutRyhmat, function (rj) {
                             rajoitetut.push(_.findWhere(data, {oid: rj.groupId}));
                         });
+                        data = _.filter(data, function (rajaava) { return _.contains(rajaava.kayttoryhmat, 'hakukohde_rajaava'); });
+
                         $scope.hakukohdeRyhmat =  _.difference(data, rajoitetut);
+                        if ($scope.hakukohdeRyhmat.length === 0) {
+                            AlertMsg($scope, 'warning', 'lomakkeen.hakukohteilla.ei.rajaavia.ryhmia');
+                        }
                     }
                 }
             );
@@ -30,11 +35,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.hakukohdeRyhmaValittu = function () {
                 TarjontaAPI.haeRyhmanHakukohteet($scope.hakukohderyhma.oid).then(
-                        function (data) {
-                            $scope.hakukohteet = _.flatten( _.map(data.tulokset, function(tulokset) { return tulokset.tulokset; }));
-                            $scope.hakukohteidenMaara = data.tuloksia;
-                        }
-                    );
+                    function (data) {
+                        $scope.hakukohteidenMaara = data.tuloksia;
+                    }
+                );
             };
             /**
              * Tallennetaan hakukohderyhmään hakukohde rajaus
@@ -66,9 +70,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     );
 
                 }
-            }
-
-
+            };
             /**
              * Suljetaan dialogi
              */
