@@ -26,10 +26,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             ApplicationFormConfiguration.haeLomakepohjat().then(
                 function (lomakepohjat) {
-                    $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'translations.' + $scope.userLang);
+                    $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'name.translations.' + $scope.userLang);
                 }
             );
-
             /**
              * Heataan haut hakuvuoden, hakukauden ja hakutyypin mukaan
              */
@@ -43,19 +42,31 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $scope.haut = $filter('orderBy')(data, 'nimi.kieli_' + $scope.userLang);
                     }
                 );
-            }
+            };
+            /**
+             * Asettaa lomakepohjaa valintaa oletus lomakepohjan
+             * taustajärjestelmän päättelyn mukaan
+             */
+            $scope.haeDefaultLomakepohja = function () {
+                ApplicationFormConfiguration.haeDefaultLomakepohja($scope.haku.oid).then(
+                    function (oletusPohja) {
+                        $scope.lomakepohja = _.findWhere($scope.lomakepohjat, { id: oletusPohja});
+                    }
+                );
+            };
             /**
              * Tallennataan haku lomakepohjaan
              */
             $scope.tallennaLiitahakuLomakepohjaan = function () {
-                $rootScope.LOGS('LuoHakemuslomakeCtrl', 'TODO tallennaLiitahakuLomakepohjaan tähän ', $scope.haku, $scope.lomakepohja);
+                $rootScope.LOGS('LuoHakemuslomakeCtrl', $scope.haku, $scope.lomakepohja);
                 ApplicationFormConfiguration.tallennaLiitahakuLomakepohjaan($scope.haku.oid, $scope.lomakepohja.id).then(
-                    function success (data) {
+                    function success(data) {
                         $rootScope.LOGS(data);
                         AlertMsg($scope, 'success', 'hakemuslomakkeen.luonti.onnistui');
                         $modalInstance.close(data);
                     },
-                    function error (resp) {
+                    function error(resp) {
+                        $rootScope.LOGS(resp);
                         AlertMsg($scope, 'warning', 'error.tallennus.epaonnistui');
                     }
                 );

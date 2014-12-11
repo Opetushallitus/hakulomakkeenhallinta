@@ -28,10 +28,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     ApplicationFormConfiguration.haeLomakepohjanAsetukset($routeParams.id).then(
                         function (lomakepohjanAsetukset) {
                             $scope.formConfiguration = lomakepohjanAsetukset;
-                            $scope.rajoiteRyhmat = _.filter(lomakepohjanAsetukset.configurations, function (conf) { return conf.type === 'restriction';});
-                            $scope.lomakepohja = _.find(lomakepohjat, function (pohja) { if (pohja.id === lomakepohjanAsetukset.applicationFormBaseId) { return pohja; }});
+                            $scope.rajoiteRyhmat = _.filter(lomakepohjanAsetukset.groupConfigurations, function (conf) { return conf.type === 'restriction'; });
+                            $scope.lomakepohja = _.find(lomakepohjat, function (pohja) { if (pohja.id === lomakepohjanAsetukset.formTemplateType) { return pohja; }});
                             lomakepohjat = _.without(lomakepohjat, $scope.lomakepohja);
-                            $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'translations.' + $scope.userLang);
+                            $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'name.translations.' + $scope.userLang);
                         }
                     );
                 }

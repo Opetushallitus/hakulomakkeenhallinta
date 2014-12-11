@@ -17,7 +17,7 @@
     <div class="hh-form-conf">
         <ul>
             <li>{{ t('haun.nimi') || 'Haun nimi' }}: {{applicationForm | i18n:'name':userLang }}</li>
-            <li> {{ t('lomakepohja') || 'Lomakepohja' }}: {{ lomakepohja.translations[userLang] }}</li>
+            <li> {{ t('lomakepohja') || 'Lomakepohja' }}: {{ lomakepohja | i18n:'name':userLang }}</li>
         </ul>
     </div>
 </div>
