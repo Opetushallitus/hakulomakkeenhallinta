@@ -1,9 +1,33 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ApplicationFormConfiguration', ['$rootScope', '$resource', 'Props', '$q', '_', '$timeout',
-        function ($rootScope, $resource, Props, $q, _, $timeout) {
+    .factory('ApplicationFormConfiguration', ['$rootScope', '$resource', 'Props', '$q', '_', '$timeout', '$http',
+        function ($rootScope, $resource, Props, $q, _, $timeout, $http) {
             var ApplicationFormConfiguration = {};
+
+            var FormConfiguration = $resource(Props.formConfigurationUri + '/:_id',
+                {_id: '@_id'},
+                {
+                    getFormTemplates: {
+                        method: 'GET',
+                        isArray: true,
+                        url: Props.formConfigurationUri + '/templates'
+                    },
+                    createApplicationSystemForm: {
+                        method: 'POST',
+                        isArray: false,
+                        url: Props.formConfigurationUri + '/:_asId',
+                        params: { _asId: '@_asId'}
+                    },
+                    updateApplicationSystemForm: {
+                        method: 'POST',
+                        isArray: false,
+                        url: Props.formConfigurationUri + '/:_asId',
+                        params: { _asId: '@_asId'}
+                    }
+                }
+            );
+
             /**
              * Liitää haun valittuun lomakepohjaan
              * @param haunOid haun id
@@ -12,29 +36,51 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             ApplicationFormConfiguration.tallennaLiitahakuLomakepohjaan = function (haunOid, lomakepohjaOid) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'tallennaLiitahakuLomakepohjaan()', haunOid, lomakepohjaOid);
-                //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
-                    deferred.resolve({status: 200, message: 'hakemuslomakkeen.luonti.onnistui'});
-//                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
-                }, 500);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaLiitahakuLomakepohjaan()', haunOid, lomakepohjaOid);
+                var formConf = {
+                    applicationSystemId: haunOid,
+                    formTemplateType: lomakepohjaOid
+                };
+                FormConfiguration.createApplicationSystemForm({_asId: haunOid}, formConf).$promise.then(
+                    function success(data) {
+                        deferred.resolve(data);
+                    },
+                    function error(resp) {
+                        deferred.reject(resp);
+                    }
+                );
                 return deferred.promise;
             };
             /**
              * Vaihtaa haun lomakepohjan
-             *  @param applicationSysmtemId hakulomakkeen id
-             * @param haunOid haun id
+             * @param applicationSysmtemId hakulomakkeen id
              * @param lomakepohjaOid lomakepohjan id
              * @returns {promise}
              */
-            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (applicationSystemId ,haunOid, lomakepohjaOid) {
+            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (applicationSystemId, lomakepohjaId) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'vaihdaHaunLomakepohja()',applicationSystemId, haunOid, lomakepohjaOid);
-                //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'vaihdaHaunLomakepohja()',applicationSystemId, lomakepohjaId);
+
+                var formConf = {
+                    applicationSystemId: applicationSystemId,
+                    formTemplateType: lomakepohjaId
+                };
+                FormConfiguration.updateApplicationSystemForm({_asId: applicationSystemId}, formConf).$promise.then(
+                    function success(data) {
+                        console.log('### ', data);
+                        deferred.resolve(data);
+                    },
+                    function error(resp) {
+                        console.log('### ', resp);
+                        deferred.reject(resp);
+                    }
+                );
+                return deferred.promise;
+
+                /*$timeout(function () {
                     deferred.resolve({status: 200, message: 'tallennus ok'});
                     //deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
-                }, 500);
+                }, 500);*/
                 return deferred.promise;
             };
             /**
@@ -55,52 +101,43 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }, 500);
                 return deferred.promise;
             };
-            //TODO: poista tämä kun backend toteus olemasssa
-            var lomakePohjat = [
-                {
-                    id: '1.2.3.111',
-                    translations: {
-                        fi: 'Toisen asteen hakulomakepohja testi data',
-                        sv: 'Toisen asteen hakulomakepohja testi data (sv)',
-                        en: 'Toisen asteen hakulomakepohja testi data (en)'
-                    }
-                },
-                {
-                    id: '1.2.3.222',
-                    translations: {
-                        fi: 'Korkeakoulujen hakulomakepohja testi data',
-                        sv: 'Korkeakoulujen hakulomakepohja testi data (sv)',
-                        en: 'Korkeakoulujen hakulomakepohja testi data (en)'
-                    }
-                },
-                {
-                    id: '1.2.3.333',
-                    translations: {
-                        fi: 'Kolmas hakulomakepohja testi data',
-                        sv: 'Kolmas hakulomakepohja testi data (sv)',
-                        en: 'Kolmas hakulomakepohja testi data (en)'
-                    }
-                }
-            ];
             /**
              * Palauttaa taustajärjestelmästä hakulomake pohjat
              * @returns {promise}
              */
             ApplicationFormConfiguration.haeLomakepohjat = function () {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'haeLomakepohjat()');
-                //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
-                    deferred.resolve(lomakePohjat);
-//                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
-                }, 500);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjat()');
+                FormConfiguration.getFormTemplates().$promise.then(
+                    function (formTemplates) {
+                        deferred.resolve(formTemplates);
+                    }
+                );
+                return deferred.promise;
+            };
+            /**
+             * Palauttaa taustajärjestelmästä hakuun liittyvän
+             * oletus hakulomakepohjan
+             * @params applicationSystemId haun id
+             * @returns {promise}
+             */
+            ApplicationFormConfiguration.haeDefaultLomakepohja = function (applicationSystemId) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ApplicationFormConfiguration', 'haeDefaultLomakepohja()');
+                $http.get(Props.formConfigurationUri + '/' + applicationSystemId + '/default').success(
+                    function (defaultTemplate) {
+                        deferred.resolve(defaultTemplate);
+                    }).error(function (resp) {
+                        deferred.reject(resp);
+                    }
+                );
                 return deferred.promise;
             };
 
             var lomakePohjanAsetukset = {
-                applicationFormBaseId: '1.2.3.222',
-                applicationSystemForm: '1.2.246.562.29.173465377510', //haun oid
-                configurations: [
+                formTemplateType: 'YHTEISHAKU_SYKSY_KORKEAKOULU',
+                applicationSystemId: '1.2.246.562.29.173465377510', //haun oid
+                groupConfigurations: [
                     {
                         groupId: '1.2.246.562.28.11347982643',
                         type: 'restriction',
@@ -136,12 +173,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             };
             ApplicationFormConfiguration.haeLomakepohjanAsetukset = function (applicationSystemId) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'haeLomakepohjat()', applicationSystemId);
-                //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
-                    deferred.resolve(lomakePohjanAsetukset);
-//                    deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
-                }, 500);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjanAsetukset()', applicationSystemId);
+                    FormConfiguration.get({'_id': applicationSystemId}).$promise.then(
+                        function success(data) {
+                            console.log('*** ', data);
+                            deferred.resolve(data);
+                        },
+                        function error(resp) {
+                            console.log('*** ', resp);
+                            deferred.reject(resp);
+                        }
+                    );
                 return deferred.promise;
             };
 

@@ -10,7 +10,7 @@
 
         <label>{{ t('lomakepohja') || 'Lomakepohja' }}</label>
         <select class="form-control" name="lomakepohja" ng-model="lomakepohja"
-                ng-options="pohja.translations[userLang] for pohja in lomakepohjat">
+                ng-options="pohja | i18n:'name':userLang for pohja in lomakepohjat">
             <option value="" disabled>{{ t('valitse.lomakepohja') || 'Valitse lomakepohja' }}</option>
         </select>
 

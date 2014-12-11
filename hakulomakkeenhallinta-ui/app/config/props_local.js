@@ -8,6 +8,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider', [])
                 tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
                 contextRoot: '/hakulomakkeenhallinta-ui',
                 themeQuestionUri: 'http://localhost/haku-app/application-system-form-editor/theme-question',
+                formConfigurationUri: 'http://localhost/haku-app/application-system-form-editor/configuration',
                 formEditorUri: 'http://localhost/haku-app/application-system-form-editor',
 //                formEditorUri: 'https://itest-virkailija.oph.ware.fi/haku-app/application-system-form-editor',
 //                authService: 'https://itest-virkailija.oph.ware.fi:443/authentication-service',
