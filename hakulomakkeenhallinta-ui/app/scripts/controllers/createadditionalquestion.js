@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI', 'Organisaatio',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI, Organisaatio) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -41,14 +41,30 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function (data) {
                     $scope.hakukohde = data;
                     $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
+                    if (data === 'NOT_FOUND') {
+                        haeHakukohdeRyhma();
+                    }
                 }
             );
+
+            function haeHakukohdeRyhma() {
+                Organisaatio.getOrganisationData($routeParams.hakuOid).then(
+                    function (hkData) {
+                        if ($scope.question.targetIsGroup === undefined) {
+                            $scope.question.targetIsGroup = true;
+                        }
+                        QuestionData.setIsGroup(true);
+                        $scope.hakukohde = hkData;
+                        $scope.hakukohdeNimi = $filter('hakukohdeNimi')(hkData, $scope.userLang);
+                    }
+                );
+            };
+
             /**
              * selaimen refresh tapauksessa luodaan lisäkysymys uudestaan
              */
             if ($routeParams.themeId !== undefined && QuestionData.getApplicationSystemId() === undefined) {
                 QuestionData.newAdditionalQuestion();
-
             }
             QuestionData.setApplicatioSystemId($routeParams.id);
             QuestionData.setLearningOpportunityId($routeParams.hakuOid);
@@ -65,7 +81,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             QuestionData.getType($routeParams.qtype).then(
                 function (data) {
-                    $scope.questionType =  data;
+                    $scope.questionType = data;
                     $scope.kysymysTyyppi = $filter('i18n')($scope.questionType, 'name', $scope.userLang);
                 }
             );

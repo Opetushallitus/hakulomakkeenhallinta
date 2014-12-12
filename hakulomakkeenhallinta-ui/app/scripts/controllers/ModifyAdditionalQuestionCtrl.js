@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ModifyAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '$modal',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, $modal) {
+    .controller('ModifyAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '$modal', 'TarjontaAPI', 'Organisaatio',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, $modal, TarjontaAPI, Organisaatio) {
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -51,12 +51,29 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
                     }
                 );
-                QuestionData.getHakukohdeInfo(QuestionData.getLerningOpportunityId()).then(
+
+                TarjontaAPI.fetchHakukohdeInfo(QuestionData.getLerningOpportunityId()).then(
                     function (data) {
                         $scope.hakukohde = data;
                         $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
+                        if (data === 'NOT_FOUND') {
+                            haeHakukohdeRyhma();
+                        }
                     }
                 );
+
+                function haeHakukohdeRyhma() {
+                    Organisaatio.getOrganisationData(QuestionData.getLerningOpportunityId()).then(
+                        function (hkData) {
+                            if ($scope.question.targetIsGroup === undefined) {
+                                $scope.question.targetIsGroup = true;
+                            }
+                            QuestionData.setIsGroup(true);
+                            $scope.hakukohde = hkData;
+                            $scope.hakukohdeNimi = $filter('hakukohdeNimi')(hkData, $scope.userLang);
+                        }
+                    );
+                };
 
                 $scope.editFlag = QuestionData.getEditFlag();
                 $scope.validators = QuestionData.getQuestionTypeValidators();
