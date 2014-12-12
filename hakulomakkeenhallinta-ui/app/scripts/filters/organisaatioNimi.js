@@ -7,10 +7,18 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                 if (!userLang) {
                     userLang = 'fi';
                 }
-                if ( organisaatio.nimi && organisaatio.nimi[userLang]) {
+                if (organisaatio.nimi && organisaatio.nimi[userLang]) {
                     return organisaatio.nimi[userLang];
-                }else if(organisaatio.nimi && organisaatio.nimi.fi){
-                    return organisaatio.nimi.fi;
+                } else if (organisaatio.nimi) {
+                    if (organisaatio.nimi.fi) {
+                       return organisaatio.nimi.fi;
+                    }
+                    if (organisaatio.nimi.sv) {
+                       return organisaatio.nimi.sv;
+                    }
+                    if (organisaatio.nimi.en) {
+                       return organisaatio.nimi.en;
+                    }
                 } else {
                     return undefined;
                 }

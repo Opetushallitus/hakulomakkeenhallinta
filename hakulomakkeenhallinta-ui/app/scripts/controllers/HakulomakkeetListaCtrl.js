@@ -21,8 +21,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             FormEditor.getApplicationSystemForms().then(
                 function (data) {
-
-                    $scope.statukset = _.uniq(_.map(data, function (status) { return status.status.translations[$scope.userLang]; }));
+                    $scope.statukset = _.uniq(_.map(data, function (status) { return status.status.translations.fi; }));
                     $scope.statukset.push('');
                     $scope.statukset =  $filter('orderBy')($scope.statukset, 'toString()');
 
@@ -42,7 +41,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 {
                                     translations: {
                                         fi: '',
-                                        sv: ''
+                                        sv: '',
+                                        en: ''
                                     }
                                 }
                             );

@@ -10,6 +10,16 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                 var hakutyyppiObj =_.find(hakutyypit, function (hkt) { return hkt.type === type; });
                 if (hakutyyppiObj.translations && hakutyyppiObj.translations[userLang]) {
                     return hakutyyppiObj.translations[userLang];
+                } else if (hakutyyppiObj.translations) {
+                    if (hakutyyppiObj.translations.fi) {
+                        return hakutyyppiObj.translations.fi;
+                    }
+                    if (hakutyyppiObj.translations.sv) {
+                        return hakutyyppiObj.translations.sv;
+                    }
+                    if (hakutyyppiObj.translations.en) {
+                        return hakutyyppiObj.translations.en;
+                    }
                 } else {
                     return undefined;
                 }
