@@ -41,7 +41,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
         $scope.cancel = function () {
             if (jatkokysymysObj !== undefined && jatkokysymysObj.kysymykset !== undefined) {
-                console.log('jatko kysymyksen cancel 11');
                 $modalInstance.dismiss(
                     {
                         msg: 'jatkokysymys',
@@ -49,7 +48,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 );
             } else {
-                console.log('lisää kysymyksen cancel 22');
                 $modalInstance.dismiss('cancel');
             }
 

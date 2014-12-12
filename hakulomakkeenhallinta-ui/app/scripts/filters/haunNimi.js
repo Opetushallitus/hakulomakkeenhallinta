@@ -10,12 +10,18 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                 var kieli = 'kieli_' + userLang;
                 if (haku.nimi && haku.nimi[kieli]) {
                     return haku.nimi[kieli];
-                } else {
-                    if (haku.nimi && userLang === 'fi') {
-                        return haku.nimi['kieli_sv'];
-                    } else if (haku.nimi && userLang === 'sv') {
-                        return haku.nimi['kieli_fi'];
+                } else if (haku.nimi) {
+                    if (haku.nimi.kieli_fi) {
+                        return haku.nimi.kieli_fi;
                     }
+                    if (haku.nimi.kieli_sv) {
+                        return haku.nimi.kieli_sv;
+                    }
+                    if (haku.nimi.kieli_en) {
+                        return haku.nimi.kieli_en;
+                    }
+                    return undefined;
+                } else {
                     return undefined;
                 }
             }

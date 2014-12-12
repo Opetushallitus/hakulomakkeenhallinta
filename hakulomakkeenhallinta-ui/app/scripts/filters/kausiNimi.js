@@ -10,6 +10,17 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                 var kausiObj =_.find(kaudet, function (k) { return k.period === kausi; });
                 if (kausiObj.translations && kausiObj.translations[userLang]) {
                     return kausiObj.translations[userLang];
+                } else if (kausiObj.translations) {
+                    if (kausiObj.translations.fi) {
+                        return kausiObj.translations.fi;
+                    }
+                    if (kausiObj.translations.sv) {
+                        return kausiObj.translations.sv;
+                    }
+                    if (kausiObj.translations.en) {
+                        return kausiObj.translations.en;
+                    }
+                    return undefined;
                 } else {
                     return undefined;
                 }

@@ -2,7 +2,7 @@
     <div class="hh-list-h3"><i data-ng-class="{'hh-icon-right':!naytaLista, 'hh-icon-down':naytaLista}" data-ng-click="toggleLista()" ></i>
 
     <a data-ng-click="toggleLista()"> {{ otsikko }}
-        <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo.tarjoajaNimet[userLang] }}</span>
+        <span data-ng-if="hakukohdeInfo.tarjoajaNimet" >: {{ hakukohdeInfo i18n:'tarjoajaNimet':userLang }}</span>
         <span data-ng-if="hakukohdeInfo.tyypit" >: {{ hakukohdeInfo.tyypit[0] }}</span>
         <span data-ng-show="naytaMaara">({{maara}})</span>
     </a>

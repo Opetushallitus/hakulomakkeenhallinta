@@ -68,7 +68,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.service', [])
                                         type: hakuType.koodiUri,
                                         translations: {
                                             fi: _.find(hakuType.metadata, function (kieli) { return kieli.kieli.toLowerCase() === 'fi'; }).nimi,
-                                            sv: _.find(hakuType.metadata, function (kieli) { return kieli.kieli.toLowerCase() === 'sv'; }).nimi
+                                            sv: _.find(hakuType.metadata, function (kieli) { return kieli.kieli.toLowerCase() === 'sv'; }).nimi,
+                                            en: _.find(hakuType.metadata, function (kieli) { return kieli.kieli.toLowerCase() === 'fi'; }).nimi
                                             //englannikieliset metadata käännökset puuttuvat koodistosta.
                                         }
                                     };

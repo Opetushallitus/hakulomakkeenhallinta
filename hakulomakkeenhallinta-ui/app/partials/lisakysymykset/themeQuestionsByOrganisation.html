@@ -1,5 +1,5 @@
-<i class="glyphicon glyphicon-home hh-home-icon"></i> <a href="index.html#/applicationSystemForm"> Hakulomakkeiden
-    hallinta</a>
+<i class="glyphicon glyphicon-home hh-home-icon"></i> <a href="index.html#/applicationSystemForm">
+    {{ t('hakulomakkeiden.hallinta') || 'Hakulomakkeiden hallinta' }}</a>
 <span class="hh-bread-crumb-chevron"> > </span> <span tl="hakukohdekohtaiset.lisakysymykset">Hakukohdekohtaiset lisäkysymykset</span>
 
 <alertmsg></alertmsg>
@@ -21,14 +21,14 @@
 <!--<tabset>
     <tab heading="{{ t('lisakysymykset.teemakohtaisesti')|| 'Teemakohtaisesti' }}">-->
 
-        <br>
-        <hr>
-        <ng-include src="'partials/lisakysymykset/lisakysymyslista-teemakohtaisesti.html'"/>
-    <!--</tab>
-    <tab heading="{{ t('lisakysymykset.hakukohdekohtaisesti') || 'Hakukohdekohtaisesti' }}">
-        <br>
-        <ng-include src="'partials/lisakysymykset/lisakysymyslista-hakukohdekohtaisesti.html'"/>
-    </tab>
+<br>
+<hr>
+<ng-include src="'partials/lisakysymykset/lisakysymyslista-teemakohtaisesti.html'"/>
+<!--</tab>
+<tab heading="{{ t('lisakysymykset.hakukohdekohtaisesti') || 'Hakukohdekohtaisesti' }}">
+    <br>
+    <ng-include src="'partials/lisakysymykset/lisakysymyslista-hakukohdekohtaisesti.html'"/>
+</tab>
 </tabset>
 <br>-->
 
