@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('vaihdaLomakepohjaDialogCtrl', ['$rootScope', '$scope', 'ApplicationFormConfiguration', '$modalInstance', 'applicationForm', 'lomakepohjat', 'AlertMsg', '$routeParams', '$location',
-        function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, applicationForm, lomakepohjat, AlertMsg, $routeParams, $location) {
+    .controller('vaihdaLomakepohjaDialogCtrl', ['$rootScope', '$scope', 'ApplicationFormConfiguration', '$modalInstance', 'applicationForm', 'lomakepohjat', 'AlertMsg', '$routeParams', '$location', '_',
+        function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, applicationForm, lomakepohjat, AlertMsg, $routeParams, $location, _) {
             $rootScope.LOGS('vaihdaLomakepohjaDialogCtrl');
 
             $scope.lomakepohjat = lomakepohjat;
@@ -19,6 +19,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function error (resp) {
                         $rootScope.LOGS('vaihdaLomakepohjaDialogCtrl', 'vaihdaLomakepohja()', resp.statusText, resp.status);
                         AlertMsg($scope, 'warning', 'error.tallennus.epaonnistui');
+                    }
+                );
+            };
+            $scope.valitseOletuspohja = function () {
+                ApplicationFormConfiguration.haeDefaultLomakepohja($routeParams.id).then(
+                    function (oletusPohja) {
+                        $scope.lomakepohja = _.findWhere($scope.lomakepohjat, { id: oletusPohja});
                     }
                 );
             };
