@@ -59,7 +59,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (applicationSystemId, lomakepohjaId) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'vaihdaHaunLomakepohja()',applicationSystemId, lomakepohjaId);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'vaihdaHaunLomakepohja()',applicationSystemId, lomakepohjaId);
 
                 var formConf = {
                     applicationSystemId: applicationSystemId,
@@ -67,20 +67,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 };
                 FormConfiguration.updateApplicationSystemForm({_asId: applicationSystemId}, formConf).$promise.then(
                     function success(data) {
-                        console.log('### ', data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
-                        console.log('### ', resp);
                         deferred.reject(resp);
                     }
                 );
-                return deferred.promise;
-
-                /*$timeout(function () {
-                    deferred.resolve({status: 200, message: 'tallennus ok'});
-                    //deferred.reject({status:400, message: 'hakemuslomakkeen.luonti.onnistui'});
-                }, 500);*/
                 return deferred.promise;
             };
             /**
@@ -134,53 +126,51 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 return deferred.promise;
             };
 
-            var lomakePohjanAsetukset = {
-                formTemplateType: 'YHTEISHAKU_SYKSY_KORKEAKOULU',
-                applicationSystemId: '1.2.246.562.29.173465377510', //haun oid
-                groupConfigurations: [
-                    {
-                        groupId: '1.2.246.562.28.11347982643',
-                        type: 'restriction',
-                        configuration: {
-                            maxSelection: 4
-                        }
-                    },
-                    {
-                        groupId: '1.2.246.562.28.28738790866',
-                        type: 'restriction',
-                        configuration: {
-                            maxSelection: 11
-                        }
-                    },
-                    {
-                        groupId: '1.2.246.562.28.86934808281',
-                        type: 'restriction',
-                        configuration: {
-                            maxSelection: 5
-                        }
-                    },
-                    {
-                        groupId: '1.2.246.562.28.11347982643',
-                        type: 'priority',
-                        configuration: {}
-                    },
-                    {
-                        groupId: '1.2.246.562.28.11347982643',
-                        type: 'exclusion',
-                        configuration: {}
-                    },
-                ]
-            };
+            var lomakePohjanAsetukset = [
+                {
+                    groupId: '1.2.246.562.28.11347982643',
+                    type: 'restriction',
+                    configuration: {
+                        maxSelection: 4
+                    }
+                },
+                {
+                    groupId: '1.2.246.562.28.28738790866',
+                    type: 'restriction',
+                    configuration: {
+                        maxSelection: 11
+                    }
+                },
+                {
+                    groupId: '1.2.246.562.28.86934808281',
+                    type: 'restriction',
+                    configuration: {
+                        maxSelection: 5
+                    }
+                },
+                {
+                    groupId: '1.2.246.562.28.11347982643',
+                    type: 'priority',
+                    configuration: {}
+                },
+                {
+                    groupId: '1.2.246.562.28.11347982643',
+                    type: 'exclusion',
+                    configuration: {}
+                },
+            ];
+
             ApplicationFormConfiguration.haeLomakepohjanAsetukset = function (applicationSystemId) {
                 var deferred = $q.defer();
                 $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjanAsetukset()', applicationSystemId);
                     FormConfiguration.get({'_id': applicationSystemId}).$promise.then(
                         function success(data) {
+                            data.groupConfigurations = lomakePohjanAsetukset;
                             console.log('*** ', data);
                             deferred.resolve(data);
                         },
                         function error(resp) {
-                            console.log('*** ', resp);
+                            console.log('*** error:', resp);
                             deferred.reject(resp);
                         }
                     );
