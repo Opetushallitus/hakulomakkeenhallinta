@@ -222,7 +222,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         HAKUVUOSI: hakuvuosi,
                         HAKUKAUSI: hakukausi + '#1',
                         HAKUTYYPPI: hakutyyppi + '#1',
-                        TILA: 'NOT_POISTETTU'
+                        TILA: 'NOT_POISTETTU',
+                        COUNT: 1000
                     }
                 }).success(
                     function (data) {
@@ -233,6 +234,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         );
                         $q.all(haut).then(
                             function (data) {
+                                data = _.filter(data, function (haku) { return haku.tila === 'JULKAISTU' || haku.tila === 'VALMIS'; });
                                 deferred.resolve(data);
                             }
                         );

@@ -25,6 +25,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             ApplicationFormConfiguration.haeLomakepohjat().then(
                 function (lomakepohjat) {
+                    $scope.lomakepohja = lomakepohjat;
+                    $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'name.translations.' + $scope.userLang);
                     ApplicationFormConfiguration.haeLomakepohjanAsetukset($routeParams.id).then(
                         function (lomakepohjanAsetukset) {
                             $scope.formConfiguration = lomakepohjanAsetukset;
