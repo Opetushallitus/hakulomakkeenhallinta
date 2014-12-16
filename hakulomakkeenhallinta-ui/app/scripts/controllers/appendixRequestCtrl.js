@@ -13,6 +13,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.lisaaCliked = false;
             $scope.datePicOpen = false;
             $scope.modify = false;
+            $scope.toimitus = '2';
 
             if ($scope.attachmentRequest.deliveryDue  !== undefined) {
                 $scope.modify = true;
@@ -24,6 +25,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.toimitusaika = toHHMMTime($scope.attachmentRequest.deliveryDue);
                 $scope.attachmentRequest.deliveryDue = $filter('date')(paivaObject, 'dd.MM.yyyy');
 
+            }
+
+            if ($scope.modify) {
+                if ($scope.attachmentRequest.useGroupAddress) {
+                    $scope.toimitus = '1';
+                }
+
+                if ($scope.attachmentRequest.deliveryAddress &&
+                    $scope.attachmentRequest.deliveryAddress.street) {
+                    $scope.toimitus = '2';
+                }
             }
             /**
              * haetaan postinumerot ja postitoimipaikat'
@@ -129,9 +141,28 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 }
             );
-
+            /**
+             * avataan kalenteri näkymä päivän valitaan
+             */
             $scope.openDatePicker = function () {
                 $scope.datePicOpen = true;
             }
+            /**
+             * Valintanappin käsittelyä toimitus osoitteen valintaan
+             * @param value valintanapin arvo
+             */
+            $scope.setToimitusOsoite = function (value) {
+                $scope.toimitus = value;
+                $scope.attachmentRequest.deliveryAddress = {};
+                if ( value === '1') {
+                    $scope.attachmentRequest.useGroupAddress = true;
+                }
+
+                if (value === '2') {
+                    if ($scope.attachmentRequest.useGroupAddress) {
+                        delete($scope.attachmentRequest.useGroupAddress);
+                    }
+                }
+            };
         }
     ]);

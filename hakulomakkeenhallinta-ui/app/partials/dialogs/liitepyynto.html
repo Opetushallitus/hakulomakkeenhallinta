@@ -73,7 +73,25 @@
                 <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
             </div>
 
-            <div>
+            <div data-ng-if="question.targetIsGroup">
+
+            <div class="radio">
+                <label>
+                    <input type="radio" name="toimitus" data-ng-click="setToimitusOsoite('1')" value="1"
+                            data-ng-model="toimitus" >
+                    {{ t('ryhman.ensisijainen.hakijapalvelun.oisoite') ||
+                    'Liite toimitetaan ryhmän ensisijaisen hakukohteen hakijapalven osoitteeseen' }}
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="toimitus"  data-ng-click="setToimitusOsoite('2')" value="2"
+                            data-ng-model="toimitus" >
+                    {{ t('muu.oisoite') || 'Käytetään muuta osoitetta' }}
+                </label>
+            </div>
+            </div>
+            <div ng-show="toimitus === '2'">
                 <div class="form-group">
                     <label>{{ t('liitteen.vastaanottaja') || 'Vastaanottaja' }} </label>
                     <input type="text" name="vastaanottaja" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.recipient" >
@@ -81,23 +99,25 @@
 
                 <div class="form-group">
                     <label>{{ t('liitteen.osoite') || 'Osoite *' }} </label>
-                    <input type="text" name="osoite" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.street"  data-ng-required="true">
+                    <input type="text" name="osoite" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.street"
+                            data-ng-required="toimitus === '2'">
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
                         <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }} </label>
                         <input type="text" class="form-control"
-                               data-ng-model="attachmentRequest.deliveryAddress.postCode" data-ng-required="true"
+                               data-ng-model="attachmentRequest.deliveryAddress.postCode"
                                data-typeahead-on-select="setPostitoimipaikka()"
-                               data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
+                               data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:$viewValue | limitTo:8 | orderBy:'koodiArvo' "
+                                data-ng-required="toimitus === '2'">
                     </div>
                     <div class="col-md-8">
                         <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}
                             <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                         </label>
                         <input type="text" class="form-control" data-ng-model="attachmentRequest.deliveryAddress.postOffice"
-                               data-ng-required="true" ng-disabled="true" >
+                               ng-disabled="true">
                     </div>
                 </div>
                 <br>
