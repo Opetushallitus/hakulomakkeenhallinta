@@ -11,12 +11,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.naytaHakukohdeLista = false;
                     $scope.hakukohteidenMaara = 0;
                     $scope.hakukohdeRyhma = {};
-                    Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupId).then(
+                    //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
+                    Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupdId).then(
                         function (data) {
                             $scope.hakukohdeRyhma = data;
                         }
                     );
-                    TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupId).then(
+                    TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupdId).then(
                         function (data) {
                             $scope.hakukohteet = _.flatten( _.map(data.tulokset, function(tulokset) { return tulokset.tulokset; }));
                             $scope.hakukohteidenMaara = data.tuloksia;
@@ -25,22 +26,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
                     $scope.toggleNaytaHakukohteet = function () {
                         $scope.naytaHakukohdeLista = !$scope.naytaHakukohdeLista;
-                    }
+                    };
 
-                    $scope.tallennaHakukohdeRajaus = function (hakukohdeRyhmaOid, hakukohdeRajoite) {
-                        //TODO: tähän tallenus kun back end valmis
-                        if(hakukohdeRajoite !== undefined){
-                            ThemeQuestions.tallennaHakukohderyhmaRajoite(hakukohdeRyhmaOid, hakukohdeRajoite).then(
-                                function success(data) {
-                                    AlertMsg($scope, 'success', 'tallennus.ok');
-                                },
-                                function error(resp) {
-                                    AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
-                                }
-                            );
-
-                        }
-                    }
                 }
             };
 
