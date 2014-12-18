@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('HakukohderyhmaRajoiteDialogCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'applicationForm', 'Organisaatio', 'AlertMsg', 'rajoitetutRyhmat', '$routeParams', '_', 'ApplicationFormConfiguration',
-        function ($rootScope, $scope, $modalInstance, TarjontaAPI, applicationForm, Organisaatio, AlertMsg, rajoitetutRyhmat, $routeParams, _, ApplicationFormConfiguration) {
+    .controller('HakukohderyhmaRajoiteDialogCtrl', [ '$rootScope', '$scope', '$modalInstance', 'TarjontaAPI', 'applicationForm', 'Organisaatio', 'AlertMsg', 'rajoitetutRyhmat',  '$routeParams', '_', 'ApplicationFormConfiguration', 'lomakePohja',
+        function ($rootScope, $scope, $modalInstance, TarjontaAPI, applicationForm, Organisaatio, AlertMsg, rajoitetutRyhmat, $routeParams, _, ApplicationFormConfiguration, lomakePohja) {
             $rootScope.LOGS('HakukohderyhmaRajoiteDialogCtrl');
 
             $scope.hakukohdeRyhmat = [];
             $scope.applicationForm = applicationForm;
             $scope.hakukohderyhma = '';
-
+            /**
+             * Haetaan tarjonnasta käyttäjän rajaavat hakukohde ryhmät
+             */
             $scope.$emit('LOAD');
             TarjontaAPI.usersApplicationOptionGroups($routeParams.id, Organisaatio.getUserSelectedOrganisation().oid).then(
                 function (data) {
@@ -42,19 +44,21 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             };
             /**
              * Tallennetaan hakukohderyhmään hakukohde rajaus
-             * @param hakukohdeRyhmaOid
-             * @param hakukohdeRajoite
+             * @param hakukohdeRyhmaOid hakukohde ryhmän id
+             * @param hakukohdeRajoite rajauksen arvo numerona
              */
+            //TODO: tarkista tämä kun back end toimii oikein
             $scope.tallennaHakukohdeRajaus = function (hakukohdeRyhmaOid, hakukohdeRajoite) {
                 if (hakukohdeRajoite > $scope.hakukohteidenMaara) {
                     $scope.hakuryhmanRajoite.rajoite.$error.max = true;
                 } else if (hakukohdeRajoite !== undefined) {
                     //TODO: tähän tallenus kun back end valmis
-                    ApplicationFormConfiguration.tallennaHakukohderyhmaRajoite($routeParams.id, hakukohdeRyhmaOid, hakukohdeRajoite).then(
+                    ApplicationFormConfiguration.tallennaHakukohderyhmaRajoite($routeParams.id, hakukohdeRyhmaOid, hakukohdeRajoite, lomakePohja).then(
                         function success(data) {
-                            AlertMsg($scope, 'success', 'tallennus.ok');
+                            //AlertMsg($scope, 'success', 'tallennus.ok');
+                            $modalInstance.close();
                             //TODO: poista tämä kun back end valmis
-                            $modalInstance.close(
+                            /*$modalInstance.close(
                                 {
                                     groupId: hakukohdeRyhmaOid,
                                     type: 'restriction',
@@ -62,7 +66,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                         maxSelection: hakukohdeRajoite
                                     }
                                 }
-                            );
+                            );*/
                         },
                         function error(resp) {
                             AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');

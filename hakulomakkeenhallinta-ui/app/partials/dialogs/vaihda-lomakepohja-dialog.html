@@ -5,8 +5,10 @@
 
 
     <div class="modal-body">
-        <alertmsg></alertmsg>
+
         <h1>{{applicationForm | i18n:'name':userLang }}</h1>
+
+        <alertmsg></alertmsg>
 
         <label>{{ t('lomakepohja') || 'Lomakepohja' }}</label>
         <select class="form-control" name="lomakepohja" ng-model="lomakepohja"

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('PoistaHakukohderyhmaRajoiteDialogCtrl', ['$rootScope', '$scope', 'ApplicationFormConfiguration', '$modalInstance', 'hakukohdeRyhma', 'rajoiteRyhma', 'AlertMsg', '$routeParams',
-        function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, hakukohdeRyhma, rajoiteRyhma, AlertMsg, $routeParams) {
+    .controller('PoistaHakukohderyhmaRajoiteDialogCtrl', ['$rootScope', '$scope', 'ApplicationFormConfiguration', '$modalInstance', 'hakukohdeRyhma', 'rajoiteRyhma', 'AlertMsg', '$routeParams', 'lomakePohja',
+        function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, hakukohdeRyhma, rajoiteRyhma, AlertMsg, $routeParams, lomakePohja) {
 
             $scope.hakukohdeRyhma = hakukohdeRyhma;
             console.log(rajoiteRyhma);
@@ -11,7 +11,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * Poistaa hakukohderyhmä rajoitteen lomakkeen asetuksista
              */
             $scope.poista = function () {
-                ApplicationFormConfiguration.poistaHakukohderyhmaRajoite($routeParams.id, rajoiteRyhma).then(
+                //TODO: tarkista tämä kun back end toimii oikein
+                ApplicationFormConfiguration.poistaHakukohderyhmaRajoite($routeParams.id, rajoiteRyhma, lomakePohja).then(
                     function success (data) {
                         $modalInstance.close(rajoiteRyhma);
                     },
