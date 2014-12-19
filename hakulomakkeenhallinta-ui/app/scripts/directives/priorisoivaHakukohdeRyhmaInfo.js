@@ -1,23 +1,20 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeRyhmaInfo', [ 'TarjontaAPI', '_', 'AlertMsg', 'Organisaatio',
-        function (TarjontaAPI, _, AlertMsg, Organisaatio) {
+    .directive('priorisoivaHakukohdeRyhmaInfo',
+        function (TarjontaAPI, _) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'partials/directives/hakukohde-ryhma-info.html',
+                templateUrl: 'partials/directives/priorisoiva-hakukohde-ryhma-info.html',
                 controller: function ($scope) {
                     $scope.naytaHakukohdeLista = false;
                     $scope.hakukohteidenMaara = 0;
-                    $scope.hakukohdeRyhma = {};
-                    //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
-                    Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupdId).then(
-                        function (data) {
-                            $scope.hakukohdeRyhma = data;
-                        }
-                    );
-                    TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupdId).then(
+                    $scope.priorisoivaHakukohdeRyhma = {};
+                    /**
+                     * haetaan ryhmän hakukohteet
+                     */
+                    TarjontaAPI.haeRyhmanHakukohteet($scope.priorisointiRyhma.oid).then(
                         function (data) {
                             $scope.hakukohteet = _.flatten( _.map(data.tulokset, function(tulokset) { return tulokset.tulokset; }));
                             $scope.hakukohteidenMaara = data.tuloksia;
@@ -31,4 +28,5 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 }
             };
 
-        }]);
+        }
+    );
