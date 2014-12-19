@@ -36,3 +36,19 @@
         </ul>
     </div>
 </div>
+<div data-ng-if="priorisointiRyhmat.length > 0">
+    <h2> Hakukohderyhmien hakukohteiden priorisointi </h2>
+    <button class="btn pull-right" style="margin-top: -32px;"
+            data-ng-click="lisaaHakulomakkeelleHakukohteidenPriorisointi()">
+        Lisää priorisointi
+    </button>
+    <hr>
+
+    <div class="hh-form-conf">
+        <ul data-ng-repeat="priorisointiRyhma in priorisointiRyhmat" class="hh-hakukohde">
+            <li>
+                <priorisoiva-hakukohde-ryhma-info></priorisoiva-hakukohde-ryhma-info>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div>
+    <div class="hh-list-h3">
+        <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaHakukohdeLista, 'hh-icon-down':naytaHakukohdeLista}"
+           data-ng-click="toggleNaytaHakukohteet()"></i>
+        <a data-ng-click="toggleNaytaHakukohteet()">
+            {{priorisointiRyhma | hakukohdeNimi:userLang}} : {{hakukohteidenMaara}}
+        </a>
+
+        <div class="dropdown pull-right">
+            <a class="dropdown-toggle">
+                <i class="hh-icon-menu"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li data-ng-click="muokkaRyhmanRajoitetta(hakukohdeRyhma, rajoiteRyhma)">
+                    <a>Muokkaa prioriteetteja <i class="glyphicon glyphicon-edit"></i></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div data-ng-show="naytaHakukohdeLista">
+    <ul data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
+        <li>{{ hakukohde | hakukohdeNimi:userLang }}</li>
+    </ul>
+    </div>
+</div>

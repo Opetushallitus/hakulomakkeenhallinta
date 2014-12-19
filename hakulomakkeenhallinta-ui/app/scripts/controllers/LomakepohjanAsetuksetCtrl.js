@@ -12,6 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.lomakepohjat = [];
             $scope.lomakepohja = {};
             $scope.rajoiteRyhmat = [];
+            $scope.priorisointiRyhmat = [];
             /**
              * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
              */
@@ -166,5 +167,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 );
             };
+
+            /**
+             * Haetaan tarjonnasta käyttäjän priorisoivat hakukohde ryhmät
+             */
+            //$scope.$emit('LOAD');
+            TarjontaAPI.usersApplicationOptionGroups($routeParams.id, Organisaatio.getUserSelectedOrganisation().oid).then(
+                function (data) {
+                    //$scope.$emit('LOADREADY');
+                    data = _.filter(data, function (priorisoiva) { return _.contains(priorisoiva.kayttoryhmat, 'hakukohde_priorisoiva'); });
+                    console.log('*** Priorioivat: ', data);
+                    $scope.priorisointiRyhmat = data;
+                }
+            );
 
         }]);
