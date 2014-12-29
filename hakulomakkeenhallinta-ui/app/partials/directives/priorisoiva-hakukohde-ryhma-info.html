@@ -11,7 +11,7 @@
                 <i class="hh-icon-menu"></i>
             </a>
             <ul class="dropdown-menu">
-                <li data-ng-click="muokkaRyhmanRajoitetta(hakukohdeRyhma, rajoiteRyhma)">
+                <li data-ng-click="muokkaaPrioriteetteja()">
                     <a>Muokkaa prioriteetteja <i class="glyphicon glyphicon-edit"></i></a>
                 </li>
 
@@ -19,8 +19,11 @@
         </div>
     </div>
     <div data-ng-show="naytaHakukohdeLista">
-    <ul data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
-        <li>{{ hakukohde | hakukohdeNimi:userLang }}</li>
-    </ul>
+        <div data-ng-repeat="(level, prioriteettiRyhma) in hakukohteet">
+            <h4>Prioriteetti: {{level}}</h4>
+            <ul data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">
+                <li>{{ hakukohde | hakukohdeNimi:userLang }} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}</li>
+            </ul>
+        </div>
     </div>
 </div>

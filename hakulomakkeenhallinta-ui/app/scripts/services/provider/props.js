@@ -4,19 +4,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.provider', [])
     .provider('Props', function () {
         this.$get = [function () {
             return {
-                enableConsoleLogs: true,
-                tarjontaAPI: 'https://itest-virkailija.oph.ware.fi/tarjonta-service/rest/v1',
+                enableConsoleLogs: false,
+                tarjontaAPI: '/tarjonta-service/rest/v1',
                 contextRoot: '/hakulomakkeenhallinta-ui',
-                themeQuestionUri: 'http://localhost/haku-app/application-system-form-editor/theme-question',
-                formConfigurationUri: 'http://localhost/haku-app/application-system-form-editor/configuration',
-                formEditorUri: 'http://localhost/haku-app/application-system-form-editor',
-//                formEditorUri: 'https://itest-virkailija.oph.ware.fi/haku-app/application-system-form-editor',
-//                authService: 'https://itest-virkailija.oph.ware.fi:443/authentication-service',
-                authService: 'http://localhost/authentication-service',
-                organisaatioService: 'https://itest-virkailija.oph.ware.fi/organisaatio-service',
-                backEndRoot : 'http://localhost/',
-                localizationUrl: 'https://itest-virkailija.oph.ware.fi/lokalisointi/cxf/rest/v1',
-                koodisto: 'https://itest-virkailija.oph.ware.fi:443/koodisto-service/rest/json',
+                themeQuestionUri: '/haku-app/application-system-form-editor/theme-question',
+                formConfigurationUri: '/haku-app/application-system-form-editor/configuration',
+                formEditorUri: '/haku-app/application-system-form-editor',
+                authService: '/authentication-service',
+                organisaatioService: '/organisaatio-service',
+                backEndRoot : '/',
+                localizationUrl: '/lokalisointi/cxf/rest/v1',
+                koodisto: '/koodisto-service/rest/json',
                 casurl: '/cas/myroles'
             };
         }]

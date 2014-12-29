@@ -1,0 +1,29 @@
+<form class="modal-dialog-border" role="form">
+    <div class="modal-header">
+        <h4>Aseta prioriteetit</h4>
+    </div>
+
+
+    <div class="modal-body">
+
+        <h1>{{applicationForm | i18n:'name':userLang }}</h1>
+
+        <alertmsg></alertmsg>
+
+        <div data-ng-repeat="(level, hakukohdeRyhma) in hakukohteet">
+            Prioriteetti: {{level}}
+            <ul data-ng-repeat="hakukohde in hakukohdeRyhma">
+                <li>{{ hakukohde | hakukohdeNimi:userLang}} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary" data-ng-click="tallennaPrioriteetit()"
+                    tl="tallenna">Tallenna</button>
+        </div>
+    </div>
+</form>
