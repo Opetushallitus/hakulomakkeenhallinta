@@ -19,7 +19,19 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
                     TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupdId).then(
                         function (data) {
-                            $scope.hakukohteet = _.flatten( _.map(data.tulokset, function(tulokset) { return tulokset.tulokset; }));
+                            $scope.hakukohteet = _.flatten(
+                                _.map(data.tulokset,
+                                    function (tulokset) {
+                                        return _.each(tulokset.tulokset,
+                                            function (tulos) {
+                                                tulos.tarjoaja = {};
+                                                tulos.tarjoaja.nimi = tulokset.nimi;
+                                                return tulos;
+                                            }
+                                        );
+                                    }
+                                )
+                            );
                             $scope.hakukohteidenMaara = data.tuloksia;
                         }
                     );

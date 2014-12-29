@@ -23,7 +23,7 @@
     </div>
     <div data-ng-show="naytaHakukohdeLista">
     <ul data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
-        <li>{{ hakukohde | hakukohdeNimi:userLang }}</li>
+        <li>{{ hakukohde | hakukohdeNimi:userLang }} : {{hakukohde.tarjoaja | organisaatioNimi:userLang}} </li>
     </ul>
     </div>
 </div>
