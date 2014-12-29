@@ -11,10 +11,16 @@
         <alertmsg></alertmsg>
 
         <div data-ng-repeat="(level, hakukohdeRyhma) in hakukohteet">
-            Prioriteetti: {{level}}
-            <ul data-ng-repeat="hakukohde in hakukohdeRyhma">
-                <li>{{ hakukohde | hakukohdeNimi:userLang}} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}</li>
-            </ul>
+            <h4>Prioriteetti: {{level}}</h4>
+            <div class="hh-form-conf">
+                <ul data-ng-repeat="hakukohde in hakukohdeRyhma" class="hh-hakukohde">
+                    <li class="hh-hakukohde">
+                        <button class="btn btn-xs glyphicon glyphicon-chevron-up" data-ng-click="movePriorityUp(hakukohde)"></button>
+                        <button class="btn btn-xs glyphicon glyphicon-chevron-down" data-ng-click="movePriorityDown(hakukohde)"></button>
+                        {{ hakukohde | hakukohdeNimi:userLang}} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
+                    </li>
+                </ul>
+            </div>
         </div>
 
     </div>
