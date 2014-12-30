@@ -15,6 +15,9 @@
                 <li data-ng-click="muokkaRyhmanRajoitetta(hakukohdeRyhma, rajoiteRyhma)">
                     <a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a>
                 </li>
+                <li data-ng-click="lisaaHakukohdeRyhmaan(hakukohdeRyhma)">
+                    <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
+                </li>
                 <li data-ng-click="poistaRyhmaRajoite(hakukohdeRyhma, rajoiteRyhma)">
                     <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
                 </li>
@@ -23,7 +26,18 @@
     </div>
     <div data-ng-show="naytaHakukohdeLista">
     <ul data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
-        <li>{{ hakukohde | hakukohdeNimi:userLang }} : {{hakukohde.tarjoaja | organisaatioNimi:userLang}} </li>
+        <li>{{ hakukohde | hakukohdeNimi:userLang }} : {{hakukohde.tarjoaja | organisaatioNimi:userLang}}
+            <div class="dropdown pull-right">
+                    <a class="dropdown-toggle">
+                        <i class="hh-icon-menu"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li data-ng-click="poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde)">
+                            <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
+                        </li>
+                    </ul>
+                </div>
+        </li>
     </ul>
     </div>
 </div>

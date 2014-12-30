@@ -63,7 +63,11 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                     return $scope.hakukohteet;
                                 }
                             }
-                        });
+                        }).result.then(
+                            function(data) {
+                                $scope.hakukohteet = data;
+                            }
+                        );
                     }
 
                 }

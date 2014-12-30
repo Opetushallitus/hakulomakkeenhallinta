@@ -30,6 +30,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             hakukohde.prioriteetti = hakukohde.prioriteetti - 1;
             $scope.hakukohteet[prioriteetti - 1].push(hakukohde);
         };
+
+        $scope.tallennaPrioriteetit = function () {
+            $modalInstance.close($scope.hakukohteet);
+        };
+        /**
+         * suljetaan dialogi ilman muutosten tallennusta
+         */
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };

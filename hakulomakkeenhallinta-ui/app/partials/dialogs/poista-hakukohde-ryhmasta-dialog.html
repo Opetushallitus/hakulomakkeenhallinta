@@ -1,0 +1,21 @@
+<form class="modal-dialog-border" role="form">
+    <div class="modal-header">
+        <h4 tl="poista.hakukohde.ryhmasta">Poista hakukohde ryhmästä</h4>
+    </div>
+
+    <div class="modal-body">
+        <alertmsg></alertmsg>
+        <div>
+            {{ t('olet.poistamassa') || 'Olet poistamassa' }} <br>
+            <b>{{ t('hakukohdetta') || 'Hakukohdetta' }}:</b> {{ hakukohde | hakukohdeNimi:userLang }} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }} <br>
+            <b>{{ t('ryhmasta') || 'Ryhmästä' }}:</b> {{ hakukohdeRyhma | hakukohdeNimi:userLang }}
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary" ng-click="poista()" data-ng-disabled="poistoEiOnnistu" tl="ok">Ok</button>
+        </div>
+    </div>
+</form>

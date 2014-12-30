@@ -261,12 +261,36 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             TarjontaAPI.haeRyhmanHakukohteet = function (hakukohdeRyhmanOid) {
                 var deferred = $q.defer();
-
                 tarjonta.getRyhmanHakukohteet({ organisaatioRyhmaOid: hakukohdeRyhmanOid }).$promise.then(
                         function (data) {
                             deferred.resolve(angular.fromJson(data).result);
                         }
                     );
+                return deferred.promise;
+            };
+            /**
+             * Poistetaan hakukohde hakukohderyhmästä
+             * @param hakukohdeRyhma
+             * @param hakukohde
+             * @returns {promise}
+             */
+            TarjontaAPI.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
+                var deferred = $q.defer();
+                $http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate',[
+                    {
+                        toiminto: 'POISTA',
+                        hakukohdeOid: hakukohde.oid,
+                        ryhmaOid: hakukohdeRyhma.oid
+                    }
+                ]).success(function (data) {
+                    if (data.status === 'OK') {
+                        deferred.resolve(data);
+                    }else {
+                        deferred.reject(data);
+                    }
+                }).error(function (resp) {
+                    deferred.reject(resp);
+                });
                 return deferred.promise;
             };
 
