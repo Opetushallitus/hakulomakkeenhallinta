@@ -178,5 +178,30 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
             );
 
+            $scope.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
+                console.log('*** poista hakukohde ryhmästä *** ', hakukohdeRyhma, hakukohde);
+                $modal.open({
+                    templateUrl: 'partials/dialogs/poista-hakukohde-ryhmasta-dialog.html',
+                    controller: 'PoistaHakukohdeRyhmastaDialogCtrl',
+                    scope: $scope,
+                    resolve: {
+                        hakukohdeRyhma: function () {
+                            return hakukohdeRyhma;
+                        },
+                        hakukohde: function () {
+                            return hakukohde;
+                        }
+                    }
+                }).result.then(
+                    function (data) {
+                        $route.reload();
+                    }
+                );
+
+            };
+
+            $scope.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma) {
+                console.log('*** lisää hakukohde Ryhmään ***', hakukohdeRyhma);
+            }
 
         }]);

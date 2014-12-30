@@ -107,7 +107,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                             groupdId: hakukohdeRyhmaOid,
                             type: 'MAXIMUM_NUMBER_OF',
                             configurations: {
-                                maximumNumberOf: '5'
+                                maximumNumberOf: hakukohdeRajoite
                             }
                         }
                     ]

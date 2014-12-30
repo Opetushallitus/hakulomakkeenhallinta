@@ -12,17 +12,30 @@
             </a>
             <ul class="dropdown-menu">
                 <li data-ng-click="muokkaaPrioriteetteja()">
-                    <a>Muokkaa prioriteetteja <i class="glyphicon glyphicon-edit"></i></a>
+                    <a>{{ t('muokkaa.prioriteetteja') || 'Muokkaa prioriteetteja' }} <i class="glyphicon glyphicon-edit"></i></a>
                 </li>
-
+                <li data-ng-click="lisaaHakukohdeRyhmaan(priorisointiRyhma)">
+                    <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
+                </li>
             </ul>
         </div>
     </div>
     <div data-ng-show="naytaHakukohdeLista">
         <div data-ng-repeat="(level, prioriteettiRyhma) in hakukohteet">
-            <h4>Prioriteetti: {{level}}</h4>
+            <h4>{{ t('prioriteetti') || 'Prioriteetti' }}: {{level}}</h4>
             <ul data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">
-                <li>{{ hakukohde | hakukohdeNimi:userLang }} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}</li>
+                <li>{{ hakukohde | hakukohdeNimi:userLang }} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
+                <div class="dropdown pull-right">
+                    <a class="dropdown-toggle">
+                        <i class="hh-icon-menu"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li data-ng-click="poistaHakukohdeRyhmasta(priorisointiRyhma, hakukohde)">
+                            <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                </li>
             </ul>
         </div>
     </div>
