@@ -1,0 +1,28 @@
+<form class="modal-dialog-border hh-form-conf" role="form">
+    <div class="modal-header">
+        <h4>Lisää hakukohde ryhmään</h4>
+    </div>
+
+    <div class="modal-body">
+        <alertmsg></alertmsg>
+        <div>
+        <h4>{{hakukohdeRyhma | hakukohdeNimi:userlang}}</h4>
+            <br>
+            <div>
+                <ul>
+                    <li data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
+                        <input type="checkbox" data-ng-change="paivitaLisattavienListaa(hakukohde.oid, hkchecked)" data-ng-model="hkchecked" value="{{hakukohde.oid}}">
+                        {{hakukohde | hakukohdeNimi:userLang}} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary" ng-click="lisaaHakukohteetRyhmaan()" tl="tallenna">Ok</button>
+        </div>
+    </div>
+</form>

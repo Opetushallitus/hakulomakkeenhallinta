@@ -23,8 +23,8 @@
     <div data-ng-show="naytaHakukohdeLista">
         <div data-ng-repeat="(level, prioriteettiRyhma) in hakukohteet">
             <h4>{{ t('prioriteetti') || 'Prioriteetti' }}: {{level}}</h4>
-            <ul data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">
-                <li>{{ hakukohde | hakukohdeNimi:userLang }} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
+            <ul>
+                <li data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">{{ hakukohde | hakukohdeNimi:userLang }} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
                 <div class="dropdown pull-right">
                     <a class="dropdown-toggle">
                         <i class="hh-icon-menu"></i>

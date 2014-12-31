@@ -293,6 +293,37 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 });
                 return deferred.promise;
             };
+            /**
+             * Lisätään hakukohteet hakukohderyhmään
+             * @param hakukohdeRyhma
+             * @param hakukohteet []
+             * @returns {promise}
+             */
+            TarjontaAPI.lisaaHakukohteetRyhmaan = function (hakukohdeRyhma, hakukohteet) {
+                var deferred = $q.defer();
+
+                var lisattavat = [];
+                _.each(hakukohteet, function (hk) {
+                        var o = {};
+                        o.hakukohdeOid = hk;
+                        o.ryhmaOid = hakukohdeRyhma.oid;
+                        o.toiminto = 'LISAA'
+                        lisattavat.push(o);
+                    }
+                );
+                deferred.resolve(lisattavat);
+
+                /*$http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate', lisattavat).success(function (data) {
+                    if (data.status === 'OK') {
+                        deferred.resolve(data);
+                    }else {
+                        deferred.reject(data);
+                    }
+                }).error(function (resp) {
+                    deferred.reject(resp);
+                });*/
+                return deferred.promise;
+            };
 
             return TarjontaAPI;
         }]);
