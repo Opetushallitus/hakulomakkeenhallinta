@@ -177,9 +177,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     $scope.priorisointiRyhmat = data;
                 }
             );
-
+            /**
+             * Poistetaan hakukohde hakukohderyhmasta
+             * näiden tietojen tallennus paikka on tarjonta
+             * @param hakukohdeRyhma
+             * @param hakukohde
+             */
             $scope.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
-                console.log('*** poista hakukohde ryhmästä *** ', hakukohdeRyhma, hakukohde);
+                $rootScope.LOGS('poistaHakukohdeRyhmasta', hakukohdeRyhma, hakukohde);
                 $modal.open({
                     templateUrl: 'partials/dialogs/poista-hakukohde-ryhmasta-dialog.html',
                     controller: 'PoistaHakukohdeRyhmastaDialogCtrl',
@@ -199,9 +204,29 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 );
 
             };
-
+            /**
+             * Lisätään hakukohderyhmään hakukohteita
+             * näiden tietojen tallennus paikka on tarjonta
+             * @param hakukohdeRyhma
+             */
             $scope.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma) {
                 console.log('*** lisää hakukohde Ryhmään ***', hakukohdeRyhma);
+                $modal.open({
+                    templateUrl: 'partials/dialogs/lisaa-hakukohde-ryhmaan-dialog.html',
+                    controller: 'LisaaHakukohdeRyhmaanDialogCtrl',
+                    scope: $scope,
+                    size: 'lg',
+                    resolve: {
+                        hakukohdeRyhma: function () {
+                            return hakukohdeRyhma;
+                        }
+                    }
+                }).result.then(
+                    function (data) {
+                        console.log('*** hakukohde lisätty ryhmään ***');
+                        //$route.reload();
+                    }
+                );
             }
 
         }]);
