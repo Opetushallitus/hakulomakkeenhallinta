@@ -1,10 +1,10 @@
 <div>
-    <div class="hh-list-h3">
+    <div class="hh-list-h4">
         <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaHakukohdeLista, 'hh-icon-down':naytaHakukohdeLista}"
            data-ng-click="toggleNaytaHakukohteet()"></i>
         <a data-ng-click="toggleNaytaHakukohteet()">
             <!--TODO: tarkista configuration.maximumNumberOf kun backed tukee tätä-->
-            {{hakukohdeRyhma | hakukohdeNimi:userLang}} : {{rajoiteRyhma.configuration.maximumNumberOf}}
+            {{hakukohdeRyhma | hakukohdeNimi:userLang}} : hakukohteiden valinnan  maksimimäärä ({{rajoiteRyhma.configurations.maximumNumberOf}})
         </a>
 
         <div class="dropdown pull-right">
@@ -12,22 +12,22 @@
                 <i class="hh-icon-menu"></i>
             </a>
             <ul class="dropdown-menu">
-                <li data-ng-click="muokkaRyhmanRajoitetta(hakukohdeRyhma, rajoiteRyhma)">
-                    <a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a>
+                <li data-ng-click="asetaRyhmaanRajoite()">
+                    <a>Aseta rajaus <i class="glyphicon glyphicon-cog"></i></a>
                 </li>
                 <li data-ng-click="lisaaHakukohdeRyhmaan(hakukohdeRyhma)">
                     <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
-                <li data-ng-click="poistaRyhmaRajoite(hakukohdeRyhma, rajoiteRyhma)">
+                <li data-ng-click="poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista(hakukohdeRyhma, rajoiteRyhma)">
                     <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
                 </li>
             </ul>
         </div>
     </div>
     <div data-ng-show="naytaHakukohdeLista">
-    <ul>
-        <li data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde" >{{ hakukohde | hakukohdeNimi:userLang }} : {{hakukohde.tarjoaja | organisaatioNimi:userLang}}
-            <div class="dropdown pull-right">
+        <ul>
+            <li data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde" >{{ hakukohde | hakukohdeNimi:userLang }} : {{hakukohde.tarjoaja | organisaatioNimi:userLang}}
+                <div class="dropdown pull-right">
                     <a class="dropdown-toggle">
                         <i class="hh-icon-menu"></i>
                     </a>
@@ -37,7 +37,7 @@
                         </li>
                     </ul>
                 </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
     </div>
 </div>

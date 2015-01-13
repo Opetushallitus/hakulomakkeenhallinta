@@ -13,14 +13,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             TarjontaAPI.fetchHakukohdeInfo = function (hakuOid) {
                 var deffered = $q.defer();
-                $rootScope.LOGS('TarjontaAPI fetchHakukohdeInfo haku oid:', hakuOid);
                 $http.get(Props.tarjontaAPI + "/hakukohde/" + hakuOid).success(
                     function (data) {
                         if (data.result) {
-                            $rootScope.LOGS('TarjontaAPI', data.result);
                             deffered.resolve(data.result);
                         } else if (data.status === 'NOT_FOUND') {
-                            $rootScope.LOGS('TarjontaAPI', data);
+                            $rootScope.LOGS('TarjontaAPI hakukohde  NOT_FOUND', data);
                             deffered.resolve(data.status);
                         }
                     }
@@ -171,42 +169,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 );
                 return deferred.promise;
             };
-
-            TarjontaAPI.query = function () {
-                console.log('query');
-                $resource(Props.tarjontaAPI + '/haku/findAll', {}, {
-                    query: {
-                        method: 'GET',
-                        isArray: true,
-                        transformResponse: function(data, headers) {
-                            return _.chain(angular.fromJson(data).result)
-                                .filter(function(as) {
-                                    return as.tila === "JULKAISTU";
-                                })
-                                .map(function(as) {
-                                    return {
-                                        _id : as.id,
-                                        applicationPeriods : [
-                                            {end : '2013-04-03T10:11:53.547Z', start : '1914-04-03T11:32:01.547Z'}
-                                        ],
-                                        name : {
-                                            translations : {
-                                                fi : as.nimi.kieli_fi,
-                                                sv : as.nimi.kieli_sv,
-                                                en : as.nimi.kieli_en
-                                            }
-                                        },
-                                        modified : 3382987597202887,
-                                        _class : 'fi.vm.sade.haku.oppija.lomake.domain.ApplicationSystem',
-                                        hakukausiUri: 'kausi_s',
-                                        hakukausiVuosi: 2014,
-                                        applicationSystemType : 'hakutyyppi_03'
-                                    };
-                                }).value();
-                        }
-                    }
-                })
-            };
             /**
              * Heataan tarjonnasta haut hakuparametrien perusteella
              * @param hakuvuosi
@@ -295,33 +257,36 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             };
             /**
              * Lisätään hakukohteet hakukohderyhmään
-             * @param hakukohdeRyhma
-             * @param hakukohteet []
+             * @param hakukohdeRyhma {}
+             * @param hakukohteetOids [] taulukko lisättävistä hakukohteiden oid:sta
              * @returns {promise}
              */
-            TarjontaAPI.lisaaHakukohteetRyhmaan = function (hakukohdeRyhma, hakukohteet) {
+            TarjontaAPI.lisaaHakukohteetRyhmaan = function (hakukohdeRyhma, hakukohteetOids) {
                 var deferred = $q.defer();
 
                 var lisattavat = [];
-                _.each(hakukohteet, function (hk) {
-                        var o = {};
-                        o.hakukohdeOid = hk;
-                        o.ryhmaOid = hakukohdeRyhma.oid;
-                        o.toiminto = 'LISAA'
-                        lisattavat.push(o);
+                _.each(hakukohteetOids, function (hakukohdeOid) {
+                        var hakukohde = {};
+                        hakukohde.hakukohdeOid = hakukohdeOid;
+                        hakukohde.ryhmaOid = hakukohdeRyhma.oid;
+                        hakukohde.toiminto = 'LISAA'
+                        lisattavat.push(hakukohde);
                     }
                 );
-                deferred.resolve(lisattavat);
+                //deferred.resolve(lisattavat);
 
-                /*$http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate', lisattavat).success(function (data) {
-                    if (data.status === 'OK') {
-                        deferred.resolve(data);
-                    }else {
-                        deferred.reject(data);
-                    }
-                }).error(function (resp) {
-                    deferred.reject(resp);
-                });*/
+                $http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate', lisattavat
+                    ).success(function (data) {
+                        console.log('**** success: ', data);
+                        if (data.status === 'OK') {
+                            deferred.resolve(data);
+                        }else {
+                            deferred.reject(data);
+                        }
+                    }).error(function (resp) {
+                        console.log('**** error: ', resp);
+                        deferred.reject(resp);
+                });
                 return deferred.promise;
             };
 

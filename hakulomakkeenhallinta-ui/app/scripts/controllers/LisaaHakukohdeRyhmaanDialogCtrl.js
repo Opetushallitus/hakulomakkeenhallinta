@@ -25,9 +25,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 }
             }
         );
-        $scope.paivitaLisattavienListaa = function (oid, hkchecked) {
-            console.log('$scope ', hkchecked, oid);
-            if (hkchecked) {
+        $scope.paivitaLisattavienListaa = function (oid, hakukohdeChecked) {
+            console.log('$scope ', hakukohdeChecked, oid);
+            if (hakukohdeChecked) {
                 lisattavatHakukohteet.push(oid);
             } else {
                 lisattavatHakukohteet = _.without(lisattavatHakukohteet, oid);

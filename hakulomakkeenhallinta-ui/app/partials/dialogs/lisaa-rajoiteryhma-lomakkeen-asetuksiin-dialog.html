@@ -1,0 +1,31 @@
+<form class="modal-dialog-border" role="form">
+    <div class="modal-header">
+        <h4>Lisää rajoite hakukohderyhmä lomakkeen asetuksiin</h4>
+    </div>
+
+
+    <div class="modal-body">
+        <alertmsg></alertmsg>
+        <h1>{{applicationForm | i18n:'name':userLang }}</h1>
+
+        <div>
+            <label>{{ t('hakukohderyhma') || 'Hakukohderyhmä' }}</label>
+            <select class="form-control" ng-model="hakukohderyhma"
+                    ng-options="hakukohdeRyhma | hakukohdeNimi:userLang for hakukohdeRyhma in hakukohdeRyhmat"
+                    >
+                <option value="" disabled>{{ t('valitse.hakukohderyhma') || 'Valitse hakukohderyhma' }}</option>
+            </select>
+            <loading style="margin-top: 32px;" start-loading="{{starLoad}}"></loading>
+        </div>
+        <br>
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-group pull-right">
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary"
+                    data-ng-click="lisaaRajoiteryhmaLomakkeenAsetuksiin()" tl="tallenna" data-ng-disabled="!hakukohderyhma">Tallenna
+            </button>
+        </div>
+    </div>
+</form>

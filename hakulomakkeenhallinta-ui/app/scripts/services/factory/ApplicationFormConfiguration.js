@@ -87,21 +87,23 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 return deferred.promise;
             };
             /**
-             * Tallentaa hakulomakkeen asetuksiin hakukohderyhmälle hakukohteiden
+             * Asetetaan hakulomakkeen asetuksiin hakukohderyhmälle hakukohteiden
              * haku määrä rajoitteen
              * @param applicationSysmtemId hakulomakkeen id
              * @param hakukohdeRyhmaOid hakukohde ryhmän id
              * @param hakukohdeRajoite numero arvo valittavien hakukohteiden määrälle hakukohde ryhmässä
+             * @param lomakepohja {} lomakepohjan tiedot
              * @returns {promise}
              */
-            ApplicationFormConfiguration.tallennaHakukohderyhmaRajoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite) {
+            ApplicationFormConfiguration.asetaHakukohderyhmaRajoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite, lomakepohja) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaHakukohderyhmaRajoite()', applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'asetaHakukohderyhmaRajoite()', applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite);
+                console.log(lomakepohja)
                 //TODO: tallenna hakukohderyhmään hakukohde rajoite, kun backend tukee tätä
                 var groupConf =
                 {
                     applicationSystemId: applicationSystemId,
-                    formTemplateType: 'YHTEISHAKU_SYKSY_KORKEAKOULU',
+                    formTemplateType: lomakepohja.id,
                     groupConfigurations: [
                         {
                             groupdId: hakukohdeRyhmaOid,
@@ -112,7 +114,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         }
                     ]
                 };
-                FormConfiguration.createGroupConfigurationRestriction({  _asId: applicationSystemId }, groupConf).$promise.then(
+                //TODO: poista tämä kun backend toimii oikein
+                $timeout(function () {
+                    deferred.resolve({status: 200, message: 'asetaHakukohderyhmaRajoite OK'});
+                    //deferred.reject({status:400, message: 'Ryhmän lisääminen lomakepohjan asetuksiin ei onnistu'});
+                }, 500);
+                /*FormConfiguration.createGroupConfigurationRestriction({  _asId: applicationSystemId }, groupConf).$promise.then(
                     function success(data) {
                         console.log('^^^^ ', data);
                         deferred.resolve(data);
@@ -121,7 +128,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         console.log('## ', resp);
                         deferred.reject(resp);
                     }
-                );
+                );*/
                 return deferred.promise;
             };
             /**
@@ -209,15 +216,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 return deferred.promise;
             };
             /**
-             * Poistetaan hakukohderyhmä rajoite hakulomakkeen asetuksista
+             * Poistetaan hakukohderyhmä hakulomakkeen asetuksista
              * @param applicationSystemId Haun oid, alias hakulomakkeen id
              * @param rajoiteRyhma rajoite ryhmä objekti
              * @param lomakePohja lomake pohja objecti
              * @returns {promise}
              */
-             ApplicationFormConfiguration.poistaHakukohderyhmaRajoite = function (applicationSystemId, rajoiteRyhma, lomakePohja) {
+             ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista = function (applicationSystemId, rajoiteRyhma, lomakePohja) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'poistaHakukohderyhmaRajoite()',applicationSystemId, rajoiteRyhma, lomakePohja);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'poistaHakukohderyhmaLomakkeenAsetuksista()',applicationSystemId, rajoiteRyhma, lomakePohja);
                  //TODO: tämän loppuun saatto kun back end tukee toimintoa
                  var groupConf =
                 {
@@ -251,6 +258,36 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }, 500);
                 return deferred.promise;
             };
+            /**
+             * lisätään uusi ryhma lomakepohjan asetuksiin
+             * @param applicationSystemId hakulomakkeen id
+             * @param hakukohdeRyhma lisättävä hakukohderyhmä
+             * @param lomakePohja lomakepohjan tiedot
+             * @returns {promise}
+             */
+            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAstuksiin = function (applicationSystemId, hakukohdeRyhma, lomakePohja) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'lisaaRyhmaLomakepohjanAstuksiin()',applicationSystemId, hakukohdeRyhma, lomakePohja);
+                var groupConf =
+                {
+                    applicationSystemId: applicationSystemId,
+                    formTemplateType: lomakePohja.id,
+                    groupConfigurations: [
+                        {
+                            groupdId: hakukohdeRyhma.groupdId,
+                            type: hakukohdeRyhma.type,
+                        }
+                    ]
+                };
+                console.log('### ', groupConf);
+                //TODO: tälle backend post kun se on saatavilla
+                $timeout(function () {
+                    deferred.resolve({status: 200, message: 'Ryhmän lisääminen lomakepohjan asetuksiin OK'});
+                    //deferred.reject({status:400, message: 'Ryhmän lisääminen lomakepohjan asetuksiin ei onnistu'});
+                }, 500);
+                return deferred.promise;
+
+            }
 
             return ApplicationFormConfiguration;
         }]

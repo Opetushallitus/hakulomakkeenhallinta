@@ -53,22 +53,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
             /**
              * lataus indikaattori näyttäminen käyttöliittymässä
              */
-            $scope.$on('LOAD', function () {
-                    $rootScope.LOGS('RootCtrl', 'LOAD');
-                    $scope.loading = true;
-                }
-            );
-            /**
-             * lataus indikaattorin poistaminen käyttöliittymästä
-             */
-            $scope.$on('LOADREADY', function () {
-                    $rootScope.LOGS('RootCtrl', 'LOADREADY');
-                    $scope.loading = false;
-                }
-            );
-            /**
-             * lataus indikaattori näyttäminen käyttöliittymässä
-             */
             $scope.$on('LOADPAGE', function () {
                     $rootScope.LOGS('RootCtrl', 'LOAD');
                     $scope.loadingPage = true;

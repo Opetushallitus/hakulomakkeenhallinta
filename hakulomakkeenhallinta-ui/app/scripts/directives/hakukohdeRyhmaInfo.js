@@ -1,46 +1,135 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeRyhmaInfo', [ 'TarjontaAPI', '_', 'AlertMsg', 'Organisaatio',
-        function (TarjontaAPI, _, AlertMsg, Organisaatio) {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: 'partials/directives/hakukohde-ryhma-info.html',
-                controller: function ($scope) {
-                    $scope.naytaHakukohdeLista = false;
-                    $scope.hakukohteidenMaara = 0;
-                    $scope.hakukohdeRyhma = {};
-                    //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
-                    Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupdId).then(
+    .directive('hakukohdeRyhmaInfo',
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, $modal, $route, $timeout) {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: 'partials/directives/hakukohde-ryhma-info.html',
+            scope: {
+                rajoiteRyhma: '=rajoiteRyhma',
+                applicationForm: '=applicationForm',
+                lomakepohja: '=lomakepohja',
+                rajoiteRyhmat: '=rajoiteRyhmat'
+            },
+            controller: function ($scope) {
+                $scope.naytaHakukohdeLista = false;
+                $scope.hakukohteidenMaara = 0;
+                $scope.hakukohdeRyhma = {};
+                //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
+                Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupdId).then(
+                    function (data) {
+                        $scope.hakukohdeRyhma = data;
+                    }
+                );
+                //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
+                TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupdId).then(
+                    function (data) {
+                        $scope.hakukohteet = _.flatten(
+                            _.map(data.tulokset,
+                                function (tulokset) {
+                                    return _.each(tulokset.tulokset,
+                                        function (tulos) {
+                                            tulos.tarjoaja = {};
+                                            tulos.tarjoaja.nimi = tulokset.nimi;
+                                            return tulos;
+                                        }
+                                    );
+                                }
+                            )
+                        );
+                        $scope.hakukohteidenMaara = data.tuloksia;
+                    }
+                );
+
+                $scope.toggleNaytaHakukohteet = function () {
+                    $scope.naytaHakukohdeLista = !$scope.naytaHakukohdeLista;
+                };
+                /**
+                 * Avataan dialogi hakukohderyhmän hakukohteiden rajoitusten asettamiseksi
+                 * hakulomakkeen asetuksiin
+                 */
+                 //TODO: tarkista tämä kun back end toimii oikein
+                $scope.asetaRyhmaanRajoite = function () {
+                    console.log('**** asetaRyhmaanRajoite ****', $scope.rajoiteRyhma, $scope.hakukohdeRyhma);
+                    $modal.open({
+                        templateUrl: 'partials/dialogs/aseta-hakukohderyhmaan-rajoite-dialog.html',
+                        controller: 'HakukohderyhmaRajoiteDialogCtrl',
+                        scope: $scope,
+                        resolve: {
+                            applicationForm: function () {
+                                return $scope.applicationForm;
+                            },
+                            hakukohdeRyhma: function () {
+                                return $scope.hakukohdeRyhma;
+                            },
+                            lomakepohja: function () {
+                                return $scope.lomakepohja;
+                            },
+                            rajoiteRyhma: function () {
+                                return $scope.rajoiteRyhma;
+                            }
+                        }
+                    }).result.then(
                         function (data) {
-                            $scope.hakukohdeRyhma = data;
+                            //TODO: tarkita tämä kun back end toimii oikein
+                            $scope.rajoiteRyhma.configurations = data;
+                            console.log('##### asetaRyhmaanRajoite', $scope.rajoiteRyhma);
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
+                            //$route.reload();
                         }
                     );
-                    TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupdId).then(
+                };
+                /**
+                 * Avataan poisto dialogi hakukohderyhmän poistamiseen lomakkeen asetuksista
+                 * @param hakukohdeRyhma hakukohderyhmä {}
+                 * @param rajoiteRyhma rajoite ryhmän tiedot {}
+                 */
+                $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, rajoiteRyhma) {
+                    $modal.open({
+                        templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
+                        controller: 'PoistaRajoiteHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
+                        scope: $scope,
+                        resolve: {
+                            hakukohdeRyhma: function () {
+                                return hakukohdeRyhma;
+                            },
+                            rajoiteRyhma: function () {
+                                return rajoiteRyhma;
+                            },
+                            lomakepohja: function () {
+                                return $scope.lomakepohja;
+                            }
+                        }
+                    }).result.then(
                         function (data) {
-                            $scope.hakukohteet = _.flatten(
-                                _.map(data.tulokset,
-                                    function (tulokset) {
-                                        return _.each(tulokset.tulokset,
-                                            function (tulos) {
-                                                tulos.tarjoaja = {};
-                                                tulos.tarjoaja.nimi = tulokset.nimi;
-                                                return tulos;
-                                            }
-                                        );
-                                    }
-                                )
-                            );
-                            $scope.hakukohteidenMaara = data.tuloksia;
+                            //TODO: poista tämä kun backend tukee tätä
+                            console.log('#### poistettava ryhmä ', data, $scope.rajoiteRyhmat);
+                            $scope.rajoiteRyhmat = _.without($scope.rajoiteRyhmat, data);
+                            console.log('after ', $scope.rajoiteRyhmat);
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
+                            $route.reload();
                         }
                     );
+                };
+                /**
+                 * avataan dialogi lisätään hakukohde ryhmään
+                 * @param hakukohdeRyhma
+                 */
+                $scope.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma) {
+                    TarjontaService.lisaaHakukohdeRyhmaan(hakukohdeRyhma);
+                };
+                /**
+                 * avataan dialogi poista hakukohde ryhmästä
+                 * @param hakukohdeRyhma
+                 * @param hakukohde
+                 */
+                $scope.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
+                    TarjontaService.poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde);
+                };
+            }
+        };
 
-                    $scope.toggleNaytaHakukohteet = function () {
-                        $scope.naytaHakukohdeLista = !$scope.naytaHakukohdeLista;
-                    };
-
-                }
-            };
-
-        }]);
+    }
+);
