@@ -19,14 +19,15 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             $scope.hakukohteet = _.flatten(
                                 _.map(data.tulokset, function(tulokset) {
                                         //TODO: muuta tämä kun oikeat prioriteetit saatavilla tarjonnasta
-                                        var pri  = 0;
+                                        var pri  = 1;
                                         return _.each(tulokset.tulokset, function (tulos) {
                                                 tulos.prioriteetti = pri;
                                                 tulos.tarjoaja = {};
                                                 tulos.tarjoaja.nimi = tulokset.nimi;
                                                 pri += 1;
-                                                if (pri === 3) {
-                                                    pri = 0;
+                                                if (pri === 5) {
+                                                    pri = 1;
+                                                    delete tulos.prioriteetti;
                                                 }
                                                 return tulos;
                                             }

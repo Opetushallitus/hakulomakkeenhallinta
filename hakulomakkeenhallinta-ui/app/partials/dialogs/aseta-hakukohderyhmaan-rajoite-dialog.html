@@ -9,13 +9,7 @@
         <h1>{{applicationForm | i18n:'name':userLang }}</h1>
 
         <div>
-            <label>{{ t('hakukohderyhma') || 'Hakukohderyhmä' }}</label>
-            <select class="form-control" ng-model="hakukohderyhma"
-                    ng-options="hakukohdeRyhma | hakukohdeNimi:userLang for hakukohdeRyhma in hakukohdeRyhmat"
-                    data-ng-change="hakukohdeRyhmaValittu()">
-                <option value="" disabled>{{ t('valitse.hakukohderyhma') || 'Valitse hakukohderyhma' }}</option>
-            </select>
-            <loading style="margin-top: 32px;"></loading>
+            <h3><b>{{ t('hakukohderyhma') || 'Hakukohderyhmä' }}: </b>{{hakukohdeRyhma | hakukohdeNimi:userLang}}</h3>
         </div>
         <br>
 
@@ -34,7 +28,7 @@
         <div class="form-inline" ng-form="hakuryhmanRajoite">
             <span>{{ t('aseta.rajoite') || 'Aseta rajoite' }} </span>
             <input class="form-control" type="number" min="0" max="{{hakukohteidenMaara}}"
-                   data-ng-disabled="!hakukohderyhma" name="rajoite" data-ng-model="hakukohdeRajoite"
+                   name="rajoite" data-ng-model="hakukohdeRajoite"
                    ng-pattern="/^[0-9]+$/" style="width: 80px; height: 32px;">
 
         </div>
@@ -45,7 +39,7 @@
         <div class="form-group pull-right">
             <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
             <button class="btn btn-primary"
-                    data-ng-click="tallennaHakukohdeRajaus(hakukohderyhma.oid, hakukohdeRajoite)" tl="tallenna">Tallenna
+                    data-ng-click="asetaHakukohdeRajaus(hakukohdeRajoite)" tl="tallenna">Tallenna
             </button>
         </div>
     </div>

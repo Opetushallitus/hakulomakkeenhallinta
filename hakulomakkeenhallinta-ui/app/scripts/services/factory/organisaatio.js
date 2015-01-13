@@ -43,19 +43,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
 
         organisaatio.fetchOrganisation = function (oid) {
-            var defferred = $q.defer();
+            var deferred = $q.defer();
             if (_organisation !== undefined && _organisation.oid !== undefined) {
                 if (_organisation.oid === oid) {
-                    defferred.resolve(_organisation);
+                    deferred.resolve(_organisation);
                 }
             }
             hae.get({'_oid': oid}).$promise.then(
                 function (data) {
                     organisaatio.setOrganisation(data);
-                    defferred.resolve(data);
+                    deferred.resolve(data);
                 }
             );
-            return defferred.promise;
+            return deferred.promise;
         };
         /**
          * Hakee organisaatioon liittyvän datan
@@ -63,25 +63,26 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @returns {promise}
          */
         organisaatio.getOrganisationData = function (oid) {
-            var defferred = $q.defer();
+            var deferred = $q.defer();
             hae.get({'_oid': oid}).$promise.then(
                 function (data) {
-                    defferred.resolve(data);
+                    deferred.resolve(data);
                 }
             );
-            return defferred.promise;
+            return deferred.promise;
         };
         /**
-         * Hakee käyttjän organisaatiot
+         * Hakee käyttäjän organisaatiot
          * @returns {promise}
          */
         organisaatio.getUserOrganisations = function () {
-            var defferred = $q.defer();
+            var deferred = $q.defer();
 
             if (_userOrganisations.length > 0) {
-                defferred.resolve(_userOrganisations);
+                deferred.resolve(_userOrganisations);
             } else {
-                $resource(Props.authService + '/resources/omattiedot/organisaatiohenkilo').query().$promise.then(
+                //$resource(Props.authService + '/resources/omattiedot/organisaatiohenkilo').query().$promise.then(
+        $.getJSON(Props.contextRoot + '/app/test-data/organisaatiohenkilo.json',
                     function (data) {
                         var userOrganisations = _.map(_.filter(data, function (activeOrg) { if (!activeOrg.passivoitu) { return activeOrg; } }), function (userOrgs) { return userOrgs.organisaatioOid; }),
                             getUserOrgs = [];
@@ -115,14 +116,49 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                 );
                                 //asetetaan käyttäjän organisaatio muistiin
                                 _userOrganisations = orgs;
-                                defferred.resolve(orgs);
+                                deferred.resolve(orgs);
                             }
                         );
                     }
                 );
             }
-            return defferred.promise;
-        }
+            return deferred.promise;
+        };
+        /**
+         * Haetaan organisaatio palvelusta rajaavat hakukohde ryhmät
+         * @params organisationOid käyttäjän organisaatio oid
+         * @returns {promise}
+         */
+        organisaatio.getRajaavatHakukohdeRyhmat = function (organisationOid) {
+            console.log('getRajaavatHakukohdeRyhmat() --->', organisationOid);
+            var deferred = $q.defer();
+            $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid + '/ryhmat').query().$promise.then(
+                function (data) {
+                    var hakukohde_rajaava = _.filter(data, function (rajaava) { return _.contains(rajaava.kayttoryhmat, 'hakukohde_rajaava')
+                        && _.contains(rajaava.ryhmatyypit, 'hakukohde'); });
+                    deferred.resolve(hakukohde_rajaava);
+                }
+            );
+            return deferred.promise;
+        };
+        /**
+         * Haetaan organisaatio palvelusta priorisoivat hakukohde ryhmät
+         * @params organisationOid käyttäjän organisaatio oid
+         * @returns {promise}
+         */
+        organisaatio.getPriorisoivatHakukohdeRyhmat = function (organisationOid) {
+            console.log('getPriorisoivatHakukohdeRyhmat() --->');
+            var deferred = $q.defer();
+            $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid +'/ryhmat').query().$promise.then(
+                function (data) {
+                    var hakukohde_rajaava = _.filter(data, function (rajaava) { return _.contains(rajaava.kayttoryhmat, 'hakukohde_priorisoiva')
+                        && _.contains(rajaava.ryhmatyypit, 'hakukohde'); });
+                    deferred.resolve(hakukohde_rajaava);
+                }
+            );
+            return deferred.promise;
+        };
+
 
         return organisaatio;
     }]);

@@ -46,7 +46,7 @@ app.config(['$routeProvider',
                 controller: 'ModifyAdditionalQuestionCtrl'
             }).when('/applicationSystemFormConfigurations/:id/:oid', {
                 templateUrl: 'partials/lomakepohjanAsetukset.html',
-                controller: 'lomakepohjanAsetuksetCtrl'
+                controller: 'LomakepohjanAsetuksetCtrl'
             }).otherwise({
                 redirectTo: '/applicationSystemForm'
             });

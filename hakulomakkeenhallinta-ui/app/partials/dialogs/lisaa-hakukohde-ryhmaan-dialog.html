@@ -11,7 +11,7 @@
             <div>
                 <ul>
                     <li data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
-                        <input type="checkbox" data-ng-change="paivitaLisattavienListaa(hakukohde.oid, hkchecked)" data-ng-model="hkchecked" value="{{hakukohde.oid}}">
+                        <input type="checkbox" data-ng-change="paivitaLisattavienListaa(hakukohde.oid, hakukohdeChecked)" data-ng-model="hakukohdeChecked" value="{{hakukohde.oid}}">
                         {{hakukohde | hakukohdeNimi:userLang}} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
                     </li>
                 </ul>
