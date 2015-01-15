@@ -265,9 +265,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @param lomakePohja lomakepohjan tiedot
              * @returns {promise}
              */
-            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAstuksiin = function (applicationSystemId, hakukohdeRyhma, lomakePohja) {
+            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin = function (applicationSystemId, hakukohdeRyhma, lomakePohja) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'lisaaRyhmaLomakepohjanAstuksiin()',applicationSystemId, hakukohdeRyhma, lomakePohja);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'lisaaRyhmaLomakepohjanAsetuksiin()',applicationSystemId, hakukohdeRyhma, lomakePohja);
                 var groupConf =
                 {
                     applicationSystemId: applicationSystemId,
@@ -275,7 +275,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     groupConfigurations: [
                         {
                             groupdId: hakukohdeRyhma.groupdId,
-                            type: hakukohdeRyhma.type,
+                            type: hakukohdeRyhma.type
                         }
                     ]
                 };

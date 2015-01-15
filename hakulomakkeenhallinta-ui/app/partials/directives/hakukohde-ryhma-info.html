@@ -18,7 +18,7 @@
                 <li data-ng-click="lisaaHakukohdeRyhmaan(hakukohdeRyhma)">
                     <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
-                <li data-ng-click="poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista(hakukohdeRyhma, rajoiteRyhma)">
+                <li data-ng-click="poistaHakukohderyhma({hakukohdeRyhma:hakukohdeRyhma}, {rajoiteRyhma:rajoiteRyhma})">
                     <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
                 </li>
             </ul>

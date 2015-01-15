@@ -1,16 +1,28 @@
 <form class="modal-dialog-border" role="form">
     <div class="modal-header">
-        <h4>Lisää ryhmä</h4>
+        <h4>Lisää {{kayttoTarkoitus}} ryhmä</h4>
     </div>
 
     <div class="modal-body">
         Tämä on keskeneräinen ominaisuus <br>
-        Tartteen tietoa organisaatio palvelusta <br>
+        <h4>Ryhmän nimi</h4>
+        <div class="form-group">
+            <input type="text" placeholder="Nimi suomeksi" class="form-control" data-ng-model="nimiFI"> <br>
+            <input type="text" placeholder="Nimi ruotsiksi" class="form-control" data-ng-model="nimiSV"> <br>
+            <input type="text" placeholder="Nimi englanniksi"class="form-control" data-ng-model="nimiEN"> <br>
+        </div>
+        <h4>Ryhmän kuvaus</h4>
+        <div class="form-group">
+            <input type="text" placeholder="Kuvaus suomeksi" class="form-control" data-ng-model="kuvausFI"> <br>
+            <input type="text" placeholder="Kuvaus ruotsiksi" class="form-control" data-ng-model="kuvausSV"> <br>
+            <input type="text" placeholder="Kuvaus englanniksi" class="form-control" data-ng-model="kuvausEN"> <br>
+        </div>
+
         Käyttö tarkoitus: {{kayttoTarkoitus}} {{organisaatioOid}}
     </div>
 
     <div class="modal-footer">
         <button class="btn" ng-click="cancel()" tl="peruuta">Peruuta</button>
-        <button class="btn btn-primary" data-ng-click="" tl="tallenna" disabled>Talenna</button>
+        <button class="btn btn-primary" data-ng-click="talennaRyhma()" tl="tallenna">Talenna</button>
     </div>
 </form>

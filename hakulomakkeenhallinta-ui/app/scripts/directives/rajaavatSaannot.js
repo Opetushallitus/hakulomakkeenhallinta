@@ -36,13 +36,45 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     }).result.then(
                         function (data) {
-                            //TODO: tarkista tämä kun backend tukee tätä
+                            //TODO: poista/tarkista tämä kun backend tukee tätä
                             console.log('*** ryhmä lisätty asetuksiin ***', data);
                             $scope.rajoiteRyhmat.push(data);
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen ??
+                            //$route.reload();
                         }
                     );
                 };
-                console.log('rajaavat säännöt: ', $scope.rajoiteRyhmat);
+                 /**
+                 * Avataan poisto dialogi hakukohderyhmän poistamiseen lomakkeen asetuksista
+                 * @param hakukohdeRyhma hakukohderyhmä {}
+                 * @param rajoiteRyhma rajoite ryhmän tiedot {}
+                 */
+                $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, rajoiteRyhma) {
+                    $modal.open({
+                        templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
+                        controller: 'PoistaRajoiteHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
+                        scope: $scope,
+                        resolve: {
+                            hakukohdeRyhma: function () {
+                                return hakukohdeRyhma;
+                            },
+                            rajoiteRyhma: function () {
+                                return rajoiteRyhma;
+                            },
+                            lomakepohja: function () {
+                                return $scope.lomakepohja;
+                            }
+                        }
+                    }).result.then(
+                        function (data) {
+                            //TODO: poista/tarkista tämä kun backend tukee tätä
+                            console.log('#### poistettava ryhmä ', data);
+                            $scope.rajoiteRyhmat = _.without($scope.rajoiteRyhmat, data);
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen ??
+                            //$route.reload();
+                        }
+                    );
+                };
                 /**
                  * Lisätään organisaatio palveluun uusi ryhmä
                  */

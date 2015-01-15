@@ -19,12 +19,10 @@
         </div>
     </div>
 
-
     <div class="hh-form-conf" style="padding-left: 30px;" data-ng-show="naytaLista">
         <ul>
             <li data-ng-repeat="rajoiteRyhma in rajoiteRyhmat" class="hh-hakukohde">
-                <!--<hakukohde-ryhma-info></hakukohde-ryhma-info>-->
-                <hakukohde-ryhma-info rajoite-ryhma="rajoiteRyhma" application-form="applicationForm" lomakepohja="lomakepohja" rajoite-ryhmat="rajoiteRyhmat"></hakukohde-ryhma-info>
+                <hakukohde-ryhma-info rajoite-ryhma="rajoiteRyhma" application-form="applicationForm" lomakepohja="lomakepohja" poista-hakukohderyhma="poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista(hakukohdeRyhma, rajoiteRyhma)"></hakukohde-ryhma-info>
             </li>
         </ul>
     </div>

@@ -1,16 +1,19 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('LisaaRajoiteryhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja) {
+    .controller('LisaaPriorisoivaryhmaLomakkeenAsetuksiinDialogCtrl',
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, priorisointiRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         $scope.valittuRyhma = {};
         //näytetään lataus indikaattori dialogissa
         $scope.starLoad = true;
-        Organisaatio.getRajaavatHakukohdeRyhmat($routeParams.oid).then(
+        console.log('*** ', priorisointiRyhmat);
+        Organisaatio.getPriorisoivatHakukohdeRyhmat($routeParams.oid).then(
             function (data) {
+                console.log('### ', data);
                 var valittavissaOlevatRyhmat = [];
-                //TODO: tarkista groupdId kun korjaus backendissä
-                var kaytossaOlevatOidit = _.pluck(rajoiteRyhmat, 'groupdId');
+                // poistetaan valinta listasta jo lomakkeen asetuksissa käytössä olevat
+                // hakukohderyhmat
+                var kaytossaOlevatOidit = _.pluck(priorisointiRyhmat, 'oid');
                 _.each(data, function(ryhma) {
                     if(!_.contains(kaytossaOlevatOidit, ryhma.oid)) {
                         valittavissaOlevatRyhmat.push(ryhma);
@@ -26,20 +29,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         /**
          * lisätään hakukohderyhmä lomakepohjan asetuksiin.
          */
-        $scope.lisaaRajoiteryhmaLomakkeenAsetuksiin = function () {
+        $scope.lisaaPriorisoivaryhmaLomakkeenAsetuksiin = function () {
             var valittuHakukohdeRyhma = {};
-            valittuHakukohdeRyhma.groupdId = $scope.hakukohderyhma.oid;
-            valittuHakukohdeRyhma.type = 'MAXIMUM_NUMBER_OF';
-            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma, lomakepohja).then(
-                function success (data) {
-                    console.log('***** lisaaRajoiteryhmaLomakkeenAsetuksiin ', data);
-                    //TODO: tarkista tämä kun backend tukee tätä.
+/*            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma, lomakepohja).then(
+                function success (data) {*/
+                    console.log('***** lisaaPriorisointiryhmaLomakkeenAsetuksiin ', valittuHakukohdeRyhma);
                     $modalInstance.close(valittuHakukohdeRyhma);
-                },
+               /* },
                 function error (resp) {
                     AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
                 }
-            );
+            );*/
         };
         /**
          * Suljetaan dialogi

@@ -7,10 +7,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 restrict: 'E',
                 replace: true,
                 templateUrl: 'partials/directives/priorisoiva-hakukohde-ryhma-info.html',
+                scope: {
+                    priorisointiRyhma: '=priorisointiRyhma'
+                },
                 controller: function ($scope) {
                     $scope.naytaHakukohdeLista = false;
                     $scope.hakukohteidenMaara = 0;
-                    $scope.priorisoivaHakukohdeRyhma = {};
+                    //$scope.priorisoivaHakukohdeRyhma = {};
                     /**
                      * haetaan ryhmän hakukohteet
                      */

@@ -23,5 +23,25 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 }
             });
         };
+
+        /*https://itest-virkailija.oph.ware.fi/organisaatio-service/rest/organisaatio
+        {
+            version : 0,
+            parentOid : "1.2.246.562.10.00000000001",
+            oid : null,
+            tyypit : ["Ryhma"],
+            ryhmatyypit : ["hakukohde"],
+            kayttoryhmat : ["hakukohde_rajaava"],
+            nimi : {
+                fi : "Hanuri",
+                sv : "Hanuri på svenska",
+                en : "Hanuri in english"
+            } ,
+            kuvaus2 : {
+                    kieli_fi#1: "Hanurin kuvaus",
+                    kieli_sv#1: "Beskrivning av hanuri",
+                    kieli_en#1 : "Description of hanuri"
+            }
+        }*/
     }
 );
