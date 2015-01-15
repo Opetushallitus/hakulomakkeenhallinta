@@ -11,7 +11,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 rajoiteRyhma: '=rajoiteRyhma',
                 applicationForm: '=applicationForm',
                 lomakepohja: '=lomakepohja',
-                rajoiteRyhmat: '=rajoiteRyhmat'
+                poistaHakukohderyhma: '&poistaHakukohderyhma'
             },
             controller: function ($scope) {
                 $scope.naytaHakukohdeLista = false;
@@ -78,38 +78,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             console.log('##### asetaRyhmaanRajoite', $scope.rajoiteRyhma);
                             //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
                             //$route.reload();
-                        }
-                    );
-                };
-                /**
-                 * Avataan poisto dialogi hakukohderyhmän poistamiseen lomakkeen asetuksista
-                 * @param hakukohdeRyhma hakukohderyhmä {}
-                 * @param rajoiteRyhma rajoite ryhmän tiedot {}
-                 */
-                $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, rajoiteRyhma) {
-                    $modal.open({
-                        templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
-                        controller: 'PoistaRajoiteHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
-                        scope: $scope,
-                        resolve: {
-                            hakukohdeRyhma: function () {
-                                return hakukohdeRyhma;
-                            },
-                            rajoiteRyhma: function () {
-                                return rajoiteRyhma;
-                            },
-                            lomakepohja: function () {
-                                return $scope.lomakepohja;
-                            }
-                        }
-                    }).result.then(
-                        function (data) {
-                            //TODO: poista tämä kun backend tukee tätä
-                            console.log('#### poistettava ryhmä ', data, $scope.rajoiteRyhmat);
-                            $scope.rajoiteRyhmat = _.without($scope.rajoiteRyhmat, data);
-                            console.log('after ', $scope.rajoiteRyhmat);
-                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
-                            $route.reload();
                         }
                     );
                 };

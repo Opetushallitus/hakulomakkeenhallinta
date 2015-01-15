@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('Organisaatio',[ '$resource', 'Props', '$q', '_', function ($resource, Props, $q, _) {
+    .factory('Organisaatio',[ '$resource', 'Props', '$q', '_', '$http',
+        function ($resource, Props, $q, _, $http) {
 
 
         var hae =  $resource(Props.organisaatioService + '/rest/organisaatio/:_oid',
@@ -158,6 +159,44 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             );
             return deferred.promise;
         };
+
+        organisaatio.lisaaRyhmaOrganisaatioPalveluun = function (ryhma) {
+            var deferred = $q.defer();
+
+            var ryhmaObj = {
+                version : 0,
+                parentOid : "1.2.246.562.10.00000000001",
+                oid : null,
+                tyypit : ["Ryhma"],
+                ryhmatyypit : ["hakukohde"],
+                kayttoryhmat : [ryhma.kayttoTarkoitus],
+                nimi : {
+                    fi : ryhma.nimi.fi,
+                    sv : ryhma.nimi.sv,
+                    en : ryhma.nimi.en
+                },
+                kuvaus2 : {
+                    "kieli_fi#1": ryhma.kuvaus2.fi,
+                    "kieli_sv#1": ryhma.kuvaus2.sv,
+                    "kieli_en#1" : ryhma.kuvaus2.en
+                }
+            };
+            //deferred.resolve(ryhmaObj);
+            $http.put(Props.organisaatioService + '/rest/organisaatio/', ryhmaObj
+            ).success(
+                function (data) {
+                    console.log('**** lisaaRyhmaOrganisaatioPalveluun', data);
+                    deferred.resolve(data);
+                }
+            ).error(
+                function (resp) {
+                    console.log('### ryhmän lisäy ei onnistu ', resp);
+                    deferred.reject(resp);
+                }
+            );
+            return deferred.promise;
+        }
+
 
 
         return organisaatio;
