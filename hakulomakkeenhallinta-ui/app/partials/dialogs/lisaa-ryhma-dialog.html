@@ -1,28 +1,36 @@
 <form class="modal-dialog-border" role="form">
     <div class="modal-header">
-        <h4>Lisää {{kayttoTarkoitus}} ryhmä</h4>
+        <h4 tl="lisaa.ryhma">Lisää ryhmä</h4>
     </div>
 
     <div class="modal-body">
-        Tämä on keskeneräinen ominaisuus <br>
-        <h4>Ryhmän nimi</h4>
-        <div class="form-group">
-            <input type="text" placeholder="Nimi suomeksi" class="form-control" data-ng-model="nimiFI"> <br>
-            <input type="text" placeholder="Nimi ruotsiksi" class="form-control" data-ng-model="nimiSV"> <br>
-            <input type="text" placeholder="Nimi englanniksi"class="form-control" data-ng-model="nimiEN"> <br>
+            <div class="alert alert-info" >
+        <i class="glyphicon glyphicon-info-sign"></i>
+        <span data-ng-bind-html="t(infoMsg) || 'Olet lisäämässä uutta hakukohderyhmää'">
+              </span>
+
+    </div>
+        <alertMsg></alertMsg>
+        <h4>{{ t('ryhman.nimi') || 'Ryhmän nimi' }}</h4>
+        <span style="color: darkred;" ng-show="!nimiDefined">
+            {{ t('nimi.vahintaan.yhdella.kielella') || 'Nimi tulee syöttää vähintää yhdellä kielellä' }}
+        </span>
+        <div class="form-group" ng-form="ryhmanNimi">
+            <input type="text" name="nimifi" placeholder="{{ t('nimi.suomeksi') || 'Nimi suomeksi' }}" class="form-control" data-ng-model="nimiFI" data-ng-change="nimiSyotetty()"> <br>
+            <input type="text" name="nimisv" placeholder="{{ t('nimi.ruotsiksi') || 'Nimi ruotsiksi' }}" class="form-control" data-ng-model="nimiSV" data-ng-change="nimiSyotetty()"> <br>
+            <input type="text" name="nimien" placeholder="{{ t('nimi.englanniksi') || 'Nimi englanniksi' }}"class="form-control" data-ng-model="nimiEN" data-ng-change="nimiSyotetty()"> <br>
+
         </div>
         <h4>Ryhmän kuvaus</h4>
         <div class="form-group">
-            <input type="text" placeholder="Kuvaus suomeksi" class="form-control" data-ng-model="kuvausFI"> <br>
-            <input type="text" placeholder="Kuvaus ruotsiksi" class="form-control" data-ng-model="kuvausSV"> <br>
-            <input type="text" placeholder="Kuvaus englanniksi" class="form-control" data-ng-model="kuvausEN"> <br>
+            <input type="text" placeholder="{{ t('kuvaus.suomeksi') || 'Kuvaus suomeksi' }}" class="form-control" data-ng-model="kuvausFI"> <br>
+            <input type="text" placeholder="{{ t('kuvaus.ruotsiksi') || 'Kuvaus ruotsiksi' }}" class="form-control" data-ng-model="kuvausSV"> <br>
+            <input type="text" placeholder="{{ t('kuvaus.englanniksi') || 'Kuvaus englanniksi' }}" class="form-control" data-ng-model="kuvausEN"> <br>
         </div>
-
-        Käyttö tarkoitus: {{kayttoTarkoitus}} {{organisaatioOid}}
     </div>
 
     <div class="modal-footer">
         <button class="btn" ng-click="cancel()" tl="peruuta">Peruuta</button>
-        <button class="btn btn-primary" data-ng-click="talennaRyhma()" tl="tallenna">Talenna</button>
+        <button class="btn btn-primary" data-ng-click="talennaRyhma()" tl="tallenna" data-ng-disabled="!nimiDefined">Talenna</button>
     </div>
 </form>
