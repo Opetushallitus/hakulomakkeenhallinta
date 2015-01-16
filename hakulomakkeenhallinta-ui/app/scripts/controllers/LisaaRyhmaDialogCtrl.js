@@ -6,6 +6,15 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.organisaatioOid = organisaatioOid;
         $scope.infoMsg = '';
 
+        Organisaatio.checkOrganisaatioAuth().then(
+            function succes(data) {
+                $rootScope.LOGS('LisaaRyhmaDialogCtrl', 'checkOrganisaatioAuth()', data);
+            },
+            function error(resp) {
+                $rootScope.LOGS('LisaaRyhmaDialogCtrl', 'checkOrganisaatioAuth()', 'ei onnistu', resp);
+                AlertMsg($scope, 'warning', 'warning.autenkikaatio.ei.onnistunut.tai.puutuvat.oikeudet');
+            }
+        );
         switch (kayttoTarkoitus) {
             case 'hakukohde_priorisoiva':
                 $scope.infoMsg = 'lisaamassa.priorisoivan.hakukohderyhman';
