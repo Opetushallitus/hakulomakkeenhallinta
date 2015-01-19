@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('Organisaatio',[ '$resource', 'Props', '$q', '_', '$http',
+    .factory('Organisaatio',
         function ($resource, Props, $q, _, $http) {
-
 
             var hae =  $resource(Props.organisaatioService + '/rest/organisaatio/:_oid',
                 { _oid: '@_oid'},
@@ -130,6 +129,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {promise}
              */
             organisaatio.getRajaavatHakukohdeRyhmat = function (organisationOid) {
+                //TODO: poista tämä kun valmiudet olemassa
                 console.log('getRajaavatHakukohdeRyhmat() --->', organisationOid);
                 var deferred = $q.defer();
                 $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid + '/ryhmat').query().$promise.then(
@@ -147,6 +147,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {promise}
              */
             organisaatio.getPriorisoivatHakukohdeRyhmat = function (organisationOid) {
+                //TODO: poista tämä kun valmiudet olemassa
                 console.log('getPriorisoivatHakukohdeRyhmat() --->');
                 var deferred = $q.defer();
                 $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid +'/ryhmat').query().$promise.then(
@@ -215,9 +216,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 return deferred.promise;
             };
 
-
-
             return organisaatio;
-        }]);
-
-
+        }
+    );

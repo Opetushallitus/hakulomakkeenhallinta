@@ -8,7 +8,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             scope: {
                 applicationForm: '=applicationForm',
                 rajoiteRyhmat: '=rajoiteRyhmat',
-                lomakepohja: '=lomakepohja'
+                lomakepohja: '=lomakepohja',
+                userLang: '@userLang'
             },
             controller: function ($scope) {
                 $scope.naytaLista = false;

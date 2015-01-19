@@ -1,19 +1,20 @@
 <div>
     <div class="hh-list-h3">
-        <i data-ng-class="{'hh-icon-right':!naytaLista, 'hh-icon-down':naytaLista}" data-ng-click="toggleLista()" ></i>
+        <i data-ng-class="{'hh-icon-right':!naytaLista, 'hh-icon-down':naytaLista}" data-ng-click="toggleLista()"></i>
         <a data-ng-click="toggleLista()"> {{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Rajaavat hakukohderyhmät'}}
         </a>
+
         <div class="dropdown pull-right">
             <a class="dropdown-toggle">
                 <i class="hh-icon-menu"></i>
             </a>
             <ul class="dropdown-menu">
                 <li data-ng-click="lisaaRyhmaAsetuksiin()">
-                    <a>Lisää ryhmä asetuksiin<i class="glyphicon glyphicon-plus"></i></a>
+                    <a>{{ t('lisaa.ryhma.asetuksiin') || 'Lisää ryhmä asetuksiin' }}<i class="glyphicon glyphicon-plus"></i></a>
                 </li>
 
                 <li data-ng-click="lisaaRyhmaOrganisaatioPalveluun('hakukohde_rajaava')">
-                    <a>Lisää ryhmä organisaatioon <i class="glyphicon glyphicon-plus"></i></a>
+                    <a>{{ t('lisaa.ryhma') || 'Lisää ryhmä' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
             </ul>
         </div>
@@ -22,7 +23,12 @@
     <div class="hh-form-conf" style="padding-left: 30px;" data-ng-show="naytaLista">
         <ul>
             <li data-ng-repeat="rajoiteRyhma in rajoiteRyhmat" class="hh-hakukohde">
-                <hakukohde-ryhma-info rajoite-ryhma="rajoiteRyhma" application-form="applicationForm" lomakepohja="lomakepohja" poista-hakukohderyhma="poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista(hakukohdeRyhma, rajoiteRyhma)"></hakukohde-ryhma-info>
+                <hakukohde-ryhma-info rajoite-ryhma="rajoiteRyhma"
+                    application-form="applicationForm"
+                    lomakepohja="lomakepohja"
+                    poista-hakukohderyhma="poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista(hakukohdeRyhma, rajoiteRyhma)"
+                    user-lang="{{userLang}}">
+                </hakukohde-ryhma-info>
             </li>
         </ul>
     </div>

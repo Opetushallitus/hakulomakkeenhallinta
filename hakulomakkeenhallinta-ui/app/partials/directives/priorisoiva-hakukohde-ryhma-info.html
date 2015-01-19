@@ -3,7 +3,7 @@
         <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaHakukohdeLista, 'hh-icon-down':naytaHakukohdeLista}"
            data-ng-click="toggleNaytaHakukohteet()"></i>
         <a data-ng-click="toggleNaytaHakukohteet()">
-            {{priorisointiRyhma | hakukohdeNimi:userLang}} : {{hakukohteidenMaara}}
+            {{priorisointiRyhma | hakukohdeNimi:userLang}}
         </a>
 
         <div class="dropdown pull-right">
@@ -19,22 +19,38 @@
                 </li>
             </ul>
         </div>
+        <div style="width: auto; font-size: 12px; font-style: normal;" data-ng-show="naytaHakukohdeLista">
+            <div style="width: 48%; display: inline-block; padding-left: 30px;">
+                Hakukohde ({{hakukohteidenMaara}})
+            </div>
+            <div style="width: 48%; display: inline-block; padding-left: 16px;">
+                Hakukohteen tarjoaja
+            </div>
+        </div>
     </div>
     <div data-ng-show="naytaHakukohdeLista">
         <div data-ng-repeat="(level, prioriteettiRyhma) in hakukohteet">
             <h4>{{ t('prioriteetti') || 'Prioriteetti' }}: {{level}}</h4>
             <ul>
-                <li data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">{{ hakukohde | hakukohdeNimi:userLang }} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
-                <div class="dropdown pull-right">
-                    <a class="dropdown-toggle">
-                        <i class="hh-icon-menu"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li data-ng-click="poistaHakukohdeRyhmasta(priorisointiRyhma, hakukohde)">
-                            <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
-                        </li>
-                    </ul>
-                </div>
+                <li data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">
+                    <div class="dropdown pull-right">
+                        <a class="dropdown-toggle">
+                            <i class="hh-icon-menu"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li data-ng-click="poistaHakukohdeRyhmasta(priorisointiRyhma, hakukohde)">
+                                <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="width: auto;">
+                        <div style="width: 48%; display: inline-block; vertical-align: top;">
+                            {{ hakukohde | hakukohdeNimi:userLang }}
+                        </div>
+                        <div style="width: 48%; display: inline-block; vertical-align: top;">
+                            {{hakukohde.tarjoaja | organisaatioNimi:userLang}}
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
