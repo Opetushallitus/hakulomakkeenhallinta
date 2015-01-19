@@ -79,10 +79,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 /**
                  * Lisätään organisaatio palveluun uusi ryhmä
                  */
-                //TODO: tarkista tämä kun onrganisaatio palvelussa tuki ryhmän lisäämiselle muualta kuin organisaatio palvelusta
                 $scope.lisaaRyhmaOrganisaatioPalveluun = function (kayttoTarkoitus) {
                     OrganisaatioService.lisaaUusiRyhma(kayttoTarkoitus, Organisaatio.getUserSelectedOrganisation().oid);
-                }
+                };
             }
         }
     }

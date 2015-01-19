@@ -1,14 +1,14 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('TarjontaService',
-    function ($modal, $rootScope) {
+    function ($modal, $rootScope, $route) {
         /**
          * avataam dialogi hakukohteiden lisäämiseksi hakukohderyhmään
          * näiden tietojen tallennus paikka on tarjonta
          * @param hakukohdeRyhma
          */
-        this.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma) {
-            console.log('*** lisää hakukohde Ryhmään ***', hakukohdeRyhma);
+        this.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma, userLang) {
+            console.log('*** lisää hakukohde Ryhmään ***', hakukohdeRyhma, userLang);
             $modal.open({
                 templateUrl: 'partials/dialogs/lisaa-hakukohde-ryhmaan-dialog.html',
                 controller: 'LisaaHakukohdeRyhmaanDialogCtrl',
@@ -16,12 +16,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 resolve: {
                     hakukohdeRyhma: function () {
                         return hakukohdeRyhma;
+                    },
+                    userLang: function () {
+                        return userLang;
                     }
                 }
             }).result.then(
                 function (data) {
-                    console.log('*** hakukohde lisätty ryhmään ***', data);
-                    //$route.reload();
+                    console.log('*** ROUTE RELOAD hakukohde lisätty ryhmään ***', data);
+                    $route.reload();
                 }
             );
         };

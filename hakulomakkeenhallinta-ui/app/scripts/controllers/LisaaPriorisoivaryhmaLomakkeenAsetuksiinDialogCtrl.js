@@ -1,15 +1,16 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaPriorisoivaryhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, priorisointiRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja) {
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, priorisointiRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
-        $scope.valittuRyhma = {};
+        //$scope.valittuRyhma = {};
         //näytetään lataus indikaattori dialogissa
         $scope.starLoad = true;
-        console.log('*** ', priorisointiRyhmat);
+        //console.log('*** ', priorisointiRyhmat);
+        console.log('Käyttäjän kieli: ', $scope.userLang);
         Organisaatio.getPriorisoivatHakukohdeRyhmat($routeParams.oid).then(
             function (data) {
-                console.log('### ', data);
+                //console.log('### ', data);
                 var valittavissaOlevatRyhmat = [];
                 // poistetaan valinta listasta jo lomakkeen asetuksissa käytössä olevat
                 // hakukohderyhmat
@@ -27,25 +28,25 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             }
         );
         /**
-         * lisätään hakukohderyhmä lomakepohjan asetuksiin.
+         * avataan dialogi velho priorisoivan hakukohde ryhmän liittämiseksi
+         * lomakepohjan asetuksiin. Valittuun ryhmään täytyy liittää
+         * vähintään yksi hakukohde hausta, jotta priorisoiva hakukohde
+         * ryhmä voidaan sitoa lomakkeen pohjan asetuksiin. Tiedon tallennus paikka
+         * on tarjonta palvelu.
          */
         $scope.lisaaPriorisoivaryhmaLomakkeenAsetuksiin = function () {
-            var valittuHakukohdeRyhma = {};
-/*            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma, lomakepohja).then(
-                function success (data) {*/
-                    console.log('***** lisaaPriorisointiryhmaLomakkeenAsetuksiin ', valittuHakukohdeRyhma);
-                    $modalInstance.close(valittuHakukohdeRyhma);
-               /* },
-                function error (resp) {
-                    AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
-                }
-            );*/
+                $modalInstance.close();
+                console.log('***** lisaaPriorisointiryhmaLomakkeenAsetuksiin ', $scope.hakukohderyhma);
+                TarjontaService.lisaaHakukohdeRyhmaan($scope.hakukohderyhma, $scope.userLang);
         };
         /**
          * Suljetaan dialogi
          */
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
+        };
+        $scope.t = function (key) {
+            return LocalisationService.tl(key);
         };
     }
 );

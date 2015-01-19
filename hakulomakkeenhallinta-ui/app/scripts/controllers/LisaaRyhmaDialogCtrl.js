@@ -24,7 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 break;
         };
         $scope.nimiSyotetty = function () {
-            if($scope.ryhmanNimi.$dirty){
+            if ($scope.ryhmanNimi.$dirty) {
                 if ($scope.ryhmanNimi.nimifi.$viewValue !== '' ||
                     $scope.ryhmanNimi.nimisv.$viewValue !== '' ||
                     $scope.ryhmanNimi.nimien.$viewValue !== '') {
@@ -32,9 +32,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 } else {
                     $scope.nimiDefined = false;
                 }
-                console.log($scope.ryhmanNimi.nimifi);
-                console.log($scope.ryhmanNimi.nimisv);
-                console.log($scope.ryhmanNimi.nimien);
             }
         };
 
