@@ -74,9 +74,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             TarjontaAPI.usersApplicationOptionGroups($routeParams.id, Organisaatio.getUserSelectedOrganisation().oid).then(
                 function (data) {
-                    console.log('### usersApplicationOptionGroups ', data);
                     data = _.filter(data, function (priorisoiva) { return _.contains(priorisoiva.kayttoryhmat, 'hakukohde_priorisoiva'); });
-                    console.log('### 22 usersApplicationOptionGroups ', data);
                     $scope.priorisointiRyhmat = data;
                 }
             );

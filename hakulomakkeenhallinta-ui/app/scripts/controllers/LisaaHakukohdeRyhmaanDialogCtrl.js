@@ -2,10 +2,11 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaHakukohdeRyhmaanDialogCtrl',
-    function ($scope, $rootScope, TarjontaAPI, Organisaatio, _, $routeParams, $modalInstance, hakukohdeRyhma, AlertMsg, $filter) {
+    function ($scope, $rootScope, TarjontaAPI, Organisaatio, _, $routeParams, $modalInstance, hakukohdeRyhma, AlertMsg, $filter, userLang) {
         $scope.hakukohdeRyhma = hakukohdeRyhma;
         $scope.hakukohteet = [];
         var lisattavatHakukohteet = [];
+        console.log('Käyttäjän kieli: ', userLang);
         TarjontaAPI.usersApplicationOptions($routeParams.id, Organisaatio.getUserSelectedOrganisation().oid).then(
             function (data) {
                 if (data.length === 0) {
@@ -21,7 +22,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         })
                         .flatten()
                         .value();
-                    $scope.hakukohteet = $filter('orderBy')($scope.hakukohteet, 'nimi.' + $scope.userLang, false);
+                    $scope.hakukohteet = $filter('orderBy')($scope.hakukohteet, 'nimi.' + userLang, false);
                 }
             }
         );
@@ -45,6 +46,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 TarjontaAPI.lisaaHakukohteetRyhmaan(hakukohdeRyhma, lisattavatHakukohteet).then(
                     function (data) {
                         console.log('^^^^ ',data);
+                        $modalInstance.close(data);
                     }
                 );
             }

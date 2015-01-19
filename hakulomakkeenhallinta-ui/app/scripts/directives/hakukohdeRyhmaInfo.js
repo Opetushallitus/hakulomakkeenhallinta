@@ -90,7 +90,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * @param hakukohdeRyhma
                  */
                 $scope.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma) {
-                    TarjontaService.lisaaHakukohdeRyhmaan(hakukohdeRyhma);
+                    TarjontaService.lisaaHakukohdeRyhmaan(hakukohdeRyhma, $scope.userLang);
                 };
                 /**
                  * avataan dialogi poista hakukohde ryhmästä

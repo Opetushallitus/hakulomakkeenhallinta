@@ -10,11 +10,11 @@
             </a>
             <ul class="dropdown-menu">
                 <li data-ng-click="lisaaRyhmaAsetuksiin()">
-                    <a>Lisää ryhmä asetuksiin<i class="glyphicon glyphicon-plus"></i></a>
+                    <a>{{ t('lisaa.ryhma.asetuksiin') || 'Lisää ryhmä asetuksiin' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
 
                 <li data-ng-click="lisaaRyhmaOrganisaatioPalveluun('hakukohde_priorisoiva')">
-                    <a>Lisää ryhmä organisaatioon <i class="glyphicon glyphicon-plus"></i></a>
+                    <a>{{ t('lisaa.ryhma') || 'Lisää ryhmä' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
                 <!--<li data-ng-click="lisaaRajoiteRyhma()">
                     <a>Lisää priorisointiryhmä lomakepohjan asetuksiin<i class="glyphicon glyphicon-plus"></i></a>

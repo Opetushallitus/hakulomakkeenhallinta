@@ -1,6 +1,6 @@
 <form class="modal-dialog-border" role="form">
     <div class="modal-header">
-        <h4>Lisää priorisoive hakukohderyhmä lomakkeen asetuksiin</h4>
+        <h4 tl="lisaa.priorisoiva.hakukohderyhma.lomakkeen.asetuksiin">Lisää priorisoiva hakukohderyhmä lomakkeen asetuksiin</h4>
     </div>
 
 
@@ -24,7 +24,10 @@
         <div class="form-group pull-right">
             <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
             <button class="btn btn-primary"
-                    data-ng-click="lisaaPriorisoivaryhmaLomakkeenAsetuksiin()" tl="tallenna" data-ng-disabled="!hakukohderyhma">Tallenna
+                    data-ng-click="lisaaPriorisoivaryhmaLomakkeenAsetuksiin()"
+                    data-ng-disabled="!hakukohderyhma"
+                    tl="jatka">
+                Jatka
             </button>
         </div>
     </div>

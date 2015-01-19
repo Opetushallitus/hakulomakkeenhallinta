@@ -21,10 +21,11 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * lomakkeen astuksiin
                  */
                 $scope.lisaaRyhmaAsetuksiin = function () {
-                    console.log('@@@@@@ priorisoivat säännöt');
+                    console.log('@@@@@@ priorisoivat säännöt', $scope.userLang);
                     $modal.open({
                         templateUrl: 'partials/dialogs/lisaa-priorisoivaryhma-lomakkeen-asetuksiin-dialog.html',
                         controller: 'LisaaPriorisoivaryhmaLomakkeenAsetuksiinDialogCtrl',
+                        scope: $scope,
                         resolve: {
                             applicationForm: function () {
                                 return $scope.applicationForm;
@@ -36,22 +37,15 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 return $scope.lomakepohja;
                             }
                         }
-                    }).result.then(
-                        function (data) {
-                            //TODO: tarkista tämä kun backend tukee tätä
-                            console.log('*** ryhmä lisätty asetuksiin ***', data);
-                            $scope.priorisointiRyhmat.push(data);
-                        }
-                    );
+                    });
                 };
 
                 /**
                  * Lisätään organisaatio palveluun uusi ryhmä
                  */
-                    //TODO: tarkista tämä kun onrganisaatio palvelussa tuki ryhmän lisäämiselle muualta kuin organisaatio palvelusta
                 $scope.lisaaRyhmaOrganisaatioPalveluun = function (kayttoTarkoitus) {
                     OrganisaatioService.lisaaUusiRyhma(kayttoTarkoitus, Organisaatio.getUserSelectedOrganisation().oid);
-                }
+                };
             }
         }
     }

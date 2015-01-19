@@ -111,7 +111,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {Array}: palauttaa käyttäjän hakukohderyhmät
              */
             TarjontaAPI.usersApplicationOptionGroups = function (hakuOid, userOrganisation) {
-                console.log('€€€ usersApplicationOptionGroups');
                 var deferred = $q.defer();
 
                 $http.get(Props.tarjontaAPI + "/hakukohde/search", {
@@ -121,7 +120,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         }
                     }
                 ).success(function (data) {
-                        console.log('€€€ ', data);
                     // Tulokset on lista hakukohteita (ao)
                     getHakukohdeJoukot(data.result.tulokset).then(
                         function (groups) {
@@ -275,6 +273,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         lisattavat.push(hakukohde);
                     }
                 );
+                //TODO: poista logitukset kun ei enään tarpeen
+                console.log('#### TarjontaAPI.lisaaHakukohteetRyhmaan', lisattavat);
                 //deferred.resolve(lisattavat);
 
                 $http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate', lisattavat

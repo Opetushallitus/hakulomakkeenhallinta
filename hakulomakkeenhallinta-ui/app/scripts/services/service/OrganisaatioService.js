@@ -2,14 +2,14 @@
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('OrganisaatioService',
-    function ($modal) {
+    function ($rootScope, $modal) {
         /**
          * avataam dialogi uuden ryhmän luomiseksi organisaatio palveluun
          * @param kayttoTarkoitus ryhmän kayttö tarkoitus
          * @organisaatioOid käyttäjän organisaation Oid
          */
         this.lisaaUusiRyhma = function (kayttoTarkoitus, organisaatioOid) {
-            console.log('*** lisää uusi ryhmä organisaatio palveluun ***', kayttoTarkoitus);
+            $rootScope.LOGS('OrganisaatioService', 'lisaaUusiRyhma()', kayttoTarkoitus);
             $modal.open({
                 templateUrl: 'partials/dialogs/lisaa-ryhma-dialog.html',
                 controller: 'LisaaRyhmaDialogCtrl',

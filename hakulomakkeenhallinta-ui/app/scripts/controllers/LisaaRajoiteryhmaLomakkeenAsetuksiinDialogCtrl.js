@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRajoiteryhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja) {
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         $scope.valittuRyhma = {};
@@ -46,6 +46,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          */
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
+        };
+        $scope.t = function (key) {
+            return LocalisationService.tl(key);
         };
     }
 );
