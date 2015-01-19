@@ -35,7 +35,10 @@
     <div class="hh-form-conf" style="padding-left: 30px;" data-ng-show="naytaLista">
         <ul>
             <li data-ng-repeat="priorisointiRyhma in priorisointiRyhmat" class="hh-hakukohde">
-                <priorisoiva-hakukohde-ryhma-info priorisointi-ryhma="priorisointiRyhma"  ></priorisoiva-hakukohde-ryhma-info>
+                <priorisoiva-hakukohde-ryhma-info
+                    priorisointi-ryhma="priorisointiRyhma"
+                    user-lang="{{userLang}}">
+                </priorisoiva-hakukohde-ryhma-info>
             </li>
         </ul>
     </div>

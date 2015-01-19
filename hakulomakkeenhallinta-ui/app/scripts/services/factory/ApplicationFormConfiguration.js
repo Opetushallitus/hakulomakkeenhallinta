@@ -47,7 +47,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             ApplicationFormConfiguration.tallennaLiitahakuLomakepohjaan = function (haunOid, lomakepohjaId) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaLiitahakuLomakepohjaan()', haunOid, lomakepohjaOid);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaLiitahakuLomakepohjaan()', haunOid, lomakepohjaId);
                 var formConf = {
                     applicationSystemId: haunOid,
                     formTemplateType: lomakepohjaId

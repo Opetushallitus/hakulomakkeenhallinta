@@ -2,16 +2,18 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, $modal, $route, $timeout) {
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, $modal, $filter, $route, $timeout) {
         return {
             restrict: 'E',
             replace: true,
             templateUrl: 'partials/directives/hakukohde-ryhma-info.html',
+            require: '^rajaavatSaannot',
             scope: {
                 rajoiteRyhma: '=rajoiteRyhma',
                 applicationForm: '=applicationForm',
                 lomakepohja: '=lomakepohja',
-                poistaHakukohderyhma: '&poistaHakukohderyhma'
+                poistaHakukohderyhma: '&poistaHakukohderyhma',
+                userLang: '@userLang'
             },
             controller: function ($scope) {
                 $scope.naytaHakukohdeLista = false;
@@ -39,6 +41,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 }
                             )
                         );
+                        console.log('**** orderby hakukohteet ', $scope.userLang );
+                        $scope.hakukohteet = $filter('orderBy')($scope.hakukohteet, 'nimi.' + $scope.userLang, false);
                         $scope.hakukohteidenMaara = data.tuloksia;
                     }
                 );
