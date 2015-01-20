@@ -2,11 +2,22 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaHakukohdeRyhmaanDialogCtrl',
-    function ($scope, $rootScope, TarjontaAPI, Organisaatio, _, $routeParams, $modalInstance, hakukohdeRyhma, AlertMsg, $filter, userLang) {
+    function ($scope, $rootScope, TarjontaAPI, Organisaatio, _, $routeParams, $modalInstance, hakukohdeRyhma, AlertMsg, $filter, userLang, LocalisationService) {
         $scope.hakukohdeRyhma = hakukohdeRyhma;
         $scope.hakukohteet = [];
         var lisattavatHakukohteet = [];
         console.log('Käyttäjän kieli: ', userLang);
+
+        TarjontaAPI.checkTarjontaAuthentication().then(
+            function success (data) {
+                console.log('***** TARKISTETAAN AUTENTIKAATIO: ', data);
+            },
+            function error (resp) {
+                console.log('***** EI OIKEUTTA ', resp);
+                AlertMsg($scope, 'warning', 'warning.autenkikaatio.ei.onnistunut.tai.puutuvat.oikeudet.tarjonta.palvelu');
+            }
+        );
+
         TarjontaAPI.usersApplicationOptions($routeParams.id, Organisaatio.getUserSelectedOrganisation().oid).then(
             function (data) {
                 if (data.length === 0) {
@@ -58,6 +69,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
-
+        $scope.t = function (key) {
+            return LocalisationService.tl(key);
+        };
     }
 );
