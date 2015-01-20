@@ -8,6 +8,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
          * @param hakukohdeRyhma
          */
         this.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma, userLang) {
+            //TODO: poista logitukset kun ei tarvetta
             console.log('*** lisää hakukohde Ryhmään ***', hakukohdeRyhma, userLang);
             $modal.open({
                 templateUrl: 'partials/dialogs/lisaa-hakukohde-ryhmaan-dialog.html',
@@ -23,6 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 }
             }).result.then(
                 function (data) {
+                    //TODO: poista logitukset kun ei tarvetta
                     console.log('*** ROUTE RELOAD hakukohde lisätty ryhmään ***', data);
                     $route.reload();
                 }
@@ -48,9 +50,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                     }
                 }
             }).result.then(
-                function (data) {
+                function () {
+                    //TODO: poista logitukset kun ei tarvetta
                     console.log('*** hakukohde poistettu ryhmästä');
-                    //$route.reload();
+                    $route.reload();
                 }
             );
         };
