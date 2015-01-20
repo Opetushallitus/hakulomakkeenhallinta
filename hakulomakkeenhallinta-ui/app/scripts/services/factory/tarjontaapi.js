@@ -291,7 +291,27 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 });
                 return deferred.promise;
             };
-
+            /**
+             * Tarkistetaan käyttäjän autentikaatio tarjontaan
+             * @returns {promise}
+             */
+            TarjontaAPI.checkTarjontaAuthentication = function () {
+                var deferred = $q.defer();
+                //TODO: poista logitukset kun ei enään tarpeen
+                console.log('##### checkTarjontaAuthentication ####');
+                $http.get(Props.tarjontaAPI + '/permission/authorize')
+                    .success(function (data) {
+                        if (data.status === 'OK') {
+                            deferred.resolve(data);
+                        } else {
+                            deferred.reject(data);
+                        }
+                    })
+                    .error(function (resp) {
+                        deferred.reject(resp);
+                    });
+                return deferred.promise;
+            };
             return TarjontaAPI;
         }]);
 
