@@ -6,6 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
          * avataam dialogi hakukohteiden lisäämiseksi hakukohderyhmään
          * näiden tietojen tallennus paikka on tarjonta
          * @param hakukohdeRyhma
+         * @param userLang käyttäjän käyttökieli
          */
         this.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma, userLang) {
             //TODO: poista logitukset kun ei tarvetta

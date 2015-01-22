@@ -8,11 +8,32 @@
         <div>
         <h4>{{hakukohdeRyhma | hakukohdeNimi:userlang}}</h4>
             <br>
+            <div style="width: auto; font-size: 14px; font-weight: bold;">
+                <div style="width: 3%; display: inline-block;">
+
+                </div>
+                <div style="width: 48%; display: inline-block;">
+                    {{ t('hakukohde') || 'Hakukohde' }}
+                </div>
+                <div style="width: 48%; display: inline-block;">
+                    {{ t('hakukohteen.tarjoaja') || 'Hakukohteen tarjoaja' }}
+                </div>
+            </div>
             <div>
                 <ul>
                     <li data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
-                        <input type="checkbox" data-ng-change="paivitaLisattavienListaa(hakukohde.oid, hakukohdeChecked)" data-ng-model="hakukohdeChecked" value="{{hakukohde.oid}}">
-                        {{hakukohde | hakukohdeNimi:userLang}} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
+                        <div style="width: auto; border-bottom: dashed #b7b7b7 1px;">
+                            <div style="width: 3%; display: inline-block;">
+                                <input type="checkbox" data-ng-change="paivitaLisattavienListaa(hakukohde.oid, hakukohdeChecked)"
+                                       data-ng-model="hakukohdeChecked" value="{{hakukohde.oid}}">
+                            </div>
+                            <div style="width: 48%; display: inline-block; vertical-align: top;">
+                                {{ hakukohde | hakukohdeNimi:userLang }}
+                            </div>
+                            <div style="width: 48%; display: inline-block; vertical-align: top;">
+                                {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -22,7 +43,10 @@
     <div class="modal-footer">
         <div class="form-group pull-right">
             <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
-            <button class="btn btn-primary" ng-click="lisaaHakukohteetRyhmaan()" tl="tallenna">Tallenna</button>
+            <button class="btn btn-primary"
+                    ng-click="lisaaHakukohteetRyhmaan()"
+                    data-ng-disabled="!enableTallenna"
+                    tl="tallenna">Tallenna</button>
         </div>
     </div>
 </form>

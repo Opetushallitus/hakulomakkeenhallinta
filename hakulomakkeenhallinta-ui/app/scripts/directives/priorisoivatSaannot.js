@@ -21,7 +21,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * lomakkeen astuksiin
                  */
                 $scope.lisaaRyhmaAsetuksiin = function () {
-                    console.log('@@@@@@ priorisoivat säännöt', $scope.userLang);
                     $modal.open({
                         templateUrl: 'partials/dialogs/lisaa-priorisoivaryhma-lomakkeen-asetuksiin-dialog.html',
                         controller: 'LisaaPriorisoivaryhmaLomakkeenAsetuksiinDialogCtrl',

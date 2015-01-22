@@ -3,14 +3,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, priorisointiRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
-        //$scope.valittuRyhma = {};
-        //näytetään lataus indikaattori dialogissa
         $scope.starLoad = true;
-        //console.log('*** ', priorisointiRyhmat);
-        console.log('Käyttäjän kieli: ', $scope.userLang);
+
         Organisaatio.getPriorisoivatHakukohdeRyhmat($routeParams.oid).then(
             function (data) {
-                //console.log('### ', data);
                 var valittavissaOlevatRyhmat = [];
                 // poistetaan valinta listasta jo lomakkeen asetuksissa käytössä olevat
                 // hakukohderyhmat
@@ -36,7 +32,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          */
         $scope.lisaaPriorisoivaryhmaLomakkeenAsetuksiin = function () {
                 $modalInstance.close();
-                console.log('***** lisaaPriorisointiryhmaLomakkeenAsetuksiin ', $scope.hakukohderyhma);
                 TarjontaService.lisaaHakukohdeRyhmaan($scope.hakukohderyhma, $scope.userLang);
         };
         /**
