@@ -15,8 +15,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          * Haetaan valitusta hakukohderyhmästä tietoja
          * Dialogiin
          */
-        TarjontaAPI.haeRyhmanHakukohteet(hakukohdeRyhma.oid).then(
+        TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, hakukohdeRyhma.oid).then(
             function (data) {
+                //TODO: tarkista tämä
                 $scope.hakukohteidenMaara = data.tuloksia;
             }
         );
