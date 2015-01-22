@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, $modal, $filter, $route, $timeout) {
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, $modal, $filter, $routeParams) {
         return {
             restrict: 'E',
             replace: true,
@@ -26,9 +26,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     }
                 );
                 //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
-                TarjontaAPI.haeRyhmanHakukohteet($scope.rajoiteRyhma.groupdId).then(
+                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.rajoiteRyhma.groupdId).then(
                     function (data) {
-                        $scope.hakukohteet = _.flatten(
+                        //TODO: tarkista tämä
+                            /*_.flatten(
                             _.map(data.tulokset,
                                 function (tulokset) {
                                     return _.each(tulokset.tulokset,
@@ -40,7 +41,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                     );
                                 }
                             )
-                        );
+                        );*/
                         console.log('**** orderby hakukohteet ', $scope.userLang );
                         $scope.hakukohteet = $filter('orderBy')($scope.hakukohteet, 'nimi.' + $scope.userLang, false);
                         $scope.hakukohteidenMaara = data.tuloksia;

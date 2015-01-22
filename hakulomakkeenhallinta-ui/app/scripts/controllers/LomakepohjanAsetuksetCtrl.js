@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('LomakepohjanAsetuksetCtrl', ['$rootScope', '$scope', 'TarjontaAPI', 'Organisaatio', 'AlertMsg', '$routeParams', 'FormEditor', 'ApplicationFormConfiguration', '_', '$filter', '$modal', '$route',
+    .controller('LomakepohjanAsetuksetCtrl',
         function ($rootScope, $scope, TarjontaAPI, Organisaatio, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route) {
             $rootScope.LOGS('lomakepohjanAsetuksetCtrl');
             $scope.applicationForm = {};
@@ -70,14 +70,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     );
             };
             /**
-             * Haetaan tarjonnasta käyttäjän priorisoivat hakukohde ryhmät
+             * Haetaan tarjonnasta hakuun liittyvät priorisoivat hakukohde ryhmät
              */
-            TarjontaAPI.usersApplicationOptionGroups($routeParams.id, Organisaatio.getUserSelectedOrganisation().oid).then(
+            TarjontaAPI.getHakuApplicatioOptionGroups($routeParams.id).then(
                 function (data) {
                     data = _.filter(data, function (priorisoiva) { return _.contains(priorisoiva.kayttoryhmat, 'hakukohde_priorisoiva'); });
                     $scope.priorisointiRyhmat = data;
                 }
             );
-
-
-        }]);
+        }
+);
