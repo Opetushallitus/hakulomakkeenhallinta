@@ -5,8 +5,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     function ($scope, $rootScope, TarjontaAPI, Organisaatio, _, $routeParams, $modalInstance, hakukohdeRyhma, AlertMsg, $filter, userLang, LocalisationService) {
         $scope.hakukohdeRyhma = hakukohdeRyhma;
         $scope.hakukohteet = [];
+        $scope.enableTallenna = false;
         var lisattavatHakukohteet = [];
-        console.log('Käyttäjän kieli: ', userLang);
 
         TarjontaAPI.checkTarjontaAuthentication().then(
             function success (data) {
@@ -38,13 +38,16 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             }
         );
         $scope.paivitaLisattavienListaa = function (oid, hakukohdeChecked) {
-            console.log('$scope ', hakukohdeChecked, oid);
             if (hakukohdeChecked) {
                 lisattavatHakukohteet.push(oid);
             } else {
                 lisattavatHakukohteet = _.without(lisattavatHakukohteet, oid);
             }
-            console.log('### ', lisattavatHakukohteet);
+            if (lisattavatHakukohteet.length === 0) {
+                $scope.enableTallenna = false;
+            } else {
+                $scope.enableTallenna = true;
+            }
         };
         /**
          * Lisätään valitut hakukohteet
@@ -52,7 +55,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          * data tallennetaan tarjontaan
          */
         $scope.lisaaHakukohteetRyhmaan = function () {
-
             if(lisattavatHakukohteet.length !== 0) {
                 TarjontaAPI.lisaaHakukohteetRyhmaan(hakukohdeRyhma, lisattavatHakukohteet).then(
                     function (data) {

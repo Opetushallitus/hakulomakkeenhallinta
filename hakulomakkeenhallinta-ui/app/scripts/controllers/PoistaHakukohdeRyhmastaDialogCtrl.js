@@ -8,12 +8,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.poistoEiOnnistu = false;
         TarjontaAPI.checkTarjontaAuthentication().then(
             function success (data) {
-                //TODO: poista logitukset kun ei tarvetta
-                console.log('***** TARKISTETAAN AUTENTIKAATIO: ', data);
+                $rootScope.LOGS('PoistaHakukohdeRyhmastaDialogCtrl', 'Tarjonta autentikaatio OK ', data);
             },
             function error (resp) {
-                //TODO: poista logitukset kun ei tarvetta
-                console.log('***** EI OIKEUTTA ', resp);
                 $scope.poistoEiOnnistu = true;
                 AlertMsg($scope, 'warning', 'warning.autenkikaatio.ei.onnistunut.tai.puutuvat.oikeudet.tarjonta.palvelu');
             }
