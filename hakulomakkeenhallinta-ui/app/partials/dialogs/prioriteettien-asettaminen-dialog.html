@@ -1,6 +1,6 @@
 <form class="modal-dialog-border" role="form">
     <div class="modal-header">
-        <h4>Aseta prioriteetit</h4>
+        <h4>Muokkaa hakukohteiden prioriteetteja</h4>
     </div>
 
 
@@ -9,19 +9,44 @@
         <h1>{{applicationForm | i18n:'name':userLang }}</h1>
 
         <alertmsg></alertmsg>
+        <a data-ng-click="lisaaPrioriteetti()">Lisää prioriteetti <i class="glyphicon glyphicon-plus"></i></a>
+        <div data-ng-repeat="(level, hakukohdeRyhma) in hakukohteet" >
+            <div data-ng-if="hakukohdeRyhma.length >0" style="border: solid #b7b7b7 1px; padding: 5px; margin: 5px 0;">
+                <h4 data-ng-if="level !== 'priorityundefined'">Prioriteetti: {{level}}</h4>
+                <h4 data-ng-if="level === 'priorityundefined'">Ei asetettua prioriteettia</h4>
+                <div style="width: auto; font-size: 14px; font-weight: bold;">
+                    <div style="width: 8%; display: inline-block; vertical-align: top;"></div>
+                    <div style="width: 44%; display: inline-block;">
+                        {{ t('hakukohde') || 'Hakukohde' }}
+                    </div>
+                    <div style="width: 44%; display: inline-block;">
+                        {{ t('hakukohteen.tarjoaja') || 'Hakukohteen tarjoaja' }}
+                    </div>
+                </div>
+                <div class="hh-form-conf">
 
-        <div data-ng-repeat="(level, hakukohdeRyhma) in hakukohteet">
-            <h4>Prioriteetti: {{level}}</h4>
-            <div class="hh-form-conf">
-                <ul data-ng-repeat="hakukohde in hakukohdeRyhma" class="hh-hakukohde">
-                    <li class="hh-hakukohde">
-                        <button class="btn btn-xs glyphicon glyphicon-chevron-up" data-ng-click="movePriorityUp(hakukohde)"></button>
-                        <button class="btn btn-xs glyphicon glyphicon-chevron-down" data-ng-click="movePriorityDown(hakukohde)"></button>
-                        {{ hakukohde | hakukohdeNimi:userLang}} : {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
-                    </li>
-                </ul>
+                    <ul data-ng-repeat="hakukohde in hakukohdeRyhma" class="hh-hakukohde">
+                        <li class="hh-hakukohde">
+
+                            <div style="width: auto; background-color: #F5F5F5;">
+                                <div style="width: 8%; display: inline-block; vertical-align: top;">
+                                    <button class="btn btn-xs glyphicon glyphicon-chevron-up" data-ng-click="movePriorityUp(hakukohde, level)"></button>
+                                    <button data-ng-disabled="level === 'priorityundefined'" class="btn btn-xs glyphicon glyphicon-chevron-down" data-ng-click="movePriorityDown(hakukohde, level)"></button>
+                                </div>
+                                <div style="width: 44%; display: inline-block; vertical-align: top;">
+                                    {{ hakukohde | hakukohdeNimi:userLang }}
+                                </div>
+                                <div style="width: 44%; display: inline-block; vertical-align: top;">
+                                    {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+
 
     </div>
 

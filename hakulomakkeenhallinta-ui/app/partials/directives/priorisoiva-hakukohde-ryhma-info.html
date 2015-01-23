@@ -30,7 +30,8 @@
     </div>
     <div data-ng-show="naytaHakukohdeLista">
         <div data-ng-repeat="(level, prioriteettiRyhma) in hakukohteet">
-            <span style="font-size: 14px; font-weight: bold; padding-left: 30px;">{{ t('prioriteetti') || 'Prioriteetti' }}: {{level}}</span>
+            <span data-ng-if="level === 'priorityundefined'" style="font-size: 14px; font-weight: bold; padding-left: 30px;">Ei asetettua prioriteettia </span>
+            <span data-ng-if="level !== 'priorityundefined'" style="font-size: 14px; font-weight: bold; padding-left: 30px;">{{ t('prioriteetti') || 'Prioriteetti' }}: {{level}}</span>
             <ul>
                 <li data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">
                     <div class="dropdown pull-right">
