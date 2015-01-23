@@ -106,20 +106,21 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     formTemplateType: lomakepohja.id,
                     groupConfigurations: [
                         {
-                            groupdId: hakukohdeRyhmaOid,
-                            type: 'MAXIMUM_NUMBER_OF',
+                            groupId: hakukohdeRyhmaOid,
+                            type: 'hakukohde_rajaava',
                             configurations: {
                                 maximumNumberOf: hakukohdeRajoite
                             }
                         }
                     ]
                 };
+                console.log('#### ', groupConf, '/n ####');
                 //TODO: poista tämä kun backend toimii oikein
-                $timeout(function () {
+                /*$timeout(function () {
                     deferred.resolve({status: 200, message: 'asetaHakukohderyhmaRajoite OK'});
                     //deferred.reject({status:400, message: 'Ryhmän lisääminen lomakepohjan asetuksiin ei onnistu'});
-                }, 500);
-                /*FormConfiguration.createGroupConfigurationRestriction({  _asId: applicationSystemId }, groupConf).$promise.then(
+                }, 500);*/
+                FormConfiguration.createGroupConfigurationRestriction({  _asId: applicationSystemId }, groupConf).$promise.then(
                     function success(data) {
                         console.log('^^^^ ', data);
                         deferred.resolve(data);
@@ -128,7 +129,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         console.log('## ', resp);
                         deferred.reject(resp);
                     }
-                );*/
+                );
                 return deferred.promise;
             };
             /**
@@ -163,40 +164,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 );
                 return deferred.promise;
             };
-            //TODO: poista tämä, kun ei enään tarvetta
-            var lomakePohjanAsetukset = [
-                {
-                    groupId: '1.2.246.562.28.11347982643',
-                    type: 'MAXIMUM_NUMBER_OF',
-                    configuration: {
-                        maxSelection: 4
-                    }
-                },
-                {
-                    groupId: '1.2.246.562.28.28738790866',
-                    type: 'MAXIMUM_NUMBER_OF',
-                    configuration: {
-                        maxSelection: 11
-                    }
-                },
-                {
-                    groupId: '1.2.246.562.28.86934808281',
-                    type: 'MAXIMUM_NUMBER_OF',
-                    configuration: {
-                        maxSelection: 5
-                    }
-                },
-                {
-                    groupId: '1.2.246.562.28.11347982643',
-                    type: 'PRIORITY',
-                    configuration: {}
-                },
-                {
-                    groupId: '1.2.246.562.28.11347982643',
-                    type: 'CONSTRAINT_GROUP',
-                    configuration: {}
-                },
-            ];
             /**
              * Haetaan hakulomakkeen pohjan asetukset taustajärjestelmästä
              * @param applicationSystemId Haun oid, alias hakulomakkeen id
@@ -232,7 +199,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     formTemplateType: lomakePohja.id,
                     groupConfigurations: [
                         {
-                            groupdId: rajoiteRyhma.groupdId,
+                            groupId: rajoiteRyhma.groupId,
                             type: rajoiteRyhma.type,
                             configurations: {
                                 maximumNumberOf: 5
@@ -274,17 +241,31 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     formTemplateType: lomakePohja.id,
                     groupConfigurations: [
                         {
-                            groupdId: hakukohdeRyhma.groupdId,
+                            groupId: hakukohdeRyhma.groupId,
                             type: hakukohdeRyhma.type
+
                         }
                     ]
                 };
-                console.log('### ', groupConf);
+
+
+                console.log('### 111', groupConf, '/n 1111 ####');
+                FormConfiguration.createGroupConfigurationRestriction({  _asId: applicationSystemId }, groupConf).$promise.then(
+                    function success(data) {
+                        console.log('^^^^ ', data);
+                        deferred.resolve(data);
+                    },
+                    function error(resp) {
+                        console.log('## ', resp);
+                        deferred.reject(resp);
+                    }
+                );
+
                 //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
+                /*$timeout(function () {
                     deferred.resolve({status: 200, message: 'Ryhmän lisääminen lomakepohjan asetuksiin OK'});
                     //deferred.reject({status:400, message: 'Ryhmän lisääminen lomakepohjan asetuksiin ei onnistu'});
-                }, 500);
+                }, 500);*/
                 return deferred.promise;
 
             }
