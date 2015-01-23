@@ -18,7 +18,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, hakukohdeRyhma.oid).then(
             function (data) {
                 //TODO: tarkista tämä
-                $scope.hakukohteidenMaara = data.tuloksia;
+                $scope.hakukohteidenMaara = data.length;
             }
         );
         /**

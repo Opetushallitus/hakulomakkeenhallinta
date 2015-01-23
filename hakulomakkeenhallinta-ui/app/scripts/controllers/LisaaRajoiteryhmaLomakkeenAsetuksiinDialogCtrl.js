@@ -9,8 +9,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         Organisaatio.getRajaavatHakukohdeRyhmat($routeParams.oid).then(
             function (data) {
                 var valittavissaOlevatRyhmat = [];
-                //TODO: tarkista groupdId kun korjaus backendissä
-                var kaytossaOlevatOidit = _.pluck(rajoiteRyhmat, 'groupdId');
+                var kaytossaOlevatOidit = _.pluck(rajoiteRyhmat, 'groupId');
                 _.each(data, function(ryhma) {
                     if(!_.contains(kaytossaOlevatOidit, ryhma.oid)) {
                         valittavissaOlevatRyhmat.push(ryhma);
@@ -28,8 +27,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          */
         $scope.lisaaRajoiteryhmaLomakkeenAsetuksiin = function () {
             var valittuHakukohdeRyhma = {};
-            valittuHakukohdeRyhma.groupdId = $scope.hakukohderyhma.oid;
-            valittuHakukohdeRyhma.type = 'MAXIMUM_NUMBER_OF';
+            valittuHakukohdeRyhma.groupId = $scope.hakukohderyhma.oid;
+            valittuHakukohdeRyhma.type = 'hakukohde_rajaava';
             ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma, lomakepohja).then(
                 function success (data) {
                     console.log('***** lisaaRajoiteryhmaLomakkeenAsetuksiin ', data);

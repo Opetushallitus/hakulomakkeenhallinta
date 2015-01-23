@@ -19,32 +19,17 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.naytaHakukohdeLista = false;
                 $scope.hakukohteidenMaara = 0;
                 $scope.hakukohdeRyhma = {};
-                //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
-                Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupdId).then(
+                Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupId).then(
                     function (data) {
                         $scope.hakukohdeRyhma = data;
                     }
                 );
-                //TODO: tarkista rajoiteRyhma.groupdId kun korjaus backendissä
                 TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.rajoiteRyhma.groupdId).then(
                     function (data) {
-                        //TODO: tarkista tämä
-                            /*_.flatten(
-                            _.map(data.tulokset,
-                                function (tulokset) {
-                                    return _.each(tulokset.tulokset,
-                                        function (tulos) {
-                                            tulos.tarjoaja = {};
-                                            tulos.tarjoaja.nimi = tulokset.nimi;
-                                            return tulos;
-                                        }
-                                    );
-                                }
-                            )
-                        );*/
+                        //$scope.hakukohteet = data;
                         console.log('**** orderby hakukohteet ', $scope.userLang );
-                        $scope.hakukohteet = $filter('orderBy')($scope.hakukohteet, 'nimi.' + $scope.userLang, false);
-                        $scope.hakukohteidenMaara = data.tuloksia;
+                        $scope.hakukohteet = $filter('orderBy')(data, 'nimi.' + $scope.userLang, false);
+                        $scope.hakukohteidenMaara = $scope.hakukohteet.length;
                     }
                 );
 

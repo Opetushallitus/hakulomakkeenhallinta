@@ -193,6 +193,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.haeRyhmanHakukohteet = function (applicationSystemId, hakukohdeRyhmanOid) {
             var deferred = $q.defer();
+            console.log('## ',applicationSystemId, hakukohdeRyhmanOid);
             $http.get(Props.tarjontaAPI + '/hakukohde/search', {
                 params: {
                     organisaatioRyhmaOid: hakukohdeRyhmanOid,
