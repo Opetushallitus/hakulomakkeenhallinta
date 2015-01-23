@@ -30,23 +30,23 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         _.each($scope.hakukohteet, function (hakukohde) {
                                 var pri = _.where(hakukohde.ryhmaliitokset, {ryhmaOid:$scope.priorisointiRyhma.oid});
                                 console.log('pri: ', pri, testIndx);
-                                //if (pri.prioriteetti === undefined && testIndx === 0) {
-                                if (testIndx === 0) {
+                                //if (testIndx === 0) {
                                     //console.log('ei prioriteettiä: ', hakukohde);
+                                if (pri.prioriteetti === undefined) {
                                     if(prioriteettiRyhmat['priorityundefined'] === undefined) {
                                         prioriteettiRyhmat.priorityundefined = [];
                                     }
                                     prioriteettiRyhmat['priorityundefined'].push(hakukohde);
                                 } else {
-                                    if (prioriteettiRyhmat[testIndx] === undefined) {
-                                        prioriteettiRyhmat[testIndx] = [];
+                                    if (prioriteettiRyhmat[pri.prioriteetti] === undefined) {
+                                        prioriteettiRyhmat[pri.prioriteetti] = [];
                                     }
-                                    prioriteettiRyhmat[testIndx].push(hakukohde);
+                                    prioriteettiRyhmat[pri.prioriteetti].push(hakukohde);
                                 }
-                                testIndx += 1;
+                                /*testIndx += 1;
                                 if(testIndx === 3) {
                                     testIndx = 0;
-                                }
+                                }*/
                             }
                         );
                         console.log('*** ',prioriteettiRyhmat);
