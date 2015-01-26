@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('PoistaRajoiteHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
-    function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, hakukohdeRyhma, rajoiteRyhma, AlertMsg, $routeParams, lomakepohja) {
+    function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, hakukohdeRyhma, rajoiteRyhma, AlertMsg, $routeParams, lomakepohja, LocalisationService) {
 
         $scope.hakukohdeRyhma = hakukohdeRyhma;
         console.log(rajoiteRyhma);
@@ -12,7 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          */
         $scope.poista = function () {
             //TODO: tarkista tämä kun back end toimii oikein
-            ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista($routeParams.id, rajoiteRyhma, lomakepohja).then(
+            ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista($routeParams.id, rajoiteRyhma).then(
                 function success (data) {
                     //TODO: tarkista tämä kun backend toimii oikein
                     $modalInstance.close(rajoiteRyhma);
@@ -29,6 +29,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          */
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
+        };
+        $scope.t = function (key) {
+            return LocalisationService.tl(key);
         };
 
     }

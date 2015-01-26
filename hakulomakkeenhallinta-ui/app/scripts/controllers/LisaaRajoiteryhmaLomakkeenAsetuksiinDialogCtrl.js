@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRajoiteryhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService) {
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, LocalisationService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         $scope.valittuRyhma = {};
@@ -29,11 +29,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             var valittuHakukohdeRyhma = {};
             valittuHakukohdeRyhma.groupId = $scope.hakukohderyhma.oid;
             valittuHakukohdeRyhma.type = 'hakukohde_rajaava';
-            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma, lomakepohja).then(
+            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma).then(
                 function success (data) {
-                    console.log('***** lisaaRajoiteryhmaLomakkeenAsetuksiin ', data);
-                    //TODO: tarkista tämä kun backend tukee tätä.
-                    $modalInstance.close(valittuHakukohdeRyhma);
+                    $modalInstance.close();
                 },
                 function error (resp) {
                     AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');

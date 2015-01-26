@@ -13,55 +13,24 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         isArray: true,
                         url: Props.formConfigurationUri + '/templates'
                     },
-                    createApplicationSystemForm: {
+                    changeFormConfigurationTemplate: {
                         method: 'POST',
-                        isArray: false,
-                        url: Props.formConfigurationUri + '/:_asId',
+                        url: Props.formConfigurationUri + '/:_asId/formTemplate',
                         params: { _asId: '@_asId'}
                     },
-                    updateApplicationSystemForm: {
+                    setFormConfiguration: {
                         method: 'POST',
-                        isArray: false,
-                        url: Props.formConfigurationUri + '/:_asId',
-                        params: { _asId: '@_asId'}
+                        url: Props.formConfigurationUri + '/:_asId/groupConfiguration/:_groupId',
+                        params: { _asId: '@_asId', _groupId: '@_groupId'}
                     },
-                    createGroupConfigurationRestriction: {
-                        method: 'POST',
-                        isArray: false,
-                        url: Props.formConfigurationUri + '/:_asId',
-                        params: { _asId: '@_asId'}
-                    },
-                    removeGroupConfigurationRestriction: {
-                        method: 'POST',
-                        isArray: false,
-                        url: Props.formConfigurationUri + '/:_asId',
-                        params: { _asId: '@_asId'}
+                    deleteFormConfiguration: {
+                        method: 'DELETE',
+                        url: Props.formConfigurationUri + '/:_asId/groupConfiguration/:_groupId',
+                        headers: { 'Content-Type': 'application/json' },
+                        params: { _asId: '@_asId', _groupId: '@_groupId'}
                     }
                 }
             );
-            /**
-             * Liitää haun valittuun lomakepohjaan
-             * @param haunOid haun id
-             * @param lomakepohjaId lomakepohjan id
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.tallennaLiitahakuLomakepohjaan = function (haunOid, lomakepohjaId) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaLiitahakuLomakepohjaan()', haunOid, lomakepohjaId);
-                var formConf = {
-                    applicationSystemId: haunOid,
-                    formTemplateType: lomakepohjaId
-                };
-                FormConfiguration.createApplicationSystemForm({_asId: haunOid}, formConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
-            };
             /**
              * Vaihtaa haun lomakepohjan
              * @param applicationSysmtemId hakulomakkeen id
@@ -71,12 +40,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (applicationSystemId, lomakepohjaId) {
                 var deferred = $q.defer();
                 $rootScope.LOGS('ApplicationFormConfiguration', 'vaihdaHaunLomakepohja()',applicationSystemId, lomakepohjaId);
-
                 var formConf = {
                     applicationSystemId: applicationSystemId,
                     formTemplateType: lomakepohjaId
                 };
-                FormConfiguration.updateApplicationSystemForm({_asId: applicationSystemId}, formConf).$promise.then(
+                FormConfiguration.changeFormConfigurationTemplate({_asId: applicationSystemId}, formConf).$promise.then(
                     function success(data) {
                         deferred.resolve(data);
                     },
@@ -92,41 +60,24 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @param applicationSysmtemId hakulomakkeen id
              * @param hakukohdeRyhmaOid hakukohde ryhmän id
              * @param hakukohdeRajoite numero arvo valittavien hakukohteiden määrälle hakukohde ryhmässä
-             * @param lomakepohja {} lomakepohjan tiedot
              * @returns {promise}
              */
-            ApplicationFormConfiguration.asetaHakukohderyhmaRajoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite, lomakepohja) {
+            ApplicationFormConfiguration.asetaHakukohderyhmaRajoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite) {
                 var deferred = $q.defer();
                 $rootScope.LOGS('ApplicationFormConfiguration', 'asetaHakukohderyhmaRajoite()', applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite);
-                console.log(lomakepohja)
-                //TODO: tallenna hakukohderyhmään hakukohde rajoite, kun backend tukee tätä
                 var groupConf =
                 {
-                    applicationSystemId: applicationSystemId,
-                    formTemplateType: lomakepohja.id,
-                    groupConfigurations: [
-                        {
-                            groupId: hakukohdeRyhmaOid,
-                            type: 'hakukohde_rajaava',
-                            configurations: {
-                                maximumNumberOf: hakukohdeRajoite
-                            }
-                        }
-                    ]
+                    groupId: hakukohdeRyhmaOid,
+                    type: 'hakukohde_rajaava',
+                    configurations: {
+                        maximumNumberOf: hakukohdeRajoite
+                    }
                 };
-                console.log('#### ', groupConf, '/n ####');
-                //TODO: poista tämä kun backend toimii oikein
-                /*$timeout(function () {
-                    deferred.resolve({status: 200, message: 'asetaHakukohderyhmaRajoite OK'});
-                    //deferred.reject({status:400, message: 'Ryhmän lisääminen lomakepohjan asetuksiin ei onnistu'});
-                }, 500);*/
-                FormConfiguration.createGroupConfigurationRestriction({  _asId: applicationSystemId }, groupConf).$promise.then(
+                FormConfiguration.setFormConfiguration({ _asId: applicationSystemId, _groupId: hakukohdeRyhmaOid }, groupConf).$promise.then(
                     function success(data) {
-                        console.log('^^^^ ', data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
-                        console.log('## ', resp);
                         deferred.reject(resp);
                     }
                 );
@@ -155,7 +106,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             ApplicationFormConfiguration.haeDefaultLomakepohja = function (applicationSystemId) {
                 var deferred = $q.defer();
                 $rootScope.LOGS('ApplicationFormConfiguration', 'haeDefaultLomakepohja()');
-                $http.get(Props.formConfigurationUri + '/' + applicationSystemId + '/default').success(
+                $http.get(Props.formConfigurationUri + '/' + applicationSystemId + '/defaultTemplate').success(
                     function (defaultTemplate) {
                         deferred.resolve(defaultTemplate);
                     }).error(function (resp) {
@@ -186,71 +137,20 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * Poistetaan hakukohderyhmä hakulomakkeen asetuksista
              * @param applicationSystemId Haun oid, alias hakulomakkeen id
              * @param rajoiteRyhma rajoite ryhmä objekti
-             * @param lomakePohja lomake pohja objecti
              * @returns {promise}
              */
-             ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista = function (applicationSystemId, rajoiteRyhma, lomakePohja) {
+             ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista = function (applicationSystemId, rajoiteRyhma) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'poistaHakukohderyhmaLomakkeenAsetuksista()',applicationSystemId, rajoiteRyhma, lomakePohja);
+                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'poistaHakukohderyhmaLomakkeenAsetuksista()',applicationSystemId, rajoiteRyhma);
                  //TODO: tämän loppuun saatto kun back end tukee toimintoa
                  var groupConf =
                 {
-                    applicationSystemId: applicationSystemId,
-                    formTemplateType: lomakePohja.id,
-                    groupConfigurations: [
-                        {
-                            groupId: rajoiteRyhma.groupId,
-                            type: rajoiteRyhma.type,
-                            configurations: {
-                                maximumNumberOf: 5
-                            }
-                        }
-                    ]
+                    groupId: rajoiteRyhma.groupId,
+                    type: rajoiteRyhma.type
                 };
-                //FormConfiguration.delete({ asId: applicationSystemId }, groupConf).$promise.then(
-                /*FormConfiguration.removeGroupConfigurationRestriction({ asId: applicationSystemId }, groupConf).$promise.then(
-                    function success(data) {
-                        console.log('^^^^ ', data);
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        console.log('## ', resp);
-                        deferred.reject(resp);
-                    }
-                );*/
-                //TODO: tälle backend post kun se on saatavilla
-                $timeout(function () {
-                    deferred.resolve({status: 200, message: 'Poisto ok'});
-                    //deferred.reject({status:400, message: 'poisto ei onnistu'});
-                }, 500);
-                return deferred.promise;
-            };
-            /**
-             * lisätään uusi ryhma lomakepohjan asetuksiin
-             * @param applicationSystemId hakulomakkeen id
-             * @param hakukohdeRyhma lisättävä hakukohderyhmä
-             * @param lomakePohja lomakepohjan tiedot
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin = function (applicationSystemId, hakukohdeRyhma, lomakePohja) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'lisaaRyhmaLomakepohjanAsetuksiin()',applicationSystemId, hakukohdeRyhma, lomakePohja);
-                var groupConf =
-                {
-                    applicationSystemId: applicationSystemId,
-                    formTemplateType: lomakePohja.id,
-                    groupConfigurations: [
-                        {
-                            groupId: hakukohdeRyhma.groupId,
-                            type: hakukohdeRyhma.type
+                console.log('### ^^^', applicationSystemId, rajoiteRyhma.groupId);
 
-                        }
-                    ]
-                };
-
-
-                console.log('### 111', groupConf, '/n 1111 ####');
-                FormConfiguration.createGroupConfigurationRestriction({  _asId: applicationSystemId }, groupConf).$promise.then(
+                FormConfiguration.deleteFormConfiguration({ _asId: applicationSystemId, _groupId: rajoiteRyhma.groupId }, groupConf).$promise.then(
                     function success(data) {
                         console.log('^^^^ ', data);
                         deferred.resolve(data);
@@ -260,15 +160,32 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         deferred.reject(resp);
                     }
                 );
-
-                //TODO: tälle backend post kun se on saatavilla
-                /*$timeout(function () {
-                    deferred.resolve({status: 200, message: 'Ryhmän lisääminen lomakepohjan asetuksiin OK'});
-                    //deferred.reject({status:400, message: 'Ryhmän lisääminen lomakepohjan asetuksiin ei onnistu'});
-                }, 500);*/
                 return deferred.promise;
-
-            }
+            };
+            /**
+             * lisätään uusi ryhma lomakepohjan asetuksiin
+             * @param applicationSystemId hakulomakkeen id
+             * @param hakukohdeRyhma lisättävä hakukohderyhmä
+             * @returns {promise}
+             */
+            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin = function (applicationSystemId, hakukohdeRyhma) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ApplicationFormConfiguration', 'lisaaRyhmaLomakepohjanAsetuksiin()', applicationSystemId, hakukohdeRyhma);
+                var groupConf =
+                {
+                    groupId: hakukohdeRyhma.groupId,
+                    type: hakukohdeRyhma.type
+                };
+                FormConfiguration.setFormConfiguration({  _asId: applicationSystemId, _groupId: hakukohdeRyhma.groupId }, groupConf).$promise.then(
+                    function success(data) {
+                        deferred.resolve(data);
+                    },
+                    function error(resp) {
+                        deferred.reject(resp);
+                    }
+                );
+                return deferred.promise;
+            };
 
             return ApplicationFormConfiguration;
         }]
