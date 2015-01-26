@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('rajaavatSaannot',
-    function ($rootScope, ApplicationFormConfiguration, $routeParams, $filter, _, $modal, AlertMsg, OrganisaatioService, Organisaatio) {
+    function ($rootScope, ApplicationFormConfiguration, $routeParams, $filter, _, $modal, AlertMsg, OrganisaatioService, Organisaatio, $route) {
         return {
             restrict: 'E',
             replace: true,
@@ -36,12 +36,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             }
                         }
                     }).result.then(
-                        function (data) {
-                            //TODO: poista/tarkista tämä kun backend tukee tätä
-                            console.log('*** ryhmä lisätty asetuksiin ***', data);
-                            $scope.rajoiteRyhmat.push(data);
+                        function () {
                             //ladaan sivu uudelleen onnistuneiden muutosten jälkeen ??
-                            //$route.reload();
+                            $route.reload();
                         }
                     );
                 };
@@ -50,6 +47,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * @param hakukohdeRyhma hakukohderyhmä {}
                  * @param rajoiteRyhma rajoite ryhmän tiedot {}
                  */
+                 //TODO: poisto vaatiin jotain bäkkäriin ei toimi oikein
                 $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, rajoiteRyhma) {
                     $modal.open({
                         templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',

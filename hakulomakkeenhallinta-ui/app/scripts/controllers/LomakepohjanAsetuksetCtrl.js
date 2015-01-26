@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LomakepohjanAsetuksetCtrl',
-        function ($rootScope, $scope, TarjontaAPI, Organisaatio, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route) {
+        function ($rootScope, $scope, TarjontaAPI, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route) {
             $rootScope.LOGS('lomakepohjanAsetuksetCtrl');
             $scope.applicationForm = {};
             $scope.lomakepohjat = [];
@@ -20,7 +20,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * haetaan lomakepohjat taustajärjestelmästä
              */
-            //TODO: tarkista tämä kun back end toimii oikein
             ApplicationFormConfiguration.haeLomakepohjat().then(
                 function (lomakepohjat) {
                     $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'name.translations.' + $scope.userLang);
@@ -30,11 +29,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * heataan lomakepohjan asetukset
              */
-            //TODO: tarkista tämä kun back end toimii oikein
             function lomakePohjanAsetukset() {
                 ApplicationFormConfiguration.haeLomakepohjanAsetukset($routeParams.id).then(
                     function success(lomakepohjanAsetukset) {
-                        $scope.rajoiteRyhmat = _.filter(lomakepohjanAsetukset.groupConfigurations, function (conf) { return conf.type === 'MAXIMUM_NUMBER_OF'; });
+                        $scope.rajoiteRyhmat = _.filter(lomakepohjanAsetukset.groupConfigurations, function (conf) { return conf.type === 'hakukohde_rajaava'; });
                         $scope.lomakepohja = _.find($scope.lomakepohjat, function (pohja) { if (pohja.id === lomakepohjanAsetukset.formTemplateType) { return pohja; }});
                         $scope.lomakepohjat = _.without($scope.lomakepohjat, $scope.lomakepohja);
                         $scope.lomakepohjat = $filter('orderBy')($scope.lomakepohjat, 'name.translations.' + $scope.userLang);
@@ -48,7 +46,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * avataan dialogi hakulomakkeen pohjan vaihto varten
              */
-            //TODO: tarkista tämä kun back end toimii oikein
             $scope.vaihdaLomakepohja = function () {
                 $modal.open({
                     templateUrl: 'partials/dialogs/vaihda-lomakepohja-dialog.html',
