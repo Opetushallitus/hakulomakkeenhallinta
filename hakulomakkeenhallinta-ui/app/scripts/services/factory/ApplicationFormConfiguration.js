@@ -24,13 +24,13 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         params: { _asId: '@_asId', _groupId: '@_groupId'}
                     },
                     deleteFormConfiguration: {
-                        method: 'DELETE',
-                        url: Props.formConfigurationUri + '/:_asId/groupConfiguration/:_groupId',
-                        headers: { 'Content-Type': 'application/json' },
+                        method: 'POST',
+                        url: Props.formConfigurationUri + '/:_asId/groupConfiguration/:_groupId/delete',
                         params: { _asId: '@_asId', _groupId: '@_groupId'}
                     }
                 }
             );
+            //headers: { 'Content-Type': 'application/json' },
             /**
              * Vaihtaa haun lomakepohjan
              * @param applicationSysmtemId hakulomakkeen id
@@ -141,22 +141,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
              ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista = function (applicationSystemId, rajoiteRyhma) {
                 var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'TODO: tällä', 'poistaHakukohderyhmaLomakkeenAsetuksista()',applicationSystemId, rajoiteRyhma);
-                 //TODO: tämän loppuun saatto kun back end tukee toimintoa
+                $rootScope.LOGS('ApplicationFormConfiguration', 'poistaHakukohderyhmaLomakkeenAsetuksista()', applicationSystemId, rajoiteRyhma);
                  var groupConf =
                 {
                     groupId: rajoiteRyhma.groupId,
                     type: rajoiteRyhma.type
                 };
-                console.log('### ^^^', applicationSystemId, rajoiteRyhma.groupId);
-
                 FormConfiguration.deleteFormConfiguration({ _asId: applicationSystemId, _groupId: rajoiteRyhma.groupId }, groupConf).$promise.then(
                     function success(data) {
-                        console.log('^^^^ ', data);
                         deferred.resolve(data);
                     },
                     function error(resp) {
-                        console.log('## ', resp);
                         deferred.reject(resp);
                     }
                 );

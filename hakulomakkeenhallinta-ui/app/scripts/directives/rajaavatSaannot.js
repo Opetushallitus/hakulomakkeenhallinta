@@ -37,7 +37,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     }).result.then(
                         function () {
-                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen ??
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
                             $route.reload();
                         }
                     );
@@ -47,7 +47,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * @param hakukohdeRyhma hakukohderyhmä {}
                  * @param rajoiteRyhma rajoite ryhmän tiedot {}
                  */
-                 //TODO: poisto vaatiin jotain bäkkäriin ei toimi oikein
                 $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, rajoiteRyhma) {
                     $modal.open({
                         templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
@@ -59,18 +58,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             },
                             rajoiteRyhma: function () {
                                 return rajoiteRyhma;
-                            },
-                            lomakepohja: function () {
-                                return $scope.lomakepohja;
                             }
                         }
                     }).result.then(
-                        function (data) {
-                            //TODO: poista/tarkista tämä kun backend tukee tätä
-                            console.log('#### poistettava ryhmä ', data);
-                            $scope.rajoiteRyhmat = _.without($scope.rajoiteRyhmat, data);
-                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen ??
-                            //$route.reload();
+                        function () {
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
+                            $route.reload();
                         }
                     );
                 };
