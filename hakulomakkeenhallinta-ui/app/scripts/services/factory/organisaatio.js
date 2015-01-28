@@ -129,8 +129,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {promise}
              */
             organisaatio.getRajaavatHakukohdeRyhmat = function (organisationOid) {
-                //TODO: poista tämä kun valmiudet olemassa
-                console.log('getRajaavatHakukohdeRyhmat() --->', organisationOid);
                 var deferred = $q.defer();
                 $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid + '/ryhmat').query().$promise.then(
                     function (data) {
@@ -147,8 +145,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * @returns {promise}
              */
             organisaatio.getPriorisoivatHakukohdeRyhmat = function (organisationOid) {
-                //TODO: poista tämä kun valmiudet olemassa
-                console.log('getPriorisoivatHakukohdeRyhmat() --->');
                 var deferred = $q.defer();
                 $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid +'/ryhmat').query().$promise.then(
                     function (data) {

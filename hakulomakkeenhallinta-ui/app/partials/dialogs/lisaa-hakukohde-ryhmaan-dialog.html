@@ -38,6 +38,7 @@
                 </ul>
             </div>
         </div>
+        <alertmsg></alertmsg>
     </div>
 
     <div class="modal-footer">
@@ -45,7 +46,7 @@
             <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
             <button class="btn btn-primary"
                     ng-click="lisaaHakukohteetRyhmaan()"
-                    data-ng-disabled="!enableTallenna"
+                    data-ng-disabled="!enableTallenna || !autentikoitu"
                     tl="tallenna">Tallenna</button>
         </div>
     </div>

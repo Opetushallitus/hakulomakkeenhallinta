@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('priorisoivaHakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, $modal, AlertMsg, TarjontaService, $routeParams) {
+    function (TarjontaAPI, _, $modal, AlertMsg, TarjontaService, $routeParams, $route, $timeout) {
         return {
             restrict: 'E',
             replace: true,
@@ -19,37 +19,25 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  */
                 TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.priorisointiRyhma.oid).then(
                     function (data) {
-                        //TODO: tämä condikseen
-                        console.log('### priorisoivaHakukohdeRyhmaInfo: ',$routeParams.id, $scope.priorisointiRyhma.oid);
                         $scope.hakukohteet = data;
-                        console.log('%%% ', $scope.hakukohteet);
                         $scope.hakukohteidenMaara = $scope.hakukohteet.length;
-
-                        var prioriteettiRyhmat = {}, testIndx = 0;
-
+                        var prioriteettiRyhmat = {};
                         _.each($scope.hakukohteet, function (hakukohde) {
-                                var pri = _.where(hakukohde.ryhmaliitokset, {ryhmaOid:$scope.priorisointiRyhma.oid});
-                                console.log('pri: ', pri, testIndx);
-                                //if (testIndx === 0) {
-                                    //console.log('ei prioriteettiä: ', hakukohde);
-                                if (pri.prioriteetti === undefined) {
+                                var hakukohdePrioriteetti = _.where(hakukohde.ryhmaliitokset, {ryhmaOid: $scope.priorisointiRyhma.oid})[0];
+
+                                if (hakukohdePrioriteetti.prioriteetti === undefined) {
                                     if(prioriteettiRyhmat['priorityundefined'] === undefined) {
                                         prioriteettiRyhmat.priorityundefined = [];
                                     }
                                     prioriteettiRyhmat['priorityundefined'].push(hakukohde);
                                 } else {
-                                    if (prioriteettiRyhmat[pri.prioriteetti] === undefined) {
-                                        prioriteettiRyhmat[pri.prioriteetti] = [];
+                                    if (prioriteettiRyhmat[hakukohdePrioriteetti.prioriteetti] === undefined) {
+                                        prioriteettiRyhmat[hakukohdePrioriteetti.prioriteetti] = [];
                                     }
-                                    prioriteettiRyhmat[pri.prioriteetti].push(hakukohde);
+                                    prioriteettiRyhmat[hakukohdePrioriteetti.prioriteetti].push(hakukohde);
                                 }
-                                /*testIndx += 1;
-                                if(testIndx === 3) {
-                                    testIndx = 0;
-                                }*/
                             }
                         );
-                        console.log('*** ',prioriteettiRyhmat);
                         $scope.hakukohteet = prioriteettiRyhmat;
                         }
                     );
@@ -64,16 +52,23 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $modal.open({
                         templateUrl: 'partials/dialogs/prioriteettien-asettaminen-dialog.html',
                         controller: 'prioriteettienAsettaminenDialogCtrl',
-                        scope: $scope,
                         size: 'lg',
                         resolve: {
-                            hakukohteet: function (){
+                            hakukohteet: function () {
                                 return $scope.hakukohteet;
+                            },
+                            ryhmaOid: function () {
+                                return $scope.priorisointiRyhma.oid;
                             }
                         }
                     }).result.then(
-                        function(data) {
-                            $scope.hakukohteet = data;
+                        function () {
+                            //tarjonnassa prioritteetien tallennuksen ja
+                            //uudelleen haun suhteen viivettä datan indeksoinnista
+                            //johtuen jonkin verran, joten sivun uudelleen lataukseeen
+                            //on laitettu viivettä, mutta silti tieto saattaa olla
+                            //vanhaa,koska indeksoinnin varsinaista kestoa ei voi tietää
+                            $timeout(function () { $route.reload(); }, 5000);
                         }
                     );
                 };

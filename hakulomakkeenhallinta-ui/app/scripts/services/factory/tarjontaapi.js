@@ -193,7 +193,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.haeRyhmanHakukohteet = function (applicationSystemId, hakukohdeRyhmanOid) {
             var deferred = $q.defer();
-            console.log('## ',applicationSystemId, hakukohdeRyhmanOid);
             $http.get(Props.tarjontaAPI + '/hakukohde/search', {
                 params: {
                     organisaatioRyhmaOid: hakukohdeRyhmanOid,
@@ -265,20 +264,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     lisattavat.push(hakukohde);
                 }
             );
-            //TODO: poista logitukset kun ei enään tarpeen
-            console.log('#### TarjontaAPI.lisaaHakukohteetRyhmaan', lisattavat);
-            //deferred.resolve(lisattavat);
-
             $http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate', lisattavat
             ).success(function (data) {
-                    console.log('**** success: ', data);
                     if (data.status === 'OK') {
                         deferred.resolve(data);
                     }else {
                         deferred.reject(data);
                     }
                 }).error(function (resp) {
-                    console.log('**** error: ', resp);
                     deferred.reject(resp);
                 });
             return deferred.promise;
@@ -298,6 +291,26 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 })
                 .error(function (resp) {
+                    deferred.reject(resp);
+                });
+            return deferred.promise;
+        };
+        /**
+         * Asetetaan prioriteetti hakukohderyhmään hakukohteiden prioriteetit
+         * @param ryhmaOid hakukohde ryhmän id
+         * @param hakukohdePrioriteetit hakukohdeOid, prioriteetti olio
+         * @returns {promise}
+         */
+        TarjontaAPI.setHakukohdePrioriteetit = function (ryhmaOid, hakukohdePrioriteetit) {
+            var deferred = $q.defer();
+            $http.post(Props.tarjontaAPI + '/organisaatioryhma/' + ryhmaOid + '/lisaa', hakukohdePrioriteetit)
+                .success(function (data) {
+                    if (data.status === 'OK') {
+                        deferred.resolve(data);
+                    } else {
+                        deferred.reject(data);
+                    }
+                }).error(function (resp) {
                     deferred.reject(resp);
                 });
             return deferred.promise;

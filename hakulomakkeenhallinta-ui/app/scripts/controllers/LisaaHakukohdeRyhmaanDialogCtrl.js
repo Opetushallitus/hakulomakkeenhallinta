@@ -6,14 +6,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.hakukohdeRyhma = hakukohdeRyhma;
         $scope.hakukohteet = [];
         $scope.enableTallenna = false;
+        $scope.autentikoitu = false;
         var lisattavatHakukohteet = [];
 
         TarjontaAPI.checkTarjontaAuthentication().then(
             function success (data) {
-                console.log('***** TARKISTETAAN AUTENTIKAATIO: ', data);
+                $scope.autentikoitu = true;
+                $rootScope.LOGS('Tarkistetaan autentikaatio Tarjontaa success', data);
             },
             function error (resp) {
-                console.log('***** EI OIKEUTTA ', resp);
+                $rootScope.LOGS('Ei oikeutta tarjontaan error', resp);
+                $scope.autentikoitu = false;
                 AlertMsg($scope, 'warning', 'warning.autenkikaatio.ei.onnistunut.tai.puutuvat.oikeudet.tarjonta.palvelu');
             }
         );
@@ -57,9 +60,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         $scope.lisaaHakukohteetRyhmaan = function () {
             if(lisattavatHakukohteet.length !== 0) {
                 TarjontaAPI.lisaaHakukohteetRyhmaan(hakukohdeRyhma, lisattavatHakukohteet).then(
-                    function (data) {
+                    function success (data) {
                         console.log('^^^^ ',data);
-                        $modalInstance.close(data);
+                        $modalInstance.close();
+                    },
+                    function error(resp) {
+                        console.log('EEERRROORRR', resp);
+                        AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
                     }
                 );
             }
