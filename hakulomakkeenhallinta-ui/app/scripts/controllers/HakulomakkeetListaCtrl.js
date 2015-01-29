@@ -62,11 +62,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $location.path("/themeQuestionsByOrganisation/" + applicationSystemForm._id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
         };
         /**
-         * Avataan näkun hakulomakkeen asetuksuun
+         * Avataan näkymä hakulomakkeen asetuksuun
          * @param applicationForm haun ID
          */
         $scope.lomakepohjanAsetukset = function (applicationForm) {
-            console.log(applicationForm);
             $location.path("/applicationSystemFormConfigurations/" + applicationForm._id + '/' + Organisaatio.getUserSelectedOrganisation().oid);
         };
     }

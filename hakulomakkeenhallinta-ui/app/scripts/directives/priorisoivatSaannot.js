@@ -12,8 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
-                //TODO: muuta tämä kun kehitys valmis
-                $scope.naytaLista = true;
+                $scope.naytaLista = false;
                 $scope.toggleLista = function () {
                     $scope.naytaLista = !$scope.naytaLista;
                 };

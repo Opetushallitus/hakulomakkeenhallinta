@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('priorisoivaHakukohdeRyhmaInfo',
-    function ($rootScope, TarjontaAPI, _, $modal, AlertMsg, TarjontaService, $routeParams, $route, $timeout, LocalisationService) {
+    function (TarjontaAPI, _, $modal, AlertMsg, TarjontaService, $routeParams, $route, $timeout, LocalisationService) {
         return {
             restrict: 'E',
             replace: true,
@@ -12,8 +12,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
-                //TODO: vaihda tämä kun kehitys valmis
-                $scope.naytaHakukohdeLista = true;
+                $scope.naytaHakukohdeLista = false;
                 $scope.hakukohteidenMaara = 0;
                 var ryhmanHakukohteet = [];
                 /**
@@ -76,35 +75,32 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
                 };
                 /**
-                 * Poistetaan priorisoiva hakukohderyhmä lomakkeen asetuksista
-                 * tarkoittaa tässä tapauksessa sitä että hakukohderyhmästä
+                 * Avataan dialogi priorisoivan hakukohderyhmän poistamiseksi
+                 * lomakkeen asetuksista.
+                 * Tässä tapauksessa tarkoittaa sitä, että hakukohderyhmästä
                  * poistetaan kaikki siihen liitetyt hakukohteet, jotka
-                 * liittää kyseisen hakukohderyhmän tähän hakuun
+                 * liittää kyseisen hakukohderyhmän tähän hakuun.
+                 * Tallennuspaikka on Tarjonta
                  * @param hakukohdeRyhma
                  */
                 $scope.poistaPriorisoivaHakukohderyhma = function (hakukohdeRyhma) {
-                    console.log('#### ', hakukohdeRyhma.oid, '\n ####');
-                    TarjontaAPI.checkTarjontaAuthentication().then(
-                        function success (data) {
-                            $rootScope.LOGS('Tarkistetaan autentikaatio Tarjontaa success', data);
-                            var poistettavat = _.pluck(ryhmanHakukohteet, 'oid');
-                            console.log('#### ', poistettavat , '\n ####');
-                            TarjontaAPI.poistaHakukohteitaHakukohderyhmasta(hakukohdeRyhma.oid, poistettavat).then(
-                                function success (data) {
-                                    console.log('***** RELOAD PAGE POISTON JÄLKEEN', data);
-                                    $route.reload();
-                                }, function error (resp) {
-                                    console.log('***** ', resp);
-                                    AlertMsg($scope, 'error', 'error.poisto.epaonnistui');
-                                }
-                            );
-                        },
-                        function error (resp) {
-                            $rootScope.LOGS('Ei oikeutta tarjontaan error', resp);
-                            AlertMsg($scope, 'warning', 'warning.autenkikaatio.ei.onnistunut.tai.puutuvat.oikeudet.tarjonta.palvelu');
+                    $modal.open({
+                        templateUrl: 'partials/dialogs/poista-priorisoiva-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
+                        controller: 'PoistaPriorisoivaHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
+                        resolve: {
+                            hakukohdeRyhma: function () {
+                              return hakukohdeRyhma;
+                            },
+                            poistettavat: function (){
+                                var poistettavat = _.pluck(ryhmanHakukohteet, 'oid');
+                                return poistettavat;
+                            }
+                        }
+                    }).result.then(
+                        function () {
+                            $route.reload();
                         }
                     );
-
                 };
                 /**
                  * avataan dialogi lisätään hakukohde ryhmään
