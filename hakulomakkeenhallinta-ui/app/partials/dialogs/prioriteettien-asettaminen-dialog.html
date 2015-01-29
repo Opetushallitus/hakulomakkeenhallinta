@@ -9,11 +9,9 @@
         <h1>{{applicationForm | i18n:'name':userLang }}</h1>
 
         <alertmsg></alertmsg>
-
+        <a data-ng-click="lisaaPrioriteetti()">Lisää prioriteetti <i class="glyphicon glyphicon-plus"></i></a>
         <div data-ng-repeat="(priority, prioriteettiHakukohdeRyhma) in hakukohteet" >
-            <a data-ng-if="priority === 'priorityundefined'"
-               data-ng-click="lisaaPrioriteetti()">Lisää prioriteetti <i class="glyphicon glyphicon-plus"></i>
-            </a>
+
             <div style="border: solid #b7b7b7 1px; padding: 5px; margin: 5px 0;">
                 <h4 data-ng-if="priority !== 'priorityundefined'">Prioriteetti: {{priority}}</h4>
                 <h4 data-ng-if="priority === 'priorityundefined'">Ei asetettua prioriteettia</h4>

@@ -2,7 +2,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('prioriteettienAsettaminenDialogCtrl',
     function ($rootScope, $scope, $modalInstance, hakukohteet, _, ryhmaOid, TarjontaAPI, AlertMsg, LocalisationService) {
 
-        $scope.hakukohteet = hakukohteet;
+        $scope.hakukohteet = _.clone(hakukohteet);
         var priorityKeys = _.keys(hakukohteet);
         $scope.autentikoitu = false;
 
@@ -74,7 +74,11 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             var prios = _.without(priorityKeys, 'priorityundefined');
             prios = _.sortBy(prios, function(priority) {return parseInt(priority)});
             var last = _.last(prios);
-            $scope.hakukohteet[parseInt(last) + 1] = [];
+            if (last === undefined) {
+                $scope.hakukohteet[1] = [];
+            } else {
+                $scope.hakukohteet[parseInt(last) + 1] = [];
+            }
             priorityKeys = _.keys($scope.hakukohteet);
         };
         /**
