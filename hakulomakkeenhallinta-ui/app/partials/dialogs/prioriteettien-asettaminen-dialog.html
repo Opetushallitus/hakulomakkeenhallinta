@@ -1,6 +1,6 @@
 <form class="modal-dialog-border" role="form">
     <div class="modal-header">
-        <h4>Muokkaa hakukohteiden prioriteetteja</h4>
+        <h4 tl="muokkaa.hakukohteiden.prioriteetteja">Muokkaa hakukohteiden prioriteetteja</h4>
     </div>
 
 
@@ -9,12 +9,12 @@
         <h1>{{applicationForm | i18n:'name':userLang }}</h1>
 
         <alertmsg></alertmsg>
-        <a data-ng-click="lisaaPrioriteetti()">Lisää prioriteetti <i class="glyphicon glyphicon-plus"></i></a>
+        <a data-ng-click="lisaaPrioriteetti()">{{ t('lisaa.prioriteetti') || 'Lisää prioriteetti' }} <i class="glyphicon glyphicon-plus"></i></a>
         <div data-ng-repeat="(priority, prioriteettiHakukohdeRyhma) in hakukohteet" >
 
             <div style="border: solid #b7b7b7 1px; padding: 5px; margin: 5px 0;">
-                <h4 data-ng-if="priority !== 'priorityundefined'">Prioriteetti: {{priority}}</h4>
-                <h4 data-ng-if="priority === 'priorityundefined'">Ei asetettua prioriteettia</h4>
+                <h4 data-ng-if="priority !== 'priorityundefined'">{{ t('prioriteetti') || 'Prioriteetti' }}: {{priority}}</h4>
+                <h4 data-ng-if="priority === 'priorityundefined'">{{ t('ei.asetettua.prioriteettia') || 'Ei asetettua prioriteettiä' }}</h4>
                 <div style="width: auto; font-size: 14px; font-weight: bold;">
                     <div style="width: 8%; display: inline-block; vertical-align: top;"></div>
                     <div style="width: 44%; display: inline-block;">

@@ -19,6 +19,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.naytaHakukohdeLista = false;
                 $scope.hakukohteidenMaara = 0;
                 $scope.hakukohdeRyhma = {};
+                var ryhmanHakukohteet  = [];
                 Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupId).then(
                     function (data) {
                         $scope.hakukohdeRyhma = data;
@@ -26,6 +27,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 );
                 TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.rajoiteRyhma.groupId).then(
                     function (data) {
+                        ryhmanHakukohteet = data;
                         $scope.hakukohteet = $filter('orderBy')(data, 'nimi.' + $scope.userLang, false);
                         $scope.hakukohteidenMaara = $scope.hakukohteet.length;
                     }
@@ -75,6 +77,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  */
                 $scope.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
                     TarjontaService.poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde);
+                };
+                /**
+                 * avataan dialogi hakukohteiden poistamiseksi hakukohderyhmasta
+                 * @param hakukohdeRyhma
+                 */
+                $scope.poistaHakukohteitaRyhmasta = function (hakukohdeRyhma) {
+                    TarjontaService.poistaHakukohteitaRyhmasta(hakukohdeRyhma, ryhmanHakukohteet);
                 };
             }
         };

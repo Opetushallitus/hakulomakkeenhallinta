@@ -52,5 +52,31 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 }
             );
         };
+         /**
+         * avataan poisto dialogi poista useita hakukohteita hakukohderyhmasta
+         * näiden tietojen tallennus paikka on tarjonta
+         * @param hakukohdeRyhma
+         * @param hakukohteet ryhmässä olevat hakukohteet taulukko
+         */
+        this.poistaHakukohteitaRyhmasta = function (hakukohdeRyhma, ryhmanHakukohteet) {
+            $rootScope.LOGS('poistaHakukohteitaRyhmasta', hakukohdeRyhma, ryhmanHakukohteet);
+            $modal.open({
+                templateUrl: 'partials/dialogs/poista-hakukohteita-ryhmasta-dialog.html',
+                controller: 'PoistaHakukohteitaRyhmastaDialogCtrl',
+                size: 'lg',
+                resolve: {
+                    hakukohdeRyhma: function () {
+                        return hakukohdeRyhma;
+                    },
+                    ryhmanHakukohteet: function () {
+                        return ryhmanHakukohteet;
+                    }
+                }
+            }).result.then(
+                function () {
+                    $route.reload();
+                }
+            );
+        };
     }
 );

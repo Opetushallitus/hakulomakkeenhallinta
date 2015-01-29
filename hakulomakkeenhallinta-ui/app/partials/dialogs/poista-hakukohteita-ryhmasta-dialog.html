@@ -1,6 +1,6 @@
 <form class="modal-dialog-border hh-form-conf" role="form">
     <div class="modal-header">
-        <h4 tl="lisaa.hakukohde.ryhmaan">Lisää hakukohde ryhmään</h4>
+        <h4>Poista hakukohteita ryhmästä</h4>
     </div>
 
     <div class="modal-body">
@@ -24,7 +24,7 @@
                     <li data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde">
                         <div style="width: auto; border-bottom: dashed #b7b7b7 1px;">
                             <div style="width: 3%; display: inline-block;">
-                                <input type="checkbox" data-ng-change="paivitaLisattavienListaa(hakukohde.oid, hakukohdeChecked)"
+                                <input type="checkbox" data-ng-change="paivitaPoistettavienListaa(hakukohde.oid, hakukohdeChecked)"
                                        data-ng-model="hakukohdeChecked" value="{{hakukohde.oid}}">
                             </div>
                             <div style="width: 48%; display: inline-block; vertical-align: top;">
@@ -38,16 +38,14 @@
                 </ul>
             </div>
         </div>
-        <alertmsg></alertmsg>
     </div>
 
     <div class="modal-footer">
         <div class="form-group pull-right">
             <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
             <button class="btn btn-primary"
-                    ng-click="lisaaHakukohteetRyhmaan()"
-                    data-ng-disabled="!enableTallenna || !autentikoitu"
-                    tl="tallenna">Tallenna</button>
+                    ng-click="poista()"
+                    data-ng-disabled="!poistoEiOnnistu || !autentikoitu" tl="poista">Poista</button>
         </div>
     </div>
 </form>

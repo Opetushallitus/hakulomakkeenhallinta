@@ -120,6 +120,13 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.t = function (key) {
                     return LocalisationService.tl(key);
                 };
+                /**
+                 * avataan dialogi hakukohteiden poistamiseksi hakukohderyhmasta
+                 * @param hakukohdeRyhma
+                 */
+                $scope.poistaHakukohteitaRyhmasta = function (hakukohdeRyhma) {
+                    TarjontaService.poistaHakukohteitaRyhmasta(hakukohdeRyhma, ryhmanHakukohteet);
+                };
 
             }
         };

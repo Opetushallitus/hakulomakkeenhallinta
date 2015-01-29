@@ -17,6 +17,9 @@
                 <li data-ng-click="lisaaHakukohdeRyhmaan(priorisointiRyhma)">
                     <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
+                <li data-ng-click="poistaHakukohteitaRyhmasta(priorisointiRyhma)">
+                    <a>{{ t('poista.hakukohteita') || 'Poista hakukohteita' }} <i class="glyphicon glyphicon-remove"></i></a>
+                </li>
                 <li data-ng-click="poistaPriorisoivaHakukohderyhma(priorisointiRyhma)">
                     <a>{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></a>
                 </li>
@@ -33,7 +36,7 @@
     </div>
     <div data-ng-show="naytaHakukohdeLista">
         <div data-ng-repeat="(level, prioriteettiRyhma) in hakukohteet">
-            <span data-ng-if="level === 'priorityundefined'" style="font-size: 14px; font-weight: bold; padding-left: 30px;">Ei asetettua prioriteettia </span>
+            <span data-ng-if="level === 'priorityundefined'" style="font-size: 14px; font-weight: bold; padding-left: 30px;">{{ t('ei.asetettua.prioriteettia') || 'Ei asetettua prioriteettiä' }} </span>
             <span data-ng-if="level !== 'priorityundefined'" style="font-size: 14px; font-weight: bold; padding-left: 30px;">{{ t('prioriteetti') || 'Prioriteetti' }}: {{level}}</span>
             <ul>
                 <li data-ng-repeat="hakukohde in prioriteettiRyhma" class="hh-hakukohde">

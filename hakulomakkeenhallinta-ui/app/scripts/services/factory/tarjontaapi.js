@@ -166,7 +166,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
             return deferred.promise;
         };
-
         /**
          * Suodatetaan hakuun liittyvistä ryhmistä rajaavat ja priorisoivat
          * hakukohderyhmät ja haetaan organisaatio palvelusta niiden tiedot
