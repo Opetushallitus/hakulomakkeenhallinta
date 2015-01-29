@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('priorisoivaHakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, $modal, AlertMsg, TarjontaService, $routeParams, $route, $timeout) {
+    function ($rootScope, TarjontaAPI, _, $modal, AlertMsg, TarjontaService, $routeParams, $route, $timeout, LocalisationService) {
         return {
             restrict: 'E',
             replace: true,
@@ -12,14 +12,17 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
-                $scope.naytaHakukohdeLista = false;
+                //TODO: vaihda tämä kun kehitys valmis
+                $scope.naytaHakukohdeLista = true;
                 $scope.hakukohteidenMaara = 0;
+                var ryhmanHakukohteet = [];
                 /**
                  * haetaan haussa olevan ryhmän hakukohteet
                  */
                 TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.priorisointiRyhma.oid).then(
                     function (data) {
                         $scope.hakukohteet = data;
+                        ryhmanHakukohteet = data;
                         $scope.hakukohteidenMaara = $scope.hakukohteet.length;
                         var prioriteettiRyhmat = {};
                         _.each($scope.hakukohteet, function (hakukohde) {
@@ -73,6 +76,37 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
                 };
                 /**
+                 * Poistetaan priorisoiva hakukohderyhmä lomakkeen asetuksista
+                 * tarkoittaa tässä tapauksessa sitä että hakukohderyhmästä
+                 * poistetaan kaikki siihen liitetyt hakukohteet, jotka
+                 * liittää kyseisen hakukohderyhmän tähän hakuun
+                 * @param hakukohdeRyhma
+                 */
+                $scope.poistaPriorisoivaHakukohderyhma = function (hakukohdeRyhma) {
+                    console.log('#### ', hakukohdeRyhma.oid, '\n ####');
+                    TarjontaAPI.checkTarjontaAuthentication().then(
+                        function success (data) {
+                            $rootScope.LOGS('Tarkistetaan autentikaatio Tarjontaa success', data);
+                            var poistettavat = _.pluck(ryhmanHakukohteet, 'oid');
+                            console.log('#### ', poistettavat , '\n ####');
+                            TarjontaAPI.poistaHakukohteitaHakukohderyhmasta(hakukohdeRyhma.oid, poistettavat).then(
+                                function success (data) {
+                                    console.log('***** RELOAD PAGE POISTON JÄLKEEN', data);
+                                    $route.reload();
+                                }, function error (resp) {
+                                    console.log('***** ', resp);
+                                    AlertMsg($scope, 'error', 'error.poisto.epaonnistui');
+                                }
+                            );
+                        },
+                        function error (resp) {
+                            $rootScope.LOGS('Ei oikeutta tarjontaan error', resp);
+                            AlertMsg($scope, 'warning', 'warning.autenkikaatio.ei.onnistunut.tai.puutuvat.oikeudet.tarjonta.palvelu');
+                        }
+                    );
+
+                };
+                /**
                  * avataan dialogi lisätään hakukohde ryhmään
                  * @param hakukohdeRyhma
                  */
@@ -86,6 +120,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  */
                 $scope.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
                     TarjontaService.poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde);
+                };
+                $scope.t = function (key) {
+                    return LocalisationService.tl(key);
                 };
 
             }

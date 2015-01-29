@@ -17,8 +17,12 @@
                 <li data-ng-click="lisaaHakukohdeRyhmaan(priorisointiRyhma)">
                     <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
+                <li data-ng-click="poistaPriorisoivaHakukohderyhma(priorisointiRyhma)">
+                    <a>{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></a>
+                </li>
             </ul>
         </div>
+        <alertmsg style="font-size: 12px !important;"></alertmsg>
         <div style="width: auto; font-size: 14px; font-style: normal;" data-ng-show="naytaHakukohdeLista">
             <div style="width: 48%; display: inline-block; padding-left: 30px;">
                 {{ t('hakukohde') || 'Hakukohde' }} ({{hakukohteidenMaara}})

@@ -315,6 +315,26 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 });
             return deferred.promise;
         };
+         /**
+         * Asetetaan prioriteetti hakukohderyhmään hakukohteiden prioriteetit
+         * @param ryhmaOid hakukohde ryhmän id
+         * @param hakukohteet [] taulukko poistettavista hakukohde oideista
+         * @returns {promise}
+         */
+        TarjontaAPI.poistaHakukohteitaHakukohderyhmasta = function (ryhmaOid, hakukohteet) {
+            var deferred = $q.defer();
+            $http.post(Props.tarjontaAPI + '/organisaatioryhma/' + ryhmaOid + '/poista', hakukohteet)
+                .success(function (data) {
+                    if (data.status === 'OK') {
+                        deferred.resolve(data);
+                    } else {
+                        deferred.reject(data);
+                    }
+                }).error(function (resp) {
+                    deferred.reject(resp);
+                });
+            return deferred.promise;
+        };
         return TarjontaAPI;
     }
 );
