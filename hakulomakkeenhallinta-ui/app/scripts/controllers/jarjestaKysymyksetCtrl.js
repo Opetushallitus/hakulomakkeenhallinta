@@ -50,7 +50,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                                 }
                             );
                         } else {
-                            console.log('data', data);
                             data = _.filter(data, function (jatkoQs) {
                                 if (jatkoQs.parentId === question._id && jatkoQs.followupCondition === option.id) {
                                     return jatkoQs;

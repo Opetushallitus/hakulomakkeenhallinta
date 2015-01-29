@@ -64,7 +64,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                      * @param themeId
                      */
                     $scope.sortQuestions = function (themeId, hakukohdeOid) {
-                        console.log('Järjestä kysymykset: ', $routeParams.id, hakukohdeOid, themeId, $routeParams.oid);
+                        $rootScope.LOGS('Järjestä kysymykset: ', $routeParams.id, hakukohdeOid, themeId, $routeParams.oid);
                         ThemeQuestions.getThemeQuestionByThemeLop($routeParams.id, hakukohdeOid, themeId, $routeParams.oid).then(
                             function success(data) {
                                 $scope.hakukohde.additionalQuestions = _.sortBy(_.map(data, function (aq) { if (aq.hasOwnProperty('_id')) return aq; }),
@@ -72,7 +72,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                         return d.ordinal;
                                     }
                                 );
-                                console.log('järjestättävät kysymykset: ', $scope.hakukohde.additionalQuestions);
+                                $rootScope.LOGS('järjestättävät kysymykset: ', $scope.hakukohde.additionalQuestions);
                                 orderQuestions = $scope.hakukohde.additionalQuestions;
                                 _.each(data, function (question) {
                                         ordinals[question._id] = {};

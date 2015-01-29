@@ -61,11 +61,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             if(lisattavatHakukohteet.length !== 0) {
                 TarjontaAPI.lisaaHakukohteetRyhmaan(hakukohdeRyhma, lisattavatHakukohteet).then(
                     function success (data) {
-                        console.log('^^^^ ',data);
                         $modalInstance.close();
                     },
                     function error(resp) {
-                        console.log('EEERRROORRR', resp);
                         AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
                     }
                 );

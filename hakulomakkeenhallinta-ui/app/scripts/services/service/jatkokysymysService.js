@@ -17,7 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                     controller: 'jatkoKysymysDialogCtrl',
                     scope: jatkokysymysObj.scope
                 }).result.then(function (data) {
-                        console.log('Jatkokysymys dialogin tuottama data: ', data);
+                        $rootScope.LOGS('Jatkokysymys dialogin tuottama data: ', data);
                         jatkokysymysObj.kysymykset = data;
                     }
                 );
