@@ -105,6 +105,46 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             return deferred.promise;
         };
         /**
+         * Hakee kayttäjän organisaation hakukohteisiin perustuen
+         * ne hakukohdejoukot ja ryhmät joihin käyttäjä
+         * voi kuulua
+         * @param applicationOptions käyttäjän hakukohteet
+         * @returns {promise}
+         */
+        function getHakukohdeJoukot(applicationOptions) {
+            var deferred = $q.defer();
+            var hakukohteet = [];
+            var hakukohdeOids = _.chain(applicationOptions)
+                .map(function (hakuorganisaationHakukohteet) { return hakuorganisaationHakukohteet.tulokset; })
+                .flatten()
+                .map(function (hakukohde) { return hakukohde.oid; })
+                .value();
+
+            _.each(hakukohdeOids, function (oid) {
+                    hakukohteet.push(TarjontaAPI.fetchHakukohdeInfo(oid));
+                }
+            );
+
+            $q.all(hakukohteet).then(
+                function (data) {
+                    var organisaatiot = _.chain(data)
+                        .pluck('organisaatioRyhmaOids')
+                        .flatten(true)
+                        .uniq()
+                        .without(undefined)
+                        .map(function (ryhmaOid) { return Organisaatio.getOrganisationData(ryhmaOid); })
+                        .value();
+
+                    $q.all(organisaatiot).then(
+                        function (groups) {
+                            deferred.resolve(groups);
+                        }
+                    );
+                }
+            );
+            return deferred.promise;
+        };
+        /**
          * Haetaan hakuun liittyvät priorisoivat ja rajavaavat hakukohderyhmät
          * sekä kyseisten hakukohderyhmien tiedot
          * @param hakuOid
@@ -126,6 +166,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
             return deferred.promise;
         };
+
         /**
          * Suodatetaan hakuun liittyvistä ryhmistä rajaavat ja priorisoivat
          * hakukohderyhmät ja haetaan organisaatio palvelusta niiden tiedot
@@ -315,7 +356,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 });
             return deferred.promise;
         };
-         /**
+        /**
          * Asetetaan prioriteetti hakukohderyhmään hakukohteiden prioriteetit
          * @param ryhmaOid hakukohde ryhmän id
          * @param hakukohteet [] taulukko poistettavista hakukohde oideista
