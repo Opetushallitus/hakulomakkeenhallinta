@@ -25,10 +25,10 @@
                                 <ul class="hh-hierarkia-list" data-ng-if="question.attachmentRequests.length >0">
                                     <li data-ng-repeat="liitepyynto in question.attachmentRequests">
                                         <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
-                                            {{liitepyynto | i18n:'header':userLang}} <b>osoitteeseen:</b>
+                                            {{liitepyynto | i18n:'header':userLang}} <b>{{ t('osoitteeseen') || 'osoitteeseen' }}:</b>
                                             <span data-ng-show="!liitepyynto.useGroupAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
-                                            <span data-ng-show="liitepyynto.useGroupAddress"> Liitteiden toimitukseen käytetään ryhmän osoitetta. </span>
-                                            <b>toimitettava mennessä:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>klo:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
+                                            <span data-ng-show="liitepyynto.useGroupAddress"> {{ t('toimitus.osoite.ryhma') || 'Liitteiden toimitukseen käytetään ryhmän osoitetta.' }} </span>
+                                            <b>{{ t('toimitettava.mennessa') || 'toimitettava mennessä' }}:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>{{ t('klo') || 'klo' }}:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
                                         </div>
                                     </li>
                                 </ul>

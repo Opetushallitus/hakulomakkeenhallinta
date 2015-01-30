@@ -6,29 +6,10 @@
 
 <h1>{{ t('hakukohdekohtaiset.lisakysymykset') || 'Hakukohdekohtaiset lisäkysymykset' }} ({{haunNimi}})</h1>
 <loading-page></loading-page>
-<!--data-ng-show="userOrganisations.length > 1"-->
 
 <user-organisation-select></user-organisation-select>
-
-<!--<select  class="form-control"
-        style="width: 300px;" name="organisaatio" id="organisation" ng-model="userOrg"
-        data-ng-options="org.nimi[userLang] for org in userOrganisations" data-ng-change="vaihdaOrganisaatio(userOrg)">
-    <option value="">{{ t('valitse.organisaatio') || 'Valitse organisaatio' }}</option>
-</select>-->
-<!--<span data-ng-if="userOrganisations.length === 1"
-      style="width: 300px; font-size: 16px;">{{userOrganisations[0].nimi[userLang]}}</span>-->
-
-<!--<tabset>
-    <tab heading="{{ t('lisakysymykset.teemakohtaisesti')|| 'Teemakohtaisesti' }}">-->
 
 <br>
 <hr>
 <ng-include src="'partials/lisakysymykset/lisakysymyslista-teemakohtaisesti.html'"/>
-<!--</tab>
-<tab heading="{{ t('lisakysymykset.hakukohdekohtaisesti') || 'Hakukohdekohtaisesti' }}">
-    <br>
-    <ng-include src="'partials/lisakysymykset/lisakysymyslista-hakukohdekohtaisesti.html'"/>
-</tab>
-</tabset>
-<br>-->
 

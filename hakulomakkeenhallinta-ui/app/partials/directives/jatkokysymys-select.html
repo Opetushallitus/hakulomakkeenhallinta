@@ -4,7 +4,7 @@
                 ng-options="jatkokysymys | i18n:'messageText':userLang for jatkokysymys in jatkokysymysLista[$index].vastauksenJatkoKysymykset"
                 data-ng-change="valittuJatkoKysymys(valittujatkokysymys, $index)"
                 data-ng-disabled="!vastaus">
-            <option value="">Valitse kysymys</option>
+            <option value="">{{ t('valitse.kysymys') || 'Valitse kysymys' }}</option>
         </select>
     </div>
     <div class="col-md-1">
