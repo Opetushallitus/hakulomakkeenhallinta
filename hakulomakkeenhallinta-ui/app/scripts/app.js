@@ -54,8 +54,6 @@ app.config(['$routeProvider',
 
 app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
-    // Tarjonta does not accept the application/json;charset=utf-8 (should accept because value caseinsensitive)
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }]);
 
