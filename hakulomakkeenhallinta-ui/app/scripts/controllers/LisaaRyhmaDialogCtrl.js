@@ -1,7 +1,7 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRyhmaDialogCtrl',
-    function ($rootScope, $scope, $modalInstance, kayttoTarkoitus, organisaatioOid, Organisaatio, LocalisationService, AlertMsg) {
+    function ($rootScope, $scope, $routeParams, $modalInstance, kayttoTarkoitus, organisaatioOid, Organisaatio, LocalisationService, AlertMsg, ApplicationFormConfiguration) {
         $scope.kayttoTarkoitus = kayttoTarkoitus;
         $scope.organisaatioOid = organisaatioOid;
         $scope.infoMsg = '';
@@ -49,7 +49,18 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             Organisaatio.lisaaRyhmaOrganisaatioPalveluun(ryhma).then(
                 function success (data) {
-                    $modalInstance.close();
+                    var tallennettuRyhma = {
+                        groupId: data.organisaatio.oid,
+                        type: kayttoTarkoitus
+                    };
+                    ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, tallennettuRyhma).then(
+                        function success (data) {
+                            $modalInstance.close();
+                        },
+                        function error (resp) {
+                            AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
+                        }
+                    );
                 },
                 function error (resp){
                     $rootScope.LOGS('LisaaRyhmaDialogCtrl', 'talennaRyhma()', resp);
