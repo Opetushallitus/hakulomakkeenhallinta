@@ -36,7 +36,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         })
                         .flatten()
                         .value();
-                    $scope.hakukohteet = $filter('orderBy')($scope.hakukohteet, 'nimi.' + userLang, false);
+                    $scope.hakukohteet = $filter('orderBy')($scope.hakukohteet, function(kohde) { return $filter('hakukohdeNimi')(kohde, $scope.userLang)}, false);
                 }
             }
         );
