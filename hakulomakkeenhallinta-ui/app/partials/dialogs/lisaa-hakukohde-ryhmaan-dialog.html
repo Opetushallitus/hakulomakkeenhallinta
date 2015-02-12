@@ -5,6 +5,13 @@
 
     <div class="modal-body">
         <alertmsg></alertmsg>
+        <div class="form-group pull-right">
+            <button class="btn " ng-click="cancel()" tl="peruuta">Peruuta</button>
+            <button class="btn btn-primary"
+                    ng-click="lisaaHakukohteetRyhmaan()"
+                    data-ng-disabled="!enableTallenna || !autentikoitu"
+                    tl="tallenna">Tallenna</button>
+        </div>
         <div>
             <h4>{{hakukohdeRyhma | hakukohdeNimi:userlang}}</h4>
             <br>
