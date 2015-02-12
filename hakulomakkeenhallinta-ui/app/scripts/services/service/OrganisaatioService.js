@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.services.service')
     .service('OrganisaatioService',
-    function ($rootScope, $modal) {
+    function ($rootScope, $modal, $route) {
         /**
          * avataam dialogi uuden ryhmän luomiseksi organisaatio palveluun
          * @param kayttoTarkoitus ryhmän kayttö tarkoitus
@@ -21,7 +21,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                         return organisaatioOid;
                     }
                 }
-            });
+            }).result.then(
+                function () {
+                    //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
+                    $route.reload();
+                }
+            );
         };
     }
 );
