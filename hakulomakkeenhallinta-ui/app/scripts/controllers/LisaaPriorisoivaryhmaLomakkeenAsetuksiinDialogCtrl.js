@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaPriorisoivaryhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, priorisointiRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService) {
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, priorisointiRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService, NavigationTreeStateService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         $scope.starLoad = true;
@@ -31,6 +31,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          * on tarjonta palvelu.
          */
         $scope.lisaaPriorisoivaryhmaLomakkeenAsetuksiin = function () {
+                NavigationTreeStateService.setNodeState($scope.hakukohderyhma.oid, true);
                 $modalInstance.close();
                 TarjontaService.lisaaHakukohdeRyhmaan($scope.hakukohderyhma, $scope.userLang);
         };

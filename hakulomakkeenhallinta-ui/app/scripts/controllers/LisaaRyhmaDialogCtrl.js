@@ -1,7 +1,7 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRyhmaDialogCtrl',
-    function ($rootScope, $scope, $routeParams, $modalInstance, kayttoTarkoitus, organisaatioOid, Organisaatio, LocalisationService, TarjontaService, AlertMsg, ApplicationFormConfiguration) {
+    function ($rootScope, $scope, $routeParams, $modalInstance, kayttoTarkoitus, organisaatioOid, Organisaatio, LocalisationService, TarjontaService, NavigationTreeStateService, AlertMsg, ApplicationFormConfiguration) {
         $scope.kayttoTarkoitus = kayttoTarkoitus;
         $scope.organisaatioOid = organisaatioOid;
         $scope.infoMsg = '';
@@ -49,6 +49,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             Organisaatio.lisaaRyhmaOrganisaatioPalveluun(ryhma).then(
                 function success (data) {
+                    NavigationTreeStateService.setNodeState(data.organisaatio.oid, true);
                     if(kayttoTarkoitus === "hakukohde_priorisoiva") {
                         $modalInstance.close();
                         TarjontaService.lisaaHakukohdeRyhmaan(data.organisaatio, $scope.userLang);

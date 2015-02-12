@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRajoiteryhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, LocalisationService) {
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, LocalisationService, NavigationTreeStateService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         $scope.valittuRyhma = {};
@@ -31,6 +31,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             valittuHakukohdeRyhma.type = 'hakukohde_rajaava';
             ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma).then(
                 function success (data) {
+                    NavigationTreeStateService.setNodeState(valittuHakukohdeRyhma.groupId, true);
                     $modalInstance.close();
                 },
                 function error (resp) {
