@@ -53,5 +53,16 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory',[])
             return deferred.promise;
         };
 
+        myroles.lomakepohjaChangeRightCheck = function () {
+            var deferred = $q.defer();
+            getMyRoles().then(
+                function (data) {
+                    var access = _.some(data.myroles, function (hhaccess) { return hhaccess.match('APP_HAKULOMAKKEENHALLINTA_LOMAKEPOHJANVAIHTO'); });
+                    deferred.resolve(access);
+                }
+            );
+            return deferred.promise;
+        };
+
         return myroles;
     }]);

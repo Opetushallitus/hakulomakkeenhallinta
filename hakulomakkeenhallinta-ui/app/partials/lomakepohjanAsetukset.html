@@ -11,7 +11,7 @@
 
 <div>
     <h2>{{ t('lomakepohjan.asetukset') || 'Lomakepohjan asetukset'}}</h2>
-    <button class="btn pull-right" style="margin-top: -32px;" data-ng-click="vaihdaLomakepohja()"
+    <button data-ng-show="lomakepohjaChangeAllowed" class="btn pull-right" style="margin-top: -32px;" data-ng-click="vaihdaLomakepohja()"
             tl="vaihda.lomakepohja">Vaihda lomakepohja </button>
     <hr>
 

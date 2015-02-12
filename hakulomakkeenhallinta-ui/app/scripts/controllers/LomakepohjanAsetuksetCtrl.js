@@ -2,13 +2,19 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LomakepohjanAsetuksetCtrl',
-        function ($rootScope, $scope, TarjontaAPI, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route) {
+        function ($rootScope, $scope, MyRoles, TarjontaAPI, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route) {
             $rootScope.LOGS('lomakepohjanAsetuksetCtrl');
             $scope.applicationForm = {};
             $scope.lomakepohjat = [];
             $scope.lomakepohja = {};
             $scope.rajoiteRyhmat = [];
             $scope.priorisointiRyhmat = [];
+
+            MyRoles.lomakepohjaChangeRightCheck().then(
+                function (data) {
+                    $scope.lomakepohjaChangeAllowed = data === true;
+                }
+            );
             /**
              * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
              */
