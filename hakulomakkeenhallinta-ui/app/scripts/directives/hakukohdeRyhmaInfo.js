@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, $modal, $filter, $routeParams, $route) {
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route) {
         return {
             restrict: 'E',
             replace: true,
@@ -16,7 +16,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             link: function ($scope) {
-                $scope.naytaHakukohdeLista = false;
+                $scope.naytaHakukohdeLista = function(){
+                    return NavigationTreeStateService.showNode($scope.rajoiteRyhma.groupId)
+                };
                 $scope.hakukohteidenMaara = 0;
                 $scope.hakukohdeRyhma = {};
                 var ryhmanHakukohteet  = [];
@@ -34,7 +36,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 );
 
                 $scope.toggleNaytaHakukohteet = function () {
-                    $scope.naytaHakukohdeLista = !$scope.naytaHakukohdeLista;
+                    NavigationTreeStateService.toggleNodeState($scope.rajoiteRyhma.groupId)
                 };
                 /**
                  * Avataan dialogi hakukohderyhmän hakukohteiden rajoitusten asettamiseksi

@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('rajaavatSaannot',
-    function ($rootScope, ApplicationFormConfiguration, $routeParams, $filter, _, $modal, AlertMsg, OrganisaatioService, Organisaatio, $route) {
+    function ($rootScope, ApplicationFormConfiguration, $routeParams, $filter, _, $modal, AlertMsg, OrganisaatioService, NavigationTreeStateService, Organisaatio, $route) {
         return {
             restrict: 'E',
             replace: true,
@@ -12,9 +12,11 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
-                $scope.naytaLista = false;
+                $scope.naytaLista = function(){
+                    return NavigationTreeStateService.showNode("rajaavat-saannot");
+                }
                 $scope.toggleLista = function () {
-                    $scope.naytaLista = !$scope.naytaLista;
+                    return NavigationTreeStateService.toggleNodeState("rajaavat-saannot");
                 };
                  /**
                  * Avataan dialogi rajoittavien hakukohderyhmien lisäämiseksi

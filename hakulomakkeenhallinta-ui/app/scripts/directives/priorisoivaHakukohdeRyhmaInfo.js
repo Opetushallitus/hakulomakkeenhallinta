@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('priorisoivaHakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, $modal, AlertMsg, TarjontaService, $routeParams, $route, $timeout, LocalisationService) {
+    function (TarjontaAPI, _, $modal, AlertMsg, TarjontaService, NavigationTreeStateService, $routeParams, $route, $timeout, LocalisationService) {
         return {
             restrict: 'E',
             replace: true,
@@ -12,7 +12,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
-                $scope.naytaHakukohdeLista = false;
+                $scope.naytaHakukohdeLista = function(){
+                    return NavigationTreeStateService.showNode($scope.priorisointiRyhma.oid)
+                };
                 $scope.hakukohteidenMaara = 0;
                 var ryhmanHakukohteet = [];
                 /**
@@ -45,7 +47,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
 
                 $scope.toggleNaytaHakukohteet = function () {
-                    $scope.naytaHakukohdeLista = !$scope.naytaHakukohdeLista;
+                    NavigationTreeStateService.toggleNodeState([$scope.priorisointiRyhma.oid])
                 };
                 /**
                  * Avataan dialogi priorisointien muuttamiseksi

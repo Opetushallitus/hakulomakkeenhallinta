@@ -1,6 +1,6 @@
 <div>
     <div class="hh-list-h3">
-        <i data-ng-class="{'hh-icon-right':!naytaLista, 'hh-icon-down':naytaLista}" data-ng-click="toggleLista()"></i>
+        <i data-ng-class="{'hh-icon-right':!naytaLista(), 'hh-icon-down':naytaLista()}" data-ng-click="toggleLista()"></i>
         <a data-ng-click="toggleLista()"> {{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Rajaavat hakukohderyhmät'}}
         </a>
 
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="hh-form-conf" style="padding-left: 30px;" data-ng-show="naytaLista">
+    <div class="hh-form-conf" style="padding-left: 30px;" data-ng-show="naytaLista()">
         <ul>
             <li data-ng-repeat="rajoiteRyhma in rajoiteRyhmat" class="hh-hakukohde">
                 <hakukohde-ryhma-info rajoite-ryhma="rajoiteRyhma"

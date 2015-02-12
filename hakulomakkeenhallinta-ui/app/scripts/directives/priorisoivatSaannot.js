@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('priorisoivatSaannot',
-    function ($rootScope, OrganisaatioService, Organisaatio, $modal) {
+    function ($rootScope, OrganisaatioService, NavigationTreeStateService, Organisaatio, $modal) {
         return {
             restrict: 'E',
             replace: true,
@@ -12,9 +12,11 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
-                $scope.naytaLista = false;
+                $scope.naytaLista = function(){
+                    return NavigationTreeStateService.showNode("priorisoivat-saannot");
+                }
                 $scope.toggleLista = function () {
-                    $scope.naytaLista = !$scope.naytaLista;
+                    return NavigationTreeStateService.toggleNodeState("priorisoivat-saannot");
                 };
                 /**
                  * Avataan dialogi rajoittavien hakukohderyhmien lisäämiseksi
