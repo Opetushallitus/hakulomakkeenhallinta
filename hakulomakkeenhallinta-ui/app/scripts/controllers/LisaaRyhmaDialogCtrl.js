@@ -47,24 +47,30 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             ryhma.kuvaus2.en = $scope.kuvausEN;
             ryhma.kayttoTarkoitus = kayttoTarkoitus;
 
+            function afterSave(ryhma) {
+                NavigationTreeStateService.setNodeState(ryhma.oid, true);
+                $modalInstance.close();
+                TarjontaService.lisaaHakukohdeRyhmaan(ryhma, $scope.userLang);
+            }
+
             Organisaatio.lisaaRyhmaOrganisaatioPalveluun(ryhma).then(
                 function success (data) {
-                    NavigationTreeStateService.setNodeState(data.organisaatio.oid, true);
+                    var savedGroup = data.organisaatio;
                     if(kayttoTarkoitus === "hakukohde_priorisoiva") {
-                        $modalInstance.close();
-                        TarjontaService.lisaaHakukohdeRyhmaan(data.organisaatio, $scope.userLang);
+                        afterSave(savedGroup);
                     }
                     else {
                         var tallennettuRyhma = {
-                            groupId: data.organisaatio.oid,
+                            groupId: savedGroup.oid,
                             type: kayttoTarkoitus
                         };
                         ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, tallennettuRyhma).then(
                             function success(data) {
-                                $modalInstance.close();
+                                afterSave(savedGroup);
                             },
                             function error(resp) {
-                                AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
+                                $rootScope.LOGS('LisaaRyhmaDialogCtrl', 'talennaRyhma()', resp);
+                                $modalInstance.close();
                             }
                         );
                     };
