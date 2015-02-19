@@ -39,6 +39,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 ApplicationFormConfiguration.haeLomakepohjanAsetukset($routeParams.id).then(
                     function success(lomakepohjanAsetukset) {
                         $scope.rajoiteRyhmat = _.filter(lomakepohjanAsetukset.groupConfigurations, function (conf) { return conf.type === 'hakukohde_rajaava'; });
+                        $scope.priorisointiRyhmat = _.filter(lomakepohjanAsetukset.groupConfigurations, function (conf) { return conf.type === 'hakukohde_priorisoiva'; });;
                         $scope.lomakepohja = _.find($scope.lomakepohjat, function (pohja) { if (pohja.id === lomakepohjanAsetukset.formTemplateType) { return pohja; }});
                         $scope.lomakepohjat = _.without($scope.lomakepohjat, $scope.lomakepohja);
                         $scope.lomakepohjat = $filter('orderBy')($scope.lomakepohjat, 'name.translations.' + $scope.userLang);
@@ -72,14 +73,5 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     );
             };
-            /**
-             * Haetaan tarjonnasta hakuun liittyvät priorisoivat hakukohde ryhmät
-             */
-            TarjontaAPI.getHakuApplicatioOptionGroups($routeParams.id).then(
-                function (data) {
-                    data = _.filter(data, function (priorisoiva) { return _.contains(priorisoiva.kayttoryhmat, 'hakukohde_priorisoiva'); });
-                    $scope.priorisointiRyhmat = data;
-                }
-            );
         }
 );

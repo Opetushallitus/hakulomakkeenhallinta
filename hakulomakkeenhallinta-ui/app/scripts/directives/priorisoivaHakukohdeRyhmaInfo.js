@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('priorisoivaHakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, $modal, AlertMsg, TarjontaService, NavigationTreeStateService, $routeParams, $route, $timeout, LocalisationService) {
+    function (TarjontaAPI, _, $modal, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $routeParams, $route, $timeout, LocalisationService) {
         return {
             restrict: 'E',
             replace: true,
@@ -13,21 +13,27 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             },
             controller: function ($scope) {
                 $scope.naytaHakukohdeLista = function(){
-                    return NavigationTreeStateService.showNode($scope.priorisointiRyhma.oid)
+                    return NavigationTreeStateService.showNode($scope.priorisointiRyhma.groupId)
                 };
                 $scope.hakukohteidenMaara = 0;
-                var ryhmanHakukohteet = [];
+                $scope.hakukohdeRyhma = {};
+                var ryhmanHakukohteet  = [];
+                Organisaatio.getOrganisationData($scope.priorisointiRyhma.groupId).then(
+                    function (data) {
+                        $scope.hakukohdeRyhma = data;
+                    }
+                );
                 /**
                  * haetaan haussa olevan ryhmän hakukohteet
                  */
-                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.priorisointiRyhma.oid).then(
+                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.priorisointiRyhma.groupId).then(
                     function (data) {
                         $scope.hakukohteet = data;
                         ryhmanHakukohteet = data;
                         $scope.hakukohteidenMaara = $scope.hakukohteet.length;
                         var prioriteettiRyhmat = {};
                         _.each($scope.hakukohteet, function (hakukohde) {
-                                var hakukohdePrioriteetti = _.where(hakukohde.ryhmaliitokset, {ryhmaOid: $scope.priorisointiRyhma.oid})[0];
+                                var hakukohdePrioriteetti = _.where(hakukohde.ryhmaliitokset, {ryhmaOid: $scope.priorisointiRyhma.groupId})[0];
 
                                 if (hakukohdePrioriteetti.prioriteetti === undefined) {
                                     if(prioriteettiRyhmat['priorityundefined'] === undefined) {
@@ -47,7 +53,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
 
                 $scope.toggleNaytaHakukohteet = function () {
-                    NavigationTreeStateService.toggleNodeState([$scope.priorisointiRyhma.oid])
+                    NavigationTreeStateService.toggleNodeState([$scope.priorisointiRyhma.groupId])
                 };
                 /**
                  * Avataan dialogi priorisointien muuttamiseksi
@@ -62,7 +68,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 return $scope.hakukohteet;
                             },
                             ryhmaOid: function () {
-                                return $scope.priorisointiRyhma.oid;
+                                return $scope.priorisointiRyhma.groupId;
                             }
                         }
                     }).result.then(
@@ -93,9 +99,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             hakukohdeRyhma: function () {
                               return hakukohdeRyhma;
                             },
-                            poistettavat: function (){
-                                var poistettavat = _.pluck(ryhmanHakukohteet, 'oid');
-                                return poistettavat;
+                            priorisointiRyhma: function () {
+                                return $scope.priorisointiRyhma;
                             }
                         }
                     }).result.then(

@@ -3,7 +3,7 @@
         <i class="glyphicon" data-ng-class="{'hh-icon-right':!naytaHakukohdeLista(), 'hh-icon-down':naytaHakukohdeLista()}"
            data-ng-click="toggleNaytaHakukohteet()"></i>
         <a data-ng-click="toggleNaytaHakukohteet()">
-            {{priorisointiRyhma | hakukohdeNimi:userLang}}
+            {{hakukohdeRyhma | hakukohdeNimi:userLang}}
         </a>
 
         <div class="dropdown pull-right">
@@ -14,13 +14,13 @@
                 <li data-ng-click="muokkaaPrioriteetteja()">
                     <a>{{ t('muokkaa.prioriteetteja') || 'Muokkaa prioriteetteja' }} <i class="glyphicon glyphicon-edit"></i></a>
                 </li>
-                <li data-ng-click="lisaaHakukohdeRyhmaan(priorisointiRyhma)">
+                <li data-ng-click="lisaaHakukohdeRyhmaan(hakukohdeRyhma)">
                     <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
                 </li>
-                <li data-ng-click="poistaHakukohteitaRyhmasta(priorisointiRyhma)">
+                <li data-ng-click="poistaHakukohteitaRyhmasta(hakukohdeRyhma)">
                     <a>{{ t('poista.hakukohteita') || 'Poista hakukohteita' }} <i class="glyphicon glyphicon-remove"></i></a>
                 </li>
-                <li data-ng-click="poistaPriorisoivaHakukohderyhma(priorisointiRyhma)">
+                <li data-ng-click="poistaPriorisoivaHakukohderyhma(hakukohdeRyhma)">
                     <a>{{ t('poista') || 'Poista' }} <i class="glyphicon glyphicon-remove"></i></a>
                 </li>
             </ul>
@@ -45,7 +45,7 @@
                             <i class="hh-icon-menu"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li data-ng-click="poistaHakukohdeRyhmasta(priorisointiRyhma, hakukohde)">
+                            <li data-ng-click="poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde)">
                                 <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
                             </li>
                         </ul>

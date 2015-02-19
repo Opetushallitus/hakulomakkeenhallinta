@@ -56,24 +56,19 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             Organisaatio.lisaaRyhmaOrganisaatioPalveluun(ryhma).then(
                 function success (data) {
                     var savedGroup = data.organisaatio;
-                    if(kayttoTarkoitus === "hakukohde_priorisoiva") {
-                        afterSave(savedGroup);
-                    }
-                    else {
-                        var tallennettuRyhma = {
-                            groupId: savedGroup.oid,
-                            type: kayttoTarkoitus
-                        };
-                        ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, tallennettuRyhma).then(
-                            function success(data) {
-                                afterSave(savedGroup);
-                            },
-                            function error(resp) {
-                                $rootScope.LOGS('LisaaRyhmaDialogCtrl', 'talennaRyhma()', resp);
-                                $modalInstance.close();
-                            }
-                        );
+                    var tallennettuRyhma = {
+                        groupId: savedGroup.oid,
+                        type: kayttoTarkoitus
                     };
+                    ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, tallennettuRyhma).then(
+                        function success(data) {
+                            afterSave(savedGroup);
+                        },
+                        function error(resp) {
+                            $rootScope.LOGS('LisaaRyhmaDialogCtrl', 'talennaRyhma()', resp);
+                            $modalInstance.close();
+                        }
+                    );
                 },
                 function error (resp){
                     $rootScope.LOGS('LisaaRyhmaDialogCtrl', 'talennaRyhma()', resp);

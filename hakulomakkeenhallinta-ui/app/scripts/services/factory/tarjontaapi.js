@@ -144,51 +144,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             );
             return deferred.promise;
         };
-        /**
-         * Haetaan hakuun liittyvät priorisoivat ja rajavaavat hakukohderyhmät
-         * sekä kyseisten hakukohderyhmien tiedot
-         * @param hakuOid
-         * @returns {promise}
-         */
-        TarjontaAPI.getHakuApplicatioOptionGroups = function (hakuOid) {
-            var deferred = $q.defer();
-            $http.get(Props.tarjontaAPI + '/haku/' +hakuOid
-            ).success(function (data) {
-                    getUserHakukohdeRyhmat(data.result.organisaatioryhmat).then(
-                        function (data) {
-                            deferred.resolve(data);
-                        }
-                    );
-                }).error(function (resp) {
-                    $rootScope.LOGS('TarjontaAPI', 'getHakuApplicatioOptionGroups()', 'ERROR', resp);
-                    deferred.reject(resp);
-                });
 
-            return deferred.promise;
-        };
-        /**
-         * Suodatetaan hakuun liittyvistä ryhmistä rajaavat ja priorisoivat
-         * hakukohderyhmät ja haetaan organisaatio palvelusta niiden tiedot
-         * @param organisaatioryhmat kaikki hakukohteeseen liittyvät ryhmät
-         * @returns {promise}
-         */
-        function getUserHakukohdeRyhmat(organisaatioryhmat) {
-            var deferred = $q.defer();
-            var hakukohdeRyhmat = [];
-            _.each(organisaatioryhmat, function (oid) {
-                hakukohdeRyhmat.push(Organisaatio.getOrganisationData(oid));
-            });
-            $q.all(hakukohdeRyhmat).then(
-                function (data) {
-                    data = _.filter(data, function (ryhma) {
-                        return (_.contains(ryhma.kayttoryhmat, 'hakukohde_rajaava') ||
-                            _.contains(ryhma.kayttoryhmat, 'hakukohde_priorisoiva'))
-                            && _.contains(ryhma.ryhmatyypit, 'hakukohde'); });
-                    deferred.resolve(data);
-                }
-            );
-            return deferred.promise;
-        }
         /**
          * Heataan tarjonnasta haut hakuparametrien perusteella
          * @param hakuvuosi

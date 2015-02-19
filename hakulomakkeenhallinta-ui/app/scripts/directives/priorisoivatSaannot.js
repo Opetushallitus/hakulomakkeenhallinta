@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('priorisoivatSaannot',
-    function ($rootScope, OrganisaatioService, NavigationTreeStateService, Organisaatio, $modal) {
+    function ($rootScope, OrganisaatioService, NavigationTreeStateService, Organisaatio, $modal, $route) {
         return {
             restrict: 'E',
             replace: true,
@@ -38,7 +38,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 return $scope.lomakepohja;
                             }
                         }
-                    });
+                    }).result.then(
+                        function () {
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
+                            $route.reload();
+                        }
+                    );
                 };
 
                 /**

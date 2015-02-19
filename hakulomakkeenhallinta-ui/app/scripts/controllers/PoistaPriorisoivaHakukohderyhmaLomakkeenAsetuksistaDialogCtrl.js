@@ -2,33 +2,25 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('PoistaPriorisoivaHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
-    function ($rootScope, $scope, TarjontaAPI, $modalInstance, hakukohdeRyhma, poistettavat, AlertMsg, $routeParams, LocalisationService) {
+    function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, hakukohdeRyhma, priorisointiRyhma, AlertMsg, $routeParams, LocalisationService) {
 
         $scope.hakukohdeRyhma = hakukohdeRyhma;
         $scope.poistoEiOnnistu = false;
 
-        TarjontaAPI.checkTarjontaAuthentication().then(
-            function success (data) {
-                $rootScope.LOGS('Tarkistetaan autentikaatio Tarjontaa success', data);
-            },
-            function error (resp) {
-                $rootScope.LOGS('Ei oikeutta tarjontaan error', resp);
-                $scope.poistoEiOnnistu = true;
-                AlertMsg($scope, 'warning', 'warning.autenkikaatio.ei.onnistunut.tai.puutuvat.oikeudet.tarjonta.palvelu');
-            }
-        );
         /**
          * Poistaa hakukohderyhmä lomakkeen asetuksista
          */
         $scope.poista = function () {
-            TarjontaAPI.poistaHakukohteitaHakukohderyhmasta(hakukohdeRyhma.oid, poistettavat).then(
+            ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista($routeParams.id, priorisointiRyhma).then(
                 function success (data) {
-                    $rootScope.LOGS('PoistaPriorisoivaHakukohderyhmaLomakkeenAsetuksistaDialogCtrl', data);
+                    $rootScope.LOGS('PoistaPriorisoivaHakukohderyhmaLomakkeenAsetuksistaDialogCtrl \n',
+                        'poistaHakukohderyhmaLomakkeenAsetuksista()', data);
                     $modalInstance.close();
-                }, function error (resp) {
+                },
+                function error (resp) {
                     $rootScope.LOGS('PoistaPriorisoivaHakukohderyhmaLomakkeenAsetuksistaDialogCtrl', resp);
+                    AlertMsg($scope, 'warning', 'error.poisto.epaonnistui');
                     $scope.poistoEiOnnistu = true;
-                    AlertMsg($scope, 'error', 'error.poisto.epaonnistui');
                 }
             );
         };
