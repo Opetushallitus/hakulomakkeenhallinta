@@ -3,12 +3,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, LocalisationService, NavigationTreeStateService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
-        $scope.valittuRyhma = {};
         //näytetään lataus indikaattori dialogissa
         $scope.starLoad = true;
         Organisaatio.getRajaavatHakukohdeRyhmat($routeParams.oid).then(
             function (data) {
                 var valittavissaOlevatRyhmat = [];
+                // poistetaan valinta listasta jo lomakkeen asetuksissa käytössä olevat hakukohderyhmat
                 var kaytossaOlevatOidit = _.pluck(rajoiteRyhmat, 'groupId');
                 _.each(data, function(ryhma) {
                     if(!_.contains(kaytossaOlevatOidit, ryhma.oid)) {

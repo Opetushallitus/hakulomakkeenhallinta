@@ -48,9 +48,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         controller: 'HakukohderyhmaRajoiteDialogCtrl',
                         scope: $scope,
                         resolve: {
-                            applicationForm: function () {
-                                return $scope.applicationForm;
-                            },
                             hakukohdeRyhma: function () {
                                 return $scope.hakukohdeRyhma;
                             },
