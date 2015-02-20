@@ -3,11 +3,14 @@ module.exports = function(config){
     basePath : '../',
 
     files : [
-      'app/lib/angular/angular.js',
-      'app/lib/angular/angular-*.js',
-      'test/lib/angular/angular-mocks.js',
-      'app/js/**/*.js',
-      'test/unit/**/*.js'
+        "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.js",
+        "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-sanitize.js",
+        "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.js",
+        "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-resource.js",
+        "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-cookies.js",
+        "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-mocks.js",
+        'target/hakulomakkeenhallinta-ui/app/scripts/hh.js',
+        'test/spec/**/*.js'
     ],
 
     autoWatch : true,
