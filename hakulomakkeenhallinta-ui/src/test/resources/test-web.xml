@@ -28,10 +28,10 @@
             <param-name>confPath</param-name>
             <param-value>urlrewrite.xml</param-value>
         </init-param>
-        <init-param>
+        <!--init-param>
             <param-name>logLevel</param-name>
             <param-value>DEBUG</param-value>
-        </init-param>
+        </init-param-->
     </filter>
     <filter-mapping>
         <filter-name>UrlRewriteFilter</filter-name>
