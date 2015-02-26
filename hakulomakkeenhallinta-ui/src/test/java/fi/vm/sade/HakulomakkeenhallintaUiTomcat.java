@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 
 public class HakulomakkeenhallintaUiTomcat extends EmbeddedTomcat {
     static final String MODULE_ROOT = ProjectRootFinder.findProjectRoot() + "/hakulomakkeenhallinta-ui";
-    static final String CONTEXT_PATH = "/hakulomakkeenhallinta-ui";
+    static final String CONTEXT_PATH = "/"; // see urlrewrite.xml
     static final int DEFAULT_PORT = 9092;
 
     public final static void main(String... args) throws ServletException, LifecycleException {
