@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         useminPrepare: {
-            html: 'app/index.html',
+            html: 'src/main/webapp/app/index.html',
                 options: {
                 dest: '.tmp'
             }
@@ -11,7 +11,9 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 src: ['app/index.html', 'app/img/**', 'app/lib/**', 'app/partials/**', 'app/font/**'],
-                dest: '.tmp/'
+                dest: '.tmp/',
+                expand: true,
+                cwd: 'src/main/webapp'
             },
             nd: {
                 files: [
@@ -25,27 +27,29 @@ module.exports = function(grunt) {
             },
             testdata: {
                 src: ['app/test-data/*'],
-                dest: '.tmp/'
+                dest: '.tmp/',
+                expand: true,
+                cwd: 'src/main/webapp'
             },
             propslocal: {
-                src: ['app/config/props_local.js' ],
-                dest: 'app/scripts/services/provider/props.js'
+                src: ['src/main/webapp/app/config/props_local.js' ],
+                dest: 'src/main/webapp/app/scripts/services/provider/props.js'
             },
             propslocalapp: {
-                src: ['app/config/app_mockBackend.js' ],
-                dest: 'app/scripts/app.js'
+                src: ['src/main/webapp/app/config/app_mockBackend.js' ],
+                dest: 'src/main/webapp/app/scripts/app.js'
             },
             localcas: {
-                src: ['app/config/myroles' ],
+                src: ['src/main/webapp/app/config/myroles' ],
                 dest: '.tmp/app/cas/myroles'
             },
             propsservers: {
-                src: ['app/config/props_2server.js'],
-                dest: 'app/scripts/services/provider/props.js'
+                src: ['src/main/webapp/app/config/props_2server.js'],
+                dest: 'src/main/webapp/app/scripts/services/provider/props.js'
             },
             propsserversapp: {
-                src: ['app/config/app.js' ],
-                dest: 'app/scripts/app.js'
+                src: ['src/main/webapp/app/config/app.js' ],
+                dest: 'src/main/webapp/app/scripts/app.js'
             }
         },
         usemin: {

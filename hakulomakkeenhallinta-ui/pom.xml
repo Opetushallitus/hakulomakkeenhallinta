@@ -31,6 +31,28 @@
     <packaging>war</packaging>
     <name>${project.artifactId}</name>
 
+
+    <dependencies>
+        <!-- /it -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fi.vm.sade</groupId>
+            <artifactId>embedded-tomcat</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <version>1.6.1</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -106,6 +128,13 @@
                             <targetPath>/app</targetPath>
                         </resource>
                     </webResources>
+                    <packagingExcludes>
+                        %regex[app/scripts/(?!hh.js).*.js],
+                        %regex[app/css/(?!hh.css).*.css],
+                        app/config/**,
+                        WEB-INF/lib/*.jar,
+                        **/.gitkeep
+                    </packagingExcludes>
                 </configuration>
             </plugin>
             <!-- # clean UI .tmp packaging directory-->
