@@ -5,13 +5,12 @@
 <urlrewrite>
     <rule>
         <from>/cas/myroles</from>
-        <to type="redirect">/app/config/myroles</to>
+        <to>/app/config/myroles</to>
     </rule>
     <rule>
         <from>/hakulomakkeenhallinta-ui/(.*)</from>
         <to>/$1</to>
     </rule>
-
     <rule>
         <from>/app/scripts/app.js</from>
         <to type="redirect">/app/config/app_mockBackend.js</to>
