@@ -58,6 +58,12 @@
             <version>4.0.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -133,6 +139,7 @@
                         app/config/**,
                         WEB-INF/lib/*.jar,
                         WEB-INF/classes/*,
+                        test/**,
                         **/.gitkeep
                     </packagingExcludes>
                 </configuration>
@@ -218,6 +225,7 @@
                                 app/config/**,
                                 WEB-INF/lib/*.jar,
                                 WEB-INF/classes/*,
+                                test/**,
                                 **/.gitkeep
                             </packagingExcludes>
                         </configuration>
@@ -303,6 +311,7 @@
                                 app/config/**,
                                 WEB-INF/lib/*.jar,
                                 WEB-INF/classes/*,
+                                test/**,
                                 **/.gitkeep
                             </packagingExcludes>
                         </configuration>
@@ -339,6 +348,7 @@
                                 WEB-INF/lib/*.jar,
                                 WEB-INF/classes/*,
                                 **/.gitkeep,
+                                test/**,
                                 app/test-data/**
                             </packagingExcludes>
                         </configuration>
