@@ -4,14 +4,14 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         useminPrepare: {
             html: 'src/main/webapp/app/index.html',
-                options: {
-                dest: '.tmp'
+            options: {
+                staging: 'target/hakulomakkeenhallinta-ui'
             }
         },
         copy: {
             main: {
                 src: ['app/index.html', 'app/img/**', 'app/lib/**', 'app/partials/**', 'app/font/**'],
-                dest: '.tmp/',
+                dest: 'target/hakulomakkeenhallinta-ui/',
                 expand: true,
                 cwd: 'src/main/webapp'
             },
@@ -19,48 +19,48 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '.tmp/concat/',
+                        cwd: 'target/hakulomakkeenhallinta-ui/concat/',
                         src: ['**'],
-                        dest: '.tmp/app/'
+                        dest: 'target/hakulomakkeenhallinta-ui/app/'
                     }
                 ]
             },
             testdata: {
                 src: ['app/test-data/*'],
-                dest: '.tmp/',
+                dest: 'target/hakulomakkeenhallinta-ui/',
                 expand: true,
                 cwd: 'src/main/webapp'
             },
             propslocal: {
                 src: ['src/main/webapp/app/config/props_local.js' ],
-                dest: 'src/main/webapp/app/scripts/services/provider/props.js'
+                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/services/provider/props.js'
             },
             propslocalapp: {
                 src: ['src/main/webapp/app/config/app_mockBackend.js' ],
-                dest: 'src/main/webapp/app/scripts/app.js'
+                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/app.js'
             },
             localcas: {
                 src: ['src/main/webapp/app/config/myroles' ],
-                dest: '.tmp/app/cas/myroles'
+                dest: 'target/hakulomakkeenhallinta-ui/app/cas/myroles'
             },
             propsservers: {
                 src: ['src/main/webapp/app/config/props_2server.js'],
-                dest: 'src/main/webapp/app/scripts/services/provider/props.js'
+                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/services/provider/props.js'
             },
             propsserversapp: {
                 src: ['src/main/webapp/app/config/app.js' ],
-                dest: 'src/main/webapp/app/scripts/app.js'
+                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/app.js'
             }
         },
         usemin: {
-            html: '.tmp/app/index.html',
+            html: 'target/hakulomakkeenhallinta-ui/app/index.html',
             options: {
-                assetDirs: ['.tmp/app']
+                assetDirs: ['target/hakulomakkeenhallinta-ui/app']
             }
         },
         clean: {
-            start: ['.tmp'],
-            end: ['.tmp/concat']
+            start: ['target/hakulomakkeenhallinta-ui'],
+            end: ['target/hakulomakkeenhallinta-ui/concat']
         },
         uglify: {
             options: {
@@ -68,7 +68,7 @@ module.exports = function(grunt) {
             },
             hh_target : {
                 files: {
-                    '.tmp/app/scripts/hh.min.js': ['.tmp/app/scripts/hh.js']
+                    'target/hakulomakkeenhallinta-ui/app/scripts/hh.min.js': ['target/hakulomakkeenhallinta-ui/app/scripts/hh.js']
                 }
             }
         }
