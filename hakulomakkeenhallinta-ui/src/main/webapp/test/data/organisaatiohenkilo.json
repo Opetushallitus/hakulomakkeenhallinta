@@ -1,0 +1,25 @@
+[ {
+  "id" : 1,
+  "organisaatioOid" : "1.2.246.562.10.00000000001",
+  "organisaatioHenkiloTyyppi" : null,
+  "tehtavanimike" : "ROOT USER",
+  "passivoitu" : false,
+  "voimassaAlkuPvm" : null,
+  "voimassaLoppuPvm" : null
+}, {
+  "id" : 366676,
+  "organisaatioOid" : "1.2.246.562.28.11287634288",
+  "organisaatioHenkiloTyyppi" : null,
+  "tehtavanimike" : "Projektin omistaja",
+  "passivoitu" : false,
+  "voimassaAlkuPvm" : null,
+  "voimassaLoppuPvm" : null
+}, {
+  "id" : 356337,
+  "organisaatioOid" : "1.2.246.562.28.55860281986",
+  "organisaatioHenkiloTyyppi" : null,
+  "tehtavanimike" : "Projektin omistaja",
+  "passivoitu" : true,
+  "voimassaAlkuPvm" : null,
+  "voimassaLoppuPvm" : null
+} ]

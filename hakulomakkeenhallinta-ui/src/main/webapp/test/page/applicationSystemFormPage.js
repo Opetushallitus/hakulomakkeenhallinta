@@ -9,8 +9,14 @@ function ApplicationSystemFormPage() {
     },
 
     applicationFormSettingsRowByName: function(name) {
-      return $(_.find(S("a.ng-binding"), function(e) { console.log($(e).text().trim()); return $(e).text().trim() == name })).parent().parent()
+      return $(_.find(S("a.ng-binding"), function(e) { return $(e).text().trim() == name })).parent().parent()
     },
+
+    openDropdown: function(row) { row.find("i.hh-icon-menu").click() },
+
+    openRow: function(row) { row.find(".hh-list-h3 > i").click() },
+
+    selectNthFromDropdown: function(row, nth) { row.find("li:nth(" + nth + ") a")[0].click() },
 
     loaded: function() {
       return S("td.ng-binding").toArray().length > 0
