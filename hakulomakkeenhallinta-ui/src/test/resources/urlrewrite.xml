@@ -13,7 +13,7 @@
     </rule>
     <rule>
         <from>/app/scripts/app.js</from>
-        <to type="redirect">/app/config/app.js</to>
+        <to>/app/config/app.js</to>
     </rule>
 
     <rule>
