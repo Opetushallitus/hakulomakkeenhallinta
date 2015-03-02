@@ -140,8 +140,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 function success (data) {
                     deferred.resolve(data);
                 },
-                function error (error) {
-                    deferred.reject(error);
+                function error(err) {
+                    deferred.reject(err);
                 }
             );
             return deferred.promise;
