@@ -5,7 +5,8 @@
 <urlrewrite>
     <rule>
         <from>/cas/myroles</from>
-        <to>/app/config/myroles</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/app/config/myroles</to>
     </rule>
     <rule>
         <from>/hakulomakkeenhallinta-ui/(.*)</from>
@@ -13,46 +14,54 @@
     </rule>
     <rule>
         <from>/app/scripts/app.js</from>
-        <to>/app/config/app.js</to>
+        <to last="true">/app/config/app.js</to>
     </rule>
 
     <rule>
         <from>/haku-app/application-system-form-editor/application-system-form/1.2.246.562.29.98758580447/name</from>
-        <to>/test/data/1.2.246.562.29.98758580447-name.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/1.2.246.562.29.98758580447-name.json</to>
     </rule>
 
     <rule>
         <from>/haku-app/application-system-form-editor/application-system-form</from>
-        <to>/test/data/application-system-form.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/application-system-form.json</to>
     </rule>
 
     <rule>
         <from>/haku-app/application-system-form-editor/configuration/templates</from>
-        <to>/test/data/templates.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/templates.json</to>
     </rule>
 
     <rule>
         <from>/haku-app/application-system-form-editor/configuration/1.2.246.562.29.98758580447</from>
-        <to>/test/data/1.2.246.562.29.98758580447.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/1.2.246.562.29.98758580447.json</to>
     </rule>
 
     <rule>
         <from>/authentication-service/resources/omattiedot/organisaatiohenkilo</from>
-        <to>/test/data/organisaatiohenkilo.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/organisaatiohenkilo.json</to>
     </rule>
 
     <rule>
         <from>/organisaatio-service/rest/organisaatio/1.2.246.562.10.00000000001</from>
-        <to>/test/data/1.2.246.562.10.00000000001.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/1.2.246.562.10.00000000001.json</to>
     </rule>
 
     <rule>
         <from>/organisaatio-service/rest/organisaatio/1.2.246.562.28.81704566276</from>
-        <to>/test/data/1.2.246.562.28.81704566276.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/1.2.246.562.28.81704566276.json</to>
     </rule>
 
     <rule>
         <from>/tarjonta-service/rest/v1/hakukohde/search?hakuOid=1.2.246.562.29.98758580447&auml;organisaatioRyhmaOid=1.2.246.562.28.81704566276</from>
-        <to>organisaatioRyhmaOid-1.2.246.562.28.81704566276.json</to>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">organisaatioRyhmaOid-1.2.246.562.28.81704566276.json</to>
     </rule>
 </urlrewrite>
