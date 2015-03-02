@@ -65,32 +65,6 @@ wait = {
   }
 }
 
-session = {
-  init: function(hetu,lang) {
-    return function () {
-      langParam = ""
-      if (lang) {
-        langParam = "&lang=" + lang
-      }
-      return Q($.get("/omatsivut/Shibboleth.sso/fakesession?hetu=" + hetu + langParam));
-    }
-  },
-  logout: function() {
-    return Q($.get("/omatsivut/logout"));
-  }
-}
-
-uiUtil = {
-  inputValues: function(el) {
-    function formatKey(key) { return key.replace(".data.", ".") }
-    function getId(el) { return [el.attr("ng-model"), el.attr("ng-bind")].join("") }
-
-    return _.chain(el.find("[ng-model]:visible, [ng-bind]:visible"))
-      .map(function(el) { return [formatKey(getId($(el))), $(el).val() + $(el).text() ]})
-      .object().value()
-  }
-}
-
 mockAjax = {
   init: function() {
     var deferred = Q.defer()
@@ -140,73 +114,6 @@ util = {
   }
 }
 
-db = {
-  getApplications: function() {
-    return Q($.get("/omatsivut/secure/applications"))
-  },
-
-  getPreferences: function() {
-    return db.getApplications().then(function(data) {
-      return _.chain(data[0].hakemus.hakutoiveet)
-        .filter(function(item) { return !_.isEmpty(item["Koulutus-id"]) })
-        .map(function(item) {
-          return {
-            "hakutoive.Opetuspiste": item.Opetuspiste,
-            "hakutoive.Koulutus": item.Koulutus
-          }
-        }).value()
-    })
-  }
-}
-
-fixtures = {
-  applyFixture: function(fixtureName, applicationOid) {
-    applicationOid = applicationOid || "*"
-    return Q($.ajax("/omatsivut/util/fixtures/hakemus/apply?fixturename=" + fixtureName + "&applicationOid=" + applicationOid, { type: "PUT" }))
-  },
-
-  applyErillishaku: function(hyvaksytty) {
-    return Q($.ajax("/omatsivut/util/fixtures/erillishaku?hyvaksytty=" + hyvaksytty, { type: "PUT" }))
-  },
-
-  applyValintatulos: function(fixtureName, otherFixtures) {
-    var query = ""
-    if(otherFixtures != null) {
-      if(otherFixtures.ohjausparametrit != null) {
-        query = "&ohjausparametrit=" + otherFixtures.ohjausparametrit
-      }
-      if(otherFixtures.haku != null) {
-        query = query +"&haku=" + otherFixtures.haku
-      }
-    }
-    return Q($.ajax("/omatsivut/util/fixtures/valintatulos/apply?fixturename=" + fixtureName + query, { type: "PUT" }))
-  },
-
-  setApplicationStart: function(applicationId, startTime) {
-    var f = function(hakuOid) {
-      return Q($.ajax("/omatsivut/util/fixtures/haku/" + hakuOid + "/overrideStart/" + startTime, {type: "PUT", async: false}))
-    }
-    return this.setHakuData(applicationId, f)
-  },
-
-  setInvertedPriority: function(applicationId) {
-    var f = function (hakuOid) {
-      return Q($.ajax("/omatsivut/util/fixtures/haku/" + hakuOid + "/invertPriority", { type: "PUT", async: false}))
-    }
-    return this.setHakuData(applicationId, f)
-  },
-
-  setHakuData: function(applicationId, f) {
-    return db.getApplications().then(function(applications) {
-      var hakuOid = _(applications).find(function(application) { return application.hakemus.oid === applicationId }).hakemus.haku.oid
-      f(hakuOid)
-    })
-  },
-
-  setValintatulosServiceFailure: function(fail) {
-    return Q($.ajax("/omatsivut/util/fixtures/valintatulos/fail/" + fail, {type: "PUT", async: "false"}))
-  }
-}
 
 function getJson(url) {
   return Q($.ajax({url: url, dataType: "json" }))
@@ -240,7 +147,6 @@ function takeScreenshot() {
     callPhantom({'screenshot': filename})
   }
 }
-
 
 (function improveMocha() {
   var origBefore = before
