@@ -2,6 +2,9 @@
 # Hakulomakkeen hallinnan angular-käyttöliittymä.
 
 
+TODO: Mavenin tomcat7-plugarin konffit ei ole kunnossa tällä hetkellä, korjataan jos joku vielä käyttää tätä oikeasti.
+Parempi tapa on ajaa HakulomakkeenhallintaUiTomcat.java -luokkaa suoraan IDEA:sta käsin. 
+
 ## Käynnistys lokaalissa kehitysympäristössä staattisilla json tiedostoilla
 
 cd hakulomakkeenhallinta-ui

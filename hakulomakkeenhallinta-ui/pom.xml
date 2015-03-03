@@ -31,6 +31,40 @@
     <packaging>war</packaging>
     <name>${project.artifactId}</name>
 
+
+    <dependencies>
+        <!-- /it -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fi.vm.sade</groupId>
+            <artifactId>embedded-tomcat</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <version>1.6.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -99,37 +133,17 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <webResources>
-                        <resource>
-                            <!-- this is relative to the pom.xml directory -->
-                            <directory>.tmp/app</directory>
-                            <targetPath>/app</targetPath>
-                        </resource>
-                    </webResources>
+                    <packagingExcludes>
+                        %regex[app/scripts/(?!hh.js).*.js],
+                        %regex[app/css/(?!hh.css).*.css],
+                        app/config/**,
+                        WEB-INF/lib/*.jar,
+                        WEB-INF/classes/*,
+                        test/**,
+                        **/.gitkeep
+                    </packagingExcludes>
                 </configuration>
             </plugin>
-            <!-- # clean UI .tmp packaging directory-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <executions>
-                    <execution>
-                        <phase>clean</phase>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <directory>.tmp</directory>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 
@@ -205,38 +219,17 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
-                            <webResources>
-                                <resource>
-                                    <!-- this is relative to the pom.xml directory -->
-                                    <directory>.tmp/app</directory>
-                                    <targetPath>/app</targetPath>
-                                </resource>
-                            </webResources>
+                            <packagingExcludes>
+                                %regex[app/scripts/(?!hh.js).*.js],
+                                %regex[app/css/(?!hh.css).*.css],
+                                app/config/**,
+                                WEB-INF/lib/*.jar,
+                                WEB-INF/classes/*,
+                                test/**,
+                                **/.gitkeep
+                            </packagingExcludes>
                         </configuration>
                     </plugin>
-
-                    <!-- # clean UI .tmp packaging directory-->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <version>2.5</version>
-                        <executions>
-                            <execution>
-                                <phase>clean</phase>
-                                <configuration>
-                                    <filesets>
-                                        <fileset>
-                                            <directory>.tmp</directory>
-                                        </fileset>
-                                    </filesets>
-                                </configuration>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                 </plugins>
             </build>
         </profile>
@@ -312,38 +305,17 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
-                            <webResources>
-                                <resource>
-                                    <!-- this is relative to the pom.xml directory -->
-                                    <directory>.tmp/app</directory>
-                                    <targetPath>/app</targetPath>
-                                </resource>
-                            </webResources>
+                            <packagingExcludes>
+                                %regex[app/scripts/(?!hh.js).*.js],
+                                %regex[app/css/(?!hh.css).*.css],
+                                app/config/**,
+                                WEB-INF/lib/*.jar,
+                                WEB-INF/classes/*,
+                                test/**,
+                                **/.gitkeep
+                            </packagingExcludes>
                         </configuration>
                     </plugin>
-
-                    <!-- # clean UI .tmp packaging directory-->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <version>2.5</version>
-                        <executions>
-                            <execution>
-                                <phase>clean</phase>
-                                <configuration>
-                                    <filesets>
-                                        <fileset>
-                                            <directory>.tmp</directory>
-                                        </fileset>
-                                    </filesets>
-                                </configuration>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                 </plugins>
             </build>
         </profile>
@@ -369,16 +341,16 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
-                            <webResources>
-                                <packagingExcludes>
-                                    app/test-data/
-                                </packagingExcludes>
-                                <resource>
-                                    <!-- this is relative to the pom.xml directory -->
-                                    <directory>app</directory>
-                                    <targetPath>/app</targetPath>
-                                </resource>
-                            </webResources>
+                            <packagingExcludes>
+                                %regex[app/scripts/(?!hh.js).*.js],
+                                %regex[app/css/(?!hh.css).*.css],
+                                app/config/**,
+                                WEB-INF/lib/*.jar,
+                                WEB-INF/classes/*,
+                                **/.gitkeep,
+                                test/**,
+                                app/test-data/**
+                            </packagingExcludes>
                         </configuration>
                     </plugin>
 
