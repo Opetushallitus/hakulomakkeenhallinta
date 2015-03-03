@@ -58,3 +58,15 @@ Kirjaudu sisään: master / master
 jonka jälkeen avaa selaimessa alla oleva urli:
 
 http://localhost/hakulomakkeenhallinta-ui/app/index.html
+
+## Mocha testit
+
+Ajetaan junit testien mukana mvn:n buildissä.
+
+### Ajo selaimessa
+
+Käynnistä embedded tomcat IDEstä:
+    fi.vm.sade.HakulomakkeenhallintaUiTomcat
+
+Aja testit:
+    http://localhost:9092/test/runner.html
