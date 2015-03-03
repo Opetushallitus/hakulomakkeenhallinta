@@ -1,4 +1,4 @@
-package fi.vm.sade;
+package fi.vm.sade.hakulomakkeenhallinta;
 
 import fi.vm.sade.integrationtest.util.PortChecker;
 import org.junit.Test;

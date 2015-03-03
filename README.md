@@ -66,7 +66,7 @@ Ajetaan junit testien mukana mvn:n buildissä.
 ### Ajo selaimessa
 
 Käynnistä embedded tomcat IDEstä:
-    fi.vm.sade.HakulomakkeenhallintaUiTomcat
+    fi.vm.sade.hakulomakkeenhallinta.HakulomakkeenhallintaUiTomcat
 
 Aja testit:
     http://localhost:9092/test/runner.html
