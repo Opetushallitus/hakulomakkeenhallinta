@@ -4,6 +4,30 @@ function ApplicationSystemFormPage() {
   var api = {
     openPage: applicationSystemFormPage,
 
+    applicationFormRows: function() {
+      return S("table tr")
+    },
+
+    applicationTestiHakuTestiKohteeseen: function() {
+      return api.applicationFormRows().eq(89)
+    },
+
+    openDropdown: function(row) {
+      clickElement(row.find(".hh-icon-menu").get(0))
+    },
+
+    selectLomakePohjanAsetukset: function(row) {
+      clickElement(row.find("li:nth(1) a").get(0))
+    },
+
+    applicationRulesRajaavatHakukohderyhmat: function() {
+      return api.applicationFormSettingsRowByName("Rajaavat hakukohderyhmät")
+    },
+
+    openRajaavatHakukohderyhmat: function(row) {
+      clickElement(row.find(".hh-list-h3 > i").get(0))
+    },
+
     applicationFormRowByName: function(name) {
       return $(_.find(S("td.ng-binding"), function(e) { return $(e).text() == name })).parent()
     },
@@ -12,35 +36,35 @@ function ApplicationSystemFormPage() {
       return $(_.find(S("a.ng-binding"), function(e) { return $(e).text().trim() == name })).parent().parent()
     },
 
-    openDropdown: function(row) { row.find("i.hh-icon-menu").click() },
-
-    openRow: function(row) { row.find(".hh-list-h3 > i").click() },
-
-    selectNthFromDropdown: function(row, nth) { row.find("li:nth(" + nth + ") a")[0].click() },
+    selectAsetaRajaus: function(row) {
+      clickElement(row.find("li:nth(0) a").get(0))
+    },
 
     openAddRestrictionPopup: function() {
       return function() {
-        var deferred = Q.defer()
-        var formRow = api.applicationFormRowByName("Testihaku testipisteeseen")
-        api.openDropdown(formRow)
-        api.selectNthFromDropdown(formRow, 1) // Lomakepohjan asetukset
+        var testRow = api.applicationTestiHakuTestiKohteeseen()
+        api.openDropdown(testRow)
+        api.selectLomakePohjanAsetukset(testRow)
 
+        var deferred = Q.defer()
         var settingsRow = []
-        wait.until(function() {
-          settingsRow = api.applicationFormSettingsRowByName("Rajaavat hakukohderyhmät")
+        wait.until(function () {
+          settingsRow = api.applicationRulesRajaavatHakukohderyhmat()
           return settingsRow.length == 1
-        })().then(function() {
-          api.openRow(settingsRow)
+        })().then(function () {
+          api.openRajaavatHakukohderyhmat(settingsRow)
+
           var limitingRow = []
           wait.until(function() {
             limitingRow = api.applicationFormSettingsRowByName("Vaasan yliopisto, maisterihaku, hallintotieteet")
             return limitingRow.length == 1
           })().then(function() {
             api.openDropdown(limitingRow)
-            api.selectNthFromDropdown(limitingRow, 0) // Aseta rajaus
+            api.selectAsetaRajaus(limitingRow)
             wait.until(function() {
               return S('h1.ng-binding').toArray().length > 1
             })().then(function() {
+              takeScreenshot()
               deferred.resolve()
             })
           })
@@ -58,4 +82,17 @@ function ApplicationSystemFormPage() {
   function visible() {
     return api.loaded()
   }
+}
+
+var clickElement = function(el) {
+  var ev = document.createEvent("MouseEvent")
+  ev.initMouseEvent(
+    "click",
+    true /* bubble */, true /* cancelable */,
+    window, null,
+    0, 0, 0, 0, /* coordinates */
+    false, false, false, false, /* modifier keys */
+    0 /*left*/, null
+  )
+  el.dispatchEvent(ev)
 }
