@@ -133,6 +133,9 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
+                    <warSourceExcludes>
+                        app/index.html
+                    </warSourceExcludes>
                     <packagingExcludes>
                         %regex[app/scripts/(?!hh.js).*.js],
                         %regex[app/css/(?!hh.css).*.css],
@@ -219,6 +222,9 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
+                            <warSourceExcludes>
+                                app/index.html
+                            </warSourceExcludes>
                             <packagingExcludes>
                                 %regex[app/scripts/(?!hh.js).*.js],
                                 %regex[app/css/(?!hh.css).*.css],
@@ -305,6 +311,9 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
+                            <warSourceExcludes>
+                                app/index.html
+                            </warSourceExcludes>
                             <packagingExcludes>
                                 %regex[app/scripts/(?!hh.js).*.js],
                                 %regex[app/css/(?!hh.css).*.css],
@@ -341,6 +350,9 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
+                            <warSourceExcludes>
+                                app/index.html
+                            </warSourceExcludes>
                             <packagingExcludes>
                                 %regex[app/scripts/(?!hh.js).*.js],
                                 %regex[app/css/(?!hh.css).*.css],
