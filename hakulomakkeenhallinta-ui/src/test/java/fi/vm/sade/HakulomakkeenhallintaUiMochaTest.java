@@ -15,8 +15,9 @@ public class HakulomakkeenhallintaUiMochaTest {
     @Test
     public void runMochaTests() {
         int port =  PortChecker.findFreeLocalPort();
+        int ajpPort =  PortChecker.findFreeLocalPort();
         System.setProperty("spring.profiles.active", "it");
-        final HakulomakkeenhallintaUiTomcat tomcat = new HakulomakkeenhallintaUiTomcat(port);
+        final HakulomakkeenhallintaUiTomcat tomcat = new HakulomakkeenhallintaUiTomcat(port, ajpPort);
         tomcat.start();
 
         String testCommand = "node_modules/mocha-phantomjs/bin/mocha-phantomjs -R spec http://localhost:" + port + "/test/runner.html";

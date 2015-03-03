@@ -13,14 +13,18 @@ public class HakulomakkeenhallintaUiTomcat extends EmbeddedTomcat {
     static final String MODULE_ROOT = ProjectRootFinder.findProjectRoot() + "/hakulomakkeenhallinta-ui";
     static final String CONTEXT_PATH = "/"; // see urlrewrite.xml
     static final int DEFAULT_PORT = 9092;
+    static final int DEFAULT_AJP_PORT = 8525;
 
     public final static void main(String... args) throws ServletException, LifecycleException {
         useIntegrationTestSettingsIfNoProfileSelected();
-        new HakulomakkeenhallintaUiTomcat(Integer.parseInt(System.getProperty("/hakulomakkeenhallinta-ui-app.port", String.valueOf(DEFAULT_PORT)))).start().await();
+        new HakulomakkeenhallintaUiTomcat(
+                Integer.parseInt(System.getProperty("/hakulomakkeenhallinta-ui-app.port", String.valueOf(DEFAULT_PORT))),
+                Integer.parseInt(System.getProperty("/hakulomakkeenhallinta-ui-app.port.ajp", String.valueOf(DEFAULT_AJP_PORT)))
+        ).start().await();
     }
 
-    public HakulomakkeenhallintaUiTomcat(int port) {
-        super(port, MODULE_ROOT, CONTEXT_PATH);
+    public HakulomakkeenhallintaUiTomcat(int port, int ajpPort) {
+        super(port, ajpPort, MODULE_ROOT, CONTEXT_PATH);
     }
 
     public static void startShared() {
@@ -29,10 +33,10 @@ public class HakulomakkeenhallintaUiTomcat extends EmbeddedTomcat {
 
     public static void startForIntegrationTestIfNotRunning() {
         useIntegrationTestSettingsIfNoProfileSelected();
-        if (PortChecker.isFreeLocalPort(DEFAULT_PORT)) {
-            new HakulomakkeenhallintaUiTomcat(DEFAULT_PORT).start();
+        if (PortChecker.isFreeLocalPort(DEFAULT_PORT) && PortChecker.isFreeLocalPort(DEFAULT_AJP_PORT)) {
+            new HakulomakkeenhallintaUiTomcat(DEFAULT_PORT, DEFAULT_AJP_PORT).start();
         } else {
-            LoggerFactory.getLogger(HakulomakkeenhallintaUiTomcat.class).info("Not starting Tomcat: seems to be running on port " + DEFAULT_PORT);
+            LoggerFactory.getLogger(HakulomakkeenhallintaUiTomcat.class).info("Not starting Tomcat: seems to be running on ports " + DEFAULT_PORT + "," + DEFAULT_AJP_PORT);
         }
     }
 
