@@ -94,7 +94,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.poistaPriorisoivaHakukohderyhma = function (hakukohdeRyhma) {
                     $modal.open({
                         templateUrl: 'partials/dialogs/poista-priorisoiva-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
-                        controller: 'PoistaPriorisoivaHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
+                        controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
                         resolve: {
                             hakukohdeRyhma: function () {
                               return hakukohdeRyhma;

@@ -25,7 +25,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.lisaaRyhmaAsetuksiin = function () {
                     $modal.open({
                         templateUrl: 'partials/dialogs/lisaa-rajoiteryhma-lomakkeen-asetuksiin-dialog.html',
-                        controller: 'LisaaRajoiteryhmaLomakkeenAsetuksiinDialogCtrl',
+                        controller: 'LisaaRyhmaLomakkeenAsetuksiinDialogCtrl',
                         resolve: {
                             applicationForm: function () {
                                 return $scope.applicationForm;
@@ -52,7 +52,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, rajoiteRyhma) {
                     $modal.open({
                         templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
-                        controller: 'PoistaRajoiteHakukohderyhmaLomakkeenAsetuksistaDialogCtrl',
+                        controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
                         scope: $scope,
                         resolve: {
                             hakukohdeRyhma: function () {
