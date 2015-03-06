@@ -99,7 +99,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             hakukohdeRyhma: function () {
                               return hakukohdeRyhma;
                             },
-                            priorisointiRyhma: function () {
+                            poistettava: function () {
                                 return $scope.priorisointiRyhma;
                             }
                         }

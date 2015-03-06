@@ -47,9 +47,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  /**
                  * Avataan poisto dialogi hakukohderyhmän poistamiseen lomakkeen asetuksista
                  * @param hakukohdeRyhma hakukohderyhmä {}
-                 * @param rajoiteRyhma rajoite ryhmän tiedot {}
+                 * @param poistettava rajoite ryhmän tiedot {}
                  */
-                $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, rajoiteRyhma) {
+                $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, poistettava) {
                     $modal.open({
                         templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
                         controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
@@ -58,8 +58,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             hakukohdeRyhma: function () {
                                 return hakukohdeRyhma;
                             },
-                            rajoiteRyhma: function () {
-                                return rajoiteRyhma;
+                            poistettava: function () {
+                                return poistettava;
                             }
                         }
                     }).result.then(
