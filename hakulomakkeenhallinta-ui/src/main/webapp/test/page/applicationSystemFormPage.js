@@ -13,11 +13,11 @@ function ApplicationSystemFormPage() {
     },
 
     openDropdown: function(row) {
-      clickElement(row.find(".hh-icon-menu").get(0))
+      util.clickElement(row.find(".hh-icon-menu").get(0))
     },
 
     selectLomakePohjanAsetukset: function(row) {
-      clickElement(row.find("li:nth(1) a").get(0))
+      util.clickElement(row.find("li:nth(1) a").get(0))
     },
 
     applicationRulesRajaavatHakukohderyhmat: function() {
@@ -25,7 +25,7 @@ function ApplicationSystemFormPage() {
     },
 
     openRajaavatHakukohderyhmat: function(row) {
-      clickElement(row.find(".hh-list-h3 > i").get(0))
+      util.clickElement(row.find(".hh-list-h3 > i").get(0))
     },
 
     applicationFormRowByName: function(name) {
@@ -37,7 +37,7 @@ function ApplicationSystemFormPage() {
     },
 
     selectAsetaRajaus: function(row) {
-      clickElement(row.find("li:nth(0) a").get(0))
+      util.clickElement(row.find("li:nth(0) a").get(0))
     },
 
     openAddRestrictionPopup: function() {
@@ -82,17 +82,4 @@ function ApplicationSystemFormPage() {
   function visible() {
     return api.loaded()
   }
-}
-
-var clickElement = function(el) {
-  var ev = document.createEvent("MouseEvent")
-  ev.initMouseEvent(
-    "click",
-    true /* bubble */, true /* cancelable */,
-    window, null,
-    0, 0, 0, 0, /* coordinates */
-    false, false, false, false, /* modifier keys */
-    0 /*left*/, null
-  )
-  el.dispatchEvent(ev)
 }
