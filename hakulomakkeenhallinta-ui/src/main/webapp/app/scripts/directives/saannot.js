@@ -49,8 +49,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     )
                 }
 
-                $scope.lisaaRyhmaOrganisaatioPalveluun = function () {
-                    OrganisaatioService.lisaaUusiRyhma($scope.ryhmatyyppi, Organisaatio.getUserSelectedOrganisation().oid)
+                $scope.lisaaRyhmaOrganisaatioPalveluun = function (ryhmaTyyppi) {
+                    OrganisaatioService.lisaaUusiRyhma(ryhmaTyyppi, Organisaatio.getUserSelectedOrganisation().oid)
                 }
             }
         }

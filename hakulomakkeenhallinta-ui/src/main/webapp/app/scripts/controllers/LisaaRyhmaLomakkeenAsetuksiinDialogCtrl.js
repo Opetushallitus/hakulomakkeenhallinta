@@ -33,10 +33,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         /**
          * lisätään hakukohderyhmä lomakepohjan asetuksiin.
          */
-        $scope.lisaaRyhmaLomakkeenAsetuksiin = function (groupType) {
+        $scope.lisaaRyhmaLomakkeenAsetuksiin = function () {
             var valittuHakukohdeRyhma = {};
             valittuHakukohdeRyhma.groupId = $scope.hakukohderyhma.oid;
-            valittuHakukohdeRyhma.type = groupType;
+            valittuHakukohdeRyhma.type = ryhmaTyyppi;
             ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma).then(
                 function success (data) {
                     NavigationTreeStateService.setNodeState(valittuHakukohdeRyhma.groupId, true);
