@@ -58,4 +58,10 @@
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
         <to last="true">/test/data/organisaatioRyhmaOid-$1.json</to>
     </rule>
+
+    <rule>
+        <from>/tarjonta-service/rest/v1/permission/authorize</from>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/authorize.json</to>
+    </rule>
 </urlrewrite>
