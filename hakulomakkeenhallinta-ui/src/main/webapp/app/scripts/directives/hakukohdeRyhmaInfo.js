@@ -12,7 +12,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 rajoiteRyhma: '=rajoiteRyhma',
                 applicationForm: '=applicationForm',
                 lomakepohja: '=lomakepohja',
-                poistaHakukohderyhma: '&poistaHakukohderyhma',
                 userLang: '@userLang'
             },
             link: function ($scope) {
@@ -65,6 +64,28 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     );
                 };
+
+                $scope.poistaHakukohderyhma = function (hakukohdeRyhma) {
+                    $modal.open({
+                        templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
+                        controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
+                        scope: $scope,
+                        resolve: {
+                            hakukohdeRyhma: function () {
+                                return hakukohdeRyhma;
+                            },
+                            poistettava: function () {
+                                return $scope.rajoiteRyhma;
+                            }
+                        }
+                    }).result.then(
+                        function () {
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
+                            $route.reload();
+                        }
+                    );
+                };
+
                 /**
                  * avataan dialogi lisätään hakukohde ryhmään
                  * @param hakukohdeRyhma

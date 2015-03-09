@@ -44,31 +44,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     );
                 };
-                 /**
-                 * Avataan poisto dialogi hakukohderyhmän poistamiseen lomakkeen asetuksista
-                 * @param hakukohdeRyhma hakukohderyhmä {}
-                 * @param poistettava rajoite ryhmän tiedot {}
-                 */
-                $scope.poistaRajoittavaHakukohderyhmaLomakkeenAsetuksista = function (hakukohdeRyhma, poistettava) {
-                    $modal.open({
-                        templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
-                        controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
-                        scope: $scope,
-                        resolve: {
-                            hakukohdeRyhma: function () {
-                                return hakukohdeRyhma;
-                            },
-                            poistettava: function () {
-                                return poistettava;
-                            }
-                        }
-                    }).result.then(
-                        function () {
-                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
-                            $route.reload();
-                        }
-                    );
-                };
+
                 /**
                  * Lisätään organisaatio palveluun uusi ryhmä
                  */
