@@ -1,16 +1,23 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRyhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, priorisointiRyhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService, NavigationTreeStateService) {
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, ryhmaTyyppi, applicationForm, ryhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService, NavigationTreeStateService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         //näytetään lataus indikaattori dialogissa
         $scope.starLoad = true;
-        // TODO parametriksi
-        Organisaatio.getPriorisoivatHakukohdeRyhmat($routeParams.   oid).then(
+
+        function getPromise(tyyppi) {
+            if(tyyppi === 'hakukohde_rajaava')
+                return Organisaatio.getRajaavatHakukohdeRyhmat($routeParams.oid)
+            else
+                return Organisaatio.getPriorisoivatHakukohdeRyhmat($routeParams.oid)
+        }
+
+        getPromise(ryhmaTyyppi).then(
             function (data) {
                 var valittavissaOlevatRyhmat = [];
                 // poistetaan valinta listasta jo lomakkeen asetuksissa käytössä olevat hakukohderyhmat
-                var kaytossaOlevatOidit = _.pluck(priorisointiRyhmat, 'groupId');
+                var kaytossaOlevatOidit = _.pluck(ryhmat, 'groupId');
                 _.each(data, function(ryhma) {
                     if(!_.contains(kaytossaOlevatOidit, ryhma.oid)) {
                         valittavissaOlevatRyhmat.push(ryhma);
@@ -26,7 +33,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         /**
          * lisätään hakukohderyhmä lomakepohjan asetuksiin.
          */
-        $scope.lisaaPriorisoivaryhmaLomakkeenAsetuksiin = function (groupType) {
+        $scope.lisaaRyhmaLomakkeenAsetuksiin = function (groupType) {
             var valittuHakukohdeRyhma = {};
             valittuHakukohdeRyhma.groupId = $scope.hakukohderyhma.oid;
             valittuHakukohdeRyhma.type = groupType;

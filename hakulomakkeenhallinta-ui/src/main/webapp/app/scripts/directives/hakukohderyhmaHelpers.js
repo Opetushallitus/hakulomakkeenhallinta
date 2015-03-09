@@ -28,7 +28,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
                 $scope.poistaHakukohderyhma = function(hakukohdeRyhma) {
                     $modal.open({
-                        templateUrl: 'partials/dialogs/poista-rajoite-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
+                        templateUrl: 'partials/dialogs/poista-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
                         controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
                         scope: $scope,
                         resolve: {
@@ -48,5 +48,14 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 }
             }
         }
+    }
+    ).directive('hakukohdelistaOtsikot',
+        function() {
+         return {
+             restrict: 'E',
+             replace: true,
+             templateUrl: 'partials/directives/hakukohdelista-otsikot.html',
+             scope: false
+         }
     }
 );
