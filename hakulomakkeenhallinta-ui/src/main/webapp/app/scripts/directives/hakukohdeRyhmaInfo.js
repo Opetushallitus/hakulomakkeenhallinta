@@ -9,7 +9,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             templateUrl: 'partials/directives/hakukohde-ryhma-info.html',
             require: '^rajaavatSaannot',
             scope: {
-                rajoiteRyhma: '=rajoiteRyhma',
+                ryhma: '=ryhma',
                 ryhmat: '=ryhmat',
                 applicationForm: '=applicationForm',
                 lomakepohja: '=lomakepohja',
@@ -17,17 +17,17 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             },
             link: function ($scope) {
                 $scope.naytaHakukohdeLista = function(){
-                    return NavigationTreeStateService.showNode($scope.rajoiteRyhma.groupId)
+                    return NavigationTreeStateService.showNode($scope.ryhma.groupId)
                 };
                 $scope.hakukohteidenMaara = 0;
                 $scope.hakukohdeRyhma = {};
                 $scope.ryhmanhakukohteet = [];
-                Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupId).then(
+                Organisaatio.getOrganisationData($scope.ryhma.groupId).then(
                     function (data) {
                         $scope.hakukohdeRyhma = data;
                     }
                 );
-                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.rajoiteRyhma.groupId).then(
+                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.ryhma.groupId).then(
                     function (data) {
                         $scope.ryhmanhakukohteet = data;
                         $scope.hakukohteet = $filter('orderBy')(data, 'nimi.' + $scope.userLang, false);
@@ -35,8 +35,33 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     }
                 );
 
+                $scope.asetaRyhmaanRajoite = function(hakukohdeRyhma) {
+                    $modal.open({
+                        templateUrl: 'partials/dialogs/aseta-hakukohderyhmaan-rajoite-dialog.html',
+                        controller: 'HakukohderyhmaRajoiteDialogCtrl',
+                        scope: $scope,
+                        resolve: {
+                            applicationForm: function () {
+                                return $scope.applicationForm;
+                            },
+                            hakukohdeRyhma: function () {
+                                return hakukohdeRyhma;
+                            },
+                            rajoiteRyhma: function () {
+                                return $scope.ryhma;
+                            }
+                        }
+                    }).result.then(
+                        function () {
+                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
+                            $route.reload();
+                        }
+                    );
+                }
+
+
                 $scope.toggleNaytaHakukohteet = function () {
-                    NavigationTreeStateService.toggleNodeState($scope.rajoiteRyhma.groupId)
+                    NavigationTreeStateService.toggleNodeState($scope.ryhma.groupId)
                 };
 
                 /**

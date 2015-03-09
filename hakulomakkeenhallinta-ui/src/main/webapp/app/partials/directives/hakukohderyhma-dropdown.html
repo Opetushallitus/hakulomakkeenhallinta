@@ -3,8 +3,8 @@
         <i class="hh-icon-menu"></i>
     </a>
     <ul class="dropdown-menu">
-        <li data-ng-click="asetaRyhmaanRajoite(hakukohdeRyhma)">
-            <a>Aseta rajaus <i class="glyphicon glyphicon-cog"></i></a>
+        <li data-ng-show="hasCustomAction()" data-ng-click="customAction()">
+            <a>{{customActionLabel}} <i class="glyphicon glyphicon-cog"></i></a>
         </li>
         <li data-ng-click="lisaaHakukohdeRyhmaan(hakukohdeRyhma)">
             <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>

@@ -8,17 +8,17 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             replace: true,
             templateUrl: 'partials/directives/priorisoiva-hakukohde-ryhma-info.html',
             scope: {
-                priorisointiRyhma: '=priorisointiRyhma',
+                ryhma: '=ryhma',
                 userLang: '@userLang'
             },
             controller: function ($scope) {
                 $scope.naytaHakukohdeLista = function(){
-                    return NavigationTreeStateService.showNode($scope.priorisointiRyhma.groupId)
+                    return NavigationTreeStateService.showNode($scope.ryhma.groupId)
                 };
                 $scope.hakukohteidenMaara = 0;
                 $scope.hakukohdeRyhma = {};
-                var ryhmanHakukohteet  = [];
-                Organisaatio.getOrganisationData($scope.priorisointiRyhma.groupId).then(
+                $scope.ryhmanhakukohteet  = [];
+                Organisaatio.getOrganisationData($scope.ryhma.groupId).then(
                     function (data) {
                         $scope.hakukohdeRyhma = data;
                     }
@@ -26,14 +26,14 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 /**
                  * haetaan haussa olevan ryhmän hakukohteet
                  */
-                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.priorisointiRyhma.groupId).then(
+                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.ryhma.groupId).then(
                     function (data) {
                         $scope.hakukohteet = data;
-                        ryhmanHakukohteet = data;
+                        $scope.ryhmanhakukohteet = data;
                         $scope.hakukohteidenMaara = $scope.hakukohteet.length;
                         var prioriteettiRyhmat = {};
                         _.each($scope.hakukohteet, function (hakukohde) {
-                                var hakukohdePrioriteetti = _.where(hakukohde.ryhmaliitokset, {ryhmaOid: $scope.priorisointiRyhma.groupId})[0];
+                                var hakukohdePrioriteetti = _.where(hakukohde.ryhmaliitokset, {ryhmaOid: $scope.ryhma.groupId})[0];
 
                                 if (hakukohdePrioriteetti.prioriteetti === undefined) {
                                     if(prioriteettiRyhmat['priorityundefined'] === undefined) {
@@ -53,7 +53,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
 
                 $scope.toggleNaytaHakukohteet = function () {
-                    NavigationTreeStateService.toggleNodeState([$scope.priorisointiRyhma.groupId])
+                    NavigationTreeStateService.toggleNodeState([$scope.ryhma.groupId])
                 };
                 /**
                  * Avataan dialogi priorisointien muuttamiseksi
@@ -68,7 +68,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 return $scope.hakukohteet;
                             },
                             ryhmaOid: function () {
-                                return $scope.priorisointiRyhma.groupId;
+                                return $scope.ryhma.groupId;
                             }
                         }
                     }).result.then(
@@ -82,40 +82,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     );
                 };
-                /**
-                 * Avataan dialogi priorisoivan hakukohderyhmän poistamiseksi
-                 * lomakkeen asetuksista.
-                 * Tässä tapauksessa tarkoittaa sitä, että hakukohderyhmästä
-                 * poistetaan kaikki siihen liitetyt hakukohteet, jotka
-                 * liittää kyseisen hakukohderyhmän tähän hakuun.
-                 * Tallennuspaikka on Tarjonta
-                 * @param hakukohdeRyhma
-                 */
-                $scope.poistaPriorisoivaHakukohderyhma = function (hakukohdeRyhma) {
-                    $modal.open({
-                        templateUrl: 'partials/dialogs/poista-priorisoiva-hakukohderyhma-lomakkeen-asetuksista-dialog.html',
-                        controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
-                        resolve: {
-                            hakukohdeRyhma: function () {
-                              return hakukohdeRyhma;
-                            },
-                            poistettava: function () {
-                                return $scope.priorisointiRyhma;
-                            }
-                        }
-                    }).result.then(
-                        function () {
-                            $route.reload();
-                        }
-                    );
-                };
-                /**
-                 * avataan dialogi lisätään hakukohde ryhmään
-                 * @param hakukohdeRyhma
-                 */
-                $scope.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma) {
-                    TarjontaService.lisaaHakukohdeRyhmaan(hakukohdeRyhma, $scope.userLang);
-                };
+
                 /**
                  * avataan dialogi poista hakukohde ryhmästä
                  * @param hakukohdeRyhma
@@ -127,14 +94,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.t = function (key) {
                     return LocalisationService.tl(key);
                 };
-                /**
-                 * avataan dialogi hakukohteiden poistamiseksi hakukohderyhmasta
-                 * @param hakukohdeRyhma
-                 */
-                $scope.poistaHakukohteitaRyhmasta = function (hakukohdeRyhma) {
-                    TarjontaService.poistaHakukohteitaRyhmasta(hakukohdeRyhma, ryhmanHakukohteet);
-                };
-
             }
         };
     }

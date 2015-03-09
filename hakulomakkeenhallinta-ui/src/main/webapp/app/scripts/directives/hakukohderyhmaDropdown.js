@@ -1,35 +1,21 @@
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohderyhmaDropdown',
-    function(TarjontaService, Organisaatio, $modal, $route) {
+    function(TarjontaService, Organisaatio, $modal, $route, $parse) {
         return {
             restrict: 'E',
             replace: true,
             templateUrl: 'partials/directives/hakukohderyhma-dropdown.html',
             scope: false,
-            link: function ($scope) {
+            link: function ($scope, element, attrs) {
 
-                $scope.asetaRyhmaanRajoite = function(hakukohdeRyhma) {
-                    $modal.open({
-                        templateUrl: 'partials/dialogs/aseta-hakukohderyhmaan-rajoite-dialog.html',
-                        controller: 'HakukohderyhmaRajoiteDialogCtrl',
-                        scope: $scope,
-                        resolve: {
-                            applicationForm: function () {
-                                return $scope.applicationForm;
-                            },
-                            hakukohdeRyhma: function () {
-                                return hakukohdeRyhma;
-                            },
-                            rajoiteRyhma: function () {
-                                return $scope.rajoiteRyhma;
-                            }
-                        }
-                    }).result.then(
-                        function () {
-                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
-                            $route.reload();
-                        }
-                    );
+                $scope.customActionLabel = attrs.customText
+
+                $scope.hasCustomAction = function() {
+                    return attrs.custom;
+                }
+
+                $scope.customAction = function() {
+                    $parse(attrs.custom)($scope, {})
                 }
 
                 $scope.lisaaHakukohdeRyhmaan = function(hakukohdeRyhma) {
@@ -50,7 +36,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 return hakukohdeRyhma;
                             },
                             poistettava: function () {
-                                return $scope.rajoiteRyhma;
+                                return $scope.ryhma;
                             }
                         }
                     }).result.then(

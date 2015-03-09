@@ -6,12 +6,14 @@
             {{hakukohdeRyhma | hakukohdeNimi:userLang}}
         </a>
 
-        <hakukohderyhma-dropdown></hakukohderyhma-dropdown>
+        <hakukohderyhma-dropdown custom="asetaRyhmaanRajoite(hakukohdeRyhma)"
+                                 custom-text="{{t('aseta.rajaus') || 'Aseta rajaus'}}">
+        </hakukohderyhma-dropdown>
 
         <div style="width: auto; font-size: 14px; font-style: normal;" data-ng-show="naytaHakukohdeLista()">
-            <div style="width: 100%; display: inline-block; padding-left: 30px;" data-ng-show="rajoiteRyhma.configurations.maximumNumberOf > 0">
+            <div style="width: 100%; display: inline-block; padding-left: 30px;" data-ng-show="ryhma.configurations.maximumNumberOf > 0">
                 {{ t('valittavien.hakukohteiden.maara.rajoitettu') || 'Tässä hakukohderyhmästä valittavien hakukohteiden määrä on rajoitettu' }}:
-                {{rajoiteRyhma.configurations.maximumNumberOf}}
+                {{ryhma.configurations.maximumNumberOf}}
             </div>
             <div style="width: 48%; display: inline-block; padding-left: 30px;">
                 {{ t('hakukohde') || 'Hakukohde' }} ({{hakukohteidenMaara}})
