@@ -2,7 +2,7 @@
 <!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
   "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
 
-<urlrewrite>
+<urlrewrite use-query-string="true">
     <rule>
         <from>/cas/myroles</from>
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
@@ -54,8 +54,8 @@
     </rule>
 
     <rule>
-        <from>/tarjonta-service/rest/v1/hakukohde/search?hakuOid=.*&auml;organisaatioRyhmaOid=(.*)</from>
+        <from>/tarjonta-service/rest/v1/hakukohde/search\?hakuOid=1.2.246.562.29.95390561488&amp;organisaatioRyhmaOid=(.*)</from>
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
-        <to last="true">organisaatioRyhmaOid-$1.json</to>
+        <to last="true">/test/data/organisaatioRyhmaOid-$1.json</to>
     </rule>
 </urlrewrite>
