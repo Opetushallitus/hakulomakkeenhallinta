@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('saannot',
-    function($rootScope, $modal, $route, NavigationTreeStateService, OrganisaatioService, Organisaatio) {
+    function($rootScope, $modal, $route, NavigationTreeStateService, OrganisaatioService, Organisaatio, LocalisationService) {
         return {
             restrict: 'E',
             replace: true,
@@ -15,6 +15,12 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
             },
             link: function($scope) {
+
+                var groupNameKeys = {
+                    hakukohde_rajaava: { key: 'hakukohderyhmien.hakukohteiden.rajaus', defaultValue: 'Rajaavat hakukohderyhmät' },
+                    hakukohde_priorisoiva: { key: 'hakukohderyhmine.hakukohteiden.priorisointi', defaultValue: 'Priorisoivat hakukohderyhmät'},
+                    hakukohde_liiteryhma: { key: 'hakukohderyhmien.liiteosoitteet', defaultValue: 'Liiteosoiteryhmät' }
+                }
                 $scope.naytaLista = function() {
                     return NavigationTreeStateService.showNode($scope.nodeName)
                 }
@@ -51,6 +57,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
                 $scope.lisaaRyhmaOrganisaatioPalveluun = function (ryhmaTyyppi) {
                     OrganisaatioService.lisaaUusiRyhma(ryhmaTyyppi, Organisaatio.getUserSelectedOrganisation().oid)
+                }
+
+                $scope.groupName = function () {
+                    return LocalisationService.tl(groupNameKeys[$scope.ryhmaTyyppi].key) || groupNameKeys[$scope.ryhmaTyyppi].defaultValue
                 }
             }
         }

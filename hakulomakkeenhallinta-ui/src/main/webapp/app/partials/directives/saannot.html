@@ -1,8 +1,8 @@
 <div>
     <div class="hh-list-h3">
         <i data-ng-class="{'hh-icon-right':!naytaLista(), 'hh-icon-down':naytaLista()}" data-ng-click="toggleLista()"></i>
-        <a data-ng-if="ryhmaTyyppi == 'hakukohde_rajaava'" data-ng-click="toggleLista()"> {{ t('hakukohderyhmien.hakukohteiden.rajaus') || 'Rajaavat hakukohderyhmät'}}</a>
-        <a data-ng-if="ryhmaTyyppi == 'hakukohde_priorisoiva'" data-ng-click="toggleLista()"> {{ t('hakukohderyhmine.hakukohteiden.priorisointi') ||  'Priorisoivat hakukohderyhmät' }}</a>
+
+        <a data-ng-click="toggleLista()"> {{groupName()}}</a>
 
         <div class="dropdown pull-right">
             <a class="dropdown-toggle">
