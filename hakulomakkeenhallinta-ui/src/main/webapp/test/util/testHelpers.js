@@ -108,6 +108,19 @@ domUtil = {
   selectLomakePohjanAsetukset: function(row) {
     util.clickElement(row.find("li:nth(1) a").get(0))
   },
+  openLomakepohjanAsetukset: function(row) {
+    domUtil.openDropdown(row)
+    domUtil.selectLomakePohjanAsetukset(row)
+    var deferred = Q.defer()
+    wait.until(function () {
+      // Rajaavat hakukohderyhmät, Priorisoivat hakukohderyhmät
+      return S('div[application-form=applicationForm]:visible').length == 2
+    })().then(function () {
+      deferred.resolve()
+    })
+    return deferred.promise
+  },
+
   applicationFormRowByName: function(name) {
     return $(_.find(S("td.ng-binding"), function(e) { return $(e).text() == name })).parent()
   },

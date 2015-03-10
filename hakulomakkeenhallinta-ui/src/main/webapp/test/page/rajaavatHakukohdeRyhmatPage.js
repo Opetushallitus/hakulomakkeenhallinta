@@ -4,8 +4,12 @@ function RajaavatHakukohdeRyhmatPage() {
   var api = {
     openPage: applicationSystemFormPage,
 
-    applicationTestiHakuTestiKohteeseen: function() {
-      return domUtil.applicationFormRows().eq(89)
+    applicationRowKorkeakoulujenYhteishakuKevat2015: function() {
+      return domUtil.applicationFormRowByName("Korkeakoulujen yhteishaku kevät 2015")
+    },
+
+    openKorkeakoulujenYhteishakuKevat2015LomakePohja: function() {
+      return domUtil.openLomakepohjanAsetukset(api.applicationRowKorkeakoulujenYhteishakuKevat2015())
     },
 
     loaded: function() {
