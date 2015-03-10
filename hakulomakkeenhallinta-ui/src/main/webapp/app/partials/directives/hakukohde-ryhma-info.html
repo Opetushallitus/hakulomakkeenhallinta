@@ -23,7 +23,7 @@
         </div>
     </div>
     <div data-ng-show="naytaHakukohdeLista()">
-        <ul data-ng-if="ryhmaTyyppi == 'hakukohde_rajaava'">
+        <ul data-ng-if="ryhmaTyyppi != 'hakukohde_priorisoiva'">
             <li data-ng-repeat="hakukohde in hakukohteet" class="hh-hakukohde" >
                 <div class="dropdown pull-right">
                         <a class="dropdown-toggle">
