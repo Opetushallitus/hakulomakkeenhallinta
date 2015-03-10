@@ -6,14 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         //näytetään lataus indikaattori dialogissa
         $scope.starLoad = true;
 
-        function getPromise(tyyppi) {
-            if(tyyppi === 'hakukohde_rajaava')
-                return Organisaatio.getRajaavatHakukohdeRyhmat($routeParams.oid)
-            else
-                return Organisaatio.getPriorisoivatHakukohdeRyhmat($routeParams.oid)
-        }
-
-        getPromise(ryhmaTyyppi).then(
+        Organisaatio.getHakukohdeRyhmat($routeParams.oid, ryhmaTyyppi).then(
             function (data) {
                 var valittavissaOlevatRyhmat = [];
                 // poistetaan valinta listasta jo lomakkeen asetuksissa käytössä olevat hakukohderyhmat
