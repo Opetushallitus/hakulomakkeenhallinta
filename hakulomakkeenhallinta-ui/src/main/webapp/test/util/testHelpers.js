@@ -113,8 +113,7 @@ domUtil = {
     domUtil.selectLomakePohjanAsetukset(row)
     var deferred = Q.defer()
     wait.until(function () {
-      // Rajaavat hakukohderyhmät, Priorisoivat hakukohderyhmät
-      return S('div[application-form=applicationForm]:visible').length == 2
+      return S('div[application-form=applicationForm]:visible').length == 3
     })().then(function () {
       deferred.resolve()
     })
