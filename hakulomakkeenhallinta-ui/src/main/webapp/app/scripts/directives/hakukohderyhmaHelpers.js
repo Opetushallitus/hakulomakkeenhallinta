@@ -1,12 +1,12 @@
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohderyhmaDropdown',
-    function(TarjontaService, Organisaatio, $modal, $route, $parse) {
+    function(TarjontaService, Organisaatio, $modal, $route, $timeout) {
         return {
             restrict: 'E',
             replace: true,
             template: '<ng-include src="getTemplateUrl()"/>',
             scope: false,
-            link: function ($scope, element, attrs) {
+            link: function ($scope) {
 
                 $scope.getTemplateUrl = function() {
                     return 'partials/directives/hakukohderyhma-dropdown-' + $scope.ryhmaTyyppi + '.html'
