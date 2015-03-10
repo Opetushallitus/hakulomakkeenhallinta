@@ -12,6 +12,21 @@ function RajaavatHakukohdeRyhmatPage() {
       return domUtil.openLomakepohjanAsetukset(api.applicationRowKorkeakoulujenYhteishakuKevat2015())
     },
 
+    openJyrinRajaavaRyhma: function() {
+      var row = domUtil.applicationRulesRajaavatHakukohderyhmat()
+      domUtil.openRajaavatHakukohderyhmat(row)
+      var subGroup = row.children().find('ul .hh-list-h4:nth(0)')
+      util.clickElement(subGroup.find('i').get(0))
+
+      var deferred = Q.defer()
+      wait.until(function () {
+        return S('div[application-form=applicationForm]:visible:nth(1)').find('.hh-hakukohde').length > 0
+      })().then(function () {
+        deferred.resolve()
+      })
+      return deferred.promise
+    },
+
     loaded: function() {
       return S("td.ng-binding").toArray().length > 0
     }
