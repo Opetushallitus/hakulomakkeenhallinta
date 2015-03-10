@@ -51,7 +51,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function success(lomakepohjanAsetukset) {
                         $scope.rajoiteRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_rajaava');
                         $scope.priorisointiRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_priorisoiva');
-                        $scope.liiteRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_liiteryhma');
+                        $scope.liiteRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_liiteosoite');
                         $scope.lomakepohja = _.find($scope.lomakepohjat, function (pohja) { if (pohja.id === lomakepohjanAsetukset.formTemplateType) { return pohja; }});
                         $scope.lomakepohjat = _.without($scope.lomakepohjat, $scope.lomakepohja);
                         $scope.lomakepohjat = $filter('orderBy')($scope.lomakepohjat, 'name.translations.' + $scope.userLang);

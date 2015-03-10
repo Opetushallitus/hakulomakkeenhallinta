@@ -19,7 +19,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 var groupNameKeys = {
                     hakukohde_rajaava: { key: 'hakukohderyhmien.hakukohteiden.rajaus', defaultValue: 'Rajaavat hakukohderyhmät' },
                     hakukohde_priorisoiva: { key: 'hakukohderyhmine.hakukohteiden.priorisointi', defaultValue: 'Priorisoivat hakukohderyhmät'},
-                    hakukohde_liiteryhma: { key: 'hakukohderyhmien.liiteosoitteet', defaultValue: 'Liiteosoiteryhmät' }
+                    hakukohde_liiteosoite: { key: 'hakukohderyhmien.liiteosoitteet', defaultValue: 'Liiteosoiteryhmät' }
                 }
                 $scope.naytaLista = function() {
                     return NavigationTreeStateService.showNode($scope.nodeName)
