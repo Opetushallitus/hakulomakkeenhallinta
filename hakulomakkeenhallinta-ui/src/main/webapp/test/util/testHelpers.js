@@ -98,6 +98,33 @@ mockAjax = {
   }
 }
 
+domUtil = {
+  applicationFormRows: function() {
+    return S("table tr")
+  },
+  openDropdown: function(row) {
+    util.clickElement(row.find(".hh-icon-menu").get(0))
+  },
+  selectLomakePohjanAsetukset: function(row) {
+    util.clickElement(row.find("li:nth(1) a").get(0))
+  },
+  applicationFormRowByName: function(name) {
+    return $(_.find(S("td.ng-binding"), function(e) { return $(e).text() == name })).parent()
+  },
+  applicationRulesRajaavatHakukohderyhmat: function() {
+    return domUtil.applicationFormSettingsRowByName("Rajaavat hakukohderyhmät")
+  },
+  openRajaavatHakukohderyhmat: function(row) {
+    util.clickElement(row.find(".hh-list-h3 > i").get(0))
+  },
+  applicationFormSettingsRowByName: function(name) {
+    return $(_.find(S("a.ng-binding"), function(e) { return $(e).text().trim() == name })).parent().parent()
+  },
+  selectAsetaRajaus: function(row) {
+    util.clickElement(row.find("li:nth(0) a").get(0))
+  }
+}
+
 util = {
   flattenObject: function(obj) {
     function flatten(obj, prefix, result) {
