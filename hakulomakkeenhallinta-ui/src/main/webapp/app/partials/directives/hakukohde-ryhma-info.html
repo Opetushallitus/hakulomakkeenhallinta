@@ -6,13 +6,7 @@
             {{hakukohdeRyhma | hakukohdeNimi:userLang}}
         </a>
 
-        <hakukohderyhma-dropdown data-ng-if="ryhmaTyyppi == 'hakukohde_rajaava'" custom="asetaRyhmaanRajoite(hakukohdeRyhma)"
-                                 custom-text="{{t('aseta.rajaus') || 'Aseta rajaus'}}">
-        </hakukohderyhma-dropdown>
-
-        <hakukohderyhma-dropdown data-ng-if="ryhmaTyyppi == 'hakukohde_priorisoiva'" custom="muokkaaPrioriteetteja()"
-                                 custom-text="{{ t('muokkaa.prioriteetteja') || 'Muokkaa prioriteetteja' }}">
-        </hakukohderyhma-dropdown>
+        <hakukohderyhma-dropdown></hakukohderyhma-dropdown>
 
         <div style="width: auto; font-size: 14px; font-style: normal;" data-ng-show="naytaHakukohdeLista()">
             <div style="width: 100%; display: inline-block; padding-left: 30px;" data-ng-show="ryhma.configurations.maximumNumberOf > 0">
