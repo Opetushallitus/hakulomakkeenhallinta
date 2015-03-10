@@ -17,6 +17,15 @@
         expect(S('.ng-binding:nth(1)').text().trim()).to.equal("Lomakepohjan asetukset (Korkeakoulujen yhteishaku kevät 2015)")
       })
     })
+    
+    describe("rajaavat hakukohderyhmät popup avautuu ja sulkeutuu", function() {
+      before(page.openRajaavatHakukohderyhmatPopup)
+
+      it('popupissa kaksi vaihtoehtoa', function() {
+        var menuItems = domUtil.applicationRulesRajaavatHakukohderyhmat().find('.hh-list-h3 .dropdown-menu li')
+        expect(menuItems.length).to.equal(2)
+      })
+    })
 
     describe("rajaava hakukohderyhmä avautuu oikein", function() {
       before(page.openJyrinRajaavaRyhma)

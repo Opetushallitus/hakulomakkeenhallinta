@@ -12,6 +12,11 @@ function RajaavatHakukohdeRyhmatPage() {
       return domUtil.openLomakepohjanAsetukset(api.applicationRowKorkeakoulujenYhteishakuKevat2015())
     },
 
+    openRajaavatHakukohderyhmatPopup: function() {
+      var row = domUtil.applicationRulesRajaavatHakukohderyhmat()
+      domUtil.openDropdown(row)
+    },
+
     openJyrinRajaavaRyhma: function() {
       var row = domUtil.applicationRulesRajaavatHakukohderyhmat()
       domUtil.openRajaavatHakukohderyhmat(row)
