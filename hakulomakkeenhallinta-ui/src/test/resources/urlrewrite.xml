@@ -12,10 +12,6 @@
         <from>/hakulomakkeenhallinta-ui/(.*)</from>
         <to>/$1</to>
     </rule>
-    <rule>
-        <from>/app/scripts/app.js</from>
-        <to last="true">/app/config/app.js</to>
-    </rule>
 
     <rule>
         <from>/haku-app/application-system-form-editor/application-system-form/(.*)/name</from>
