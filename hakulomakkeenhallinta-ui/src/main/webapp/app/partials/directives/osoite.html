@@ -1,0 +1,29 @@
+<div>
+    <div class="form-group">
+        <label>{{ t('liitteen.vastaanottaja') || 'Vastaanottaja' }} </label>
+        <input type="text" name="vastaanottaja" class="form-control" data-ng-model="address.recipient" >
+    </div>
+
+    <div class="form-group">
+        <label>{{ t('liitteen.osoite') || 'Osoite *' }} </label>
+        <input type="text" name="osoite" class="form-control" data-ng-model="address.street"  data-ng-required="true">
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero *' }} </label>
+            <input type="text" class="form-control"
+                   data-ng-model="address.postCode" data-ng-required="true"
+                   data-typeahead-on-select="setPostitoimipaikka()"
+                   data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
+        </div>
+        <div class="col-md-8">
+            <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka *' }}
+                <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
+            </label>
+            <input type="text" class="form-control" data-ng-model="address.postOffice"
+                   data-ng-required="true" ng-disabled="true" >
+        </div>
+    </div>
+    <br>
+</div>

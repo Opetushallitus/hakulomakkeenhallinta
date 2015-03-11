@@ -17,6 +17,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             },
             link: function ($scope) {
 
+                $scope.address = {};
+
                 $scope.naytaHakukohdeLista = function(){
                     return NavigationTreeStateService.showNode($scope.ryhma.groupId)
                 };

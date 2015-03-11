@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl', ['$scope', '$rootScope', '$modalInstance', 'attachmentRequest', 'Koodisto', '$timeout', '_', '$routeParams', 'Organisaatio', '$filter',
-        function($scope, $rootScope, $modalInstance, attachmentRequest, Koodisto, $timeout, _, $routeParams, Organisaatio, $filter) {
+    .controller('AppendixRequestCtrl', ['$scope', '$modalInstance', 'attachmentRequest', '$timeout', '_', '$filter',
+        function($scope, $modalInstance, attachmentRequest, $timeout, _, $filter) {
             $scope.attachmentRequest = attachmentRequest;
 
             $scope.tanaan = new Date();
@@ -25,13 +25,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.attachmentRequest.deliveryDue = $filter('date')(paivaObject, 'dd.MM.yyyy');
 
             }
-            /**
-             * haetaan postinumerot ja postitoimipaikat'
-             * Koodistosta
-             */
-            Koodisto.getPostiKoodit().then(function (data) {
-                $scope.postiKoodit = data;
-            });
 
             /**
              * tallentaa liitepyynnön ja sulkee liitepyyntö dialogin
@@ -47,14 +40,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
-            };
-            /**
-             * asettaa postitoimi paikan valitulla postinumerolla
-             */
-            $scope.setPostitoimipaikka = function () {
-                $rootScope.LOGS('setPostitoimipaikka() postiNro: ', $scope.attachmentRequest.deliveryAddress.postCode);
-                var postikoodi = _.find($scope.postiKoodit, function (koodi) { return koodi.koodiArvo ===  $scope.attachmentRequest.deliveryAddress.postCode; });
-                $scope.attachmentRequest.deliveryAddress.postOffice =  _.find(postikoodi.metadata, function (meta) {return meta.kieli.toLowerCase() === $scope.userLang;}).nimi;
             };
             /**
              * asettaa kellon ajan päivä objetiin
@@ -110,25 +95,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.tarkista = function () {
                 $scope.liitepyyntoDialog.liitenimi.$setValidity('required', $scope.tarkistaPakollisuus($scope.attachmentRequest.header.translations));
             };
-            /**
-             * Esitätäytetään liitepyynnön palautus osoitteeksi käyttäjän organisaatiosta saatu postiosoite
-             * jos se on saatavilla.
-             */
-            Organisaatio.getOrganisationData($routeParams.oid).then(
-                function (orgInfo) {
-                    if (orgInfo.postiosoite) {
-                        if (orgInfo.postiosoite.osoite && $scope.attachmentRequest.deliveryAddress.street === undefined) {
-                            $scope.attachmentRequest.deliveryAddress.street = orgInfo.postiosoite.osoite;
-                        }
-                        if (orgInfo.postiosoite.postinumeroUri && $scope.attachmentRequest.deliveryAddress.postCode === undefined) {
-                            $scope.attachmentRequest.deliveryAddress.postCode = orgInfo.postiosoite.postinumeroUri.slice(6);
-                        }
-                        if (orgInfo.postiosoite.postitoimipaikka && $scope.attachmentRequest.deliveryAddress.postOffice === undefined) {
-                            $scope.attachmentRequest.deliveryAddress.postOffice = orgInfo.postiosoite.postitoimipaikka;
-                        }
-                    }
-                }
-            );
 
             $scope.openDatePicker = function () {
                 $scope.datePicOpen = true;
