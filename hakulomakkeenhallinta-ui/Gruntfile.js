@@ -24,32 +24,6 @@ module.exports = function(grunt) {
                         dest: 'target/hakulomakkeenhallinta-ui/app/'
                     }
                 ]
-            },
-            testdata: {
-                src: ['app/test-data/*'],
-                dest: 'target/hakulomakkeenhallinta-ui/',
-                expand: true,
-                cwd: 'src/main/webapp'
-            },
-            propslocal: {
-                src: ['src/main/webapp/app/config/props_local.js' ],
-                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/services/provider/props.js'
-            },
-            propslocalapp: {
-                src: ['src/main/webapp/app/config/app_mockBackend.js' ],
-                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/app.js'
-            },
-            localcas: {
-                src: ['src/main/webapp/app/config/myroles' ],
-                dest: 'target/hakulomakkeenhallinta-ui/app/cas/myroles'
-            },
-            propsservers: {
-                src: ['src/main/webapp/app/config/props_2server.js'],
-                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/services/provider/props.js'
-            },
-            propsserversapp: {
-                src: ['src/main/webapp/app/config/app.js' ],
-                dest: 'target/hakulomakkeenhallinta-ui/app/scripts/app.js'
             }
         },
         usemin: {
@@ -61,22 +35,9 @@ module.exports = function(grunt) {
         clean: {
             start: ['target/hakulomakkeenhallinta-ui'],
             end: ['target/hakulomakkeenhallinta-ui/concat']
-        },
-        uglify: {
-            options: {
-                mangle: false
-            },
-            hh_target : {
-                files: {
-                    'target/hakulomakkeenhallinta-ui/app/scripts/hh.min.js': ['target/hakulomakkeenhallinta-ui/app/scripts/hh.js']
-                }
-            }
         }
-
-
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -84,8 +45,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-rename');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('dev_static', ['clean:start', 'copy:propslocal', 'copy:propslocalapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'copy:testdata', 'copy:localcas', 'usemin', 'uglify:hh_target', 'clean:end']);
-    grunt.registerTask('dev', ['clean:start', 'copy:propslocal', 'copy:propsserversapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'copy:testdata', 'copy:localcas', 'usemin', 'uglify:hh_target', 'clean:end']);
-    grunt.registerTask('default', ['clean:start', 'copy:propsservers', 'copy:propsserversapp', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'usemin', 'clean:end']);
+    grunt.registerTask('default', ['clean:start', 'useminPrepare', 'concat:generated', 'copy:main', 'copy:nd', 'usemin', 'clean:end']);
 
 };

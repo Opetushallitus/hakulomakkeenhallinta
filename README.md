@@ -1,15 +1,45 @@
 # Hakulomakkeen hallinnan angular-käyttöliittymä.
 
-## Käynnistys lokaalissa kehitysympäristössä staattisilla json tiedostoilla
+# Default mochatesti server
 
-  cd hakulomakkeenhallinta-ui
-  mvn clean install -P dev_static; mvn tomcat7:run-war-only -P dev_static
+osittain mock data & muuten lokaalit palvelut
 
-jonka jälkeen avaa selaimessa allaoleva urli:
+## Mocha testit
 
-http://localhost:8090/hakulomakkeenhallinta-ui/app/index.html
+Ajetaan junit testien mukana mvn:n buildissä.
 
-## Käynnistys lokaalissa kehitysympäristössä lokaali haku-api vasten
+### Ajo selaimessa
+
+Käynnistä embedded tomcat IDEstä:
+    fi.vm.sade.hakulomakkeenhallinta.HakulomakkeenhallintaUiTomcat
+
+Aja testit:
+    http://localhost:9092/test/runner.html
+
+# Server ilman lokaaleja muita palveluita
+
+eli myös haku-app, authentication-service mockattu
+
+vaihda test/resources/test-web.cml:ssä
+    <param-name>confPath</param-name>
+    <param-value>urlrewrite_mock_all.xml</param-value>
+
+
+# Server, joka käyttää lokaalia haku-appia ja muuten luokkaa
+
+Eli lokaali haku-app, mutta muuten luokan palvelut
+
+vaihda test/resources/test-web.cml:ssä
+    <param-name>confPath</param-name>
+    <param-value>urlrewrite_no_mock.xml</param-value>
+
+
+Käynnistä embedded tomcat IDEstä:
+    fi.vm.sade.hakulomakkeenhallinta.HakulomakkeenhallintaUiTomcat
+
+Mene
+    http://localhost:9092/hakulomakkeenhallinta-ui/app/index.html
+
 
 ## lokaali haku-app
 
@@ -31,15 +61,9 @@ Tarvitaan lokaali apache proxyttämään, jotta saadaan hakulomakkeenhallinta ja
 
   # hakulomakkeenhallinta
   <Location /hakulomakkeenhallinta-ui>
-  ProxyPass http://localhost:8090/hakulomakkeenhallinta-ui
-  ProxyPassReverse http://localhost:8090/hakulomakkeenhallinta-ui
+  ProxyPass http://localhost:9092/hakulomakkeenhallinta-ui
+  ProxyPassReverse http://localhost:9092/hakulomakkeenhallinta-ui
   </Location>
-
-*cas/myroles*
-
-Lisää apache tarjoilemaan `cas/myroles` tiedosto, jonka saat joltain muulta kehittäjältä.
-Eli kopioi se esim. OS X:ssä tänne:
-  /Library/WebServer/Documents/cas/
 
 *käynnistys*
 
@@ -47,26 +71,16 @@ esim. OS X:ssä: `sudo apachectl start`
 
 ### testaus
 
-  cd hakulomakkeenhallinta-ui
-  mvn clean install -P dev; mvn tomcat7:run-war-only -P dev
+Käynnistä embedded tomcat IDEstä:
+  fi.vm.sade.hakulomakkeenhallinta.HakulomakkeenhallintaUiTomcat
 
 ja mene ensin haku-app:iin
-http://localhost/haku-app/
+    http://localhost/haku-app/
 
 Kirjaudu sisään: master / master
 
 jonka jälkeen avaa selaimessa alla oleva urli:
 
-http://localhost/hakulomakkeenhallinta-ui/app/index.html
+    http://localhost/hakulomakkeenhallinta-ui/app/index.html
 
-## Mocha testit
 
-Ajetaan junit testien mukana mvn:n buildissä.
-
-### Ajo selaimessa
-
-Käynnistä embedded tomcat IDEstä:
-    fi.vm.sade.hakulomakkeenhallinta.HakulomakkeenhallintaUiTomcat
-
-Aja testit:
-    http://localhost:9092/test/runner.html
