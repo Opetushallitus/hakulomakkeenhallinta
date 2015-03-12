@@ -72,12 +72,6 @@ app.directive('datepickerFix', function () {
             element.on('blur', function () {
                 model.$setValidity('maxdate', true);
                 model.$setValidity('mindate', true);
-                scope.$evalAsync(function () {
-                    if (!scope.datePicOpen) {
-                        scope.pvmBlur();
-                    }
-
-                });
             });
         }
     };

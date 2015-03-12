@@ -1,4 +1,4 @@
-'use strickt';
+'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('osoite', [ 'Koodisto', 'Organisaatio', '$routeParams', '$filter',
