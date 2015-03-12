@@ -10,12 +10,16 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             require: '^form',
             scope: {
                 datetime: '=datetime',
-                label: '@label'
+                label: '@label',
+                required: '@required'
             },
             link: function(scope, element, attrs, formControl) {
                 scope.form = formControl;
+
             },
             controller: function ($scope) {
+                $scope.required = ($scope.required === 'true');
+                console.log("required=" + $scope.required)
                 $scope.tanaan = new Date();
                 $scope.tanaan.setHours(23, 59);
                 var vuosiPvm = new Date();

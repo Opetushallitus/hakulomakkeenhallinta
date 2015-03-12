@@ -9,20 +9,26 @@ app.directive('datepickerFix', function () {
             var format = attrs.datepickerPopup,
                 maxDate = scope[attrs.maxDate],
                 minDate = scope[attrs.minDate],
-                model = ngModel;
+                model = ngModel,
+                required =  scope[attrs.ngRequired];
 
             ngModel.$parsers.push(function (viewValue) {
                 var newDate = model.$viewValue,
                     date = null;
+                if(required) {
+                    model.$setValidity('date', false);
+                }
+                else if(newDate === null) {
+                    return undefined;
+                }
                 // pass through if we clicked date from popup
                 if (typeof newDate === "object") {
                     var dmsec = Date.parse(newDate),
                         d = new Date(dmsec),
                         nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59);
+                    model.$setValidity('date', true);
                     return nd;
                 }
-
-                model.$setValidity('date', false);
                 model.$setValidity('checkmonth', true);
                 model.$setValidity('checkday', true);
                 model.$setValidity('checkyear', true)
