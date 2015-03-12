@@ -12,6 +12,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
+                $scope.postiKoodit = {};
+
                 /**
                  * haetaan postinumerot ja postitoimipaikat'
                  * Koodistosta
