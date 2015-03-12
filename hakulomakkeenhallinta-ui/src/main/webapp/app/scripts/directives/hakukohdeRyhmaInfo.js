@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route, $timeout, LocalisationService) {
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route, $timeout, LocalisationService, ApplicationFormConfiguration) {
         return {
             restrict: 'E',
             replace: true,
@@ -20,11 +20,23 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     return LocalisationService.tl(key);
                 };
 
-                $scope.groupconfig = {
+                $scope.hakukohderyhmanOsoite = {
                     useFirstAoAddress: true,
                     address: {},
                     deliveryDue: undefined
                 };
+
+                $scope.tallennaHakukohderyhmanOsoite = function (form) {
+                    ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite($routeParams.id, $scope.ryhma.groupId, $scope.hakukohderyhmanOsoite).then(
+                        function success(data) {
+                            form.$setPristine();
+                        },
+                        function error(resp) {
+                            AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
+                        }
+                    );
+                };
+
 
                 $scope.naytaHakukohdeLista = function(){
                     return NavigationTreeStateService.showNode($scope.ryhma.groupId)

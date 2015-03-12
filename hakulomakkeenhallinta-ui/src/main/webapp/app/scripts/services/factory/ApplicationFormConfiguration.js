@@ -83,6 +83,32 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 );
                 return deferred.promise;
             };
+            ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite) {
+                var deferred = $q.defer();
+                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaHakukohderyhmanOsoite()', applicationSystemId, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite);
+                var groupConf =
+                {
+                    groupId: hakukohdeRyhmaOid,
+                    type: 'hakukohde_liiteosoite',
+                    configurations: {
+                        useFirstAoAddress: hakukohdeRyhmanOsoite.useFirstAoAddress,
+                        addressRecipient: hakukohdeRyhmanOsoite.address.recipient,
+                        addressStreet: hakukohdeRyhmanOsoite.address.street,
+                        addressPostalCode: hakukohdeRyhmanOsoite.address.postCode,
+                        addressPostOffice: hakukohdeRyhmanOsoite.address.postOffice,
+                        deadline: hakukohdeRyhmanOsoite.deliveryDue
+                    }
+                };
+                FormConfiguration.setFormConfiguration({ _asId: applicationSystemId, _groupId: hakukohdeRyhmaOid }, groupConf).$promise.then(
+                    function success(data) {
+                        deferred.resolve(data);
+                    },
+                    function error(resp) {
+                        deferred.reject(resp);
+                    }
+                );
+                return deferred.promise;
+            };
             /**
              * Palauttaa taustajärjestelmästä hakulomake pohjat
              * @returns {promise}

@@ -1,17 +1,23 @@
-<div>
+<form name="liiteryhmanOsoiteForm">
     <div class="form-group" >
         <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
     </div>
-    <form>
-        <osoite address="groupconfig.address"
-                user-lang="{{userLang}}"
-                >
-        </osoite>
+    <osoite address="hakukohderyhmanOsoite.address"
+            user-lang="{{userLang}}"
+            >
+    </osoite>
 
-        <datetime
-                label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä' }}"
-                datetime="groupconfig.deliveryDue"
-                >
-        </datetime>
-    </form>
-</div>
+    <datetime
+            label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä' }}"
+            datetime="hakukohderyhmanOsoite.deliveryDue"
+            >
+    </datetime>
+    <div class="form-group">
+        <button class="btn btn-primary"
+                type="submit"
+                data-ng-click="tallennaHakukohderyhmanOsoite(liiteryhmanOsoiteForm)"
+                data-ng-disabled="!liiteryhmanOsoiteForm.$valid || liiteryhmanOsoiteForm.$pristine"
+                tl="tallenna">Tallenna
+        </button>
+    </div>
+</form>
