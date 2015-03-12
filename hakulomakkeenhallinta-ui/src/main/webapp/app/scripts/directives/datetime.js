@@ -22,7 +22,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     return LocalisationService.tl(key);
                 };
                 $scope.required = ($scope.required === 'true');
-                console.log("required=" + $scope.required)
                 $scope.tanaan = new Date();
                 $scope.tanaan.setHours(23, 59);
                 var vuosiPvm = new Date();
