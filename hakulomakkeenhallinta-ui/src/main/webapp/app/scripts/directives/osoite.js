@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('osoite', [ 'Koodisto', 'Organisaatio', '$routeParams', '$filter',
-        function (Koodisto, Organisaatio, $routeParams, $filter) {
+    .directive('osoite', [ 'Koodisto', 'Organisaatio', '$routeParams', '$filter', 'LocalisationService',
+        function (Koodisto, Organisaatio, $routeParams, $filter, LocalisationService) {
         return {
             restrict: 'E',
             replace: true,
@@ -12,6 +12,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang'
             },
             controller: function ($scope) {
+                $scope.t = function (key) {
+                    return LocalisationService.tl(key);
+                };
+
                 $scope.postiKoodit = {};
 
                 /**

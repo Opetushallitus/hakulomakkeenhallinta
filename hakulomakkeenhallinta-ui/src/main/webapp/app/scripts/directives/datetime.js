@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('datetime', [ '$filter',
-        function ($filter) {
+    .directive('datetime', [ '$filter', 'LocalisationService',
+        function ($filter, LocalisationService) {
             return {
             restrict: 'E',
             replace: true,
@@ -18,6 +18,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
 
             },
             controller: function ($scope) {
+                $scope.t = function (key) {
+                    return LocalisationService.tl(key);
+                };
                 $scope.required = ($scope.required === 'true');
                 console.log("required=" + $scope.required)
                 $scope.tanaan = new Date();

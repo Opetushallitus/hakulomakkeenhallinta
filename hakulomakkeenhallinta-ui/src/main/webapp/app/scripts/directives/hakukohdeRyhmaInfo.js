@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route, $timeout) {
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route, $timeout, LocalisationService) {
         return {
             restrict: 'E',
             replace: true,
@@ -16,6 +16,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 ryhmaTyyppi: '@ryhmaTyyppi'
             },
             link: function ($scope) {
+                $scope.t = function (key) {
+                    return LocalisationService.tl(key);
+                };
 
                 $scope.groupconfig = {
                     useFirstAoAddress: true,
