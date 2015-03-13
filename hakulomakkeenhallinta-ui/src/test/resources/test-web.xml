@@ -26,7 +26,7 @@
         <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
         <init-param>
             <param-name>confPath</param-name>
-            <param-value>urlrewrite_no_mock.xml</param-value>
+            <param-value>urlrewrite.xml</param-value>
         </init-param>
         <!--init-param>
             <param-name>logLevel</param-name>
