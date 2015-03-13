@@ -8,7 +8,7 @@
 
     describe("hakulomake latautuu oikein", function() {
       it('Testihaku testipisteeseen löytyy lomakkeelta', function () {
-        expect(page.applicationFormRowByName("Testihaku testipisteeseen").length).to.equal(1)
+        expect(domUtil.applicationFormRowByName("Testihaku testipisteeseen").length).to.equal(1)
       })
     })
 

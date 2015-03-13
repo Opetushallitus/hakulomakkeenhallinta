@@ -1,0 +1,16 @@
+<div class="dropdown pull-right">
+    <a class="dropdown-toggle">
+        <i class="hh-icon-menu"></i>
+    </a>
+    <ul class="dropdown-menu">
+        <li data-ng-click="lisaaHakukohdeRyhmaan(hakukohdeRyhma)">
+            <a>{{ t('lisaa.hakukohde') || 'Lisää hakukohde' }} <i class="glyphicon glyphicon-plus"></i></a>
+        </li>
+        <li data-ng-click="poistaHakukohteitaRyhmasta(hakukohdeRyhma)">
+            <a>{{ t('poista.hakukohteita') || 'Poista hakukohteita' }} <i class="glyphicon glyphicon-remove"></i></a>
+        </li>
+        <li data-ng-click="poistaHakukohderyhma(hakukohdeRyhma)">
+            <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
+        </li>
+    </ul>
+</div>

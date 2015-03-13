@@ -31,7 +31,12 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory',[])
                 function (data) {
                     // oletus kieli fi, jos käyttäjällä ei kieltä asetettu cas/myroles:ssa
                     var userLang = 'fi';
-                    userLang = _.find(data.myroles, function (ulng) { return ulng.match('LANG_'); }).slice(5);
+                    var langParams = _.find(data.myroles, function (ulng) {
+                        return ulng.match('LANG_');
+                    });
+                    if(langParams != undefined) {
+                        userLang = langParams.slice(5);
+                    }
                     deferred.resolve(userLang);
                 }
             );

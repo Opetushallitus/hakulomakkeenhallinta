@@ -1,15 +1,16 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('LisaaRajoiteryhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, applicationForm, rajoiteRyhmat, AlertMsg, ApplicationFormConfiguration, LocalisationService, NavigationTreeStateService) {
+    .controller('LisaaRyhmaLomakkeenAsetuksiinDialogCtrl',
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, ryhmaTyyppi, applicationForm, ryhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService, NavigationTreeStateService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         //näytetään lataus indikaattori dialogissa
         $scope.starLoad = true;
-        Organisaatio.getRajaavatHakukohdeRyhmat($routeParams.oid).then(
+
+        Organisaatio.getHakukohdeRyhmat($routeParams.oid, ryhmaTyyppi).then(
             function (data) {
                 var valittavissaOlevatRyhmat = [];
                 // poistetaan valinta listasta jo lomakkeen asetuksissa käytössä olevat hakukohderyhmat
-                var kaytossaOlevatOidit = _.pluck(rajoiteRyhmat, 'groupId');
+                var kaytossaOlevatOidit = _.pluck(ryhmat, 'groupId');
                 _.each(data, function(ryhma) {
                     if(!_.contains(kaytossaOlevatOidit, ryhma.oid)) {
                         valittavissaOlevatRyhmat.push(ryhma);
@@ -25,10 +26,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
         /**
          * lisätään hakukohderyhmä lomakepohjan asetuksiin.
          */
-        $scope.lisaaRajoiteryhmaLomakkeenAsetuksiin = function () {
+        $scope.lisaaRyhmaLomakkeenAsetuksiin = function () {
             var valittuHakukohdeRyhma = {};
             valittuHakukohdeRyhma.groupId = $scope.hakukohderyhma.oid;
-            valittuHakukohdeRyhma.type = 'hakukohde_rajaava';
+            valittuHakukohdeRyhma.type = ryhmaTyyppi;
             ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma).then(
                 function success (data) {
                     NavigationTreeStateService.setNodeState(valittuHakukohdeRyhma.groupId, true);

@@ -9,6 +9,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.lomakepohja = {};
             $scope.rajoiteRyhmat = [];
             $scope.priorisointiRyhmat = [];
+            $scope.liiteRyhmat = [];
 
             MyRoles.lomakepohjaChangeRightCheck().then(
                 function (data) {
@@ -32,14 +33,25 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     lomakePohjanAsetukset();
                 }
             );
+
+            function filterByType(type) {
+                return function (conf) {
+                    return conf.type === type
+                }
+            }
+
+            function filterGroupConfigurations(lomakepohjanAsetukset, type) {
+                return _.filter(lomakepohjanAsetukset.groupConfigurations, filterByType(type))
+            }
             /**
              * heataan lomakepohjan asetukset
              */
             function lomakePohjanAsetukset() {
                 ApplicationFormConfiguration.haeLomakepohjanAsetukset($routeParams.id).then(
                     function success(lomakepohjanAsetukset) {
-                        $scope.rajoiteRyhmat = _.filter(lomakepohjanAsetukset.groupConfigurations, function (conf) { return conf.type === 'hakukohde_rajaava'; });
-                        $scope.priorisointiRyhmat = _.filter(lomakepohjanAsetukset.groupConfigurations, function (conf) { return conf.type === 'hakukohde_priorisoiva'; });;
+                        $scope.rajoiteRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_rajaava');
+                        $scope.priorisointiRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_priorisoiva');
+                        $scope.liiteRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_liiteosoite');
                         $scope.lomakepohja = _.find($scope.lomakepohjat, function (pohja) { if (pohja.id === lomakepohjanAsetukset.formTemplateType) { return pohja; }});
                         $scope.lomakepohjat = _.without($scope.lomakepohjat, $scope.lomakepohja);
                         $scope.lomakepohjat = $filter('orderBy')($scope.lomakepohjat, 'name.translations.' + $scope.userLang);

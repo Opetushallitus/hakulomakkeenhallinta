@@ -2,76 +2,112 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route) {
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route, $timeout, LocalisationService, ApplicationFormConfiguration) {
         return {
             restrict: 'E',
             replace: true,
             templateUrl: 'partials/directives/hakukohde-ryhma-info.html',
-            require: '^rajaavatSaannot',
             scope: {
-                rajoiteRyhma: '=rajoiteRyhma',
+                ryhma: '=ryhma',
+                ryhmat: '=ryhmat',
                 applicationForm: '=applicationForm',
                 lomakepohja: '=lomakepohja',
-                poistaHakukohderyhma: '&poistaHakukohderyhma',
-                userLang: '@userLang'
+                userLang: '@userLang',
+                ryhmaTyyppi: '@ryhmaTyyppi'
             },
             link: function ($scope) {
-                $scope.naytaHakukohdeLista = function(){
-                    return NavigationTreeStateService.showNode($scope.rajoiteRyhma.groupId)
+                $scope.t = function (key) {
+                    return LocalisationService.tl(key);
                 };
+
+                $scope.hakukohderyhmanOsoite = {
+                    useFirstAoAddress: true,
+                    address: {},
+                    deliveryDue: undefined
+                };
+                if($scope.ryhma.configurations) {
+                    $scope.hakukohderyhmanOsoite.useFirstAoAddress = ($scope.ryhma.configurations.useFirstAoAddress === 'true');
+                    $scope.hakukohderyhmanOsoite.address.recipient = $scope.ryhma.configurations.addressRecipient;
+                    $scope.hakukohderyhmanOsoite.address.street = $scope.ryhma.configurations.addressStreet;
+                    $scope.hakukohderyhmanOsoite.address.postCode = $scope.ryhma.configurations.addressPostalCode;
+                    $scope.hakukohderyhmanOsoite.address.postOffice = $scope.ryhma.configurations.addressPostOffice;
+                    if($scope.ryhma.configurations.deadline) {
+                        $scope.hakukohderyhmanOsoite.deliveryDue = Number($scope.ryhma.configurations.deadline);
+                    }
+                }
+
+                $scope.tallennaHakukohderyhmanOsoite = function (form) {
+                    ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite($routeParams.id, $scope.ryhma.groupId, $scope.hakukohderyhmanOsoite).then(
+                        function success(data) {
+                            $scope.alerts = [];
+                            form.$setPristine();
+                        },
+                        function error(resp) {
+                            AlertMsg($scope, 'error', 'error.tallennus.epaonnistui');
+                        }
+                    );
+                };
+
+
+                $scope.naytaHakukohdeLista = function(){
+                    return NavigationTreeStateService.showNode($scope.ryhma.groupId)
+                };
+
                 $scope.hakukohteidenMaara = 0;
                 $scope.hakukohdeRyhma = {};
-                var ryhmanHakukohteet  = [];
-                Organisaatio.getOrganisationData($scope.rajoiteRyhma.groupId).then(
+                $scope.ryhmanhakukohteet = [];
+
+                Organisaatio.getOrganisationData($scope.ryhma.groupId).then(
                     function (data) {
                         $scope.hakukohdeRyhma = data;
                     }
                 );
-                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.rajoiteRyhma.groupId).then(
-                    function (data) {
-                        ryhmanHakukohteet = data;
-                        $scope.hakukohteet = $filter('orderBy')(data, 'nimi.' + $scope.userLang, false);
-                        $scope.hakukohteidenMaara = $scope.hakukohteet.length;
-                    }
+
+                function rajaavatHakukohteet(data) {
+                    $scope.ryhmanhakukohteet = data;
+                    $scope.hakukohteet = $filter('orderBy')(data, 'nimi.' + $scope.userLang, false);
+                    $scope.hakukohteidenMaara = $scope.hakukohteet.length;
+                }
+
+                function priorisoivatHakukohteet(data) {
+                    $scope.hakukohteet = data;
+                    $scope.ryhmanhakukohteet = data;
+                    $scope.hakukohteidenMaara = $scope.hakukohteet.length;
+                    var prioriteettiRyhmat = {};
+                    _.each($scope.hakukohteet, function (hakukohde) {
+                            var hakukohdePrioriteetti = _.where(hakukohde.ryhmaliitokset, {ryhmaOid: $scope.ryhma.groupId})[0];
+
+                            if (hakukohdePrioriteetti.prioriteetti === undefined) {
+                                if(prioriteettiRyhmat['priorityundefined'] === undefined) {
+                                    prioriteettiRyhmat.priorityundefined = [];
+                                }
+                                prioriteettiRyhmat['priorityundefined'].push(hakukohde);
+                            } else {
+                                if (prioriteettiRyhmat[hakukohdePrioriteetti.prioriteetti] === undefined) {
+                                    prioriteettiRyhmat[hakukohdePrioriteetti.prioriteetti] = [];
+                                }
+                                prioriteettiRyhmat[hakukohdePrioriteetti.prioriteetti].push(hakukohde);
+                            }
+                        }
+                    );
+                    $scope.hakukohteet = prioriteettiRyhmat;
+                }
+
+                function getParserFunction() {
+                    if($scope.ryhmaTyyppi == 'hakukohde_priorisoiva')
+                        return priorisoivatHakukohteet
+                    else
+                        return rajaavatHakukohteet
+                }
+
+                TarjontaAPI.haeRyhmanHakukohteet($routeParams.id, $scope.ryhma.groupId).then(
+                    getParserFunction()
                 );
 
                 $scope.toggleNaytaHakukohteet = function () {
-                    NavigationTreeStateService.toggleNodeState($scope.rajoiteRyhma.groupId)
+                    NavigationTreeStateService.toggleNodeState($scope.ryhma.groupId)
                 };
-                /**
-                 * Avataan dialogi hakukohderyhmän hakukohteiden rajoitusten asettamiseksi
-                 * hakulomakkeen asetuksiin
-                 */
-                $scope.asetaRyhmaanRajoite = function () {
-                    $modal.open({
-                        templateUrl: 'partials/dialogs/aseta-hakukohderyhmaan-rajoite-dialog.html',
-                        controller: 'HakukohderyhmaRajoiteDialogCtrl',
-                        scope: $scope,
-                        resolve: {
-                            applicationForm: function () {
-                                return $scope.applicationForm;
-                            },
-                            hakukohdeRyhma: function () {
-                                return $scope.hakukohdeRyhma;
-                            },
-                            rajoiteRyhma: function () {
-                                return $scope.rajoiteRyhma;
-                            }
-                        }
-                    }).result.then(
-                        function () {
-                            //ladaan sivu uudelleen onnistuneiden muutosten jälkeen
-                            $route.reload();
-                        }
-                    );
-                };
-                /**
-                 * avataan dialogi lisätään hakukohde ryhmään
-                 * @param hakukohdeRyhma
-                 */
-                $scope.lisaaHakukohdeRyhmaan = function (hakukohdeRyhma) {
-                    TarjontaService.lisaaHakukohdeRyhmaan(hakukohdeRyhma, $scope.userLang);
-                };
+
                 /**
                  * avataan dialogi poista hakukohde ryhmästä
                  * @param hakukohdeRyhma
@@ -79,13 +115,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  */
                 $scope.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
                     TarjontaService.poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde);
-                };
-                /**
-                 * avataan dialogi hakukohteiden poistamiseksi hakukohderyhmasta
-                 * @param hakukohdeRyhma
-                 */
-                $scope.poistaHakukohteitaRyhmasta = function (hakukohdeRyhma) {
-                    TarjontaService.poistaHakukohteitaRyhmasta(hakukohdeRyhma, ryhmanHakukohteet);
                 };
             }
         };

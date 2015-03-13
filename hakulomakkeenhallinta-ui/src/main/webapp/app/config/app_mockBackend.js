@@ -138,11 +138,11 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
             organisaatio = data;
         }
     );
-    /*$httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\/([0-9]+\.)+[0-9]+/).respond(
+    $httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\/([0-9]+\.)+[0-9]+/).respond(
         function () {
             return [200, organisaatio, {status: 200}];
         }
-    );*/
+    );
 
     //organisaation hakukohteet
     $.getJSON(Props.contextRoot + '/app/test-data/organisaation-hakukohteet.json', function (data) {
@@ -248,7 +248,7 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     $httpBackend.whenGET(/\/koodisto-service\/rest\/json\/posti\/koodi\?onlyValidKoodis\=true/).passThrough();
     $httpBackend.whenGET(/cas\/myroles/).passThrough();
     $httpBackend.whenGET(/test-data\//).passThrough();
-    $httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\//).passThrough();
+//    $httpBackend.whenGET(/\/organisaatio\-service\/rest\/organisaatio\//).passThrough();
 //    $httpBackend.whenGET(/authentication-service\/resources\/omattiedot\/organisaatiohenkilo/).passThrough();
     $httpBackend.whenGET(/app\/test-data\/languages.json/).passThrough();
     $httpBackend.whenGET(/partials\//).passThrough();

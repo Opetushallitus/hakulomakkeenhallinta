@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+  "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite use-query-string="true">
+    <rule>
+        <from>/cas/myroles</from>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/app/config/myroles</to>
+    </rule>
+    <rule>
+        <from>/hakulomakkeenhallinta-ui/(.*)</from>
+        <to>/$1</to>
+    </rule>
+    <rule>
+        <from>/app/scripts/services/provider/props.js</from>
+        <to last="true">/app/config/props_local.js</to>
+    </rule>
+
+</urlrewrite>

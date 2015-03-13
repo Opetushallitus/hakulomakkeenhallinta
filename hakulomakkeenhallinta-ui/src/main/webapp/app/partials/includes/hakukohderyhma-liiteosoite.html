@@ -1,0 +1,37 @@
+<form name="liiteryhmanOsoiteForm">
+    <div class="form-group" >
+        <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
+    </div>
+
+    <input
+            class="checkbox-inline"
+            name="useFirstAoAddress"
+            type="checkbox"
+            class="form-control"
+            data-ng-model="hakukohderyhmanOsoite.useFirstAoAddress"
+    >
+    </input>
+    <label for="useFirstAoAddress" class="control-label">{{ t('liitteen.osoite.kayta_ylin') || 'Käytä hakemuksen ylimmän hakukohteen osoitetta' }} </label>
+
+    <osoite address="hakukohderyhmanOsoite.address"
+            user-lang="{{userLang}}"
+            disabled="hakukohderyhmanOsoite.useFirstAoAddress"
+            require-recipient="true"
+            no-prefill="true"
+            >
+    </osoite>
+
+    <datetime
+            label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä' }}"
+            datetime="hakukohderyhmanOsoite.deliveryDue"
+            >
+    </datetime>
+    <div class="form-group">
+        <button class="btn btn-primary"
+                type="submit"
+                data-ng-click="tallennaHakukohderyhmanOsoite(liiteryhmanOsoiteForm)"
+                data-ng-disabled="!liiteryhmanOsoiteForm.$valid || liiteryhmanOsoiteForm.$pristine"
+                tl="tallenna">Tallenna
+        </button> <alertmsg></alertmsg>
+    </div>
+</form>

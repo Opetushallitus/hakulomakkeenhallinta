@@ -27,18 +27,30 @@
     <h2> {{ t('hallinnoi.lomakepohjan.saantoja') || 'Hallinnoi lomakepohjan sääntöjä' }} </h2>
     <hr>
     <div>
-        <rajaavat-saannot
+        <saannot
             application-form="applicationForm"
-            rajoite-ryhmat="rajoiteRyhmat"
+            ryhmat="rajoiteRyhmat"
             lomakepohja="lomakepohja"
-            user-lang="{{userLang}}">
-            </rajaavat-saannot>
+            user-lang="{{userLang}}"
+            ryhma-tyyppi="hakukohde_rajaava"
+            node-name="rajaavat-saannot">
+        </saannot>
+        <saannot
+            application-form="applicationForm"
+            ryhmat="priorisointiRyhmat"
+            lomakepohja="lomakepohja"
+            user-lang="{{userLang}}"
+            ryhma-tyyppi="hakukohde_priorisoiva"
+            node-name="priorisoivat-saannot">
 
-        <priorisoivat-saannot
+        </saannot>
+        <saannot
             application-form="applicationForm"
-            priorisointi-ryhmat="priorisointiRyhmat"
+            ryhmat="liiteRyhmat"
             lomakepohja="lomakepohja"
-            user-lang="{{userLang}}">
-            </priorisoivat-saannot>
+            user-lang="{{userLang}}"
+            ryhma-tyyppi="hakukohde_liiteosoite"
+            node-name="liite-saannot">
+        </saannot>
     </div>
-
+</div>

@@ -98,6 +98,45 @@ mockAjax = {
   }
 }
 
+domUtil = {
+  applicationFormRows: function() {
+    return S("table tr")
+  },
+  openDropdown: function(row) {
+    util.clickElement(row.find(".hh-icon-menu").get(0))
+  },
+  selectLomakePohjanAsetukset: function(row) {
+    util.clickElement(row.find("li:nth(1) a").get(0))
+  },
+  openLomakepohjanAsetukset: function(row) {
+    domUtil.openDropdown(row)
+    domUtil.selectLomakePohjanAsetukset(row)
+    var deferred = Q.defer()
+    wait.until(function () {
+      return S('div[application-form=applicationForm]:visible').length == 3
+    })().then(function () {
+      deferred.resolve()
+    })
+    return deferred.promise
+  },
+  openRajaavatHakukohderyhmat: function(row) {
+    util.clickElement(row.find(".hh-list-h3 > i").get(0))
+  },
+
+  applicationFormRowByName: function(name) {
+    return $(_.find(S("td.ng-binding"), function(e) { return $(e).text() == name })).parent()
+  },
+  applicationRulesRajaavatHakukohderyhmat: function() {
+    return domUtil.applicationFormSettingsRowByName("Rajaavat hakukohderyhmät")
+  },
+  applicationFormSettingsRowByName: function(name) {
+    return $(_.find(S("a.ng-binding"), function(e) { return $(e).text().trim() == name })).parent().parent()
+  },
+  selectAsetaRajaus: function(row) {
+    util.clickElement(row.find("li:nth(0) a").get(0))
+  }
+}
+
 util = {
   flattenObject: function(obj) {
     function flatten(obj, prefix, result) {
@@ -111,6 +150,18 @@ util = {
       return result
     }
     return flatten(obj, "", {})
+  },
+  clickElement: function(el) {
+    var ev = document.createEvent("MouseEvent")
+    ev.initMouseEvent(
+      "click",
+      true /* bubble */, true /* cancelable */,
+      window, null,
+      0, 0, 0, 0, /* coordinates */
+      false, false, false, false, /* modifier keys */
+      0 /*left*/, null
+    )
+    el.dispatchEvent(ev)
   }
 }
 

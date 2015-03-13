@@ -123,38 +123,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }
                 return deferred.promise;
             };
-            /**
-             * Haetaan organisaatio palvelusta rajaavat hakukohde ryhmät
-             * @params organisationOid käyttäjän organisaatio oid
-             * @returns {promise}
-             */
-            organisaatio.getRajaavatHakukohdeRyhmat = function (organisationOid) {
+
+            organisaatio.getHakukohdeRyhmat = function (organisationOid, tyyppi) {
                 var deferred = $q.defer();
                 $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid + '/ryhmat').query().$promise.then(
                     function (data) {
-                        var hakukohde_rajaava = _.filter(data, function (rajaava) { return _.contains(rajaava.kayttoryhmat, 'hakukohde_rajaava')
-                            && _.contains(rajaava.ryhmatyypit, 'hakukohde'); });
-                        deferred.resolve(hakukohde_rajaava);
+                        var ryhmat = _.filter(data, function (ryhma) { return _.contains(ryhma.kayttoryhmat, tyyppi)
+                            && _.contains(ryhma.ryhmatyypit, 'hakukohde'); });
+                        deferred.resolve(ryhmat);
                     }
                 );
                 return deferred.promise;
             };
-            /**
-             * Haetaan organisaatio palvelusta priorisoivat hakukohde ryhmät
-             * @params organisationOid käyttäjän organisaatio oid
-             * @returns {promise}
-             */
-            organisaatio.getPriorisoivatHakukohdeRyhmat = function (organisationOid) {
-                var deferred = $q.defer();
-                $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid +'/ryhmat').query().$promise.then(
-                    function (data) {
-                        var hakukohde_rajaava = _.filter(data, function (rajaava) { return _.contains(rajaava.kayttoryhmat, 'hakukohde_priorisoiva')
-                            && _.contains(rajaava.ryhmatyypit, 'hakukohde'); });
-                        deferred.resolve(hakukohde_rajaava);
-                    }
-                );
-                return deferred.promise;
-            };
+
             /**
              * Lisätään uusi ryhmä organisaatio palveluun
              * @param ryhma tiedot {}
