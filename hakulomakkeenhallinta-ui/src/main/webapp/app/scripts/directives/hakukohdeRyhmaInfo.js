@@ -39,6 +39,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.tallennaHakukohderyhmanOsoite = function (form) {
                     ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite($routeParams.id, $scope.ryhma.groupId, $scope.hakukohderyhmanOsoite).then(
                         function success(data) {
+                            $scope.alerts = [];
                             form.$setPristine();
                         },
                         function error(resp) {
