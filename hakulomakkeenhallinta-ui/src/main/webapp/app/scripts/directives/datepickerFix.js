@@ -19,7 +19,7 @@ app.directive('datepickerFix', function () {
                     model.$setValidity('date', false);
                 }
                 else if(newDate === null) {
-                    return undefined;
+                    return null;
                 }
                 // pass through if we clicked date from popup
                 if (typeof newDate === "object") {

@@ -11,7 +11,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             scope: {
                 datetime: '=datetime',
                 label: '@label',
-                required: '@required'
+                isRequired: '@isRequired'
             },
             link: function(scope, element, attrs, formControl) {
                 scope.form = formControl;
@@ -21,7 +21,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.t = function (key) {
                     return LocalisationService.tl(key);
                 };
-                $scope.required = ($scope.required === 'true');
+                $scope.isRequired = ($scope.isRequired === 'true');
                 $scope.tanaan = new Date();
                 $scope.tanaan.setHours(23, 59);
                 var vuosiPvm = new Date();
@@ -46,7 +46,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * yhdistää pvm:n ja kellon
                  */
                 $scope.$watch('[date, time]', function() {
-                    if ($scope.time  !== undefined && $scope.time  !== '' && typeof $scope.date === 'object') {
+                    if($scope.date == null) {
+                        $scope.datetime = null;
+                    } else if ($scope.time  !== undefined && $scope.time  !== '' && typeof $scope.date === 'object') {
                         var nd = new Date($scope.date.getFullYear(), $scope.date.getMonth(), $scope.date.getDate(), $scope.time.substr(0, 2), $scope.time .substr(3, 2));
                         $scope.datetime = Date.parse(nd);
                     }

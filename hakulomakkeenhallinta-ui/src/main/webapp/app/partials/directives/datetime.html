@@ -1,4 +1,5 @@
 <div class="form-group">
+
     <label>{{label}}
         <span data-ng-show="form.pvm.$error.date" class="label-warning-text">{{ t('pvm.format') || 'päivämäärän muoto pp.kk.yyyy' }}</span>
         <span data-ng-show="form.pvm.$error.checkday" class="label-warning-text">{{ t('pvm.check.day') || 'tarkista antamasi päivä' }}</span>
@@ -18,7 +19,7 @@
                 datepicker-popup="dd.MM.yyyy"
                 data-ng-model="date"
                 datepicker-options="{'starting-day':1}"
-                data-ng-required="required"
+                data-ng-required="isRequired"
                 current-text="{{t('datepicker.today')}}"
                 toggle-weeks-text="{{t('datepicker.weeks')}}"
                 clear-text="{{t('datepicker.clear')}}"
