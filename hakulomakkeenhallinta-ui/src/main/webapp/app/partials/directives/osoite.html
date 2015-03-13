@@ -1,7 +1,7 @@
 <div>
     <div class="form-group">
         <label>{{ t('liitteen.vastaanottaja') || 'Vastaanottaja' }} </label>
-        <input data-ng-disabled="disabled" type="text" name="vastaanottaja" class="form-control" data-ng-model="address.recipient" data-ng-required="!disabled && requireRecipient">
+        <input data-ng-disabled="disabled" type="text" name="vastaanottaja" class="form-control" data-ng-model="address.recipient" data-ng-required="!disabled && recipientRequired">
     </div>
 
     <div class="form-group">

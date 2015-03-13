@@ -14,6 +14,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 requireRecipient: "@",
                 noPrefill: "@"
             },
+            link: function($scope) {
+                $scope.recipientRequired = ($scope.requireRecipient === 'true')
+            },
             controller: function ($scope) {
                 $scope.t = function (key) {
                     return LocalisationService.tl(key);
@@ -40,7 +43,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                  * Esitätäytetään liitepyynnön palautus osoitteeksi käyttäjän organisaatiosta saatu postiosoite
                  * jos se on saatavilla.
                  */
-                if(!$scope.noPrefill) {
+                if($scope.noPrefill !== 'true') {
                     Organisaatio.getOrganisationData($routeParams.oid).then(
                         function (orgInfo) {
                             if (orgInfo.postiosoite) {
