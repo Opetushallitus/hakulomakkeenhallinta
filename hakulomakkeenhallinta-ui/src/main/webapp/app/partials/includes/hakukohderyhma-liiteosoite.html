@@ -2,6 +2,17 @@
     <div class="form-group" >
         <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
     </div>
+
+    <input
+            class="checkbox-inline"
+            name="useFirstAoAddress"
+            type="checkbox"
+            class="form-control"
+            data-ng-model="hakukohderyhmanOsoite.useFirstAoAddress"
+    >
+    </input>
+    <label for="useFirstAoAddress" class="control-label">{{ t('liitteen.osoite.kayta_ylin') || 'Käytä hakemuksen ylimmän hakukohteen osoitetta' }} </label>
+
     <osoite address="hakukohderyhmanOsoite.address"
             user-lang="{{userLang}}"
             >

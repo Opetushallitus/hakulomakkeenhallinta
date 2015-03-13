@@ -26,7 +26,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     deliveryDue: undefined
                 };
                 if($scope.ryhma.configurations) {
-                    $scope.hakukohderyhmanOsoite.useFirstAoAddress = $scope.ryhma.configurations.useFirstAoAddress;
+                    if($scope.ryhma.configurations.deadline) {
+                        $scope.hakukohderyhmanOsoite.useFirstAoAddress = ($scope.ryhma.configurations.useFirstAoAddress === 'true');
+                    }
                     $scope.hakukohderyhmanOsoite.address.recipient = $scope.ryhma.configurations.addressRecipient;
                     $scope.hakukohderyhmanOsoite.address.street = $scope.ryhma.configurations.addressStreet;
                     $scope.hakukohderyhmanOsoite.address.postCode = $scope.ryhma.configurations.addressPostalCode;
