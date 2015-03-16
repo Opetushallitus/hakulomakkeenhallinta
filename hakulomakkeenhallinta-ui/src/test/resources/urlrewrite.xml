@@ -50,7 +50,7 @@
     </rule>
 
     <rule>
-        <from>/tarjonta-service/rest/v1/hakukohde/search\?hakuOid=1.2.246.562.29.95390561488&amp;organisaatioRyhmaOid=(.*)</from>
+        <from>/tarjonta-service/rest/v1/hakukohde/search\?hakuOid=.*&amp;organisaatioRyhmaOid=(.*)</from>
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
         <to last="true">/test/data/organisaatioRyhmaOid-$1.json</to>
     </rule>
