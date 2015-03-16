@@ -40,6 +40,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite($routeParams.id, $scope.ryhma.groupId, $scope.hakukohderyhmanOsoite).then(
                         function success(data) {
                             $scope.alerts = [];
+                            AlertMsg($scope, 'success', 'tallennus.ok');
                             form.$setPristine();
                         },
                         function error(resp) {
