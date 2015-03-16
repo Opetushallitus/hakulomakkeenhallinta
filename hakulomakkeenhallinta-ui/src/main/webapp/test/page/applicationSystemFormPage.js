@@ -15,24 +15,24 @@ function ApplicationSystemFormPage() {
         domUtil.selectLomakePohjanAsetukset(testRow)
 
         var deferred = Q.defer()
-        var settingsRow = []
         wait.until(function () {
-          settingsRow = domUtil.applicationRulesRajaavatHakukohderyhmat()
-          return settingsRow.length == 1
+          return domUtil.applicationRulesRajaavatHakukohderyhmat().length == 1
         })().then(function () {
-          domUtil.openHakukohderyhmat(settingsRow)
-
-          var limitingRow = []
+          domUtil.openHakukohderyhmat(domUtil.applicationRulesRajaavatHakukohderyhmat())
           wait.until(function() {
-            limitingRow = domUtil.applicationFormSettingsRowByName("Vaasan yliopisto, maisterihaku, hallintotieteet")
-            return limitingRow.length == 1
+            return domUtil.applicationFormSettingsRowByName("Vaasan yliopisto, maisterihaku, hallintotieteet").length == 1
           })().then(function() {
-            domUtil.openDropdown(limitingRow)
-            domUtil.selectAsetaRajaus(limitingRow)
-            wait.until(function() {
-              return S('h1.ng-binding').toArray().length > 1
+            wait.until(function () {
+              return domUtil.applicationFormSettingsRowByName("Vaasan yliopisto, maisterihaku, hallintotieteet").find(".hh-icon-menu").length > 0
             })().then(function() {
-              deferred.resolve()
+              var limitingRow = domUtil.applicationFormSettingsRowByName("Vaasan yliopisto, maisterihaku, hallintotieteet")
+              domUtil.openDropdown(limitingRow)
+              domUtil.selectAsetaRajaus(limitingRow)
+              wait.until(function () {
+                return S('h1.ng-binding').toArray().length > 1
+              })().then(function () {
+                deferred.resolve()
+              })
             })
           })
         })
