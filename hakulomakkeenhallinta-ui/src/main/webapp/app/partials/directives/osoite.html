@@ -1,24 +1,24 @@
 <div>
     <div class="form-group">
-        <label>{{ t('liitteen.vastaanottaja') || 'Vastaanottaja' }} </label>
+        <label>{{ t('liitteen.vastaanottaja') || 'Vastaanottaja' }} <span data-ng-if="!disabled && recipientRequired" class="required"></span></label>
         <input data-ng-disabled="disabled" type="text" name="vastaanottaja" class="form-control" data-ng-model="address.recipient" data-ng-required="!disabled && recipientRequired">
     </div>
 
     <div class="form-group">
-        <label>{{ t('liitteen.osoite') || 'Osoite' }} </label>
+        <label>{{ t('liitteen.osoite') || 'Osoite' }} <span data-ng-if="!disabled" class="required"></span></label>
         <input data-ng-disabled="disabled" type="text" name="osoite" class="form-control" data-ng-model="address.street"  data-ng-required="!disabled">
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero' }} </label>
+            <label for="postinro" class="control-label">{{ t('liitteen.postinro') || 'Postinumero' }} <span data-ng-if="!disabled" class="required"></span></label>
             <input data-ng-disabled="disabled" type="text" class="form-control"
                    data-ng-model="address.postCode" data-ng-required="!disabled"
                    data-typeahead-on-select="setPostitoimipaikka()"
                    data-typeahead="posti.koodiArvo for posti in postiKoodit | filter:$viewValue | limitTo:8 | orderBy:'koodiArvo' " >
         </div>
         <div class="col-md-8">
-            <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka' }}
+            <label for="postitoimipaikka" class="control-label">{{ t('liitteen.postitmipka') || 'Postitoimipaikka' }}  <span  data-ng-if="!disabled" class="required"></span>
                 <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
             </label>
             <input type="text" class="form-control" data-ng-model="address.postOffice"

@@ -10,7 +10,8 @@
                     <div style="background-color: #f5f5f5;">
                         <br>
                         <div class="form-group">
-                            <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi *' }}
+                            <label for="liitenimi">{{ t('liitteen.nimi') || 'Liitteen nimi ' }}
+                                <span class="required"></span>
                                 <span data-ng-show="liitepyyntoDialog.liitenimi.$error.required && lisaaCliked" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
                             </label>
                             <input name="liitenimi" type="text" class="form-control" data-ng-model="attachmentRequest.header.translations[language.id]" data-ng-required="tarkista()" >
@@ -26,7 +27,7 @@
 
 
             <datetime
-                label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä *' }}"
+                label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä' }}"
                 datetime="attachmentRequest.deliveryDue"
                 is-required="true"
             >

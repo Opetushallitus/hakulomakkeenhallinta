@@ -5,7 +5,7 @@
                 <br>
                 <label for="valintaruutu"><i ng-show="question.options.length >1" class="glyphicon glyphicon-remove"
                                              data-ng-click="removeCheckbox($index, question)"></i>&nbsp;&nbsp;{{
-                    t('valintalaatikko') || 'Vastaus' }} {{$index +1}} *</label>
+                    t('valintalaatikko') || 'Vastaus' }} {{$index +1}} <span class="required"></span></label>
             </div>
             <div class="col-md-6">
                 <span ng-show="kysymyscheckbox.valintaruutu.$error.required && tallennaClicked"

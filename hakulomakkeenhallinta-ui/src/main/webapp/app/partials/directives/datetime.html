@@ -1,6 +1,7 @@
 <div class="form-group">
 
     <label>{{label}}
+        <span data-ng-if="isRequired" class="required"></span>
         <span data-ng-show="form.pvm.$error.date" class="label-warning-text">{{ t('pvm.format') || 'päivämäärän muoto pp.kk.yyyy' }}</span>
         <span data-ng-show="form.pvm.$error.checkday" class="label-warning-text">{{ t('pvm.check.day') || 'tarkista antamasi päivä' }}</span>
         <span data-ng-show="form.pvm.$error.checkmonth" class="label-warning-text">{{ t('pvm.check.month') || 'tarkista antamasi kuukausi' }}</span>

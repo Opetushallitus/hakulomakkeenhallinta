@@ -7,7 +7,7 @@
                 <label for="valintanappi"><i data-ng-show="question.options.length >2"
                                              class="glyphicon glyphicon-remove"
                                              data-ng-click="removeRadio($index, question)"></i>&nbsp;&nbsp;{{
-                    t('valintanappi') || 'Valintanappi' }} {{$index +1}} *</label>
+                    t('valintanappi') || 'Valintanappi' }} {{$index +1}} <span class="required"></span></label>
             </div>
             <div class="col-md-6">
                 <span ng-show="kysymysradiobutton.valintanappi.$error.required && tallennaClicked"

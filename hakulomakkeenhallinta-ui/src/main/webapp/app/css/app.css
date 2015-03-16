@@ -13,7 +13,14 @@
 }
 
 .label-warning-text{
-    color: red;
+    color: #c9302c;
+}
+
+.required {
+    color: #c9302c;
+}
+.required:after {
+    content: " *";
 }
 
 .hh-list-h3 {

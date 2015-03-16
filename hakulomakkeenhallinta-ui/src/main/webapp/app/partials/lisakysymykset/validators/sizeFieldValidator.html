@@ -6,7 +6,7 @@
 <div class="form-group">
     <br>
     <div class="col-md-3 control-label">
-        <label for="tekstikentankoko"> {{ t('tekstikentan.pituus') || 'Tekstikentän pituus' }} </label>
+        <label for="tekstikentankoko"> {{ t('tekstikentan.pituus') || 'Tekstikentän pituus' }} <span class="required"></span></label>
     </div>
     <div class="col-md-2">
         <input name="tekstikentankoko" type="number" class="form-control" data-ng-model="question.size" ng-pattern="/[0-9]+$/" required min="0">
