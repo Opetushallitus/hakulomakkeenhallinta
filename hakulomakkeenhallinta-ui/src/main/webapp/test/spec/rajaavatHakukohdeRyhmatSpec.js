@@ -22,7 +22,8 @@
       before(page.openRajaavatHakukohderyhmatPopup)
 
       it('popupissa kaksi vaihtoehtoa', function() {
-        var menuItems = domUtil.applicationRulesRajaavatHakukohderyhmat().find('.hh-list-h3 .dropdown-menu li')
+        var menuItems = domUtil.applicationRulesRajaavatHakukohderyhmat()
+          .find('ul.dropdown-menu li:visible')
         expect(menuItems.length).to.equal(2)
       })
     })
@@ -42,6 +43,16 @@
 
       it('ryhmässä viisi hakukohdetta', function() {
         expect(S('div[application-form=applicationForm]:visible:nth(1)').find('.hh-hakukohde').length).to.equal(5)
+      })
+    })
+
+    describe("rajaavan hakukohderyhmän popupissa on poistonappi", function() {
+      before(page.openRajaavanHakukohderyhmanPopup)
+
+      it('popupissa poista-vaihtoehto', function() {
+        var menuItems = S('div[application-form=applicationForm]:visible:nth(1)').find('.hh-hakukohde').eq(0)
+          .find('ul.dropdown-menu li:visible')
+        expect(menuItems.length).to.equal(1)
       })
     })
   })
