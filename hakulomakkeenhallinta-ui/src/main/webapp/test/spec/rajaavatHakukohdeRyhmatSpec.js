@@ -22,8 +22,7 @@
       before(page.openRajaavatHakukohderyhmatPopup)
 
       it('popupissa kaksi vaihtoehtoa', function() {
-        var menuItems = domUtil.applicationRulesRajaavatHakukohderyhmat()
-          .find('ul.dropdown-menu li:visible')
+        var menuItems = domUtil.dropDownRows(domUtil.applicationRulesRajaavatHakukohderyhmat())
         expect(menuItems.length).to.equal(2)
       })
     })
@@ -32,8 +31,7 @@
       before(page.openRajaavatHakukohderyhmatRyhmaPopup)
 
       it('popupissa neljä vaihtoehtoa', function() {
-        var menuItems = domUtil.applicationRulesRajaavatHakukohderyhmat().find('li.hh-hakukohde:visible').eq(0)
-          .find('ul.dropdown-menu li:visible')
+        var menuItems = domUtil.dropDownRows(domUtil.applicationRulesRajaavatHakukohderyhmat().find('li.hh-hakukohde:visible').eq(0))
         expect(menuItems.length).to.equal(4)
       })
     })
@@ -50,8 +48,7 @@
       before(page.openRajaavanHakukohderyhmanPopup)
 
       it('popupissa poista-vaihtoehto', function() {
-        var menuItems = S('div[application-form=applicationForm]:visible:nth(1)').find('.hh-hakukohde').eq(0)
-          .find('ul.dropdown-menu li:visible')
+        var menuItems = domUtil.dropDownRows(S('div[application-form=applicationForm]:visible:nth(1)').find('.hh-hakukohde').eq(0))
         expect(menuItems.length).to.equal(1)
       })
     })
