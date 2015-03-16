@@ -19,5 +19,14 @@
         expect(menuItems.length).to.equal(4)
       })
     })
+
+    describe("priorisoiva hakukohderyhmä avautuu oikein", function() {
+      before(page.openPriorisoivaRyhma1HhKehitys)
+
+      it('ryhmässä neljä hakukohdetta', function() {
+        var group = S('div[ryhmat=priorisointiRyhmat]').find('.hh-hakukohde').eq(4)
+        expect(group.find("li.hh-hakukohde").length).to.equal(4)
+      })
+    })
   })
 })()

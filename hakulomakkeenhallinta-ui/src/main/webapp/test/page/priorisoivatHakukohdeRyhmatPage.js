@@ -24,6 +24,19 @@ function PriorisoivatHakukohdeRyhmatPage() {
       return deferred.promise
     },
 
+    openPriorisoivaRyhma1HhKehitys: function() {
+      var row = domUtil.applicationRulesPriorisoivatHakukohderyhmat()
+      var subGroup = row.children().find('ul .hh-list-h4').eq(4)
+      util.clickElement(subGroup.find('i').get(0))
+      var deferred = Q.defer()
+      wait.until(function () {
+        return S('div[ryhmat=priorisointiRyhmat]').find('.hh-hakukohde').length > 0
+      })().then(function () {
+        deferred.resolve()
+      })
+      return deferred.promise
+    },
+
     loaded: function() {
       return S("td.ng-binding").toArray().length > 0
     }
