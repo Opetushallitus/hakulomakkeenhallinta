@@ -19,5 +19,14 @@
         expect(menuItems.length).to.equal(3)
       })
     })
+
+    describe("rajaava hakukohderyhmä avautuu oikein", function() {
+      before(page.openAMKLiiteryhma)
+
+      it('ryhmässä on paljon hakukohteita', function() {
+        var group = S('div[ryhmat=liiteRyhmat]').find('.hh-hakukohde').eq(0)
+        expect(group.find("li.hh-hakukohde").length).to.equal(239)
+      })
+    })
   })
 })()
