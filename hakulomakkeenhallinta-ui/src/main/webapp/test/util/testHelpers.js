@@ -113,6 +113,9 @@ domUtil = {
   openDropdown: function(row) {
     util.clickElement(row.find(".hh-icon-menu").get(0))
   },
+  dropDownRows: function(row) {
+    return row.find('ul.dropdown-menu li:visible')
+  },
   selectLomakePohjanAsetukset: function(row) {
     util.clickElement(row.find("li:nth(1) a").get(0))
   },
@@ -136,6 +139,9 @@ domUtil = {
   },
   applicationRulesRajaavatHakukohderyhmat: function() {
     return domUtil.applicationFormSettingsRowByName("Rajaavat hakukohderyhmät")
+  },
+  applicationRulesPriorisoivatHakukohderyhmat: function() {
+    return domUtil.applicationFormSettingsRowByName("Priorisoivat hakukohderyhmät")
   },
   applicationFormSettingsRowByName: function(name) {
     return $(_.find(S("a.ng-binding"), function(e) { return $(e).text().trim() == name })).parent().parent()
