@@ -20,7 +20,7 @@ function ApplicationSystemFormPage() {
           settingsRow = domUtil.applicationRulesRajaavatHakukohderyhmat()
           return settingsRow.length == 1
         })().then(function () {
-          domUtil.openRajaavatHakukohderyhmat(settingsRow)
+          domUtil.openHakukohderyhmat(settingsRow)
 
           var limitingRow = []
           wait.until(function() {

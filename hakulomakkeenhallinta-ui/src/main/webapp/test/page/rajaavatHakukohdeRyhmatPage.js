@@ -11,7 +11,7 @@ function RajaavatHakukohdeRyhmatPage() {
 
     openRajaavatHakukohderyhmatRyhmaPopup: function() {
       var row = domUtil.applicationRulesRajaavatHakukohderyhmat()
-      domUtil.openRajaavatHakukohderyhmat(row)
+      domUtil.openHakukohderyhmat(row)
       var subGroup = row.find('li.hh-hakukohde:visible')
 
       var deferred = Q.defer()

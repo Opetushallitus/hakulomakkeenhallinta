@@ -130,10 +130,9 @@ domUtil = {
     })
     return deferred.promise
   },
-  openRajaavatHakukohderyhmat: function(row) {
+  openHakukohderyhmat: function(row) {
     util.clickElement(row.find(".hh-list-h3 > i").get(0))
   },
-
   applicationFormRowByName: function(name) {
     return $(_.find(S("td.ng-binding"), function(e) { return $(e).text() == name })).parent()
   },
