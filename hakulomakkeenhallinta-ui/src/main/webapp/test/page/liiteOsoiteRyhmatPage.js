@@ -37,6 +37,13 @@ function LiiteosoiteRyhmatPage() {
       return deferred.promise
     },
 
+    openLiiteOsoiteRyhmanPopup: function() {
+      var row = domUtil.applicationRulesLiiteOsoiteRyhmat()
+      var subGroup = row.children().find('ul .hh-list-h4:nth(0)')
+      var firstHakuKohde = subGroup.parent().find('.hh-hakukohde:nth(0)')
+      domUtil.openDropdown(firstHakuKohde)
+    },
+
     loaded: function() {
       return S("td.ng-binding").toArray().length > 0
     }

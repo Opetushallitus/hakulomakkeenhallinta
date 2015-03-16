@@ -28,5 +28,14 @@
         expect(group.find("li.hh-hakukohde").length).to.equal(239)
       })
     })
+
+    describe("rajaavan hakukohderyhmän popupissa on poistonappi", function() {
+      before(page.openLiiteOsoiteRyhmanPopup)
+
+      it('popupissa poista-vaihtoehto', function() {
+        var menuItems = domUtil.dropDownRows(S('div[ryhmat=liiteRyhmat]').find('.hh-hakukohde').eq(0))
+        expect(menuItems.length).to.equal(1)
+      })
+    })
   })
 })()
