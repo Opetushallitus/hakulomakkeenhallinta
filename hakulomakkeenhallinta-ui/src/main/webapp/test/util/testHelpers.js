@@ -99,6 +99,14 @@ mockAjax = {
 }
 
 domUtil = {
+  applicationRowKorkeakoulujenYhteishakuKevat2015: function() {
+    return domUtil.applicationFormRowByName("Korkeakoulujen yhteishaku kevät 2015")
+  },
+
+  openKorkeakoulujenYhteishakuKevat2015LomakePohja: function() {
+    return domUtil.openLomakepohjanAsetukset(domUtil.applicationRowKorkeakoulujenYhteishakuKevat2015())
+  },
+
   applicationFormRows: function() {
     return S("table tr")
   },

@@ -4,14 +4,6 @@ function RajaavatHakukohdeRyhmatPage() {
   var api = {
     openPage: applicationSystemFormPage,
 
-    applicationRowKorkeakoulujenYhteishakuKevat2015: function() {
-      return domUtil.applicationFormRowByName("Korkeakoulujen yhteishaku kevät 2015")
-    },
-
-    openKorkeakoulujenYhteishakuKevat2015LomakePohja: function() {
-      return domUtil.openLomakepohjanAsetukset(api.applicationRowKorkeakoulujenYhteishakuKevat2015())
-    },
-
     openRajaavatHakukohderyhmatPopup: function() {
       var row = domUtil.applicationRulesRajaavatHakukohderyhmat()
       domUtil.openDropdown(row)
