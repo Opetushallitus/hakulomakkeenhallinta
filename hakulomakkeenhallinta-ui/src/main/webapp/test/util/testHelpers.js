@@ -142,6 +142,9 @@ domUtil = {
   applicationRulesPriorisoivatHakukohderyhmat: function() {
     return domUtil.applicationFormSettingsRowByName("Priorisoivat hakukohderyhmät")
   },
+  applicationRulesLiiteOsoiteRyhmat: function() {
+    return domUtil.applicationFormSettingsRowByName("Liiteosoiteryhmät")
+  },
   applicationFormSettingsRowByName: function(name) {
     return $(_.find(S("a.ng-binding"), function(e) { return $(e).text().trim() == name })).parent().parent()
   },
