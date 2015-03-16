@@ -29,7 +29,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.vuosi = vuosiPvm.setHours(23, 59);
                 $scope.datePicOpen = false;
 
-                if ($scope.datetime!== undefined) {
+                if ($scope.datetime !== undefined) {
                     var paivaObject = new Date($scope.datetime);
                     $scope.time = toHHMMTime($scope.datetime);
                     $scope.date = $filter('date')(paivaObject, 'dd.MM.yyyy');
@@ -49,8 +49,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     if($scope.date == null) {
                         $scope.datetime = null;
                     } else if ($scope.time  !== undefined && $scope.time  !== '' && typeof $scope.date === 'object') {
-                        var nd = new Date($scope.date.getFullYear(), $scope.date.getMonth(), $scope.date.getDate(), $scope.time.substr(0, 2), $scope.time .substr(3, 2));
-                        $scope.datetime = Date.parse(nd);
+                        var newDatetime = new Date($scope.date.getFullYear(), $scope.date.getMonth(), $scope.date.getDate(), $scope.time.substr(0, 2), $scope.time .substr(3, 2));
+                        $scope.datetime = Date.parse(newDatetime);
                     }
                 });
 

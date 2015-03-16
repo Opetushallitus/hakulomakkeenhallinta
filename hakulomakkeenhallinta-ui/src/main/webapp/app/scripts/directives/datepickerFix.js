@@ -23,11 +23,8 @@ app.directive('datepickerFix', function () {
                 }
                 // pass through if we clicked date from popup
                 if (typeof newDate === "object") {
-                    var dmsec = Date.parse(newDate),
-                        d = new Date(dmsec),
-                        nd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59);
                     model.$setValidity('date', true);
-                    return nd;
+                    return newDate;
                 }
                 model.$setValidity('checkmonth', true);
                 model.$setValidity('checkday', true);
@@ -60,15 +57,11 @@ app.directive('datepickerFix', function () {
                         // if maxDate,minDate is set make sure we do not allow greater values
                         if (maxDate && date > maxDate) {
                             model.$setValidity('maxdate', false);
-                            date = new Date(maxDate);
                         }
                         if (minDate && date < minDate) {
                             model.$setValidity('mindate', false);
-                            date = new Date(minDate);
                         }
                         model.$setValidity('date', true);
-                        model.$setViewValue(date);
-                        model.$render();
                     }
                 }
                 date = date ? date : viewValue;
