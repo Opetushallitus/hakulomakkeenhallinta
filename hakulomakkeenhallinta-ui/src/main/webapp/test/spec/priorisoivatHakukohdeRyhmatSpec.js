@@ -1,5 +1,5 @@
 (function () {
-  describe('applicationSystemFormConfigrations-priorisoivatHakukohdeRyhmat', function () {
+  describe('applicationSystemFormConfigurations-priorisoivatHakukohdeRyhmat', function () {
     var page = PriorisoivatHakukohdeRyhmatPage()
 
     describe("priorisoivat hakukohderyhmät popup avautuu ja sulkeutuu", function() {

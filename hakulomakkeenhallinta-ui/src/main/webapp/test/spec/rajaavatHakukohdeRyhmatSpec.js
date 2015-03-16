@@ -1,5 +1,5 @@
 (function () {
-  describe('applicationSystemFormConfigrations-rajaavatHakukohdeRyhmat', function () {
+  describe('applicationSystemFormConfigurations-rajaavatHakukohdeRyhmat', function () {
     var page = RajaavatHakukohdeRyhmatPage()
 
     describe("hakulomakkeiden hallinta latautuu oikein", function() {
