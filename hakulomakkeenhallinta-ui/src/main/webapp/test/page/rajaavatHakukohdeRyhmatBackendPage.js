@@ -24,7 +24,7 @@ function RajaavatHakukohdeRyhmatBackend() {
             })().then(function () {
               S('button.btn-primary:visible').click()
               wait.until(function () {
-                return S('.alert-error').length == 1
+                return S('h1.ng-binding:nth(1):visible').text().trim().length == 0
               })().then(function () {
                 deferred.resolve()
               })
