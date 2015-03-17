@@ -158,12 +158,16 @@
 .hh-form-conf li .hh-hakukohde {
     display: block;
     border-bottom: dashed #b7b7b7 1px;
-    line-height: 14px;
-    margin-top: 8px;
+    line-height: 18px;
+    padding-top: 6px;
     padding-left: 30px;
     padding-bottom: 6px;
+    padding-right: 6px;
 }
 
+.hh-form-conf li .hh-hakukohde .btn-xs {
+    line-height: 1;
+}
 
 ul.tree, ul.tree ul {
     list-style-type: none;

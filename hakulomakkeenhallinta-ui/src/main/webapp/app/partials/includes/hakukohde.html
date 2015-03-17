@@ -1,18 +1,11 @@
-<div class="dropdown pull-right">
-    <a class="dropdown-toggle">
-        <i class="hh-icon-menu"></i>
-    </a>
-    <ul class="dropdown-menu">
-        <li data-ng-click="poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde)">
-            <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
-        </li>
-    </ul>
-</div>
 <div style="width: auto;">
-    <div style="width: 48%; display: inline-block; vertical-align: top;">
+    <div style="width: 45%; display: inline-block; ">
         {{ hakukohde | hakukohdeNimi:userLang }}
     </div>
-    <div style="width: 48%; display: inline-block; vertical-align: top;">
+    <div style="width: 45%; display: inline-block; vertical-align: top;">
         {{ hakukohde.tarjoaja | organisaatioNimi:userLang }}
     </div>
+    <a class="pull-right btn btn-xs" data-ng-click="poistaHakukohdeRyhmasta(hakukohdeRyhma, hakukohde)">
+        {{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i>
+    </a>
 </div>
