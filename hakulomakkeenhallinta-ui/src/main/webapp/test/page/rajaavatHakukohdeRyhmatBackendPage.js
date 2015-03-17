@@ -22,7 +22,12 @@ function RajaavatHakukohdeRyhmatBackend() {
             wait.until(function () {
               return S('h1.ng-binding').toArray().length > 1
             })().then(function () {
-              deferred.resolve()
+              S('button.btn-primary:visible').click()
+              wait.until(function () {
+                return S('h1.ng-binding:nth(1):visible').text().trim().length == 0
+              })().then(function () {
+                deferred.resolve()
+              })
             })
           })
         })

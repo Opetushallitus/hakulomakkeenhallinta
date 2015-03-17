@@ -32,6 +32,13 @@
     </rule>
 
     <rule>
+        <from>/haku-app/application-system-form-editor/configuration/1.2.246.562.29.95390561488/groupConfiguration/1.2.246.562.28.80295457855</from>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <set type="status">204</set>
+        <to last="true">/test/data/empty.json</to>
+    </rule>
+
+    <rule>
         <from>/haku-app/application-system-form-editor/configuration/(.*)</from>
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
         <to last="true">/test/data/$1.json</to>
