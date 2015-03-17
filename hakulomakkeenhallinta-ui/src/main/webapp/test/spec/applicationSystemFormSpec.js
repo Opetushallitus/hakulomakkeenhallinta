@@ -3,20 +3,15 @@
     var page = ApplicationSystemFormPage();
 
     before(
-      page.openPage
+      page.openPage,
+      domUtil.openKorkeakoulujenYhteishakuKevat2015LomakePohja
     )
 
-    describe("hakulomake latautuu oikein", function() {
-      it('Testihaku testipisteeseen löytyy lomakkeelta', function () {
-        expect(domUtil.applicationFormRowByName("Testihaku testipisteeseen").length).to.equal(1)
-      })
-    })
-
     describe("rajaavan hakukohderyhmän lisääminen", function() {
-      before(page.openAddRestrictionPopup())
+      before(page.openAddRestrictionPopup)
 
       it('Testihaku testipisteeseen rajaavan hakukohderyhmän lisäys', function() {
-        expect(S('h1.ng-binding:nth(1)').text().trim()).to.equal("Testihaku testipisteeseen")
+        expect(S('h1.ng-binding:nth(1)').text().trim()).to.equal("Korkeakoulujen yhteishaku kevät 2015")
       })
     })
   })
