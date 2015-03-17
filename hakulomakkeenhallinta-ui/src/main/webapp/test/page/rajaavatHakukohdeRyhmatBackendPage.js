@@ -1,4 +1,4 @@
-function ApplicationSystemFormPage() {
+function RajaavatHakukohdeRyhmatBackend() {
   var applicationSystemFormPage = openPage("/app/index.html#/applicationSystemForm", visible)
 
   var api = {
