@@ -1,0 +1,29 @@
+<div data-ng-controller="RichTextCtrl" class="richText">
+    <tabset>
+        <tab ng-repeat="language in languages | orderBy:'order':false ">
+            <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
+            <div style="background-color: #f5f5f5; border-color: #ddd !important; ">
+                <br>
+
+                <div class="col-md-offset-3 col-md-7">
+                    <span ng-show="kysymys.otsikko.$error.required" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
+                    <br>
+                </div>
+                <div class="form-group">
+                    <br>
+
+                    <div class="col-md-3 control-label">
+                        <label>{{ t('infotext.hakijalle_naytettava_teksti') || 'Hakijalle näytettävä teksti' }} <span class="required"></span></label>
+                    </div>
+                    <div class="col-md-8">
+                        <squire height="180px"
+                                ng-model="question.messageText.translations[language.id]"
+                                buttons="{quote: false, header: false, alignRight: false, alignLeft: false, alignCenter: false, undo: false, redo: false}">
+                        </squire>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </tab>
+    </tabset>
+</div>
