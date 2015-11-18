@@ -11,8 +11,10 @@
 
     <h3 class="text-info" tl="hakukohdekohtainen.lisakysymymys">Hakukohdekohtainen lisäkysymys</h3>
 
-    <div data-ng-if="questionType.id == 'RichText'" data-ng-include="'partials/lisakysymykset/richText.html'"></div>
-    <div data-ng-if="questionType.id != 'RichText'" data-ng-include="'partials/lisakysymykset/kysymys.html'"></div>
+    <div data-ng-if="questionType.id">
+        <div data-ng-if="questionType.id == 'RichText'" data-ng-include="'partials/lisakysymykset/richText.html'"></div>
+        <div data-ng-if="questionType.id != 'RichText'" data-ng-include="'partials/lisakysymykset/kysymys.html'"></div>
+    </div>
 
     <lisakysymys-napit></lisakysymys-napit>
     <br>
