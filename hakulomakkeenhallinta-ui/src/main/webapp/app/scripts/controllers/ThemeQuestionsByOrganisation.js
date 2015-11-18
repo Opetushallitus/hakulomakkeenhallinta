@@ -35,11 +35,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 .then(function(lops) {
                     lops.forEach(function(lop) {
                         lop.tulokset.forEach(function(ao) {
+                            for (var k in ao.nimi) {
+                                if ("" === ao.nimi[k]) {
+                                    delete ao.nimi[k];
+                                }
+                            }
                             $scope.hakukohteet[ao.oid] = {
                                 tarjoajaNimet: lop.nimi,
-                                hakukohteenNimet: _.mapValues(ao.nimi, function(nimi) {
-                                    return "" === nimi ? null : nimi;
-                                })
+                                hakukohteenNimet: ao.nimi
                             };
                         });
                     });
