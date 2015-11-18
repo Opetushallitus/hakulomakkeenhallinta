@@ -112,37 +112,16 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          * @returns {promise}
          */
         function getHakukohdeJoukot(applicationOptions) {
-            var deferred = $q.defer();
-            var hakukohteet = [];
-            var hakukohdeOids = _.chain(applicationOptions)
-                .map(function (hakuorganisaationHakukohteet) { return hakuorganisaationHakukohteet.tulokset; })
-                .flatten()
-                .map(function (hakukohde) { return hakukohde.oid; })
-                .value();
-
-            _.each(hakukohdeOids, function (oid) {
-                    hakukohteet.push(TarjontaAPI.fetchHakukohdeInfo(oid));
-                }
-            );
-
-            $q.all(hakukohteet).then(
-                function (data) {
-                    var organisaatiot = _.chain(data)
-                        .pluck('organisaatioRyhmaOids')
-                        .flatten(true)
-                        .uniq()
-                        .without(undefined)
-                        .map(function (ryhmaOid) { return Organisaatio.getOrganisationData(ryhmaOid); })
-                        .value();
-
-                    $q.all(organisaatiot).then(
-                        function (groups) {
-                            deferred.resolve(groups);
-                        }
-                    );
-                }
-            );
-            return deferred.promise;
+            return $q.all(_.chain(applicationOptions)
+                          .map(function(lop) {
+                              return _.map(lop.tulokset, function(ao) {
+                                  return _.pluck(ao.ryhmaliitokset, 'ryhmaOid');
+                              });
+                          })
+                          .flatten()
+                          .uniq()
+                          .map(function (ryhmaOid) { return Organisaatio.getOrganisationData(ryhmaOid); })
+                          .value());
         };
 
         /**
