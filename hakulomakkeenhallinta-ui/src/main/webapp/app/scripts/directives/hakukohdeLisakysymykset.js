@@ -41,23 +41,18 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             }
                         );
                     } else {
-                        TarjontaAPI.fetchHakukohdeInfo($scope.hakukohde.aoid).then(
-                            function (data) {
-                                if (data === 'NOT_FOUND') {
-                                    $scope.hakukohdePoistettu = true;
-                                    $scope.hakukohdeInfo = {};
-                                    $scope.hakukohdeInfo.nimi = {
-                                        fi: 'HAKUKOHDE POISTETTU',
-                                        sv: 'HAKUKOHDE POISTETTU',
-                                        en: 'HAKUKOHDE POISTETTU'
-                                    };
-                                } else {
-                                    $scope.hakukohdeInfo = data;
-                                    $scope.setHakukohdeMaara();
-                                }
-
-                            }
-                        );
+                        if ($scope.hakukohteet[$scope.hakukohde.aoid] === undefined) {
+                            $scope.hakukohdePoistettu = true;
+                            $scope.hakukohdeInfo = {};
+                            $scope.hakukohdeInfo.nimi = {
+                                fi: 'HAKUKOHDE POISTETTU',
+                                sv: 'HAKUKOHDE POISTETTU',
+                                en: 'HAKUKOHDE POISTETTU'
+                            };
+                        } else {
+                            $scope.hakukohdeInfo = $scope.hakukohteet[$scope.hakukohde.aoid];
+                            $scope.setHakukohdeMaara();
+                        }
                     }
                     /**
                      * Avaa kaikki teemassa olevat kysymykset näkymään
