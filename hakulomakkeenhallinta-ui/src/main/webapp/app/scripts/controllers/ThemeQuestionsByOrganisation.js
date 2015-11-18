@@ -33,21 +33,24 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             /**
              * heataan hakulomakkeen lisäkysymykset halomamekkeen id:llä ja valitulla organisaation id:llä
              */
+            console.time("hakukohdeKohtaisetKysymykset");
             ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(
                 function (themes) {
                     var hakukohteittain = {};
-                    _.each(themes, function (theme) {
-                        _.each(theme.hkkohde, function (hk) {
-                            if (!_.has(hakukohteittain, hk.aoid)) {
+                    console.time("reindex");
+                    themes.forEach(function (theme) {
+                        theme.hkkohde.forEach(function (hk) {
+                            if (hakukohteittain[hk.aoid] === undefined) {
                                 hakukohteittain[hk.aoid] = {};
                             }
-                            if (!_.has(hakukohteittain[hk.aoid], theme.id)) {
+                            if (hakukohteittain[hk.aoid][theme.id] === undefined) {
                                 hakukohteittain[hk.aoid][theme.id] = hk.additionalQuestions;
                             } else {
                                 hakukohteittain[hk.aoid][theme.id].push(hk.additionalQuestions);
                             }
                         });
                     });
+                    console.timeEnd("reindex");
                     $scope.themes = themes;
                     $scope.hakukohteittain = hakukohteittain
                     $scope.$emit('LOADPAGEREADY');
@@ -58,7 +61,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         jatkoK.scope = $scope;
                         JatkokysymysService.lisaaJatkokysymys(jatkoK);
                     }
-
+                    console.timeEnd("hakukohdeKohtaisetKysymykset");
                 }
             );
             /**
