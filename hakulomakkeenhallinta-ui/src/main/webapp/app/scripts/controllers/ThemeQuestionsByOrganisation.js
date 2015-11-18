@@ -34,32 +34,23 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * heataan hakulomakkeen lisäkysymykset halomamekkeen id:llä ja valitulla organisaation id:llä
              */
             ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(
-                function (data) {
-                    $scope.themes = data;
+                function (themes) {
+                    var hakukohteittain = {};
+                    _.each(themes, function (theme) {
+                        _.each(theme.hkkohde, function (hk) {
+                            if (!_.has(hakukohteittain, hk.aoid)) {
+                                hakukohteittain[hk.aoid] = {};
+                            }
+                            if (!_.has(hakukohteittain[hk.aoid], theme.id)) {
+                                hakukohteittain[hk.aoid][theme.id] = hk.additionalQuestions;
+                            } else {
+                                hakukohteittain[hk.aoid][theme.id].push(hk.additionalQuestions);
+                            }
+                        });
+                    });
+                    $scope.themes = themes;
+                    $scope.hakukohteittain = hakukohteittain
                     $scope.$emit('LOADPAGEREADY');
-                    _.each(data, function (d) {
-                            _.each(d.hkkohde, function (hk) {
-                                    if ($scope.hakukohteittain[hk.aoid] === undefined) {
-                                        $scope.hakukohteittain[hk.aoid] = {};
-                                        if ($scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] === undefined) {
-                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = [];
-                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = hk.additionalQuestions;
-                                        } else {
-                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme].push(hk.additionalQuestions);
-                                        }
-
-                                    } else {
-                                        if ($scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] === undefined) {
-                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = [];
-                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme] = hk.additionalQuestions;
-                                        } else {
-                                            $scope.hakukohteittain[hk.aoid][hk.additionalQuestions[0].theme].push(hk.additionalQuestions);
-                                        }
-                                    }
-                                }
-                            );
-                        }
-                    );
 
                     if (JatkokysymysService.getJatkokysymysObj() !== undefined) {
                         var jatkoK = JatkokysymysService.getJatkokysymysObj();
