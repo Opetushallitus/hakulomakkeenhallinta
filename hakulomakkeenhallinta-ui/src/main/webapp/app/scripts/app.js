@@ -3,6 +3,7 @@
 var app = angular.module('hakulomakkeenhallinta', [
     'ngRoute',
     'ngResource',
+    'angular.filter',
     'angular-squire',
     'ui.bootstrap',
     'jm.i18next',

@@ -18,9 +18,9 @@
                 data-ng-show="question.questions.length > 0 || question.type !== 'TextQuestion'" ></i> 
         <i class="hh-icon-empty" data-ng-show="!question.questions.length > 0 && question.type === 'TextQuestion'"></i>
         <a data-ng-click="toggleNaytaKysymykset()"
-           data-ng-disabled="!question.options || !question.questions" >{{ question | i18n:'messageText':userLang}}
+           data-ng-disabled="!question.options || !question.questions" >{{ question | i18n:'messageText':userLang | stripTags | truncate: 100: '...'}}
             <i class="icon"
-               data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox'}">
+               data-ng-class="{'icon-edit':question.type ==='TextQuestion', 'icon-dot-circled':question.type ==='RadioButton', 'icon-check':question.type ==='CheckBox', 'fa fa-info-circle':question.type === 'RichText'}">
             </i>
         </a>
 
