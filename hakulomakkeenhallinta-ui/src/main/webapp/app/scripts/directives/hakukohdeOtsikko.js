@@ -30,22 +30,18 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     );
                 } else {
-                    TarjontaAPI.fetchHakukohdeInfo($scope.hakukohdeOid).then(
-                        function (data) {
-                            if (data === 'NOT_FOUND') {
-                                $scope.hakukohdePoistettu = true;
-                                $scope.hakukohdeInfo = {};
-                                $scope.hakukohdeInfo.nimi = {
-                                    fi: 'HAKUKOHDE POISTETTU',
-                                    sv: 'HAKUKOHDE POISTETTU',
-                                    en: 'HAKUKOHDE POISTETTU'
-                                };
-                            } else {
-                                $scope.hakukohdeInfo = data;
-                            }
-                            $scope.otsikko = $filter('hakukohdeNimi')($scope.hakukohdeInfo, $scope.userLang);
-                        }
-                    );
+                    if ($scope.hakukohteet[$scope.hakukohdeOid] === undefined) {
+                        $scope.hakukohdePoistettu = true;
+                        $scope.hakukohdeInfo = {};
+                        $scope.hakukohdeInfo.nimi = {
+                            fi: 'HAKUKOHDE POISTETTU',
+                            sv: 'HAKUKOHDE POISTETTU',
+                            en: 'HAKUKOHDE POISTETTU'
+                        };
+                    } else {
+                        $scope.hakukohdeInfo = $scope.hakukohteet[$scope.hakukohdeOid];
+                    }
+                    $scope.otsikko = $filter('hakukohdeNimi')($scope.hakukohdeInfo, $scope.userLang);
                 }
                 $scope.hakukohdeMaara = 0;
                 /**

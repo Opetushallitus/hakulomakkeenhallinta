@@ -30,14 +30,24 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.themes = [];
             $scope.hakukohteittain = {};
             $scope.$emit('LOADPAGE');
+            $scope.hakukohteet = {};
+            TarjontaAPI.usersApplicationOptions($routeParams.id, $routeParams.oid)
+                .then(function(lops) {
+                    lops.forEach(function(lop) {
+                        lop.tulokset.forEach(function(ao) {
+                            $scope.hakukohteet[ao.oid] = {
+                                tarjoajaNimet: lop.nimi,
+                                hakukohteenNimet: ao.nimi
+                            };
+                        });
+                    });
+                });
             /**
              * heataan hakulomakkeen lisäkysymykset halomamekkeen id:llä ja valitulla organisaation id:llä
              */
-            console.time("hakukohdeKohtaisetKysymykset");
             ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(
                 function (themes) {
                     var hakukohteittain = {};
-                    console.time("reindex");
                     themes.forEach(function (theme) {
                         theme.hkkohde.forEach(function (hk) {
                             if (hakukohteittain[hk.aoid] === undefined) {
@@ -50,7 +60,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             }
                         });
                     });
-                    console.timeEnd("reindex");
                     $scope.themes = themes;
                     $scope.hakukohteittain = hakukohteittain
                     $scope.$emit('LOADPAGEREADY');
@@ -61,7 +70,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         jatkoK.scope = $scope;
                         JatkokysymysService.lisaaJatkokysymys(jatkoK);
                     }
-                    console.timeEnd("hakukohdeKohtaisetKysymykset");
                 }
             );
             /**
