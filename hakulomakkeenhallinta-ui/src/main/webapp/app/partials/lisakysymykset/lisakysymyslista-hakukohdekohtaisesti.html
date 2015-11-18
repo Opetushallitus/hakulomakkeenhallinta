@@ -2,16 +2,16 @@
     <div data-ng-repeat="(hakukohdeOid, teemat) in hakukohteittain">
         <hakukohde-otsikko data-ng-hide="hakukohdePoistettu"></hakukohde-otsikko>
         <div data-ng-repeat="(teema, questions) in teemat" data-ng-show="naytaHakukohteet && !hakukohdePoistettu">
-            <div data-ng-show="!hakukohdePoistettu" style="margin-left: 30px;">
+            <div style="margin-left: 30px;">
                 <teema-lisakysymykset></teema-lisakysymykset>
-                <ul class="tree hh-hierarkia-list" data-ng-if="questions.length > 0">
+                <ul class="tree hh-hierarkia-list">
                     <li data-ng-repeat="question in questions">
                         <lisakysymykset></lisakysymykset>
-                        <ul data-ng-show="question.options" class="hh-hierarkia-list">
+                        <ul class="hh-hierarkia-list">
                             <li data-ng-repeat="option in question.options">
                                 <div>
                                     <i class="icon-comment-empty"></i>
-                                    <div class="dropdown" data-ng-show="">
+                                    <div class="dropdown">
                                         <a class="dropdown-toggle">
                                             <i class="hh-icon-menu"></i>
                                         </a>
@@ -22,7 +22,7 @@
                                     </div>
                                     {{option | i18n:'optionText':userLang}}
                                 </div>
-                                <ul class="hh-hierarkia-list" data-ng-if="question.attachmentRequests.length >0">
+                                <ul class="hh-hierarkia-list">
                                     <li data-ng-repeat="liitepyynto in question.attachmentRequests">
                                         <div data-ng-show="option.id === liitepyynto.attachedToOptionId" class="icon-attach">
                                             {{liitepyynto | i18n:'header':userLang}} <b>{{ t('osoitteeseen') || 'osoitteeseen' }}:</b>
