@@ -45,5 +45,5 @@
         </div>
     </div>
 
-    <pre data-ng-show="showJson">{{question | without | json}}</pre>
+    <pre data-ng-if="logs" data-ng-show="showJson">{{question | without | json}}</pre>
 </div>
