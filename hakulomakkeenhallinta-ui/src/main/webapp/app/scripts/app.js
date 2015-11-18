@@ -59,6 +59,10 @@ app.config(['$httpProvider', function($httpProvider) {
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }]);
 
+app.config(['squireServiceProvider', function(squireServiceProvider) {
+    squireServiceProvider.strictPaste(true);
+}]);
+
 app.provider('_', function() {
     this.$get = [
         function() {
