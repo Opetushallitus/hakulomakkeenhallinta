@@ -35,8 +35,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             ThemeQuestions.hakukohdeKohtaisetKysymykset($routeParams.id, $routeParams.oid).then(
                 function (data) {
-                    $scope.themes = data;
-                    $scope.$emit('LOADPAGEREADY');
                     _.each(data, function (d) {
                             _.each(d.hkkohde, function (hk) {
                                     if ($scope.hakukohteittain[hk.aoid] === undefined) {
@@ -60,6 +58,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             );
                         }
                     );
+                    $scope.themes = data;
+                    $scope.$emit('LOADPAGEREADY');
 
                     if (JatkokysymysService.getJatkokysymysObj() !== undefined) {
                         var jatkoK = JatkokysymysService.getJatkokysymysObj();
