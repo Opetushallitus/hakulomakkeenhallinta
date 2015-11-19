@@ -37,7 +37,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
              * @returns {string[]}
              */
             this.getTextQuestionValidators = function(){
-                return ['sizeFieldValidator', 'requiredFieldValidator' /*,'RegexFieldValidator'*/];
+                return ['requiredFieldValidator', 'decimalValidator', 'sizeFieldValidator', /*,'RegexFieldValidator'*/];
             };
             /**
              * palauttaa valintaruudun validaattorit
