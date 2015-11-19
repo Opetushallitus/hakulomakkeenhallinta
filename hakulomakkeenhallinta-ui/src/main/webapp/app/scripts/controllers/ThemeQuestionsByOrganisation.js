@@ -42,7 +42,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             }
                             $scope.hakukohteet[ao.oid] = {
                                 tarjoajaNimet: lop.nimi,
-                                hakukohteenNimet: ao.nimi
+                                nimi: ao.nimi
                             };
                         });
                     });
