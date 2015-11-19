@@ -1,11 +1,9 @@
-<div class="form-group">
-    <br>
-    <div class="col-md-offset-3 col-md-7">
-        <div class="checkbox" data-ng-show="question.requiredFieldValidator !== 'undefined'">
-            <label>
-                <input type="checkbox" data-ng-model="question.requiredFieldValidator">{{ t('kysymys.on.pakollinen') ||  'Kysymys on hakijalle pakollinen' }}
-            </label>
-        </div>
-    </div>
+<div data-ng-show="question.requiredFieldValidator !== 'undefined'" class="form-group">
+  <label class="col-md-3 control-label">
+    {{ t('kysymys.on.pakollinen') ||  'Kysymys on hakijalle pakollinen' }}
+  </label>
+  <div class="col-md-3 checkbox">
+    <input class="form-control" type="checkbox" data-ng-model="question.requiredFieldValidator">
+  </div>
 </div>
 
