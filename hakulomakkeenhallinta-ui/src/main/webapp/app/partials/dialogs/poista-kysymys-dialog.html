@@ -7,7 +7,7 @@
         <alertmsg></alertmsg>
         <div>
             {{t('poista.kysymys')|| 'Poista kysymys'}}:
-            {{ question.messageText | kysymysOtsikko:'translations':userLang}}
+            {{ question.messageText | kysymysOtsikko:'translations':userLang | stripTags}}
 
         </div>
     </div>

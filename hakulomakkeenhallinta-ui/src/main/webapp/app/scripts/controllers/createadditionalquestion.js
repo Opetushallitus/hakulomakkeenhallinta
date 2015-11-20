@@ -105,7 +105,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.tallennaUusi = function () {
                 $rootScope.LOGS('CreateAdditionalQuestionCtrl ', 'tallennaUusi()');
-                $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
+
+                if ($scope.kysymys.validationFn) {
+                    $scope.kysymys.$setValidity('required', $scope.kysymys.validationFn());
+                }
+                else {
+                    $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
+                }
                 if (luodaaJatkoKysymys !== undefined) {
                     $scope.question.parentId = JatkokysymysService.getParentQuestion().parentId;
                     $scope.question.followupCondition = JatkokysymysService.getParentQuestion().followupCondition;

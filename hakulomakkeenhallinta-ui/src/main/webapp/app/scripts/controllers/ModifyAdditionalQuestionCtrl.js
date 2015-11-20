@@ -91,7 +91,12 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              */
             $scope.tallennaMuokkaus = function () {
                 $rootScope.LOGS('ModifyAdditionalQuestionCtrl', 'tallennaMuokkaus()');
-                $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
+                if ($scope.kysymys.validationFn) {
+                    $scope.kysymys.$setValidity('required', $scope.kysymys.validationFn());
+                }
+                else {
+                    $scope.kysymys.otsikko.$setValidity('required', $scope.tarkistaPakollisuus($scope.question.messageText.translations));
+                }
                 if ($scope.kysymys.$valid) {
                     QuestionData.setEditFlag(false);
                     ThemeQuestions.saveModifiedQuestion($scope.question._id, $scope.question).then(

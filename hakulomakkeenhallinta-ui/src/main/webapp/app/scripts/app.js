@@ -3,6 +3,8 @@
 var app = angular.module('hakulomakkeenhallinta', [
     'ngRoute',
     'ngResource',
+    'angular.filter',
+    'angular-squire',
     'ui.bootstrap',
     'jm.i18next',
     'ngSanitize',
@@ -55,6 +57,10 @@ app.config(['$routeProvider',
 app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
+}]);
+
+app.config(['squireServiceProvider', function(squireServiceProvider) {
+    squireServiceProvider.strictPaste(true);
 }]);
 
 app.provider('_', function() {

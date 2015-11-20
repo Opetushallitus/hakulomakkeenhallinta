@@ -214,3 +214,8 @@ ul.menu-inside-tree li:last-child{
     opacity: 0.75;
     background: #FFFFFF url("../img/loading-page.gif") no-repeat center;
 }
+
+.richText .angular-squire .menu {
+    text-align: left;
+    padding-left: 4px;
+}
