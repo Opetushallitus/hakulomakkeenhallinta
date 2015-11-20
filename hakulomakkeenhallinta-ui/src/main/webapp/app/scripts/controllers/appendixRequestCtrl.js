@@ -4,6 +4,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('AppendixRequestCtrl', ['$scope', '$modalInstance', 'attachmentRequest',
         function($scope, $modalInstance, attachmentRequest) {
             $scope.attachmentRequest = attachmentRequest;
+
             $scope.modify = false;
             $scope.lisaaCliked = false;
 

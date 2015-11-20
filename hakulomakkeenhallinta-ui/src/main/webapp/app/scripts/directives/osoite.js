@@ -12,12 +12,16 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 userLang: '@userLang',
                 disabled: "=",
                 requireRecipient: "@",
-                noPrefill: "@"
+                noPrefill: "@",
+                useLopAddress: '=?useLopAddress',
+                useGroupAddress: '=?useGroupAddress',
+                showAddrCb: "@"
             },
             link: function($scope) {
                 $scope.recipientRequired = ($scope.requireRecipient === 'true')
             },
             controller: function ($scope) {
+
                 $scope.t = function (key) {
                     return LocalisationService.tl(key);
                 };
@@ -31,6 +35,16 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 Koodisto.getPostiKoodit().then(function (data) {
                     $scope.postiKoodit = data;
                 });
+
+                $scope.lopAddrCb = function (data) {
+                    $scope.disableAddr = data;
+                    $scope.useLopAddress = data;
+                };
+
+                $scope.groupAddrCb = function (data) {
+                    $scope.disableAddr = data;
+                    $scope.useGroupAddress = data;
+                };
 
                 /**
                  * asettaa postitoimi paikan valitulla postinumerolla
@@ -60,6 +74,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         }
                     );
                 }
+
+                $scope.lopAddrCb($scope.useLopAddress);
+                $scope.groupAddrCb($scope.useGroupAddress);
             }
         };
 
