@@ -34,7 +34,7 @@
                 <span data-ng-show="liitepyyntoDialog.postitoimipaikka.$error.required" class="label-warning-text">{{ t('pakollinen') || 'Pakollinen' }}</span>
             </label>
             <input type="text" class="form-control" data-ng-model="address.postOffice"
-                   data-ng-required="!disabled" data-ng-disabled="true" >
+                   data-ng-required="!disabled && !disableAddr" data-ng-disabled="true" >
         </div>
     </div>
     <br>
