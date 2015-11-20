@@ -27,6 +27,22 @@
             datetime="hakukohderyhmanOsoite.deliveryDue"
             >
     </datetime>
+    <tabset>
+      <tab ng-repeat="language in languages | orderBy:'order':false ">
+        <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
+        <div class="form-group"
+             style="background-color: #f5f5f5; border-color: #ddd !important;">
+          <label for="help-text-{{ language.id }}">
+            {{ t('toimitus.ohje') || 'Hakijalla näytettävä teksti' }}
+          </label>
+          <textarea class="form-control"
+                    name="help-text-{{ language.id }}"
+                    rows="5"
+                    data-ng-model="hakukohderyhmanOsoite.helpText.translations[language.id]">
+          </textarea>
+        </div>
+      </tab>
+    </tabset>
     <div class="form-group">
         <button class="btn btn-primary"
                 type="submit"

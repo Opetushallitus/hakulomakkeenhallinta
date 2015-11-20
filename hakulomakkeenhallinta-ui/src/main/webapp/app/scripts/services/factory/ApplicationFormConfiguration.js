@@ -96,7 +96,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         addressStreet: hakukohdeRyhmanOsoite.address.street,
                         addressPostalCode: hakukohdeRyhmanOsoite.address.postCode,
                         addressPostOffice: hakukohdeRyhmanOsoite.address.postOffice,
-                        deadline: hakukohdeRyhmanOsoite.deliveryDue
+                        deadline: hakukohdeRyhmanOsoite.deliveryDue,
+                        helpText: hakukohdeRyhmanOsoite.helpText
                     }
                 };
                 FormConfiguration.setFormConfiguration({ _asId: applicationSystemId, _groupId: hakukohdeRyhmaOid }, groupConf).$promise.then(

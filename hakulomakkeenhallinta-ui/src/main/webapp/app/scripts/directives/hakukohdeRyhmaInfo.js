@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
     .directive('hakukohdeRyhmaInfo',
-    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route, $timeout, LocalisationService, ApplicationFormConfiguration) {
+    function (TarjontaAPI, _, AlertMsg, Organisaatio, TarjontaService, NavigationTreeStateService, $modal, $filter, $routeParams, $route, $timeout, LocalisationService, ApplicationFormConfiguration, FormEditor) {
         return {
             restrict: 'E',
             replace: true,
@@ -16,6 +16,10 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 ryhmaTyyppi: '@ryhmaTyyppi'
             },
             link: function ($scope) {
+                FormEditor.getLanguages()
+                    .then(function (data) {
+                        $scope.languages = data;
+                    });
                 $scope.t = function (key) {
                     return LocalisationService.tl(key);
                 };
