@@ -14,7 +14,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     description: {
                         translations: {}
                     },
-                    deliveryAddress: {}
+                    deliveryAddress: {},
+                    useLopAddress: false,
+                    useGroupAddress: false
                 };
                 if (option) {
                     attachmentRequest.attachedToOptionId = option.id;
