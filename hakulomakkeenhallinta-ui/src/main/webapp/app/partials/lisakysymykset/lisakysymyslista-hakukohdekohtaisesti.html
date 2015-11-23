@@ -28,7 +28,7 @@
                                             {{liitepyynto | i18n:'header':userLang}} <b>{{ t('osoitteeseen') || 'osoitteeseen' }}:</b>
                                             <span data-ng-show="!liitepyynto.overrideAddress"> {{liitepyynto.deliveryAddress.street}}, {{liitepyynto.deliveryAddress.postCode}}, {{liitepyynto.deliveryAddress.postOffice}}</span>
                                             <span data-ng-show="liitepyynto.overrideAddress && question.targetIsGroup"> {{ t('toimitus.osoite.ryhma') || 'Liitteiden toimitukseen käytetään ryhmän osoitetta.' }} </span>
-                                            <span data-ng-show="liitepyynto.useLopAddress && !question.targetIsGroup"> {{ t('toimitus.osoite.ryhma') || 'Liitteiden toimitukseen käytetään hakukohteen tarjoajan osoitetta.' }} </span>
+                                            <span data-ng-show="liitepyynto.overrideAddress && !question.targetIsGroup"> {{ t('toimitus.osoite.ryhma') || 'Liitteiden toimitukseen käytetään hakukohteen tarjoajan osoitetta.' }} </span>
                                             <b>{{ t('toimitettava.mennessa') || 'toimitettava mennessä' }}:</b> {{liitepyynto.deliveryDue | date:'dd.MM.yyyy'}} <b>{{ t('klo') || 'klo' }}:</b> {{liitepyynto.deliveryDue | date:'HH:mm'}}
                                         </div>
                                     </li>
