@@ -6,7 +6,8 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param hakukohde hakukohteen tiedot liitpyynnölle
              * @param option kysymyksen tiedot liitepyynnölle
              */
-            $scope.addAppendixRequest = function (hakukohde, option) {
+            $scope.addAppendixRequest = function (hakukohde, option,qt) {
+
                 var attachmentRequest = {
                     header: {
                         translations: {}
@@ -15,8 +16,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         translations: {}
                     },
                     deliveryAddress: {},
-                    useLopAddress: false,
-                    useGroupAddress: false
+                    overrideAddress: false
                 };
                 if (option) {
                     attachmentRequest.attachedToOptionId = option.id;
@@ -29,6 +29,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     resolve: {
                         attachmentRequest: function () {
                             return attachmentRequest;
+                        },
+                        question: function () {
+                            return qt;
                         }
                     }
                 }).result.then(function (data) {
@@ -56,7 +59,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
              * @param hakukohde hakukohteen tiedot liitepyynnölle
              * @param option kysymyksen tiedot liitepyynnölle
              */
-            $scope.modifyAppendixRequest = function (option) {
+            $scope.modifyAppendixRequest = function (option,qt) {
                 var attachmentRequest;
                 if (option) {
                     attachmentRequest = _.find($scope.question.attachmentRequests, function (attachment) {
@@ -72,6 +75,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     resolve: {
                         attachmentRequest: function () {
                             return angular.copy(attachmentRequest);
+                        },
+                        question: function () {
+                            return qt;
                         }
                     }
                 }).result.then(function (data) {

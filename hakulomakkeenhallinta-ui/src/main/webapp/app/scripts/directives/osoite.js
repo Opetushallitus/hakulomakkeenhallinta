@@ -13,8 +13,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 disabled: "=",
                 requireRecipient: "@",
                 noPrefill: "@",
-                useLopAddress: '=?useLopAddress',
-                useGroupAddress: '=?useGroupAddress',
+                overrideAddress: '=?overrideAddress',
+                isGroup: '=?isGroup',
                 showAddrCb: "@"
             },
             link: function($scope) {
@@ -36,14 +36,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     $scope.postiKoodit = data;
                 });
 
-                $scope.lopAddrCb = function (data) {
+                $scope.overrideAddressCb = function (data) {
                     $scope.disableAddr = data;
-                    $scope.useLopAddress = data;
-                };
-
-                $scope.groupAddrCb = function (data) {
-                    $scope.disableAddr = data;
-                    $scope.useGroupAddress = data;
+                    $scope.overrideAddress = data;
                 };
 
                 /**
@@ -75,8 +70,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     );
                 }
 
-                $scope.lopAddrCb($scope.useLopAddress);
-                $scope.groupAddrCb($scope.useGroupAddress);
+                $scope.overrideAddressCb($scope.overrideAddress);
             }
         };
 
