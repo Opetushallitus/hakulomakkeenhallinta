@@ -24,8 +24,6 @@
                     </div>
                 </tab>
             </tabset>
-
-
             <datetime
                 label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä' }}"
                 datetime="attachmentRequest.deliveryDue"
@@ -39,6 +37,9 @@
 
             <osoite
                 address="attachmentRequest.deliveryAddress"
+                override-address="attachmentRequest.overrideAddress"
+                is-group="question.targetIsGroup"
+                show-addr-cb="true"
                 user-lang="{{userLang}}"
                 disabled="false"
                 require-recipient="false"
