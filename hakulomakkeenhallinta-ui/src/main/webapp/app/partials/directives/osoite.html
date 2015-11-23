@@ -1,12 +1,9 @@
 <div>
     <div class="row" data-ng-if="showAddrCb=='true'">
-        <div class="col-md-5">
-            <label>{{ t('liitteen.vastaanottaja.kohteesta') || 'Käytä hakukohteen osoitetta' }}</label>
-            <input data-ng-disabled="disabled || useGroupAddress" type="checkbox" name="hakukohteenosoite" class="form-control" data-ng-model="useLopAddress" data-ng-required="false" data-ng-click="lopAddrCb(useLopAddress)">
-        </div>
-        <div class="col-md-5">
-            <label>{{ t('liitteen.vastaanottaja.ryhmasta') || 'Käytä ryhmän osoitetta' }}</label>
-            <input data-ng-disabled="disabled || useLopAddress" type="checkbox" name="ryhmanosoite" class="form-control" data-ng-model="useGroupAddress" data-ng-required="false" data-ng-click="groupAddrCb(useGroupAddress)">
+        <div class="col-md-10">
+            <label data-ng-if="!isGroup">{{ t('liitteen.vastaanottaja.kohteesta') || 'Käytä hakukohteen osoitetta' }}</label>
+            <label data-ng-if="isGroup">{{ t('liitteen.vastaanottaja.ryhmasta') || 'Käytä ryhmän osoitetta' }}</label>
+            <input data-ng-disabled="disabled" type="checkbox" name="hakukohteenosoite" class="form-control" data-ng-model="overrideAddress" data-ng-required="false" data-ng-click="overrideAddressCb(overrideAddress)">
         </div>
     </div>
     <br>

@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('AppendixRequestCtrl', ['$scope', '$modalInstance', 'attachmentRequest',
-        function($scope, $modalInstance, attachmentRequest) {
+    .controller('AppendixRequestCtrl', ['$scope', '$modalInstance', 'attachmentRequest', 'question',
+        function($scope, $modalInstance, attachmentRequest, question) {
             $scope.attachmentRequest = attachmentRequest;
-
+            $scope.question = question;
             $scope.modify = false;
             $scope.lisaaCliked = false;
 
