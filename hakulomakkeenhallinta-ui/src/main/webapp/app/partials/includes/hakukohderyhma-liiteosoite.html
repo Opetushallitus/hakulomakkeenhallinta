@@ -1,38 +1,50 @@
 <form name="liiteryhmanOsoiteForm">
-    <div class="form-group" >
-        <label>{{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }} </label>
-    </div>
-
-    <input
-            class="checkbox-inline"
-            name="useFirstAoAddress"
-            type="checkbox"
-            class="form-control"
-            data-ng-model="hakukohderyhmanOsoite.useFirstAoAddress"
-    >
-    </input>
-    <label for="useFirstAoAddress" class="control-label">{{ t('liitteen.osoite.kayta_ylin') || 'Käytä hakemuksen ylimmän hakukohteen osoitetta' }} </label>
-
-    <osoite address="hakukohderyhmanOsoite.address"
-            user-lang="{{userLang}}"
-            disabled="hakukohderyhmanOsoite.useFirstAoAddress"
-            require-recipient="true"
-            no-prefill="true"
-            show-addr-cb="false"
-            >
-    </osoite>
-
-    <datetime
-            label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä' }}"
-            datetime="hakukohderyhmanOsoite.deliveryDue"
-            >
+    <fieldset>
+        <legend>
+            {{ t('liitteen.toimitusosoite') || 'Liitteen toimitusosoite' }}
+        </legend>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"
+                       style="margin-top: 11px;"
+                       data-ng-model="hakukohderyhmanOsoite.useFirstAoAddress">
+                {{ t('liitteen.osoite.kayta_ylin') || 'Käytä hakemuksen ylimmän hakukohteen osoitetta' }}
+            </label>
+        </div>
+        <osoite address="hakukohderyhmanOsoite.address"
+                user-lang="{{userLang}}"
+                disabled="hakukohderyhmanOsoite.useFirstAoAddress"
+                require-recipient="true"
+                no-prefill="true"
+                show-addr-cb="false">
+        </osoite>
+    </fieldset>
+    <datetime label="{{ t('toimitettava.menessa') || 'Toimitettava mennessä' }}"
+              datetime="hakukohderyhmanOsoite.deliveryDue">
     </datetime>
+    <fieldset>
+        <legend>
+            {{ t('liitteen.ohje') || 'Hakijalla näytettävä teksti' }}
+        </legend>
+        <tabset>
+            <tab ng-repeat="language in languages | orderBy:'order':false ">
+                <tab-heading>{{ language | languageTab:userLang }}</tab-heading>
+                <div class="form-group">
+                    <textarea class="form-control"
+                              rows="5"
+                              data-ng-model="hakukohderyhmanOsoite.helpText.translations[language.id]">
+                    </textarea>
+                </div>
+            </tab>
+        </tabset>
+    </fieldset>
     <div class="form-group">
         <button class="btn btn-primary"
                 type="submit"
                 data-ng-click="tallennaHakukohderyhmanOsoite(liiteryhmanOsoiteForm)"
                 data-ng-disabled="!liiteryhmanOsoiteForm.$valid || liiteryhmanOsoiteForm.$pristine"
-                tl="tallenna">Tallenna
+                tl="tallenna">
+            Tallenna
         </button>
         <alertmsgspan></alertmsgspan>
     </div>
