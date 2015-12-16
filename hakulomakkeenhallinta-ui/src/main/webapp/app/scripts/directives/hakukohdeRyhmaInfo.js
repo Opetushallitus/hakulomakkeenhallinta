@@ -38,6 +38,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                     if($scope.ryhma.configurations.deadline) {
                         $scope.hakukohderyhmanOsoite.deliveryDue = Number($scope.ryhma.configurations.deadline);
                     }
+                    $scope.hakukohderyhmanOsoite.helpText = $scope.ryhma.configurations.helpText;
                 }
 
                 $scope.tallennaHakukohderyhmanOsoite = function (form) {
