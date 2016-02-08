@@ -8,6 +8,6 @@
   "csrf": "OK: hakulomakkeenhallinta-ui",
 
   "projects": [
-    {"name": "hakulomakkeenhallinta-web", "uses": "cas organisaatio-rest haku-rest authentication-service lokalisointi-rest"}
+    {"name": "hakulomakkeenhallinta-web", "uses": "cas organisaatio-rest haku authentication-service lokalisointi-rest"}
   ]
 }
