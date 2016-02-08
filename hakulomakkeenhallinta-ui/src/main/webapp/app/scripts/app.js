@@ -23,6 +23,13 @@ app.config(['$resourceProvider', function ($resourceProvider) {
     $resourceProvider.stripTrailingSlashes = false;
 }]);
 
+app.run(["$http","$cookies", function($http, $cookies) {
+    $http.defaults.headers.common['clientSubSystemCode'] = "hakulomakkeenhallinta.hakulomakkeenhallinta-ui";
+    if($cookies['CSRF']) {
+        $http.defaults.headers.common['CSRF'] = $cookies['CSRF']
+    }
+}])
+
 app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
