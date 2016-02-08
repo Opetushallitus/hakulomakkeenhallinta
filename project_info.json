@@ -1,11 +1,11 @@
 {
-  "name": "koulutusinformaatio",
+  "name": "hakulomakkeenhallinta",
 
   "Makefile": "no",
 
   "velka": "js-riipuvuudet git-repossa (packages.json käyttöön)",
 
-  "csrf": "koulutusinformaatio-app-front ja preview: ok, backend: ?",
+  "csrf": "OK: hakulomakkeenhallinta-ui",
 
   "projects": [
     {"name": "hakulomakkeenhallinta-web", "uses": "cas organisaatio-rest haku-rest authentication-service lokalisointi-rest"}
