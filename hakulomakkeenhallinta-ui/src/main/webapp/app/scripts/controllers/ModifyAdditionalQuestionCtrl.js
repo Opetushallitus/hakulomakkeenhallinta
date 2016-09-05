@@ -14,6 +14,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystem = {};
             $scope.haunNimi = '';
             $scope.hakukohdeNimi = '';
+            $scope.haunHakuajat = [];
             $scope.teema = '';
             $scope.kysymysTyyppi = '';
             $scope.tallennaClicked = false;
@@ -49,6 +50,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     function (data) {
                         $scope.applicationSystem = data;
                         $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
+                    }
+                );
+                /**
+                 * Haetaan haun hakuajat
+                 */
+                FormEditor.getApplicationSystemFormApplicationPeriods(QuestionData.getApplicationSystemId()).then(
+                    function (data) {
+                        $scope.haunHakuajat = data;
                     }
                 );
 
@@ -131,6 +140,23 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     }
                 });
+            };
+
+            $scope.isBeforeFirstHakuaika = function() {
+                return new Date() < _.min(_.map($scope.haunHakuajat, function(ha) {return ha.start}));
+            };
+
+            $scope.isHakuaikaGoing = function() {
+                const now = new Date();
+                return _.some($scope.haunHakuajat, function(ha) {return ha.start <= now && now <= ha.end})
+            };
+
+            $scope.isKysymyksenMuokkausSallittu = function() {
+                return $scope.isRekisterinpitaja || $scope.isBeforeFirstHakuaika();
+            };
+
+            $scope.isKysymyksenLisaysSallittu = function() {
+                return $scope.isRekisterinpitaja || !$scope.isHakuaikaGoing();
             };
         }]);
 

@@ -81,7 +81,8 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
         teemaHakukohdeKysymyksetTallennus = {},
         lisakysymysTyypit = [],
         kielet = [],
-        organisaationhenkilo = [];
+        organisaationhenkilo = [],
+        hakulomakeApplicationPeriods = [];
 
 
     //käyttäjän organisaatiot
@@ -179,6 +180,18 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/theme\-question\/list\/([0-9]+\.)+[0-9]+\//).respond(
         function () {
             return [200, lisakysymykset, {status: 200}];
+        }
+    );
+
+    //hakuajat
+    $.getJSON(Props.contextRoot + '/app/test-data/hakulomakkeen-application-periods.json', function (data) {
+            console.log('### mock data 4 hakulomakkeen hakuajat ###');
+            hakulomakeApplicationPeriods = data;
+        }
+    );
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/application\-system\-form\/([0-9]+\.)+[0-9]+\/applicationPeriods+/).respond(
+        function () {
+            return [200, hakulomakeApplicationPeriods, {status: 200}];
         }
     );
 

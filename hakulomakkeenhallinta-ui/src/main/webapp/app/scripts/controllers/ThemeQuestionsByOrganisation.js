@@ -7,6 +7,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             $scope.haunNimi = '';
             $scope.organisationNimi = '';
+            $scope.haunHakuajat = [];
             /**
              * haetaan valitun organisaation tiedot organisaatio palvelusta
              * valitun organisaation id:llä
@@ -14,6 +15,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             Organisaatio.fetchOrganisation($routeParams.oid).then(
                 function (data) {
                     $scope.organisationNimi = $filter('organisaatioNimi')(data, $scope.userLang);
+                }
+            );
+            /**
+             * Haetaan haun hakuajat
+             */
+            FormEditor.getApplicationSystemFormApplicationPeriods($routeParams.id).then(
+                function (data) {
+                    $scope.haunHakuajat = data;
                 }
             );
 

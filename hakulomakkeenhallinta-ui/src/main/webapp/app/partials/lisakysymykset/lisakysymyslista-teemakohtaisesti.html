@@ -28,12 +28,12 @@
                                             järjestys' }}
                                         </button>
                                     </div>
-                                    <div class="dropdown pull-right" data-ng-show="sortBtns">
+                                    <div class="dropdown pull-right" data-ng-show="sortBtns && (isKysymyksenLisaysSallittu() || option.questions.length > 0)">
                                         <a class="dropdown-toggle">
                                             <i class="hh-icon-menu"></i>
                                         </a>
                                         <ul class="dropdown-menu menu-inside-tree">
-                                            <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question, option)">
+                                            <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question, option)" data-ng-show="isKysymyksenLisaysSallittu()">
                                                 <a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }}
                                                     <i class="glyphicon glyphicon-plus"></i>
                                                 </a>

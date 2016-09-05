@@ -216,6 +216,23 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                             );
                         }
                     };
+
+                    $scope.isBeforeFirstHakuaika = function() {
+                        return new Date() < _.min(_.map($scope.haunHakuajat, function(ha) {return ha.start}));
+                    };
+
+                    $scope.isHakuaikaGoing = function() {
+                        const now = new Date();
+                        return _.some($scope.haunHakuajat, function(ha) {return ha.start <= now && now <= ha.end})
+                    };
+
+                    $scope.isKysymyksenMuokkausSallittu = function() {
+                        return $scope.isRekisterinpitaja || $scope.isBeforeFirstHakuaika();
+                    };
+
+                    $scope.isKysymyksenLisaysSallittu = function() {
+                        return $scope.isRekisterinpitaja || !$scope.isHakuaikaGoing();
+                    };
                 }
             };
         }]);
