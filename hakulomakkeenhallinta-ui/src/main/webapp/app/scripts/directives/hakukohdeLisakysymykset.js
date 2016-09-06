@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('hakukohdeLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
-        function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location) {
+    .directive('hakukohdeLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location', 'lisakysymysOikeudetService',
+        function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location, LisakysymysOikeudetService) {
             return {
                 restrict: 'E',
                 replace: true,
                 templateUrl: 'partials/directives/hakukohdeLisakysymykset.html',
                 controller: function ($scope) {
+
+                    $scope.LisakysymysOikeudetService = LisakysymysOikeudetService;
 
                     $scope.hakukohdePoistettu = false;
                     $scope.kysymysMaara = 0;
@@ -116,23 +118,6 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                                 }
                             );
                         }
-                    };
-
-                    $scope.isBeforeFirstHakuaika = function() {
-                        return new Date() < _.min(_.map($scope.haunHakuajat, function(ha) {return ha.start}));
-                    };
-
-                    $scope.isHakuaikaGoing = function() {
-                        const now = new Date();
-                        return _.some($scope.haunHakuajat, function(ha) {return ha.start <= now && now <= ha.end})
-                    };
-
-                    $scope.isKysymyksenMuokkausSallittu = function() {
-                        return $scope.isRekisterinpitaja || $scope.isBeforeFirstHakuaika();
-                    };
-
-                    $scope.isKysymyksenLisaysSallittu = function() {
-                        return $scope.isRekisterinpitaja || !$scope.isHakuaikaGoing();
                     };
                 }
             };

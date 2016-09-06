@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI', 'Organisaatio',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI, Organisaatio) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI', 'Organisaatio', 'lisakysymysOikeudetService',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI, Organisaatio, LisakysymysOikeudetService) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -14,7 +14,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.applicationSystem = {};
             $scope.haunNimi = '';
             $scope.hakukohdeNimi = '';
-            $scope.haunHakuajat = [];
             $scope.teema = '';
             $scope.kysymysTyyppi = '';
             $scope.tallennaClicked = false;
@@ -36,14 +35,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 function (data) {
                     $scope.applicationSystem = data;
                     $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
-                }
-            );
-            /**
-             * Haetaan haun hakuajat
-             */
-            FormEditor.getApplicationSystemFormApplicationPeriods($routeParams.id).then(
-                function (data) {
-                    $scope.haunHakuajat = data;
                 }
             );
             TarjontaAPI.fetchHakukohdeInfo($routeParams.hakuOid).then(
@@ -145,25 +136,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.tallennaClicked = true;
             };
 
-
-            $scope.isBeforeFirstHakuaika = function() {
-                return new Date() < _.min(_.map($scope.haunHakuajat, function(ha) {return ha.start}));
-            };
-
-            $scope.isHakuaikaGoing = function() {
-                const now = new Date();
-                return _.some($scope.haunHakuajat, function(ha) {return ha.start <= now && now <= ha.end})
-            };
-
-            $scope.isKysymyksenMuokkausSallittu = function() {
-                return $scope.isRekisterinpitaja || $scope.isBeforeFirstHakuaika();
-            };
-
-            $scope.isKysymyksenLisaysSallittu = function() {
-                return $scope.isRekisterinpitaja || !$scope.isHakuaikaGoing();
-            };
-
             $scope.isTallennusSallittu = function() {
-                return $scope.editFlag ? $scope.isKysymyksenMuokkausSallittu() : $scope.isKysymyksenLisaysSallittu();
+                return $scope.editFlag ? LisakysymysOikeudetService.isKysymyksenMuokkausSallittu() : LisakysymysOikeudetService.isKysymyksenLisaysSallittu();
             };
         }]);

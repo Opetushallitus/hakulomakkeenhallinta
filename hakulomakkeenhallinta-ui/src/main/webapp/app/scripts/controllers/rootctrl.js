@@ -26,16 +26,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                     dynamicLocalization.set($scope.userLang);
                 }
             );
-            $scope.isRekisterinpitaja = false;
-            /**
-             * Tarkistetaan, onko käyttäjälle rekisterinpitäjän oikeudet
-             */
-            MyRoles.rekisterinpitajaRightCheck().then(
-                function(data) {
-                    $scope.isRekisterinpitaja = data;
-                    $rootScope.LOGS('RootCtrl', 'isRekisterinpitaja: ', data);
-                }
-            );
             var logs = Props.enableConsoleLogs;
             $scope.logs = logs;
             /**
