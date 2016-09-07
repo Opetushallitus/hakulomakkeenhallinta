@@ -31,7 +31,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.isHakuaikaGoing = function() {
-            const now = new Date();
+            var now = new Date();
             return _.some(this.haunHakuajat, function(ha) {return ha.start <= now && now <= ha.end})
         };
 
