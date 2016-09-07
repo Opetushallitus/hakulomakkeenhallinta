@@ -133,5 +133,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     }
                 });
             };
+
+            $scope.isTallennusSallittu = function() {
+                return $scope.editFlag ? LisakysymysOikeudetService.isKysymyksenMuokkausSallittu() : LisakysymysOikeudetService.isKysymyksenLisaysSallittu();
+            };
         }]);
 
