@@ -1,7 +1,7 @@
 'use strickt';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('teemaOtsikko', [ '$filter', function ($filter) {
+    .directive('teemaOtsikko', [ '$filter', 'lisakysymysOikeudetService', function ($filter, LisakysymysOikeudetService) {
         return {
             restrict: 'E',
             replace: true,
@@ -11,6 +11,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 $scope.maara = 0;
                 $scope.naytaMaara = true;
                 $scope.otsikko = $filter('i18n')($scope.theme, 'name', $scope.userLang);
+
+                $scope.LisakysymysOikeudetService = LisakysymysOikeudetService;
+
                 /**
                  * näyttää / piilottaa otsikon alla olevan listan
                  */
