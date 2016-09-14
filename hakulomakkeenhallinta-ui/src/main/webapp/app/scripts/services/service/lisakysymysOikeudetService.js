@@ -4,16 +4,20 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
     function (FormEditor, MyRoles, $routeParams, _, $rootScope) {
 
         this.haunHakuajat = [];
+        this.haunHakutapa = "";
         this.isRekisterinpitaja = false;
         var _this = this;
 
         /**
-         * Haetaan haun hakuajat
+         * Haetaan haun hakuajat ja hakutapa
          */
-        FormEditor.getApplicationSystemFormApplicationPeriods($routeParams.id).then(
+        FormEditor.getApplicationSystemFormHakuajatJaHakutapa($routeParams.id).then(
             function (data) {
-                _this.haunHakuajat = data;
-                $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakuajat: ', data);
+                $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakuajatJaHakutapa: ', data);
+                _this.haunHakuajat = data.hakuajat;
+                _this.haunHakutapa = data.hakutapa;
+                $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakuajat: ', _this.haunHakuajat);
+                $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakutapa: ', _this.haunHakutapa);
             }
         );
         /**
@@ -26,6 +30,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             }
         );
 
+        this.isYhteishaku = function() {
+            return "hakutapa_01" == this.haunHakutapa;
+        };
+
         this.isBeforeFirstHakuaika = function() {
             return new Date() < _.min(_.map(this.haunHakuajat, function(ha) {return ha.start}));
         };
@@ -36,10 +44,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.isKysymyksenMuokkausSallittu = function() {
-            return this.isRekisterinpitaja || this.isBeforeFirstHakuaika();
+            return this.isYhteishaku() ? this.isRekisterinpitaja || this.isBeforeFirstHakuaika() : true;
         };
 
         this.isKysymyksenLisaysSallittu = function() {
-            return this.isRekisterinpitaja || !this.isHakuaikaGoing();
+            return this.isYhteishaku() ? this.isRekisterinpitaja || !this.isHakuaikaGoing() : true;
         };
     }]);

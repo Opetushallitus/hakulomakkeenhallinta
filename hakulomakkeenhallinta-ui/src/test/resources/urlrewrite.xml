@@ -20,9 +20,9 @@
     </rule>
 
     <rule>
-        <from>/haku-app/application-system-form-editor/application-system-form/(.*)/applicationPeriods</from>
+        <from>/haku-app/application-system-form-editor/application-system-form/(.*)/hakuajatJaHakutapa</from>
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
-        <to last="true">/test/data/$1-application-periods.json</to>
+        <to last="true">/test/data/$1-hakuajat-ja-hakutapa.json</to>
     </rule>
 
     <rule>
