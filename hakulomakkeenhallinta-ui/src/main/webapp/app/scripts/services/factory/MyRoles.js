@@ -69,5 +69,18 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory',[])
             return deferred.promise;
         };
 
+        myroles.rekisterinpitajaRightCheck = function () {
+            var deferred = $q.defer();
+            getMyRoles().then(
+                function (data) {
+                    var access = _.some(data.myroles, function (hhaccess) { return (
+                        hhaccess.match('APP_HAKULOMAKKEENHALLINTA_CRUD_1.2.246.562.10.00000000001') ||
+                        hhaccess.match('APP_HAKULOMAKKEENHALLINTA_READ_UPDATE_1.2.246.562.10.00000000001')); });
+                    deferred.resolve(access);
+                }
+            );
+            return deferred.promise;
+        }
+
         return myroles;
     }]);

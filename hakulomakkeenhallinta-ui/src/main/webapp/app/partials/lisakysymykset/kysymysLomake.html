@@ -1,4 +1,4 @@
-<form role="form" name="kysymys" class="form-horizontal col-md-12" >
+<form role="form" name="kysymys" class="form-horizontal col-md-12" data-ng-show="isTallennusSallittu()">
     <div class="alert alert-info" >
         <i class="glyphicon glyphicon-info-sign"></i>
         <span data-ng-hide-html="editFlag"
@@ -7,7 +7,7 @@
              data-ng-bind-html="t('muokkaa.hakukohdekohtaista.lisakysymyksia.hakuun.hakukohde.teema.tyyppia', [ haunNimi, hakukohdeNimi, teema, kysymysTyyppi ])"></span>
     </div>
     <alertmsg></alertmsg>
-    <lisakysymys-napit></lisakysymys-napit>
+    <lisakysymys-napit ></lisakysymys-napit>
 
     <h3 class="text-info" tl="hakukohdekohtainen.lisakysymymys">Hakukohdekohtainen lisäkysymys</h3>
 
@@ -23,3 +23,18 @@
         <pre>{{question | without | json}}</pre>
     </div>
 </form>
+<div data-ng-show="!isTallennusSallittu()">
+    <div class="alert alert-info" >
+        <i class="glyphicon glyphicon-info-sign"></i>
+        <span data-ng-hide-html="editFlag"
+              data-ng-bind-html="t('hakukohdekohtaista.lisakysymyksia.hakuun.hakukohde.teema.tyyppia', [ haunNimi, hakukohdeNimi, teema, kysymysTyyppi ])"></span>
+        <span data-ng-hide="!editFlag"
+              data-ng-bind-html="t('muokkaa.hakukohdekohtaista.lisakysymyksia.hakuun.hakukohde.teema.tyyppia', [ haunNimi, hakukohdeNimi, teema, kysymysTyyppi ])"></span>
+        <br/><br/>
+        <span data-ng-hide-html="editFlag"
+              data-ng-bind-html="t('hakukohdekohtaista.lisakysymyksia.hakuun.luominen.kielletty')"></span>
+        <span data-ng-hide="!editFlag"
+              data-ng-bind-html="t('hakukohdekohtaista.lisakysymyksia.hakuun.muokkaus.kielletty')"></span>
+    </div>
+    <button class="btn" data-ng-click="back()"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
+</div>

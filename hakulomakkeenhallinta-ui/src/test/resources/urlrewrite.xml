@@ -20,6 +20,12 @@
     </rule>
 
     <rule>
+        <from>/haku-app/application-system-form-editor/application-system-form/(.*)/hakuajatJaHakutapa</from>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/$1-hakuajat-ja-hakutapa.json</to>
+    </rule>
+
+    <rule>
         <from>/haku-app/application-system-form-editor/application-system-form</from>
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
         <to last="true">/test/data/application-system-form.json</to>

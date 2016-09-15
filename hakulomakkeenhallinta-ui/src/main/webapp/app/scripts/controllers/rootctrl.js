@@ -26,7 +26,6 @@ angular.module('hakulomakkeenhallintaUiApp.controllers', [])
                     dynamicLocalization.set($scope.userLang);
                 }
             );
-
             var logs = Props.enableConsoleLogs;
             $scope.logs = logs;
             /**

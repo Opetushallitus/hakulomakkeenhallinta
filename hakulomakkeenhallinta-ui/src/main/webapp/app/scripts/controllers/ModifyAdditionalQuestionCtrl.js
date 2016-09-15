@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ModifyAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '$modal', 'TarjontaAPI', 'Organisaatio',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, $modal, TarjontaAPI, Organisaatio) {
+    .controller('ModifyAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '$modal', 'TarjontaAPI', 'Organisaatio', 'lisakysymysOikeudetService',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, $modal, TarjontaAPI, Organisaatio, LisakysymysOikeudetService) {
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -17,6 +17,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.teema = '';
             $scope.kysymysTyyppi = '';
             $scope.tallennaClicked = false;
+            $scope.LisakysymysOikeudetService = LisakysymysOikeudetService;
 
             FormEditor.getLanguages().then(
                 function (data) {
@@ -131,6 +132,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         }
                     }
                 });
+            };
+
+            $scope.isTallennusSallittu = function() {
+                return $scope.editFlag ? LisakysymysOikeudetService.isKysymyksenMuokkausSallittu() : LisakysymysOikeudetService.isKysymyksenLisaysSallittu();
             };
         }]);
 

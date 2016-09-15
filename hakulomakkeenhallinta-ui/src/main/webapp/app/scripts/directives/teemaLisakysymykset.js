@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.directives')
-    .directive('teemaLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location',
-        function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location) {
+    .directive('teemaLisakysymykset', ['$rootScope', 'TarjontaAPI', 'ThemeQuestions', 'AlertMsg', 'Organisaatio', '$modal', '_', '$routeParams', 'QuestionData', '$location', 'lisakysymysOikeudetService',
+        function ($rootScope, TarjontaAPI, ThemeQuestions, AlertMsg, Organisaatio, $modal, _, $routeParams, QuestionData, $location, LisakysymysOikeudetService) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -36,6 +36,8 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         $scope.naytaHakukohdeQues = !$scope.naytaHakukohdeQues;
                     };
                     $scope.kysymysMaara = $scope.questions.length;
+
+                    $scope.LisakysymysOikeudetService = LisakysymysOikeudetService;
 
                     var ordinals = {},
                         orderQuestions = [];

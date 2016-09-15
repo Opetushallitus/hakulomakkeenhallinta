@@ -11,7 +11,7 @@
                 <i class="hh-icon-menu"></i>
             </a>
             <ul class="dropdown-menu">
-                <li data-ng-click="addQuestion(theme)">
+                <li data-ng-click="addQuestion(theme)" data-ng-show="LisakysymysOikeudetService.isKysymyksenLisaysSallittu()">
                     <a> {{ t('lisaa.uusi.kysymys') || 'Lisää uusi kysymys' }}
                         <i class="glyphicon glyphicon-plus"></i>
                     </a>

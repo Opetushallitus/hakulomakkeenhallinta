@@ -26,19 +26,19 @@
 
         <input data-ng-if="logs" type="checkbox" data-ng-model="showJson" >
 
-        <div class="dropdown pull-right" data-ng-show="sortBtns">
+        <div class="dropdown pull-right" data-ng-show="sortBtns && ((question.parentId === undefined && LisakysymysOikeudetService.isKysymyksenLisaysSallittu()) || LisakysymysOikeudetService.isKysymyksenMuokkausSallittu())">
             <a class="dropdown-toggle">
                 <i class="hh-icon-menu"></i>
             </a>
             <ul class="dropdown-menu menu-inside-tree">
-                <li data-ng-click="muokkaaKysymysta(question, sortBtns)">
+                <li data-ng-click="muokkaaKysymysta(question, sortBtns)" data-ng-show="LisakysymysOikeudetService.isKysymyksenMuokkausSallittu()">
                     <a>{{ t('muokkaa') || 'Muokkaa' }} <i class="glyphicon glyphicon-edit"></i></a>
                 </li>
-                <li data-ng-hide="question.parentId !== undefined" data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question)">
+                <li data-ng-click="lisaaJatkokysymys(hakukohde.additionalQuestions, hakukohde, theme, question)" data-ng-show="question.parentId === undefined && LisakysymysOikeudetService.isKysymyksenLisaysSallittu()">
                     <a>{{ t('lisaa.jatkokysymys') || 'Lisää jatkokysymys' }} <i
                             class="glyphicon glyphicon-plus"></i></a>
                 </li>
-                <li data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)">
+                <li data-ng-click="poistaKysymys(question, hakukohde.additionalQuestions)" data-ng-show="LisakysymysOikeudetService.isKysymyksenMuokkausSallittu()">
                     <a>{{ t('poista') || 'Poista' }}<i class="glyphicon glyphicon-remove"></i></a>
                 </li>
             </ul>

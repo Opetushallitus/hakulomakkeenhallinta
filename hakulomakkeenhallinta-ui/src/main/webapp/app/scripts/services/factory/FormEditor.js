@@ -52,6 +52,21 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             return deferred.promise;
         };
         /**
+         * Palauttaa hakulomakkeen hakuajat ja hakutavan
+         * @param id: hakulomakkeen id
+         * @returns {promise}
+         */
+        formEditor.getApplicationSystemFormHakuajatJaHakutapa = function (applicationSystemId) {
+            $rootScope.LOGS('FormEditor', 'getApplicationSystemFormHakuajatJaHakutapa()');
+            var deferred = $q.defer();
+            FormEditor.get({'_path': 'application-system-form', '_id': applicationSystemId , '_oper': 'hakuajatJaHakutapa'}).$promise.then(
+                function (data) {
+                    deferred.resolve(data);
+                }
+            );
+            return deferred.promise;
+        };
+        /**
          * Palauttaa kaikki hakulomakkeet tiedot listan
          * @returns {*}
          */

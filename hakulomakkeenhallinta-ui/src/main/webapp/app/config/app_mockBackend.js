@@ -81,7 +81,8 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
         teemaHakukohdeKysymyksetTallennus = {},
         lisakysymysTyypit = [],
         kielet = [],
-        organisaationhenkilo = [];
+        organisaationhenkilo = [],
+        hakulomakeHakuajatJaHakutapa = {};
 
 
     //käyttäjän organisaatiot
@@ -182,9 +183,23 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
         }
     );
 
+    //hakuajat
+    $.getJSON(Props.contextRoot + '/app/test-data/hakulomakkeen-hakuajat-ja-hakutapa.json', function (data) {
+            console.log('### mock data 4 hakulomakkeen hakuajat ###');
+        console.log(data);
+        hakulomakeHakuajatJaHakutapa = data;
+        }
+    );
+    $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/application\-system\-form\/([0-9]+\.)+[0-9]+\/hakuajatJaHakutapa+/).respond(
+        function () {
+            return [200, hakulomakeHakuajatJaHakutapa, {status: 200}];
+        }
+    );
+
     //hakulomake nimi
     $.getJSON(Props.contextRoot + '/app/test-data/hakulomakkeen-name.json', function (data) {
             console.log('### mock data 4 hakulomakkeen nimi ###');
+            console.log(data);
             hakulomakeName = data;
         }
     );

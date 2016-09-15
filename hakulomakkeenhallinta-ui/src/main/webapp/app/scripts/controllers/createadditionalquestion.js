@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI', 'Organisaatio',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI, Organisaatio) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI', 'Organisaatio', 'lisakysymysOikeudetService',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI, Organisaatio, LisakysymysOikeudetService) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -136,4 +136,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 $scope.tallennaClicked = true;
             };
 
+            $scope.isTallennusSallittu = function() {
+                return $scope.editFlag ? LisakysymysOikeudetService.isKysymyksenMuokkausSallittu() : LisakysymysOikeudetService.isKysymyksenLisaysSallittu();
+            };
         }]);
