@@ -11,7 +11,7 @@
 
       it('popupissa kaksi vaihtoehtoa', function() {
         var menuItems = domUtil.dropDownRows(domUtil.applicationRulesPriorisoivatHakukohderyhmat())
-        expect(menuItems.length).to.equal(2)
+        expect(menuItems.length).to.equal(2, "Priorisoivien hakukohderyhmien popupissa ei ole kahta vaihtoehtoa")
       })
 
       describe("rajaavat hakukohderyhmät avautuu ja popup avautuu ja sulkeutuu", function() {
@@ -19,7 +19,7 @@
 
         it('popupissa neljä vaihtoehtoa', function() {
             var menuItems = domUtil.dropDownRows(domUtil.applicationRulesPriorisoivatHakukohderyhmat().find('li.hh-hakukohde:visible').eq(4))
-            expect(menuItems.length).to.equal(4)
+            expect(menuItems.length).to.equal(4, "Priorisoivien hakukohderyhmien popupissa ei ole neljää vaihtoehtoa")
         })
 
         describe("priorisoiva hakukohderyhmä avautuu oikein", function() {
@@ -27,12 +27,12 @@
 
           it('ryhmässä neljä hakukohdetta', function() {
               var group = S('div[ryhmat=priorisointiRyhmat]').find('.hh-hakukohde').eq(4)
-              expect(group.find("li.hh-hakukohde").length).to.equal(4)
+              expect(group.find("li.hh-hakukohde").length).to.equal(4, "Hakukohderyhmässä (priorisoivat) ei ole neljää hakukohdetta")
           })
 
           it('kullekin hakukohteelle on poistonappi', function() {
               var group = S('div[ryhmat=priorisointiRyhmat]').find('.hh-hakukohde').eq(4)
-              expect(group.find("li.hh-hakukohde a").length).to.equal(4)
+              expect(group.find("li.hh-hakukohde a").length).to.equal(4, "Hakukohderyhmässä (priorisoivat) ei ole neljää hakukohteen poistonappia")
           })
         })
       })
