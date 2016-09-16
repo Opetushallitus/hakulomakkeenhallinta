@@ -186,8 +186,7 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     //hakuajat
     $.getJSON(Props.contextRoot + '/app/test-data/hakulomakkeen-hakuajat-ja-hakutapa.json', function (data) {
             console.log('### mock data 4 hakulomakkeen hakuajat ###');
-        console.log(data);
-        hakulomakeHakuajatJaHakutapa = data;
+            hakulomakeHakuajatJaHakutapa = data;
         }
     );
     $httpBackend.whenGET(/\/haku\-app\/application\-system\-form\-editor\/application\-system\-form\/([0-9]+\.)+[0-9]+\/hakuajatJaHakutapa+/).respond(
@@ -199,7 +198,6 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
     //hakulomake nimi
     $.getJSON(Props.contextRoot + '/app/test-data/hakulomakkeen-name.json', function (data) {
             console.log('### mock data 4 hakulomakkeen nimi ###');
-            console.log(data);
             hakulomakeName = data;
         }
     );
