@@ -16,7 +16,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service', [])
                 if (postinumerot.length > 0) {
                     deferred.resolve(postinumerot);
                 } else {
-                    $http.get(Props.koodisto + '/posti/koodi?onlyValidKoodis=true').success(
+                    $http.get(window.url("koodisto-service.koodi", "posti")).success(
                         function (data) {
                             postinumerot = data;
                             deferred.resolve(data);
@@ -34,7 +34,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service', [])
                 if (kaudet.length > 0) {
                     deferred.resolve(kaudet);
                 } else {
-                    $http.get(Props.koodisto + '/kausi/koodi?onlyValidKoodis=true').success(
+                    $http.get(window.url("koodisto-service.koodi", "kausi")).success(
                         function(data) {
                             data = _.map(data, function (kk) {
                                 return {
@@ -61,7 +61,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service', [])
                 if (hakutyypit.length > 0) {
                     deferred.resolve(hakutyypit);
                 } else {
-                    $http.get(Props.koodisto + '/hakutyyppi/koodi?onlyValidKoodis=true').success(
+                    $http.get(window.url("koodisto-service.koodi", "hakutyyppi")).success(
                         function(data) {
                             data = _.map(data, function (hakuType) {
                                     return {

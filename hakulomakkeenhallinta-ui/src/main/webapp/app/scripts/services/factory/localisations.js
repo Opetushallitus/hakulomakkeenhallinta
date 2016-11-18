@@ -5,7 +5,7 @@
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
     .factory('Localisations',[ '$resource', 'Props','$q', function ($resource, Props, $q) {
         var localisations ={};
-        var locals = $resource(Props.localizationUrl+'/localisation',{},{
+        var locals = $resource(window.url("lokalisointi.localisation"),{},{
             query: {
                 method:'GET',
                 params:{
