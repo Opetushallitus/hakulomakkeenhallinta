@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ModifyAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '$modal', 'TarjontaAPI', 'Organisaatio', 'lisakysymysOikeudetService',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, $modal, TarjontaAPI, Organisaatio, LisakysymysOikeudetService) {
+    .controller('ModifyAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '$modal', 'TarjontaAPI', 'Organisaatio', 'lisakysymysOikeudetService', '$sanitize',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, $modal, TarjontaAPI, Organisaatio, LisakysymysOikeudetService, $sanitize) {
             $rootScope.LOGS('ModifyAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -33,14 +33,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 QuestionData.getTheme().then(
                     function (data) {
                         $scope.theme = data;
-                        $scope.teema = $filter('i18n')($scope.theme, 'name', $scope.userLang);
+                        $scope.teema = $sanitize($filter('i18n')($scope.theme, 'name', $scope.userLang));
                     }
                 );
 
                 QuestionData.getType($scope.question.type).then(
                     function (data) {
                         $scope.questionType = data;
-                        $scope.kysymysTyyppi = $filter('i18n')($scope.questionType, 'name', $scope.userLang );
+                        $scope.kysymysTyyppi = $sanitize($filter('i18n')($scope.questionType, 'name', $scope.userLang ));
                     }
                 );
                 /**
@@ -49,14 +49,14 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 FormEditor.fetchApplicationSystemForm(QuestionData.getApplicationSystemId()).then(
                     function (data) {
                         $scope.applicationSystem = data;
-                        $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
+                        $scope.haunNimi = $sanitize($filter('i18n')($scope.applicationSystem, 'name', $scope.userLang));
                     }
                 );
 
                 TarjontaAPI.fetchHakukohdeInfo(QuestionData.getLerningOpportunityId()).then(
                     function (data) {
                         $scope.hakukohde = data;
-                        $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
+                        $scope.hakukohdeNimi = $sanitize($filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang));
                         if (data === 'NOT_FOUND') {
                             haeHakukohdeRyhma();
                         }
@@ -71,7 +71,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                             }
                             QuestionData.setIsGroup(true);
                             $scope.hakukohde = hkData;
-                            $scope.hakukohdeNimi = $filter('hakukohdeNimi')(hkData, $scope.userLang);
+                            $scope.hakukohdeNimi = $sanitize($filter('hakukohdeNimi')(hkData, $scope.userLang));
                         }
                     );
                 };

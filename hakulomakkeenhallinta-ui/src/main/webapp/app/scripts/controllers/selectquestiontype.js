@@ -2,15 +2,15 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('SelectQuestionTypeCtrl',
-    function($scope, $rootScope, $modalInstance, FormEditor, applicationSystem, theme, hakukohde, $filter, JatkokysymysService, TarjontaAPI, _, Organisaatio, QuestionData) {
+    function($scope, $rootScope, $modalInstance, FormEditor, applicationSystem, theme, hakukohde, $filter, $sanitize, JatkokysymysService, TarjontaAPI, _, Organisaatio, QuestionData) {
 
         $rootScope.LOGS('SelectQuestionTypeCtrl');
         $scope.applicationSystem =  applicationSystem;
         $scope.theme = theme;
         $scope.hakukohde = hakukohde;
-        $scope.haunNimi = $filter('i18n')(applicationSystem, 'name', $scope.userLang);
-        $scope.teema = $filter('i18n')(theme, 'name', $scope.userLang);
-        $scope.hakukohdeNimi = $filter('hakukohdeNimi')(hakukohde, $scope.userLang);
+        $scope.haunNimi = $sanitize($filter('i18n')(applicationSystem, 'name', $scope.userLang));
+        $scope.teema = $sanitize($filter('i18n')(theme, 'name', $scope.userLang));
+        $scope.hakukohdeNimi = $sanitize($filter('hakukohdeNimi')(hakukohde, $scope.userLang));
 
         if ($scope.hakukohdeNimi === undefined &&
             (hakukohde.hakukohteenNimet === undefined || hakukohde.hakukohteenNimi === undefined
@@ -19,13 +19,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 Organisaatio.getOrganisationData(hakukohde.aoid).then(
                     function (hkData) {
                         QuestionData.setIsGroup(true);
-                        $scope.hakukohdeNimi = $filter('hakukohdeNimi')(hkData, $scope.userLang);
+                        $scope.hakukohdeNimi = $sanitize($filter('hakukohdeNimi')(hkData, $scope.userLang));
                     }
                 );
             } else {
                 TarjontaAPI.fetchHakukohdeInfo(hakukohde.aoid).then(
                     function (hkData) {
-                        $scope.hakukohdeNimi = $filter('hakukohdeNimi')(hkData, $scope.userLang);
+                        $scope.hakukohdeNimi = $sanitize($filter('hakukohdeNimi')(hkData, $scope.userLang));
                     }
                 );
             }

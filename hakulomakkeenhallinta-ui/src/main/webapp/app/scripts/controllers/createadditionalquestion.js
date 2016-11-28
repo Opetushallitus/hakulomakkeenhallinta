@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI', 'Organisaatio', 'lisakysymysOikeudetService',
-        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI, Organisaatio, LisakysymysOikeudetService) {
+    .controller('CreateAdditionalQuestionCtrl', [ '$scope', '$rootScope', '$location', '$routeParams', 'FormEditor', 'ThemeQuestions', 'QuestionData', 'AlertMsg', '$filter', '_', 'JatkokysymysService', 'TarjontaAPI', 'Organisaatio', 'lisakysymysOikeudetService', '$sanitize',
+        function ($scope, $rootScope, $location, $routeParams, FormEditor, ThemeQuestions, QuestionData, AlertMsg, $filter, _, JatkokysymysService, TarjontaAPI, Organisaatio, LisakysymysOikeudetService, $sanitize) {
             $rootScope.LOGS('CreateAdditionalQuestionCtrl');
             $scope.languages = [];
             $scope.theme = {};
@@ -34,13 +34,13 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             FormEditor.fetchApplicationSystemForm($routeParams.id).then(
                 function (data) {
                     $scope.applicationSystem = data;
-                    $scope.haunNimi = $filter('i18n')($scope.applicationSystem, 'name', $scope.userLang);
+                    $scope.haunNimi = $sanitize($filter('i18n')($scope.applicationSystem, 'name', $scope.userLang));
                 }
             );
             TarjontaAPI.fetchHakukohdeInfo($routeParams.hakuOid).then(
                 function (data) {
                     $scope.hakukohde = data;
-                    $scope.hakukohdeNimi = $filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang);
+                    $scope.hakukohdeNimi = $sanitize($filter('hakukohdeNimi')($scope.hakukohde, $scope.userLang));
                     if (data === 'NOT_FOUND') {
                         haeHakukohdeRyhma();
                     }
