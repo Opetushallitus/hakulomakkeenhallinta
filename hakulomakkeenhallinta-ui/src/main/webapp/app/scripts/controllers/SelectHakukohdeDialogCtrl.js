@@ -1,14 +1,14 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('SelectHakukohdeDialogCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', '$sanitize', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg', 'theme', '$filter',
-        function($scope, $rootScope, $location, $modalInstance, $sanitize, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg, theme, $filter ) {
+    .controller('SelectHakukohdeDialogCtrl', ['$scope', '$rootScope', '$location', '$modalInstance', 'TarjontaAPI', 'QuestionData','$routeParams', 'applicationSystem', 'FormEditor', 'AlertMsg', 'theme', '$filter',
+        function($scope, $rootScope, $location, $modalInstance, TarjontaAPI, QuestionData, $routeParams, applicationSystem, FormEditor, AlertMsg, theme, $filter ) {
             $rootScope.LOGS('SelectHakukohdeDialogCtrl ');
             $scope.applicationOptions = [];
             $scope.$emit('LOAD');
             $scope.applicationSystem = applicationSystem;
             $scope.theme =  theme;
-            $scope.haunNimi = $sanitize($filter('i18n')(applicationSystem, 'name', $scope.userLang));
-            $scope.teema = $sanitize($filter('i18n')(theme, 'name', $scope.userLang));
+            $scope.haunNimi = $filter('i18n')(applicationSystem, 'name', $scope.userLang);
+            $scope.teema = $filter('i18n')(theme, 'name', $scope.userLang);
 
             if (applicationSystem === undefined) {
                 /**

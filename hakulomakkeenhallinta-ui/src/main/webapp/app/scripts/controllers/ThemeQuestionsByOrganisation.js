@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
-    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope', '$scope', '$modal', '$location', '$sanitize', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter', 'TarjontaAPI', '$q', 'AlertMsg', 'JatkokysymysService',
-        function($rootScope, $scope, $modal, $location, $sanitize, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter, TarjontaAPI, $q, AlertMsg, JatkokysymysService ) {
+    .controller('ThemeQuestionsByOrganisationCtrl', ['$rootScope', '$scope', '$modal', '$location', '_', '$routeParams', 'FormEditor', 'FormWalker', 'QuestionData', 'ThemeQuestions', 'Organisaatio', '$filter', 'TarjontaAPI', '$q', 'AlertMsg', 'JatkokysymysService',
+        function($rootScope, $scope, $modal, $location, _, $routeParams, FormEditor, FormWalker, QuestionData, ThemeQuestions, Organisaatio, $filter, TarjontaAPI, $q, AlertMsg, JatkokysymysService ) {
             $rootScope.LOGS('ThemeQuestionByOrganisationCtrl');
 
             $scope.haunNimi = '';
@@ -24,7 +24,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             FormEditor.fetchApplicationSystemForm($routeParams.id).then(
                 function (data) {
                     $scope.applicationSystem = data;
-                    $scope.haunNimi = $sanitize($filter('i18n')(data, 'name', $scope.userLang));
+                    $scope.haunNimi = $filter('i18n')(data, 'name', $scope.userLang);
                 }
             );
             $scope.themes = [];
