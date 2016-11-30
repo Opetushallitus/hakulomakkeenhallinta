@@ -5,27 +5,28 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         function ($rootScope, $resource, Props, $q, _, $timeout, $http) {
             var ApplicationFormConfiguration = {};
 
-            var FormConfiguration = $resource(Props.formConfigurationUri + '/:_id',
+            var formConfigurationUri = window.url("haku-app.formConfiguration");
+            var FormConfiguration = $resource(formConfigurationUri + '/:_id',
                 {_id: '@_id'},
                 {
                     getFormTemplates: {
                         method: 'GET',
                         isArray: true,
-                        url: Props.formConfigurationUri + '/templates'
+                        url: formConfigurationUri + '/templates'
                     },
                     changeFormConfigurationTemplate: {
                         method: 'POST',
-                        url: Props.formConfigurationUri + '/:_asId/formTemplate',
+                        url: formConfigurationUri + '/:_asId/formTemplate',
                         params: { _asId: '@_asId'}
                     },
                     setFormConfiguration: {
                         method: 'POST',
-                        url: Props.formConfigurationUri + '/:_asId/groupConfiguration/:_groupId',
+                        url: formConfigurationUri + '/:_asId/groupConfiguration/:_groupId',
                         params: { _asId: '@_asId', _groupId: '@_groupId'}
                     },
                     deleteFormConfiguration: {
                         method: 'POST',
-                        url: Props.formConfigurationUri + '/:_asId/groupConfiguration/:_groupId/delete',
+                        url: formConfigurationUri + '/:_asId/groupConfiguration/:_groupId/delete',
                         params: { _asId: '@_asId', _groupId: '@_groupId'}
                     }
                 }
@@ -133,7 +134,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             ApplicationFormConfiguration.haeDefaultLomakepohja = function (applicationSystemId) {
                 var deferred = $q.defer();
                 $rootScope.LOGS('ApplicationFormConfiguration', 'haeDefaultLomakepohja()');
-                $http.get(Props.formConfigurationUri + '/' + applicationSystemId + '/defaultTemplate').success(
+                $http.get(formConfigurationUri + '/' + applicationSystemId + '/defaultTemplate').success(
                     function (defaultTemplate) {
                         deferred.resolve(defaultTemplate);
                     }).error(function (resp) {

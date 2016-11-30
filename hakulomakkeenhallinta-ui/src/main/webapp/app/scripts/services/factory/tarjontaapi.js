@@ -13,7 +13,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.fetchHakukohdeInfo = function (hakuOid) {
             var deffered = $q.defer();
-            $http.get(Props.tarjontaAPI + "/hakukohde/" + hakuOid).success(
+            $http.get(window.url("tarjonta-service.hakukohde",hakuOid)).success(
                 function (data) {
                     if (data.result) {
                         deffered.resolve(data.result);
@@ -33,7 +33,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         TarjontaAPI.fetchHakuInfo = function (oid) {
             var deffered = $q.defer();
             $rootScope.LOGS('TarjontaAPI fetchHakuInfo haku oid:', oid);
-            $http.get(Props.tarjontaAPI + "/haku/" + oid).success(
+            $http.get(window.url("tarjonta-service.haku", oid)).success(
                 function (data) {
                     if (data.result) {
                         $rootScope.LOGS('TarjontaAPI', data.result);
@@ -58,7 +58,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             $rootScope.LOGS('TarjontaAPI', ' haku oid:', hakuOid);
             $rootScope.LOGS('TarjontaAPI', ' organisaatio: ', userOrganisations);
 
-            $http.get(Props.tarjontaAPI + "/hakukohde/search", {
+            $http.get(window.url("tarjonta-service.hakukohde.search"), {
                     params: {
                         organisationOid: userOrganisations,
                         hakuOid: hakuOid
@@ -83,7 +83,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         TarjontaAPI.usersApplicationOptions2 = function (hakuOid, userOrganisations) {
             var deferred = $q.defer();
 
-            $http.get(Props.tarjontaAPI + "/hakukohde/search", {
+            $http.get(window.url("tarjonta-service.hakukohde.search"), {
                     params: {
                         organisationOid: userOrganisations,
                         hakuOid: hakuOid
@@ -155,7 +155,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         TarjontaAPI.haeHautParametreilla = function (hakuvuosi, hakukausi, hakutyyppi) {
             $rootScope.LOGS('TarjontaAPI', 'haeHautParametreilla');
             var deferred = $q.defer();
-            $http.get(Props.tarjontaAPI + "/haku/", {
+            $http.get(window.url("tarjonta-service.haku", ""), {
                 params: {
                     HAKUVUOSI: hakuvuosi,
                     HAKUKAUSI: hakukausi + '#1',
@@ -189,7 +189,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.haeRyhmanHakukohteet = function (applicationSystemId, hakukohdeRyhmanOid) {
             var deferred = $q.defer();
-            $http.get(Props.tarjontaAPI + '/hakukohde/search', {
+            $http.get(window.url("tarjonta-service.hakukohde.search"), {
                 params: {
                     organisaatioRyhmaOid: hakukohdeRyhmanOid,
                     hakuOid: applicationSystemId
@@ -225,7 +225,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.poistaHakukohdeRyhmasta = function (hakukohdeRyhma, hakukohde) {
             var deferred = $q.defer();
-            $http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate',[
+            $http.post(window.url("tarjonta-service.hakukohde.ryhmat.operate"),[
                 {
                     toiminto: 'POISTA',
                     hakukohdeOid: hakukohde.oid,
@@ -260,7 +260,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     lisattavat.push(hakukohde);
                 }
             );
-            $http.post(Props.tarjontaAPI + '/hakukohde/ryhmat/operate', lisattavat
+            $http.post(window.url("tarjonta-service.hakukohde.ryhmat.operate"), lisattavat
             ).success(function (data) {
                     if (data.status === 'OK') {
                         deferred.resolve(data);
@@ -278,7 +278,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.checkTarjontaAuthentication = function () {
             var deferred = $q.defer();
-            $http.get(Props.tarjontaAPI + '/permission/authorize')
+            $http.get(window.url("tarjonta-service.permission.authorize"))
                 .success(function (data) {
                     if (data.status === 'OK') {
                         deferred.resolve(data);
@@ -299,7 +299,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.setHakukohdePrioriteetit = function (ryhmaOid, hakukohdePrioriteetit) {
             var deferred = $q.defer();
-            $http.post(Props.tarjontaAPI + '/organisaatioryhma/' + ryhmaOid + '/lisaa', hakukohdePrioriteetit)
+            $http.post(window.url("tarjonta-service.organisaatioryhma.lisaa",ryhmaOid), hakukohdePrioriteetit)
                 .success(function (data) {
                     if (data.status === 'OK') {
                         deferred.resolve(data);
@@ -319,7 +319,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         TarjontaAPI.poistaHakukohteitaHakukohderyhmasta = function (ryhmaOid, hakukohteet) {
             var deferred = $q.defer();
-            $http.post(Props.tarjontaAPI + '/organisaatioryhma/' + ryhmaOid + '/poista', hakukohteet)
+            $http.post(window.url("tarjonta-service.organisaatioryhma.poista", ryhmaOid), hakukohteet)
                 .success(function (data) {
                     if (data.status === 'OK') {
                         deferred.resolve(data);

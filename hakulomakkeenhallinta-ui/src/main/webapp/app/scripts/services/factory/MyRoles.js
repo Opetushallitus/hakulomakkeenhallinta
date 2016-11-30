@@ -11,7 +11,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory',[])
             var instance = {};
             instance.myroles = [];
 
-            $http.get(Props.casurl).success(function (result) {
+            $http.get(window.url("cas.myroles")).success(function (result) {
                     instance.myroles = result;
                     deferred.resolve(instance);
                 }

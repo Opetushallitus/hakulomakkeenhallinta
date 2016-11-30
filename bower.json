@@ -1,0 +1,14 @@
+{
+  "name": "hakulomakkeenhallinta",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Opetushallitus/hakulomakkeenhallinta",
+  "authors": [],
+  "license": "EUPL, Version 1.1",
+  "private": true,
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "oph_urls.js": "https://raw.githubusercontent.com/Opetushallitus/oph-urls-js/master/oph_urls.js"
+  }
+}

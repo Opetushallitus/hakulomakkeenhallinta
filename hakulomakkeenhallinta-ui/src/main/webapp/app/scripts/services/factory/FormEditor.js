@@ -6,7 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         var formEditor = {},
             _applicationsSystemForms = [];
 
-        var FormEditor = $resource(Props.formEditorUri + '/:_path/:_id/:_oper',
+        var FormEditor = $resource(window.url("haku-app.formEditor") + '/:_path/:_id/:_oper',
             {_path: '@_path', _id: '@_id', _oper:'@_oper'}, {}
         );
 
