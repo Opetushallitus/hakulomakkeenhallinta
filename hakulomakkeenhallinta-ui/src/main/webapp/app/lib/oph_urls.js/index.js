@@ -26,7 +26,7 @@
  */
 
 (function(exportDest) {
-    var version="1.1"
+    var version="1.2"
 
     if(exportDest.urls) {
         if(exportDest.urls.version !== version)   {
@@ -159,7 +159,7 @@
     }
     function mergePropertiesWithWarning(props, destProps) {
         var existsAlready = Object.keys(props).filter(function (k) {
-            return k in destProps
+            return k in destProps && destProps[k] !== props[k]
         })
         if(existsAlready.length == 0) {
             merge(destProps, props)
