@@ -2,8 +2,8 @@
  * Sovelluksen lokalisointi palvelu
  */
 angular.module('hakulomakkeenhallintaUiApp.services.service')
-    .service('LocalisationService',  [ 'Localisations', '$q', 'MyRoles', '$cacheFactory', '$sce',
-        function(Localisations, $q, MyRoles, $cacheFactory, $sce){
+    .service('LocalisationService',  [ 'Localisations', '$q', 'MyRoles', '$cacheFactory', '$sanitize',
+        function(Localisations, $q, MyRoles, $cacheFactory, $sanitize){
 
             //välimuisti käännöksille
             var cache = $cacheFactory('locales');
@@ -77,7 +77,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                     result = result.replace(/{(\d+)}/g, function(match, number){
                         return angular.isDefined(params[number]) ? params[number] : match;
                     });
-                    return $sce.trustAsHtml(result);
+                    return $sanitize(result);
                 }else if(hasTranslation(key) && params === undefined){
                     return cache.get(key);
                 }else{
