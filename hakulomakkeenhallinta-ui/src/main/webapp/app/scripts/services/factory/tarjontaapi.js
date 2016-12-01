@@ -26,27 +26,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             return deffered.promise;
         };
         /**
-         * Hakee haun tiedot haun id:llä
-         * @param oid: haun id
-         * @returns {promise}
-         */
-        TarjontaAPI.fetchHakuInfo = function (oid) {
-            var deffered = $q.defer();
-            $rootScope.LOGS('TarjontaAPI fetchHakuInfo haku oid:', oid);
-            $http.get(window.url("tarjonta-service.haku", oid)).success(
-                function (data) {
-                    if (data.result) {
-                        $rootScope.LOGS('TarjontaAPI', data.result);
-                        deffered.resolve(data.result);
-                    } else if (data.status === 'NOT_FOUND') {
-                        $rootScope.LOGS('TarjontaAPI', data);
-                        deffered.resolve(data.status);
-                    }
-                }
-            );
-            return deffered.promise;
-        };
-        /**
          * Heataan käyttäjän organisaation liittyvät hakukohteet
          * @param hakuOid:haun id
          * @param userOrganisations: käyttäjän organisaatiot
@@ -145,42 +124,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
             return deferred.promise;
         };
 
-        /**
-         * Heataan tarjonnasta haut hakuparametrien perusteella
-         * @param hakuvuosi
-         * @param hakukausi
-         * @param hakutyyppi
-         * @returns {promise}
-         */
-        TarjontaAPI.haeHautParametreilla = function (hakuvuosi, hakukausi, hakutyyppi) {
-            $rootScope.LOGS('TarjontaAPI', 'haeHautParametreilla');
-            var deferred = $q.defer();
-            $http.get(window.url("tarjonta-service.haku", ""), {
-                params: {
-                    HAKUVUOSI: hakuvuosi,
-                    HAKUKAUSI: hakukausi + '#1',
-                    HAKUTYYPPI: hakutyyppi + '#1',
-                    TILA: 'NOT_POISTETTU',
-                    COUNT: 1000
-                }
-            }).success(
-                function (data) {
-                    var haut = [];
-                    _.each(data.result, function (oid) {
-                            haut.push(TarjontaAPI.fetchHakuInfo(oid));
-                        }
-                    );
-                    $q.all(haut).then(
-                        function (data) {
-                            data = _.filter(data, function (haku) { return haku.tila === 'JULKAISTU' || haku.tila === 'VALMIS'; });
-                            deferred.resolve(data);
-                        }
-                    );
-
-                }
-            );
-            return deferred.promise;
-        }
         /**
          * Haetaan hakuun ja siinä olevaan hakukohderyhmään kuuluvat hakukohteet
          * @param applicationSystemId haun Id alias lomakkeen id
