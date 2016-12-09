@@ -1,13 +1,9 @@
 {
-  "name": "hakulomakkeenhallinta",
+  "name": "hakulomakkeenhallinta-ui-web",
 
   "Makefile": "no",
 
   "velka": "js-riipuvuudet git-repossa (packages.json käyttöön)",
 
-  "csrf": "OK: hakulomakkeenhallinta-ui",
-
-  "projects": [
-    {"name": "hakulomakkeenhallinta-web", "uses": "cas organisaatio-rest haku authentication-service lokalisointi-rest"}
-  ]
+  "csrf": "OK: hakulomakkeenhallinta-ui"
 }
