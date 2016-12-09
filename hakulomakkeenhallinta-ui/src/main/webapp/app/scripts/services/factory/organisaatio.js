@@ -4,7 +4,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
     .factory('Organisaatio',
         function ($resource, Props, $q, _, $http) {
 
-            var hae =  $resource(Props.organisaatioService + '/rest/organisaatio/:_oid',
+
+          var hae =  $resource(window.url("organisaatio-service.organisaatio"),
                 { _oid: '@_oid'},
                 {}
             );
@@ -81,7 +82,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 if (_userOrganisations.length > 0) {
                     deferred.resolve(_userOrganisations);
                 } else {
-                    $resource(Props.authService + '/resources/omattiedot/organisaatiohenkilo').query().$promise.then(
+                    $resource(window.url("authentication-service.organisaatiohenkilo")).query().$promise.then(
                         function (data) {
                             var userOrganisations = _.map(_.filter(data, function (activeOrg) { if (!activeOrg.passivoitu) { return activeOrg; } }), function (userOrgs) { return userOrgs.organisaatioOid; }),
                                 getUserOrgs = [];
@@ -126,7 +127,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
             organisaatio.getHakukohdeRyhmat = function (organisationOid, tyyppi) {
                 var deferred = $q.defer();
-                $resource(Props.organisaatioService + '/rest/organisaatio/' + organisationOid + '/ryhmat').query().$promise.then(
+                $resource(window.url("organisaatio-service.organisaatio.ryhmat", organisationOid)).query().$promise.then(
                     function (data) {
                         var ryhmat = _.filter(data, function (ryhma) { return _.contains(ryhma.kayttoryhmat, tyyppi)
                             && _.contains(ryhma.ryhmatyypit, 'hakukohde'); });
@@ -161,7 +162,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         "kieli_en#1" : ryhma.kuvaus2.en
                     }
                 };
-                $http.put(Props.organisaatioService + '/rest/organisaatio/', ryhmaObj
+                $http.put(window.url("organisaatio-service.organisaatio.put"), ryhmaObj
                 ).success(
                     function (data) {
                         deferred.resolve(data);
@@ -180,7 +181,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              */
             organisaatio.checkOrganisaatioAuth = function (){
                 var deferred = $q.defer();
-                $http.get(Props.organisaatioService + '/rest/organisaatio/auth'
+                $http.get(window.url("organisaatio-service.organisaatio.auth")
                 ).success(
                     function (data) {
                         deferred.resolve(data);

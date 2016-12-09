@@ -5,25 +5,26 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
         function ($rootScope, $resource, Props, $q, FormEditor, _) {
             var themeQuestion = {};
 
-            var ThemeQuestion = $resource(Props.themeQuestionUri + '/:_id/:_aoid/:_themeId',
+          var themeQuestionUri = window.url("haku-app.themeQuestion");
+          var ThemeQuestion = $resource(themeQuestionUri + '/:_id/:_aoid/:_themeId',
                 {_id: '@_id', _aoid: '@_aoid', _themeId: '@_themeId'},
                 {
                     getThemeQuestionListByOrgId: {
                         method: 'GET',
                         isArray: true,
-                        url: Props.themeQuestionUri + '/list/:_id/.',
+                        url: themeQuestionUri + '/list/:_id/.',
                         params:{_id: '@_id'}
                     },
                     reorderThemeQuestions: {
                         method: 'POST',
                         isArray: false,
-                        url: Props.themeQuestionUri + '/reorder/:_lopId/:_themeId',
+                        url: themeQuestionUri + '/reorder/:_lopId/:_themeId',
                         params: { _lopId: '@_lopId', _themeId: '@_themeId' }
                     },
                     getThemeQuestionListByThemeAndLearningOpportunity: {
                         method: 'GET',
                         isArray: true,
-                        url: Props.themeQuestionUri + '/list/:_id',
+                        url: themeQuestionUri + '/list/:_id',
                         params:{_id: '@_id', aoId: '_aoId', themeId: '_themId', orgId: '_orgId'}
                     }
 

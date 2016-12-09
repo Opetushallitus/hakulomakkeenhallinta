@@ -58,6 +58,13 @@ app.config(['$httpProvider', function($httpProvider) {
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }]);
 
+app.run(["$http","$cookies", function($http, $cookies) {
+  $http.defaults.headers.common['clientSubSystemCode'] = "hakulomakkeenhallinta.hakulomakkeenhallinta-ui";
+  if($cookies['CSRF']) {
+    $http.defaults.headers.common['CSRF'] = $cookies['CSRF']
+  }
+}])
+
 app.provider('_', function() {
     this.$get = [
         function() {
@@ -103,7 +110,7 @@ app.run(['$rootScope', '$httpBackend', 'Props', function ($rootScope, $httpBacke
             hakulomakkeet = data;
         }
     );
-    $httpBackend.whenGET(Props.formEditorUri + '/application-system-form').respond(
+    $httpBackend.whenGET(window.url("haku-app.formEditor") + '/application-system-form').respond(
         function () {
             return [200, hakulomakkeet, {status: 200}];
         }
