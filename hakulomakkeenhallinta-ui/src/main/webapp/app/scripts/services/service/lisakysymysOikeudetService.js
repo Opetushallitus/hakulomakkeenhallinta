@@ -43,11 +43,11 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
             return _.some(this.haunHakuajat, function(ha) {return ha.start <= now && now <= ha.end})
         };
 
-        this.isKysymyksenMuokkausSallittu = function() {
+        this.isKysymyksenPoistoSallittu = function() {
             return this.isYhteishaku() ? this.isRekisterinpitaja || this.isBeforeFirstHakuaika() : true;
         };
 
-        this.isKysymyksenLisaysSallittu = function() {
+        this.isKysymyksenLisaysTaiMuokkausSallittu = function() {
             return this.isYhteishaku() ? this.isRekisterinpitaja || !this.isHakuaikaGoing() : true;
         };
     }]);
