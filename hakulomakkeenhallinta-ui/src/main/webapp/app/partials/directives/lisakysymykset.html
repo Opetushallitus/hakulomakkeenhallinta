@@ -26,7 +26,7 @@
 
         <input data-ng-if="logs" type="checkbox" data-ng-model="showJson" >
 
-        <div class="dropdown pull-right" data-ng-show="sortBtns && ((question.parentId === undefined && LisakysymysOikeudetService.isKysymyksenLisaysTaiMuokkausSallittu())">
+        <div class="dropdown pull-right" data-ng-show="sortBtns && (LisakysymysOikeudetService.isKysymyksenLisaysTaiMuokkausSallittu() || LisakysymysOikeudetService.isKysymyksenPoistoSallittu())">
             <a class="dropdown-toggle">
                 <i class="hh-icon-menu"></i>
             </a>
