@@ -16,8 +16,10 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
                 $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakuajatJaHakutapa: ', data);
                 _this.haunHakuajat = data.hakuajat;
                 _this.haunHakutapa = data.hakutapa;
+                _this.haunHakutyyppi = data.hakutyyppi;
                 $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakuajat: ', _this.haunHakuajat);
                 $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakutapa: ', _this.haunHakutapa);
+                $rootScope.LOGS('lisakysymysOikeudetService', 'haunHakutyyppi: ', _this.haunHakutyyppi);
             }
         );
         /**
@@ -32,6 +34,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
 
         this.isYhteishaku = function() {
             return "hakutapa_01" == this.haunHakutapa;
+        };
+        this.isVarsinainenHaku = function() {
+            return "hakutyyppi_01" == this.haunHakutyyppi;
         };
 
         this.isBeforeFirstHakuaika = function() {
@@ -48,6 +53,6 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
         };
 
         this.isKysymyksenLisaysTaiMuokkausSallittu = function() {
-            return this.isYhteishaku() ? this.isRekisterinpitaja || !this.isHakuaikaGoing() : true;
+            return this.isYhteishaku() && this.isVarsinainenHaku() ? this.isRekisterinpitaja || !this.isHakuaikaGoing() : true;
         };
     }]);
