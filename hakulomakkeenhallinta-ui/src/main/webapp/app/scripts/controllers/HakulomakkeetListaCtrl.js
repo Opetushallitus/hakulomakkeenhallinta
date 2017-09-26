@@ -21,7 +21,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          */
         FormEditor.getApplicationSystemForms().then(
             function (data) {
-                $scope.statukset = _.uniq(_.map(data, function (status) { return status.status.translations.fi; }));
+                $scope.statukset = _.uniq(_.map(data, function (status) { return status.status; }));
                 $scope.statukset.push('');
                 $scope.statukset =  $filter('orderBy')($scope.statukset, 'toString()');
 

@@ -32,7 +32,7 @@
             </td>
             <td>
                 <select class="form-control" style="width: 100px;" type="select" ng-model="st.status"
-                        data-ng-options="sta for sta in statukset">
+                        data-ng-options="sta.translations[userLang] for sta in statukset">
                     <option value=" ">--</option>
                 </select>
             </td>
