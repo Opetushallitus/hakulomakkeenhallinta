@@ -57,6 +57,18 @@
     </rule>
 
     <rule>
+        <from>/kayttooikeus-service/henkilo/current/omattiedot</from>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/omattiedot.json</to>
+    </rule>
+
+    <rule>
+        <from>/kayttooikeus-service/henkilo/1.2.3.4/organisaatiohenkilo</from>
+        <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
+        <to last="true">/test/data/organisaatiohenkilo.json</to>
+    </rule>
+
+    <rule>
         <from>/organisaatio-service/rest/organisaatio/(.*)</from>
         <set type="response-header" name="Content-Type">application/json;charset=UTF-8</set>
         <to last="true">/test/data/$1.json</to>
