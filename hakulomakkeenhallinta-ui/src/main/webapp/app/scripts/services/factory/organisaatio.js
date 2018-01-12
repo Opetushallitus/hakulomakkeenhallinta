@@ -86,7 +86,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         function (data) {
                             var oid = data.oidHenkilo;
                             if (!oid) {
-                              var errorMsg = "Ei henkilöoidia omattiedot-datassa: " + data;
+                              var errorMsg = "Ei henkilöoidia omattiedot-datassa: " + JSON.stringify(data);
                               console.error(errorMsg);
                               deferred.reject(errorMsg);
                             }

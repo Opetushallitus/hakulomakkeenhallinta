@@ -9,7 +9,6 @@ window.urls.addProperties({
   "haku-app.themeQuestion": "/haku-app/application-system-form-editor/theme-question",
   "haku-app.formConfiguration": "/haku-app/application-system-form-editor/configuration",
   "haku-app.formEditor": "/haku-app/application-system-form-editor",
-  "authentication-service.organisaatiohenkilo": "/authentication-service/resources/omattiedot/organisaatiohenkilo",
   "kayttooikeus-service.omattiedot":"/kayttooikeus-service/henkilo/current/omattiedot",
   "kayttooikeus-service.organisaatiohenkilo": "/kayttooikeus-service/henkilo/$1/organisaatiohenkilo",
   "organisaatio-service.organisaatio": "/organisaatio-service/rest/organisaatio/:_oid",
