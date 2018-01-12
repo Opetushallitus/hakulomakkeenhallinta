@@ -82,7 +82,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 if (_userOrganisations.length > 0) {
                     deferred.resolve(_userOrganisations);
                 } else {
-                    $resource(window.url("kayttooikeus-service.omattiedot")).query().$promise.then(
+                    $resource(window.url("kayttooikeus-service.omattiedot")).$promise.then(
                         function (data) {
                             var oid = data.oidHenkilo;
                             if (!oid) {
