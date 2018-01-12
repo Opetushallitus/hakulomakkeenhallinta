@@ -82,8 +82,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 if (_userOrganisations.length > 0) {
                     deferred.resolve(_userOrganisations);
                 } else {
-                    $resource(window.url("authentication-service.organisaatiohenkilo")).query().$promise.then(
+                    $resource(window.url("kayttooikeus-service.omattiedot")).query().$promise.then(
                         function (data) {
+                            var oid = data.oidHenkilo;
+                            if (!oid) {
+                              var errorMsg = "Ei henkilöoidia omattiedot-datassa: " + data;
+                              console.error(errorMsg);
+                              deferred.reject(errorMsg);
+                            }
+                            return oid;
+                        })
+                        .then(function (oid) {
+                        $resource(window.url("kayttooikeus-service.organisaatiohenkilo", oid)).query().$promise.then(
+                          function (data) {
                             var userOrganisations = _.map(_.filter(data, function (activeOrg) { if (!activeOrg.passivoitu) { return activeOrg; } }), function (userOrgs) { return userOrgs.organisaatioOid; }),
                                 getUserOrgs = [];
 
@@ -119,8 +130,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                                     deferred.resolve(orgs);
                                 }
                             );
-                        }
-                    );
+                        })
+                    });
                 }
                 return deferred.promise;
             };
