@@ -82,45 +82,58 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 if (_userOrganisations.length > 0) {
                     deferred.resolve(_userOrganisations);
                 } else {
-                    $resource(window.url("authentication-service.organisaatiohenkilo")).query().$promise.then(
-                        function (data) {
-                            var userOrganisations = _.map(_.filter(data, function (activeOrg) { if (!activeOrg.passivoitu) { return activeOrg; } }), function (userOrgs) { return userOrgs.organisaatioOid; }),
-                                getUserOrgs = [];
-
-                            _.each(userOrganisations, function (oid) {
-                                    getUserOrgs.push(hae.get({'_oid': oid}).$promise);
+                    $resource(window.url("kayttooikeus-service.auth")).get().$promise.then(function() {
+                        $resource(window.url("kayttooikeus-service.omattiedot")).get().$promise.then(
+                            function (data) {
+                                var oid = data.oidHenkilo;
+                                if (!oid) {
+                                    var errorMsg = "Ei henkilöoidia omattiedot-datassa: " + JSON.stringify(data);
+                                    console.error(errorMsg);
+                                    deferred.reject(errorMsg);
                                 }
-                            );
+                                return oid;
+                            })
+                            .then(function (oid) {
+                                $resource(window.url("kayttooikeus-service.organisaatiohenkilo", oid)).query().$promise.then(
+                                    function (data) {
+                                        var userOrganisations = _.map(_.filter(data, function (activeOrg) { if (!activeOrg.passivoitu) { return activeOrg; } }), function (userOrgs) { return userOrgs.organisaatioOid; }),
+                                            getUserOrgs = [];
 
-                            $q.all(getUserOrgs).then(
-                                function (data) {
-                                    var orgs = [];
-                                    _.each(data, function (orgInfo) {
-                                            var org = {};
-                                            if (orgInfo.nimi) {
-                                                if (orgInfo.nimi.fi) {
-                                                    orgInfo.nimi.fi = orgInfo.nimi.fi + ' (' + orgInfo.tyypit[0] + ')';
-                                                }
-                                                if (orgInfo.nimi.sv) {
-                                                    orgInfo.nimi.sv = orgInfo.nimi.sv + ' (' + orgInfo.tyypit[0] + ')';
-                                                }
-                                                if (orgInfo.nimi.en) {
-                                                    orgInfo.nimi.en = orgInfo.nimi.en + ' (' + orgInfo.tyypit[0] + ')';
-                                                }
+                                        _.each(userOrganisations, function (oid) {
+                                                getUserOrgs.push(hae.get({'_oid': oid}).$promise);
                                             }
+                                        );
 
-                                            org.nimi = orgInfo.nimi;
-                                            org.oid = orgInfo.oid;
-                                            orgs.push(org);
-                                        }
-                                    );
-                                    //asetetaan käyttäjän organisaatio muistiin
-                                    _userOrganisations = orgs;
-                                    deferred.resolve(orgs);
-                                }
-                            );
-                        }
-                    );
+                                        $q.all(getUserOrgs).then(
+                                            function (data) {
+                                                var orgs = [];
+                                                _.each(data, function (orgInfo) {
+                                                        var org = {};
+                                                        if (orgInfo.nimi) {
+                                                            if (orgInfo.nimi.fi) {
+                                                                orgInfo.nimi.fi = orgInfo.nimi.fi + ' (' + orgInfo.tyypit[0] + ')';
+                                                            }
+                                                            if (orgInfo.nimi.sv) {
+                                                                orgInfo.nimi.sv = orgInfo.nimi.sv + ' (' + orgInfo.tyypit[0] + ')';
+                                                            }
+                                                            if (orgInfo.nimi.en) {
+                                                                orgInfo.nimi.en = orgInfo.nimi.en + ' (' + orgInfo.tyypit[0] + ')';
+                                                            }
+                                                        }
+
+                                                        org.nimi = orgInfo.nimi;
+                                                        org.oid = orgInfo.oid;
+                                                        orgs.push(org);
+                                                    }
+                                                );
+                                                //asetetaan käyttäjän organisaatio muistiin
+                                                _userOrganisations = orgs;
+                                                deferred.resolve(orgs);
+                                            }
+                                        );
+                                    })
+                            });
+                    })
                 }
                 return deferred.promise;
             };
