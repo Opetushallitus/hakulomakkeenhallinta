@@ -23,12 +23,11 @@ install:
 - git clone https://github.com/Opetushallitus/ci-tools.git
 - source ci-tools/common/setup-tools.sh
 - export ARTIFACT_NAME="hakulomakkeenhallinta"
-- npm install -g grunt-cli
 
 script:
-- mvn clean package -B -Dbranch=${TRAVIS_BRANCH} -Drevision=${TRAVIS_COMMIT} -DbuildNumber=${TRAVIS_BUILD_NUMBER}
+- mvn clean package -B -Dbranch=${TRAVIS_BRANCH} -Drevision=${TRAVIS_COMMIT} -DbuildNumber=${TRAVIS_BUILD_NUMBER} -DskipTests
 
-- mv hakulomakkeenhallinta-ui/target/hakulomakkeenhallinta-ui.war $DOCKER_BUILD_DIR/artifact/hakulomakkeenhallinta-ui.war
+- mv -v hakulomakkeenhallinta-ui/target/hakulomakkeenhallinta-ui.war $DOCKER_BUILD_DIR/artifact/hakulomakkeenhallinta-ui.war
 - cp -vr src/main/resources/oph-configuration $DOCKER_BUILD_DIR/config/
 
 - export BASE_IMAGE="base-legacy:0.1"
