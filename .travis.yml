@@ -1,0 +1,41 @@
+sudo: required
+
+language: java
+
+jdk:
+- oraclejdk8
+
+services:
+- docker
+
+cache:
+  directories:
+  - $HOME/.m2
+
+env:
+  global:
+  # AWS_ACCESS_KEY_ID
+  - secure: "aunZK7XjNKVOPXrwnDPUUK9a3YuZw9Vh8w/tzTxTjEUoJP178wdsg52uUor9kobPtIKuGoICAiQ6OWaKioABPXx3cnVD1EX0OH37ToTq2f+FudHwYWs45UGp0/qht4qhXBw8QZmxPix/QC4Unv1wRafh7qdZbNDfV75yH6AApuTWjZdXVGi9i8fIJmouX7+kEAVymQA2vPstWSrzLgVTcsO+HfFZRtBuHNpG767lEIjlPUGtSjw3mzlH+QMyHMjeg+XnsuZkb7P/xZmmPwmA5GIIo0PHShyW/90dCM6whQ0xlS0HCkuH2Wa2a8YSPu/iy5OdVOd11/zjbDloZMlepcEgOd9AzhMVE9OLLbswvphgAsWnIem9EpJSOpT2O5whQmoEhC1+kTUJK/oyvMgc5bVt2kRnwoZ4VRaB2ZZOkPet6n5cJB8tyrgXjxhsrUVEoK48eyRdypX3n9Yh8kbJLVZUrsOfP2qDd0caGgZw1s17P+BqW8WPgBOa05RXXUyBEBxMDI1DEmueaXLKKSGe2iTp+qPMc+PcNdquR70thwL8sb3mFxKFLGspGdZVlWsQ2VNDSvEixQFxnurXiqkiX1cvmBxQblkYvdzeMBBN987ZOT4PXN70P8xb55F/f0MG7aoI3b10QqO9BrEjEeIo7ar1LHCvCnE4rxlIiMkB8UA="
+  # AWS_SECRET_ACCESS_KEY
+  - secure: "iRb6R47mUWcJK4gv4STe6gLMR3bJjqbQ7kRC7f0+nIBU1fMihJatBf03FeRSVBPnGeJ7Wmbcc3dNEzK5+ejK4JmLMb3gpXoa7+TQyl0pUjbE1pSSvaVdMdFxR3buvhBaZLS/COX9XlvjJyhCwK16CgfySmAb4exZhnvmC0+E82yUxsV6qWKBB/0Ha67+GSyFHLOvOeYDonPGzD7zEwo4HwYrlU6QzPoALWXJMUukX8a3lPZvMimdRA5H8cHH7iDDqS00R6g2CZF4/ghxZ5xVhalh64dcAP6OU4hvQVN7Eab+NNX+dQvsWQEJhnxkaPhzZGQElbRiIZJuLTXaPFvsjd3x4YovLW0zGoucult0l+t/PQzqI1SGfaWszY8d49RHiHzGOjD7Ut9oXpj5txJ+GljnrDAbsTzhJ4JUQ0fmZemiHOOw3Ed5W7yjzs04P+VZMfExdqFG4jBlHBmVoPzHa5Pb04Gu1htIjaieQZ7JXcdfpy3Boer0eWuRlmggcP0JhQEgFkihViKrLklyb8hPNeXMThrJdu3IaUl1jVtGUJLDy+//bjWdjH34H4Ir+LpsTguAG1LzPYDMWgM1Wm2AvuU7LwsvU/Y3Exti+/YfEsoNrJPeNkq+Mk6HTkiyHjP9tySpcmEfo7X2t8ZI4c/GeZBwNIkesj2cA/xkRiZM3sk="
+
+install:
+- git clone https://github.com/Opetushallitus/ci-tools.git
+- source ci-tools/common/setup-tools.sh
+- export ARTIFACT_NAME="hakulomakkeenhallinta"
+
+script:
+- mvn clean package -B -Dbranch=${TRAVIS_BRANCH} -Drevision=${TRAVIS_COMMIT} -DbuildNumber=${TRAVIS_BUILD_NUMBER}
+
+- mv hakulomakkeenhallinta-ui/target/hakulomakkeenhallinta-ui.war $DOCKER_BUILD_DIR/artifact/hakulomakkeenhallinta-ui.war
+- cp -vr src/main/resources/oph-configuration $DOCKER_BUILD_DIR/config/
+
+- export BASE_IMAGE="base-legacy:0.1"
+- ./ci-tools/common/pull-image.sh
+- ./ci-tools/build/build-war.sh $ARTIFACT_NAME
+
+deploy:
+- provider: script
+  script: ./ci-tools/build/upload-image.sh $ARTIFACT_NAME
+  on:
+    all_branches: true
