@@ -11,7 +11,8 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 if (response.data.status = "OK") {
                     return {
                         oid: response.data.result.oid,
-                        ataruLomake: !!response.data.result.ataruLomakeAvain
+                        ataruLomake: !!response.data.result.ataruLomakeAvain,
+                        nimi: response.data.result.nimi
                     };
                 } else {
                     $rootScope.LOGS("TarjontaAPI haku " + response.data.status, response.data);

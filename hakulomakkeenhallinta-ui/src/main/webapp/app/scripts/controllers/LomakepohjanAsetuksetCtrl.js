@@ -14,21 +14,36 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
 
             var hakuPromise = TarjontaAPI.fetchHaku($routeParams.id);
 
+            var fetchHaunNimi = function (haku) {
+                if (haku.ataruLomake) {
+                    return {
+                        name: {
+                            translations: {
+                                fi: haku.nimi.kieli_fi,
+                                sv: haku.nimi.kieli_sv,
+                                en: haku.nimi.kieli_en
+                            }
+                        }
+                    };
+                } else {
+                    return FormEditor.fetchApplicationSystemForm(haku.oid)
+                }
+            };
+
             $q.all({
                 hasRight: MyRoles.lomakepohjaChangeRightCheck(),
-                haku: hakuPromise
+                haku: hakuPromise,
+                nimi: hakuPromise.then(fetchHaunNimi)
             }).then(function (o) {
-                $scope.lomakepohjaChangeAllowed = !o.haku.ataruLomake && o.hasRight;
-                $scope.haku = o.haku;
-            });
-            /**
-             * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
-             */
-            FormEditor.fetchApplicationSystemForm($routeParams.id).then(
-                function (data) {
-                    $scope.applicationForm = data;
+                if (o.haku.ataruLomake) {
+                    $scope.lomakepohjaChangeAllowed = false;
+                } else {
+                    $scope.lomakepohjaChangeAllowed = o.hasRight;
                 }
-            );
+                $scope.haku = o.haku;
+                $scope.applicationForm = o.nimi;
+            });
+
             /**
              * haetaan lomakepohjat taustajärjestelmästä
              */
