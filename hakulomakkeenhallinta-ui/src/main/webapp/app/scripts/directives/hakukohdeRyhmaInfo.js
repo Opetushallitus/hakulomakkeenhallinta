@@ -8,6 +8,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             replace: true,
             templateUrl: 'partials/directives/hakukohde-ryhma-info.html',
             scope: {
+                haku: '=haku',
                 ryhma: '=ryhma',
                 ryhmat: '=ryhmat',
                 applicationForm: '=applicationForm',
@@ -42,7 +43,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 }
 
                 $scope.tallennaHakukohderyhmanOsoite = function (form) {
-                    ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite($routeParams.id, $scope.ryhma.groupId, $scope.hakukohderyhmanOsoite).then(
+                    ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite($scope.haku, $scope.ryhma.groupId, $scope.hakukohderyhmanOsoite).then(
                         function success(data) {
                             $scope.alerts = [];
                             AlertMsg($scope, 'success', 'tallennus.ok');

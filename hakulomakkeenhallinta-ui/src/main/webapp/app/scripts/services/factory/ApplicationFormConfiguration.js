@@ -75,9 +75,14 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 );
                 return deferred.promise;
             };
-            ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaHakukohderyhmanOsoite()', applicationSystemId, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite);
+            ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite = function (haku, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaHakukohderyhmanOsoite()', haku.oid, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite);
+                if (haku.ataruLomake) {
+                    return $q.reject({
+                        status: 400,
+                        statusText: "Yritettiin asettaa osoite Hakemuspalvelun lomaketta käyttävässä haussa"
+                    });
+                }
                 var groupConf =
                 {
                     groupId: hakukohdeRyhmaOid,
@@ -92,15 +97,7 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         helpText: hakukohdeRyhmanOsoite.helpText
                     }
                 };
-                FormConfiguration.setFormConfiguration({ _asId: applicationSystemId, _groupId: hakukohdeRyhmaOid }, groupConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
+                return FormConfiguration.setFormConfiguration({ _asId: haku.oid, _groupId: hakukohdeRyhmaOid }, groupConf).$promise;
             };
             /**
              * Palauttaa taustajärjestelmästä hakulomake pohjat

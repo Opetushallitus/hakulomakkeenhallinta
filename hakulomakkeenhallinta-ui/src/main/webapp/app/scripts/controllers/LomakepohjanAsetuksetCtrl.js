@@ -11,6 +11,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.priorisointiRyhmat = [];
             $scope.liiteRyhmat = [];
             $scope.haku = {};
+            $scope.showLiiteRyhmat = false;
 
             var hakuPromise = TarjontaAPI.fetchHaku($routeParams.id);
 
@@ -38,8 +39,10 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                 lomakepohjanAsetukset: hakuPromise.then(ApplicationFormConfiguration.haeLomakepohjanAsetukset)
             }).then(function (o) {
                 if (o.haku.ataruLomake) {
+                    $scope.showLiiteRyhmat = false;
                     $scope.lomakepohjaChangeAllowed = false;
                 } else {
+                    $scope.showLiiteRyhmat = true;
                     $scope.lomakepohjaChangeAllowed = o.hasRight;
                 }
                 $scope.haku = o.haku;

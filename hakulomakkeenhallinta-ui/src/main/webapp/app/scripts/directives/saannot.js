@@ -6,6 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             replace: true,
             templateUrl: 'partials/directives/saannot.html',
             scope: {
+                haku: '=haku',
                 applicationForm: '=applicationForm',
                 ryhmat: '=ryhmat',
                 lomakepohja: '=lomakepohja',
