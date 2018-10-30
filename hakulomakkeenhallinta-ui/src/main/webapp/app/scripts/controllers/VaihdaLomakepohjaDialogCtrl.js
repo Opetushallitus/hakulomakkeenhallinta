@@ -28,7 +28,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          * haulle, jos se on saatavilla
          */
         $scope.valitseOletuspohja = function () {
-            ApplicationFormConfiguration.haeDefaultLomakepohja($routeParams.id).then(
+            ApplicationFormConfiguration.haeDefaultLomakepohja(haku).then(
                 function (oletusPohja) {
                     if (_.findWhere($scope.lomakepohjat, { id: oletusPohja}) === undefined) {
                         AlertMsg($scope, 'warning', 'warning.oletuspohja.kaytossa');

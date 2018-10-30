@@ -106,51 +106,42 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
              * Palauttaa taustajärjestelmästä hakulomake pohjat
              * @returns {promise}
              */
-            ApplicationFormConfiguration.haeLomakepohjat = function () {
-                var deferred = $q.defer();
+            ApplicationFormConfiguration.haeLomakepohjat = function (haku) {
                 $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjat()');
-                FormConfiguration.getFormTemplates().$promise.then(
-                    function (formTemplates) {
-                        deferred.resolve(formTemplates);
-                    }
-                );
-                return deferred.promise;
-            };
-            /**
-             * Palauttaa taustajärjestelmästä hakuun liittyvän
-             * oletus hakulomakepohjan
-             * @params applicationSystemId haun id
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.haeDefaultLomakepohja = function (applicationSystemId) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'haeDefaultLomakepohja()');
-                $http.get(formConfigurationUri + '/' + applicationSystemId + '/defaultTemplate').success(
-                    function (defaultTemplate) {
-                        deferred.resolve(defaultTemplate);
-                    }).error(function (resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
-            };
-            /**
-             * Haetaan hakulomakkeen pohjan asetukset taustajärjestelmästä
-             * @param applicationSystemId Haun oid, alias hakulomakkeen id
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.haeLomakepohjanAsetukset = function (applicationSystemId) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjanAsetukset()', applicationSystemId);
-                    FormConfiguration.get({'_id': applicationSystemId}).$promise.then(
-                        function success(data) {
-                            deferred.resolve(data);
-                        },
-                        function error(resp) {
-                            deferred.reject(resp);
+                if (haku.ataruLomake) {
+                    return $q.when([{
+                        id: "ATARU",
+                        name: {
+                            translations: {
+                                fi: "Hakemuspalvelun lomake",
+                                sv: "SV: Hakemuspalvelun lomake",
+                                en: "EN: Hakemuspalvelun lomake"
+                            }
                         }
-                    );
-                return deferred.promise;
+                    }]);
+                } else {
+                    return FormConfiguration.getFormTemplates().$promise;
+                }
+            };
+            ApplicationFormConfiguration.haeDefaultLomakepohja = function (haku) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'haeDefaultLomakepohja()');
+                if (haku.ataruLomake) {
+                    return $q.when("ATARU");
+                } else {
+                    return $http.get(formConfigurationUri + '/' + haku.oid + '/defaultTemplate');
+                }
+            };
+
+            ApplicationFormConfiguration.haeLomakepohjanAsetukset = function (haku) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjanAsetukset()', haku.oid);
+                if (haku.ataruLomake) {
+                    return $q.resolve({
+                        formTemplateType: "ATARU",
+                        groupConfigurations: []
+                    });
+                } else {
+                    return FormConfiguration.get({'_id': haku.oid}).$promise;
+                }
             };
             /**
              * Poistetaan hakukohderyhmä hakulomakkeen asetuksista
