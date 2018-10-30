@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LomakepohjanAsetuksetCtrl',
-        function ($rootScope, $scope, MyRoles, TarjontaAPI, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route) {
+        function ($rootScope, $scope, MyRoles, TarjontaAPI, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route, $q) {
             $rootScope.LOGS('lomakepohjanAsetuksetCtrl');
             $scope.applicationForm = {};
             $scope.lomakepohjat = [];
@@ -10,12 +10,17 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.rajoiteRyhmat = [];
             $scope.priorisointiRyhmat = [];
             $scope.liiteRyhmat = [];
+            $scope.haku = {};
 
-            MyRoles.lomakepohjaChangeRightCheck().then(
-                function (data) {
-                    $scope.lomakepohjaChangeAllowed = data === true;
-                }
-            );
+            var hakuPromise = TarjontaAPI.fetchHaku($routeParams.id);
+
+            $q.all({
+                hasRight: MyRoles.lomakepohjaChangeRightCheck(),
+                haku: hakuPromise
+            }).then(function (o) {
+                $scope.lomakepohjaChangeAllowed = !o.haku.ataruLomake && o.hasRight;
+                $scope.haku = o.haku;
+            });
             /**
              * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
              */
@@ -71,6 +76,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     controller: 'vaihdaLomakepohjaDialogCtrl',
                     scope: $scope,
                     resolve: {
+                        haku: function () {
+                            return $scope.haku;
+                        },
                         applicationForm: function () {
                             return $scope.applicationForm;
                         },

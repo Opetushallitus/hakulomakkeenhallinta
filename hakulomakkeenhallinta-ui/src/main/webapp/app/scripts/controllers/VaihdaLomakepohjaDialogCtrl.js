@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('vaihdaLomakepohjaDialogCtrl',
-    function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, applicationForm, lomakepohjat, AlertMsg, $routeParams, _, LocalisationService) {
+    function ($rootScope, $scope, ApplicationFormConfiguration, $modalInstance, haku, applicationForm, lomakepohjat, AlertMsg, $routeParams, _, LocalisationService) {
         $rootScope.LOGS('vaihdaLomakepohjaDialogCtrl');
 
         $scope.lomakepohjat = lomakepohjat;
@@ -13,7 +13,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
          * vaihdetaan haun lomake pohjaa sen asetuksiin
          */
         $scope.vaihdaLomakepohja = function () {
-            ApplicationFormConfiguration.vaihdaHaunLomakepohja($routeParams.id, $scope.lomakepohja.id).then(
+            ApplicationFormConfiguration.vaihdaHaunLomakepohja(haku, $scope.lomakepohja.id).then(
                 function success (data) {
                     $modalInstance.close();
                 },

@@ -32,28 +32,19 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                 }
             );
             //headers: { 'Content-Type': 'application/json' },
-            /**
-             * Vaihtaa haun lomakepohjan
-             * @param applicationSysmtemId hakulomakkeen id
-             * @param lomakepohjaOid lomakepohjan id
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (applicationSystemId, lomakepohjaId) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'vaihdaHaunLomakepohja()',applicationSystemId, lomakepohjaId);
+            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (haku, lomakepohjaId) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'vaihdaHaunLomakepohja()', haku.oid, lomakepohjaId);
+                if (haku.ataruLomake) {
+                    return $q.reject({
+                        status: 400,
+                        statusText: "Yritettiin vaihtaa lomakepohjaa Hakemuspalvelun lomaketta käyttävässä haussa"
+                    });
+                }
                 var formConf = {
-                    applicationSystemId: applicationSystemId,
+                    applicationSystemId: haku.oid,
                     formTemplateType: lomakepohjaId
                 };
-                FormConfiguration.changeFormConfigurationTemplate({_asId: applicationSystemId}, formConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
+                return FormConfiguration.changeFormConfigurationTemplate({_asId: haku.oid}, formConf).$promise
             };
             /**
              * Asetetaan hakulomakkeen asetuksiin hakukohderyhmälle hakukohteiden

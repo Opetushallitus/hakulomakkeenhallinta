@@ -6,6 +6,20 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
         var TarjontaAPI = {};
 
+        TarjontaAPI.fetchHaku = function (hakuOid) {
+            return $http.get(window.url("tarjonta-service.haku", hakuOid)).then(function (response) {
+                if (response.data.status = "OK") {
+                    return {
+                        oid: response.data.result.oid,
+                        ataruLomake: !!response.data.result.ataruLomakeAvain
+                    };
+                } else {
+                    $rootScope.LOGS("TarjontaAPI haku " + response.data.status, response.data);
+                    return $q.reject(response);
+                }
+            });
+        };
+
         /**
          * Hakee hakukohteen tiedot hakukohteen id:llä
          * @param hakuOid: hakukohteen id
