@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ApplicationFormConfiguration', ['$rootScope', '$resource', 'Props', '$q', '_', '$timeout', '$http',
-        function ($rootScope, $resource, Props, $q, _, $timeout, $http) {
+    .factory('ApplicationFormConfiguration', ['$rootScope', '$resource', 'Props', '$q', '_', '$timeout', '$http', 'TarjontaAPI',
+        function ($rootScope, $resource, Props, $q, _, $timeout, $http, TarjontaAPI) {
             var ApplicationFormConfiguration = {};
 
             var formConfigurationUri = window.url("haku-app.formConfiguration");
@@ -74,6 +74,9 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 );
                 return deferred.promise;
+            };
+            ApplicationFormConfiguration.asetaHakukohdePrioriteetit = function (hakukohderyhmaOid, prioriteetit) {
+                return TarjontaAPI.setHakukohdePrioriteetit(hakukohderyhmaOid, prioriteetit);
             };
             ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite = function (haku, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite) {
                 $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaHakukohderyhmanOsoite()', haku.oid, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite);
