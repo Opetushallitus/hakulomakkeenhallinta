@@ -26,6 +26,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         controller: 'PoistaHakukohdeRyhmaLomakkeenAsetuksistaDialogCtrl',
                         scope: $scope,
                         resolve: {
+                            haku: function () {
+                                return $scope.haku;
+                            },
                             hakukohdeRyhma: function () {
                                 return hakukohdeRyhma;
                             },
@@ -47,6 +50,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         controller: 'HakukohderyhmaRajoiteDialogCtrl',
                         scope: $scope,
                         resolve: {
+                            haku: function () {
+                                return $scope.haku;
+                            },
                             applicationForm: function () {
                                 return $scope.applicationForm;
                             },
@@ -71,6 +77,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         controller: 'prioriteettienAsettaminenDialogCtrl',
                         size: 'lg',
                         resolve: {
+                            haku: function () {
+                                return $scope.haku;
+                            },
                             hakukohteet: function () {
                                 return $scope.hakukohteet;
                             },

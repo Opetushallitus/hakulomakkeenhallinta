@@ -8,12 +8,15 @@ angular.module('hakulomakkeenhallintaUiApp.services.service')
          * @param kayttoTarkoitus ryhmän kayttö tarkoitus
          * @organisaatioOid käyttäjän organisaation Oid
          */
-        this.lisaaUusiRyhma = function (kayttoTarkoitus, organisaatioOid) {
+        this.lisaaUusiRyhma = function (haku, kayttoTarkoitus, organisaatioOid) {
             $rootScope.LOGS('OrganisaatioService', 'lisaaUusiRyhma()', kayttoTarkoitus);
             $modal.open({
                 templateUrl: 'partials/dialogs/lisaa-ryhma-dialog.html',
                 controller: 'LisaaRyhmaDialogCtrl',
                 resolve: {
+                    haku: function () {
+                        return haku;
+                    },
                     kayttoTarkoitus: function () {
                         return kayttoTarkoitus;
                     },

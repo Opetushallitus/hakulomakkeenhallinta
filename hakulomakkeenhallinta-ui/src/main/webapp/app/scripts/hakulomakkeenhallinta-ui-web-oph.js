@@ -18,5 +18,9 @@ window.urls.addProperties({
   "organisaatio-service.organisaatio.put": "/organisaatio-service/rest/organisaatio/",
   "cas.myroles": "/cas/myroles",
   "koodisto-service.koodi": "/koodisto-service/rest/json/$1/koodi?onlyValidKoodis=true",
-  "lokalisointi.localisation": "/lokalisointi/cxf/rest/v1/localisation"
+  "lokalisointi.localisation": "/lokalisointi/cxf/rest/v1/localisation",
+  "lomake-editori.rajaavat-hakukohderyhmat": "/lomake-editori/api/rajaavat-hakukohderyhmat/$1",
+  "lomake-editori.priorisoivat-hakukohderyhmat": "/lomake-editori/api/priorisoivat-hakukohderyhmat/$1",
+  "lomake-editori.rajaava-hakukohderyhma": "/lomake-editori/api/rajaavat-hakukohderyhmat/$1/ryhma/$2",
+  "lomake-editori.priorisoiva-hakukohderyhma": "/lomake-editori/api/priorisoivat-hakukohderyhmat/$1/ryhma/$2"
 })
