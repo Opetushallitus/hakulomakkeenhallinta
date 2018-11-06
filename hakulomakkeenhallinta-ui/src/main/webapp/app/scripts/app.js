@@ -29,7 +29,11 @@ app.run(["$http","$cookies", function($http, $cookies) {
     if($cookies['CSRF']) {
         $http.defaults.headers.common['CSRF'] = $cookies['CSRF']
     }
-}])
+}]);
+
+app.run(["$http", function ($http) {
+    $http.get(window.url("lomake-editori.auth"));
+}]);
 
 app.config(['$routeProvider',
     function($routeProvider) {

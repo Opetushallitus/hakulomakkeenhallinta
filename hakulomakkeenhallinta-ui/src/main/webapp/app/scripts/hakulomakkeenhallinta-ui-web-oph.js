@@ -19,6 +19,7 @@ window.urls.addProperties({
   "cas.myroles": "/cas/myroles",
   "koodisto-service.koodi": "/koodisto-service/rest/json/$1/koodi?onlyValidKoodis=true",
   "lokalisointi.localisation": "/lokalisointi/cxf/rest/v1/localisation",
+  "lomake-editori.auth": "/lomake-editori/auth/cas",
   "lomake-editori.rajaavat-hakukohderyhmat": "/lomake-editori/api/rajaavat-hakukohderyhmat/$1",
   "lomake-editori.priorisoivat-hakukohderyhmat": "/lomake-editori/api/priorisoivat-hakukohderyhmat/$1",
   "lomake-editori.rajaava-hakukohderyhma": "/lomake-editori/api/rajaavat-hakukohderyhmat/$1/ryhma/$2",
