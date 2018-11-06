@@ -25,6 +25,7 @@ app.config(['$resourceProvider', function ($resourceProvider) {
 
 app.run(["$http","$cookies", function($http, $cookies) {
     $http.defaults.headers.common['clientSubSystemCode'] = "hakulomakkeenhallinta.hakulomakkeenhallinta-ui";
+    $http.defaults.headers.common['Caller-Id'] = "hakulomakkeenhallinta.hakulomakkeenhallinta-ui";
     if($cookies['CSRF']) {
         $http.defaults.headers.common['CSRF'] = $cookies['CSRF']
     }
