@@ -3,6 +3,7 @@ window.urls.addProperties({
   "tarjonta-service.organisaatioryhma.lisaa": "/tarjonta-service/rest/v1/organisaatioryhma/$1/lisaa",
   "tarjonta-service.organisaatioryhma.poista": "/tarjonta-service/rest/v1/organisaatioryhma/$1/poista",
   "tarjonta-service.haku": "/tarjonta-service/rest/v1/haku/$1",
+  "tarjonta-service.ataru-haut": "/tarjonta-service/rest/v1/haku/ataru/all",
   "tarjonta-service.hakukohde": "/tarjonta-service/rest/v1/hakukohde/$1",
   "tarjonta-service.hakukohde.search": "/tarjonta-service/rest/v1/hakukohde/search",
   "tarjonta-service.hakukohde.ryhmat.operate": "/tarjonta-service/rest/v1/hakukohde/ryhmat/operate",
