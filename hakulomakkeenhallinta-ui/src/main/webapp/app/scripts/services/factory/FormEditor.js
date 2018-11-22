@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('FormEditor', ['$rootScope', '$q', '$resource', 'Props', '$timeout',
-        function ($rootScope, $q, $resource, Props, $timeout) {
+    .factory('FormEditor', ['$rootScope', '_', '$q', '$resource', 'Props', '$timeout', 'TarjontaAPI',
+        function ($rootScope, _, $q, $resource, Props, $timeout, TarjontaAPI) {
         var formEditor = {},
             _applicationsSystemForms = [];
 
@@ -72,19 +72,17 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
          */
         formEditor.getApplicationSystemForms = function () {
             $rootScope.LOGS('FormEditor', 'getApplicationSystemForms()');
-            var deferred = $q.defer();
             if (_applicationsSystemForms.length > 0){
-                deferred.resolve(_applicationsSystemForms);
+                return $q.when(_applicationsSystemForms);
             } else {
-                FormEditor.query({'_path': 'application-system-form'}).$promise.then(
-                    function (data) {
-                        _applicationsSystemForms = data;
-                        deferred.resolve(data);
-                    }
-                );
+                return $q.all({
+                    hakuApp: FormEditor.query({'_path': 'application-system-form'}).$promise,
+                    ataru: TarjontaAPI.ataruForms()
+                }).then(function (o) {
+                    _applicationsSystemForms = o.hakuApp.concat(o.ataru);
+                    return _applicationsSystemForms;
+                });
             }
-
-            return deferred.promise;
         };
         /**
          * Palauttaa hakulomakkeen teemat lisäkysmyksiä varten hakulomakkeen id:llä

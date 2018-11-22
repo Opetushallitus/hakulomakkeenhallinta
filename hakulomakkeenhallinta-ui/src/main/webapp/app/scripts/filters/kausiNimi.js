@@ -8,9 +8,9 @@ angular.module('hakulomakkeenhallintaUiApp.filters')
                     userLang = 'fi';
                 }
                 var kausiObj =_.find(kaudet, function (k) { return k.period === kausi; });
-                if (kausiObj.translations && kausiObj.translations[userLang]) {
+                if (kausiObj && kausiObj.translations && kausiObj.translations[userLang]) {
                     return kausiObj.translations[userLang];
-                } else if (kausiObj.translations) {
+                } else if (kausiObj && kausiObj.translations) {
                     if (kausiObj.translations.fi) {
                         return kausiObj.translations.fi;
                     }

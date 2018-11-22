@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('hakulomakkeenhallintaUiApp.services.factory')
-    .factory('ApplicationFormConfiguration', ['$rootScope', '$resource', 'Props', '$q', '_', '$timeout', '$http',
-        function ($rootScope, $resource, Props, $q, _, $timeout, $http) {
+    .factory('ApplicationFormConfiguration', ['$rootScope', '$resource', 'Props', '$q', '_', '$timeout', '$http', 'TarjontaAPI',
+        function ($rootScope, $resource, Props, $q, _, $timeout, $http, TarjontaAPI) {
             var ApplicationFormConfiguration = {};
 
             var formConfigurationUri = window.url("haku-app.formConfiguration");
@@ -31,62 +31,144 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                     }
                 }
             );
-            //headers: { 'Content-Type': 'application/json' },
-            /**
-             * Vaihtaa haun lomakepohjan
-             * @param applicationSysmtemId hakulomakkeen id
-             * @param lomakepohjaOid lomakepohjan id
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (applicationSystemId, lomakepohjaId) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'vaihdaHaunLomakepohja()',applicationSystemId, lomakepohjaId);
+
+            var rajaavatHakukohderyhmatLastModified = {};
+            var priorisoivatHakukohderyhmatLastModified = {};
+            var Ataru = {
+                getRajaavatHakukohderyhmat: function (hakuOid) {
+                    return $http.get(window.url("lomake-editori.rajaavat-hakukohderyhmat", hakuOid)).then(function (response) {
+                        rajaavatHakukohderyhmatLastModified[hakuOid] = rajaavatHakukohderyhmatLastModified[hakuOid] || {};
+                        response.data.forEach(function (ryhma) {
+                            rajaavatHakukohderyhmatLastModified[hakuOid][ryhma["hakukohderyhma-oid"]] = response.headers('Last-Modified');
+                        });
+                        return response.data;
+                    });
+                },
+                getPriorisoivatHakukohderyhmat: function (hakuOid) {
+                    return $http.get(window.url("lomake-editori.priorisoivat-hakukohderyhmat", hakuOid)).then(function (response) {
+                        priorisoivatHakukohderyhmatLastModified[hakuOid] = priorisoivatHakukohderyhmatLastModified[hakuOid] || {};
+                        response.data.forEach(function (ryhma) {
+                            priorisoivatHakukohderyhmatLastModified[hakuOid][ryhma["hakukohderyhma-oid"]] = response.headers('Last-Modified');
+                        });
+                        return response.data;
+                    });
+                },
+                putRajaavaHakukohderyhma: function (hakuOid, hakukohderyhmaOid, body) {
+                    var headers = {};
+                    if (!rajaavatHakukohderyhmatLastModified[hakuOid] || !rajaavatHakukohderyhmatLastModified[hakuOid][hakukohderyhmaOid]) {
+                        headers["If-None-Match"] = "*";
+                    } else {
+                        headers["If-Unmodified-Since"] = rajaavatHakukohderyhmatLastModified[hakuOid][hakukohderyhmaOid]
+                    }
+                    return $http.put(
+                        window.url("lomake-editori.rajaava-hakukohderyhma", hakuOid, hakukohderyhmaOid),
+                        body,
+                        { headers: headers }
+                    ).then(function (response) { return response.data; });
+                },
+                putPriorisoivaHakukohderyhma: function (hakuOid, hakukohderyhmaOid, body) {
+                    var headers = {};
+                    if (!priorisoivatHakukohderyhmatLastModified[hakuOid] || !priorisoivatHakukohderyhmatLastModified[hakuOid][hakukohderyhmaOid]) {
+                        headers["If-None-Match"] = "*";
+                    } else {
+                        headers["If-Unmodified-Since"] = priorisoivatHakukohderyhmatLastModified[hakuOid][hakukohderyhmaOid]
+                    }
+                    return $http.put(
+                        window.url("lomake-editori.priorisoiva-hakukohderyhma", hakuOid, hakukohderyhmaOid),
+                        body,
+                        { headers: headers }
+                    ).then(function (response) { return response.data });
+                },
+                deleteRajaavaHakukohderyhma: function (hakuOid, hakukohderyhmaOid) {
+                    return $http.delete(window.url("lomake-editori.rajaava-hakukohderyhma", hakuOid, hakukohderyhmaOid)).then(function (response) {
+                        rajaavatHakukohderyhmatLastModified[hakuOid][hakukohderyhmaOid] = null;
+                        return response.data;
+                    });
+                },
+                deletePriorisoivaHakukohderyhma: function (hakuOid, hakukohderyhmaOid) {
+                    return $http.delete(window.url("lomake-editori.priorisoiva-hakukohderyhma", hakuOid, hakukohderyhmaOid)).then(function (response) {
+                        priorisoivatHakukohderyhmatLastModified[hakuOid][hakukohderyhmaOid] = null;
+                        return response.data;
+                    });
+                }
+            };
+
+            ApplicationFormConfiguration.vaihdaHaunLomakepohja = function (haku, lomakepohjaId) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'vaihdaHaunLomakepohja()', haku.oid, lomakepohjaId);
+                if (haku.ataruLomake) {
+                    return $q.reject({
+                        status: 400,
+                        statusText: "Yritettiin vaihtaa lomakepohjaa Hakemuspalvelun lomaketta käyttävässä haussa"
+                    });
+                }
                 var formConf = {
-                    applicationSystemId: applicationSystemId,
+                    applicationSystemId: haku.oid,
                     formTemplateType: lomakepohjaId
                 };
-                FormConfiguration.changeFormConfigurationTemplate({_asId: applicationSystemId}, formConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
+                return FormConfiguration.changeFormConfigurationTemplate({_asId: haku.oid}, formConf).$promise
             };
-            /**
-             * Asetetaan hakulomakkeen asetuksiin hakukohderyhmälle hakukohteiden
-             * haku määrä rajoitteen
-             * @param applicationSysmtemId hakulomakkeen id
-             * @param hakukohdeRyhmaOid hakukohde ryhmän id
-             * @param hakukohdeRajoite numero arvo valittavien hakukohteiden määrälle hakukohde ryhmässä
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.asetaHakukohderyhmaRajoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'asetaHakukohderyhmaRajoite()', applicationSystemId, hakukohdeRyhmaOid, hakukohdeRajoite);
-                var groupConf =
-                {
-                    groupId: hakukohdeRyhmaOid,
-                    type: 'hakukohde_rajaava',
-                    configurations: {
-                        maximumNumberOf: hakukohdeRajoite
-                    }
-                };
-                FormConfiguration.setFormConfiguration({ _asId: applicationSystemId, _groupId: hakukohdeRyhmaOid }, groupConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
+
+            ApplicationFormConfiguration.asetaHakukohderyhmaRajoite = function (haku, hakukohdeRyhmaOid, hakukohdeRajoite) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'asetaHakukohderyhmaRajoite()', haku.oid, hakukohdeRyhmaOid, hakukohdeRajoite);
+                if (haku.ataruLomake) {
+                    return Ataru.putRajaavaHakukohderyhma(haku.oid, hakukohdeRyhmaOid, {
+                        "haku-oid": haku.oid,
+                        "hakukohderyhma-oid": hakukohdeRyhmaOid,
+                        raja: hakukohdeRajoite
+                    });
+                } else {
+                    var groupConf = {
+                        groupId: hakukohdeRyhmaOid,
+                        type: 'hakukohde_rajaava',
+                        configurations: {
+                            maximumNumberOf: hakukohdeRajoite
+                        }
+                    };
+                    return FormConfiguration.setFormConfiguration({ _asId: haku.oid, _groupId: hakukohdeRyhmaOid }, groupConf).$promise;
+                }
             };
-            ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite = function (applicationSystemId, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaHakukohderyhmanOsoite()', applicationSystemId, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite);
+
+            ApplicationFormConfiguration.asetaHakukohdePrioriteetit = function (haku, hakukohderyhmaOid, prioriteetit) {
+                var ps = [TarjontaAPI.setHakukohdePrioriteetit(hakukohderyhmaOid, prioriteetit)];
+                if (haku.ataruLomake) {
+                    var asetetutPrioriteetit = _.chain(prioriteetit)
+                        .filter(function (p) { return _.has(p, 'prioriteetti'); })
+                        .sortBy(function (p) { return p.prioriteetti; })
+                        .reduce(function (acc, p) {
+                            if (acc.viimeisinPrioriteetti === p.prioriteetti) {
+                                _.last(acc.prioriteetit).push(p.hakukohdeOid);
+                            } else {
+                                acc.viimeisinPrioriteetti = p.prioriteetti;
+                                acc.prioriteetit.push([p.hakukohdeOid]);
+                            }
+                            return acc;
+                        }, {viimeisinPrioriteetti: null,
+                            prioriteetit: []})
+                        .value().prioriteetit;
+                    var priorisoimattomat = _.chain(prioriteetit)
+                        .reject(function (p) { return _.has(p, 'prioriteetti'); })
+                        .map(function (p) { return p.hakukohdeOid; })
+                        .value();
+                    if (!_.isEmpty(priorisoimattomat)) {
+                        asetetutPrioriteetit.push(priorisoimattomat);
+                    }
+                    ps.push(Ataru.putPriorisoivaHakukohderyhma(haku.oid, hakukohderyhmaOid, {
+                        "haku-oid": haku.oid,
+                        "hakukohderyhma-oid": hakukohderyhmaOid,
+                        prioriteetit: asetetutPrioriteetit
+                    }));
+                }
+                return $q.all(ps);
+            };
+
+            ApplicationFormConfiguration.tallennaHakukohderyhmanOsoite = function (haku, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'tallennaHakukohderyhmanOsoite()', haku.oid, hakukohdeRyhmaOid, hakukohdeRyhmanOsoite);
+                if (haku.ataruLomake) {
+                    return $q.reject({
+                        status: 400,
+                        statusText: "Yritettiin asettaa osoite Hakemuspalvelun lomaketta käyttävässä haussa"
+                    });
+                }
                 var groupConf =
                 {
                     groupId: hakukohdeRyhmaOid,
@@ -101,113 +183,111 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
                         helpText: hakukohdeRyhmanOsoite.helpText
                     }
                 };
-                FormConfiguration.setFormConfiguration({ _asId: applicationSystemId, _groupId: hakukohdeRyhmaOid }, groupConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
+                return FormConfiguration.setFormConfiguration({ _asId: haku.oid, _groupId: hakukohdeRyhmaOid }, groupConf).$promise;
             };
-            /**
-             * Palauttaa taustajärjestelmästä hakulomake pohjat
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.haeLomakepohjat = function () {
-                var deferred = $q.defer();
+
+            ApplicationFormConfiguration.haeLomakepohjat = function (haku) {
                 $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjat()');
-                FormConfiguration.getFormTemplates().$promise.then(
-                    function (formTemplates) {
-                        deferred.resolve(formTemplates);
-                    }
-                );
-                return deferred.promise;
-            };
-            /**
-             * Palauttaa taustajärjestelmästä hakuun liittyvän
-             * oletus hakulomakepohjan
-             * @params applicationSystemId haun id
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.haeDefaultLomakepohja = function (applicationSystemId) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'haeDefaultLomakepohja()');
-                $http.get(formConfigurationUri + '/' + applicationSystemId + '/defaultTemplate').success(
-                    function (defaultTemplate) {
-                        deferred.resolve(defaultTemplate);
-                    }).error(function (resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
-            };
-            /**
-             * Haetaan hakulomakkeen pohjan asetukset taustajärjestelmästä
-             * @param applicationSystemId Haun oid, alias hakulomakkeen id
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.haeLomakepohjanAsetukset = function (applicationSystemId) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjanAsetukset()', applicationSystemId);
-                    FormConfiguration.get({'_id': applicationSystemId}).$promise.then(
-                        function success(data) {
-                            deferred.resolve(data);
-                        },
-                        function error(resp) {
-                            deferred.reject(resp);
+                if (haku.ataruLomake) {
+                    return $q.when([{
+                        id: "ATARU",
+                        name: {
+                            translations: {
+                                fi: "Hakemuspalvelun lomake",
+                                sv: "SV: Hakemuspalvelun lomake",
+                                en: "EN: Hakemuspalvelun lomake"
+                            }
                         }
-                    );
-                return deferred.promise;
+                    }]);
+                } else {
+                    return FormConfiguration.getFormTemplates().$promise;
+                }
             };
-            /**
-             * Poistetaan hakukohderyhmä hakulomakkeen asetuksista
-             * @param applicationSystemId Haun oid, alias hakulomakkeen id
-             * @param rajoiteRyhma rajoite ryhmä objekti
-             * @returns {promise}
-             */
-             ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista = function (applicationSystemId, rajoiteRyhma) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'poistaHakukohderyhmaLomakkeenAsetuksista()', applicationSystemId, rajoiteRyhma);
-                 var groupConf =
-                {
-                    groupId: rajoiteRyhma.groupId,
-                    type: rajoiteRyhma.type
-                };
-                FormConfiguration.deleteFormConfiguration({ _asId: applicationSystemId, _groupId: rajoiteRyhma.groupId }, groupConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
-                    }
-                );
-                return deferred.promise;
+
+            ApplicationFormConfiguration.haeDefaultLomakepohja = function (haku) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'haeDefaultLomakepohja()');
+                if (haku.ataruLomake) {
+                    return $q.when("ATARU");
+                } else {
+                    return $http.get(formConfigurationUri + '/' + haku.oid + '/defaultTemplate');
+                }
             };
-            /**
-             * lisätään uusi ryhma lomakepohjan asetuksiin
-             * @param applicationSystemId hakulomakkeen id
-             * @param hakukohdeRyhma lisättävä hakukohderyhmä
-             * @returns {promise}
-             */
-            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin = function (applicationSystemId, hakukohdeRyhma) {
-                var deferred = $q.defer();
-                $rootScope.LOGS('ApplicationFormConfiguration', 'lisaaRyhmaLomakepohjanAsetuksiin()', applicationSystemId, hakukohdeRyhma);
-                var groupConf =
-                {
-                    groupId: hakukohdeRyhma.groupId,
-                    type: hakukohdeRyhma.type
-                };
-                FormConfiguration.setFormConfiguration({  _asId: applicationSystemId, _groupId: hakukohdeRyhma.groupId }, groupConf).$promise.then(
-                    function success(data) {
-                        deferred.resolve(data);
-                    },
-                    function error(resp) {
-                        deferred.reject(resp);
+
+            ApplicationFormConfiguration.haeLomakepohjanAsetukset = function (haku) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'haeLomakepohjanAsetukset()', haku.oid);
+                if (haku.ataruLomake) {
+                    return $q.all({
+                        rajaavat: Ataru.getRajaavatHakukohderyhmat(haku.oid),
+                        priorisoivat: Ataru.getPriorisoivatHakukohderyhmat(haku.oid)
+                    }).then(function (o) {
+                        var configurations = [];
+                        o.rajaavat.forEach(function (r) {
+                            configurations.push({
+                                groupId: r["hakukohderyhma-oid"],
+                                type: 'hakukohde_rajaava',
+                                configurations: {
+                                    maximumNumberOf: r.raja
+                                }
+                            });
+                        });
+                        o.priorisoivat.forEach(function (r) {
+                            configurations.push({
+                                groupId: r["hakukohderyhma-oid"],
+                                type: 'hakukohde_priorisoiva'
+                            });
+                        });
+                        return {
+                            formTemplateType: "ATARU",
+                            groupConfigurations: configurations
+                        }
+                    });
+                } else {
+                    return FormConfiguration.get({'_id': haku.oid}).$promise;
+                }
+            };
+
+            ApplicationFormConfiguration.poistaHakukohderyhmaLomakkeenAsetuksista = function (haku, rajoiteRyhma) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'poistaHakukohderyhmaLomakkeenAsetuksista()', haku.oid, rajoiteRyhma);
+                if (haku.ataruLomake) {
+                    if (rajoiteRyhma.type === 'hakukohde_rajaava') {
+                        return Ataru.deleteRajaavaHakukohderyhma(haku.oid, rajoiteRyhma.groupId);
                     }
-                );
-                return deferred.promise;
+                    if (rajoiteRyhma.type === 'hakukohde_priorisoiva') {
+                        return Ataru.deletePriorisoivaHakukohderyhma(haku.oid, rajoiteRyhma.groupId);
+                    }
+                } else {
+                    var groupConf = {
+                        groupId: rajoiteRyhma.groupId,
+                        type: rajoiteRyhma.type
+                    };
+                    return FormConfiguration.deleteFormConfiguration({ _asId: haku.oid, _groupId: rajoiteRyhma.groupId }, groupConf).$promise;
+                }
+            };
+
+            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin = function (haku, hakukohdeRyhma) {
+                $rootScope.LOGS('ApplicationFormConfiguration', 'lisaaRyhmaLomakepohjanAsetuksiin()', haku.oid, hakukohdeRyhma);
+                if (haku.ataruLomake) {
+                    if (hakukohdeRyhma.type === 'hakukohde_rajaava') {
+                        return Ataru.putRajaavaHakukohderyhma(haku.oid, hakukohdeRyhma.groupId, {
+                            "haku-oid": haku.oid,
+                            "hakukohderyhma-oid": hakukohdeRyhma.groupId,
+                            raja: 0
+                        });
+                    }
+                    if (hakukohdeRyhma.type === 'hakukohde_priorisoiva') {
+                        return Ataru.putPriorisoivaHakukohderyhma(haku.oid, hakukohdeRyhma.groupId, {
+                            "haku-oid": haku.oid,
+                            "hakukohderyhma-oid": hakukohdeRyhma.groupId,
+                            prioriteetit: []
+                        });
+                    }
+                } else {
+                    var groupConf = {
+                        groupId: hakukohdeRyhma.groupId,
+                        type: hakukohdeRyhma.type
+                    };
+                    return FormConfiguration.setFormConfiguration({ _asId: haku.oid, _groupId: hakukohdeRyhma.groupId }, groupConf).$promise
+                }
             };
 
             return ApplicationFormConfiguration;

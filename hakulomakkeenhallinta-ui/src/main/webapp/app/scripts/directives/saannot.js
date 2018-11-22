@@ -6,6 +6,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
             replace: true,
             templateUrl: 'partials/directives/saannot.html',
             scope: {
+                haku: '=haku',
                 applicationForm: '=applicationForm',
                 ryhmat: '=ryhmat',
                 lomakepohja: '=lomakepohja',
@@ -35,6 +36,9 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                         controller: 'LisaaRyhmaLomakkeenAsetuksiinDialogCtrl',
                         scope: $scope,
                         resolve: {
+                            haku: function () {
+                                return $scope.haku
+                            },
                             applicationForm: function() {
                                 return $scope.applicationForm
                             },
@@ -56,7 +60,7 @@ angular.module('hakulomakkeenhallintaUiApp.directives')
                 }
 
                 $scope.lisaaRyhmaOrganisaatioPalveluun = function (ryhmaTyyppi) {
-                    OrganisaatioService.lisaaUusiRyhma(ryhmaTyyppi, Organisaatio.getUserSelectedOrganisation().oid)
+                    OrganisaatioService.lisaaUusiRyhma($scope.haku, ryhmaTyyppi, Organisaatio.getUserSelectedOrganisation().oid)
                 }
 
                 $scope.groupName = function () {

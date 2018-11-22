@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRyhmaLomakkeenAsetuksiinDialogCtrl',
-    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, ryhmaTyyppi, applicationForm, ryhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService, NavigationTreeStateService) {
+    function ($scope, $rootScope, Organisaatio, _, $routeParams, $modalInstance, haku, ryhmaTyyppi, applicationForm, ryhmat, AlertMsg, ApplicationFormConfiguration, lomakepohja, LocalisationService, TarjontaService, NavigationTreeStateService) {
         $scope.applicationForm = applicationForm;
         $scope.hakukohdeRyhmat = [];
         //näytetään lataus indikaattori dialogissa
@@ -30,7 +30,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             var valittuHakukohdeRyhma = {};
             valittuHakukohdeRyhma.groupId = $scope.hakukohderyhma.oid;
             valittuHakukohdeRyhma.type = ryhmaTyyppi;
-            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, valittuHakukohdeRyhma).then(
+            ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin(haku, valittuHakukohdeRyhma).then(
                 function success (data) {
                     NavigationTreeStateService.setNodeState(valittuHakukohdeRyhma.groupId, true);
                     $modalInstance.close();

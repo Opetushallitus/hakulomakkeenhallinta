@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LomakepohjanAsetuksetCtrl',
-        function ($rootScope, $scope, MyRoles, TarjontaAPI, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route) {
+        function ($rootScope, $scope, MyRoles, TarjontaAPI, AlertMsg, $routeParams, FormEditor, ApplicationFormConfiguration, _, $filter, $modal, $route, $q) {
             $rootScope.LOGS('lomakepohjanAsetuksetCtrl');
             $scope.applicationForm = {};
             $scope.lomakepohjat = [];
@@ -10,29 +10,52 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             $scope.rajoiteRyhmat = [];
             $scope.priorisointiRyhmat = [];
             $scope.liiteRyhmat = [];
+            $scope.haku = {};
+            $scope.showLiiteRyhmat = false;
 
-            MyRoles.lomakepohjaChangeRightCheck().then(
-                function (data) {
-                    $scope.lomakepohjaChangeAllowed = data === true;
+            var hakuPromise = TarjontaAPI.fetchHaku($routeParams.id);
+
+            var fetchHaunNimi = function (haku) {
+                if (haku.ataruLomake) {
+                    return {
+                        name: {
+                            translations: {
+                                fi: haku.nimi.kieli_fi,
+                                sv: haku.nimi.kieli_sv,
+                                en: haku.nimi.kieli_en
+                            }
+                        }
+                    };
+                } else {
+                    return FormEditor.fetchApplicationSystemForm(haku.oid)
                 }
-            );
-            /**
-             * haetaan valitun hakulomakkeen tiedot hakulomakkeen Id:llä
-             */
-            FormEditor.fetchApplicationSystemForm($routeParams.id).then(
-                function (data) {
-                    $scope.applicationForm = data;
+            };
+
+            $q.all({
+                hasRight: MyRoles.lomakepohjaChangeRightCheck(),
+                haku: hakuPromise,
+                nimi: hakuPromise.then(fetchHaunNimi),
+                lomakepohjat: hakuPromise.then(ApplicationFormConfiguration.haeLomakepohjat),
+                lomakepohjanAsetukset: hakuPromise.then(ApplicationFormConfiguration.haeLomakepohjanAsetukset)
+            }).then(function (o) {
+                if (o.haku.ataruLomake) {
+                    $scope.showLiiteRyhmat = false;
+                    $scope.lomakepohjaChangeAllowed = false;
+                } else {
+                    $scope.showLiiteRyhmat = true;
+                    $scope.lomakepohjaChangeAllowed = o.hasRight;
                 }
-            );
-            /**
-             * haetaan lomakepohjat taustajärjestelmästä
-             */
-            ApplicationFormConfiguration.haeLomakepohjat().then(
-                function (lomakepohjat) {
-                    $scope.lomakepohjat = $filter('orderBy')(lomakepohjat, 'name.translations.' + $scope.userLang);
-                    lomakePohjanAsetukset();
-                }
-            );
+                $scope.haku = o.haku;
+                $scope.rajoiteRyhmat = filterGroupConfigurations(o.lomakepohjanAsetukset, 'hakukohde_rajaava');
+                $scope.priorisointiRyhmat = filterGroupConfigurations(o.lomakepohjanAsetukset, 'hakukohde_priorisoiva');
+                $scope.liiteRyhmat = filterGroupConfigurations(o.lomakepohjanAsetukset, 'hakukohde_liiteosoite');
+                $scope.lomakepohja = _.find(o.lomakepohjat, function (pohja) { if (pohja.id === o.lomakepohjanAsetukset.formTemplateType) { return pohja; }});
+                $scope.lomakepohjat = $filter('orderBy')(_.without(o.lomakepohjat, $scope.lomakepohja), 'name.translations.' + $scope.userLang);
+                $scope.applicationForm = o.nimi;
+            }, function (e) {
+                $rootScope.LOGS('lomakepohjanAsetuksetCtrl', e);
+                AlertMsg($scope, 'error', 'error.lomakepohjan.asetusten.haku.ei.onnistu');
+            });
 
             function filterByType(type) {
                 return function (conf) {
@@ -43,25 +66,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             function filterGroupConfigurations(lomakepohjanAsetukset, type) {
                 return _.filter(lomakepohjanAsetukset.groupConfigurations, filterByType(type))
             }
-            /**
-             * heataan lomakepohjan asetukset
-             */
-            function lomakePohjanAsetukset() {
-                ApplicationFormConfiguration.haeLomakepohjanAsetukset($routeParams.id).then(
-                    function success(lomakepohjanAsetukset) {
-                        $scope.rajoiteRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_rajaava');
-                        $scope.priorisointiRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_priorisoiva');
-                        $scope.liiteRyhmat = filterGroupConfigurations(lomakepohjanAsetukset, 'hakukohde_liiteosoite');
-                        $scope.lomakepohja = _.find($scope.lomakepohjat, function (pohja) { if (pohja.id === lomakepohjanAsetukset.formTemplateType) { return pohja; }});
-                        $scope.lomakepohjat = _.without($scope.lomakepohjat, $scope.lomakepohja);
-                        $scope.lomakepohjat = $filter('orderBy')($scope.lomakepohjat, 'name.translations.' + $scope.userLang);
-                    },
-                    function error(resp) {
-                        $rootScope.LOGS('lomakepohjanAsetuksetCtrl', resp);
-                        AlertMsg($scope, 'error', 'error.lomakepohjan.asetusten.haku.ei.onnistu');
-                    }
-                );
-            }
+
             /**
              * avataan dialogi hakulomakkeen pohjan vaihto varten
              */
@@ -71,6 +76,9 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     controller: 'vaihdaLomakepohjaDialogCtrl',
                     scope: $scope,
                     resolve: {
+                        haku: function () {
+                            return $scope.haku;
+                        },
                         applicationForm: function () {
                             return $scope.applicationForm;
                         },

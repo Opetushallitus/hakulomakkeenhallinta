@@ -2,7 +2,7 @@
 
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('HakukohderyhmaRajoiteDialogCtrl',
-    function ($rootScope, $scope, $modalInstance, TarjontaAPI, applicationForm, AlertMsg, hakukohdeRyhma, $routeParams, ApplicationFormConfiguration, rajoiteRyhma, LocalisationService) {
+    function ($rootScope, $scope, $modalInstance, TarjontaAPI, haku, applicationForm, AlertMsg, hakukohdeRyhma, $routeParams, ApplicationFormConfiguration, rajoiteRyhma, LocalisationService) {
         $rootScope.LOGS('HakukohderyhmaRajoiteDialogCtrl');
 
         $scope.hakukohdeRyhmat = [];
@@ -28,7 +28,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
             if (hakukohdeRajoite > $scope.hakukohteidenMaara) {
                 $scope.hakuryhmanRajoite.rajoite.$error.max = true;
             } else if (hakukohdeRajoite !== undefined) {
-                ApplicationFormConfiguration.asetaHakukohderyhmaRajoite($routeParams.id, hakukohdeRyhma.oid, hakukohdeRajoite).then(
+                ApplicationFormConfiguration.asetaHakukohderyhmaRajoite(haku, hakukohdeRyhma.oid, hakukohdeRajoite).then(
                     function success(data) {
                         $modalInstance.close();
                         },

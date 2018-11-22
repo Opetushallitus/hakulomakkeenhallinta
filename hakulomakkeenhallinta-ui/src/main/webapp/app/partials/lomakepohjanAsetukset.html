@@ -28,6 +28,7 @@
     <hr>
     <div>
         <saannot
+            haku="haku"
             application-form="applicationForm"
             ryhmat="rajoiteRyhmat"
             lomakepohja="lomakepohja"
@@ -36,6 +37,7 @@
             node-name="rajaavat-saannot">
         </saannot>
         <saannot
+            haku="haku"
             application-form="applicationForm"
             ryhmat="priorisointiRyhmat"
             lomakepohja="lomakepohja"
@@ -44,13 +46,16 @@
             node-name="priorisoivat-saannot">
 
         </saannot>
-        <saannot
-            application-form="applicationForm"
-            ryhmat="liiteRyhmat"
-            lomakepohja="lomakepohja"
-            user-lang="{{userLang}}"
-            ryhma-tyyppi="hakukohde_liiteosoite"
-            node-name="liite-saannot">
-        </saannot>
+        <div data-ng-show="showLiiteRyhmat">
+            <saannot
+                    haku="haku"
+                    application-form="applicationForm"
+                    ryhmat="liiteRyhmat"
+                    lomakepohja="lomakepohja"
+                    user-lang="{{userLang}}"
+                    ryhma-tyyppi="hakukohde_liiteosoite"
+                    node-name="liite-saannot">
+            </saannot>
+        </div>
     </div>
 </div>

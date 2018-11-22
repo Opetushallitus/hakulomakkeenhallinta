@@ -1,6 +1,6 @@
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('prioriteettienAsettaminenDialogCtrl',
-    function ($rootScope, $scope, $modalInstance, hakukohteet, _, ryhmaOid, TarjontaAPI, AlertMsg, LocalisationService) {
+    function ($rootScope, $scope, $modalInstance, haku, hakukohteet, _, ryhmaOid, TarjontaAPI, AlertMsg, LocalisationService, ApplicationFormConfiguration) {
 
         $scope.hakukohteet = _.clone(hakukohteet);
         var priorityKeys = _.keys(hakukohteet);
@@ -98,7 +98,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                     saveArray.push(hkPrio);
                 })
             });
-            TarjontaAPI.setHakukohdePrioriteetit(ryhmaOid, saveArray).then(
+            ApplicationFormConfiguration.asetaHakukohdePrioriteetit(haku, ryhmaOid, saveArray).then(
                 function success (data) {
                     $modalInstance.close();
                 },

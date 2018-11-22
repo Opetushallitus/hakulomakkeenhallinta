@@ -63,7 +63,15 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a data-ng-click="hakukohdeKohtaisetLisakysymykset(applicationForm)">{{ t('hakukohdekohtaiset.lisakysymykset') || 'Hakukohdekohtaiset lisäkysymykset' }}</a>
+                            <a data-ng-if="!applicationForm.ataruFormKey"
+                               data-ng-click="hakukohdeKohtaisetLisakysymykset(applicationForm)">
+                                {{ t('hakukohdekohtaiset.lisakysymykset') || 'Hakukohdekohtaiset lisäkysymykset' }}
+                            </a>
+                            <a data-ng-if="applicationForm.ataruFormKey"
+                               href="/lomake-editori/editor/{{applicationForm.ataruFormKey}}"
+                               target="_blank">
+                                {{ t('hakukohdekohtaiset.lisakysymykset') || 'Hakukohdekohtaiset lisäkysymykset' }}
+                            </a>
                         </li>
                         <li>
                             <a data-ng-click="lomakepohjanAsetukset(applicationForm)">

@@ -20,15 +20,20 @@ var app = angular.module('hakulomakkeenhallinta', [
 
 app.config(['$resourceProvider', function ($resourceProvider) {
     // Don't strip trailing slashes from calculated URLs
-    $resourceProvider.stripTrailingSlashes = false;
+    $resourceProvider.defaults.stripTrailingSlashes = false;
 }]);
 
 app.run(["$http","$cookies", function($http, $cookies) {
     $http.defaults.headers.common['clientSubSystemCode'] = "hakulomakkeenhallinta.hakulomakkeenhallinta-ui";
+    $http.defaults.headers.common['Caller-Id'] = "hakulomakkeenhallinta.hakulomakkeenhallinta-ui";
     if($cookies['CSRF']) {
         $http.defaults.headers.common['CSRF'] = $cookies['CSRF']
     }
-}])
+}]);
+
+app.run(["$http", function ($http) {
+    $http.get(window.url("lomake-editori.auth"));
+}]);
 
 app.config(['$routeProvider',
     function($routeProvider) {

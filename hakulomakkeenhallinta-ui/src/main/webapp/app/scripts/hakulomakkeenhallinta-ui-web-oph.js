@@ -3,13 +3,14 @@ window.urls.addProperties({
   "tarjonta-service.organisaatioryhma.lisaa": "/tarjonta-service/rest/v1/organisaatioryhma/$1/lisaa",
   "tarjonta-service.organisaatioryhma.poista": "/tarjonta-service/rest/v1/organisaatioryhma/$1/poista",
   "tarjonta-service.haku": "/tarjonta-service/rest/v1/haku/$1",
+  "tarjonta-service.ataru-haut": "/tarjonta-service/rest/v1/haku/ataru/all",
   "tarjonta-service.hakukohde": "/tarjonta-service/rest/v1/hakukohde/$1",
   "tarjonta-service.hakukohde.search": "/tarjonta-service/rest/v1/hakukohde/search",
   "tarjonta-service.hakukohde.ryhmat.operate": "/tarjonta-service/rest/v1/hakukohde/ryhmat/operate",
   "haku-app.themeQuestion": "/haku-app/application-system-form-editor/theme-question",
   "haku-app.formConfiguration": "/haku-app/application-system-form-editor/configuration",
   "haku-app.formEditor": "/haku-app/application-system-form-editor",
-  "kayttooikeus-service.auth":"/kayttooikeus-service/",
+  "kayttooikeus-service.auth":"/kayttooikeus-service/cas/prequel",
   "kayttooikeus-service.omattiedot":"/kayttooikeus-service/henkilo/current/omattiedot",
   "kayttooikeus-service.organisaatiohenkilo": "/kayttooikeus-service/henkilo/$1/organisaatiohenkilo",
   "organisaatio-service.organisaatio": "/organisaatio-service/rest/organisaatio/:_oid",
@@ -18,5 +19,10 @@ window.urls.addProperties({
   "organisaatio-service.organisaatio.put": "/organisaatio-service/rest/organisaatio/",
   "cas.myroles": "/cas/myroles",
   "koodisto-service.koodi": "/koodisto-service/rest/json/$1/koodi?onlyValidKoodis=true",
-  "lokalisointi.localisation": "/lokalisointi/cxf/rest/v1/localisation"
+  "lokalisointi.localisation": "/lokalisointi/cxf/rest/v1/localisation",
+  "lomake-editori.auth": "/lomake-editori/auth/cas",
+  "lomake-editori.rajaavat-hakukohderyhmat": "/lomake-editori/api/rajaavat-hakukohderyhmat/$1",
+  "lomake-editori.priorisoivat-hakukohderyhmat": "/lomake-editori/api/priorisoivat-hakukohderyhmat/$1",
+  "lomake-editori.rajaava-hakukohderyhma": "/lomake-editori/api/rajaavat-hakukohderyhmat/$1/ryhma/$2",
+  "lomake-editori.priorisoiva-hakukohderyhma": "/lomake-editori/api/priorisoivat-hakukohderyhmat/$1/ryhma/$2"
 })

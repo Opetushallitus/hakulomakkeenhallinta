@@ -6,6 +6,49 @@ angular.module('hakulomakkeenhallintaUiApp.services.factory')
 
         var TarjontaAPI = {};
 
+        TarjontaAPI.fetchHaku = function (hakuOid) {
+            return $http.get(window.url("tarjonta-service.haku", hakuOid)).then(function (response) {
+                if (response.data.status = "OK") {
+                    return {
+                        oid: response.data.result.oid,
+                        ataruLomake: !!response.data.result.ataruLomakeAvain,
+                        nimi: response.data.result.nimi
+                    };
+                } else {
+                    $rootScope.LOGS("TarjontaAPI haku " + response.data.status, response.data);
+                    return $q.reject(response);
+                }
+            });
+        };
+
+        TarjontaAPI.ataruForms = function () {
+            return $http.get(window.url("tarjonta-service.ataru-haut")).then(function (response) {
+                if (response.data.status = "OK") {
+                    return _.chain(response.data.result)
+                        .map(function (lomake) {
+                            return _.map(lomake.haut, function (haku) {
+                                return {
+                                    _id: haku.oid,
+                                    ataruFormKey: lomake.avain,
+                                    name: {
+                                        translations: {
+                                            fi: haku.nimi.kieli_fi,
+                                            sv: haku.nimi.kieli_sv,
+                                            en: haku.nimi.kieli_en
+                                        }
+                                    }
+                                };
+                            });
+                        })
+                        .reduce(function (fs, f) { return fs.concat(f); })
+                        .value();
+                } else {
+                    $rootScope.LOGS("TarjontaAPI ataruForms " + response.data.status, response.data);
+                    return $q.reject(response);
+                }
+            });
+        };
+
         /**
          * Hakee hakukohteen tiedot hakukohteen id:llä
          * @param hakuOid: hakukohteen id

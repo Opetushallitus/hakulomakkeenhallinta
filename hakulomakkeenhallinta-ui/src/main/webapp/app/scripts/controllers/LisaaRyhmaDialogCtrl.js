@@ -1,7 +1,7 @@
 'use strict';
 angular.module('hakulomakkeenhallintaUiApp.controllers')
     .controller('LisaaRyhmaDialogCtrl',
-    function ($rootScope, $scope, $routeParams, $modalInstance, kayttoTarkoitus, organisaatioOid, Organisaatio, LocalisationService, TarjontaService, NavigationTreeStateService, AlertMsg, ApplicationFormConfiguration) {
+    function ($rootScope, $scope, $routeParams, $modalInstance, haku, kayttoTarkoitus, organisaatioOid, Organisaatio, LocalisationService, TarjontaService, NavigationTreeStateService, AlertMsg, ApplicationFormConfiguration) {
         $scope.kayttoTarkoitus = kayttoTarkoitus;
         $scope.organisaatioOid = organisaatioOid;
         $scope.infoMsg = '';
@@ -60,7 +60,7 @@ angular.module('hakulomakkeenhallintaUiApp.controllers')
                         groupId: savedGroup.oid,
                         type: kayttoTarkoitus
                     };
-                    ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin($routeParams.id, tallennettuRyhma).then(
+                    ApplicationFormConfiguration.lisaaRyhmaLomakepohjanAsetuksiin(haku, tallennettuRyhma).then(
                         function success(data) {
                             afterSave(savedGroup);
                         },
