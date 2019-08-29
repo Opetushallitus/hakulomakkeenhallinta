@@ -20,7 +20,7 @@ env:
   - secure: "iRb6R47mUWcJK4gv4STe6gLMR3bJjqbQ7kRC7f0+nIBU1fMihJatBf03FeRSVBPnGeJ7Wmbcc3dNEzK5+ejK4JmLMb3gpXoa7+TQyl0pUjbE1pSSvaVdMdFxR3buvhBaZLS/COX9XlvjJyhCwK16CgfySmAb4exZhnvmC0+E82yUxsV6qWKBB/0Ha67+GSyFHLOvOeYDonPGzD7zEwo4HwYrlU6QzPoALWXJMUukX8a3lPZvMimdRA5H8cHH7iDDqS00R6g2CZF4/ghxZ5xVhalh64dcAP6OU4hvQVN7Eab+NNX+dQvsWQEJhnxkaPhzZGQElbRiIZJuLTXaPFvsjd3x4YovLW0zGoucult0l+t/PQzqI1SGfaWszY8d49RHiHzGOjD7Ut9oXpj5txJ+GljnrDAbsTzhJ4JUQ0fmZemiHOOw3Ed5W7yjzs04P+VZMfExdqFG4jBlHBmVoPzHa5Pb04Gu1htIjaieQZ7JXcdfpy3Boer0eWuRlmggcP0JhQEgFkihViKrLklyb8hPNeXMThrJdu3IaUl1jVtGUJLDy+//bjWdjH34H4Ir+LpsTguAG1LzPYDMWgM1Wm2AvuU7LwsvU/Y3Exti+/YfEsoNrJPeNkq+Mk6HTkiyHjP9tySpcmEfo7X2t8ZI4c/GeZBwNIkesj2cA/xkRiZM3sk="
 
 install:
-- git clone https://github.com/Opetushallitus/ci-tools.git
+- git clone https://github.com/Opetushallitus/ci-tools.git --branch PP-357_458_readonly_container_nonroot_user
 - source ci-tools/common/setup-tools.sh
 - export ARTIFACT_NAME="hakulomakkeenhallinta"
 
@@ -30,7 +30,7 @@ script:
 - mv -v hakulomakkeenhallinta-ui/target/hakulomakkeenhallinta-ui.war $DOCKER_BUILD_DIR/artifact/hakulomakkeenhallinta-ui.war
 - cp -vr src/main/resources/oph-configuration $DOCKER_BUILD_DIR/config/
 
-- export BASE_IMAGE="baseimage-war:master"
+- export BASE_IMAGE="baseimage-war:ci-69"
 - ./ci-tools/common/pull-image.sh
 - ./ci-tools/build/build-war.sh $ARTIFACT_NAME
 
